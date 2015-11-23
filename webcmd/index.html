@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />    
+   <meta http-equiv="cache-control" content="no-cache">
+   <title>Palak Mathur | In the beginning was a command line</title>
+   <meta name="author" content="Palak Mathur" />   
+   <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
+   
+   <!-- favicon -->
+   <link rel="shortcut icon" href="../images/favicon.png" />
+
+ 
+   <!-- Stack Exchange Open Id -->
+   <link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+   <link rel="openid2.local_id" href="https://openid.stackexchange.com/user/109108bc-9afb-4af2-8347-4243bedf2680"> 
+   
+   <!-- Script for Command line interface -->
+   <script type="text/javascript" src="/js/webcmd.js"></script>
+   <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+    <script>
+    function f()
+    {          
+      document.getElementById("line").focus();
+      document.getElementById("help").innerHTML = helptext();
+    }
+ $(function(){
+       $('p[id=help]').hide();
+       $('a[title=hidecmd]').hide();
+       $('a[title=showcmd]').click(function(){
+            $('p[id=help]').fadeIn();
+            $('a[title=hidecmd]').show();
+            $(this).hide();
+            f();
+       });
+       $('a[title=hidecmd]').click(function(){
+            $('p[id=help]').slideUp();
+            $(this).hide();
+            $('a[title=showcmd]').show();
+       });
+    }); 
+    </script>
+   
+   <!-- Google Analytics -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36868278-1']);
+      _gaq.push(['_setDomainName', 'palakmathur.in']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    <!-- End of Google Analytics -->
+   
+</head>
+<body onload="f();">
+
+<div class="site"> 
+    <center><b>In the Beginning was a Command line </b></center>
+
+  <div id="home">     
+        <center>
+            <font size=-1>  If you wish to visit normal user interface based site, then just type "ph" (without quotes) and hit enter. </font>
+        </center>
+
+        <center>
+            <form onSubmit="return runcmd(this.line.value);">
+                <nobr>
+                    >&nbsp;<input style="font-family: monospace" id="line" type="text" name="cmd" size="80"> 
+                </nobr>
+            </form>
+        </center>
+        
+        <center>
+            <font color="#cc0000"><b><span id="error"></span></b></font>
+            <br>
+            <b><span id="output"></span></b>
+        </center>
+
+        <center>
+           <font size=2>
+            <p id="help"></p>
+            <a title="showcmd" href="#">Show Commands</a>
+            <a title="hidecmd" href="#">Hide Commands</a> 
+           </font>
+        </center>
+        <br>
+        <br>
+        <center>
+            <font size=-1>
+            You can type URLs too.<br>          
+            Inspired by <a href="http://swtch.com/~rsc/">RSC</a> and <a href="http://www.devx.com/webdev/Article/33577?trk=DXRSS_LATEST">Greg Travis</a></font>
+        </center>
+  </div>
+
+
+</div>
+<!--
+<a href="http://github.com/palakmathur"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+-->
+
+</body>
+</html>
+
+
+    

@@ -52,7 +52,7 @@ header .banner {
    vertical-align: middle;
    margin: 0 auto;
    width: 85%;
-   padding-bottom: 30px;s
+   padding-bottom: 30px;
    text-align: center;
 }
 
@@ -62,14 +62,14 @@ header .banner-text h1 {
    color: #fff;
    letter-spacing: -2px;
    margin: 0 auto 18px auto;
-   text-shadow: 0px 1px 3px rgba(0, 0, 0, .8);
+   text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
 }
 header .banner-text h3 {
    font: 18px/1.9em 'librebaskerville-regular', serif;
    color: #A8A8A8;
    margin: 0 auto;
    width: 70%;
-   text-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+   text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
 }
 header .banner-text h3 span,
 header .banner-text h3 a {
@@ -87,7 +87,7 @@ header .social {
    margin: 24px 0;
    padding: 0;
    font-size: 30px;
-   text-shadow: 0px 1px 2px rgba(0, 0, 0, .8);
+   text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
 }
 header .social li {
    display: inline-block;
@@ -235,48 +235,48 @@ ul#nav li.current a { color: #F06000; }
 /* d. Resume Section
 /* ------------------------------------------------------------------ */
 
-#resume {
+#blog {
    background: #fff;
    padding-top: 90px;
    padding-bottom: 72px;
    overflow: hidden;
 }
 
-#resume a, #resume a:visited  { color: #11ABB0; }
-#resume a:hover, #resume a:focus { color: #313131; }
+#blog a, #blog a:visited  { color: #11ABB0; }
+#blog a:hover, #blog a:focus { color: #313131; }
 
-#resume h1 {
+#blog h1 {
    font: 18px/24px 'opensans-bold', sans-serif;
    text-transform: uppercase;
    letter-spacing: 1px;
 }
-#resume h1 span {
+#blog h1 span {
    border-bottom: 3px solid #11ABB0;
    padding-bottom: 6px;
 }
-#resume h3 {
+#blog h3 {
    font: 25px/30px 'opensans-bold', sans-serif;
 }
 
-#resume .header-col { padding-top: 9px; }
-#resume .main-col { padding-right: 10%; }
+#blog .header-col { padding-top: 9px; }
+#blog .main-col { padding-right: 10%; }
 
 .education, .work {
    margin-bottom: 48px;
    padding-bottom: 24px;
    border-bottom: 1px solid #E8E8E8;
 }
-#resume .info {
+#blog .info {
    font: 16px/24px 'librebaskerville-italic', serif;
    color: #6E7881;
    margin-bottom: 18px;
    margin-top: 9px;
 }
-#resume .info span {
+#blog .info span {
    margin-right: 5px;
    margin-left: 5px;
 }
-#resume .date {
+#blog .date {
    font: 15px/24px 'opensans-regular', sans-serif;
    margin-top: 6px;
 }
@@ -357,52 +357,52 @@ ul#nav li.current a { color: #F06000; }
 }
 
 @-moz-keyframes photoshop {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 60%;  }
 }
 @-moz-keyframes illustrator {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 55%;  }
 }
 @-moz-keyframes wordpress {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 50%;  }
 }
 @-moz-keyframes css {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 90%;  }
 }
 @-moz-keyframes html5 {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 80%;  }
 }
 @-moz-keyframes jquery {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 50%;  }
 }
 
 @-webkit-keyframes photoshop {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 60%;  }
 }
 @-webkit-keyframes illustrator {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 55%;  }
 }
 @-webkit-keyframes wordpress {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 50%;  }
 }
 @-webkit-keyframes css {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 90%;  }
 }
 @-webkit-keyframes html5 {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 80%;  }
 }
 @-webkit-keyframes jquery {
-  0%   { width: 0px;  }
+  0%   { width: 0;  }
   100% { width: 50%;  }
 }
 
@@ -674,10 +674,10 @@ call-to-action .button {
 
 /*	Blockquotes */
 #testimonials blockquote {
-   margin: 0 0px 30px 0px;
+   margin: 0 0 30px 0;
    padding-left: 0;
    position: relative;
-   text-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+   text-shadow: 0 1px 3px rgba(0, 0, 0, 1);
 }
 #testimonials blockquote:before { content: none; }
 #testimonials blockquote p {
@@ -907,7 +907,7 @@ call-to-action .button {
    padding: 0;
 }
 #twitter li {
-   margin: 6px 0px 12px 0;
+   margin: 6px 0 12px 0;
    line-height: 30px;
 }
 #twitter li span {

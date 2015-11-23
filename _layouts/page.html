@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<header id="home">
+
+    <nav id="nav-wrap">
+
+        <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
+        <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
+
+        <ul id="nav" class="nav">
+            <li class="current"><a href="/">Home</a></li>
+        </ul> <!-- end #nav -->
+
+    </nav> <!-- end #nav-wrap -->
+
+
+    <div class="row banner">
+        <div class="banner-text">
+            <h1 class="responsive-headline">I'm Palak Mathur.</h1>
+            <h3>I'm a <span>Java Developer</span>. Learn more <a class="smoothscroll" href="#about">about me</a>.</h3>
+            <hr />
+            <ul class="social">
+                <li><a href="https://www.facebook.com/palak.mathur"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/#!/palak"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://plus.google.com/u/0/108064038938830712899"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="http://www.linkedin.com/in/palakmathur"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="scrolldown">
+        <a class="smoothscroll" href="#about"><i class="icon-down-circle"></i></a>
+    </p>
+
+</header>
+
+<section id="{{page.title}}">
+
+
+    <div class="row add-bottom">
+
+        <div class="twelve columns">
+            <h1 class="main-col">{{ page.title }}</h1>
+
+            {{ content }}
+        </div>
+    </div>
+
+
+</section>

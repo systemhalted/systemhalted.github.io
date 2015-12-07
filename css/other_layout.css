@@ -148,6 +148,19 @@ header .scrolldown a:hover { color: #11ABB0; }
     border-bottom: 1px dashed #ccc;
     padding-bottom: 20px;
 }
+
+#tweet {
+	float: left;
+}
+
+#gplus {
+	display: inline;
+}
+
+#fb{
+	float: right;
+}
+
 #disqus_thread{
     max-width: 900px;
     margin:0 auto;

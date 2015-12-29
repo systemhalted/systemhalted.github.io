@@ -604,6 +604,8 @@ ul#nav li.current a { color: #F06000; }
 .popup-modal a:hover {	color: #00CCCC; }
 .popup-modal a.popup-modal-dismiss { margin-left: 24px; }
 
+h1 .post-title {color: #156565;}
+
 
 /* fadein/fadeout effect for modal popup
 /* ------------------------------------------------------------------ */

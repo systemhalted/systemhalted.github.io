@@ -40,15 +40,18 @@ title: Blog
 -->
 </header>
 <section id="post" style="padding: 90px 0 72px; background: #fff;">
-
-{% for post in site.posts %}
-    <div class="post">
-        <div>
-            <h1 class="title"><a href="{{ post.url }}">{{ post.title }}</a></h1>
-            {{ post.summary }}
+   <div class="row add-bottom">
+        <div class="twelve columns">
+            {% for post in site.posts %}
+                <div class="post">
+                    <div>
+                        <h1 class="title"><a href="{{ post.url }}">{{ post.title }}</a></h1>
+                        {{ post.summary }}
+                    </div>
+                    <p class="date">Posted on {{ post.date | date_to_long_string }}</p>
+                    <p class="readmore"><a href="{{ post.url }}">Read more ...</a></p>
+                </div><!-- .post -->
+            {% endfor %}
         </div>
-        <p class="date">Posted on {{ post.date | date_to_long_string }}</p>
-        <p class="readmore"><a href="{{ post.url }}">Read more ...</a></p>
-    </div><!-- .post -->
-{% endfor %}
+   </div>
 </section>

@@ -1,57 +1,57 @@
----
-layout: other
----
-
-<header id="page" style=" height: 50px; ">
-
-    <nav id="nav-wrap">
-
-        <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
-        <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
-
-        <ul id="nav" class="nav">
-            <li class="current"><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a  href="/blog">Blog</a></li>
-        </ul> <!-- end #nav -->
-
-    </nav> <!-- end #nav-wrap -->
-
-
-  <!-- <div class="row banner">
-        <div class="banner-text">
-            <h1 class="responsive-headline">I'm Palak Mathur.</h1>
-            <h3>I'm a <span>Java Developer</span>. <a class="smoothscroll" href="#{{page.title}}">Scroll Down</a>.</h3>
-            <hr />
-            <ul class="social">
-                <li><a href="https://www.facebook.com/palak.mathur"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://twitter.com/#!/palak"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="https://plus.google.com/u/0/108064038938830712899"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="http://www.linkedin.com/in/palakmathur"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="http://feeds.feedburner.com/palakmathur"><i class="fa fa-rss"></i></a></li>
-            </ul>
-        </div>
-    </div> 
-
-    <p class="scrolldown">
-        <a class="smoothscroll" href="#{{page.title}}"><i class="icon-down-circle"></i></a>
-    </p>
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Owner Name: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.1
+Description: Awesome dude, awesome life
+====================================================
 -->
+<head>
+{% include head.html %}
+</head>
+<body class="home-template" itemscope itemtype="http://schema.org/WebPage">
+{% include header.html %}
+<div id="main" class="content" role="main" itemprop="mainContentOfPage">
+    <div class="container">
 
-</header> 
+        <div class="row">
+            <article class="page col-md-8 col-md-offset-2">
 
-<section id="{{page.title}}">
-
-
-
-    <div class="row add-bottom">
-
-        <div class="twelve columns">
-            <h1 class="main-col">{{ page.title }}</h1>
-
-            {{ content }}
+		            {% if site.wpm %}
+		            {% assign readtime = page.content | strip_html | number_of_words | append: '.0' | divided_by:site.wpm %}
+		            {% else %}
+		            {% assign readtime = page.content | strip_html | number_of_words | append: '.0' | divided_by:180 %}
+		            {% endif %}
+                    <header class="post-header">
+                        {% if page.link %}
+                        <h1 class="post-title text-center hyper lighter"><a href="{{ page.link }}" data-toggle="tooltip" title="Go to {{ page.link }}" style="color: #fff; background-color: #45ADA8; border-radius: 4px; padding: 10px">{{ page.title }} <span class="link-arrow">&rarr;</span></a></h1>
+                        {% else %}
+                        <h1 class="post-title text-center hyper lighter bordered-bottom">{{ page.title }}</h1>
+                        {% endif %}
+                        <div class="post-info text-center small">
+                            {% if page.modified %}Last modified on <time datetime="{{ page.modified | date: "%Y-%m-%d" }}" itemprop="dateModified">{{ page.modified | date: "%d %b %Y" }}</time>{% endif %}
+                            {% if site.readtime %}&nbsp;<span class="post-tags"><i class="icon-time"></i>&nbsp;{% if readtime > 1 and readtime < 1.5 %}1 minute read{% endif %}{% if readtime > 1.5 %}<span class="time">{{ readtime }}</span> minutes read{% endif %}{% if readtime < 1 %}Less than 1 minute read{% endif %}</span>{% endif %}
+                        </div>
+                    </header>
+                    <div class="page-body" itemprop="description">
+                        {{ content }}
+                    </div>
+                    </footer>
+            </article>
         </div>
     </div>
+</div>
+    {% include footer.html %}
 
-
-</section>
+{% include scripts.html %}  
+</body>
+</html>

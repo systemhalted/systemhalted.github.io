@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Checking out Github pages
-category: Programming
+category: Technology
 tags: [static blog generators, blogs]
 summary: Checking out Github pages
 ---

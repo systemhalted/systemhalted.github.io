@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Book Review - IshqFareb by Chandan Pandey
-category: Reviews
+category: Book Reviews
 tags: [Chandan Pandey, fareb, Hindi Literature, India, Ishq, Jananpith Award, Penguin India, Standard Hindi, Varanasi]
 summary: Book Review of Hindi book IshqFareb by Chandan Pandey
 ---

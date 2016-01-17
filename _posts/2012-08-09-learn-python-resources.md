@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Learn Python - Resources
-category: Programming
+category: [Technology, Programming]
 tags: [Computer scientist, Development Tools, Games programming in Python, How to Think like a Computer Scientist, Javaranch, Jython, Language, Learn Python, Learning, Mark Lutz, Mark Pilgrim, Palak Mathur, PalakMathur, Programming, python]
 summary: Here I am listing few of the resources that I think will be good for someone to refer if (s)he wants to learn Python.
 category: Programming

@@ -1,7 +1,7 @@
 ---  
 layout: post  
 title: Book Review - Node Cookbook Second Edition by David Mark Clements
-category: Reviews  
+category: [Book Reviews, Technology]  
 tags: [Node, NodeJS, Node.js]
 summary: Node Cookbook like other Packtpub books is a quick reference and a ready reckoner for anyone interested in Node.js. 
 --- 

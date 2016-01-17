@@ -2,8 +2,9 @@
 layout: post
 title: Book Review - Java EE 7 Developer Handbook by Peter A. Pilgirm
 category: [Book Reviews, Technology]
+comments: true
 tags: [Java EE 7, Java, JEE, Servlets, JMS, EJB, CDI, RESTful WebServices]
-summary: Java EE 7 Developer Handbook is a reference guide for programmers who work in the aread of enterprise application development using Java EE technology. This book is certainly not for dummies.
+description: Java EE 7 Developer Handbook is a reference guide for programmers who work in the aread of enterprise application development using Java EE technology. This book is certainly not for dummies.
 ---
 
 Java EE 7 Developer Handbook by Peter A. Pilgrim, as the name suggests, is a reference guide and developer handbook for people currently working on Java EE Technology. The book is not for dummies and is definitely not a tutorial; so you must have worked on Java EE 7 technology to really enjoy the book. This book is suited for those who have experience in prior versions of Java EE and want to upgrade their knowledge about the changes that come with Java EE 7. 

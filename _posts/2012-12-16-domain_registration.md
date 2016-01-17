@@ -4,7 +4,8 @@ date: 2012-12-16 23:59
 title: Domain Registration - One Week Headache
 category: [Insane Thoughts, Technology]
 tags: [domain registration, domains, crazydomains, in domains]
-summary: Domain registration became a weeklong headache for me. What happened? How I overcame it. This post is on a personal experience. 
+comments: true
+description: Domain registration became a weeklong headache for me. What happened? How I overcame it. This post is on a personal experience. 
 ---
 
 Early this week, after I returned from Mumbai, the first thing that I did was to create my site using Github Pages. I soon became excited enough to register a domain and use that for my site. I have been doing some research on the domains but still many things were unclear to me and I had marked them as doubts and placed them safely in a text file saved in a personal folder on my ThinkPad. 

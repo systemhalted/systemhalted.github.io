@@ -4,7 +4,8 @@ date: 2012-12-30 00:24
 title: Transitioning myself from a Forgotten Electronics Engineer to a Known Software Engineer.  
 category: Insane Thoughts  
 tags: [Electronics Engineering, Computer Science and Engineering]
-summary: I am an Electronics Engineer by education and a Software Engineer (???) by profession. There is always a feeling that I lack the knowledge to be a suitable person for my profession as I do not have the skills that a CS graduation might have. So, here is my study plan to finish this lacuna. A plan to help me switch from forgotten Electronics Engineer cum not-so-good-Software Engineer to a better person in the world of Computer Science and Engineering. 
+comments: true
+description: I am an Electronics Engineer by education and a Software Engineer (???) by profession. There is always a feeling that I lack the knowledge to be a suitable person for my profession as I do not have the skills that a CS graduation might have. So, here is my study plan to finish this lacuna. A plan to help me switch from forgotten Electronics Engineer cum not-so-good-Software Engineer to a better person in the world of Computer Science and Engineering. 
 ---  
 
 I first had my hands on Computers when I was in Class IV back in 1991 and the language of instruction was Logo, a fantastic beginner language as everything is taught in terms of movement of turtle with commands like FD (forward), RT (right), LT (left), ?? (backward), the combination of which eventually makes a figure - rectangle, triangle, square, rhombus - anything.

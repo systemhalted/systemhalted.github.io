@@ -4,7 +4,8 @@ date: 2013-02-15 00:24
 title: First Day in USA  
 category: [Insane Thoughts, Travelogue]  
 tags: [USA, India]
-summary: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went? 
+comments: true
+description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went? 
 ---  
 
    Leaving India was not easy. If there would have been no one, probably it would have been but with Shalank being there, 

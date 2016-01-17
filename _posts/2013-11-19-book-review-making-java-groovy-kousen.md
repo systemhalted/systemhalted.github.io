@@ -3,6 +3,7 @@ layout: post
 title: Book Review - Making Java Groovy by Ken Kousen
 category: [Book Reviews, Technology] 
 tags: [Java, Groovy, JVM]
+comments: true
 summary: Making Java Groovy - Certainly Does that!
 --- 
 

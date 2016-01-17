@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Book Review - Oracle Certified Associate Java Se 7 Programmer Study Guide by Richard M. Reese
-category: Reviews
+category: [Book Reviews, Technology]
 tags: [java, java 1.7, java 7, java 7 certification, java 7 certification exam, java 7 development, java se 7 certification exam, oca, oracle, Oracle Certification Program, oracle certified associate Java SE 7 programmer, Oracle Corporation, Programmer, Richard M Reese, Sun Certified Professional]
 summary: Oracle has now introduced a new certification named Oracle Certified Associate, Java SE7 Programmer, which is mandatory if you want to become Oracle Certified Professional, Java SE7 Programmer (given to understand that you already are not OCP in some other version of Java). So, Oracle Certified Associate, Java SE7 Programmer (OCA7) is really important exam for a Java developer who wants to get certified and valued. 
 ---

@@ -1,6 +1,10 @@
 ---
 layout: page
+permalink: /about/index.html
 title: About
+tags: [Palak Mathur, Palak, Mathur]
+image:
+feature: palakmathur.jpg
 ---
  
   I am a Senior Software Engineer working with Capital One Auto Financial Services' Technology Division. And first thing first, the views expressed on this website and the articles herein or any of my linked blogs are my own and no way show and/or bear any linkages to my employer or any of my past employers.

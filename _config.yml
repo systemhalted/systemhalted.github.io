@@ -1,7 +1,7 @@
 title:            Palak Mathur
 description:      "Renaissance: Enlightenment | Reawakening | Reformation"
 logo:             palakmathur.jpeg
-disqus_shortname:
+disqus_shortname: palakmathurgithub
 # Assign a default image for your site's header and footer
 default_bg:       default_bg1.jpg
 search:           true
@@ -26,7 +26,7 @@ owner:
   avatar:         palakmathur.jpg
   email:          insanethoughts@live.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    Web Presence of Palak Mathur
+  description:    Palak Mathur is a Software Engineer working with Capital One Services. For details check About section.
   # Social networking links used in footer. Update and remove as you like.
   twitter:        palak
   facebook:

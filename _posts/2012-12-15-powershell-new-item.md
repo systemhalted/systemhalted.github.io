@@ -4,7 +4,8 @@ date: 2012-12-15 21:45
 title: As Touch is to UNIX, New-Item is to Windows PowerShell
 category: Technology
 tags: [Powershell, Unix-shell]
-summary: As Touch is to UNIX, New-Item is to Windows PowerShell
+comments: true
+description: As Touch is to UNIX, New-Item is to Windows PowerShell
 ---
 
 Unix has a command called Touch that creates an empty file

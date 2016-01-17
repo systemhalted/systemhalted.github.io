@@ -3,7 +3,8 @@ layout: post
 title: Unix-like Command Line Experience in Windows - PowerShell
 category: Technology
 tags: [Powershell, Unix-shell]
-summary: DO you want to experience the Unix like Command Line in Windows? If yes, then Powershell is the way to go.
+comments: true
+description: DO you want to experience the Unix like Command Line in Windows? If yes, then Powershell is the way to go.
 ---
 Recently, I was going through some course on Internet when I came across PowerShell. We used to work with a program called cmd.exe, but always wanted to have the usability and power that Unix command line offers. If you are using Windows 7 or later, then you just need to follow following steps:-
 

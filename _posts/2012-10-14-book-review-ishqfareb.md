@@ -2,8 +2,11 @@
 layout: post
 title: Book Review - IshqFareb by Chandan Pandey
 category: Book Reviews
+comments: true
+image: 
+    feature: http://img6a.flixcart.com/image/book/5/7/9/ishqfareb-275x275-imadbrjesafwbyyk.jpeg
 tags: [Chandan Pandey, fareb, Hindi Literature, India, Ishq, Jananpith Award, Penguin India, Standard Hindi, Varanasi]
-summary: Book Review of Hindi book IshqFareb by Chandan Pandey
+description: Book Review of Hindi book IshqFareb by Chandan Pandey
 ---
 [![Buy Ishqfareb from Flipkart.com](http://img6a.flixcart.com/image/book/5/7/9/ishqfareb-275x275-imadbrjesafwbyyk.jpeg)](http://www.flipkart.com/ishqfareb-014341657x/p/itmdbzvtgu4gyajt?pid=9780143416579&amp;affid=palakmathu)
 <br>

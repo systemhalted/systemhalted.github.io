@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Book Review - IshqFareb by Chandan Pandey
-category: Book Reviews
+category: [Book Reviews, Hindi]
 comments: true
 image: 
     feature: http://img6a.flixcart.com/image/book/5/7/9/ishqfareb-275x275-imadbrjesafwbyyk.jpeg

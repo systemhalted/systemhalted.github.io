@@ -8,12 +8,12 @@ tags: [Palak Mathur]
 {% if site.paginate %}
 	{% for post in paginator.posts %}
 		{% if site.wpm %}
-		{% assign readtime = post.content | strip_html | number_of_words | append: '.0' | divided_by:site.wpm %}
+		    {% assign readtime = post.content | strip_html | number_of_words | append: '.0' | divided_by:site.wpm %}
 		{% else %}
-		{% assign readtime = post.content | strip_html | number_of_words | append: '.0' | divided_by:180 %}
+		    {% assign readtime = post.content | strip_html | number_of_words | append: '.0' | divided_by:180 %}
 		{% endif %}
         {% if post.imagefeature %}
-        {% assign page.imagefeature = post.imagefeature %}
+            {% assign page.imagefeature = post.imagefeature %}
         {% endif %}
 		{% assign modifiedtime = post.modified | date: "%Y%m%d" %}
 		{% assign posttime = post.date | date: "%Y%m%d" %}

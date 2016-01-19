@@ -15,8 +15,8 @@ tags:
 - pune
 - Western Ghats
 ---
-<p><a href="http://wp.me/pYkEV-4B"><img src="{{ site.url }}/assets/images/13082011%252528005%252529.jpg" alt=""
-                                        width="800" height="602" /></a></p>
+<p><img src="{{ site.url }}/assets/images/13082011%252528005%252529.jpg" alt=""
+                                        width="800" height="602" /></p>
 <p>Lavasa will definitely amaze you. Though most parts are still under development but the area that has been built
     makes the city beautiful. Stylistically based on an Italian town of Portofino, Lavasa happens to be a private
     city and recently has been in some serious controversies.</p>

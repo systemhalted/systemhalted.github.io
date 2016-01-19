@@ -12,11 +12,4 @@ tags:
 - orange province
 - pune
 ---
-<table style="width:auto;">
-<tr>
-<td><img src="{{ site.url }}/assets/images/Photo0263.jpg" /></td>
-</tr>
-<tr>
-<td style="font-family:arial,sans-serif;font-size:11px;text-align:right;"></td>
-</tr>
-</table>
+![View from Balcony]({{ site.url }}/assets/images/Photo0263.jpg "View from Balcony")

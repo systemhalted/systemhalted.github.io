@@ -2,10 +2,11 @@
 layout: post
 title: The Palace
 date: 2011-11-08 12:45:04.000000000 -06:00
-type: photo:
+type: photo
 photo: DSC02400.JPG
 published: true
 status: publish
+comments: true
 categories:
 - Photographs
 tags:

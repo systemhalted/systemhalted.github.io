@@ -22,9 +22,9 @@
     
     
 </aside>
-{% if page.imagefeature %}<header id="masthead" class="blog-background overlay align-center align-middle animated from-bottom"  style="background-image: url({{ site.url }}/images/{{ page.imagefeature }})" itemscope itemtype="http://schema.org/Organization">
+{% if page.imagefeature %}<header id="masthead" class="blog-background overlay align-center align-middle animated from-bottom"  style="background-image: url({{ site.url }}/assets/images/{{ page.imagefeature }})" itemscope itemtype="http://schema.org/Organization">
 {% else %}
-<header id="masthead" class="blog-background overlay align-center align-middle animated from-bottom"  style="background-image: url({{ site.url }}/images/{{ site.default_bg }})" itemscope itemtype="http://schema.org/Organization">
+<header id="masthead" class="blog-background overlay align-center align-middle animated from-bottom"  style="background-image: url({{ site.url }}/assets/images/{{ site.default_bg }})" itemscope itemtype="http://schema.org/Organization">
 {% endif %}
 {% if site.search %}
     <button class="menu-button animated fade dosearch">
@@ -36,7 +36,7 @@
         <div class="container">
             <a class="brand light" href="{{ site.url }}" role="banner" itemprop="url">
 
-                {% if site.logo %}<img itemprop="logo" src="{{ site.url }}/images/{{ site.logo }}" alt="{{ site.title }} Logo" />{% endif %}
+                {% if site.logo %}<img itemprop="logo" src="{{ site.url }}/assets/images/{{ site.logo }}" alt="{{ site.title }} Logo" />{% endif %}
 
             <h1 class="blog-title light" itemprop="name">
                 {{ site.title }}
@@ -53,7 +53,7 @@
         <div class="container">
             <a class="brand" href="{{ site.url }}" role="banner" itemprop="url">
                 
-                    <img itemprop="logo" src="{{ site.url }}/images/{{ site.logo }}" alt="{{ site.title }} Logo" />
+                    <img itemprop="logo" src="{{ site.url }}/assets/images/{{ site.logo }}" alt="{{ site.title }} Logo" />
 
             <h1 class="blog-title light" itemprop="name">
                 {{ site.title }}

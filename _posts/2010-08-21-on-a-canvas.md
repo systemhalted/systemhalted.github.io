@@ -16,4 +16,4 @@ tags:
 - On a Canvas
 ---
 
-![On a Canvas]({{ site.url }}/assets/images/4732535866_e00687466e.jpg "On a Canvas")(http://www.flickr.com/photos/7255500@N05/4732535866/)
+[![On a Canvas]({{ site.url }}/assets/images/4732535866_e00687466e.jpg "On a Canvas")](http://www.flickr.com/photos/7255500@N05/4732535866/)

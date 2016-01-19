@@ -19,7 +19,7 @@ tags:
 - Kiran Rao
 - questioning authority
 - Tolerance
-summary: Aamir Khan's recent statement started a debate and widespread criticism. My quick thoughts!
+description: Aamir Khan's recent statement started a debate and widespread criticism. My quick thoughts!
 ---
 <div class="_209g _2vxa">People keep saying that Aamir Khan is defaming the country. Really? Is speaking out ones mind means defaming the country? No. Not at all.</div>
 <div class="_209g _2vxa"></div>

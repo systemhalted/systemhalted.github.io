@@ -13,7 +13,7 @@ The book starts by giving a quick introduction to what exactly is the Go languag
 
 The book becomes more engrossing in Chapter 6 when we dive deeply into the Go scheduling, concurrency and channels. Like in previous chapters, mechanics behind everything is discussed and explained. The moment of truth however comes in Chapter 7 where we indulge in using the learnings in Chapter 6 practically. This is the high-point of the book.
 
-The book talks further about three packages - log, json and io - all three are crucial in the life of any developers and these being part of standard library talks a lot about the thought that has gone into the design of the language.
+The book talks further about three packages - log, json and io - all three are crucial in the life of any developer and these being part of standard library talks a lot about the thought that has gone into the design of the language.
 
 The book ends with Testing and benchmarking framework. With all the corporations trying to fix their digital divide, TDD has surely become a big deal over many years and right now is the most important aspect of any application development. The book on a language should discuss this and with GoLang it comes naturally.
 

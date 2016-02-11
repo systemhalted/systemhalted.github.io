@@ -7,7 +7,7 @@ comments: true
 summary: Go lang Go!
 --- 
 
-Go in Action sets out to do where other books lack. It is kind of an academic introduction to Golang, which is beneficial for developers who have academic interest in the language development and also for those who are looking for a little hand-holding in GoLang. The book will act as a comprehensive language specification for GoLang.
+Go in Action sets out to do what other books lack. It is kind of an academic introduction to Golang, which is beneficial for developers who have academic interest in the language development and also for those who are looking for a little hand-holding in GoLang. The book will act as a comprehensive language specification for GoLang.
 
 The book starts giving a quick introduction to what exactly is the language, why was it developed in the first place while continuing the discussion going on about program structure and tooling available. Till now it is all dull and boring if you are reading about Go for the first time. However, Chapter 4 onwards the momentum starts when the books starts discussion about built-in data types, viz., arrays, slices and maps. The discussion is intense on the implementation details and the 'mechanics behind these data structures'. The discussion becomes further interesting when we delve into the type system and talk about structs, named types, interfaces and type embedding.
 

@@ -67,7 +67,7 @@ links:
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/Chicago
 future:      true
-highlighter: pygments
+highlighter: rouge
 markdown:    kramdown
 gems: [jekyll-paginate]
 paginate:    6

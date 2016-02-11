@@ -17,9 +17,7 @@ The book talks further about three packages - log, json and io - all three are c
 
 The book ends with Testing and benchmarking framework. With all the corporations trying to fix their digital divide, TDD has surely become a big deal over many years and right now is the most important aspect of any application development. The book on a language should discuss this and with GoLang it comes naturally.
 
-One should read the book if you are an experienced programmer and have interest in GoLang and mechanics behind its feature. The discussion about the language will help you understand the language well enough and give you a strong hand-holding in Go lang.
-
-I would recommend this book to anyone who is interested in Programming languages and you will really like it. Unlike the language specifications that are monotonous, this book help you understand the specification of Go lang and also provides you practical knowledge of the language enough to help you kickstart your voyage. Go lang Go!
+I would recommend this book to anyone who is interested in Programming languages and you will really like it. Unlike the language specifications that are monotonous, this book help you understand the specification of Go lang and also provides you practical knowledge of the language enough to help you kickstart your voyage. One should read the book if they are an experienced programmer and have interest in GoLang and mechanics behind its feature. The discussion about the language will help you understand the language well enough and give you a strong hand-holding in Go lang. Go lang Go!
 
 Rating 4/5. I found few chapters boring in the beginning which prevented me to complete the book earlier.
 

@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Clojure and Polish Notation 
-category: [Personal, Cycling] 
-tags: [Cycling, Diamondback Hybrid Bike, Dicks Sporting Goods]
+category: [Technology, Clojure] 
+tags: [Clojure, Prefix Notation, Polish Notation, Lisp]
 comments: true
 summary: Clojure syntax is prefix notation and it is difficult to switch to using it. 
 --- 

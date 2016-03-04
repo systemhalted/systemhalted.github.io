@@ -18,7 +18,7 @@ fin_color:        "255,255,255"
 # Change url to your domain. Leave localhost server or blank when working locally.
 # or use the hint from http://jekyllrb.com/docs/github-pages/ to keep this the same 
 # whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
-url: http://palakmathur.in
+url: #http://palakmathur.in
 
 # Owner/author information
 owner:
@@ -77,6 +77,8 @@ paginate_path: "page:num"
 permalink:   /:categories/:title
 
 kramdown:
+  input: GFM
+  syntax_highlighter: rouge
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char

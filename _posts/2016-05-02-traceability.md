@@ -19,32 +19,32 @@ The value that you get by maintaining RTM is not very cost effective. RTM is one
 
 In 2008, there was a thread on Yahoo! Groups on Traceability in Agile. I would like to quote a [reply by](https://groups.yahoo.com/neo/groups/agile-testing/conversations/topics/13320?threaded=1&p=7) [Michael Bolton](http://www.developsense.com) here:
 
-'''
-   I think of it as something more abstract--a concept that
-helps us understand the historical links between one set of ideas and
-another, or an answer to a question in the general form of "Why did we do
-that?" More extremely, it might be "Who did X, and what did they do, and
-why, or when, or how did they do it?" Answers to those questions can take
-many forms, depending on the culture. Conversations, stories, strategic
-themes, histories, logs, journals, source code, automated tests, design
-documents, daily scrums, email, and (yes) spreadsheets are all media in
-which traceability might be found, and all of them can be passed from one
-person to another. But only some of these forms are documents that are
-explicitly designed for that purpose and for no other. I'd suggest that you
-need traceability if there's a danger of losing corporate memory that is
-genuinely valuable--but what's the risk of that when it's already available
-in so many forms?
 
-Now, there are plausibly legitimate answers to a question like this. The
-trouble (and clutter, and extra expense, and extra overhead) tends to come
-when we haven't asked the question at all. That would be the suggestion
-that I would make to the Original Poster: Someone wants traceability? Ask
-what they want it for, how often they'll want it, the form in which they'll
-want it, the forms in which they might be able to accept it--and then ask if
-the cost will be matched by value. Things that can be read by a human
-typically require a human to write them--yet most projects I've seen tend to
-be short on extra humans.
-'''
+      I think of it as something more abstract--a concept that
+      helps us understand the historical links between one set of ideas and
+      another, or an answer to a question in the general form of "Why did we do
+      that?" More extremely, it might be "Who did X, and what did they do, and
+      why, or when, or how did they do it?" Answers to those questions can take
+      many forms, depending on the culture. Conversations, stories, strategic
+      themes, histories, logs, journals, source code, automated tests, design
+      documents, daily scrums, email, and (yes) spreadsheets are all media in
+      which traceability might be found, and all of them can be passed from one
+      person to another. But only some of these forms are documents that are
+      explicitly designed for that purpose and for no other. I'd suggest that you
+      need traceability if there's a danger of losing corporate memory that is
+      genuinely valuable--but what's the risk of that when it's already available
+      in so many forms?
+
+      Now, there are plausibly legitimate answers to a question like this. The
+      trouble (and clutter, and extra expense, and extra overhead) tends to come
+      when we haven't asked the question at all. That would be the suggestion
+      that I would make to the Original Poster: Someone wants traceability? Ask
+      what they want it for, how often they'll want it, the form in which they'll
+      want it, the forms in which they might be able to accept it--and then ask if
+      the cost will be matched by value. Things that can be read by a human
+      typically require a human to write them--yet most projects I've seen tend to
+      be short on extra humans.
+
 
 These days there is a ask to automatically create RTMs. Questions that we need to ask as suggested in the above reply by Michael Bolton are: 1) What will
 happen if I do? 2) What won't happen if I do? 3) What will happen if I don't? 4) What won't happen if I don't?

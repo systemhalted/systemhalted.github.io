@@ -77,7 +77,7 @@ I think the maturity that ATDD (BDD), TDD, TBD nad EBT bring are far more worthy
 
 Most of the advantages that Traceability provides can be obtained through TDD, Continuous Integration and Proper Version Control system like Git. A high-level stories can be maintained in a system like Version One or Project wiki in Enterprise Github wiki page and the same story id can be used while committing changes in the version control for the tests and the application code. If needed, the results of these can be monitored through a tool like Splunk for reporting purposes.
 
-If you are still thinking about Traceability Matrix, it is high time you read the above articles before making up your mind. Because there are n-number of ways to do so, RTM might not be one of them.
+If you are still thinking about Traceability Matrix, it is high time you read the above articles before making up your mind. Because there are n-number of ways to do so, RTM might not be the one you have to choose. 
 
 
 

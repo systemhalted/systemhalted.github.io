@@ -22,6 +22,10 @@
     
     
 </aside>
+{% if page.imagefeature %}<header id="masthead" class="blog-background overlay align-center align-middle animated from-bottom"  style="background-image: url({{ site.url }}/assets/images/{{ page.imagefeature }})" itemscope itemtype="http://schema.org/Organization">
+{% else %}
+<header id="masthead" class="blog-background overlay align-center align-middle animated from-bottom"  style="background-image: url({{ site.url }}/assets/images/{{ site.default_bg }})" itemscope itemtype="http://schema.org/Organization">
+{% endif %}
 {% if site.search %}
     <button class="menu-button animated fade dosearch">
         <i class="icon-search"></i>

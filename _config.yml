@@ -63,6 +63,9 @@ links:
   - title: Resume
     url: /Resume
     external: true
+  - title: Links
+    url: /links
+    external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/Chicago

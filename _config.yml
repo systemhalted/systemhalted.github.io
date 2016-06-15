@@ -2,7 +2,6 @@ title:            Palak Mathur
 description:      "Observer, Writer, Hacker"
 disqus_shortname: palakmathurgithub
 # Assign a default image for your site's header and footer
-#default_bg:       bgimage2.jpg
 search:           true
 share:            true
 # Read Time is a calculator tp provide post read-time based on word count. Usage is recommended.
@@ -10,8 +9,8 @@ readtime:         true
 # Specify the average Words per minute. If not defined, 180 will be used
 wpm:				      200
 # Turn on or off the fin animations in the header and footer
-triangleheader:		true
-animated_fins:	  true
+triangleheader:		false
+animated_fins:	  false
 # Specify the fin color in RGB value
 fin_color:        "255,255,255"
 # Change url to your domain. Leave localhost server or blank when working locally.

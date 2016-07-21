@@ -21,8 +21,8 @@ var shortcuts = {
    "fb":   "http://facebook.com",
    "gp":   "http://getpocket.com/",
  "gitr":   "http://gitref.org/",
-   "w3":   "http://w3.ibm.com",
-  "ctl":   "https://mail.centurylink.com",
+//   "w3":   "http://w3.ibm.com",
+ // "ctl":   "https://mail.centurylink.com",
 "ntflx":   "http://netflix.com",
     "q":   "http://www.quora.com"
 }

@@ -7,7 +7,7 @@ image:
 feature: palakmathur.jpg
 ---
  
-  I am a Senior Software Engineer working with Capital One Auto Financial Services' Technology Division. And first thing first, the views expressed on this website and the articles herein or any of my linked blogs are my own and no way show and/or bear any linkages to my employer or any of my past employers.
+  I am Manager of Software Engineering with Capital One Auto Financial Services' Technology Division. And first thing first, the views expressed on this website and the articles herein or any of my linked blogs are my own and no way show and/or bear any linkages to my employer or any of my past employers.
   
   I mostly develop in Java, especially Spring and related projects, e.g., Spring XD, etc. Python is my preferred scripting language. However, I never used Python for any large scale enterprise project. I don't feel the need to switch from Java as far as the web platform is concerned as it does almost everything. I have had concerns with the tooling available for Java. However, with advent of Maven, most of my issues are resolved. I have used Apache Ant before. Due to lack of tooling, I used to like it but in hindsight that was cumbersome. Maven defined project structure for Java is ideal for almost all cases. I once reviewed Gradle in Action, Manning Publication. It was simple looking and seems easy to adopt. However, never used it for any projects. At Capital One, we are mainly a Maven shop and I am pretty much happy about it.
   

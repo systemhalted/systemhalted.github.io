@@ -7,7 +7,7 @@ photo: DSC02209.JPG
 published: true
 status: publish
 categories:
-- Landscapes
+- Photographs
 tags:
 - Pratapgarh
 - Pratapgarh Fort

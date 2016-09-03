@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Project Jigsaw - Part 1: What is Modularity?
+title:  Project Jigsaw - Part 1 - What is Modularity?
 date: 2016-08-31
 type: post
 published: false
@@ -8,6 +8,7 @@ comments: true
 status: draft
 categories:
 - Technology
+- Programming
 tags:
 - jdk9
 - java
@@ -16,7 +17,7 @@ tags:
 - project-jigsaw
 - project jigsaw
 - jigsaw
-- jsr376
+
 ---
 
   For past few years we have seen quite a change in the world of Java. JVM and JDK both are changing and changing for good. JDK 8 entirely changed the Java landscape with inclusion of support for lambda and providing a way to be a little more functional. A similar role will be played in JDK 9 by Project Jigsaw, also known as JSR376, the project that will enable modularity in Java

@@ -27,5 +27,5 @@ feature: palakmathur.jpg
   
   I also have interest in Physics, Public Adminsistration, United Nations Reforms, Indian Polity, American Polity, Mathematics, Theoretical Computer Sciecne, etc. I try to avoid debates on social media as much as possible but it is always not possible and it is such a big waste of time. I regret after debating online. The time could have been spent doing something better in areas of my interest. I also love solving Sudoku. It is the simplest mind game ever which at time can be really daunting. I always wanted to solve crosswords, but I am not super-intelligent. I admire people who solve them daily. I used to solve the Hindi ones back in India but now I do not as I am not subscribed to any magazine or newspaper non-digitally. I also want to play with a Rubik cube. Never had any opportunity to play with it.
   
-  I hope that this is enough of introduction. If you want to contact me with suggestions or anything else then visit the Contact page.
+  If you have any suggestions, comments or feedback, please use the comment section on the posts to leave one. Or you can contact me through one of the social media channels listed in the footer of this page.
  

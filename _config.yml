@@ -16,7 +16,7 @@ fin_color:        "255,255,255"
 # Change url to your domain. Leave localhost server or blank when working locally.
 # or use the hint from http://jekyllrb.com/docs/github-pages/ to keep this the same 
 # whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
-url: http://palakmathur.in
+#url: http://palakmathur.in
 
 # Owner/author information
 owner:
@@ -58,14 +58,16 @@ links:
     url: /tags
   - title: About
     url: /about
-  - title: Resume
-    url: /Resume
-    external: true
   - title: Bookmarks
     url: /bookmarks
     external: true
+  - title: Pictures
+    url: /pictures
   - title: Command Line
     url: /webcmd
+    external: true
+  - title: Resume
+    url: /Resume
     external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -74,7 +76,7 @@ future:      true
 highlighter: rouge
 markdown:    kramdown
 gems: [jekyll-paginate]
-paginate:    6
+paginate:    10
 paginate_path: "page:num"
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks

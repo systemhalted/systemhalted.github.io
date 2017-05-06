@@ -20,10 +20,8 @@ var shortcuts = {
    "bb":   "http://boingboing.net/",
    "fb":   "http://facebook.com",
    "gp":   "http://getpocket.com/",
- "gitr":   "http://gitref.org/",
-//   "w3":   "http://w3.ibm.com",
- // "ctl":   "https://mail.centurylink.com",
-"ntflx":   "http://netflix.com",
+  "git":   "http://gitref.org/",
+    "n":   "http://netflix.com",
     "q":   "http://www.quora.com"
 }
 
@@ -32,9 +30,7 @@ var searches = {
 	"a":	["http://www.amazon.com/s", "field-keywords",
 			{"url": "search-alias=aps" }],
 	"g":	["http://www.google.com/search", "q"],
-	"gi":	["http://www.google.com/images", "q"],
-//	"cs":	["http://www.google.com/codesearch", "q"],
-//	"oeis":	["http://www.research.att.com/~njas/sequences/", "q"],
+       "gi":	["http://www.google.com/images", "q"],
 	"w":	["http://en.wikipedia.org/wiki/Special:Search", "search"],
         "f":    ["http://www.flipkart.com/search/a/all", "query",
             {"vertical": "All+Categories", "affid":"palakmathur"}],

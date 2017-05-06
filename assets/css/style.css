@@ -245,6 +245,13 @@ pre {
   line-height: 1;
   text-transform: uppercase;
 }
+.justright {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1;
+  /*text-transform: uppercase;*/
+}
+
 .super.text-center small {
   display: block;
   line-height: 1.5em;

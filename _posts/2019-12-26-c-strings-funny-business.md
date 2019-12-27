@@ -8,13 +8,13 @@ comments: true
 status: publish
 categories:
 - Programming
-- Technology
 tags:
 - C
 - Strings
 - strlen
 - Null-pointer
 - anti-pattern
+- technology
 
 ---
 

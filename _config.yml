@@ -31,7 +31,7 @@ owner:
   github:         palakmathur
   stackexchange:  https://stackoverflow.com/users/1901100/plkmthr
   linkedin:       https://www.linkedin.com/in/palakmathur
-  instagram:      
+  instagram:      palak_clicks
   flickr:         
   tumblr:         
   # For Google Authorship https://plus.google.com/authorship
@@ -62,7 +62,8 @@ links:
     url: /bookmarks
     external: true
   - title: Pictures
-    url: https://www.instagram.com/palak_clicks/
+    url: /pictureshttps://www.instagram.com/palak_clicks/
+    external: true
   - title: Command Line
     url: /webcmd
     external: true

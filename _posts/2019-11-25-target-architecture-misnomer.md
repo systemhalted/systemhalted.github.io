@@ -3,7 +3,7 @@ layout: post
 title: What is Target Architecture?
 date: 2019-11-25
 type: post
-published: false
+published: true
 comments: true
 status: publish
 categories:

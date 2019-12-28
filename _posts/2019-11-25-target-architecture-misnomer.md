@@ -5,7 +5,7 @@ date: 2019-11-25
 type: post
 published: false
 comments: true
-status: draft
+status: publish
 categories:
 - Technology
 tags:

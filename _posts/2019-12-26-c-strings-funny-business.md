@@ -24,11 +24,12 @@ There is a famous joke on C strings, which I reproduce here
 
 ```Two strings walk into a bar. The bartender says, "What'll it be?". The first string says, "I'll have a vodka with cranberry juice#MV*()>SDk+!^ &@P&]JEA&#65535;Segmentation Fault". The second string says, "You'll have to excuse my friend, he's not null-terminated."```
 
-For example, suppose you have  following string:
+Now let us delve further.  Suppose you have the following string:
 
 ```char *str = "palak";```
 
-Now, there are few things to notice before we jump into the intricacies of what I want to discuss.
+There are few things that are very important to understand:
+
 1. This is same as 
  ```char *str = {'p','a','l','a','k','\0'};```
 

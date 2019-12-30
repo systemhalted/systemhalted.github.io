@@ -76,7 +76,8 @@ timezone:    America/Chicago
 future:      true
 highlighter: rouge
 markdown:    kramdown
-gems: [jekyll-paginate]
+plugins:
+  - jekyll-paginate
 paginate:    10
 paginate_path: "page:num"
 
@@ -92,12 +93,12 @@ kramdown:
   toc_levels: 1..6
   enable_coderay: false
 
-  coderay:
-    coderay_line_numbers: 
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
+ # coderay:
+ #   coderay_line_numbers: 
+ #   coderay_line_numbers_start: 1
+ #   coderay_tab_width: 4
+ #   coderay_bold_every: 10
+ #   coderay_css: class
 
 prose:
   rooturl: '_posts'

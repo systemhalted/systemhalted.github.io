@@ -18,6 +18,8 @@ fin_color:        "255,255,255"
 # whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
 url: http://palakmathur.in
 
+author: Palak Mathur
+
 # Owner/author information
 owner:
   name:           Palak Mathur
@@ -78,6 +80,7 @@ highlighter: rouge
 markdown:    kramdown
 plugins:
   - jekyll-paginate
+  - jekyll-feed
 paginate:    10
 paginate_path: "page:num"
 

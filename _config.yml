@@ -103,6 +103,9 @@ kramdown:
  #   coderay_bold_every: 10
  #   coderay_css: class
 
+feed:
+   excerpt_only: true
+
 prose:
   rooturl: '_posts'
   siteurl: 'http://palakmathur.github.io/'

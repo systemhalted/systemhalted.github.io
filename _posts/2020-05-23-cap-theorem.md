@@ -30,5 +30,3 @@ According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem), "it is im
  
  * AP (Availability and Partition Tolerance) - Respond to the request even with an inconsistent or stale state. This ensures availability but reduces consistency. This also means that you can respond asynchronously to the write transactions. You can accept the write request, perform operations later and response when the network partition has been resolved. 
  
-
- * 

@@ -2,14 +2,14 @@
 
 // Simple shortcuts: name: url.
 var navigation = {
-     "p":   "http://palakmathur.in/webcmd",
-    "pi":   "http://palakmathur.in/about",
-   // "pa":   "http://palakmathur.in/articles/",
-   // "pc":   "http://palakmathur.in/contact",
-    "pr":   "http://palakmathur.in/feed.xml",
-    "ph":   "http://palakmathur.in/",
-  // "pbb":   "http://code.palakmathur.in",
-   "pgh":   "https://github.com/palakmathur"
+     "p":   "http://systemhalted.in/webcmd",
+    "pi":   "http://systemhalted.in/about",
+   // "pa":   "http://systemhalted.in/articles/",
+   // "pc":   "http://systemhalted.in/contact",
+    "pr":   "http://systemhalted.in/feed.xml",
+    "ph":   "http://systemhalted.in/",
+  // "pbb":   "http://code.systemhalted.in",
+   "pgh":   "https://github.com/systemhalted"
 }
 
 var shortcuts = {

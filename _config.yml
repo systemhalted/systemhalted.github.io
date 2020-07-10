@@ -2,7 +2,7 @@
 title:                systemhalted
 tagline:             'Insane Thoughts'
 description:         'I am just a DOS error'
-url:                 http://systemhalted.github.io
+url:                 https://systemhalted.github.io
 baseurl:             ''
 paginate:            5
 permalink:           pretty
@@ -10,7 +10,7 @@ permalink:           pretty
 # About/contact
 author:
   name:              systemhalted
-  url:               http://systemhalted.in
+  url:               https://systemhalted.in
   email:             insanethoughts@live.com
 
 # Gems

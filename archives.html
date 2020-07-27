@@ -6,9 +6,10 @@ title: Archives
 <ul class="post-list">
   {% for post in site.posts %}
   <div class="post">
-    <li class="post-title">
+    <li >
+       <span class="post-list-date">{{ post.date | date_to_string }}</span>
       <a href="{{ post.url | absolute_url }}">
-        <span class="post-list-date">{{ post.date | date_to_string }}</span> {{ post.title }}
+        <span class="class="post-title"> {{ post.title }} </span>
       </a>
     </li>
   </div>

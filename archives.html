@@ -3,15 +3,15 @@ layout: page
 title: Archives
 ---
 
-<div class="post-list">
+<ul class="post-list">
   {% for post in site.posts %}
   <div class="post">
-    <h1 class="post-title">
+    <li class="post-title">
       <a href="{{ post.url | absolute_url }}">
         <span class="post-list-date">{{ post.date | date_to_string }}</span> {{ post.title }}
       </a>
-    </h1>
+    </li>
   </div>
   {% endfor %}
-</div>
+</ul>
 

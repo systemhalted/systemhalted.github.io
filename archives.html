@@ -7,10 +7,10 @@ title: Archives
   {% for post in site.posts %}
   <div class="post">
     <li >
-       <span class="post-date">{{ post.date | date_to_string }}</span> - 
-      <a href="{{ post.url | absolute_url }}">
-        <span class="class="post-title"> {{ post.title }} </span>
-      </a>
+       <span class="post-date">{{ post.date | date_to_string }}</span> 
+     
+        <span class="class="post-title"> <a href="{{ post.url | absolute_url }}"> {{ post.title }}   </a></span>
+    
     </li>
   </div>
   {% endfor %}

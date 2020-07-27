@@ -345,7 +345,6 @@ tbody tr:nth-child(odd) th {
 }
 
 .post-list {
-    display: none;
     font-size: 14px;
     text-transform: uppercase;
 }

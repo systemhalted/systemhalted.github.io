@@ -344,6 +344,12 @@ tbody tr:nth-child(odd) th {
   margin-top: 0;
 }
 
+.post-list .post-list-date {
+    display: none;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
 /* Meta data line below post title */
 .post-date {
   display: block;

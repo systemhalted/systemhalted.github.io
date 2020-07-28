@@ -25,7 +25,10 @@ description: "An archive of posts sorted by tag."
 		{% for post in pages_list %}
 			{% if post.title != null %}
 			{% if group == null or group == post.group %}
-			<li><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a> - <span class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></li>
+			 <li>
+       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+     </li>
 			{% endif %}
 			{% endif %}
 		{% endfor %}

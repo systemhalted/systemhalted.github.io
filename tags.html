@@ -8,11 +8,11 @@ description: "An archive of posts sorted by tag."
 {% assign tags_list = site.tags %}  
   {% if tags_list.first[0] == null %}
     {% for tag in tags_list %} 
-    	<li><a href="#{{ tag }}">{{ tag }} <span>({{ site.tags[tag].size }})</span></a></li>
+    	<li><a href="#{{ tag }}">{{ tag }} </a> <span>({{ site.tags[tag].size }})</span></li>
     {% endfor %}
   {% else %}
     {% for tag in tags_list %} 
-    	<li><a href="#{{ tag[0] }}">{{ tag[0] }} <span>({{ tag[1].size }})</span></a></li>
+    	<li><a href="#{{ tag[0] }}">{{ tag[0] }} </a> <span>({{ tag[1].size }})</span></li>
     {% endfor %}
   {% endif %}
 {% assign tags_list = nil %}

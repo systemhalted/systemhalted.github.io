@@ -12,8 +12,13 @@ title: Archives
        <a href="{{ post.url | absolute_url }}">  <span class="post-title"> {{ post.title }}  </span> </a>
     
     </li> -->
-    <li><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a> - <span class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></li>
-  </div>
+<!--     <li><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a> - <span class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></li> -->
+    
+     <li>
+       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+     </li>
+   </div>
   {% endfor %}
 </ul>
 

@@ -72,8 +72,10 @@ comparison (by Gosu team) of several popular JVM Languages over
 by Red Hat and the project has been referred to by industry analysts
 as a "Java killer", though Red Hat] themselves reject this term. As
 per the official documentation, Ceylon's syntax is ultimately derived
-from C...You can run Ceylon anywhere a [Java
-7](http://en.wikipedia.org/wiki/Java_version_history) Virtual Machine
+from C...You can run Ceylon anywhere a Java
+7[^fn1] Virtual Machine
 is available. The Ceylon compiler uses the bytecode generator in Open
 JDK to produce [Java
 bytecode](http://en.wikipedia.org/wiki/Java_bytecode).
+
+[^fn1]: https://en.wikipedia.org/wiki/Java_version_history

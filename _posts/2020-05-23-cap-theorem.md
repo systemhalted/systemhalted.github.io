@@ -17,7 +17,7 @@ tags:
 
 Fifteen years ago, when I started working as a Software Engineer, scalability normally meant fine tuning the application, specially the database. The other option was to increase the configuration of existing hardware, i.e., scale-up (vertical scaling).  However, these days, people prefer to scale out (horizontal scaling; as the commodity hardware becomes cheap, this has become the go to strategy) - add more hardware to fulfil the request with reasonable response time. Scale out seems easy to architect, but is profoundly complex. And to increase the complexity, the CAP Theorem comes into picture. 
 
-According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem), "it is impossible for a distributed data store to simultaneously provide more than two out of the following three guarantees:
+According to CAP Theorem[^fn1], "it is impossible for a distributed data store to simultaneously provide more than two out of the following three guarantees:
 
  * Consistency (C) - Every read is guaranteed to receive the most recent write
  * Avaialbility (A) - Every request receives the response in a timely manner
@@ -30,3 +30,5 @@ According to [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem), "it is im
  
  * AP (Availability and Partition Tolerance) - Respond to the request even with an inconsistent or stale state. This ensures availability but reduces consistency. This also means that you can respond asynchronously to the write transactions. You can accept the write request, perform operations later and response when the network partition has been resolved. 
  
+ 
+ [^fn1]: https://en.wikipedia.org/wiki/CAP_theorem)

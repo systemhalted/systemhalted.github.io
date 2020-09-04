@@ -1,4 +1,10 @@
-
+---
+layout: post
+title: Emerging Technologies - 2017
+category: [Technology]
+tags: [emerging-tech ]
+comments: true
+---
 
 These are the top 10 emerging technologies[^fn1] of 2017:
 1. Liquid biopsies

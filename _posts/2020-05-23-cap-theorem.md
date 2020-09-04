@@ -31,4 +31,4 @@ According to CAP Theorem[^fn1], "it is impossible for a distributed data store t
  * AP (Availability and Partition Tolerance) - Respond to the request even with an inconsistent or stale state. This ensures availability but reduces consistency. This also means that you can respond asynchronously to the write transactions. You can accept the write request, perform operations later and response when the network partition has been resolved. 
  
  
- [^fn1]: https://en.wikipedia.org/wiki/CAP_theorem
+ [^fn1]: [https://en.wikipedia.org/wiki/CAP_theorem](https://en.wikipedia.org/wiki/CAP_theorem){target="_blank"}

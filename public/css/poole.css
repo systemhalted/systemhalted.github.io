@@ -350,6 +350,7 @@ tiple elements to show.
 .post-list {
     font-size: 14px;
     text-transform: uppercase;
+    list-style: none;
 }
 
 

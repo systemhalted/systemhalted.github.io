@@ -6,7 +6,7 @@ tags: [Powershell, Unix-shell, Windows]
 comments: true
 ---
 
-So, recently I purchased a used ThinkPad T430[^fn1] from ebay. However, when I tried to open the Windows Defender, I saw the following pop-up:
+Recently I purchased a used ThinkPad T430[^fn1] from ebay. However, when I tried to open the Windows Defender, I saw the following pop-up:
 
 ![Never say die popup]({{ site.url }}/assets/images/WindowsDefenderPopUp.png "Windows Defender Pop-up")
 

@@ -161,6 +161,13 @@ abbr[title] {
 code,
 pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
+   
+            /* Display language name */
+            &[data-lang]::before {
+                /* ... */
+                
+                position: absolute;
+            }
 }
 code {
   padding: .25em .5em;

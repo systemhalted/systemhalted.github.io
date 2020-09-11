@@ -21,6 +21,7 @@ var shortcuts = {
    "fb":   "http://facebook.com",
    "gp":   "http://getpocket.com/",
   "git":   "http://gitref.org/",
+  "omscs": "http://omscs.gatech.edu",
     "n":   "http://netflix.com",
     "q":   "http://www.quora.com"
 }
@@ -60,6 +61,7 @@ var help = {
     "e":	"javascript evaluator",
 	//"l":	"mit library",
 	//"rr":	"csail reading room",
+	"omscs": "Georgia Tech OMSCS Webpage"
     "cls":  "clear output/errors",
     "f":    "flipkart",
     "j":    "junglee",

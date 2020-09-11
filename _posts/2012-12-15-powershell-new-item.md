@@ -2,8 +2,8 @@
 layout: post
 date: 2012-12-15 21:45
 title: As Touch is to UNIX, New-Item is to Windows PowerShell
-category: Technology
-tags: [Powershell, Unix-shell]
+category: System Administration
+tags: [Powershell, Unix-shell, Windows]
 comments: true
 description: As Touch is to UNIX, New-Item is to Windows PowerShell
 ---

@@ -16,10 +16,14 @@ Apparently, this happens if you unistall a third-party Anti-virus software. But 
 
 2. Run following command
 
-``` sh
+
+{% highlight powershell %}
 Add-AppxPackage -Register -DisableDevelopmentMode “C:\Windows\SystemApps\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy\AppXManifest.xml”
-```
+{% endhighlight %}
 
 That's it. Done!
+
+## Notes
+--------
 
 [^fn1]: [Lenovo ThinkPad T430](https://www.lenovo.com/us/en/laptops/thinkpad/t-series/t430/)

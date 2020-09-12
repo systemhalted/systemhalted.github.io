@@ -12,9 +12,10 @@ tags:
 - git
 - svn
 - migration
+description: How to migrate SVN repository to Git?
 ---
 
-  Recently, I had to move one of my SVN repository (loans-autoloans-duedatechanges) from SVN to Git. As there was no tag or trunk and only branch (it is weird but true) it was fairly simple. Git comes with a great Git-Svn toolkit that you can use. However, there are few caveats and I will tell you how I overcame them. 
+Recently, I had to move one of my SVN repository from SVN to Git. As there was no tag or trunk and only branch (it is weird but true) it was fairly simple. Git comes with a great Git-Svn toolkit that you can use. However, there are few caveats and I will tell you how I overcame them. 
 
 I started by creating a new folder on my machine. On Git bash, I simply typed the following command:
 

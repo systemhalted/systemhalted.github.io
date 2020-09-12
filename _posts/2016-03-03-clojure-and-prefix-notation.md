@@ -4,7 +4,7 @@ title: Clojure and Polish Notation
 category: [Technology, Clojure] 
 tags: [Clojure, Prefix Notation, Polish Notation, Lisp]
 comments: true
-summary: Clojure syntax is prefix notation and it is difficult to switch to using it. 
+summary: Clojure syntax is prefix notation and it is difficult to switch to using it but is it? 
 --- 
 
 Clojure is a functional programming language targeting JVM developed by Rich Hickey. It is a dialect of Lisp, which is 

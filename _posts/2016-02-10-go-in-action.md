@@ -4,7 +4,7 @@ title: Book Review - Go in Action by Kennedy, Ketelsen and Martin
 category: [Book Reviews, Technology] 
 tags: [Go, GoLang, Programming, Language, Programming Language]
 comments: true
-summary: Go lang Go!
+description: Go lang Go!
 --- 
 
 Go in Action sets out to do what other books lack. It is kind of an academic introduction to Golang, which is beneficial for developers who have academic interest in the language development and also for those who are looking for a little hand-holding in GoLang. The book will act as a comprehensive language specification for GoLang.

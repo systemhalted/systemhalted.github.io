@@ -4,6 +4,7 @@ title: Windows 10 Battery Report
 category: System Administration
 tags: [Powershell, Unix-shell, Windows, Battery Report, ThinkPad T430, ThinkPad]
 comments: true
+description: Battery troubles? Generate a battery report on Windows 10.
 ---
 
 In my last post, I told you that I recently bought a used ThinkPad T430 from ebay. The first thing I noticed was that the battery drains within no time and I need to keep the laptop plugged in, which in turn means there is only little mobility that it affords me. So, I wanted to check how much battery life is remaining. Windows 10 comes with a great power tool to generate battery report. To generate this report, do the following:

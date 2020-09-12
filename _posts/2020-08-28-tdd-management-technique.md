@@ -4,6 +4,7 @@ title: Test Driven Development - A Management Technique
 category: [Software Engineering]
 tags: [software, testing ]
 comments: true
+description: Test Driven Development is just a management technique. 
 ---
 
 I like Unit Tests and am a huge fan of those (another post on that later). On the other hand TDD not so much. TDD or Test Driven Development is my nightmare. I can’t do it. Mostly, I struggle with it. Always, in the end, I hate it.

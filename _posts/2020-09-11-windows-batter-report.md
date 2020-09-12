@@ -11,9 +11,10 @@ In my last post, I told you that I recently bought a used ThinkPad T430 from eba
 1. Open a Powershell with elevated (admin) access.
 2. Run the following command:
 
-``` sh
+{% highlight powershell %}
 powercfg /batteryreport
-```
+{% endhighlight %}
+
 3. This will generate the report[^fn1] in the current folder with a file named `battery-report.html`. Open this file in a browser. 
 
 At the bottom of the report you will see the section `Current estimate of battery life based on all observed drains since OS install`. This will have two columns, `At Full Charge` and `At Design Capacity`. These will be the time the battery will retain juice at full charge compared to what it was designed for respectively. 

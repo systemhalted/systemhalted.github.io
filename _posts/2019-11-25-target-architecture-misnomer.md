@@ -13,7 +13,7 @@ tags:
 - domaindrivendesign
 - softwarearchitectue
 - targetarchitecture
-
+description: One phrase true for Target Architecture - Never Achieved.
 ---
 
 “I want to be in Target Architecture”, a high stake person in a company said. The problem is that no body understands what is Target Architecture. The phrase is so convoluted and confusing that it is not easy to define it, rest alone achieve it. Technology is always evolving. If it is evolving, then your architecture should be evolving as well. If our architecture is evolving, then there cannot be a finite target architecture. We can only have Target States of Architecture - one which help you set the goal and vision for the current set of projects to prevent them go rogue. But you will keep moving from one Target State to another. 

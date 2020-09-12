@@ -199,6 +199,23 @@ pre code {
   margin-bottom: 0;
 }
 
+figure.highlight {
+  /*https://github.com/m-cat/bytedude.com/blob/master/_sass/minutia/_syntax-highlighting.scss */
+  position: relative;
+
+  pre {
+     
+      code {
+          
+          /* Display language name */
+          &[data-lang]::before {
+              
+              position: absolute;
+          }
+      }
+  }
+}
+
 /* Gist via GitHub Pages */
 .gist .gist-file {
   font-family: Menlo, Monaco, "Courier New", monospace !important;

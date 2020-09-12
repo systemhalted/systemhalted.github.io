@@ -30,12 +30,19 @@ There is a famous joke on C strings, which I reproduce here
 
 Now let us delve further.  Suppose you have the following string:
 
-```char *str = "palak";```
+
+
+{% highlight c %}
+char *str = "palak";
+{% endhighlight %}
 
 There are few things that are very important to understand:
 
 1. This is same as 
- ```char *str = {'p','a','l','a','k','\0'};```
+ 
+{% highlight c %}
+char *str = {'p','a','l','a','k','\0'};
+{% endhighlight %}
 
 2. If you notice, the size of the store for the string is one more than the size of the string. So, if you declare your buffer of certain size and while I/O, you are reading the same size, you might be in for a huge surprise. So, if you declare your  buffer of size `BUFFER_SIZE`, read `BUFFER_SIZE - 1` of data into it.
 
@@ -45,6 +52,6 @@ Now, coming back to the funny business. The length of the string in C is given b
 
 So, C uses null terminated string as a compromise for compactness of code. Remember efficiency is not only the speed.  Of course, the current computing environment, excessive memory and CPU, productivity and speed is more important than compactness or preciseness of application.
 
-In fact, C++  has later abstracted string with` std::basic_string` class and it is supposed to hide internal implementation.
+In fact, C++  has later abstracted string with `std::basic_string` class and it is supposed to hide internal implementation.
 
 So, answer to the question, whether Strings in C are an anti-pattern depends on what shades you like. It is an anti-pattern and not an anti-pattern at the same time. 

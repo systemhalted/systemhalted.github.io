@@ -13,9 +13,9 @@ to as Prefix notation). Clojure follows the same fully-parenthesized Polish pref
 
 It is a beautiful language. However, people get scared when they see the prefix notation and lot of parenthesis. For example,
 
-``` clj
+{% highlight clojure %}
 (+ 3 4 (+ 3 3 5)
-```  
+{% endhighlight %} 
 
 Recently, a question was asked on [Java Ranch](http://www.coderanch.com/t/661955/clojure/Clojure-Action) and I tried to 
 answer the question to the best of my knowledge. I am just presenting it here. 
@@ -37,18 +37,17 @@ first followed by A and then B, equals, ```* A B``` and in Lisp world of parenth
 This complication is mostly for mathematical functions like +, -, * and /. However, other functions are very easy. For
  example, a call in Python like programming language would look like, 
  
-``` python
+{% highlight python %}
 print "Hello World!"
-```
+{% endhighlight %}
 
 This is nothing but a prefix notation and can be represented in Clojure as
 
-``` clj
+{% highlight clojure %}
 (print "Hello Word!")
-```
+{% endhighlight %}
 
-I  have never developed a full-scale application in Clojure or LISP, but I find it much easier to understand the code in 
-Clojure then Java. It is easier to make Java code look horrible, it is equally difficult to do so in Clojure. 
+I  have never developed a full-scale application in Clojure or LISP, but I find it much easier to understand the code in Clojure then Java. It is easier to make Java code look horrible, it is equally difficult to do so in Clojure. 
 
 I find this article named [The Nature of Lisp](http://www.defmacro.org/ramblings/lisp.html) on the steep curve in learning 
 Lisp worth reading. And also, [2 MYTHS AND 2 FACTS ABOUT CLOJURE THAT CHANGE EVERYTHING](http://blog.cognitect.com/blog/2015/9/21/2-myths-and-2-facts-about-clojure-that-change-everything)

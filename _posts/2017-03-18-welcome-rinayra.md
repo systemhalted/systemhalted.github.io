@@ -10,6 +10,7 @@ categories:
 - Personal
 tags:
 - Rinayra
+description: Welcome Rinayra, my princess!
 ---
 
 On 13th March 2017, we welcomed our princess, Rinayra. Rinayra means princess. The spelling should have been Rinaira. But `i` was looking odd. So, we replaced it with a `y`. No numerology. Mom and baby are doing fine.

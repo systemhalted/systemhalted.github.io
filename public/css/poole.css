@@ -161,6 +161,7 @@ abbr[title] {
 code,
 pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
+   
 }
 code {
   padding: .25em .5em;
@@ -180,7 +181,7 @@ pre {
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: #f9f9f9;
+  background-color: beige;
 }
 pre code {
   padding: 0;
@@ -196,6 +197,23 @@ pre code {
 }
 .highlight pre {
   margin-bottom: 0;
+}
+
+figure.highlight {
+  /*https://github.com/m-cat/bytedude.com/blob/master/_sass/minutia/_syntax-highlighting.scss */
+  position: relative;
+
+  pre {
+     
+      code {
+          
+          /* Display language name */
+          &[data-lang]::before {
+              
+              position: absolute;
+          }
+      }
+  }
 }
 
 /* Gist via GitHub Pages */
@@ -353,6 +371,7 @@ tiple elements to show.
 .page-title,
 .post-title {
   margin-top: 0;
+  font-size: 1rem;
 }
 
 .post-list {

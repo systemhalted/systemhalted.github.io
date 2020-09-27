@@ -4,6 +4,7 @@ title: Walmart Digical Fail
 category: [Insane Thoughts]
 tags: [customer experience, walmart, digical, digical_fail, digitalcommerce, customerexperience ]
 comments: true
+description: Horrible experience with Walmart
 ---
 
 I was at a Walmart store in Bashford Manor in Louisville with my brother-in-law to return an item that was bought on Walmart.com and the return was initiated online but for the return to a store. 

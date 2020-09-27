@@ -2,8 +2,9 @@
 layout: post
 title: Emerging Technologies - 2017
 category: [Technology]
-tags: [emerging-tech ]
+tags: [2017, emerging-tech ]
 comments: true
+description: List of top 10 emerging technologies of 2017.
 ---
 
 These are the top 10 emerging technologies[^fn1] of 2017:

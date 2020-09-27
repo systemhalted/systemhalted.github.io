@@ -23,7 +23,7 @@ This page acts like a Wiki for me to update the information that I acquire on Em
 
    - [EmacsVanillaChocolateSwirl](https://github.com/shombando/EmacsVanillaChocolateSwirl) - This is still a Work in Progress, but the aim of this config is to make it easy for new users (less than six months on Emacs) to be able to understand and use Emacs. 
 
-   - [My Config](https://github.gatech.edu/pmathur33/emacs.d) - If you are in Georgia Tech, you can have a look at my configuration. 
+   - [My Config](https://github.gatech.edu/pmathur33/emacs.d) - If you are in Georgia Tech, you can have a look at my configuration. Also, the html page exported from org-mode is available [here](https://systemhalted.in/emacs-config.html).
 
 ## Planet Emacs
 

@@ -6,6 +6,7 @@ url:                 https://systemhalted.github.io
 baseurl:             ''
 paginate:            5
 permalink:           pretty
+disqus_shortname: palakmathurgithub
 
 # About/contact
 author:
@@ -15,6 +16,7 @@ author:
 
 
 markdown: kramdown
+highlighter: rouge
 # Gems
 plugins:
   - jekyll-paginate

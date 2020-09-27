@@ -4,6 +4,7 @@ title: New Year 2020 - Resolution
 category: [Insane Thoughts]
 tags: [2020, new year resolution ]
 comments: true
+description: Procrastinator's attempt to follow a better lifestyle. First Post.
 ---
 
 I am lazy, a procrastinator and I skip exercising, cycling, and lot of “living”. I want to change this habit. As I am getting older, it will be wiser for me to stop thinking and start “living”.
@@ -23,3 +24,4 @@ I can currently think of the following things that I can quantify:
 8. Podcast (Non-technical) minutes
 9. Screen Time
 10. GATech course hours
+11. Weight lost

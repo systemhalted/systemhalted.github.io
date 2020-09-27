@@ -16,6 +16,7 @@ tags:
 - reactive architecture
 - haskell
 - spring xd
+description: An attempt to make sense of the world I work in. 
 ---
 
 Last year I have worked a lot on Distributed Runtime environments specially using Spring XD. Spring XD provides a way to create Streams which can process lot of flowing data in real time. Spring XD internally uses Spring Integration for most of the processing of data. However, it is impossible for any module to handle lots of data in real time. This is handled through defining protocols for message transfer which is nothing but a Queue. This queueing mechanism enables the creation of real-time streams. 

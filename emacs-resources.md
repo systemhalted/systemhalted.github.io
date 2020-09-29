@@ -38,6 +38,8 @@ This page acts like a Wiki for me to update the information that I acquire on Em
    - [Emacs IRC](https://www.emacswiki.org/emacs/Freenode) - #channel on Freenode is a great place to get your questions answered or just to discuss random stuff. What happens in #emacs, stays in #emacs. There is no public log available.
 
    - [Emacs Videos](http://emacslife.com/videos.html) - A great collection of Emacs videos - talks, tutorials, tips and tricks.
+   
+   - [Master Emacs in one year](https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-en.org) - A practical guide to Emacs
 
 
 

@@ -29,7 +29,7 @@ This page acts like a Wiki for me to update the information that I acquire on Em
 
    - [Emacs for Newbies](https://www.emacswiki.org/emacs/EmacsNewbie) - A good resource for Emacs Newbies.
 
-   - [Planet Emaslife](https://planet.emacslife.com/) - If you are interested in what people are doing with their Emacs, this is the feed for all such information. The english site is maintained by [Sacha Chua](https://sachachua.com/blog/about/).
+   - [Planet Emacslife](https://planet.emacslife.com/) - If you are interested in what people are doing with their Emacs, this is the feed for all such information. The english site is maintained by [Sacha Chua](https://sachachua.com/blog/about/).
 
    - [Emacs Wiki](https://www.emacswiki.org/emacs/SiteMap) - Emacs Wiki. You will find info, tips and tricks. A great resource for anyone using Emacs.
 

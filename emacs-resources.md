@@ -11,7 +11,7 @@ This page acts like a Wiki for me to update the information that I acquire on Em
 
    - [Emacs for MacOS](https://emacsformacosx.com/) - I run Emacs on Mac OS and this is the binary that I use. The other options can be found on [EmacsForMacOS](https://www.emacswiki.org/emacs/EmacsForMacOS) wiki page. 
    
-   - [Emacs for Windows](https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html) - This is the mirror for Windows binaries. You can read more about Emacs on Windows an [GNU Emacs FAQ for MS Windows](https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html).
+   - [Emacs for Windows](https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html) - This is the mirror for Windows binaries. You can read more about Emacs on Windows at [GNU Emacs FAQ for MS Windows](https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html).
 
 ## Configuration
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: I am in awe of Emacs
-category: Programming, Emacs
+category: Emacs
 tags: [emacs]
 comments: true
 description: I am in awe of Emacs. I wrote this post originally on Reddit. Just copying it here to save it.

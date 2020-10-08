@@ -13,9 +13,9 @@ This page acts like a Wiki for me to update the information that I acquire on Em
    
    - [Emacs for Windows](https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html) - This is the mirror for Windows binaries. You can read more about Emacs on Windows at [GNU Emacs FAQ for MS Windows](https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html).
 
-## Configuration
+## Configurations
 
-   Emacs is difficult for newbie users coming from editors like Sublime, VSCode, etc. So, it is always better to start with a many modern configurations provided by so many experienced users. Here are few that I like:
+  You can use vanilla Emacs and personalize it to your taste. However, Emacs is difficult for newbie users coming from editors like Sublime, VSCode, etc. Also, if you have no idea about Emacs Lisp, it seems scary as well. So, it is always better to start with one of the many modern configurations provided by so many experienced users. Here are a few that I like:
 
    - [Danniel Higginbotham's config](https://github.com/flyingmachine/emacs.d) - This is where I started. He also wrote a basic [Emacs tutorial](https://www.braveclojure.com/basic-emacs/) as part of his book [Clojure for the Brave and True](http://www.braveclojure.com/).
 
@@ -24,6 +24,8 @@ This page acts like a Wiki for me to update the information that I acquire on Em
    - [EmacsVanillaChocolateSwirl](https://github.com/shombando/EmacsVanillaChocolateSwirl) - This is still a Work in Progress, but the aim of this config is to make it easy for new users (less than six months on Emacs) to be able to understand and use Emacs. 
 
    - [My Config](https://github.gatech.edu/pmathur33/emacs.d) - If you are in Georgia Tech, you can have a look at my configuration. Also, the html page exported from org-mode is available [here](https://systemhalted.in/emacs-config.html).
+
+ 
 
 ## Planet Emacs
 
@@ -41,6 +43,14 @@ This page acts like a Wiki for me to update the information that I acquire on Em
    
    - [Master Emacs in one year](https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-en.org) - A practical guide to Emacs
 
+## Video Tutorials/Playlists
+
+   - [Emacs from Scratch by David Wilson](https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ) - I love these videos by David Wilson. These are recorded as part of the live sessions that he does and I admire his guts that he is able to pull it off.
+
+   - [Emacs by Uncle Dave](https://www.youtube.com/watch?v=d6iY_1aMzeg&list=PLX2044Ew-UVVv31a0-Qn3dA6Sd_-NyA1n) - I love these videos. Sometimes voice gets muffled in between in some videos, but this is still good playlist. 24 videos. He also has videos on org-mode, but I have not been through those yet.
+
+
+   
 
 
 

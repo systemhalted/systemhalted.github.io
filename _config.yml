@@ -6,7 +6,7 @@ url:                 https://systemhalted.github.io
 baseurl:             ''
 paginate:            8
 permalink:           pretty
-disqus_shortname: palakmathurgithub
+disqus_shortname:    palakmathurgithub
 
 # About/contact
 author:

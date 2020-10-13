@@ -4,7 +4,7 @@ tagline:             'enlightenment-reawakening-reformation'
 description:         'System Halted - I am just a DOS error'
 url:                 https://systemhalted.github.io
 baseurl:             ''
-paginate:            7
+paginate:            10
 permalink:           pretty
 disqus_shortname: palakmathurgithub
 

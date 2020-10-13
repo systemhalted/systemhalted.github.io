@@ -25,5 +25,5 @@ layout: default
   </ul>
 </div>
 {% endif %}
-<script> console.log("post.comments"); console.log(post.comments); </script>
+<script> console.log("post.comments"); console.log({{post.comments}}); </script>
 {% if post.comments == true %}{% include comments.html %}{% endif %}

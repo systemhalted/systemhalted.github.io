@@ -8,7 +8,6 @@ var navigation = {
    // "pc":   "http://systemhalted.in/contact",
     "pr":   "http://systemhalted.in/feed.xml",
     "ph":   "http://systemhalted.in/",
-  // "pbb":   "http://code.systemhalted.in",
    "pgh":   "https://github.com/systemhalted"
 }
 
@@ -21,7 +20,7 @@ var shortcuts = {
    "fb":   "http://facebook.com",
    "gp":   "http://getpocket.com/",
   "git":   "http://gitref.org/",
-  "omscs": "http://omscs.gatech.edu",
+  "omscs": "http://omscs.gatech.edu/current-courses",
     "n":   "http://netflix.com",
     "q":   "http://www.quora.com"
 }
@@ -34,10 +33,7 @@ var searches = {
        "gi":	["http://www.google.com/images", "q"],
 	"w":	["http://en.wikipedia.org/wiki/Special:Search", "search"],
         "f":    ["http://www.flipkart.com/search/a/all", "query",
-            {"vertical": "All+Categories", "affid":"palakmathur"}],
-        "j":    ["http://www.junglee.com/mn/search/junglee", "field-keywords",
-			{"url": "search-alias=aps" }],
-       "qs":    ["http://www.quora.com/search", "q"]
+            {"vertical": "All+Categories", "affid":"palakmathur"}]
 }
 
 // Help text to be displayed for shortcuts & commands.
@@ -50,7 +46,7 @@ var help = {
     "ph":   "Home Page in Normal Mode (not commandline)",
     "pbb":  "Code Repositories on Bitbucket",
     "pgh":  "Code Repositories on Github",
-    "a":	"amazon",
+    "a":    "amazon",
     "g":	"google search",
     "gi":	"google image search",
     "cs":	"google code search",
@@ -59,13 +55,12 @@ var help = {
     "c":	"google calendar",
     "w":	"wikipedia",
     "e":	"javascript evaluator",
-	//"l":	"mit library",
-	//"rr":	"csail reading room",
-	"omscs": "Georgia Tech OMSCS Webpage"
-    "cls":  "clear output/errors",
+    "l":	"GATech Library",
+    "omscs": "GATech OMSCS Courses",
     "f":    "flipkart",
-    "j":    "junglee",
-    "qs":    "quora"
+    "cls":  "clear output/errors"
+    
+   
 }
 
 // Commands: args are command name, arg text,
@@ -255,7 +250,8 @@ function search(cmd, arg, args)
 // Handle simple shortcut.
 function shortcut(cmd, arg, args)
 {
-	window.location = shortcuts[cmd];
+    window.open(shortcuts[cmd], "_blank");
+   // window.location = shortcuts[cmd];
 }
 
 function navigations(cmd, arg, args)

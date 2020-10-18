@@ -21,6 +21,7 @@ var shortcuts = {
     "gp":   "http://getpocket.com/",
     "git":   "http://gitref.org/",
     "omscs": "http://omscs.gatech.edu/current-courses",
+    "l": "https://library.gatech.edu",
     "n":   "http://netflix.com",
     "q":   "http://www.quora.com"
 }

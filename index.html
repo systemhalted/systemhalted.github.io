@@ -15,6 +15,7 @@ title: Home
     <span class="post-description">{{ post.description }}</span> <br>
     <!-- <span class="read-more"><a href="{{ post.url | relative_url }}">[&nbsp;Read&nbsp;more&nbsp;]</a></span> -->
   </div>
+  {{post.categories | capitalize | join: ', '}}
   {% endfor %}
 </div>
 

@@ -22,4 +22,4 @@ I am mesmerized. You do not need to know the names of the stars to admire them. 
 Notes:
 ======
 
-[^1] Sometimes I think COVID-19 came as a boon to half of humanity - we are indulging ourselves in the things that we always wanted to do. Markets are out of bikes, telescopes, everything you can think of is either out of stock or back-ordered)
+[^1]: Sometimes I think COVID-19 came as a boon to half of humanity - we are indulging ourselves in the things that we always wanted to do. Markets are out of bikes, telescopes, everything you can think of is either out of stock or back-ordered)

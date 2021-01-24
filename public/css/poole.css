@@ -399,6 +399,18 @@ tiple elements to show.
   font-size: 12px
 }
 
+.post-categories {
+    display: block;
+    font-size: 14px;
+    margin-top: -.5rem;
+    margin-bottom: 0.5rem;
+    color: #9a9a9a;
+}
+
+.post-categories#a  {
+    color: #237ab7;
+}
+
 /* Related posts */
 .related {
   padding-top: 2rem;

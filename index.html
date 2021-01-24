@@ -10,11 +10,24 @@ title: Home
       <a href="{{ post.url | absolute_url }}">
         {{ post.title }}
       </a>
-    </h1>
+      </h1>
+      
+     <div class="post-categories">
+      {% if post %}
+      {% assign categories = post.categories %}
+      {% else %}
+      {% assign categories = page.categories %}
+      {% endif %}
+      {% for category in categories %}
+      <a href="{{site.baseurl}}/categories/#{{category|slugize}}">{{category}}</a>
+      {% unless forloop.last %}&nbsp;{% endunless %}
+      {% endfor %}
+    </div>
+    
     <span class="post-date">{{ post.date | date_to_string }}</span>
+ 
     <span class="post-description">{{ post.description }}</span> <br>
     <!-- <span class="read-more"><a href="{{ post.url | relative_url }}">[&nbsp;Read&nbsp;more&nbsp;]</a></span> -->
-     {{post.categories | capitalize | join: ', '}}
   </div>
  
   {% endfor %}

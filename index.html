@@ -25,8 +25,9 @@ title: Home
     </div>
     
     <span class="post-date">{{ post.date | date_to_string }}</span>
- 
-    <span class="post-description">{{ post.description }}</span> <br>
+    {% if post.description %} 
+      <span class="post-description">{{ post.description }}</span> <br>
+    {% endif %}
     <!-- <span class="read-more"><a href="{{ post.url | relative_url }}">[&nbsp;Read&nbsp;more&nbsp;]</a></span> -->
   </div>
  

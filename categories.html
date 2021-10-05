@@ -19,8 +19,8 @@ description: "An archive of posts sorted by categories."
   {% endif %}
 {% assign tags_list = nil %}
 </ul>
-
-{% for tag in site.categories %} 
+% assign tags_list = site.categories | sort %}  
+{% for tag in tags_list %} 
   <h2 id="{{ tag[0] }}" style="color: #c91b26">{{ tag[0] | capitalize }}</h2>
   <ul class="post-list">
     {% assign pages_list = tag[1] %}  

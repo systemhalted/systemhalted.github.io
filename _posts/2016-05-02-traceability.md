@@ -7,7 +7,7 @@ published: true
 comments: true
 status: publish
 categories:
-- Technology
+- Software Engineering
 - Agile
 tags:
 - traceability

@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Voyeurism is bad
-category: [Insane Thoughts, Spirituality, Personal Growth, Family]
-tags: [spirituality, mental health, physical health, life, family, family issues]
+category: [Insane Thoughts, Spirituality]
+tags: [spirituality, mental health, physical health, life, lgbtq, queer, sex,sexuality, yukteswar giri, voyeurism]
 comments: true
 description: If we are all souls impersonating as man or woman, we have no sex. We are just a pure soul, an image of God. Leave people and their sex lives alone. Voyeurism is bad!
 ---

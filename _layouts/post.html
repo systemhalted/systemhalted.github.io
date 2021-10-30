@@ -21,10 +21,11 @@ layout: default
           </a>
         </h3>
       </li>
-    {% if post.comments == true %}{% include comments.html %}{% endif %}
-    {% endfor %}
+   
   </ul>
 </div>
+ {% if post.comments == true %}{% include comments.html %}{% endif %}
+ {% endfor %}
 {% endif %}
 
 

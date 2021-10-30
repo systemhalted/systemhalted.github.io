@@ -7,7 +7,7 @@ image:
 feature: palakmathur.jpg
 ---
  
-  I am currenntly the Senior Manager of Software Engineering with Capital One. 
+  I am currenntly a Senior Manager of Software Engineering with Capital One. 
   
   I am also a Podcaster and have two podcasts - Nukkad Shukkad and Indian Dad American Kid. 
   

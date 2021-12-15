@@ -1,0 +1,30 @@
+I"a<p>Recently I purchased a used ThinkPad T430<sup id="fnref:fn1"><a href="#fn:fn1" class="footnote">1</a></sup> from ebay. However, when I tried to open the Windows Defender, I saw the following pop-up:</p>
+
+<p><img src="http://localhost:4000/assets/images/WindowsDefenderPopUp.png" alt="Never say die popup" title="Windows Defender Pop-up" /></p>
+
+<p>Apparently, this happens if you unistall a third-party Anti-virus software. But it is easy to fix it by following steps</p>
+
+<ol>
+  <li>
+    <p>Open Powershell with elevated (Admin) access</p>
+  </li>
+  <li>
+    <p>Run following command</p>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Add-AppxPackage</span><span class="w"> </span><span class="nt">-Register</span><span class="w"> </span><span class="nt">-DisableDevelopmentMode</span><span class="w"> </span><span class="err">“</span><span class="nx">C:\Windows\SystemApps\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy\AppXManifest.xml</span><span class="err">”</span></code></pre></figure>
+
+<p>That’s it. Done!</p>
+
+<h2 id="notes">Notes</h2>
+<hr />
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:fn1">
+      <p><a href="https://www.lenovo.com/us/en/laptops/thinkpad/t-series/t430/">Lenovo ThinkPad T430</a> <a href="#fnref:fn1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

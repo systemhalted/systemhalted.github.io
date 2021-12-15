@@ -1,0 +1,40 @@
+I"<p>Recently, I had to move one of my SVN repository from SVN to Git. As there was no tag or trunk and only branch (it is weird but true) it was fairly simple. Git comes with a great Git-Svn toolkit that you can use. However, there are few caveats and I will tell you how I overcame them.</p>
+
+<p>I started by creating a new folder on my machine. On Git bash, I simply typed the following command:</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">git svn clone https://subversion.abc.com/svn/api-services/branches/apiservices_sprint.dev/test-api</code></pre></figure>
+
+<p>It took some time and my repo was cloned. However, when I did git log to check history, the comments were of following format:</p>
+
+<p><img src="http://localhost:4000/assets/images/git-log.png" alt="Not so good log" title="git log" /></p>
+
+<p>It doesn’t look like what normal and proper git logs look like. There are few problems. Firstly, the author is unidentifiable:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Author: xyz &lt;xyz@4c9131da-42a3-4784-a41a-982bb726ad01&gt;
+</code></pre></div></div>
+
+<p>Second, there is way too much meta data. What I will do with the element git-svn-id? I don’t need it.</p>
+
+<p>The meta-data issue can be resolved with modifying the command by adding –no-metadata to it.</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">    git svn clone https://subversion.abc.com/svn/api-services/branches/apiservices_sprint.dev/test-api test-api <span class="nt">--no-metadata</span></code></pre></figure>
+
+<p>Still few things remain undesirable. The author of the commits are still not properly identifiable. I wanted a way to extract the author information from the SVN log and replace it with the proper author information. To do that, I had to extract the logs in an xml format, grep-ed on author and stripped the xml tags. Git-scm came to the rescue with the simple command for this:</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">    svn log <span class="nt">--xml</span> | <span class="nb">grep </span>author | <span class="nb">sort</span> <span class="nt">-u</span> | perl <span class="nt">-pe</span> <span class="s1">'s/.*&gt;(.*?)&lt;.*/$1 = /'</span>  <span class="o">&gt;</span> users.txt</code></pre></figure>
+
+<p>I got the list of users in a text file. In which I provided further information in key=value pair. For eg:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    xyz=ABC DEF &lt;abc.def@gmail.com&gt;
+</code></pre></div></div>
+
+<p>Now, again I deleted the previously cloned repo and ran the following command</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">    git svn clone https://subversion.abc.com/svn/api-services/branches/apiservices_sprint.dev/test-api <span class="nt">--authors-file</span><span class="o">=</span>users.txt <span class="nt">--no-metadata</span> test-api</code></pre></figure>
+
+<p>And, finally, I got the nice clone with good looking comments:</p>
+
+<p><img src="http://localhost:4000/assets/images/git-log1.png" alt="Better log" title="git log" /></p>
+
+<p>This looks cleaner and much better than the previous commit message and more <strong>Gitly</strong>, if I may use that word.</p>
+:ET

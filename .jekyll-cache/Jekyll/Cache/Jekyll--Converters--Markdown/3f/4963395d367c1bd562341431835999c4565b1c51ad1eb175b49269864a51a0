@@ -1,0 +1,24 @@
+I"ä<p>In my last post, I told you that I recently bought a used ThinkPad T430 from ebay. The first thing I noticed was that the battery drains within no time and I need to keep the laptop plugged in, which in turn means there is only little mobility that it affords me. So, I wanted to check how much battery life is remaining. Windows 10 comes with a great power tool to generate battery report. To generate this report, do the following:</p>
+
+<ol>
+  <li>Open a Powershell with elevated (admin) access.</li>
+  <li>Run the following command:</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">powercfg</span><span class="w"> </span><span class="nx">/batteryreport</span></code></pre></figure>
+
+<ol>
+  <li>This will generate the report<sup id="fnref:fn1"><a href="#fn:fn1" class="footnote">1</a></sup> in the current folder with a file named <code class="highlighter-rouge">battery-report.html</code>. Open this file in a browser.</li>
+</ol>
+
+<h2 id="notes">Notes</h2>
+<hr />
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:fn1">
+      <p>At the bottom of the report you will see the section <code class="highlighter-rouge">Current estimate of battery life based on all observed drains since OS install</code>. This will have two columns, <code class="highlighter-rouge">At Full Charge</code> and <code class="highlighter-rouge">At Design Capacity</code>. These will be the time the battery will retain juice at full charge compared to what it was designed for respectively. Read <a href="https://www.pcmag.com/how-to/how-to-check-your-laptop-battery-health-in-windows-10">this</a> article on PCMag for more detailsÂ <a href="#fnref:fn1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

@@ -1,0 +1,76 @@
+I"<p>This page acts like a Wiki for me to update the information that I acquire on Emacs. It will be mostly the links to the outside resources rather than being the comprehensive documentation on Emacs. This is my aim to make Emacs accessible to the community.</p>
+
+<h2 id="downloadinstall">Download/Install</h2>
+
+<ul>
+  <li>
+    <p><a href="https://emacsformacosx.com/">Emacs for MacOS</a> - I run Emacs on Mac OS and this is the binary that I use. The other options can be found on <a href="https://www.emacswiki.org/emacs/EmacsForMacOS">EmacsForMacOS</a> wiki page.</p>
+  </li>
+  <li>
+    <p><a href="https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html">Emacs for Windows</a> - This is the mirror for Windows binaries. You can read more about Emacs on Windows at <a href="https://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html">GNU Emacs FAQ for MS Windows</a>.</p>
+  </li>
+</ul>
+
+<h2 id="configurations">Configurations</h2>
+
+<p>Emacs is a platform, which you can mold to be the editor of your choice. Doom Emacs is just that editor, which uses Emacs as the platform. You can use vanilla Emacs and personalize it to your taste. However, Emacs is difficult for newbie users coming from editors like Sublime, VSCode, etc. Also, if you have no idea about Emacs Lisp, it seems scary as well. So, it is always, with a grain of salt or YMMV etc., etc., better to start with one of the many modern configurations provided by so many experienced users. Here are a few that I like:</p>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/flyingmachine/emacs.d">Danniel Higginbotham’s config</a> - This is where I started. He also wrote a basic <a href="https://www.braveclojure.com/basic-emacs/">Emacs tutorial</a> as part of his book <a href="http://www.braveclojure.com/">Clojure for the Brave and True</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://prelude.emacsredux.com/en/latest/">Prelude</a> - This I think is nice startup config, which comes with essentially everything you need to start being productive on Emacs. I have never used it myself but it has been an inspiration for may configurations. Recently, it came out of beta and released version 1.0.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/shombando/EmacsVanillaChocolateSwirl">EmacsVanillaChocolateSwirl</a> - This is still a Work in Progress, but the aim of this config is to make it easy for new users (less than six months on Emacs) to be able to understand and use Emacs.</p>
+  </li>
+  <li>
+    <p><a href="https://github.gatech.edu/pmathur33/emacs.d">My Config</a> - If you are in Georgia Tech, you can have a look at my configuration. Also, the html page exported from org-mode is available <a href="https://systemhalted.in/emacs-config.html">here</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/hlissner/doom-emacs">Doom Emacs</a> - It is one of the popular Emacs configurations. I like to call them opinionated and full-blown Emacs distributions. I have not used it. But I love the look of it. I personally use <a href="https://github.com/hlissner/emacs-doom-themes">Doom Themes</a> and <a href="https://github.com/seagle0128/doom-modeline">Doom modeline</a>. Doom Emacs looks and feel very elegant.</p>
+  </li>
+  <li>
+    <p><a href="https://www.spacemacs.org/">Spacemacs</a> - It is another famous configuration just like Doom Emacs. Again, I have not used it. It makes it easy for people to use Vim-like editing possible in Emacs (whatever that means). I like it’s logo - Evil Emacs. I don’t know what it is (that is the logo) called, it look like that and also since we are talking about Vim, there is an evil-mode in Emacs, which makes Emacs work like Vim. Again, try it out and decide for yourself. Like Doom, it looks very elagant.</p>
+  </li>
+</ul>
+
+<h2 id="planet-emacs">Planet Emacs</h2>
+
+<ul>
+  <li>
+    <p><a href="https://www.emacswiki.org/emacs/EmacsNewbie">Emacs for Newbies</a> - A good resource for Emacs Newbies.</p>
+  </li>
+  <li>
+    <p><a href="https://planet.emacslife.com/">Planet Emacslife</a> - If you are interested in what people are doing with their Emacs, this is the feed for all such information. The english site is maintained by <a href="https://sachachua.com/blog/about/">Sacha Chua</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://www.emacswiki.org/emacs/SiteMap">Emacs Wiki</a> - Emacs Wiki. You will find info, tips and tricks. A great resource for anyone using Emacs.</p>
+  </li>
+  <li>
+    <p><a href="https://www.reddit.com/r/emacs/">r/emacs</a> - The best subreddit ever.</p>
+  </li>
+  <li>
+    <p><a href="https://www.emacswiki.org/emacs/Freenode">Emacs IRC</a> - #channel on Freenode is a great place to get your questions answered or just to discuss random stuff. What happens in #emacs, stays in #emacs. There is no public log available.</p>
+  </li>
+  <li>
+    <p><a href="http://emacslife.com/videos.html">Emacs Videos</a> - A great collection of Emacs videos - talks, tutorials, tips and tricks.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-en.org">Master Emacs in one year</a> - A practical guide to Emacs</p>
+  </li>
+</ul>
+
+<h2 id="video-tutorialsplaylists">Video Tutorials/Playlists</h2>
+
+<ul>
+  <li>
+    <p><a href="https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ">Emacs from Scratch by David Wilson</a> - I love these videos by David Wilson. These are recorded as part of the live sessions that he does and I admire his guts that he is able to pull it off.</p>
+  </li>
+  <li>
+    <p><a href="https://www.youtube.com/watch?v=d6iY_1aMzeg&amp;list=PLX2044Ew-UVVv31a0-Qn3dA6Sd_-NyA1n">Emacs by Uncle Dave</a> - I love these videos. Sometimes voice gets muffled in between in some videos, but this is still good playlist. 24 videos. He also has videos on org-mode, but I have not been through those yet.</p>
+  </li>
+</ul>
+
+:ET

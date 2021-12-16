@@ -1,0 +1,44 @@
+I"/<p>Unix has a command called Touch that creates an empty file</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ touch touch_test.txt  
+touch_test.txt 
+</code></pre></div></div>
+
+<p>This command is not available in Windows PowerShell. However, there is a command in Powershell which also does the same - <code class="highlighter-rouge">New-Item</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Documents and Settings\Administrator\Workspace&gt;New-item new_file.txt  &lt;br&gt;
+</code></pre></div></div>
+
+<p>This will ask you to enter a <code class="highlighter-rouge">Type</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Type: file 
+</code></pre></div></div>
+
+<p>The output will look something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Directory: C:\Documents and Settings\Administrator\Workspace
+
+
+Mode                LastWriteTime            Length   Name
+----                -------------            ------   ----
+-a---             12/15/2012   9:32 PM          0     new_file.txt
+</code></pre></div></div>
+
+<p>Try to use <code class="highlighter-rouge">Directory</code> as Type. Check it yourself what it does.</p>
+
+<p>You can also specify the type inline with the command</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Documents and Settings\Administrator\Workspace&gt;New-item palakmathur.txt -type file 
+</code></pre></div></div>
+
+<p>The output will look something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Directory: C:\Documents and Settings\Administrator\Workspace
+
+ Mode                LastWriteTime            Length   Name 
+ ----                -------------            ------   ---- 
+ -a---             12/15/2012   9:32 PM          0     palakmathur.txt
+</code></pre></div></div>
+
+<p>Try this command and I will be soon back with another command. Till then enjoy PowerShell.</p>
+:ET

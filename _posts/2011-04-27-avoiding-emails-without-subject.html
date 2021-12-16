@@ -1,0 +1,53 @@
+---
+layout: post
+title: Avoiding emails without Subject?
+date: 2011-04-27 22:14:30.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+category:
+- Troubleshooters and Technical Stuff
+tags:
+- Email client
+- infosys
+- Microsoft Outlook
+- Outlook
+- Visual Basic
+meta:
+  _edit_last: '547454'
+  geo_latitude: '27.129264'
+  geo_longitude: '78.054729'
+  geo_accuracy: '0'
+  geo_address: street, Agra H O, Uttar Pradesh, India
+  geo_public: '0'
+  _wpas_done_yup: '1'
+  _wpas_done_twitter: '1'
+  _wpas_skip_fb: '1'
+  reddit: a:2:{s:5:"count";s:1:"0";s:4:"time";s:10:"1329622596";}
+author:
+  login: palakmathur
+  email: palakmathur@gmail.com
+  display_name: Palak Mathur
+  first_name: Palak
+  last_name: Mathur
+permalink: "/2011/04/27/avoiding-emails-without-subject/"
+---
+<p>More often than not I used to compile a fantastic mail to send to my colleagues (even managers) in office and just after clicking "Send" button, it used to strike me that I have missed mentioning the subject. So, I requested few friends on <a class="zem_slink" title="Infosys Technologies" href="http://www.infosys.com/" rel="homepage">Infosys</a> internal blogs to send me the script for Outlook. And Nikhil Kurien mailed me the requested piece of code. It was back in 2007. I was just cleaning up my mails and thought it would be better if I keep it on my blog as it would make it easy for me to access it whenever I wish rather than searching for the mail. So, here are the steps that we need to follow:-</p>
+<p>1. Open your outlook</p>
+<p>2. Press Alt+F11 (this opens the <a class="zem_slink" title="Visual Basic" href="http://msdn.microsoft.com/en-us/vbasic/default.aspx" rel="homepage">Visual Basic</a> editor)</p>
+<p>3. On the Left Pane you'll see "<a class="zem_slink" title="Microsoft Outlook" href="http://www.microsoft.com/mac/outlook" rel="homepage">Microsoft Outlook</a> Objects", expand this. Now one can see the "ThisOutLookSession".</p>
+<p>4. Click on "ThisOutLookSession".</p>
+<p>5. Copy and Paste the following code in the right pane. (Code Pane)</p>
+<p><code>Private Sub Application_ItemSend(ByVal Item As Object, Cancel As Boolean)</p>
+<p>Dim strSubject As String</p>
+<p>strSubject = Item.Subject</p>
+<p>If Len(strSubject) = 0 Then</p>
+<p>Prompt$ = "Subject is Empty. Are you sure you want to send the Mail?"</p>
+<p>If MsgBox(Prompt$, vbYesNo + vbQuestion + vbMsgBoxSetForeground, "Check for Subject") = vbNo Then</p>
+<p>Cancel = True</p>
+<p>End If</p>
+<p>End If</p>
+<p>End Sub</code></p>
+<p>6. Save this and now close the VB Code editor and take a breath. From now on, this macro will make sure you do not make the mistake of sending an email without subject.</p>

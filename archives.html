@@ -3,7 +3,7 @@ layout: page
 title: Archives
 ---
 
-<i> There are {% site.posts.size %} published articles. </i>
+<i> There are {{ site.posts | size }} published articles. </i>
 
 <ul>
   {% for post in site.posts %}

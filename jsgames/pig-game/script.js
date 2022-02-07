@@ -12,6 +12,12 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnInstructions = document.querySelector('.btn--instructions')
+
+
 let currentScore 
 let  activePlayer ;
 let  scores ;
@@ -48,6 +54,15 @@ const switchPlayer = function(){
     player1El.classList.toggle('player--active');
 }
 
+const showInstructions = function() {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+}
+
+const closeInstructions = function() {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+}
 
 btnRoll.addEventListener('click', () => {
   if(isPlaying){
@@ -80,6 +95,18 @@ btnHold.addEventListener('click', () => {
       switchPlayer();
   }
 });
+
+btnInstructions.addEventListener('click', showInstructions);
+btnCloseModal.addEventListener('click', closeInstructions);
+overlay.addEventListener('click', closeInstructions);
+
+document.addEventListener('click', (event) => {
+  if(event.key == 'Escape' 
+  && !modal.classList.contains('hidden')) {
+    closeInstructions();
+  }
+})
+
 
 btnNew.addEventListener('click', init);
 

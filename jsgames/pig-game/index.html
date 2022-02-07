@@ -30,7 +30,25 @@
       <button class="btn btn--new">🔄 New game</button>
       <button class="btn btn--roll">🎲 Roll dice</button>
       <button class="btn btn--hold">📥 Hold</button>
+      <button class="btn btn--instructions">❓Instructions</button>
     </main>
+
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1>How to Play?</h1>
+      <p class="instructions">
+         <ol>
+           <li>Pig is two player dice game. </li>
+           <li>Player 1 starts the game by rolling the dice.</li>
+           <li>Player rolling the dice accumulate points by pressing Hold.</li>
+           <li>When the player rolls a One, players switch.</li>
+           <li>GOAL: Whoever accumulates 100 points first, wins.</li>
+         </ol>
+       
+
+      </p>
+    </div>
+    <div class="overlay hidden"></div>
     <script src="script.js"></script>
   </body>
 </html>

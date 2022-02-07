@@ -191,7 +191,7 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
+  width: 30%;
 
   background-color: white;
   padding: 4rem;
@@ -209,4 +209,8 @@ main {
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3pm);
   z-index: 5;
+}
+
+ol {
+  padding: 2rem;
 }

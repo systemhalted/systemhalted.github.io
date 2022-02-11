@@ -73,6 +73,15 @@ That's it. In most cases Pass 3 would be the most you will reach and like I said
 
 Recently there are number of Apps that give you short summaries of the books. I would recommend them for non-fiction books other than autobiographies and textbooks. Apps like Blinkist[^5], Lucid[^6], StoryShots[^7], Get Abstract[^8] are few that I have tied in the past and they are great if you want to get a gist of a book like we discussed in Pass 1,2 and 3 above. This is also helpful before you decide to make a purchase. 
 
+### Conclusion
+
+ So, as parting thought I will reiterate that it is important to enjoy the activity you are doing. So, enjoy reading without overwhelming yourself with the number of books that you must read in a year. Also, you have power to not finish the book that you start. If the author is not able to grab your attention, it is their fault, not yours. Take reading as a medidative exercise, not something you must and have to do. 
+ 
+ Also, this might or might not work for you. So, you will have to modify or develop totally new strategy for yourself. If you do so, please do share your insights. 
+ 
+ Happy Reading!
+ 
+
 *References*
 
 [^1]: Link to the post on [LinkedIn](https://www.linkedin.com/posts/systemhalted_reading-booksreadin2021-activity-6886145172648837120-PR9d). I will cross-post it here one day.
@@ -83,6 +92,3 @@ Recently there are number of Apps that give you short summaries of the books. I 
 [^6]: [Lucid App](https://lucid.fyi)
 [^7]: [Story Shots App](https://www.getstoryshots.com). They are currently running a Lifetime membership plan.
 [^8]: [Get Abstract App](https://www.getabstract.com/en/). I think this has the most Enterprise Subscriptions. 
-
-
-

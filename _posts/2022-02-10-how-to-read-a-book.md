@@ -86,6 +86,7 @@ References
 [^7]: [Story Shots App](https://www.getstoryshots.com). They are currently running a Lifetime membership plan.
 [^8]: [Get Abstract App](https://www.getabstract.com/en/). I think this has the most Enterprise Subscriptions. 
 
+
 Disclaimer
 ==========
 None of the links to any of the apps mentioned in this post are affiliate links. I won't get any money from any of these companies. 

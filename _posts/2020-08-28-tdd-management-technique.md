@@ -13,8 +13,8 @@ I get it why it is important to follow TDD. Vladimir Sedach mentioned in his blo
 What it means is that Unit Tests are an effective way to reduce software maintenance costs and TDD just enforces that unit tests are actually written. In itself TDD doesn’t guarantee software with less bugs. It is a Management technique not a Technology.
 
 
-## Notes
----------
+*Notes*
+
 
 [^1]: TDD does not work the way you think it does (https://oneofus.la/have-emacs-will-hack/2018-03-07-tdd-does-not-work-the-way-you-think-it-does.html). 
 

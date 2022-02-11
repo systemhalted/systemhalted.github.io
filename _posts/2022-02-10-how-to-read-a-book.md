@@ -75,8 +75,8 @@ Reading Alternatives
 
 Recently there are number of Apps that give you short summaries of the books. I would recommend them for non-fiction books other than autobiographies and textbooks. Apps like Blinkist[^5], Lucid[^6], StoryShots[^7], Get Abstract[^8] are few that I have tied in the past and they are great if you want to get a gist of a book like we discussed in Pass 1,2 and 3 above. This is also helpful before you decide to make a purchase. 
 
-References
-==========
+*References*
+
 [^1]: Link to the post on [LinkedIn](https://www.linkedin.com/posts/systemhalted_reading-booksreadin2021-activity-6886145172648837120-PR9d). I will cross-post it here one day.
 [^2]: If you are not connected with me on [LinkedIn](https://www.linkedin.com/in/systemhalted/). Be sure to mention why do you want to connect with me. 
 [^3]: If you are not already connected with me on GoodReads, please do. [Here is the link](www.goodreads.com/systemhalted)
@@ -87,6 +87,4 @@ References
 [^8]: [Get Abstract App](https://www.getabstract.com/en/). I think this has the most Enterprise Subscriptions. 
 
 
-Disclaimer
-==========
-None of the links to any of the apps mentioned in this post are affiliate links. I won't get any money from any of these companies. 
+

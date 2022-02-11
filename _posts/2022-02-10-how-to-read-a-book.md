@@ -11,24 +11,24 @@ I recently made a post on LinkedIn[^1][^2] on having read 72 books last year and
 
 I am a vociferous reader and there was a time when I could read 100s of books in a year. In this post I will share what works for me. 
 
-## Motivation to Read
+### Motivation to Read
 
 
 Reading is more than the number of books you read in a year. We don't read because we are in a competition but because we want to enjoy, get clarity on certain things, gain knowledge or simply to entertain ourselves. You need to find your motivation. But don't just make it 'number of book read in a year." Gamification sometimes is a great motivator but soon it becomes exhausting. Remember
 reading just one book a year is fine as long as you enjoyed reading it and it helped you with whatever you desired from it. In short there are more ways to enjoy the bliss of reading than just the numbers of books read.
 
-## Reading and Discipline 
+### Reading and Discipline 
 
 
 Reading itself requires discipline. Just like any other thing in life you need to set aside time for it. If you want to be healthy, you have to spend time on your body, if you want to improve your relationships you will need to spend time on it. Same with reading. What I do is I set some time on my calendar for reading. How much and how often will depend on your preferences. But putting time on calendar is important.  I put one hour at night for reading just before I go to bed. It gives me good winding down time. For you it might be different - say 15 min a day or one hour on Sunday afternoon - whatever works for you.
 
-## Feel Empowered to Spend Time Wisely
+### Feel Empowered to Spend Time Wisely
 
 
 Though reading is a great habit but we must remember that not all books are made equal. That means you don't have to read all the books cover-to-cover. Sooner you realize this, better it will be for your reading confidence and help you maintain reading discipline. You get to decide which book you want to read, and also once start, whether you want to finish it or just shelve it. It is your time and you must feel empowered to use it wisely. 
 
 
-## Reading Books
+### Reading Books
 
 With things more settled, let's delve into how to read books.
 
@@ -36,7 +36,7 @@ We all know there are two kind of books - fiction and non-fiction. Non-fiction c
 
 The method that I am going to discuss here is mostly for non-fiction books. For Fiction books, I tend to read them cover-to-cover, if they are interesting enough. If not, they just get marked read and shelved. 
 
-## How to read non-fiction books?
+### How to read non-fiction books?
 
 i) *Textbooks*: I only read chapters and sections that are relevant to the learning I am interested in. Nothing more, nothing less. Cookbooks, etc. should be similar. 
 
@@ -66,7 +66,7 @@ After this pass, I am again at a decision point - do I want to understand this b
 
 That's it. In most cases Pass 3 would be the most you will reach and like I said above that’s okay. If you gained what you were interested in, that is more than sufficient.
 
-## Reading Alternatives
+### Reading Alternatives
 
 
  If you can't read yourself, let someone else read it to you. Audio books are a great way to explore books and you can do it anywhere - even while driving. You can loan audiobooks from libraries. Most libraries have digital presence. Try the Libby app[4] and search for the library you have membership with.

@@ -77,6 +77,6 @@ Recently there are number of Apps that give you short summaries of the books. I 
 
 References
 ==========
-[^1]: Link to the post on LinkedIn https://www.linkedin.com/posts/systemhalted_reading-booksreadin2021-activity-6886145172648837120-PR9d. I will cross-post it here oned day.
-[^2]: If you are not connected with me on LinkedIn, here is the link: https://www.linkedin.com/in/systemhalted/
-[^3]: If you are not already connected with me on GoodReads, please do. Here is the link: www.goodreads.com/systemhalted
+[^1]: Link to the post on [LinkedIn](https://www.linkedin.com/posts/systemhalted_reading-booksreadin2021-activity-6886145172648837120-PR9d). I will cross-post it here oned day.
+[^2]: If you are not connected with me on [LinkedIn](https://www.linkedin.com/in/systemhalted/). Be sure to mention why do you want to connect with me. 
+[^3]: If you are not already connected with me on GoodReads, please do. [Here is the link](www.goodreads.com/systemhalted)

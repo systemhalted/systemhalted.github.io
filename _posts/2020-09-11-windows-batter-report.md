@@ -19,7 +19,7 @@ powercfg /batteryreport
 3. This will generate the report[^fn1] in the current folder with a file named `battery-report.html`. Open this file in a browser. 
 
 
-## Notes
---------
+*Notes:*
+
 
 [^fn1]: At the bottom of the report you will see the section `Current estimate of battery life based on all observed drains since OS install`. This will have two columns, `At Full Charge` and `At Design Capacity`. These will be the time the battery will retain juice at full charge compared to what it was designed for respectively. Read [this](https://www.pcmag.com/how-to/how-to-check-your-laptop-battery-health-in-windows-10) article on PCMag for more details

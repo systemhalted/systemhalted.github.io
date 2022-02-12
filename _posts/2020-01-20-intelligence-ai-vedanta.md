@@ -17,7 +17,7 @@ ability to apply knowledge to manipulate one's environment or to think
 abstractly as measured by objective criteria (such as tests).
 
 In my view, (2) definition is very close to the meaning of Intelligence and
-many psychologists agree[^1] [^2].
+many psychologists agree[^1][^2].
 
 Hence, something to be considereed intelligent, it must have:
 
@@ -39,7 +39,7 @@ intelligence.
 
 For purpose of this paper, however, I will be defining my own test based
 on Hindu Philosophy known as *Advaita Vedanta*. In summary, ***Advaita
-Vedanta*** [^4] [^5] talks about the ways to seek
+Vedanta*** [^4][^5] talks about the ways to seek
 spiritual liberation through acquiring `vidya` or knowledge. The text
 talks at length about cognition, the means of acquiring knowledge and
 provides proofto ascertain that the knowedlge has been acquired. Since,

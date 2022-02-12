@@ -24,7 +24,7 @@ Add-AppxPackage -Register -DisableDevelopmentMode “C:\Windows\SystemApps\Micro
 
 That's it. Done!
 
-## Notes
---------
+*Notes*
+
 
 [^fn1]: [Lenovo ThinkPad T430](https://www.lenovo.com/us/en/laptops/thinkpad/t-series/t430/)

@@ -9,11 +9,14 @@ description: This post attempts to define a Test of Intelligence based on my und
 
 ### Intelligence - What is it?
 
-Meriam-Webster dictionary defines **intelligence** as \"(1) the ability
+Meriam-Webster dictionary defines **intelligence** as 
+
+> (1) the ability
 to learn or understand or to deal with new or trying situations, (2) the
 ability to apply knowledge to manipulate one's environment or to think
-abstractly as measured by objective criteria (such as tests).\" In my
-view, (2) definition is very close to the meaning of Intelligence and
+abstractly as measured by objective criteria (such as tests).
+
+In my view, (2) definition is very close to the meaning of Intelligence and
 many psychologists agree[^1] [^2].
 
 Hence, something to be considereed intelligent, it must have:

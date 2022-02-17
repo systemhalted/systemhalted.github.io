@@ -7,7 +7,7 @@ comments: true
 description: This is an attempt to log the apps that I have on my iPhone.
 ---
 
-This is the log the apps on my phone and rate the alternative modes to get the same feature. This is the first step toward gaining my independence from the SmartPhone. :-)
+This is the log of the apps on my phone and the alternative modes to get the same feature. This is the first step toward gaining my independence from the SmartPhone. :-)
 
 | S.No. | App             | Category       | Purpose                       | Alternative Methods       | Deleted? |
 | 1.    | Discord         | Social         | Communication                 | Webbrowser on laptop      | Yes      |

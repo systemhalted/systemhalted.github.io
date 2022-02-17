@@ -30,7 +30,7 @@ This is the log of the apps on my phone and the alternative modes to get the sam
 | 18.   | Due             | Productivity   | Reminders                     |                           |          |
 | 19.   | Duo Mobile      | Security       | GATech                        |                           |          |
 | 20.   | Github          | Productivity   | Code sharing                  | WebBrowser on Laptop      |          |
-| 21.   | Gmail           | Productivity   | Office Email                  | Emacs on Laptop           |          |
+| 21.   | Gmail           | Productivity   | Office Email                  | Emacs on Laptop           | Yes      |
 | 22.   | Google Calendar | Productivity   | Calendar                      | Webbrowser on Laptop      |          |
 | 23.   | Google Keep     | Productivity   | Notes                         | Notes App                 | Yes      |
 | 24.   | PingID          | Security       | Office                        | Yubikey                   |          |
@@ -95,7 +95,7 @@ This is the log of the apps on my phone and the alternative modes to get the sam
 | 83.   | DJI Mimo        | Creativity     |                               |                           |          |
 | 84.   | Google Photos   | Creativity     | Backup                        | Glacier                   |          |
 | 85.   | Tello           | Creativity     | Drone Control                 |                           |          |
-| 86.   | Audubon         | Information    | Bird Watching                 |                           |          |
+| 86.   | Audubon         | Information    | Bird Watching                 |                           |  Yes     |
 | 87.   | Clear Outside   | Astronomy      | Watching Conditions           |                           |          |
 | 88.   | Medium          | Information    | Blogs                         | WebBrowser on Laptop      |          |
 | 89.   | Nextdoor        | Social         | Neigborhood                   | WebBrowser on Laptop      | Yes      |
@@ -113,7 +113,7 @@ This is the log of the apps on my phone and the alternative modes to get the sam
 | 101.  | Atlas           | Information    | Body Atlas                    |                           |          |
 | 102.  | ZCompanion      | Fitness        | Zwift                         |                           |          |
 | 103.  | Connect         | Fitness        | Garmin                        |                           |          |
-| 104.  | GroomTribe      | Grooming       | Phillips Norelco              |                           |          |
+| 104.  | GroomTribe      | Grooming       | Phillips Norelco              |                           | Yes      |
 | 105   | HealthMate      | Health         | Withings +                    |                           |          |
 | 106.  | iHealth Test    | Health         | COVID Test                    |                           |          |
 | 107.  | Kinetic         | Fitness        | Kinetic                       |                           |          |
@@ -129,12 +129,12 @@ This is the log of the apps on my phone and the alternative modes to get the sam
 | 117.  | Therabody       | Fitness        | Massager Companion            |                           |          |
 | 118.  | xhalebreathing  | Fitness        | Breathing exercise            |                           |          |
 | 119.  | Zwift           | Fitness        | Virtual Biking                |                           |          |
-| 120.  | Costco          | Shopping       | Shopping                      | WebBrowser on Laptop      |          |
-| 121.  | CVS             | Shopping       | Prescription                  | WebBrowser on Laptop      |          |
-| 122.  | DoorDash        | Shopping       | Food service                  | WebBrowser on Laptop      |          |
+| 120.  | Costco          | Shopping       | Shopping                      | WebBrowser on Laptop      |  Yes     |
+| 121.  | CVS             | Shopping       | Prescription                  | WebBrowser on Laptop      |  Yes     |
+| 122.  | DoorDash        | Shopping       | Food service                  | WebBrowser on Laptop      |  Yes     |
 | 123.  | Flipkart        | Shopping       | Indian Online Shop            | WebBrowser on Laptop      |          |
-| 124.  | GrubHub         | Shopping       | Food service                  | WebBrowser on Laptop      |          |
-| 125.  | Instacart       | Shopping       | Shopping Service              |                           |          |
+| 124.  | GrubHub         | Shopping       | Food service                  | WebBrowser on Laptop      |  Yes     |
+| 125.  | Instacart       | Shopping       | Shopping Service              |                           |  Yes     |
 | 126.  | Nutrislice      | School         | School Lunch Menu             |                           |          |
 | 127.  | CapOne Shopping | Shopping       | Discount Service              |                           |          |
 | 128.  | Starbucks       | Shopping       | Coffee                        |                           |          |
@@ -142,7 +142,7 @@ This is the log of the apps on my phone and the alternative modes to get the sam
 | 130.  | UniDays         | Shopping       | Student Discount              |                           |          |
 | 131.  | Walmart         | Shopping       | Shopping                      |                           |          |
 | 132.  | BoseConnect     | Utility        |                               |                           |          |
-| 133.  | Bose Music      | Utiltity       |                               |                           |          |
+| 133.  | Bose Music      | Utility        |                               |                           |          |
 | 134.  | Shazam          | Music          | Music Identification          |                           |          |
 | 135.  | SoundTouch      | Utility        | Bose                          |                           |          |
 | 136.  | Spotify         | Music          | Music Streaming               |                           |          |
@@ -150,3 +150,4 @@ This is the log of the apps on my phone and the alternative modes to get the sam
 
 
 P.S.: This does not include Finance Apps
+Edit 1: Around 29 apps deleted from iPhone.

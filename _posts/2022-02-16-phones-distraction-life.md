@@ -147,3 +147,6 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 135.  | SoundTouch      | Utility        | Bose                          |                           |          |
 | 136.  | Spotify         | Music          | Music Streaming               |                           |          |
 | 137.  | YouTubeMusic    | Music          | Music Streaming               |                           |          |
+
+
+P.S.: This does not include Finance Apps

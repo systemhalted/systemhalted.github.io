@@ -11,7 +11,7 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 
 | S.No. | App             | Category       | Purpose                       | Alternative Methods       | Deleted? |
 | 1.    | Discord         | Social         | Communication                 | Webbrowser on laptop      | Yes      |
-| 2.    | GroupMe         | Social         | Commm for Baseball Practices  | WebBrowser on Laptop      |          |
+| 2.    | GroupMe         | Social         | Baseball Practices Comm       | WebBrowser on Laptop      |          |
 | 3.    | Igloo           | Social         | IRC Client                    | Emacs on Laptop           |          |
 | 4.    | Keybase         | Social         | Security Keys                 | ?                         |          |
 | 5.    | LinkedIn        | Social         | Professional Social Network   | WebBrowser on Laptop      | Yes      |
@@ -20,7 +20,7 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 8.    | Pi              | Finance        | CryptoCurrency                | ?                         |          |
 | 9.    | Telegram        | Social         | VISA Appointments             | No                        |          |
 | 10.   | WhatsApp        | Social         | Family and Friends Groups     | ?                         |          |
-| 11.   | AmazonDrive     | Productivity   | Files and Photos Backup       | Laptop App                |          |
+| 11.   | AmazonDrive     | Productivity   | Files and Photos Backup       | Laptop App                | Yes      |
 | 12.   | AnyList         | Productitvity  | Shopping List                 | Pen and Paper             |          |
 | 13.   | BeOrg           | Productivity   | Org Mode Reminders            | Emacs                     | Yes      |
 | 14.   | Blind           | Social         | Anonymous Workforce community | WebBrowser on Laptop      | Yes      |
@@ -30,7 +30,7 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 18.   | Due             | Productivity   | Reminders                     |                           |          |
 | 19.   | Duo Mobile      | Security       | GATech                        |                           |          |
 | 20.   | Github          | Productivity   | Code sharing                  | WebBrowser on Laptop      |          |
-| 21.   | Gmail           | Productivity   | Email                         | Emacs on Laptop           |          |
+| 21.   | Gmail           | Productivity   | Office Email                  | Emacs on Laptop           |          |
 | 22.   | Google Calendar | Productivity   | Calendar                      | Webbrowser on Laptop      |          |
 | 23.   | Google Keep     | Productivity   | Notes                         | Notes App                 | Yes      |
 | 24.   | PingID          | Security       | Office                        | Yubikey                   |          |
@@ -77,14 +77,14 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 65.   | Prodigy         | Education/Game | Kids Maths Game               |                           |          |
 | 66.   | Skyview Lite    | Astronomy      | Education                     |                           |          |
 | 67.   | Canvas          | Education      | GATech                        | WebBrowser on Laptop      |          |
-| 68.   | Book            | Books          | eBook Reader                  | WebBrowser on Laptop/iPad |          |
+| 68.   | Book            | Books          | eBook Reader                  | WebBrowser on Laptop/iPad | Yes      |
 | 69.   | FBReader        | Books          | eBook Reader                  |                           |          |
-| 70.   | GoodReads       | Social         |                               | WebBrowser on Laptop      |          |
-| 71.   | Kindle          | Books          | eBook Reader                  | WebBrowser on Laptop/iPad |          |
+| 70.   | GoodReads       | Social         |                               | WebBrowser on Laptop      | Yes      |
+| 71.   | Kindle          | Books          | eBook Reader                  | WebBrowser on Laptop/iPad | Yes      |
 | 72.   | Libby           | Books          | Library Service               |                           |          |
-| 73.   | LibraryThing    | Library        | Catalog Service               | WebBrowser on Laptop      |          |
+| 73.   | LibraryThing    | Library        | Catalog Service               | WebBrowser on Laptop      | Yes      |
 | 74.   | Airbnb          | Travel         |                               | WebBrowser on Laptop      |          |
-| 75.   | Google Maps     | Travel         | Directions                    |                           |          |
+| 75.   | Google Maps     | Travel         | Directions                    |                           | Yes      |
 | 76.   | Lyft            | Travel         | Taxi Service                  |                           |          |
 | 77.   | Marriott Bonvoy | Travel         | Hotel Bookings                | WebBrowser on Laptop      |          |
 | 78.   | myAudi          | Travel         | Car                           |                           |          |
@@ -100,8 +100,8 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 88.   | Medium          | Information    | Blogs                         | WebBrowser on Laptop      |          |
 | 89.   | Nextdoor        | Social         | Neigborhood                   | WebBrowser on Laptop      | Yes      |
 | 90.   | Nightsky        | Astronomy      | Astronomy                     |                           |          |
-| 91.   | Pocket          | Information    | Bookmarks                     | WebBrowser on Laptop      |          |
-| 92.   | Reddit          | Social         | Discussion Forum              | WebBrowser on Laptop      |          |
+| 91.   | Pocket          | Information    | Bookmarks                     | WebBrowser on Laptop      | Yes      |
+| 92.   | Reddit          | Social         | Discussion Forum              | WebBrowser on Laptop      | Yes      |
 | 93.   | Rekhta          | Information    | Urdu Poems                    | WebBrowser on Laptop      |          |
 | 94.   | Storyshots      | Reading        | Book Summary                  | WebBrowser on Laptop      |          |
 | 95.   | Weather Channel | Information    | Weather                       | ipad                      |          |
@@ -147,5 +147,3 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 135.  | SoundTouch      | Utility        | Bose                          |                           |          |
 | 136.  | Spotify         | Music          | Music Streaming               |                           |          |
 | 137.  | YouTubeMusic    | Music          | Music Streaming               |                           |          |
-|-------|-----------------|----------------|-------------------------------|---------------------------|----------|
-|       |                 |                |                               |                           |          |

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: iPhone Apps, Distractions and Life - App Log
+title: iPhone Apps, Distractions and Life - App Inventory
 category: [Productivity, Insane Thoughts]
 tags: [iphone, distraction, life]
 comments: true

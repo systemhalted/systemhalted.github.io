@@ -69,12 +69,12 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 57.   | YouTube         | Entertainment  | Streaming                     | Apple TV                  |          |
 | 58.   | YouTube TV      | Entertainment  | Streaming                     | Apple TV                  |          |
 | 59.   | Algorithms      | Education      | Education                     |                           |          |
-| 60.   | Coursera        | Education      | Education                     | WebBrowser on Laptop      |          |
-| 61.   | edX             | Education      | Education                     | WebBrowser on Laptop      |          |
+| 60.   | Coursera        | Education      | Education                     | WebBrowser on Laptop      | Yes      |
+| 61.   | edX             | Education      | Education                     | WebBrowser on Laptop      | Yes      |
 | 62.   | Khan Kids       | Education      | Kids                          |                           |          |
 | 63.   | O'Reilly        | Education      | Books subscription            | WebBrowser on Laptop/iPad |          |
 | 64.   | Piazza          | Education      | GATech                        | WebBrowser on Laptop      |          |
-| 65.   | Prodigy         | Education/Game | Kids Maths Game               |                           |          |
+| 65.   | Prodigy         | Education/Game | Kids Maths Game               |                           | Yes      |
 | 66.   | Skyview Lite    | Astronomy      | Education                     |                           |          |
 | 67.   | Canvas          | Education      | GATech                        | WebBrowser on Laptop      |          |
 | 68.   | Book            | Books          | eBook Reader                  | Laptop/iPad               | Yes      |

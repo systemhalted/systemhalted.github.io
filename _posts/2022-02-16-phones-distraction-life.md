@@ -77,7 +77,7 @@ This is the log the apps on my phone and rate the alternative modes to get the s
 | 65.   | Prodigy         | Education/Game | Kids Maths Game               |                           |          |
 | 66.   | Skyview Lite    | Astronomy      | Education                     |                           |          |
 | 67.   | Canvas          | Education      | GATech                        | WebBrowser on Laptop      |          |
-| 68.   | Book            | Books          | eBook Reader                  | WebBrowser on Laptop/iPad | Yes      |
+| 68.   | Book            | Books          | eBook Reader                  | Laptop/iPad               | Yes      |
 | 69.   | FBReader        | Books          | eBook Reader                  |                           |          |
 | 70.   | GoodReads       | Social         |                               | WebBrowser on Laptop      | Yes      |
 | 71.   | Kindle          | Books          | eBook Reader                  | WebBrowser on Laptop/iPad | Yes      |

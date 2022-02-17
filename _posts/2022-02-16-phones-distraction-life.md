@@ -149,5 +149,5 @@ This is the log of the apps on my phone and the alternative modes to get the sam
 | 137.  | YouTubeMusic    | Music          | Music Streaming               |                           |          |
 
 
-P.S.: This does not include Finance Apps
+P.S.: This does not include Finance Apps  
 Edit 1: Around 29 apps deleted from iPhone.

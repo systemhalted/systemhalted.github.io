@@ -20,6 +20,7 @@ highlighter: rouge
 # Gems
 plugins:
   - jekyll-paginate
+  - jekyll-archives
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:year/:month/:day/:title/

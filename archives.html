@@ -3,13 +3,23 @@ layout: page
 title: Archives
 ---
 
-<h1>Archive of posts from {{ page.date | date: "%Y" }}</h1>
+<h4>There are {{ site.posts | size }} published articles. </h4>
 
-<ul class="posts">
-{% for post in page.posts %}
-  <li>
-    <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-    <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-  </li>
-{% endfor %}
+<ul>
+  {% for post in site.posts %}
+  <div class="post-list">
+<!--     <li>
+       <span class="post-list-date">{{ post.date | date_to_string }}</span> 
+     
+       <a href="{{ post.url | absolute_url }}">  <span class="post-title"> {{ post.title }}  </span> </a>
+    
+    </li> -->
+<!--     <li><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a> - <span class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></li> -->
+    
+     <li>
+       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+     </li>
+   </div>
+  {% endfor %}
 </ul>

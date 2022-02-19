@@ -28,3 +28,13 @@ permalink:   /:year/:month/:day/:title/
 # Custom vars
 version:             1.1.0
 google_analytics_id: UA-36868278-1
+
+jekyll-archives:
+  enabled: all
+  layout: archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tag/:name/'
+    category: '/category/:name/'

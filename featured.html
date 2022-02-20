@@ -1,5 +1,5 @@
 ---
-layout: pageminimal
+layout: page
 permalink: /featured/
 title: Featured Posts
 description: "An archive of posts sorted by date."
@@ -8,7 +8,10 @@ description: "An archive of posts sorted by date."
 <ul class="post-list">
 {% for post in site.posts %}
 {% if post.featured %}
-  <li><article><i class="icon-star-half-empty"></i> <a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article></li>
+<li>
+  <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+  <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+</li>
 {% endif %}
 {% endfor %}
 </ul>

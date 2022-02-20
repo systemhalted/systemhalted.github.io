@@ -22,6 +22,7 @@ plugins:
   - jekyll-paginate
   - jekyll-feed
   - jekyll-gist
+  - jekyll-seo-tag
   - jekyll-sitemap
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
@@ -39,3 +40,5 @@ defaults:
       path: "**/google276b8227e2f06bdc.html"
     values:
       sitemap: false
+
+google_site_verification: 1v5ZSlWxFB06EQ-VB5U4n3226XFqq3ki9qusVH2m0K8

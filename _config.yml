@@ -21,6 +21,7 @@ highlighter: rouge
 plugins:
   - jekyll-paginate
   - jekyll-feed
+  - jekyll-gist
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:year/:month/:day/:title/

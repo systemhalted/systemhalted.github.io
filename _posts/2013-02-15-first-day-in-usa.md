@@ -6,6 +6,7 @@ category: [Insane Thoughts, Travelogue]
 tags: [USA, India]
 comments: true
 description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went? 
+featued: true
 ---  
 
    Leaving India was not easy. If there would have been no one, probably it would have been but with Shalank being there, 

@@ -4,16 +4,11 @@ title: iPhone Apps, Distractions and Life - App Inventory
 category: [Productivity, Insane Thoughts]
 tags: [iphone, distraction, life]
 comments: true
-description: This is an attempt to log the apps that I have on my iPhone.
+description: Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone
 ---
-
-<<<<<<< HEAD
-This is the log of the apps on my phone and the alternative modes to get the same feature. This is the first step toward gaining my independence from the SmartPhone. :-)
-=======
 Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone. And deleted 29 apps. There are over 150 apps on my phone. This list doesn’t contain the stock Apple apps and Finance apps.
 
 Trying to reduce the number of apps installed on my phone. I had already removed plenty of other apps - Facebook, Instagram and Twitter were few of them. Now to that list 29 more apps got added. Hopefully, I will be able to get the minimalist iPhone that I would love to have. This is the first step toward gaining my independence from the SmartPhone. :-)
->>>>>>> c2113bc... Add new post
 
 | S.No. | App             | Category       | Purpose                       | Alternative Methods       | Deleted? |
 | 1.    | Discord         | Social         | Communication                 | Webbrowser on laptop      | Yes      |

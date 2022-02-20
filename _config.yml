@@ -22,6 +22,7 @@ plugins:
   - jekyll-paginate
   - jekyll-feed
   - jekyll-gist
+  - jekyll-sitemap
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:year/:month/:day/:title/
@@ -32,3 +33,9 @@ google_analytics_id: UA-36868278-1
 
 feed:
   excerpt_only: true
+
+defaults:
+    scope:
+      path: "**/google276b8227e2f06bdc.html"
+    values:
+      sitemap: false

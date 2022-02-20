@@ -1,8 +1,8 @@
 # Setup
 title:                systemhalted
 tagline:             'by Palak Mathur'
-description:         'SystemHalted - I am just a DOS error'
-url:                 https://systemhalted.github.io
+description:         'System Halted'
+url:                 https://systemhalted.in
 baseurl:             ''
 paginate:            8
 permalink:           pretty
@@ -20,7 +20,7 @@ highlighter: rouge
 # Gems
 plugins:
   - jekyll-paginate
-  - jekyll-archives
+  - jekyll-feed
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:year/:month/:day/:title/
@@ -29,12 +29,5 @@ permalink:   /:year/:month/:day/:title/
 version:             1.1.0
 google_analytics_id: UA-36868278-1
 
-jekyll-archives:
-  enabled: all
-  layout: archive
-  permalinks:
-    year: '/:year/'
-    month: '/:year/:month/'
-    day: '/:year/:month/:day/'
-    tag: '/tag/:name/'
-    category: '/category/:name/'
+feed:
+  excerpt_only: true

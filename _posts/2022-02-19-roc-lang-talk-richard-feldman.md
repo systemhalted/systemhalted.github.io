@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Roc Lang by Richard Feldman
+title: Roc Lang and Compiler Optimization by Richard Feldman
 category: [ Programming, Computer Science, Compilers]
 tags: [roc-lang, compilers, functional programming, elm, richard_feldman, haskell, compilers, optimizations, llvm]
 comments: true

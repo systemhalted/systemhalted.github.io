@@ -5,6 +5,7 @@ category: Emacs
 tags: [emacs]
 comments: true
 description: I am in awe of Emacs. I wrote this post originally on Reddit. Just copying it here to save it.
+featured: true
 ---
 
 This post originally appeared on [r/emacs](https://www.reddit.com/r/emacs/comments/j04xxw/i_am_in_awe_of_emacs/). 

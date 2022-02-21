@@ -5,6 +5,7 @@ category: [Technology, Artificial Intellgence (AI), Vedanta, Intelligence, Hindu
 tags: [vedanta, intelligence, artificial intelligence ]
 comments: true
 description: This post attempts to define a Test of Intelligence based on my understanding of Advaita Vedanta. Submitted as part of CS7637 Homework 
+featured: true
 ---
 
 ### Intelligence - What is it?

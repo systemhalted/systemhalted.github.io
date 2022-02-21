@@ -8,6 +8,7 @@ comments: true
 status: publish
 categories:
 - Programming
+- Computer Science
 tags:
 - C
 - Strings
@@ -16,6 +17,7 @@ tags:
 - anti-pattern
 - technology
 description: C is a funny language. Strings are a joke.
+featured: true
 ---
 
 C is a funny language. It is made for performance and prides itself to be performant. However, when it comes to strings and how C deals with them is extraordinary. To be precise, extraordinarily deplorable. C treats strings as third class citizens.

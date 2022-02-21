@@ -5,6 +5,7 @@ category: [Technology, Data Protection, Data, Artificial Intellgence (AI)]
 tags: [gdpr, personal data, european union, artificial intellgence, ai ]
 comments: true
 description: GDPR and its impact on Advertising. Submitted as part of CS7637 Homework 
+featured: true
 ---
 *Note: Submitted as part of CS7637 Homework*
 

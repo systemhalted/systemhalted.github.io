@@ -5,6 +5,7 @@ category: Astronomy
 tags: [binoculars, orion, dark skies, binocular astronomy, pleiades, m45, seven sisters, messier objects, orion nebula, m42, ngc1976]
 comments: true
 description: First look at the skies through the binoculars and I must say I am hooked for life
+featured: true
 ---
 
 I always wanted a telescope and start foraging through the skies. Recently, this urge to get a telescope increased and I got a cheap refractor from Best Buy, which I received broken and had to return. It was supposed to be a Christmas gift for my son. But it was not meant to be (good riddance! We got him something else).

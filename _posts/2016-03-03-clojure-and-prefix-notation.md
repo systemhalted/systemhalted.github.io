@@ -4,6 +4,7 @@ title: Clojure and Polish Notation
 category: [Technology, Clojure] 
 tags: [Clojure, Prefix Notation, Polish Notation, Lisp]
 comments: true
+featured: true
 summary: Clojure syntax is prefix notation and it is difficult to switch to using it but is it? 
 --- 
 
@@ -55,8 +56,8 @@ Lisp worth reading. And also, [2 MYTHS AND 2 FACTS ABOUT CLOJURE THAT CHANGE EVE
 Some links shared on the same post in Java Ranch by Peer Reynders are:
 
 Talks:  
-[(Neal's) Master Plan for Clojure Enterprise Mindshare Domination - Neal Ford](https://www.youtube.com/watch?v=2WLgzCkhN2g&feature=youtu.be&t=1619)
-[Simple Made Easy by Rich Hickey](http://www.infoq.com/presentations/Simple-Made-Easy)  
-[Sneaking Clojure Past the Boss](http://www.coderanch.com/t/586641/clojure/Sneaking-Clojure-Boss)  
-[Selling Clojure to Business](https://blog.juxt.pro/posts/selling-clojure.html)  
+[(Neal's) Master Plan for Clojure Enterprise Mindshare Domination - Neal Ford](https://www.youtube.com/watch?v=2WLgzCkhN2g&feature=youtu.be&t=1619) 
+[Simple Made Easy by Rich Hickey](http://www.infoq.com/presentations/Simple-Made-Easy)   
+[Sneaking Clojure Past the Boss](http://www.coderanch.com/t/586641/clojure/Sneaking-Clojure-Boss)   
+[Selling Clojure to Business](https://blog.juxt.pro/posts/selling-clojure.html)    
 [PolyConf 15: Contracts as Types / Jessica Kerr](https://www.youtube.com/watch?v=zLyd_Ey1GPM)   

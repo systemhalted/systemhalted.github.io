@@ -8,7 +8,7 @@ description: Loved this talk by Richard Feldman on Roc-lang in particular and la
 featured: true
 ---
 
-Recently,  I listened to the talk "Outperforming Imperative with Pure Functional Languages"[^1] by Richard Feldman [^2] on Roc Lang's performance [^3]. I loved the talk. I have listened to several talks on new languages and language design but this talk stands out because it was not a talk that bashed other languages but articulated the need for a new language (albeit briefly) and how functional programs can be made to be performant in comparison to the imperative languages like Java, C++, etc. 
+Recently,  I listened to the talk "Outperforming Imperative with Pure Functional Languages"[^1] by Richard Feldman [^2] on Roc Lang's[^3] performance. I loved the talk. I have listened to several talks on new languages and language design but this talk stands out because it was not a talk that bashed other languages but articulated the need for a new language (albeit briefly) and how functional programs can be made to be performant in comparison to the imperative languages like Java, C++, etc. 
 
 This is really a great talk. The talk covered three main performance considerations:  
 1. Language Overheads 
@@ -40,9 +40,9 @@ This talk was fantastic. I would recommend go and listen to the talk. I have bee
 
 *References*  
 
-[^1]: https://www.roc-lang.org/
-[^2]: https://www.youtube.com/watch?v=vzfy4EKwG_Y  
-[^3]: https://www.linkedin.com/in/rtfeldman/  
+[^1]: https://www.youtube.com/watch?v=vzfy4EKwG_Y 
+[^2]: https://www.linkedin.com/in/rtfeldman/ 
+[^3]: https://www.roc-lang.org/ 
 [^4]: (I call it opinion because I am no expert. Only work that I have done on LLVM was in CS6340[^6] course at GATech OMSCS[^10])  
 [^5]: https://wiki.haskell.org/Lazy_evaluation
 [^6]: [CS6340 - Software Analysis and Test](https://omscs.gatech.edu/cs-6340-software-analysis) is one of the best courses offered in OMSCS. If you are planning to take one course in OMSCS, try this one. Thoroughly enjoyed this course.   
@@ -50,3 +50,4 @@ This talk was fantastic. I would recommend go and listen to the talk. I have bee
 [^8]: https://www.microsoft.com/en-us/research/uploads/prod/2020/11/perceus-tr-v1.pdf
 [^9]: https://arxiv.org/pdf/1908.05647.pdf
 [^10]: https://omscs.gatech.edu/home  
+

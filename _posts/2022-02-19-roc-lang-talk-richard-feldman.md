@@ -8,7 +8,7 @@ description: Loved this talk by Richard Feldman on Roc-lang in particular and la
 featured: true
 ---
 
-Recently,  I listened to the talk "Outperforming Imperative with Pure Functional Languages"[^1] by Richard Feldman [^2] on Roc Lang's performance [^3]. I loved the talk. I have listened to several talks on new languages and language design but this talk stands out because it was not a talk that bashed other languages but articulated the need for a new language (albeit briefly) and how functional programs can be made to be performant in comparison to the imperative languages like Java, C++, etc. 
+Recently,  I listened to the talk "Outperforming Imperative with Pure Functional Languages"[^1] by Richard Feldman [^2] on Roc Lang's[^3] performance. I loved the talk. I have listened to several talks on new languages and language design but this talk stands out because it was not a talk that bashed other languages but articulated the need for a new language (albeit briefly) and how functional programs can be made to be performant in comparison to the imperative languages like Java, C++, etc. 
 
 This is really a great talk. The talk covered three main performance considerations:  
 1. Language Overheads 
@@ -23,13 +23,13 @@ LLVM has three major components - Frontend, Optimizer, and Backend. Source code 
 
 In my view, LLVM IR is the main reason that many optimizations are possible. The other advantage is that if you use LLVM for language C++ or Rust, you can reuse the optimizer (and backend, if you are targetting same machines) for a new language like Roc, only thing that you have to worry about is the creation of new Frontend to convert the Roc source code into the LLVM IR. I am not sure that is what Roc and Richard have in mind. Probably, need to listen his more talks on the topic, if he has any [^3].
 
-In his talk, the second point he makes is of using static refcounting and mentions two papers [^8][^9]. I have no idea what that is, will need to read those papers and probably write something later. 
+In his talk, the second point he makes is of using static refcounting and mentions two papers [^6][^7]. I have no idea what that is, will need to read those papers and probably write something later. 
 
 The other thing he mentions in his talk is use of Unboxed values. It is interesting way of memory management. In Haskell, you can have boxed values, like Int, which is a two-word heap object. In the case of boxed values, you need to allocate the value on heap and then refer to it using pointers/references. The unboxed value is represented by the value itself without need of any pointers. Since you are avoiding the overhead of heap allocation and pointers, you are going to get a speedup. 
 
 #### No Side Effects
 
-Richard talks about how Haskell and Roc use Managed Effects. What I understand is that in these languages the entire chain of side effects is first created and not executed at time of instantiation but only after the complete chain has been created. I think kind of lazy evaluation[^10]. This is surely an overhead as you need to manage each side effect. The Roc is achieving this by keeping the Tasks and Closures as Unboxed and instead of using function pointers for function calls, using enumerated direct calls. Again, I am no expert. 
+Richard talks about how Haskell and Roc use Managed Effects. What I understand is that in these languages the entire chain of side effects is first created and not executed at time of instantiation but only after the complete chain has been created. I think kind of lazy evaluation[^8]. This is surely an overhead as you need to manage each side effect. The Roc is achieving this by keeping the Tasks and Closures as Unboxed and instead of using function pointers for function calls, using enumerated direct calls. Again, I am no expert. 
 
 #### No Mutation
 
@@ -38,15 +38,16 @@ Any imperative loop (while, for, etc.) can be expressed as a recursive function.
 #### Conclusion
 This talk was fantastic. I would recommend go and listen to the talk. I have been thinking of writing about LLVM for past two years. Now, probably, I will concentrate more on writing about LLVM.  
 
-*References*  
+*References*    
 
-[^1]: https://www.roc-lang.org/
-[^2]: https://www.youtube.com/watch?v=vzfy4EKwG_Y  
-[^3]: https://www.linkedin.com/in/rtfeldman/  
-[^4]: (I call it opinion because I am no expert. Only work that I have done on LLVM was in CS6340[^6] course at GATech OMSCS[^7])  
-[^5]: https://wiki.haskell.org/Lazy_evaluation
-[^6]: [CS6340 - Software Analysis and Test](https://omscs.gatech.edu/cs-6340-software-analysis) is one of the best courses offered in OMSCS. If you are planning to take one course in OMSCS, try this one. Thoroughly enjoyed this course.   
-[^7]: http://www.aosabook.org/en/llvm.html  
-[^8]: https://www.microsoft.com/en-us/research/uploads/prod/2020/11/perceus-tr-v1.pdf
-[^9]: https://arxiv.org/pdf/1908.05647.pdf
-[^10]: https://omscs.gatech.edu/home  
+[^1]: https://www.youtube.com/watch?v=vzfy4EKwG_Y 
+[^2]: https://www.linkedin.com/in/rtfeldman/ 
+[^3]: https://www.roc-lang.org/ 
+[^4]: (I call it opinion because I am no expert. Only work that I have done on LLVM was in CS6340[^9] course at GATech OMSCS[^10])     
+[^5]: http://www.aosabook.org/en/llvm.html   
+[^6]: https://www.microsoft.com/en-us/research/uploads/prod/2020/11/perceus-tr-v1.pdf
+[^7]: https://arxiv.org/pdf/1908.05647.pdf  
+[^8]: https://wiki.haskell.org/Lazy_evaluation 
+[^9]: [CS6340 - Software Analysis and Test](https://omscs.gatech.edu/cs-6340-software-analysis) is one of the best courses offered in OMSCS. If you are planning to take one course in OMSCS, try this one. Thoroughly enjoyed this course.  
+[^10]: https://omscs.gatech.edu/home    
+

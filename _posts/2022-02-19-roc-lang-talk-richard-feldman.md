@@ -50,3 +50,4 @@ This talk was fantastic. I would recommend go and listen to the talk. I have bee
 [^8]: https://www.microsoft.com/en-us/research/uploads/prod/2020/11/perceus-tr-v1.pdf
 [^9]: https://arxiv.org/pdf/1908.05647.pdf
 [^10]: https://omscs.gatech.edu/home  
+

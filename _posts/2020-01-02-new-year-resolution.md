@@ -2,7 +2,7 @@
 layout: post
 title: New Year 2020 - Resolution
 category: [Insane Thoughts]
-tags: [2020, new year resolution ]
+tags: [2020, resolution ]
 comments: true
 description: Procrastinator's attempt to follow a better lifestyle. First Post.
 ---

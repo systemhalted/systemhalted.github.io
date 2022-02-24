@@ -38,11 +38,16 @@ Any imperative loop (while, for, etc.) can be expressed as a recursive function.
 #### Conclusion
 This talk was fantastic. I would recommend go and listen to the talk. I have been thinking of writing about LLVM for past two years. Now, probably, I will concentrate more on writing about LLVM.  
 
+<<<<<<< HEAD
 *References*    
+=======
+*References*  
+>>>>>>> b668ac9... Update references
 
 [^1]: https://www.youtube.com/watch?v=vzfy4EKwG_Y 
 [^2]: https://www.linkedin.com/in/rtfeldman/ 
 [^3]: https://www.roc-lang.org/ 
+<<<<<<< HEAD
 [^4]: (I call it opinion because I am no expert. Only work that I have done on LLVM was in CS6340[^9] course at GATech OMSCS[^10])     
 [^5]: http://www.aosabook.org/en/llvm.html   
 [^6]: https://www.microsoft.com/en-us/research/uploads/prod/2020/11/perceus-tr-v1.pdf
@@ -50,4 +55,13 @@ This talk was fantastic. I would recommend go and listen to the talk. I have bee
 [^8]: https://wiki.haskell.org/Lazy_evaluation 
 [^9]: [CS6340 - Software Analysis and Test](https://omscs.gatech.edu/cs-6340-software-analysis) is one of the best courses offered in OMSCS. If you are planning to take one course in OMSCS, try this one. Thoroughly enjoyed this course.  
 [^10]: https://omscs.gatech.edu/home    
+=======
+[^4]: (I call it opinion because I am no expert. Only work that I have done on LLVM was in CS6340[^6] course at GATech OMSCS[^10])  
+[^5]: https://wiki.haskell.org/Lazy_evaluation
+[^6]: [CS6340 - Software Analysis and Test](https://omscs.gatech.edu/cs-6340-software-analysis) is one of the best courses offered in OMSCS. If you are planning to take one course in OMSCS, try this one. Thoroughly enjoyed this course.   
+[^7]: http://www.aosabook.org/en/llvm.html  
+[^8]: https://www.microsoft.com/en-us/research/uploads/prod/2020/11/perceus-tr-v1.pdf
+[^9]: https://arxiv.org/pdf/1908.05647.pdf
+[^10]: https://omscs.gatech.edu/home  
+>>>>>>> b668ac9... Update references
 

@@ -24,11 +24,6 @@ C is a funny language. It is made for performance and prides itself to be perfor
 
 There is a famous joke on C strings, which I reproduce here
 
-```Two strings walk into a bar. The bartender says, "What'll it be?".
-   The first string says, "I'll have a vodka with cranberry 
-   juice#MV*()>SDk+!^ &@P&]JEA&#65535;Segmentation Fault".
-   The second string says, "You'll have to excuse my friend, he's not
-    null-terminated."```
 
 Now let us delve further.  Suppose you have the following string:
 

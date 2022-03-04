@@ -23,13 +23,13 @@ LLVM has three major components - Frontend, Optimizer, and Backend. Source code 
 
 In my view, LLVM IR is the main reason that many optimizations are possible. The other advantage is that if you use LLVM for language C++ or Rust, you can reuse the optimizer (and backend, if you are targetting same machines) for a new language like Roc, only thing that you have to worry about is the creation of new Frontend to convert the Roc source code into the LLVM IR. I am not sure that is what Roc and Richard have in mind. Probably, need to listen his more talks on the topic, if he has any [^3].
 
-In his talk, the second point he makes is of using static refcounting and mentions two papers [^6][^7]. I have no idea what that is, will need to read those papers and probably write something later. 
+In his talk, the second point he makes is of using static refcounting and mentions two papers [^6][^7]. I will need to read those papers and probably write something later. 
 
 The other thing he mentions in his talk is use of Unboxed values. It is interesting way of memory management. In Haskell, you can have boxed values, like Int, which is a two-word heap object. In the case of boxed values, you need to allocate the value on heap and then refer to it using pointers/references. The unboxed value is represented by the value itself without need of any pointers. Since you are avoiding the overhead of heap allocation and pointers, you are going to get a speedup. 
 
 #### No Side Effects
 
-Richard talks about how Haskell and Roc use Managed Effects. What I understand is that in these languages the entire chain of side effects is first created and not executed at time of instantiation but only after the complete chain has been created. I think kind of lazy evaluation[^8]. This is surely an overhead as you need to manage each side effect. The Roc is achieving this by keeping the Tasks and Closures as Unboxed and instead of using function pointers for function calls, using enumerated direct calls. Again, I am no expert. 
+Richard talks about how Haskell and Roc use Managed Effects. What I understand is that in these languages the entire chain of side effects is first created and not executed at time of instantiation but only after the complete chain has been created. I think kind of lazy evaluation[^8]. This is surely an overhead as you need to manage each side effect. The Roc is achieving this by keeping the Tasks and Closures as Unboxed and instead of using function pointers for function calls, using enumerated direct calls.
 
 #### No Mutation
 

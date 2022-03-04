@@ -36,7 +36,7 @@ Richard talks about how Haskell and Roc use Managed Effects. What I understand i
 Any imperative loop (while, for, etc.) can be expressed as a recursive function. Tail call optimization makes them compile to the same thing. Same idea is taken for any program that needs in place mutation through Opportunistic In-Place Mutation. This optimization can be done by using Reference counting instead of tracing Garbage Collector(GC) and this in most cases this can be done using Static In-place Detection, so this can be done at Compile time rather than runtime. It uses Alias Analysis via Morphic Solver library written in Rust created at University of California, Berkeley. I couldn't find much information on that. Probably this will come later as well. 
 
 #### Conclusion
-This talk was fantastic. I would recommend go and listen to the talk. I have been thinking of writing about LLVM for past two years. Now, probably, I will concentrate more on writing about LLVM.  
+This talk was fantastic. I would recommend go and listen to the talk. It is amazing what a compiler can do. There are multiple ways to get the performance boosts using compiler. More on that later. 
 
 *References*    
 

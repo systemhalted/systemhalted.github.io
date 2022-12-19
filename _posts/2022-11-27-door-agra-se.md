@@ -35,4 +35,4 @@ This probably is my first Ghazal.
     ~पलक (Palak)
 
 
-!()[../assets/images/taj-lego.jpeg]
+![](../assets/images/taj-lego.jpeg)

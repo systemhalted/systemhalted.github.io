@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Movie Review] - Major
+title: [Movie Review] Major
 category: [Movie Review]
 tags: [Major, Netflix, Operation Vijay, Major Unnikrishnan]
 comments: true

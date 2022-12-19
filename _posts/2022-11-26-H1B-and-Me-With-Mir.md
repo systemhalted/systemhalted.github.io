@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Mir and My H1B and GC Travails
-category: [Insane Thoughts, Personal, Poetry, Poet]
+category: [Insane Thoughts, Personal, Poetry, Poets, Hindi, Urdu, हिंदी]
 tags: [mir taqi mir, H1B, GC]
 comments: true
-description: Here I try to express my H1B and GC travails using Mir's couplets.
+description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 featured: false
 ---
 

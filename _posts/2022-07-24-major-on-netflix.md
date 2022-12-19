@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Movie Review - Major (in Hindi)
-category: [Movie Review]
+category: [Movie Reviews]
 tags: [Major, Netflix, Operation Vijay, Major Sandeep Unnikrishnan]
 comments: true
 description: If I have to rate, I will give it 3 out of 5. 2 marks for emotions and 1 for being committed enough to make a movie on Maj Unnikrishnan.

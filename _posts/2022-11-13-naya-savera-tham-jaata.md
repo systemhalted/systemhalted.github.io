@@ -4,7 +4,7 @@ title: नया सवेरा थम जाता, तो क्या हो
 category: [Poetry, Hindi, Urdu, हिंदी, Hindustani]
 tags: [naya savera, philosophical, life]
 comments: true
-description: Here I try to express my life, H1B and GC travails using Mir's couplets.
+description: A new philosophical poem
 featured: false
 ---
 

@@ -4,7 +4,7 @@ title: Nazeer Akbarabadi - Mahadevji ka byah
 category: [India, Poetry, Poets, Hindi]
 tags: [Nazeer Akbarabadi, mahadevji ka byah, ganga, jamuna, tehzeeb]
 comments: true
-description: 
+description: This post is about Nazeer Akbarabadi (1735-1830), a poet who wrote beautiful poetry on Indian festivals. 
 featured: false
 ---
 

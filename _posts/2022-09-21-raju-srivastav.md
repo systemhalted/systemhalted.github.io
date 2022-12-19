@@ -4,7 +4,7 @@ title: Raju Srivastav
 category: [Obituaries]
 tags: [Raju Srivastav]
 comments: true
-description: This is a note to self for memories in the later years. This was the innings that proved why Virat Kohli is a King!
+description: Raju Srivastav was the king of comedy
 featured: false
 ---
 

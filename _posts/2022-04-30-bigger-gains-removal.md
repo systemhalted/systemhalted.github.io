@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bigger gains are often found through removal
+title: Bigger Gains Are Often Found Through Removal
 category: [Behavior, Management]
 tags: [Ravi Raman, team, project management, software management, people leadership]
 comments: true

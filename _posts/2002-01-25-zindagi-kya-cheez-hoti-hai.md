@@ -1,6 +1,6 @@
 ---
 layout: post
-title: जिंदगी क्या चीज़ होती है ?
+title: जिंदगी क्या चीज़ होती है?
 category: [Poetry, Hindi, हिंदी, aatmiyata]
 tags: [life, philosophical]
 comments: true

@@ -2,9 +2,9 @@
 layout: post
 title: Lata Mangeshkar
 category: [Obituaries]
-tags: [Lata Mangeshkar, nightingale of india, ]
+tags: [Lata Mangeshkar, nightingale of india]
 comments: true
-description: Watched Gandhi with Rayirth today.  He had read about him in the school but I thought it would be a good idea to show him the movie. His appreciation for Gandhi and India’s Struggle for Independence increased manifold. 
+description: Om Shanti! Lata Mangeshkar will live forever!
 featured: false
 ---
 <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6895976237865467904" height="692" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>

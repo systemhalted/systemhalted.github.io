@@ -4,7 +4,7 @@ title: Silence in the face of evil is itself evil!
 category: [Insane Thoughts]
 tags: [democracy, silence, evil, government, anti-national, patriot]
 comments: true
-description: Greek Musician Vangelis died last month. Om Shanti! 
+description: 
 featured: false
 ---
 

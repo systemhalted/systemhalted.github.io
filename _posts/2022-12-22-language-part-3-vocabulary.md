@@ -7,6 +7,8 @@ comments: true
 description: This is Part 3 of Language series where we will talk about vocabulary.
 ---
 
+*** Disclaimer ***: I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
+
 Vocabulary is an essential part of language that refers to the set of words that we use to express our thoughts, feelings, and ideas. It is a key aspect of effective communication, as it allows us to express a wide range of concepts and ideas in a clear and concise manner.
 
 Vocabulary can be defined as the words of a language, including single items and phrases or chunks of several words which convey a particular meaning, the way individual words do. [^1]

@@ -9,7 +9,8 @@ description: This is part 1 of Language series where we will define Language and
 
 Yesterday, my son Rayirth asked why his teacher says that English is the toughest language. While discussing it dawned to me that English is not difficult due to how the language is designed but due to the very nature of the script it uses. For example, cut and put are pronounced differently but written similarly. Thus, one thing is clear that language is not same as the script. Then what is language? How do we define language? In this series of post, I am going to tackle this question and discuss various aspects or components of language. This is the first post in the series where I will try to understand what is a language and how is it useful for human communication. 
 
-*** Disclaimer ***: I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
+***Disclaimer*** 
+I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
 
 Language is a fundamental aspect of human communication. It is a system of symbols, sounds, and gestures that we use to express our thoughts, feelings, and ideas to others. Language allows us to convey complex information, share our knowledge and experiences, and connect with others on a deeper level.
 

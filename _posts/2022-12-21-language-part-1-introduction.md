@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Language Part 1 - Introduction
-category: [Linguistics, Insane Thoughts]
+category: [Languages, Linguistics, Insane Thoughts]
 tags: [language, vocabulary, communication, expression]
 comments: true
 description: This is part 1 of Language series where we will define Language and why it is important. 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Language Part 2 - Grammar
-category: [Linguistics, Insane Thoughts]
+category: [Languages, Linguistics, Insane Thoughts]
 tags: [language, grammar, communication, expression]
 comments: true
 description: This is Part 2 of Language series where we will talk about grammar.

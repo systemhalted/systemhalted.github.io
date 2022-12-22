@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Language Part 3 - Vocabulary
-category: [Linguistics, Insane Thoughts]
+category: [Languages, Linguistics, Insane Thoughts]
 tags: [language, vocabulary, communication, expression]
 comments: true
 description: This is Part 3 of Language series where we will talk about vocabulary.

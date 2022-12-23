@@ -34,8 +34,6 @@ Maintaining a purity of language does no good and people who are puritan in thei
 In conclusion, vocabulary is an essential part of language that allows us to express a wide range of concepts and ideas. It is a key aspect of effective communication, and it is something that can be improved and expanded through practice and effort. By building a rich vocabulary, we can more effectively express ourselves and understand the words and ideas of others.
 
 
-
-
 ***References***
 
 [^1]: https://www.tesol.org/docs/books/bk_ELTD_Vocabulary_974

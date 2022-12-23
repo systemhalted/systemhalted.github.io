@@ -23,11 +23,9 @@ Vocabulary is also important in language because it allows us to communicate mor
 
 Building and expanding your vocabulary is an ongoing process that requires practice and effort. There are many ways to improve your vocabulary, including reading widely, learning new words and phrases, and using a dictionary or thesaurus to look up unfamiliar words. By making an effort to expand your vocabulary, you can become a more effective communicator and improve your understanding of language.
 
-When we talk about language, the most important aspect is surely grammar but vocabulary is close second. Language speakers as they come in influence of foreign language try to assimilate some of the vocabulary of the foreign language in their language use, thus enhancing their vocabulary by borrowing from the foreign language. 
+When talking about language, grammar is without a doubt the most important factor, with vocabulary coming in second. The grammar decides whether the language is native or foreign. Take for an example, this sentence supposedly in Hindi, "इस पार्क (park) में बहुत सारे स्लाइड्स (slides) हैं"! This is ofcourse Hindi but notice that the two important words, the subject - park and slides are both English words but somehow we ended up writing a Hindi sentence. This is because though we are using foreign words, the structure of the sentence follows Hindi grammar.
 
-Take for an example, this sentence supposedly in Hindi, "इस पार्क (park) में बहुत सारे स्लाइड्स (slides) हैं"! This is ofcourse Hindi but notice that the two important words, the subject - park and slides are both English words but somehow we ended up writing a Hindi sentence. This is because though we are using foreign words, the structure of the sentence follows Hindi grammar.
-
-Oxford dictionary adds 4000 new words to its repertoire every year. That means we will see increasing number of foreign language influence on English vocabulary, which is a good thing. 
+When native speakers of a language come into contact with a language used by others, they try to incorporate some of the terminology into their language use, so increasing their vocabulary. Oxford dictionary adds 4000 new words to its repertoire every year. That means we will see increasing number of foreign language influence on English vocabulary, which is a good thing. 
 
 Maintaining a purity of language does no good and people who are puritan in their perspective do more disservice than service to the language. 
 

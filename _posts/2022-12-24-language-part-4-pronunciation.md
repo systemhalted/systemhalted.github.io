@@ -4,7 +4,7 @@ title: Language Part 4 - Pronunciation
 category: [Languages, Linguistics, Insane Thoughts]
 tags: [language, Pronunciation, communication, expression]
 comments: true
-description: This is Part 3 of Language series where we will talk about vocabulary.
+description: This is Part 4 of Language series where we will talk about pronunciation.
 ---
 
 ***Disclaimer***

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: P and NP Completeness: Understanding the Complexity of Algorithms
+title: P and NP Completeness - Understanding the Complexity of Algorithms
 category: [Algorithms, Computer Science]
 tags: [P, NP, NP-hard, complexity]
 comments: true

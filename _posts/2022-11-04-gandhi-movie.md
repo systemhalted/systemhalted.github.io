@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Gandhi - The Moview
+title: Gandhi - The Movie
 category: [India, People]
 tags: [Gandhi, Rayirth, Independence, India, Pakistan, Jinnah, Bapu]
 comments: true

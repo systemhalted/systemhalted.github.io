@@ -4,7 +4,7 @@ title: Language Part 6 - Non-Verbal Communication, Tone, and Body language
 category: [Languages, Linguistics, Insane Thoughts]
 tags: [language, non-verbal, tone, body labguage, communication, expression]
 comments: true
-description: This is Part 6 of Language series where we will talk about script.
+description: This is Part 6 of Language series where we will talk about non-verbak communication.
 ---
 
 ***Disclaimer***

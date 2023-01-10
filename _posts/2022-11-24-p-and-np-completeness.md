@@ -24,3 +24,4 @@ One of the most important open problems in theoretical computer science is wheth
 In conclusion, P and NP completeness are important concepts in the field of algorithms and complexity theory. Understanding the complexity of a problem and its corresponding algorithm is essential for determining the feasibility of a solution and for comparing the relative difficulty of different problems. The question of whether P = NP is a major open problem in the field and its resolution could have far-reaching implications for the field of algorithms and complexity theory.
 
 Keep in mind that P and NP completeness are concepts that apply to decision problems, problems that return "yes" or "no" as solutions or search problems, problems that return a solution if one exists otherwise return "no" and doesn't necessarily apply to optimization problems which have solutions such as the shortest path in a graph, the best chess move, the least costly schedule.
+

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Git Bisect: Finding the Source of a Bug in Your Codebase
+title: Git Bisect - Finding the Source of a Bug in Your Codebase
 category: [Software Engineering]
 tags: [Git, Bisect, Bug]
 comments: true

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: What is Advaita Vedanta?
-category: [ Vedanta, Hinduism, Religion, Artificial Intelligence]
+category: [ Vedanta, Hinduism, Religion, Artificial Intelligence (AI), Philosophy]
 tags: [vedanta, hindusim, hindu, advaita, non-dualism, AI]
 comments: true
 description: Advaita Vedanta is a powerful and transformative philosophy that teaches the concept of non-dualism. Through the realization of the oneness of the individual self and the universal self, we can attain liberation from the cycle of reincarnation and experience true freedom and peace. 

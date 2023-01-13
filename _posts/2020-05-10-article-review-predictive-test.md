@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Article Review] The Next Word - Where will predictive text take us by John Seabrook
+title: "[Article Review] The Next Word - Where will predictive text take us by John Seabrook"
 category: [Technology, Artificial Intelligence, Machine Learning, Article Review]
 tags: [data, artificial intelligence, Seabrook, Predictive Test, GPT, Machine Learning, ML, ai, The New Yorker]
 comments: true

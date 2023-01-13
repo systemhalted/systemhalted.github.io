@@ -5,7 +5,6 @@ category: [Technology, Artificial Intelligence, Machine Learning, Article Review
 tags: [data, artificial intelligence, Bernard Marr, Predictive Test, GPT, Machine Learning, ML, ai, Forbes]
 comments: true
 description: This is the review of Forbes Article by Bernard Marr on AI.
-featured: true
 ---
 
 ### Summary
@@ -18,7 +17,7 @@ This article is very simple and it accurately portrays the risk associated with 
 
 ### References
 
-[^1]:  Marr, Bernard (2018). Is Artificial Intelligence Dangerous? 6 AI Risks Everyone Should Know About. url: https://www.forbes.com/sites/bernardmarr/ 2018 / 11 / 19 / is - artificial - intelligence - dangerous - 6 - ai - risks - everyone-should-know-about/#16eea2eb2404
+[^1]:  Marr, Bernard (2018). Is Artificial Intelligence Dangerous? 6 AI Risks Everyone Should Know About. [link](https://www.forbes.com/sites/bernardmarr/2018/11/19/is-artificial-intelligence-dangerous-6-ai-risks-everyone-should-know-about/?sh=5132f2ed2404)
 
 
 

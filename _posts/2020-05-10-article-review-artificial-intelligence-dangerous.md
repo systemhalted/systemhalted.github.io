@@ -15,7 +15,7 @@ description: This is the review of Forbes Article by Bernard Marr on AI.
 
 This article is very simple and it accurately portrays the risk associated with AI. I will argue that though I have put the article in negative section, it is realist and shows the growing concerns with the evolution of AI. Toronto Declaration, that we discussed in previous section, addresses few of the risks like discrimination mentioned in the article.
 
-### References
+*References*
 
 [^1]:  Marr, Bernard (2018). Is Artificial Intelligence Dangerous? 6 AI Risks Everyone Should Know About. [link](https://www.forbes.com/sites/bernardmarr/2018/11/19/is-artificial-intelligence-dangerous-6-ai-risks-everyone-should-know-about/?sh=5132f2ed2404)
 

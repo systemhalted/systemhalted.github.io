@@ -11,7 +11,7 @@ description: This is the review of The New Yorker Article by John Seabrook on Pr
 
 The author[^1] starts by mentioning his experience with GMail’s Smart Compose feature and says that it is heartening to see the machine completing the sentence for him. He further talks about OpenAI’s GPT-2 ma- chine, which is an AI Writer, a supercharged version of Smart Compose. The arti- clequotesDarioAmodei,DirectorResearchatOpenAI, 
 
-  > Until now, if you saw a piece of writing, it was like a certificate that a human  was involved in it. Now it is no longer a certificate that an actual human is involved.
+      Until now, if you saw a piece of writing, it was like a certificate that a human  was involved in it. Now it is no longer a certificate that an actual human is involved.
 
 Seabrook then ventures into language evolution and talks about neuroscience and psychology of spoken language. He says, that humans are evolved in terms of spoken language but writing is an acquired and learned trait. Hence, it is possible for an AI agent to write much better than speak. The author shares his fair that machine will soon be taking over humans as far as writing is concerned.
 

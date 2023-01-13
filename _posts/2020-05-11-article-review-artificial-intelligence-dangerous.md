@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Article Review] Is Artificial Intelligence Dangerous by Bernard Marr
+title: "[Article Review] Is Artificial Intelligence Dangerous by Bernard Marr"
 category: [Technology, Artificial Intelligence, Machine Learning, Article Review]
 tags: [data, artificial intelligence, Bernard Marr, Predictive Test, GPT, Machine Learning, ML, ai, Forbes]
 comments: true

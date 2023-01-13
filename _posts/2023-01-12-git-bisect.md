@@ -11,9 +11,9 @@ As a software developer, it's inevitable that bugs will appear in your codebase.
 
 Git bisect allows you to quickly and easily identify the commit that introduced a bug by using a binary search algorithm. The process works by narrowing down the possible commits that could have introduced the bug by repeatedly selecting a "good" and "bad" commit and checking the ones in between.
 
-To use Git bisect, first make sure that you have the latest version of your codebase on a clean branch. Then, run the command git bisect start to begin the bisect process. Next, you'll need to mark the current commit as "bad" using the command git bisect bad. This will tell Git that the bug is present in the current version of the code.
+To use Git bisect, first make sure that you have the latest version of your codebase on a clean branch. Then, run the command `git bisect start` to begin the bisect process. Next, you'll need to mark the current commit as "bad" using the command `git bisect bad`. This will tell Git that the bug is present in the current version of the code.
 
-Next, you'll need to find a commit that you know is "good", meaning that the bug is not present. This could be a commit from before the bug was introduced, or a release version of your code that you know is working correctly. Once you have identified a "good" commit, run the command git bisect good <commit> to mark it as such.
+Next, you'll need to find a commit that you know is "good", meaning that the bug is not present. This could be a commit from before the bug was introduced, or a release version of your code that you know is working correctly. Once you have identified a "good" commit, run the command `git bisect good <commit>` to mark it as such.
 
 Git will now begin the bisect process by checking out a commit in between the "good" and "bad" commits. You'll need to test the code at this point to determine if the bug is present or not. If the bug is present, run the command git bisect bad to mark the current commit as bad. If the bug is not present, run the command git bisect good to mark it as good.
 

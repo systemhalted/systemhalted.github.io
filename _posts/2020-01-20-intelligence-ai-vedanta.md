@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Intelligence, Artificial Intelligence and Vedanta Hinduism
-category: [Technology, Artificial Intellgence (AI), Vedanta, Intelligence, Hinduism, Philosophy]
+category: [Technology, Artificial Intelligence, Vedanta, Hinduism, Philosophy]
 tags: [vedanta, intelligence, artificial intelligence ]
 comments: true
 description: This post attempts to define a Test of Intelligence based on my understanding of Advaita Vedanta. Submitted as part of CS7637 Homework 

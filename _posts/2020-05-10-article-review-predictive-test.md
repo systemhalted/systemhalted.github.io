@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Article Review] The Next Word - Where will predictive text take us? by John Seabrook
+title: [Article Review] The Next Word - Where will predictive text take us by John Seabrook
 category: [Technology, Artificial Intelligence, Machine Learning, Article Review]
 tags: [data, artificial intelligence, Seabrook, Predictive Test, GPT, Machine Learning, ML, ai, The New Yorker]
 comments: true
@@ -24,7 +24,7 @@ He ends the article by optimism thinking of the iteration of GPT far more powerf
 
 The article portrays the AI in a positive light and accurately describes how an AI agent can be created by talking about Knowledge Based AIs and Self- learning AIs. The author fairly covers the details of an intelligent machine and it’s development. It is a good research based mass-market article, which is expected from The New Yorker.
 
-### References
+*References*
 
 [^1]:  Seabrook, John (2019). The Next Word, (link)(https://www.newyorker.com/magazine/2019/10/14/can-a-machine-learn-to-write-for-the-new-yorker)
 

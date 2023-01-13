@@ -27,7 +27,7 @@ The article portrays the AI in a positive light and accurately describes how an 
 
 ### References
 
-[^1]: https://www.newyorker.com/magazine/2019/10/14/can-a-machine-learn-to-write-for-the-new-yorker
+[^1]:  Seabrook, John (2019). The Next Word, https://www.newyorker.com/magazine/2019/10/14/can-a-machine-learn-to-write-for-the-new-yorker
 
 
 

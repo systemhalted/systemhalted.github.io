@@ -4,7 +4,7 @@ title: How to keep kids safe playing Roblox?
 category: [Gaming, Online Safety]
 tags: [roblox, cybersecurity, gaming]
 comments: true
-description: This post will discuss some parents tips to keep the kids safe while playing Roblox. 
+description: This post will discuss some tips for parents to keep the kids safe while playing Roblox. 
 ---
 
 I am constantly worried about my kids' safety when they are playing Roblox or any game online. As a parent, it's important to be aware of the digital world that our children are exploring. One of the most popular online gaming platforms among kids today is Roblox, a massively multiplayer game that allows players to create and share their own virtual worlds. While Roblox can be a fun and educational experience for kids, it's important to take steps to ensure their safety while they're playing.

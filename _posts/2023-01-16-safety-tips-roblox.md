@@ -28,7 +28,7 @@ Here are some tips to help keep your child safe while playing Roblox:
 15. Be a role model: Be a role model for your child by showing them how to use the internet and online games in a safe and responsible manner.
 
 
-I hope by taking these steps, you and I can help keep our child safe while they're playing Roblox and enjoy the fun and educational benefits that the platform has to offer. 
+I hope by taking these steps, you and I can help keep our child safe while they're playing Roblox and enjoy the fun and educational benefits that the platform has to offer. It's important to remember that no system or method can provide a 100% guarantee of safety so it's important to keep an open line of communication with your child and stay informed about the latest updates and trends of the platform.
 
 
 

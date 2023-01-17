@@ -1,8 +1,8 @@
 ---
 layout: post
 title: The Advancements in Technology and Training Methods that have Improved the Performance of Athletes
-category: [Sports]
-tags: [cricket, icc, bcci, fitness, technology, training]
+category: [Sports, Fitness]
+tags: [cricket, icc, bcci, fitness, technology, training, cricket, Virat Kohli, Sachin Tendulkar]
 comments: true
 description: The world of sports has come a long way in the past decade. With advancements in technology and training methods, athletes are now able to push their bodies to new limits and break records that were once thought impossible. From professional athletes to weekend warriors, everyone is benefitting from these technological advancements. In this post, we will explore the ways in which technology and training methods have improved the performance of athletes and what we can expect to see in the future.
 ---

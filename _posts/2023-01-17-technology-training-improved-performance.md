@@ -28,6 +28,6 @@ Finally, medical treatments and recovery techniques have also improved in recent
 In conclusion, the advancements in technology and training methods have had a significant impact on the performance of athletes. From wearable technology to functional training, these advancements have allowed athletes to push their bodies to new limits and break records that were once thought impossible. With technology continuing to evolve, we can expect to see even more improvements in the future. Athletes and coaches will continue to use data and analytics to track performance and make training and game-time decisions. As a result, we will see even more athletes achieving new heights of excellence in their respective sports.
 
 **References**
-[^1]: [Virat Kohli](https://en.wikipedia.org/wiki/Virat_Kohli)
-[^2]: [ODI](https://systemhalted.in/2023/01/16/cricket-beginners-guide/)
-[^3]: [Sachin Tendulkar](https://en.wikipedia.org/wiki/Sachin_Tendulkar)
+[^1]: [Virat Kohli](https://en.wikipedia.org/wiki/Virat_Kohli)   
+[^2]: [ODI](https://systemhalted.in/2023/01/16/cricket-beginners-guide/)  
+[^3]: [Sachin Tendulkar](https://en.wikipedia.org/wiki/Sachin_Tendulkar)   

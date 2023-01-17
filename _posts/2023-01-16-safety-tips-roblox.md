@@ -21,6 +21,12 @@ Here are some tips to help keep your child safe while playing Roblox:
 8. Keep the computer in a common area: If possible, place the computer in a common area of the house so you can keep an eye on your child's online activities.
 9. Limit the time they can play: It is important that your kids are not spending their entire time online playing games. Other aspects are important. Encourage them to read and go out and play. 
 10. Keep an eye on your child's friends list: Roblox allows players to add friends, so it's important to monitor your child's friends list to ensure that they are only interacting with people you trust. 
+11.Use the "Report Abuse" feature: Roblox has a "Report Abuse" feature that allows players to report any inappropriate behavior or content they encounter. Encourage your child to use this feature if they ever come across anything that makes them feel uncomfortable or unsafe.
+12. Discuss online behavior with your child: Talk to your child about appropriate online behavior and explain to them the importance of being respectful and kind to others while playing games online.
+13. Stay informed: Stay informed and educated on the latest features and updates of Roblox platform. This will help you to keep your child safe and aware of any new risks or concerns. Also, be aware of the latest trends and games that your child may be interested in.
+14. Monitor your child's online activities: Regularly check your child's account to see what games they're playing, who they're interacting with, and what kind of content they're viewing. This will give you a better understanding of your child's online activities and will help you to address any concerns or issues that may arise.
+Be a role model: Be a role model for your child by showing them how to use the internet and online games in a safe and responsible manner.
+
 
 I hope by taking these steps, you and I can help keep our child safe while they're playing Roblox and enjoy the fun and educational benefits that the platform has to offer. 
 

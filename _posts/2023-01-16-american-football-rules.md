@@ -1,6 +1,6 @@
 ---
 layout: post
-title: American Football Rules Summarized for First Timers
+title: American Football - Beginners Guide
 category: [Sports]
 tags: [american football, nfl]
 comments: true

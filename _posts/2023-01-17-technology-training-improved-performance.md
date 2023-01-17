@@ -7,7 +7,7 @@ comments: true
 description: The world of sports has come a long way in the past decade. With advancements in technology and training methods, athletes are now able to push their bodies to new limits and break records that were once thought impossible. From professional athletes to weekend warriors, everyone is benefitting from these technological advancements. In this post, we will explore the ways in which technology and training methods have improved the performance of athletes and what we can expect to see in the future.
 ---
 
-Recently Virat Kohli [^1] scored his 46th ODI [^2] century. Sachin Tendulkar [^3] has scored 100 centuries in all formats with 49 centuries in ODI. Virat has always been compared to Sachin and his recent centuries have re-started the comparison. One contention is that Sachin took 463 ODI matches to score his 49 centuries, while Virat has scored his 46 centuries in just 268 matches. 
+Recently Virat Kohli[^1] scored his 46th ODI[^2] century. Sachin Tendulkar[^3] has scored 100 centuries in all formats with 49 centuries in ODI. Virat has always been compared to Sachin and his recent centuries have re-started the comparison. One contention is that Sachin took 463 ODI matches to score his 49 centuries, while Virat has scored his 46 centuries in just 268 matches. 
 
 In this debate, I stipulate that the world of sports has come a long way in the past decade. With advancements in technology and training methods, athletes are now able to push their bodies to new limits and break records that were once thought impossible. From professional athletes to weekend warriors, everyone is benefitting from these technological advancements. In this article, we will explore the ways in which technology and training methods have improved the performance of athletes and what we can expect to see in the future.
 
@@ -28,6 +28,7 @@ Finally, medical treatments and recovery techniques have also improved in recent
 In conclusion, the advancements in technology and training methods have had a significant impact on the performance of athletes. From wearable technology to functional training, these advancements have allowed athletes to push their bodies to new limits and break records that were once thought impossible. With technology continuing to evolve, we can expect to see even more improvements in the future. Athletes and coaches will continue to use data and analytics to track performance and make training and game-time decisions. As a result, we will see even more athletes achieving new heights of excellence in their respective sports.
 
 **References**
+
 [^1]: [Virat Kohli](https://en.wikipedia.org/wiki/Virat_Kohli)   
 [^2]: [ODI](https://systemhalted.in/2023/01/16/cricket-beginners-guide/)  
 [^3]: [Sachin Tendulkar](https://en.wikipedia.org/wiki/Sachin_Tendulkar)   

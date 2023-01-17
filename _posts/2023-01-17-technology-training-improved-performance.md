@@ -15,7 +15,7 @@ One of the biggest advancements in technology that has impacted the world of spo
 
 Another important aspect of sports performance that has been greatly impacted by technology is the clothing athletes wear. Breathable clothing has become increasingly popular in recent years, and for good reason. Breathable clothing can have a positive impact on sports performance by helping to regulate an athlete's body temperature. When an athlete is participating in physical activity, their body generates heat, which can cause them to become overheated and fatigued. Breathable clothing allows sweat to evaporate through the fabric, helping to cool the body and keep the athlete comfortable. This can help to prolong endurance and improve overall performance.
 
-Yet another way that technology is transforming the world of sports is through the use of video analysis. With the help of cameras and software, coaches and trainers are now able to analyze an athlete's technique and identify areas for improvement. This allows them to make adjustments to the athlete's training regimen in order to improve their performance.
+Yet another way that technology is transforming the world of sports is through the use of video analysis. With the help of cameras and software, coaches and trainers are now able to analyze an athlete's technique and identify areas for improvement. This allows them to make adjustments to the athlete's training regimen in order to improve their performance. You can see the spider cameras all around. In cricket, the stump camera and technology like ball tracking and Ultra Edge [^4] to confirm if the ball hit the bat have changed the way the game is played. 
 
 In addition to technology, training methods have also seen significant advancements in recent years. One of the biggest changes has been the shift towards functional training. Rather than focusing on isolated muscle groups, functional training focuses on the body as a whole and trains the muscles to work together. This type of training is more effective for athletes because it helps to improve their overall movement patterns, making them more efficient and less prone to injury.
 
@@ -32,3 +32,4 @@ In conclusion, the advancements in technology and training methods have had a si
 [^1]: [Virat Kohli](https://en.wikipedia.org/wiki/Virat_Kohli)   
 [^2]: [ODI](https://systemhalted.in/2023/01/16/cricket-beginners-guide/)  
 [^3]: [Sachin Tendulkar](https://en.wikipedia.org/wiki/Sachin_Tendulkar)   
+[^4]: Bilal, Mohammad, [What is ultra-edge technology? How does it work in cricket?](https://www.dailyo.in/ground/what-is-ultra-edge-technology-how-does-it-work-in-cricket-37386)

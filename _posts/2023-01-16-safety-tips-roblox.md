@@ -2,7 +2,7 @@
 layout: post
 title: How to keep kids safe playing Roblox
 category: [Gaming, Online Safety]
-tags: [roblox, cybersecurity, gamin]
+tags: [roblox, cybersecurity, gaming]
 comments: true
 description: This post will discuss some parents tips to keep the kids safe while playing Roblox. 
 ---

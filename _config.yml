@@ -39,4 +39,5 @@ feed:
   
   
 collections:
-  - emacs 
+  emacs: 
+    output: true

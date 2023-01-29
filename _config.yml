@@ -40,7 +40,7 @@ feed:
 collections_dir: collections
 collections:
   jsgames:
-    output: true
+    output: false
   emacs: 
     output: true 
 

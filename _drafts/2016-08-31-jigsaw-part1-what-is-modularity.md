@@ -37,8 +37,7 @@ description: What is Project Jigsaw?
    
   The above are the two of the important characteristics that a module must have. 
   
-  Let us explore further. We discussed modularity in terms of encapsulation and packages in JDK. We have other modules like jars. 
-  Now jars can be dependent on other jars as well. 
+  Let us explore further. We discussed modularity in terms of encapsulation and packages in JDK. We have other modules like jars. Now jars can be dependent on other jars as well. 
   
    
    

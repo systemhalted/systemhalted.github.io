@@ -1,11 +1,14 @@
 ---
-layout: default
+title: Emacs
+layout: page
 ---
 
+<div class="post-list">
 {% for emacs in site.emacs %}
-  <h2>
+  <li>
     <a href="{{ emacs.url }}">
       {{ emacs.title }} 
     </a>
-  </h2>
+  </li>
 {% endfor %}
+</div>

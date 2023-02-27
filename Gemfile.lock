@@ -102,8 +102,8 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll
-  jekyll-gist
   jekyll-feed
+  jekyll-gist
   jekyll-paginate
   jekyll-seo-tag
   jekyll-sitemap

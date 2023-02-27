@@ -1,6 +1,6 @@
 ---
 layout: page
-title: which-key: A Helpful Emacs Package
+title: which-key - A Helpful Emacs Package
 tags: [emacs, gnu emacs, which-key]
 category: [emacs]
 ---

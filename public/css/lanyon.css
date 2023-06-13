@@ -533,6 +533,19 @@ a.pagination-item:hover {
 }
 
 
+/* Black */
+.theme-base-01 .sidebar,
+.theme-base-01 .sidebar-toggle:active,
+.theme-base-01 #sidebar-checkbox:checked ~ .sidebar-toggle {
+  background-color: #0d0c0c;
+}
+.theme-base-01 .container a,
+.theme-base-01 .sidebar-toggle,
+.theme-base-01 .related-posts li a:hover {
+  color: #0d0c0c;
+}
+
+
 /*
  * Overlay sidebar
  *

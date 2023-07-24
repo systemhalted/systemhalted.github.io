@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Power of Transparency in Leadership - Lessons from Experience
-category: [Management, ]
+category: [Management]
 tags: [Transparency, Leadership, OpenCommunication, CorporateCulture]
 comments: true
 description: Transparency is a powerful tool in leadership that fosters trust, collaboration, and growth. As a manager, I've experienced firsthand how embracing transparency positively impacts team dynamics and overall performance.

@@ -7,9 +7,6 @@ comments: true
 description: Real-time payment systems have become the backbone of modern economies, offering rapid and secure transactions for individuals and businesses alike. This in-depth technical article explores the transformative power of real-time payment systems, with a focus on two major players - Unified Payments Interface (UPI) in India and the emerging FedNow standard in the United States. Additionally, we analyze similar interfaces from around the world, including the Faster Payments Service (FPS) in the UK, SEPA Instant Credit Transfer (SCT Inst) in the Eurozone, and PIX in Brazil. Through an in-depth examination of each system’s development, architecture, features, and global impact, this article aims to provide readers with a comprehensive understanding of the rapidly evolving landscape of real-time payment solutions.
 ---
 
-## TOC
-{:toc}
-
 ## Introduction
 Real-time payment systems have emerged as an essential pillar of the digital era, reshaping the financial landscape and providing individuals and businesses with efficient, seamless, and secure transaction capabilities. This comprehensive technical article delves into the evolution and functioning of real-time payment systems, focusing on two prominent examples - the Unified Payments Interface (UPI)[^1][^2] in India and the FedNow[^3] standard in the United States. Moreover, we will explore similar systems in other countries, such as the Faster Payments Service (FPS)[^4] in the UK, SEPA Instant Credit Transfer (SCT Inst)[^5] in the Eurozone, and PIX[^6] in Brazil. By examining the intricate technical aspects, architecture, and global impact of these real-time payment solutions, this article aims to shed light on their pivotal role in revolutionizing global financial transactions.
 

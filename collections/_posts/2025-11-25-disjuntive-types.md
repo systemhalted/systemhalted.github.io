@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Either This Or That: Why I Wanted Disjunctive Types In Java
+title: Either This Or That - Why I Wanted Disjunctive Types In Java
 category: [Computer Science, Programming, Software Engineering, Technology]
 tags: [disjunction, Scala, Java, Kotlin, Haskell, Algebraic Data Types]
 comments: true

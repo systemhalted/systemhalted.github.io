@@ -18,17 +18,13 @@ tags:
 - spring xd
 description: An attempt to make sense of the world I work in. 
 ---
+Last year I spent a lot of time working with distributed runtime environments, especially using Spring XD. Spring XD gives you a way to define streams that process continuous flows of data in near real time. Under the covers it builds on Spring Integration and messaging. No single module can keep up with every burst of traffic on its own, so Spring XD relies on messaging middleware such as queues and topics. These queues decouple producers and consumers and buffer data so that the system as a whole can keep up, even when individual modules have limited capacity.
 
-Last year I have worked a lot on Distributed Runtime environments specially using Spring XD. Spring XD provides a way to create Streams which can process lot of flowing data in real time. Spring XD internally uses Spring Integration for most of the processing of data. However, it is impossible for any module to handle lots of data in real time. This is handled through defining protocols for message transfer which is nothing but a Queue. This queueing mechanism enables the creation of real-time streams. 
+In Haskell you see a different but related idea in the form of lazy evaluation. For example, you can write a simple definition like b = a + 2. Even if a is not known yet, the definition of b is valid. Haskell does not compute b until some later point when its value is actually needed and a has been provided. This is the essence of laziness in the language. Functional reactive programming libraries in Haskell build on this style of thinking, representing time varying values and streams as ordinary values that are only evaluated when required.
 
-In a programming language like Haskell, functional reactive programming is implemented using the Lazy evaluation as well. You can declare a reactive data, say _b = (a+2)_. Now value of _a_ is unknown till specified but _b_ is defined and doesn't throw any error and can be evaluated when the value of a is specified a little later. This happens due to what Haskell supports under the hood - Lazy Evaluation. 
+Reactive programming in general is not the same thing as lazy evaluation, and it does not depend on lazy data structures. You can build reactive systems in strict languages like Java, Kotlin or C Sharp. The common thread is the idea of data streams and propagation of change. You compose operations over streams of events and let the runtime push values through that pipeline as they arrive, often with some form of back pressure to avoid overwhelming consumers.
 
-Now compare that to Reactive programming. Though they are not at same level but reactive programming is possible due to lazy data structures. 
+This is where the analogy with Spring XD comes in. In Spring XD the queues between modules let you treat incoming data as an unbounded stream that can be processed at the pace of the consumers. Producers publish messages as they arrive, queues hold those messages, and consumers pull and process them as they are ready. You never loop over a fixed collection of all possible data. Instead you react to data as it flows through the system over time.
 
-In the world of Spring XD, the queue enables the Lazy evaluation. This allows an infinite existence of data that can be evaluated. 
-The other way to implement would have been to loop through all the data but again that would have been cumbersome and ugly. 
-
-Spring XD is nothing but the implementation of Reactive Architecture where the different modules are talking to each other through events published to them. So, all in all everything is working due to Lazy evaluation within the hoods. 
-
-**Disclaimer:** _This post may not be entirely true technically. These are just my thoughts and understanding of few things that I am currently working on to make more sense of the work that I do._ 
+So Haskell laziness and reactive architectures like those built with Spring XD solve similar problems from different directions. Laziness delays computation until a value is demanded. Reactive architectures delay work until an event arrives and a downstream component is ready. The mechanisms are different, but the shared idea is powerful: do work only when there is a consumer that actually needs the result.
 

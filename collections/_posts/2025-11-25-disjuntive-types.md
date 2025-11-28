@@ -58,23 +58,23 @@ For example, if I want a result that always includes both a status and a payload
 
 
 {% highlight java %}
-    public final class ResultWithStatus {
-        private final Status status;
-        private final Payload payload;
+public final class ResultWithStatus {
+    private final Status status;
+    private final Payload payload;
 
-        public ResultWithStatus(Status status, Payload payload) {
-            this.status = status;
-            this.payload = payload;
-        }
-
-        public Status status() {
-            return status;
-        }
-
-        public Payload payload() {
-            return payload;
-        }
+    public ResultWithStatus(Status status, Payload payload) {
+        this.status = status;
+        this.payload = payload;
     }
+
+    public Status status() {
+        return status;
+    }
+
+    public Payload payload() {
+        return payload;
+    }
+}
 {% endhighlight %}
 
 Here the idea really is "status and payload together", so a conjunction feels natural.
@@ -86,23 +86,23 @@ Sometimes a method should return one of two different shapes of data. A very com
 In that case a pure conjunction feels awkward. I can create a wrapper object that has both fields and then abuse `null` for whichever field is absent at the moment:
 
 {% highlight java %}
-    public final class BadResult {
-        private final Payload payload;  // null when there is an error
-        private final Error error;      // null when there is a payload
+public final class BadResult {
+    private final Payload payload;  // null when there is an error
+    private final Error error;      // null when there is a payload
 
-        public BadResult(Payload payload, Error error) {
-            this.payload = payload;
-            this.error = error;
-        }
-
-        public Payload payload() {
-            return payload;
-        }
-
-        public Error error() {
-            return error;
-        }
+    public BadResult(Payload payload, Error error) {
+        this.payload = payload;
+        this.error = error;
     }
+
+    public Payload payload() {
+        return payload;
+    }
+
+    public Error error() {
+        return error;
+    }
+}
 {% endhighlight %}
 
 The type says "payload and error", but the runtime behaviour says "either payload or error". The compiler cannot help here. Nothing stops me from building a value that has both fields non null or both null.
@@ -116,9 +116,9 @@ What I really want is a type that expresses the "either this or that" constraint
 This is where disjunctive types become interesting. A typical example in functional languages is something like:
 
 {% highlight java %}
-    sealed trait Either[+A, +B]
-    final case class Left[A](value: A) extends Either[A, Nothing]
-    final case class Right[B](value: B) extends Either[Nothing, B]
+sealed trait Either[+A, +B]
+final case class Left[A](value: A) extends Either[A, Nothing]
+final case class Right[B](value: B) extends Either[Nothing, B]
 {% endhighlight %}
 
 A value of type `Either[A, B]` is always either a `Left[A]` or a `Right[B]`, never both at once. That mirrors the exclusive disjunction table from earlier.
@@ -219,13 +219,13 @@ You can instead model the disjunction as data in the type system.
 With modern Java, especially with sealed interfaces and records, this is not too painful. For Java 17 and above:
 
 {% highlight java %}
-    public sealed interface Result<E, T>
-            permits Result.Ok, Result.Err {
+public sealed interface Result<E, T>
+        permits Result.Ok, Result.Err {
 
-        record Ok<E, T>(T value) implements Result<E, T> { }
+    record Ok<E, T>(T value) implements Result<E, T> { }
 
-        record Err<E, T>(E error) implements Result<E, T> { }
-    }
+    record Err<E, T>(E error) implements Result<E, T> { }
+}
 {% endhighlight %}
 
 Your parser then becomes:
@@ -235,17 +235,17 @@ Your parser then becomes:
 Using it with pattern matching for `switch`:
 
 {% highlight java %}
-    Result<ParseError, Ast> result = parse(source);
+Result<ParseError, Ast> result = parse(source);
 
-    switch (result) {
-        case Result.Ok<ParseError, Ast> ok -> {
-            Ast ast = ok.value();
-            evaluate(ast);
-        }
-        case Result.Err<ParseError, Ast> err -> {
-            log(err.error());
-        }
+switch (result) {
+    case Result.Ok<ParseError, Ast> ok -> {
+        Ast ast = ok.value();
+        evaluate(ast);
     }
+    case Result.Err<ParseError, Ast> err -> {
+        log(err.error());
+    }
+}
 {% endhighlight %}
 
 Now the disjunction is right there in the signature. No nulls. No surprise exceptions. The compiler forces you to think about both branches.

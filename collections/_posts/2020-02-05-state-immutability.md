@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (Draft) State, Immutability and Microservices
+title: State, Immutability and Microservices
 category: [Insane Thoughts, Technology, Software Engineering, Computer Science]
 tags: [state, immutability, microservices]
 comments: true

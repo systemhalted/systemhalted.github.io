@@ -1,3 +1,35 @@
+---
+layout: post
+title: Clojure and Polish Notation 
+category: [Technology, Clojure] 
+tags: [Clojure, Prefix Notation, Polish Notation, Lisp]
+comments: true
+featured: true
+summary: Clojure syntax uses prefix notation and lots of parentheses. That sounds scary if you grew up on infix, but it doesn’t have to be.
+---
+
+Clojure is a functional programming language for the JVM created by Rich Hickey. It is a dialect of Lisp, which is famous for its use of parentheses and a prefix-style syntax often associated with Polish notation.
+
+In Lisp and Clojure, code is written as fully parenthesized S-expressions, with the operator first and the arguments after it. For example:
+
+{% highlight clojure %}
+(+ 3 4 (+ 3 3 5))
+{% endhighlight %}
+
+To many people this looks terrifying: so many parentheses, and the operator in "the wrong place".
+
+I get why. We are taught infix notation all through school and then see it in most mainstream languages. Switching to prefix feels unnatural at first. The good news is that once you see the structure behind it, it actually becomes easier to reason about -- it just takes a little patience.
+
+### Thinking in trees
+
+Clojure’s syntax makes a lot of sense if you picture expressions as trees.
+
+Take the simple expression `(* A B)`, which is equivalent to infix `A * B`. As a tree, it looks like this:
+
+        *
+      /   \
+     A     B
+
 The S-expression `(* A B)` is just a linear way to write that tree: put the operator at the front, then the operands, and wrap the whole thing in parentheses.
 
 So you can think of Clojure’s "prefix notation" as:
@@ -61,4 +93,4 @@ Some talks and articles that were shared in the original Java Ranch thread:
 If prefix notation and all those parentheses still feel odd, that’s fine. Our brains are heavily trained on infix. Spend a bit of time thinking in trees instead of lines of code, and Clojure’s syntax starts to feel less like an alien language and more like a very direct way of writing down structure.
 
 
-Edit: (28th Nov 2025) Updated with latest understanding of some terminology.
+Edit: (28th Nov 2025) Updated with latest understanding of some terminology. 

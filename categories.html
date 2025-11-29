@@ -41,14 +41,10 @@ permalink: /categories/
             </summary>
             <ul class="category-posts">
               {% for post in posts %}
-                <li class="category-post">
-                  <a href="{{ post.url | relative_url }}">
-                    <span class="post-date">
-                      {{ post.date | date: "%Y-%m-%d" }}
-                    </span>
-                    {{ post.title }}
-                  </a>
-                </li>
+                 <li>
+       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+     </li>
               {% endfor %}
             </ul>
           </details>
@@ -84,14 +80,12 @@ permalink: /categories/
 
         <ul class="category-posts">
           {% for post in posts %}
-            <li>
-              <span class="post-date">
-                {{ post.date | date: "%Y-%m-%d" }}
-              </span>
-              <a href="{{ post.url | relative_url }}">
-                {{ post.title }}
-              </a>
-            </li>
+            
+              <li>
+       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+     </li>
+            
           {% endfor %}
         </ul>
       </details>

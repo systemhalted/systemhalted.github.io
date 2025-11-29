@@ -3,7 +3,6 @@ layout: page
 title: Categories
 description: "An archive of posts sorted by categories."
 permalink: /categories/
-
 ---
 
 {% assign themes = site.data.taxonomy.themes %}
@@ -65,3 +64,38 @@ permalink: /categories/
     {% endunless %}
   {% endfor %}
 </ul>
+
+<h2> Old Categories </h2>
+<ul class="tag-box inline">
+{% assign tags_list = site.categories | sort %}  
+  {% if tags_list.first[0] == null %}
+    {% for tag in tags_list %} 
+      <li><a href="#{{ tag }}">{{ tag | capitalize }} </a><span>({{ site.tags[tag].size }})</span></li>
+    {% endfor %}
+  {% else %}
+    {% for tag in tags_list %} 
+  <li><a href="#{{ tag[0] }}">{{ tag[0] | capitalize }} </a> <span>({{ tag[1].size }})</span></li>
+    {% endfor %}
+  {% endif %}
+{% assign tags_list = nil %}
+</ul>
+
+{% assign tags_list = site.categories | sort %}  
+{% for tag in tags_list %} 
+  <h2 id="{{ tag[0] }}" style="color: #c91b26">{{ tag[0] | capitalize }}</h2>
+  <ul class="post-list">
+    {% assign pages_list = tag[1] %}  
+    {% for post in pages_list %}
+      {% if post.title != null %}
+      {% if group == null or group == post.group %}
+     <li>
+       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+     </li>
+       {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% assign pages_list = nil %}
+    {% assign group = nil %}
+  </ul>
+{% endfor %}

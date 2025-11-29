@@ -28,7 +28,10 @@ permalink: /categories/
     {% endif %}
 
     {% for cat in theme.categories %}
-      {% assign posts = site.categories[cat] | sort: "date" | reverse %}
+      {% assign posts = site.categories[cat] %}
+      {% if posts %}
+          {% assign posts = posts | sort: "date" | reverse %}
+      {% endif %}
       {% if posts and posts.size > 0 %}
         <section id="cat-{{ cat | slugify }}" class="category-block">
           <details>

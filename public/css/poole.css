@@ -429,17 +429,27 @@ a.pagination-item:hover {
   }
 }
 
-.category-posts .category-post a {
-  display: inline;            /* override any block-level link styles here */
+/* Category post list layout */
+.category-posts {
+  list-style: none;        /* remove bullets */
+  margin: 0;
+  padding-left: 0;
 }
 
-.category-posts .post-date {
-  display: inline;            /* override block display from theme */
-  margin-right: 0.5em;        /* small gap between date and title */
+.category-posts li {
+  display: flex;           /* date + title on one line "row" */
+  align-items: baseline;
+  margin: 0.15em 0;
+}
+
+.category-posts .post-list-date {
+  flex: 0 0 auto;          /* date width is just its content */
+  white-space: nowrap;     /* never wrap the date */
+  margin-right: 0.5em;     /* small gap before title */
   font-size: 0.9em;
   color: #777;
 }
 
-.category-posts .category-post {
-  margin: 0.15em 0;
+.category-posts a {
+  flex: 1 1 auto;          /* title takes remaining width and wraps nicely */
 }

@@ -300,9 +300,11 @@ Floating point addition mostly behaves like a good associative operation, but no
 
 ## Example 6: Merging counts in maps, a realistic associative operation
 
-Let us move closer to production work: counting things.
-
 Imagine you have words and you want to count how many times each appears.
+
+> A Note on Engineering vs. Math" While our Counts merge logic is mathematically associative (satisfying the requirements for reduce), using reduce for mutable objects like Maps is inefficient. It creates a copy of the map at every step.
+
+  In Java, when you need to combine mutable containers (like Lists or Maps) in parallel, you should use the Mutable Reduction pattern via Stream.collect.
 
 First, a small helper type:
 
@@ -382,27 +384,6 @@ you can run a short mental checklist.
 
 If the answer to 1 and 2 is yes, `reduce` is usually safe, even in parallel.  
 If 1 or 2 fails, you either accept the weirdness, or you avoid `parallelStream` and regrouping.
-
----
-
-## Connecting this back to your type modeling
-
-In your disjunctive types and `Result<E, T>` world, you are mostly thinking about:
-
-1. How many different shapes can this result have?  
-2. How do I represent those shapes in the type system?
-
-With `reduce`, you are thinking about something slightly different:
-
-1. How do I combine two values of this type into one?  
-2. Is that combination law nice enough that I can chunk, reorder, and parallelise?
-
-Both are tiny pieces of algebra in your day to day code.
-
-One deals with "either this or that".  
-The other deals with "many of these collapsed into one".
-
-You do not need the formal names to use them well. But once you see the patterns, it becomes much easier to design APIs and debug those "my parallel reduce changed the result" kind of bugs.
 
 ---
 

@@ -1,63 +1,64 @@
----
-layout: post
-title: Clojure and Polish Notation 
-category: [Technology, Clojure] 
-tags: [Clojure, Prefix Notation, Polish Notation, Lisp]
-comments: true
-featured: true
-summary: Clojure syntax is prefix notation and it is difficult to switch to using it but is it? 
---- 
+The S-expression `(* A B)` is just a linear way to write that tree: put the operator at the front, then the operands, and wrap the whole thing in parentheses.
 
-Clojure is a functional programming language targeting JVM developed by Rich Hickey. It is a dialect of Lisp, which is 
-distinctive with the use of parenthesis and [Polish notation](http://c2.com/cgi/wiki?PolishNotation) (generally referred
-to as Prefix notation). Clojure follows the same fully-parenthesized Polish prefix notation. 
+So you can think of Clojure’s "prefix notation" as:
 
-It is a beautiful language. However, people get scared when they see the prefix notation and lot of parenthesis. For example,
+- A tree of operations and values
+- Written in one line as a parenthesized list: operator first, then its children
 
-{% highlight clojure %}
-(+ 3 4 (+ 3 3 5)
-{% endhighlight %} 
+Once that clicks, nested expressions start to feel very natural, because the code mirrors the tree structure directly.
 
-Recently, a question was asked on [Java Ranch](http://www.coderanch.com/t/661955/clojure/Clojure-Action) and I tried to 
-answer the question to the best of my knowledge. I am just presenting it here. 
+### "But I already use prefix, don’t I?"
 
-I can understand that being taught to use infix notation throughout the school and then in most of the other programming 
-languages of choice, it is difficult to switch to prefix mode, which is also known as Polish notation. Having said that
-it is easier to understand and grasp but needs a good amount of patience to reach that level. 
+Prefix notation sounds exotic, but you already use something very close to it in other languages.
 
-The syntax may come handy if you think about tree-structured data. The expression, say ```(* A B) ```, which is equivalent to 
-```A * B``` in infix, is represented as 
+In Python, a simple print looks like this:
 
-        *
-      /   \
-     A     B
-
-So, the Polish prefix notation is just a way to represent the s-expression in a tree data structure in one line, * comes
-first followed by A and then B, equals, ```* A B``` and in Lisp world of parenthesis ```(* A B) ```
-
-This complication is mostly for mathematical functions like +, -, * and /. However, other functions are very easy. For
- example, a call in Python like programming language would look like, 
- 
 {% highlight python %}
-print "Hello World!"
+print("Hello World!")
 {% endhighlight %}
 
-This is nothing but a prefix notation and can be represented in Clojure as
+The function name comes first, followed by the argument in parentheses.
+
+In Clojure, the equivalent is:
 
 {% highlight clojure %}
-(print "Hello Word!")
+(print "Hello World!")
 {% endhighlight %}
 
-I  have never developed a full-scale application in Clojure or LISP, but I find it much easier to understand the code in Clojure then Java. It is easier to make Java code look horrible, it is equally difficult to do so in Clojure. 
+Same idea: the "operation" is at the front, followed by its arguments. The main differences are:
 
-I find this article named [The Nature of Lisp](http://www.defmacro.org/ramblings/lisp.html) on the steep curve in learning 
-Lisp worth reading. And also, [2 MYTHS AND 2 FACTS ABOUT CLOJURE THAT CHANGE EVERYTHING](http://blog.cognitect.com/blog/2015/9/21/2-myths-and-2-facts-about-clojure-that-change-everything)
+- Clojure uses a single pair of parentheses around the entire call
+- Arguments are separated by spaces instead of commas
 
-Some links shared on the same post in Java Ranch by Peer Reynders are:
+So while math operators like `+`, `-`, `*`, and `/` look unusual in prefix form, most other function calls feel very familiar once you notice this pattern.
 
-Talks:  
-[(Neal's) Master Plan for Clojure Enterprise Mindshare Domination - Neal Ford](https://www.youtube.com/watch?v=2WLgzCkhN2g&feature=youtu.be&t=1619) 
-[Simple Made Easy by Rich Hickey](http://www.infoq.com/presentations/Simple-Made-Easy)   
-[Sneaking Clojure Past the Boss](http://www.coderanch.com/t/586641/clojure/Sneaking-Clojure-Boss)   
-[Selling Clojure to Business](https://blog.juxt.pro/posts/selling-clojure.html)    
-[PolyConf 15: Contracts as Types / Jessica Kerr](https://www.youtube.com/watch?v=zLyd_Ey1GPM)   
+### Readability and taste
+
+I have never built a full-scale production system in Clojure or Lisp, but I still find Clojure code easier to read than a lot of Java code.
+
+It is easy to make Java code look horrible. It is surprisingly hard to make Clojure code look horrible in the same way, because:
+
+- The syntax is extremely regular
+- The structure of the code mirrors the structure of the data and the operations
+
+That doesn’t mean nobody can write unreadable Clojure, but you have to work a bit harder to fight the language.
+
+### Further reading and watching
+
+If you’re curious about the learning curve and the "Lisp way" of thinking, I highly recommend:
+
+- [The Nature of Lisp](http://www.defmacro.org/ramblings/lisp.html)
+- [2 Myths and 2 Facts About Clojure That Change Everything](http://blog.cognitect.com/blog/2015/9/21/2-myths-and-2-facts-about-clojure-that-change-everything)
+
+Some talks and articles that were shared in the original Java Ranch thread:
+
+- [(Neal's) Master Plan for Clojure Enterprise Mindshare Domination – Neal Ford](https://www.youtube.com/watch?v=2WLgzCkhN2g&feature=youtu.be&t=1619)
+- [Simple Made Easy – Rich Hickey](http://www.infoq.com/presentations/Simple-Made-Easy)
+- [Sneaking Clojure Past the Boss](http://www.coderanch.com/t/586641/clojure/Sneaking-Clojure-Boss)
+- [Selling Clojure to Business](https://blog.juxt.pro/posts/selling-clojure.html)
+- [PolyConf 15: Contracts as Types – Jessica Kerr](https://www.youtube.com/watch?v=zLyd_Ey1GPM)
+
+If prefix notation and all those parentheses still feel odd, that’s fine. Our brains are heavily trained on infix. Spend a bit of time thinking in trees instead of lines of code, and Clojure’s syntax starts to feel less like an alien language and more like a very direct way of writing down structure.
+
+
+Edit: (28th Nov 2025) Updated with latest understanding of some terminology.

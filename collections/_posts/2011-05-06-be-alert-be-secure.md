@@ -8,7 +8,7 @@ published: true
 password: ''
 status: publish
 category:
-- Troubleshooters and Technical Stuff
+- Technology
 tags:
 - Banking Services
 - Financial Services

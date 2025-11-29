@@ -46,7 +46,7 @@ So, here are the steps to set this up:
 4. Click on **ThisOutLookSession**.
 5. Copy and paste the following code in the right pane:
 
-<% highlight vb %}
+{% highlight vb %}
    Private Sub Application_ItemSend(ByVal Item As Object, Cancel As Boolean)
      Dim strSubject As String
      strSubject = Item.Subject
@@ -57,5 +57,6 @@ So, here are the steps to set this up:
          End If
        End If
    End Sub
-<% endhighlight %} 
+{% endhighlight %} 
+
 6. Save this and now close the VB Code editor and take a breath. From now on, this macro will make sure you do not make the mistake of sending an email without subject.

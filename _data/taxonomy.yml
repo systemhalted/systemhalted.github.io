@@ -1,55 +1,129 @@
 themes:
-  - id: tech
-    title: Tech, Software, and Engineering
+  - id: tech_engineering
+    title: "Tech, Software, and Engineering"
+    description: "Software, programming, tools, and engineering practice."
     categories:
-      - software-engineering
-      - programming
-      - computer-science
-      - it
-      - system-administration
+      - "Agile"
+      - "Algorithms"
+      - "Clojure"
+      - "Compilers"
+      - "Computer science"
+      - "Emacs"
+      - "Emails"
+      - "It"
+      - "Management"
+      - "Omscs"
+      - "Product"
+      - "Productivity"
+      - "Programming"
+      - "Software engineering"
+      - "System administration"
+      - "Technology"
+      - "Troubleshooters and technical stuff"
+      - "Troubleshooting"
 
-  - id: ai
-    title: AI, Data, and Future of Computing
+  - id: ai_data
+    title: "AI, Data, and Digital Risk"
+    description: "Artificial intelligence, machine learning, data, and online safety."
     categories:
-      - artificial-intelligence
-      - machine-learning
-      - data-and-privacy
-      - ai-ethics
+      - "Artificial intelligence"
+      - "Machine learning"
+      - "Data"
+      - "Data protection"
+      - "Article review"
+      - "Online safety"
+      - "Smarter planet"
 
-  - id: society
-    title: Politics, Economy, and Society
+  - id: politics_society
+    title: "Politics, Economy, and Society"
+    description: "Democracy, policy, corruption, economy, and social fabric."
     categories:
-      - democracy-and-governance
-      - india-and-policy
-      - world-affairs
-      - social-issues
+      - "Against corruption together"
+      - "Agriculture"
+      - "Banking"
+      - "Business"
+      - "Climate"
+      - "Democracy"
+      - "Economy"
+      - "Fight against corruption"
+      - "India"
+      - "International issues"
+      - "Media"
+      - "News"
+      - "Politics"
+      - "Polity"
+      - "Social issues"
+      - "Social media"
+      - "World affairs"
 
-  - id: books
-    title: Books, Reviews, and Curation
+  - id: books_media
+    title: "Books, Reviews, and Media"
+    description: "Book reviews, media reviews, and other curated content."
     categories:
-      - book-reviews
-      - media-reviews
-      - bookmarks-and-notes
+      - "Book reviews"
+      - "Bookmarks"
+      - "Movie reviews"
+      - "Notes"
+      - "Reading"
+      - "Reviews"
+      - "Short stories"
+      - "Television"
 
-  - id: language
-    title: Language, Literature, and Poetry
+  - id: language_lit_spirit
+    title: "Language, Literature, and Spirituality"
+    description: "Poetry, languages, philosophy, religion, and related writing."
     categories:
-      - poetry
-      - hindi-writing
-      - urdu-and-ghazals
-      - linguistics-and-languages
-      - spiritual-essays
+      - "Aatmiyata"
+      - "Ghazal"
+      - "Hindi"
+      - "Hinduism"
+      - "Hindustani"
+      - "Languages"
+      - "Linguistics"
+      - "Philosophy"
+      - "Poetry"
+      - "Poets"
+      - "Religion"
+      - "Spirituality"
+      - "Urdu"
+      - "Vedanta"
+      - "ग़ज़ल"
+      - "हिंदी"
+      - "हिन्दी"
 
-  - id: life
-    title: Life, Personal, and Growth
+  - id: life_personal
+    title: "Life, Work, and Personal Growth"
+    description: "Personal essays, behaviour, growth, and people-focused writing."
     categories:
-      - personal-essays
-      - growth-and-mindset
-      - work-and-career
+      - "Advice"
+      - "Behavior"
+      - "Behaviour"
+      - "Counselling"
+      - "Family"
+      - "Insane thoughts"
+      - "Lessons"
+      - "Obituaries"
+      - "People"
+      - "Personal"
+      - "Personal growth"
 
-  - id: hobbies
-    title: Exploration, Travel, and Hobbies
+  - id: hobbies_travel
+    title: "Hobbies, Travel, and Exploration"
+    description: "Astronomy, sports, travel, and other hobbies."
     categories:
-      - travel
-      - astronomy
-      - sports-and-games
+      - "Astronomy"
+      - "Cricket"
+      - "Cycling"
+      - "Fitness"
+      - "Gaming"
+      - "Sports"
+      - "Travel"
+      - "Travelogue"
+
+  - id: meta_format
+    title: "Meta and Formats"
+    description: "Guest posts and content tied to talks or videos."
+    categories:
+      - "Guest posts"
+      - "Speeches"
+      - "Videos"

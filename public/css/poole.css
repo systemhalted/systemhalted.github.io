@@ -428,3 +428,18 @@ a.pagination-item:hover {
     border-bottom-right-radius: 4px;
   }
 }
+
+.category-posts .category-post a {
+  display: inline;            /* override any block-level link styles here */
+}
+
+.category-posts .post-date {
+  display: inline;            /* override block display from theme */
+  margin-right: 0.5em;        /* small gap between date and title */
+  font-size: 0.9em;
+  color: #777;
+}
+
+.category-posts .category-post {
+  margin: 0.15em 0;
+}

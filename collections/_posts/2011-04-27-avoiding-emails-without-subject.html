@@ -40,14 +40,17 @@ permalink: "/2011/04/27/avoiding-emails-without-subject/"
 <p>3. On the Left Pane you'll see "<a class="zem_slink" title="Microsoft Outlook" href="http://www.microsoft.com/mac/outlook" rel="homepage">Microsoft Outlook</a> Objects", expand this. Now one can see the "ThisOutLookSession".</p>
 <p>4. Click on "ThisOutLookSession".</p>
 <p>5. Copy and Paste the following code in the right pane. (Code Pane)</p>
-<p><code>Private Sub Application_ItemSend(ByVal Item As Object, Cancel As Boolean)</p>
-<p>Dim strSubject As String</p>
-<p>strSubject = Item.Subject</p>
-<p>If Len(strSubject) = 0 Then</p>
-<p>Prompt$ = "Subject is Empty. Are you sure you want to send the Mail?"</p>
-<p>If MsgBox(Prompt$, vbYesNo + vbQuestion + vbMsgBoxSetForeground, "Check for Subject") = vbNo Then</p>
-<p>Cancel = True</p>
-<p>End If</p>
-<p>End If</p>
-<p>End Sub</code></p>
+
+```
+Private Sub Application_ItemSend(ByVal Item As Object, Cancel As Boolean)
+  Dim strSubject As String
+  strSubject = Item.Subject
+    If Len(strSubject) = 0 Then
+      Prompt$ = "Subject is Empty. Are you sure you want to send the Mail?"
+      If MsgBox(Prompt$, vbYesNo + vbQuestion + vbMsgBoxSetForeground, "Check for Subject") = vbNo Then
+       Cancel = True
+      End If
+    End If
+End Sub
+```
 <p>6. Save this and now close the VB Code editor and take a breath. From now on, this macro will make sure you do not make the mistake of sending an email without subject.</p>

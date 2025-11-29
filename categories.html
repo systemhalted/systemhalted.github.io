@@ -39,14 +39,13 @@ permalink: /categories/
               {{ cat }}
               <span class="category-count">({{ posts.size }})</span>
             </summary>
-
             <ul class="category-posts">
               {% for post in posts %}
-                <li>
-                  <span class="post-date">
-                    {{ post.date | date: "%Y-%m-%d" }}
-                  </span>
+                <li class="category-post">
                   <a href="{{ post.url | relative_url }}">
+                    <span class="post-date">
+                      {{ post.date | date: "%Y-%m-%d" }}
+                    </span>
                     {{ post.title }}
                   </a>
                 </li>

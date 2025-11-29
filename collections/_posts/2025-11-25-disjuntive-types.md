@@ -56,23 +56,26 @@ If I want to group several fields together, I can define a record, a data class,
 
 For example, if I want a result that always includes both a status and a payload, a simple class like this works fine:
 
-    public final class ResultWithStatus {
-        private final Status status;
-        private final Payload payload;
 
-        public ResultWithStatus(Status status, Payload payload) {
-            this.status = status;
-            this.payload = payload;
-        }
+{% highlight java %}
+public final class ResultWithStatus {
+    private final Status status;
+    private final Payload payload;
 
-        public Status status() {
-            return status;
-        }
-
-        public Payload payload() {
-            return payload;
-        }
+    public ResultWithStatus(Status status, Payload payload) {
+        this.status = status;
+        this.payload = payload;
     }
+
+    public Status status() {
+        return status;
+    }
+
+    public Payload payload() {
+        return payload;
+    }
+}
+{% endhighlight %}
 
 Here the idea really is "status and payload together", so a conjunction feels natural.
 
@@ -82,23 +85,25 @@ Sometimes a method should return one of two different shapes of data. A very com
 
 In that case a pure conjunction feels awkward. I can create a wrapper object that has both fields and then abuse `null` for whichever field is absent at the moment:
 
-    public final class BadResult {
-        private final Payload payload;  // null when there is an error
-        private final Error error;      // null when there is a payload
+{% highlight java %}
+public final class BadResult {
+    private final Payload payload;  // null when there is an error
+    private final Error error;      // null when there is a payload
 
-        public BadResult(Payload payload, Error error) {
-            this.payload = payload;
-            this.error = error;
-        }
-
-        public Payload payload() {
-            return payload;
-        }
-
-        public Error error() {
-            return error;
-        }
+    public BadResult(Payload payload, Error error) {
+        this.payload = payload;
+        this.error = error;
     }
+
+    public Payload payload() {
+        return payload;
+    }
+
+    public Error error() {
+        return error;
+    }
+}
+{% endhighlight %}
 
 The type says "payload and error", but the runtime behaviour says "either payload or error". The compiler cannot help here. Nothing stops me from building a value that has both fields non null or both null.
 
@@ -110,22 +115,28 @@ What I really want is a type that expresses the "either this or that" constraint
 
 This is where disjunctive types become interesting. A typical example in functional languages is something like:
 
-    sealed trait Either[+A, +B]
-    final case class Left[A](value: A) extends Either[A, Nothing]
-    final case class Right[B](value: B) extends Either[Nothing, B]
+{% highlight java %}
+sealed trait Either[+A, +B]
+final case class Left[A](value: A) extends Either[A, Nothing]
+final case class Right[B](value: B) extends Either[Nothing, B]
+{% endhighlight %}
 
 A value of type `Either[A, B]` is always either a `Left[A]` or a `Right[B]`, never both at once. That mirrors the exclusive disjunction table from earlier.
 
 In a language like Scala, returning
 
+{% highlight scala %}
     def parse(input: String): Either[ParseError, Ast]
+{% endhighlight %}
 
 is completely natural. Callers are forced to handle both cases. Pattern matching makes the intent very clear:
 
+{% highlight scala %}
     parse(source) match {
       case Left(error)  => log(error)
       case Right(ast)   => evaluate(ast)
     }
+{% endhighlight %}
 
 No nulls. No dummy wrapper objects. The type itself documents the contract of the method.
 
@@ -149,13 +160,17 @@ The set of all possible values for `Optional<T>` is
 
 That makes `Optional<T>` perfect for things like map lookups:
 
+{% highlight java %}
     Optional<Value> maybeValue = Optional.ofNullable(map.get(key));
+{% endhighlight %}
 
 Sometimes the key exists, sometimes it does not. The "other side" of the result is simply "no value".
 
 Now look at the parser example again. If I write:
 
+{% highlight java %}
     Optional<Ast> parse(String input);
+{% endhighlight %}
 
 then an empty `Optional` only tells me that parsing failed. It does not tell me why it failed. All the interesting information about the error has to live somewhere else: logs, exceptions, some side channel.
 
@@ -163,8 +178,10 @@ This is not what I want for the `parse` method. The contract of the method is no
 
 That is a different shape altogether:
 
+{% highlight java %}
     // Conceptual, not real Java
     Either<ParseError, Ast> parse(String input);
+{% endhighlight %}
 
 Here both branches are meaningful. The "left" side carries structured error data, not a vague absence. The caller has to consider both cases, and the type system helps enforce that.
 
@@ -201,13 +218,15 @@ You can instead model the disjunction as data in the type system.
 
 With modern Java, especially with sealed interfaces and records, this is not too painful. For Java 17 and above:
 
-    public sealed interface Result<E, T>
-            permits Result.Ok, Result.Err {
+{% highlight java %}
+public sealed interface Result<E, T>
+        permits Result.Ok, Result.Err {
 
-        record Ok<E, T>(T value) implements Result<E, T> { }
+    record Ok<E, T>(T value) implements Result<E, T> { }
 
-        record Err<E, T>(E error) implements Result<E, T> { }
-    }
+    record Err<E, T>(E error) implements Result<E, T> { }
+}
+{% endhighlight %}
 
 Your parser then becomes:
 
@@ -215,22 +234,25 @@ Your parser then becomes:
 
 Using it with pattern matching for `switch`:
 
-    Result<ParseError, Ast> result = parse(source);
+{% highlight java %}
+Result<ParseError, Ast> result = parse(source);
 
-    switch (result) {
-        case Result.Ok<ParseError, Ast> ok -> {
-            Ast ast = ok.value();
-            evaluate(ast);
-        }
-        case Result.Err<ParseError, Ast> err -> {
-            log(err.error());
-        }
+switch (result) {
+    case Result.Ok<ParseError, Ast> ok -> {
+        Ast ast = ok.value();
+        evaluate(ast);
     }
+    case Result.Err<ParseError, Ast> err -> {
+        log(err.error());
+    }
+}
+{% endhighlight %}
 
 Now the disjunction is right there in the signature. No nulls. No surprise exceptions. The compiler forces you to think about both branches.
 
 If you are not on a sealed-types Java yet, you can do a simpler interface plus nested classes:
 
+{% highlight java %}
     public interface Result<E, T> {
       final class Ok<E, T> implements Result<E, T> {
           private final T value;
@@ -252,12 +274,13 @@ If you are not on a sealed-types Java yet, you can do a simpler interface plus n
           }
       }
    }
+{% endhighlight %}
 
 At this point you have your own mini-`Either` in Java.
 
 Now you can use it like:
 
-```java
+{% highlight java %}
    public Result<ParseError, Ast> parse(String input) {
         try {
             Ast ast = realParse(input); // imagine this may throw ParseException
@@ -266,11 +289,11 @@ Now you can use it like:
             return new Result.Err<>(new ParseError(e.getMessage()));
         }
    }
-```
+{% endhighlight %}
 
 The calling code is then forced to check the result, for example, using ugly `instanceOf` :
 
-```java
+{% highlight java %}
      Result<ParseError, Ast> result = parse(source);
 
     if (result instanceof Result.Ok<ParseError, Ast> ok) {
@@ -280,7 +303,7 @@ The calling code is then forced to check the result, for example, using ugly `in
         ParseError error = err.error();
         log(error);
     
-```
+{% endhighlight %}
 
 You can hate the verbosity of `instanceof`, but at least the type system is no longer lying about the fact that there are two meaningful branches.
 
@@ -301,6 +324,7 @@ Conceptually, that return type is not "a function and a stored proc and a packag
 
 In Java 17+, the cleanest way to express this is as a sealed hierarchy. The AST node type itself becomes a multi-way disjunctive type:
 
+{% highlight java %}
     public sealed interface AstNode
             permits PackageNode, FunctionNode, StoredProcNode, OtherNode {
     }
@@ -320,15 +344,19 @@ In Java 17+, the cleanest way to express this is as a sealed hierarchy. The AST 
     public final class OtherNode implements AstNode {
         // whatever other construct you have
     }
+{% endhighlight %}
 
 Now a traversal method can simply say:
 
+{% highlight java %}
     AstNode visit(NodeContext ctx) {
         // logic that returns one of the concrete node types
     }
+{% endhighlight %}    
 
 And the consumer can handle all the possibilities with pattern matching:
 
+{% highlight java %}
     AstNode node = visit(ctx);
 
     switch (node) {
@@ -337,6 +365,8 @@ And the consumer can handle all the possibilities with pattern matching:
         case StoredProcNode sp    -> handleStoredProc(sp);
         case OtherNode other      -> handleOther(other);
     }
+
+{% endhighlight %}    
 
 That `AstNode` interface is an N-ary disjunctive type: "either a function, or a stored proc, or a package, or …". If you want to stack this with success/failure, you can even combine it:
 
@@ -395,6 +425,7 @@ If you want to live this idea in Java code today, you can:
 
 With a helper class:
 
+{% highlight java %}
     public final class Results {
 
         private Results() { }
@@ -411,6 +442,7 @@ With a helper class:
             throw new IllegalStateException("Unknown Result variant");
         }
     }
+{% endhighlight %}
 
 Once you have that, you can start composing operations without losing error context, all within the type system.
 

@@ -302,8 +302,8 @@ Floating point addition mostly behaves like a good associative operation, but no
 
 Imagine you have words and you want to count how many times each appears.
 
-> A Note on Engineering vs. Math" While our Counts merge logic is mathematically associative (satisfying the requirements for reduce), using reduce for mutable objects like Maps is inefficient. It creates a copy of the map at every step.
-
+> A Note on Engineering vs. Math:
+> While our Counts merge logic is mathematically associative (satisfying the requirements for reduce), using reduce for mutable objects like Maps is inefficient. It creates a copy of the map at every step.
 > In Java, when you need to combine mutable containers (like Lists or Maps) in parallel, you should use the Mutable Reduction pattern via Stream.collect.
 
 First, a small helper type:

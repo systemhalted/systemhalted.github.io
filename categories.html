@@ -8,94 +8,91 @@ permalink: /categories/
 {% assign themes = site.data.taxonomy.themes %}
 
 {% for theme in themes %}
-  {% comment %}
-    Filter out themes that currently have zero posts
-  {% endcomment %}
-
+  {%- comment -%}
+    Compute how many posts exist across all categories in this theme
+  {%- endcomment -%}
   {% assign total_posts = 0 %}
   {% for cat in theme.categories %}
     {% assign posts = site.categories[cat] %}
     {% if posts %}
-      {% assign total_posts = total_posts | plus: posts | size %}
+      {% assign post_count = posts | size %}
+      {% assign total_posts = total_posts | plus: post_count %}
     {% endif %}
   {% endfor %}
 
   {% if total_posts > 0 %}
     <h2 id="{{ theme.id }}">{{ theme.title }}</h2>
 
-    <ul>
-      {% for cat in theme.categories %}
-        {% assign posts = site.categories[cat] %}
-        {% if posts and posts.size > 0 %}
-          <li>
-            <a href="{{ '/categories/' | append: cat | append: '/' | relative_url }}">
-              {{ cat | replace: '-', ' ' | capitalize }}
-            </a>
-            ({{ posts | size }})
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
+    {% if theme.description %}
+      <p>{{ theme.description }}</p>
+    {% endif %}
+
+    {% for cat in theme.categories %}
+      {% assign posts = site.categories[cat] | sort: "date" | reverse %}
+      {% if posts and posts.size > 0 %}
+        <section id="cat-{{ cat | slugify }}" class="category-block">
+          <details>
+            <summary>
+              {{ cat }}
+              <span class="category-count">({{ posts.size }})</span>
+            </summary>
+
+            <ul class="category-posts">
+              {% for post in posts %}
+                <li>
+                  <span class="post-date">
+                    {{ post.date | date: "%Y-%m-%d" }}
+                  </span>
+                  <a href="{{ post.url | relative_url }}">
+                    {{ post.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </details>
+        </section>
+      {% endif %}
+    {% endfor %}
   {% endif %}
 {% endfor %}
 
 <h2>Other categories</h2>
-<ul>
-  {% comment %}
-    Show any legacy categories that are not in the taxonomy file
-  {% endcomment %}
-  {% for cat in site.categories %}
-    {% assign cat_name = cat[0] %}
-    {% assign in_taxonomy = false %}
 
-    {% for theme in themes %}
-      {% if theme.categories contains cat_name %}
-        {% assign in_taxonomy = true %}
-      {% endif %}
-    {% endfor %}
+{% assign taxonomy_cats = "" | split: "," %}
+{% for theme in themes %}
+  {% assign taxonomy_cats = taxonomy_cats | concat: theme.categories %}
+{% endfor %}
 
-    {% unless in_taxonomy %}
-      <li>
-        <a href="{{ '/categories/' | append: cat_name | append: '/' | relative_url }}">
-          {{ cat_name | replace: '-', ' ' | capitalize }}
-        </a>
-        ({{ cat[1] | size }})
-      </li>
-    {% endunless %}
-  {% endfor %}
-</ul>
+{% for cat in site.categories %}
+  {% assign cat_name = cat[0] %}
+  {% assign posts = cat[1] | sort: "date" | reverse %}
+  {% assign in_taxonomy = false %}
 
-<h2> Old Categories </h2>
-<ul class="tag-box inline">
-{% assign tags_list = site.categories | sort %}  
-  {% if tags_list.first[0] == null %}
-    {% for tag in tags_list %} 
-      <li><a href="#{{ tag }}">{{ tag | capitalize }} </a><span>({{ site.tags[tag].size }})</span></li>
-    {% endfor %}
-  {% else %}
-    {% for tag in tags_list %} 
-  <li><a href="#{{ tag[0] }}">{{ tag[0] | capitalize }} </a> <span>({{ tag[1].size }})</span></li>
-    {% endfor %}
+  {% if taxonomy_cats contains cat_name %}
+    {% assign in_taxonomy = true %}
   {% endif %}
-{% assign tags_list = nil %}
-</ul>
 
-{% assign tags_list = site.categories | sort %}  
-{% for tag in tags_list %} 
-  <h2 id="{{ tag[0] }}" style="color: #c91b26">{{ tag[0] | capitalize }}</h2>
-  <ul class="post-list">
-    {% assign pages_list = tag[1] %}  
-    {% for post in pages_list %}
-      {% if post.title != null %}
-      {% if group == null or group == post.group %}
-     <li>
-       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
-     </li>
-       {% endif %}
-      {% endif %}
-    {% endfor %}
-    {% assign pages_list = nil %}
-    {% assign group = nil %}
-  </ul>
+  {% unless in_taxonomy %}
+    <section id="cat-{{ cat_name | slugify }}" class="category-block">
+      <details>
+        <summary>
+          {{ cat_name }}
+          <span class="category-count">({{ posts.size }})</span>
+        </summary>
+
+        <ul class="category-posts">
+          {% for post in posts %}
+            <li>
+              <span class="post-date">
+                {{ post.date | date: "%Y-%m-%d" }}
+              </span>
+              <a href="{{ post.url | relative_url }}">
+                {{ post.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </details>
+    </section>
+  {% endunless %}
 {% endfor %}

@@ -1,0 +1,55 @@
+themes:
+  - id: tech
+    title: Tech, Software, and Engineering
+    categories:
+      - software-engineering
+      - programming
+      - computer-science
+      - it
+      - system-administration
+
+  - id: ai
+    title: AI, Data, and Future of Computing
+    categories:
+      - artificial-intelligence
+      - machine-learning
+      - data-and-privacy
+      - ai-ethics
+
+  - id: society
+    title: Politics, Economy, and Society
+    categories:
+      - democracy-and-governance
+      - india-and-policy
+      - world-affairs
+      - social-issues
+
+  - id: books
+    title: Books, Reviews, and Curation
+    categories:
+      - book-reviews
+      - media-reviews
+      - bookmarks-and-notes
+
+  - id: language
+    title: Language, Literature, and Poetry
+    categories:
+      - poetry
+      - hindi-writing
+      - urdu-and-ghazals
+      - linguistics-and-languages
+      - spiritual-essays
+
+  - id: life
+    title: Life, Personal, and Growth
+    categories:
+      - personal-essays
+      - growth-and-mindset
+      - work-and-career
+
+  - id: hobbies
+    title: Exploration, Travel, and Hobbies
+    categories:
+      - travel
+      - astronomy
+      - sports-and-games

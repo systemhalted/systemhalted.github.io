@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Associativity, Identity, and Folding: Why Your reduce Keeps Biting You
+title: Associativity, Identity, and Folding - Why Your reduce Keeps Biting You
 category: [Computer Science, Programming, Software Engineering, Technology]
 tags: [java, streams, reduce, functional programming, algebra]
 comments: true

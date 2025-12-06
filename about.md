@@ -13,6 +13,6 @@ I am also a podcaster and host two shows, Nukkad Shukkad and Indian Dad American
 
 This is my personal blog. All views expressed here, in my articles, and on any of my linked blogs or podcasts are entirely my own and do not represent the views of my current or past employers.
 
-I also write [here](https://palakmathur.substack.com)
+I also write [here](https://palakmathur.substack.com).
   
  

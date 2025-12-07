@@ -44,4 +44,6 @@ collections:
     output: false
   emacs: 
     output: true 
+  newsletter:
+    output: true
 

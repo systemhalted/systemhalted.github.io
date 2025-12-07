@@ -129,7 +129,7 @@ themes:
       - "Videos"
       
   - id: newsletter
-      title: "Newsletters"
-      description: "My Newsletters"
-      categories:
-        - "Kartavya Path"  
+    title: "Newsletters"
+    description: "My Newsletters"
+    categories:
+      - "Kartavya Path"  

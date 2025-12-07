@@ -127,3 +127,9 @@ themes:
       - "Guest Posts"
       - "Speeches"
       - "Videos"
+      
+  - id: newsletter
+      title: "Newsletters"
+      description: "My Newsletters"
+      categories:
+        - "Kartavya Path"  

@@ -4,7 +4,7 @@ title: India and the United States - From suspicious democracies to quarrelling 
 category: [Politics, Economy, World Affairs]
 tags: [India, United States, geopolitics, tariffs, trade war]
 comments: true
-featured: false
+featured: true
 description: Let us explore the Indo-US relations over the year and where they are headed after recent tariffs imposed by US on India
 ---
 

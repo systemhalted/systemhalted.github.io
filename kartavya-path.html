@@ -1,0 +1,14 @@
+---
+title: Kartavya Path
+layout: page
+---
+
+<div class="post-list">
+{% for nl in site.newsletter %}
+  <li>
+    <a href="{{ nl.url }}">
+      {{ nl.title }} 
+    </a>
+  </li>
+{% endfor %}
+</div>

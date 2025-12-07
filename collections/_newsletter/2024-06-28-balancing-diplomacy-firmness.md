@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Balancing Diplomacy and Firmness: Insights from Ancient Wisdom 
+title: Balancing Diplomacy and Firmness - Insights from Ancient Wisdom 
 tags: [nesletter, management, leadership, Panchtantra]
 category: [Kartavya Path]
 ---

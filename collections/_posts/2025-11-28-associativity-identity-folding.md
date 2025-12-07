@@ -4,7 +4,7 @@ title: Associativity, Identity, and Folding - Why Your reduce Keeps Biting You
 category: [Computer Science, Programming, Software Engineering, Technology]
 tags: [java, streams, reduce, functional programming, algebra]
 comments: true
-featured: false
+featured: true
 description: A practical look at associativity, identity, and folding in Java Streams, and why some reduce calls behave nicely while others explode in surprising ways.
 ---
 

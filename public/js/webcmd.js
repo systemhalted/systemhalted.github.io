@@ -171,6 +171,12 @@ function cmd_find(cmd, arg, args)
 	error("usage: find <query>");
 	return;
     }
+    // Clear previous output/errors so each search shows fresh results.
+    var out = document.getElementById("output");
+    var err = document.getElementById("error");
+    if(out){ out.innerHTML = ""; }
+    if(err){ err.innerHTML = ""; }
+
     if(!ensureSiteIndex()){
 	error("search unavailable (index not loaded)");
 	return;

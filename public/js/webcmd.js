@@ -62,7 +62,8 @@ var help = {
     "l":	"GATech Library",
     "omscs": "GATech OMSCS Courses",
     "f":    "flipkart",
-    "cls":  "clear output/errors"
+    "cls":  "clear output/errors",
+    "find": "search site posts (find <query>)"
     
     
 }
@@ -85,6 +86,41 @@ function cmd_cls(cmd, arg, arg)
     document.getElementById("line").focus();
     document.getElementById("line").value = "";
 }
+
+function cmd_find(cmd, arg, args)
+{
+    if(!arg){
+	error("usage: find <query>");
+	return;
+    }
+    if(typeof siteIndex === "undefined" || typeof siteStore === "undefined"){
+	error("search unavailable (index not loaded)");
+	return;
+    }
+
+    var results = siteIndex.search(arg, { expand: true });
+    if(results.length === 0){
+	output("No results for \"" + arg + "\"");
+	return;
+    }
+
+    var maxResults = 10;
+    for(var i = 0; i < results.length && i < maxResults; i++){
+	var ref = results[i].ref;
+	var doc = siteStore[ref];
+	if(!doc){ continue; }
+	var line = (i+1) + ". <a href=\"" + doc.link + "\">" + doc.title + "</a>";
+	if(doc.snippet){
+	    line += " — " + doc.snippet;
+	}
+	output(line);
+    }
+    if(results.length > maxResults){
+	output("...and " + (results.length - maxResults) + " more");
+    }
+}
+// Ensure global reference is enumerable for help listing.
+window.cmd_find = cmd_find;
 
 /////
 ///// Below here you should not need to fiddle with.
@@ -153,6 +189,8 @@ function helptext()
     for(var k in window)
 	if(k.substr(0,4) == "cmd_")
 	    a[i++] = k.substr(4);
+    // Guarantee explicit commands are listed even if not enumerable by the runtime.
+    if(a.indexOf("find") === -1) a[i++] = "find";
     a.sort();
     s += "<tr><td colspan=3><b>Additional Commands:</b>";
     for(i=0; i<a.length; i++){

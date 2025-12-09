@@ -5,7 +5,7 @@ category: [Software Engineering, Management]
 tags: [TDD, Testing, Management, Software Design]
 comments: true
 featured: false
-summary: I still think TDD is a Taylorian construct. But I now care less about the ritual and more about a deeper idea: thinking about evaluation and testing before we write code.
+description: I still think TDD is a Taylorian construct. But I now care less about the ritual and more about a deeper idea: thinking about evaluation and testing before we write code.
 ---
 
 In an earlier post I argued that **Test Driven Development is fundamentally a management technique**.

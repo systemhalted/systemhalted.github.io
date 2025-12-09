@@ -28,3 +28,27 @@
     margin-bottom: 0.4rem;
     display: block;
 }
+
+
+/* Collection index pages (Emacs, Kartavya Path, etc.) */
+
+.collection-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.collection-item {
+  margin-bottom: 1.5rem;
+}
+
+.collection-item-date {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1.2;
+}
+
+.collection-item-title a {
+  display: inline-block;   /* keeps title on its own line */
+  margin-top: 0.1rem;
+}

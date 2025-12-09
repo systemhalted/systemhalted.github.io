@@ -92,9 +92,15 @@ function ensureSiteIndex()
     if(typeof siteIndex !== "undefined" && typeof siteStore !== "undefined"){
 	return true;
     }
-    if(typeof siteDocs === "undefined" || typeof elasticlunr === "undefined"){
+    if(typeof elasticlunr === "undefined"){
+	error("search unavailable (elasticlunr missing)");
 	return false;
     }
+    if(typeof siteDocs === "undefined" || !siteDocs.length){
+	error("search unavailable (no docs loaded)");
+	return false;
+    }
+
     var idx = elasticlunr(function () {
 	this.addField('title');
 	this.addField('layout');
@@ -111,9 +117,7 @@ function ensureSiteIndex()
 	});
     }
     window.siteIndex = idx;
-    if(typeof siteStore === "undefined"){
-	window.siteStore = siteDocs;
-    }
+    window.siteStore = siteDocs;
     return true;
 }
 
@@ -151,6 +155,9 @@ function cmd_find(cmd, arg, args)
 }
 // Ensure global reference is enumerable for help listing.
 window.cmd_find = cmd_find;
+
+// Build the index as soon as scripts load so find works immediately.
+ensureSiteIndex();
 
 /////
 ///// Below here you should not need to fiddle with.

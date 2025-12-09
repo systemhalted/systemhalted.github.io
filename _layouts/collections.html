@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<h2>{{ page.title }}</h2>
+
+<ul class="category-posts">
+  {% assign coll_name = page.collection_name %}
+  {% assign docs = site[coll_name] | sort: "date" | reverse %}
+
+  {% if docs and docs.size > 0 %}
+  <ul class="category-posts">
+    {% for doc in docs %}
+    <li class="category-post">
+      {% if doc.date %}
+      <div class="category-post-date">
+        {{ doc.date | date: "%B %d, %Y" }}
+      </div>
+      {% endif %}
+
+      <div class="category-post-title">
+        <a href="{{ doc.url | relative_url }}">
+          {{ doc.title }}
+        </a>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No documents in this collection yet.</p>
+  {% endif %}
+
+</ul>
+{% else %}
+<p>No documents in this collection yet.</p>
+{% endif %}

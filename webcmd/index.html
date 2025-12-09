@@ -33,8 +33,31 @@ layout: null
       snippet: {{ post.content | jsonify | strip_html | truncate: 140 }}
     }{% unless forloop.last %},{% endunless %}{% assign count = count | plus: 1 %}{% endfor %}
     ];
+
+    // Build the search index immediately on load to avoid timing/caching issues.
+    (function(){
+      if(typeof elasticlunr === "undefined" || typeof window.siteDocs === "undefined"){
+        return;
+      }
+      var idx = elasticlunr(function () {
+        this.addField('title');
+        this.addField('layout');
+        this.addField('content');
+        this.setRef('id');
+      });
+      for(var i = 0; i < window.siteDocs.length; i++){
+        var doc = window.siteDocs[i];
+        idx.addDoc({
+          title: doc.title,
+          layout: doc.layout,
+          content: doc.content,
+          id: doc.id
+        });
+      }
+      window.siteIndex = idx;
+      window.siteStore = window.siteDocs;
+    })();
     </script>
-    <script type="text/javascript" src="{{ '/public/js/site-index.js' | relative_url }}"></script>
     <script type="text/javascript" src="{{ '/public/js/webcmd.js' | relative_url }}"></script>
     <!--<script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>-->
      <script>

@@ -2,13 +2,16 @@
 title: Kartavya Path
 layout: page
 ---
-
-<div class="post-list">
-{% for nl in site.newsletter %}
-  <li>
-    <a href="{{ nl.url }}">
-      {{ nl.title }} 
-    </a>
-  </li>
-{% endfor %}
-</div>
+<ul>
+  <div class="post-list">
+    {% for post in site.newsletter %}
+    <li>
+      <span class="post-title">
+	<a href="{{ post.url }}">
+	  {{ post.title }} 
+	</a>
+      </span>
+    </li>
+    {% endfor %}
+  </div>
+</ul>

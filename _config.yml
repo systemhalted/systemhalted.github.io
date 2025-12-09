@@ -71,6 +71,8 @@ sidebar:
       url: "/emacs/"
     - title: "Javascript Games"
       url: "jsgames/"
+    - title: In the beginning...
+      url: /webcmd/
 
     # add / remove / reorder as you like
 

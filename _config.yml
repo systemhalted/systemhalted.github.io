@@ -39,6 +39,7 @@ feed:
   posts_limit: 50
   
 collections_dir: collections
+
 collections:
   jsgames:
     output: false

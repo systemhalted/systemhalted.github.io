@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Movie Review] Dhurandhar
+title: Dhurandhar - Review
 category: [Movie Review]
 tags: [Dhurandhar]
 comments: true

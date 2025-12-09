@@ -201,7 +201,7 @@ function cmd_find(cmd, arg, args)
 	if(!doc){ continue; }
 	var line = (i+1) + ". <a href=\"" + doc.link + "\">" + doc.title + "</a>";
 	if(doc.snippet){
-	    line += " — " + doc.snippet;
+	    line += " <span class=\"snippet\">"+ doc.snippet +"</span>";
 	}
 	output(line);
     }

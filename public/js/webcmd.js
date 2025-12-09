@@ -87,13 +87,43 @@ function cmd_cls(cmd, arg, arg)
     document.getElementById("line").value = "";
 }
 
+function ensureSiteIndex()
+{
+    if(typeof siteIndex !== "undefined" && typeof siteStore !== "undefined"){
+	return true;
+    }
+    if(typeof siteDocs === "undefined" || typeof elasticlunr === "undefined"){
+	return false;
+    }
+    var idx = elasticlunr(function () {
+	this.addField('title');
+	this.addField('layout');
+	this.addField('content');
+	this.setRef('id');
+    });
+    for(var i = 0; i < siteDocs.length; i++){
+	var doc = siteDocs[i];
+	idx.addDoc({
+	    title: doc.title,
+	    layout: doc.layout,
+	    content: doc.content,
+	    id: doc.id
+	});
+    }
+    window.siteIndex = idx;
+    if(typeof siteStore === "undefined"){
+	window.siteStore = siteDocs;
+    }
+    return true;
+}
+
 function cmd_find(cmd, arg, args)
 {
     if(!arg){
 	error("usage: find <query>");
 	return;
     }
-    if(typeof siteIndex === "undefined" || typeof siteStore === "undefined"){
+    if(!ensureSiteIndex()){
 	error("search unavailable (index not loaded)");
 	return;
     }

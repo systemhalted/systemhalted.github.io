@@ -4,27 +4,31 @@ title: Home
 ---
 
 <div class="posts">
+
   {% for post in paginator.posts %}
+
   <div class="post">
-    <h1 class="post-title">
+
+    
+    <span class="post-date">{{ post.date | date_to_string }}</span>
+    
+    <h2 class="post-title">
       <a href="{{ post.url | absolute_url }}">
         {{ post.title }}
       </a>
-      </h1>
+    </h2>
       
-     <div class="post-categories">
-      {% if post %}
+    <div class="post-categories">
       {% assign categories = post.categories %}
-      {% else %}
-      {% assign categories = page.categories %}
-      {% endif %}
       {% for category in categories %}
-      <a href="{{site.baseurl}}/categories/#{{category|slugize}}">{{category}}</a>
+      <a href="{{ site.baseurl }}/categories/#cat-{{ category | slugify }}">
+	{{ category }}
+      </a>
+
       {% unless forloop.last %}&nbsp;{% endunless %}
       {% endfor %}
     </div>
     
-    <span class="post-date">{{ post.date | date_to_string }}</span>
     {% if post.description %} 
       <span class="post-description">{{ post.description }}</span> <br>
     {% endif %}

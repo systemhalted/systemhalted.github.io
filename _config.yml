@@ -47,3 +47,30 @@ collections:
   newsletter:
     output: true
 
+
+sidebar:
+  items:
+    - title: "Search"
+      url: "/search/"
+    - title: "Home"
+      url: "/"
+    - title: "About"
+      url: "/about/"
+    - title: "Kartavya Path - Newsletter"
+      url: "/kartavya-path"
+    - title: "Featured Posts"
+      url: "/featured/"
+    - title: "Archives"
+      url: "/archives/"
+    - title: "Categories"
+      url: "/categories/"
+    - title: "Tags"
+      url: "/tags/"
+    - title: "Emacs"
+      url: "/emacs/"
+    - title: "Javascript Games"
+      url: "jsgames/"
+
+    # add / remove / reorder as you like
+
+

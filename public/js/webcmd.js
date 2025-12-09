@@ -1,3 +1,46 @@
+---
+---
+/* Webcmd command interface with built-in search index */
+
+// Build siteDocs and search index at load time (includes all output docs across collections).
+var siteDocs = [];
+{% assign doc_id = 0 %}
+{% for coll in site.collections %}
+  {% for doc in coll.docs %}
+    {% if doc.output != false %}
+siteDocs.push({
+  id: {{ doc_id }},
+  title: {{ doc.title | jsonify }},
+  layout: {{ doc.layout | jsonify }},
+  content: {{ doc.content | strip_html | jsonify }},
+  link: {{ doc.url | absolute_url | jsonify }},
+  snippet: {{ doc.content | strip_html | truncate: 140 | jsonify }}
+});
+{% assign doc_id = doc_id | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+if(typeof elasticlunr !== "undefined"){
+  var preloadIndex = elasticlunr(function () {
+    this.addField('title');
+    this.addField('layout');
+    this.addField('content');
+    this.setRef('id');
+  });
+  for(var i = 0; i < siteDocs.length; i++){
+    var doc = siteDocs[i];
+    preloadIndex.addDoc({
+      title: doc.title,
+      layout: doc.layout,
+      content: doc.content,
+      id: doc.id
+    });
+  }
+  window.siteIndex = preloadIndex;
+  window.siteStore = siteDocs;
+}
+
 /* Palak Mathur | In the beginning was a command line */
 
 // Simple shortcuts: name: url.
@@ -101,6 +144,7 @@ function ensureSiteIndex()
 	return false;
     }
 
+    // siteIndex may have been preloaded at the top of this file; if not, build now.
     var idx = elasticlunr(function () {
 	this.addField('title');
 	this.addField('layout');
@@ -133,6 +177,18 @@ function cmd_find(cmd, arg, args)
     }
 
     var results = siteIndex.search(arg, { expand: true });
+    // Fallback to manual substring search if lunr index returns nothing.
+    if(results.length === 0 && siteStore && siteStore.length){
+	var q = arg.toLowerCase();
+	for(var j = 0; j < siteStore.length; j++){
+	    var d = siteStore[j];
+	    var hay = (d.title + " " + d.content).toLowerCase();
+	    if(hay.indexOf(q) !== -1){
+		results.push({ ref: j });
+	    }
+	}
+    }
+
     if(results.length === 0){
 	output("No results for \"" + arg + "\"");
 	return;

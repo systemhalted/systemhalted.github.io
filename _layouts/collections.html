@@ -2,33 +2,29 @@
 layout: default
 ---
 
-<h2>{{ page.title }}</h2>
+<h1>{{ page.title }}</h1>
 
-<ul class="category-posts">
-  {% assign coll_name = page.collection_name %}
-  {% assign docs = site[coll_name] | sort: "date" | reverse %}
+{% assign coll_name = page.collection_name %}
+{% assign docs = site[coll_name] | sort: "date" | reverse %}
 
-  {% if docs and docs.size > 0 %}
-  <ul class="category-posts">
-    {% for doc in docs %}
-    <li class="category-post">
-      {% if doc.date %}
-      <div class="category-post-date">
-        {{ doc.date | date: "%B %d, %Y" }}
-      </div>
-      {% endif %}
-      
-      <div class="category-post-title">
-        <a href="{{ doc.url | relative_url }}">
-          {{ doc.title }}
-        </a>
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>No documents in this collection yet.</p>
-  {% endif %}
- 
+{% if docs and docs.size > 0 %}
+<ul class="collection-list">
+  {% for doc in docs %}
+  <li class="collection-item">
+    {% if doc.date %}
+    <div class="collection-item-date">
+      {{ doc.date | date: "%B %d, %Y" }}
+    </div>
+    {% endif %}
+
+    <div class="collection-item-title">
+      <a href="{{ doc.url | relative_url }}">
+        {{ doc.title }}
+      </a>
+    </div>
+  </li>
+  {% endfor %}
 </ul>
-
+{% else %}
+<p>No documents in this collection yet.</p>
+{% endif %}

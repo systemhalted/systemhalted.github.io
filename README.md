@@ -55,5 +55,5 @@ This repo hosts the Jekyll source for systemhalted.in. Use `bundle exec jekyll s
 
 ## Webcmd
 - Legacy command-line UI lives in `webcmd/index.html` and depends on `public/js/webcmd.js`.
-- Open `webcmd/` directly to test changes; keep assets referenced via `../public/...` so they work when deployed under the site root.***
-
+- Use `find <query>` inside the prompt to search posts via the built-in elasticlunr index.
+- Open `webcmd/` directly to test changes; keep assets referenced via `../public/...` so they work when deployed under the site root.

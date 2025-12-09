@@ -51,8 +51,8 @@ collections:
 
 sidebar:
   items:
-    - title: "Search"
-      url: "/search/"
+    - title: "Webcmd"
+      url: "/webcmd/"
     - title: "Home"
       url: "/"
     - title: "About"
@@ -75,5 +75,4 @@ sidebar:
       url: /webcmd/
 
     # add / remove / reorder as you like
-
 

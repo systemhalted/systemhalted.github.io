@@ -2,13 +2,16 @@
 title: Emacs
 layout: page
 ---
-
-<div class="post-list">
-{% for emacs in site.emacs %}
-  <li>
-    <a href="{{ emacs.url }}">
-      {{ emacs.title }} 
-    </a>
-  </li>
-{% endfor %}
-</div>
+<ul>
+  <div class="post-list">
+    {% for post in site.emacs %}
+    <li>
+      <span class="post-title">
+	<a href="{{ post.url }}">
+	  {{ post.title }} 
+	</a>
+      </span>
+    </li>
+    {% endfor %}
+  </div>
+</ul>

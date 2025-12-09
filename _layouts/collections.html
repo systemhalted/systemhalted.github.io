@@ -4,14 +4,16 @@ layout: default
 
 <h1>{{ page.title }}</h1>
 
-{% assign coll_name = page.collection_name %}
-{% assign docs = site[coll_name] | sort: "date" | reverse %}
+{% assign coll_name  = page.collection_name %}
+{% assign docs       = site[coll_name] | sort: "date" | reverse %}
+{% assign show_dates = page.show_dates | default: false %}
 
 {% if docs and docs.size > 0 %}
 <ul class="collection-list">
   {% for doc in docs %}
   <li class="collection-item">
-    {% if doc.date %}
+
+    {% if show_dates and doc.date %}
     <div class="collection-item-date">
       {{ doc.date | date: "%B %d, %Y" }}
     </div>
@@ -22,6 +24,7 @@ layout: default
         {{ doc.title }}
       </a>
     </div>
+
   </li>
   {% endfor %}
 </ul>

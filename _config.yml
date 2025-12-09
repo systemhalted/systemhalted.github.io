@@ -51,8 +51,6 @@ collections:
 
 sidebar:
   items:
-    - title: "Webcmd"
-      url: "/webcmd/"
     - title: "Home"
       url: "/"
     - title: "About"

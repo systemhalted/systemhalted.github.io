@@ -140,9 +140,9 @@ Databases. Message queues. Third-party APIs. Authentication. Caches. Time.
 
 Integration thinking asks:
 
-- Can this survive real data, not just happy-path fixtures  
-- What happens when the schema changes  
-- What if Kafka is briefly on fire  
+- Can this survive real data, not just happy-path fixtures?
+- What happens when the schema changes?
+- What if Kafka is briefly on fire?
 
 You might not be able to write full integration tests before any code exists. But if you do not think about them early, you will unconsciously design a system that only works in your unit test universe.
 
@@ -154,9 +154,9 @@ Finally, the part everybody talks about: unit tests.
 
 At this level, the questions are more granular:
 
-- What assumptions must never be violated inside this function or class  
-- What bug would be extremely annoying to debug in prod  
-- Which branches are easy to forget about  
+- What assumptions must never be violated inside this function or class? 
+- What bug would be extremely annoying to debug in prod?
+- Which branches are easy to forget about?  
 
 Unit tests are excellent at enforcing **local invariants** and giving you courage to refactor internals.
 

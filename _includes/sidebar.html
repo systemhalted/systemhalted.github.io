@@ -9,27 +9,22 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item{% if page.title == 'Home' %} active{% endif %}" href="{{ '/' | absolute_url }}">Home</a>
-
-    {% comment %}
-      The code below dynamically generates a sidebar nav of pages with
-      `layout: page` in the front-matter. See readme for usage.
-    {% endcomment %}
-
-    {% assign pages_list = site.pages | sort:"url" %}
-    {% for node in pages_list %}
-      {% if node.layout == "page"  %}
-    {% if node.title != null %}
-          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url | absolute_url }}">{{ node.title }}</a>
-        {% elsif node.sidebar_title != null %}
-           <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url | absolute_url }}">{{ node.sidebar_title }}</a>
-        {% endif %}
-      {% endif %}
+    {% for item in site.sidebar.items %}
+  
+    <a
+      class="sidebar-nav-item{% if page.url == item.url %} active{% endif %}"
+      href="{{ item.url | absolute_url }}">
+      {{ item.title }}
+    </a>
     {% endfor %}
-    <!-- The code below is used for manually entered links  -->
-    <span style='cursor:pointer;' onclick="javascript:var hypothesis = document.createElement('script');
-      hypothesis.setAttribute('src','https://hypothes.is/embed.js');
-      document.head.appendChild(hypothesis);"><a class="sidebar-nav-item">Annotate me</a></span>
+
+    <!-- Manually entered links stay as-is -->
+    <span style="cursor:pointer;"
+          onclick="javascript:var hypothesis = document.createElement('script');
+          hypothesis.setAttribute('src','https://hypothes.is/embed.js');
+          document.head.appendChild(hypothesis);">
+      <a class="sidebar-nav-item">Annotate me</a>
+    </span>
   </nav>
 
   <div class="sidebar-item">

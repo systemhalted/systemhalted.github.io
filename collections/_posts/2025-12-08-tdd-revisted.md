@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "TDD as a Management Technique, Revisited"
+title: TDD as a Management Technique Revisited
 category: [Software Engineering, Management]
 tags: [TDD, Testing, Management, Software Design]
 comments: true

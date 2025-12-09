@@ -187,9 +187,9 @@ Green builds become the scoreboard.
 
 Meanwhile, nobody is asking basic questions:
 
-- Are we testing the right things at the right levels  
-- Do our tests reflect how the system is really used  
-- Are we over-investing in unit tests while under-investing in integration and functional evaluation  
+- Are we testing the right things at the right levels?
+- Do our tests reflect how the system is really used?
+- Are we over-investing in unit tests while under-investing in integration and functional evaluation?
 
 That is the shift I care about.
 

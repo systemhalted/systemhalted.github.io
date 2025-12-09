@@ -17,7 +17,7 @@ layout: default
         {{ doc.date | date: "%B %d, %Y" }}
       </div>
       {% endif %}
-
+      
       <div class="category-post-title">
         <a href="{{ doc.url | relative_url }}">
           {{ doc.title }}
@@ -29,8 +29,6 @@ layout: default
   {% else %}
   <p>No documents in this collection yet.</p>
   {% endif %}
-
+ 
 </ul>
-{% else %}
-<p>No documents in this collection yet.</p>
-{% endif %}
+

@@ -13,7 +13,7 @@ siteDocs.push({
   title: {{ doc.title | jsonify }},
   layout: {{ doc.layout | jsonify }},
   content: {{ doc.content | strip_html | jsonify }},
-  link: {{ doc.url | absolute_url | jsonify }},
+  link: {{ doc.url | relative_url | jsonify }},
   snippet: {{ doc.content | strip_html | truncate: 140 | jsonify }}
 });
 {% assign doc_id = doc_id | plus: 1 %}

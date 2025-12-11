@@ -14,14 +14,14 @@
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   {% endif %}
 
-  <link rel="stylesheet" href="{{ '/public/css/site.css' | absolute_url }}">
+  <link rel="stylesheet" href="{{ '/public/css/site.css' | relative_url }}">
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ '/public/apple-touch-icon-precomposed.png' | absolute_url }}">
-  <link rel="shortcut icon" href="{{ '/public/favicon.ico' | absolute_url }}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ '/public/apple-touch-icon-precomposed.png' | relative_url }}">
+  <link rel="shortcut icon" href="{{ '/public/favicon.ico' | relative_url }}">
 
-  <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml">
+  <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | relative_url }}">
 
   {% if site.google_analytics_id %}
  <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -1,13 +1,14 @@
 ---
 layout: post
 title: Bhupinder Singh
-category: [Obituaries]
-tags: [Bhupinder Singh]
+category:
+- Life Events
+tags:
+- Bhupinder Singh
 comments: true
 description: Om Shanti! Bhupinder Singh ji your voice will continue to mesmerize us.
 featured: false
 ---
-
 Bhupinder Singh, different voice, but power to go straight through your heart. I first heard about him when I might be in 4th or 5th grade and listened to song Naam Gum Jaayega on Chitrahaar. It instantly became my favorite song.
   
 Dil Dhoondhta Hai was the song which I recognized was sung by him just by his voice. It was his second song that I listened. It was from the film Mausam. 

@@ -1,10 +1,16 @@
 ---
 layout: page
 title: Lessons from Ancient Indian Text - Embracing Timely Action in Leadership and Management
-tags: [nesletter, management, leadership, Panchatantra, Peter Drucker, Proactive Leadership]
-category: [Kartavya Path]
+tags:
+- nesletter
+- management
+- leadership
+- Panchatantra
+- Peter Drucker
+- Proactive Leadership
+category:
+- Newsletter
 ---
-
 In the fast-paced world of business and leadership, timely action is crucial. Reflecting on a timeless lesson from the ancient Indian text, the #Panchatantra, we find profound wisdom:
 
 ```

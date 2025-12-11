@@ -1,13 +1,21 @@
 ---
 layout: post
 title: Either This Or That - Why I Wanted Disjunctive Types In Java
-category: [Computer Science, Programming, Software Engineering, Technology]
-tags: [disjunction, Scala, Java, Kotlin, Haskell, Algebraic Data Types]
+category:
+- Computer Science
+- Software Engineering
+- Technology
+tags:
+- disjunction
+- Scala
+- Java
+- Kotlin
+- Haskell
+- Algebraic Data Types
 comments: true
 description: When your Java methods really mean "either this or that" but the type system only says "here’s something…maybe," you’re flying blind. This post walks through using Result types, sealed hierarchies, and a bit of logic-thinking to make those hidden alternatives explicit, so the compiler – not your Javadoc – tells the truth about your code.
 featured: true
 ---
-
 A few years ago at work, while hacking on a parser and analyser, I realised I needed something my language did not give me: disjunctive types.
 
 Java did not have it.  

@@ -1,13 +1,14 @@
 ---
 layout: post
 title: I am in awe of Emacs
-category: Emacs
-tags: [emacs]
+category:
+- Software Engineering
+tags:
+- emacs
 comments: true
 description: I am in awe of Emacs. I wrote this post originally on Reddit. Just copying it here to save it.
 featured: true
 ---
-
 This post originally appeared on [r/emacs](https://www.reddit.com/r/emacs/comments/j04xxw/i_am_in_awe_of_emacs/). 
 
 I started using Emacs on and off around eight or nine years ago. However, I got serious about learning it recently and I admit partly due to org-mode. I was initially scared of Emacs, which I still am; however, that fear is converting into awe as I explore more of its capabilities. No other editor gives you this much Freedom to hack your editor and personalize it. Emacs takes personalization to a different level, way beyond what other so-called modern editors can ever imagine.

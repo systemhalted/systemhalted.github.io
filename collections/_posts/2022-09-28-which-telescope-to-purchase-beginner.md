@@ -1,13 +1,18 @@
 ---
 layout: post
 title: Which Beginner Telescope to Purchase
-category: [Astronomy, Advice]
-tags: [advice, astronomy, stargazing, telescope]
+category:
+- Sports & Hobbies
+- Life Events
+tags:
+- advice
+- astronomy
+- stargazing
+- telescope
 comments: true
-description: This is the first question that everyone asks when getting into star-gazing. Here I repeat what experienced amateur astronomers say. 
+description: This is the first question that everyone asks when getting into star-gazing. Here I repeat what experienced amateur astronomers say.
 featured: false
 ---
-
 The most important and frequent question that gets asked by people who want to explore the universe from their backyards is "which telescope should we buy?". 
 Simple answer: None.
 

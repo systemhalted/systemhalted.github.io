@@ -1,12 +1,16 @@
 ---
 layout: post
 title: Language Part 1 - Introduction
-category: [Languages, Linguistics]
-tags: [language, vocabulary, communication, expression]
+category:
+- Languages & Linguistics
+tags:
+- language
+- vocabulary
+- communication
+- expression
 comments: true
-description: This is part 1 of Language series where we will define Language and why it is important. 
+description: This is part 1 of Language series where we will define Language and why it is important.
 ---
-
 Yesterday, my son Rayirth asked why his teacher says that English is the toughest language. While discussing it dawned to me that English is not difficult due to how the language is designed but due to the very nature of the script it uses. For example, cut and put are pronounced differently but written similarly. Thus, one thing is clear that language is not same as the script. Then what is language? How do we define language? In this series of post, I am going to tackle this question and discuss various aspects or components of language. This is the first post in the series where I will try to understand what is a language and how is it useful for human communication. 
 
 ***Disclaimer*** 

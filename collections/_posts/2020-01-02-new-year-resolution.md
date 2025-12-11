@@ -1,12 +1,14 @@
 ---
 layout: post
 title: New Year 2020 - Resolution
-category: [Insane Thoughts]
-tags: [2020, resolution ]
+category:
+- Personal Essays
+tags:
+- 2020
+- resolution
 comments: true
 description: Procrastinator's attempt to follow a better lifestyle. First Post.
 ---
-
 I am lazy, a procrastinator and I skip exercising, cycling, and lot of “living”. I want to change this habit. As I am getting older, it will be wiser for me to stop thinking and start “living”.
 
 So, this year (finally, I have a resolution; I never had it before) I will quantify everything I do - gamify everything.

@@ -1,12 +1,16 @@
 ---
 layout: post
 title: The Power of Transparency in Leadership - Lessons from Experience
-category: [Management]
-tags: [Transparency, Leadership, OpenCommunication, CorporateCulture]
+category:
+- Software Engineering
+tags:
+- Transparency
+- Leadership
+- OpenCommunication
+- CorporateCulture
 comments: true
 description: Transparency is a powerful tool in leadership that fosters trust, collaboration, and growth. As a manager, I've experienced firsthand how embracing transparency positively impacts team dynamics and overall performance. By expecting transparency from above and leading by example, I strive to create a culture of openness and mutual respect within my team. Together, we navigate the corporate landscape with transparency as our guiding principle, acknowledging challenges while valuing the numerous benefits it brings.
 ---
-
 As a manager, I've always believed in the fundamental importance of open and transparent communication with my team. I recognize that, as human beings, we all have our moments of forgetfulness, and I'm no exception. Therefore, I make it a point to be as forthcoming as professionally possible with my team, acknowledging that I might not remember to share everything with them, but I'm dedicated to improving this aspect continuously.
 
 ## Embracing Transparency as a Core Value

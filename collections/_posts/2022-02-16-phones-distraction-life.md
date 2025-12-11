@@ -1,8 +1,13 @@
 ---
 layout: post
 title: iPhone Apps, Distractions and Life - App Inventory
-category: [Productivity, Insane Thoughts]
-tags: [iphone, distraction, life]
+category:
+- Software Engineering
+- Personal Essays
+tags:
+- iphone
+- distraction
+- life
 comments: true
 description: Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone
 ---

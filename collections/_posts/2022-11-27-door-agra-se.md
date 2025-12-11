@@ -1,13 +1,15 @@
 ---
 layout: post
-title: दूर आगरा से 
-category: [Poetry, Hindi, Ghazal, Urdu, हिंदी, ग़ज़ल]
-tags: [आगरा, agra]
+title: दूर आगरा से
+category:
+- Poetry & Literature
+tags:
+- आगरा
+- agra
 comments: true
 description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 featured: false
 ---
-
 This probably is my first Ghazal.
 
     दूर आगरा से (door Agra se)

@@ -1,10 +1,15 @@
 ---
 layout: post
-title: Are Lazy Programmers The Best programmers? 
-category: [Behavior, Productivity, Software Engineering]
-tags: [hacker, hackingculture, programmers]
+title: Are Lazy Programmers The Best programmers?
+category:
+- Personal Essays
+- Software Engineering
+tags:
+- hacker
+- hackingculture
+- programmers
 comments: true
-description:  
+description: 
 featured: false
 ---
 "Lazy programmers are the best programmers!" You will often here this when someone automates a task that takes x time units spending y time units and obviously here x < y. 

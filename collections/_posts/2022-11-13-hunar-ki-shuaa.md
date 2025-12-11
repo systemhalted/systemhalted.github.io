@@ -1,14 +1,21 @@
 ---
 layout: post
 title: हुनर की शूआ’
-category: [Poetry, Hindi, Urdu, हिंदी, Hindustani]
-tags: [hunar, हुनर, शूआ’, naya savera, philosophical, life, Uunchai]
+category:
+- Poetry & Literature
+- Languages & Linguistics
+tags:
+- hunar
+- हुनर
+- शूआ’
+- naya savera
+- philosophical
+- life
+- Uunchai
 comments: true
 description: A new philosophical poem
 featured: false
 ---
-
-
 Yesterday night I wrote this poem in Hindustani. In the evening today we watched #Uunchai. I didn’t know the poem will be so apt. Here presenting again
 
     Naya Savera Sang Nayi Umra Laaya,

@@ -1,12 +1,17 @@
 ---
 layout: post
 title: My Journey with Computers
-category: [ Programming, Insane Thoughts, Personal]
-tags: [programming, computers, school, college]
+category:
+- Software Engineering
+- Personal Essays
+tags:
+- programming
+- computers
+- school
+- college
 comments: true
-description: I started coding when I was in class IV, back in 1991. 
+description: I started coding when I was in class IV, back in 1991.
 ---
-
 It was in 1991 that my school[^1] introduced Computer Science for everyone from class IV onwards. It was the first school in Agra[^2] to do so[^3]. Luckily for me I was in class IV and was excited to learn Computer Science. 
 
 The first day of the class we were excited. We did not get to see the newly build Computer Labs but were told lots about Computers - what is a computer? what is data? what is meaningful information? cpu, alu, monitor, keyboard and the funniest of all - the mouse. Soon we progressed to learn programming and the language of choice for that was Logo[^4]. Logo starts with a turtle on the centre of the screen, which could be programmed to form different shapes - `FD 50, RT 90, FD 50, RT 90, FD 50, RT 90, FD 50, HT` - would form a square of sides 50 units each. That was fascinating for all of us. It was a fun language to learn and explore. It was not till recently that I came to know that Logo was a dialect of Lisp[^5], considered by many as the God's own programming language[^6]. 

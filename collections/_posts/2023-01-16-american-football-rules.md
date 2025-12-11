@@ -1,12 +1,14 @@
 ---
 layout: post
 title: American Football - Beginners Guide
-category: [Sports]
-tags: [american football, nfl]
+category:
+- Sports & Hobbies
+tags:
+- american football
+- nfl
 comments: true
-description: As a newcomer to USA in 2013, American Football was really confusing at first. Here I summarize the rules at high level for the people who are new to the USA and want to understand and enjoy the game. 
+description: As a newcomer to USA in 2013, American Football was really confusing at first. Here I summarize the rules at high level for the people who are new to the USA and want to understand and enjoy the game.
 ---
-
 As a newcomer to USA in 2013, American Football was really confusing at first. Here I summarize the rules at high level for the people who are new to the USA and want to understand and enjoy the game. 
 
 American football is a sport played by two teams, each consisting of eleven players. The objective of the game is to advance an oval-shaped ball down the field and score points by crossing the opposing team's goal line or kicking the ball through a set of goalposts.

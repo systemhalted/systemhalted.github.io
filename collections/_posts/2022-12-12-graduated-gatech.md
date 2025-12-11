@@ -1,8 +1,17 @@
 ---
 layout: post
 title: Graduated from Georgia Tech
-category: [Personal Growth]
-tags: [graduated, gatech, omscs, georgia institute of technology, humblebrag, newlymintedMS, computer science, computing systems]
+category:
+- Life Events
+tags:
+- graduated
+- gatech
+- omscs
+- georgia institute of technology
+- humblebrag
+- newlymintedMS
+- computer science
+- computing systems
 comments: true
 description: Finally, I completed my MS in Computer Science from Georgia Institute of Technology
 featured: false

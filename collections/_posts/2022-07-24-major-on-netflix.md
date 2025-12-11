@@ -1,13 +1,17 @@
 ---
 layout: post
 title: Movie Review - Major (in Hindi)
-category: [Movie Reviews]
-tags: [Major, Netflix, Operation Vijay, Major Sandeep Unnikrishnan]
+category:
+- Media Reviews
+tags:
+- Major
+- Netflix
+- Operation Vijay
+- Major Sandeep Unnikrishnan
 comments: true
 description: If I have to rate, I will give it 3 out of 5. 2 marks for emotions and 1 for being committed enough to make a movie on Maj Unnikrishnan.
 featured: false
 ---
-
 After hearing numerous rave reviews and procrastinating the unfolding trauma of 2008, today I finally decided to watch "Major" on Netflix. The film narrates the heroic tale of Major Sandeep Unnikrishnan, the martyr of the 26/11 terrorist attacks in Mumbai. He valiantly sacrificed his life to protect the country at the Taj Hotel, displaying extraordinary courage and dedication at the tender age of 31.
 
 However, I must admit that while "Major" had its emotional moments, it failed to do justice to the real-life hero it aimed to portray. The movie seemed to disregard reality and transformed the life and martyrdom of Major Sandeep Unnikrishnan into a typical Bollywood masala film. The depiction of events at NDA and crucial military decisions appeared to be guided by impulsive emotions rather than strategic acumen, which I find hard to believe, as military decisions are typically well-thought-out and rational. In contrast, a film like "Lakshya" (2004), which was a fictional account of the 1999 Operation Vijay in Kargil, managed to weave a more realistic narrative while still being captivating.

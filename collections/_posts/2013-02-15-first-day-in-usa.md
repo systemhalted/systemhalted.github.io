@@ -1,14 +1,17 @@
 ---
-layout: post  
-date: 2013-02-15 00:24  
-title: First Day in USA  
-category: [Insane Thoughts, Travelogue]  
-tags: [USA, India]
+layout: post
+date: 2013-02-15 00:24
+title: First Day in USA
+category:
+- Personal Essays
+- Travel
+tags:
+- USA
+- India
 comments: true
-description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went? 
+description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went?
 featured: true
----  
-
+---
    Leaving India was not easy. If there would have been no one, probably it would have been but with Shalank being there, 
    it was not. Also, past one year we all (Mummy, Papa, Shalank, Priti and Calvin, our dog) were staying together. 
    It is fun being part of family, but parting with the family is equally painful.

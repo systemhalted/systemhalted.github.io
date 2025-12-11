@@ -1,13 +1,22 @@
 ---
 layout: post
 title: Problem with Delivery Apps
-category: [Insane Thoughts, Business]
-tags: [economy, business, delivery apps, grubhub, doordash, instacart, gig economy, app-based economy]
+category:
+- Personal Essays
+- Society & Economy
+tags:
+- economy
+- business
+- delivery apps
+- grubhub
+- doordash
+- instacart
+- gig economy
+- app-based economy
 comments: true
-description: There are certainly problems with Delivery Apps when it comes down to employee and customer satisfaction. A quick take. 
+description: There are certainly problems with Delivery Apps when it comes down to employee and customer satisfaction. A quick take.
 featured: false
 ---
-
 The problem with delivery apps like Grubhub, DoorDash, Instacart, etc. is :
 
 1. Marked up price

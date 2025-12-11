@@ -8,11 +8,10 @@ comments: true
 status: publish
 categories:
 - Software Engineering
-- Agile
 tags:
 - traceability
 - traceability matrix
-description: Do we really need to maintain a Requirements Traceability Matrix as a separate entity? 
+description: Do we really need to maintain a Requirements Traceability Matrix as a separate entity?
 ---
 Requirements traceability is “the ability to describe and follow the life of a requirement, in both a forwards and backwards direction (i.e., from its origins, through its development and specification, to its subsequent deployment and use, and through all periods of on-going refinement and iteration in any of these phases)” [1]. It is primarily useful for verification and validation to make sure that the right processes have been used to build the right system. Mostly in the old world, namely, Waterfall, the way to maintain traceability was using Requirements Traceability Matrix or simply Traceability Matrix (RTM). However, from my experience, I can certainly vouch that I have never looked at RTM except for during software audits.
 

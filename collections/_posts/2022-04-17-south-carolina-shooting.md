@@ -1,13 +1,20 @@
 ---
 layout: post
-title: South Carolina Shooting and Shooting is a Norm! 
-category: [Insane Thoughts]
-tags: [gun laws, constitution, US Constitution, 2nd Amendment, South Carlonia, Shallow Capitalism, Feudal age]
+title: South Carolina Shooting and Shooting is a Norm!
+category:
+- Personal Essays
+tags:
+- gun laws
+- constitution
+- US Constitution
+- 2nd Amendment
+- South Carlonia
+- Shallow Capitalism
+- Feudal age
 comments: true
-description: I didn’t feel a thing today. And then I did some. 
+description: I didn’t feel a thing today. And then I did some.
 featured: false
 ---
-
 Today was another shooting. This time in a [South Carolina restaurant](https://abcnews.go.com/US/injured-shooting-south-carolina-restaurant-police/story?id=84135698&fbclid=IwAR1RH0hnWci0e7yBiFtjjIoqKNFxuZZa1Uj_Rrj-OwNNYcY1XkcmBebFJ3k).
                           
 I didn’t feel a thing today. And then I did some. 

@@ -1,13 +1,13 @@
 ---
 layout: post
 title: C Strings - Awkward By Design
-date: 2019-12-26 
+date: 2019-12-26
 type: post
 published: true
 comments: true
 status: publish
 categories:
-- Programming
+- Software Engineering
 - Computer Science
 tags:
 - C
@@ -19,7 +19,6 @@ tags:
 description: C is a funny language. Strings are a joke.
 featured: true
 ---
-
 C is a funny language. It was designed for performance and still prides itself on being close to the metal. Yet the way it deals with strings is, let us say, special. To be more precise, spectacularly awkward. In C, strings are not really citizens at all. They are just a convention.
 
 There is a famous joke on C strings, which I reproduce here

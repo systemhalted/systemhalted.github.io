@@ -5,21 +5,9 @@ category:
 - Technology
 - Software Engineering
 tags:
-- Computer scientist
-- Development Tools
-- Games programming in Python
-- How to Think like a Computer Scientist
-- Javaranch
-- Jython
-- Language
-- Learn Python
-- Learning
-- Mark Lutz
-- Mark Pilgrim
-- Palak Mathur
-- PalakMathur
-- Programming
-- python
+- technology
+- software
+- india
 comments: true
 description: Here I am listing few of the resources that I think will be good for someone to refer if (s)he wants to learn Python.
 ---

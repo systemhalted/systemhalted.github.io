@@ -5,9 +5,9 @@ category:
 - Personal Essays
 - Software Engineering
 tags:
-- hacker
-- hackingculture
-- programmers
+- personal
+- opinion
+- software
 comments: true
 description: 
 featured: false

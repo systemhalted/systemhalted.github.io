@@ -4,9 +4,10 @@ title: Cricket - Beginner's Guide
 category:
 - Sports & Hobbies
 tags:
-- cricket
-- icc
-- bcci
+- sports
+- travel
+- leadership
+- india
 comments: true
 description: This post summarizes sport of cricket for people who are interested in the game.
 ---

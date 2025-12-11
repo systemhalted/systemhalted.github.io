@@ -5,14 +5,11 @@ category:
 - Personal Essays
 - Society & Economy
 tags:
+- personal
+- opinion
+- society
 - economy
-- business
-- delivery apps
-- grubhub
-- doordash
-- instacart
-- gig economy
-- app-based economy
+- united-states
 comments: true
 description: There are certainly problems with Delivery Apps when it comes down to employee and customer satisfaction. A quick take.
 featured: false

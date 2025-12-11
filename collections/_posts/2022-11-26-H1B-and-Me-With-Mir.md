@@ -4,13 +4,18 @@ title: Mir and My H1B and GC Travails
 category:
 - Personal Essays
 - Poetry & Literature
-tags:
-- mir taqi mir
-- H1B
-- GC
 comments: true
 description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 featured: false
+tags:
+- personal
+- opinion
+- poetry
+- travel
+- united-states
+- agra
+- pune
+- hindi
 ---
 I have been in United States of America for a while now and even though I am a legal resident, chances of me getting an employment-based Green Card (GC) are very slim. 
 

@@ -4,11 +4,8 @@ title: What an Inning from Virat Kohli vs Pakistan
 category:
 - Sports & Hobbies
 tags:
-- cricket
-- world cup t20
-- Pakistan
-- India
-- India Vs Pakistan
+- sports
+- india
 comments: true
 description: This is a note to self for memories in the later years. This was the innings that proved why Virat Kohli is a King!
 featured: false

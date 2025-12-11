@@ -11,12 +11,9 @@ categories:
 - Software Engineering
 - Computer Science
 tags:
-- lazy evaluation
-- streams
-- reactive programming
-- reactive architecture
-- haskell
-- spring xd
+- technology
+- software
+- computer-science
 description: An attempt to make sense of the world I work in.
 ---
 Last year I spent a lot of time working with distributed runtime environments, especially using Spring XD. Spring XD gives you a way to define streams that process continuous flows of data in near real time. Under the covers it builds on Spring Integration and messaging. No single module can keep up with every burst of traffic on its own, so Spring XD relies on messaging middleware such as queues and topics. These queues decouple producers and consumers and buffer data so that the system as a whole can keep up, even when individual modules have limited capacity.

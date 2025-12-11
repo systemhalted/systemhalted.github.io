@@ -5,10 +5,9 @@ category:
 - Sports & Hobbies
 - Life Events
 tags:
-- advice
+- sports
+- personal
 - astronomy
-- stargazing
-- telescope
 comments: true
 description: This is the first question that everyone asks when getting into star-gazing. Here I repeat what experienced amateur astronomers say.
 featured: false

@@ -5,14 +5,13 @@ category:
 - Technology
 - Software Engineering
 - Computer Science
-tags:
-- Clojure
-- Prefix Notation
-- Polish Notation
-- Lisp
 comments: true
 featured: true
 summary: Clojure syntax uses prefix notation and lots of parentheses. That sounds scary if you grew up on infix, but it doesn’t have to be.
+tags:
+- technology
+- software
+- computer-science
 ---
 Clojure is a functional programming language for the JVM created by Rich Hickey. It is a dialect of Lisp, which is famous for its use of parentheses and a prefix-style syntax often associated with Polish notation.
 

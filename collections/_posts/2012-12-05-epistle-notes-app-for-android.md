@@ -4,12 +4,10 @@ title: Epistle - A Simple Notes Taking App for Android
 category:
 - Media Reviews
 - Technology
-tags:
-- epistle
-- notes
-- android
 comments: true
 description: Epistle is a light-weight Notes taking app for android. This is my review of the application.
+tags:
+- technology
 ---
 For quiet sometime now, I was searching for an app which is lightweight, has clean interface, is functional and the one that could support markdown. That search came to the conclusion with Epistle. Epistle has all the features that I listed above. It is light, has a great interface, which is clean and functional. It helps me sync my notes with Dropbox, which is a feature I had been looking for (not exactly with Dropbox, with any of the web app similar to Dropbox). Syncing is neat and fast and the notes are accessible on your devices as soon as you have completed the note on one of the devices. It supports html preview of Markdown documents (still need to try this one).
 

@@ -4,9 +4,10 @@ title: Org Incentive Optimization Problem
 category:
 - Personal Essays
 tags:
-- Work
-- Leadership
-- incentive
+- personal
+- opinion
+- movie-review
+- leadership
 comments: true
 featured: true
 description: Most orgs are unknowingly running an “Org Incentive Optimization” algorithm that over-rewards flashy new platforms and under-values quiet reliability work, so you have to translate maintenance into visible, computable outcomes.

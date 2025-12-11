@@ -1,12 +1,22 @@
 ---
 layout: post
 title: "[Article Review] Is Artificial Intelligence Dangerous by Bernard Marr"
-category: [Technology, Artificial Intelligence, Machine Learning, Article Review]
-tags: [data, artificial intelligence, Bernard Marr, Predictive Test, GPT, Machine Learning, ML, ai, Forbes]
+category:
+- Technology
+- AI & Data
+tags:
+- data
+- artificial intelligence
+- Bernard Marr
+- Predictive Test
+- GPT
+- Machine Learning
+- ML
+- ai
+- Forbes
 comments: true
 description: This is the review of Forbes Article by Bernard Marr on AI.
 ---
-
 ### Summary
 
  The author[^1] starts the article by mentioning the concerns raised by Elon Musk, et.al and talks about the difference between Narrow AI and General AI. Then it mentions 6 AI risks, viz., autonomous weapons, social ma- nipulation, invasion of privacy and social grading, misalignment between human goals and that of machine, and discrimination.

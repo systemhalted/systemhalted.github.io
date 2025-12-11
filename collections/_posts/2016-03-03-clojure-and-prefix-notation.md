@@ -1,13 +1,18 @@
 ---
 layout: post
-title: Clojure and Polish Notation 
-category: [Technology, Clojure] 
-tags: [Clojure, Prefix Notation, Polish Notation, Lisp]
+title: Clojure and Polish Notation
+category:
+- Technology
+- Software Engineering
+tags:
+- Clojure
+- Prefix Notation
+- Polish Notation
+- Lisp
 comments: true
 featured: true
 summary: Clojure syntax uses prefix notation and lots of parentheses. That sounds scary if you grew up on infix, but it doesn’t have to be.
 ---
-
 Clojure is a functional programming language for the JVM created by Rich Hickey. It is a dialect of Lisp, which is famous for its use of parentheses and a prefix-style syntax often associated with Polish notation.
 
 In Lisp and Clojure, code is written as fully parenthesized S-expressions, with the operator first and the arguments after it. For example:

@@ -1,12 +1,16 @@
 ---
 layout: post
 title: Language Part 4 - Pronunciation
-category: [Languages, Linguistics]
-tags: [language, Pronunciation, communication, expression]
+category:
+- Languages & Linguistics
+tags:
+- language
+- Pronunciation
+- communication
+- expression
 comments: true
 description: This is Part 4 of Language series where we will talk about pronunciation.
 ---
-
 ***Disclaimer***
 I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
 

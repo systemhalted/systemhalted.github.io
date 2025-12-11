@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Images, Pictures, Videos and Instagram 
-date: 2017-05-06 
+title: Images, Pictures, Videos and Instagram
+date: 2017-05-06
 type: post
 published: true
 comments: true
 status: publish
 categories:
-- Insane Thoughts
+- Personal Essays
 tags:
 - instagram
 - pictures

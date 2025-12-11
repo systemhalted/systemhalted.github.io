@@ -1,12 +1,16 @@
----  
-layout: post  
+---
+layout: post
 title: Book Review - Node Cookbook Second Edition by David Mark Clements
-category: [Book Reviews, Technology]  
-tags: [Node, NodeJS, Node.js]
+category:
+- Books & Reading
+- Technology
+tags:
+- Node
+- NodeJS
+- Node.js
 comments: true
-description: Node Cookbook like other Packtpub books is a quick reference and a ready reckoner for anyone interested in Node.js. 
---- 
-
+description: Node Cookbook like other Packtpub books is a quick reference and a ready reckoner for anyone interested in Node.js.
+---
 Node Cookbook by David Mark Clements as the book title page suggests give quick answers to some of the common problems faced by developers working with Node.js and would be easily liked by those who are already working on Node.js and need a solution to a problem that they might be facing. Having said that, this book is not for someone who is kickstarting his journey in the world of Node.js. 
 
 The book is divided into 11 chapters and covers over 50 recipes to master the art of asynchronous server-side JavaScript using Node.js including data serialization, interfacing with Databases, Socket IO, Express 4, crash recovery techniques, SMTP, TCP, and my favorite SSL. Each chapter has several code examples that are easy to understand and follow. I would admit that I did not try all the recipes but only few and found one to be not working so submitted the errata as well. 

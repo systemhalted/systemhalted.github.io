@@ -1,12 +1,22 @@
 ---
 layout: post
 title: "[Article Review] The Next Word - Where will predictive text take us by John Seabrook"
-category: [Technology, Artificial Intelligence, Machine Learning, Article Review]
-tags: [data, artificial intelligence, Seabrook, Predictive Test, GPT, Machine Learning, ML, ai, The New Yorker]
+category:
+- Technology
+- AI & Data
+tags:
+- data
+- artificial intelligence
+- Seabrook
+- Predictive Test
+- GPT
+- Machine Learning
+- ML
+- ai
+- The New Yorker
 comments: true
 description: This is the review of The New Yorker Article by John Seabrook on Predictive Text.
 ---
-
 ### Summary
 
 The author[^1] starts by mentioning his experience with GMail’s Smart Compose feature and says that it is heartening to see the machine completing the sentence for him. He further talks about OpenAI’s GPT-2 ma- chine, which is an AI Writer, a supercharged version of Smart Compose. The arti- clequotesDarioAmodei,DirectorResearchatOpenAI, 

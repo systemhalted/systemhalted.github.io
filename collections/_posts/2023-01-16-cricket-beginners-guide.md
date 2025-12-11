@@ -1,12 +1,15 @@
 ---
 layout: post
 title: Cricket - Beginner's Guide
-category: [Sports]
-tags: [cricket, icc, bcci]
+category:
+- Sports & Hobbies
+tags:
+- cricket
+- icc
+- bcci
 comments: true
-description: This post summarizes sport of cricket for people who are interested in the game. 
+description: This post summarizes sport of cricket for people who are interested in the game.
 ---
-
 Cricket is a sport that is played between two teams of eleven players each. The objective of the game is for one team to score more runs than the other team. If you are new to the game, it can seem complex and difficult to understand. However, with a basic understanding of the rules and strategies, anyone can enjoy watching and playing cricket.
 
 ### The Field

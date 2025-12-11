@@ -1,13 +1,15 @@
 ---
 layout: post
 title: India - 75 years of Independence
-category: [India]
-tags: [India, 75th independence]
+category:
+- Politics & Governance
+tags:
+- India
+- 75th independence
 comments: true
-description: India celebrates its 75th Independence Day tomorrow, 15th August. There is so much to dream about India; so much to cherish, so much to cheer, so much to hate and so much to desire about it. 
+description: India celebrates its 75th Independence Day tomorrow, 15th August. There is so much to dream about India; so much to cherish, so much to cheer, so much to hate and so much to desire about it.
 featured: false
 ---
-
 India celebrates its 75th Independence Day tomorrow, 15th August. There is so much to dream about India; so much to cherish, so much to cheer, so much to hate and so much to desire about it. 
 
 Living outside the country has given the opportunity to look India from a different perspective - Looking inside and there is so much to admire about it. I love that our institutions are still secular and the holder of these offices, in general, make decisions without caving into their personal religious beliefs. In most countries that is not possible, even in the developed world. Hope that we are able to keep these practices intact. 

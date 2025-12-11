@@ -1,8 +1,11 @@
 ---
 layout: post
 title: Lata Mangeshkar
-category: [Obituaries]
-tags: [Lata Mangeshkar, nightingale of india]
+category:
+- Life Events
+tags:
+- Lata Mangeshkar
+- nightingale of india
 comments: true
 description: Om Shanti! Lata Mangeshkar will live forever!
 featured: false

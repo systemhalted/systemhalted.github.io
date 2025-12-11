@@ -1,8 +1,14 @@
 ---
 layout: post
 title: Silence in the face of the evil is itself evil!
-category: Insane Thoughts
-tags: [India, US, governments, protests, evil]
+category:
+- Personal Essays
+tags:
+- India
+- US
+- governments
+- protests
+- evil
 comments: true
 ---
 “Silence in the face of evil is itself evil!” 

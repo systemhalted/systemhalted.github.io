@@ -1,8 +1,13 @@
 ---
 layout: post
 title: Language Part 2 - Grammar
-category: [Languages, Linguistics]
-tags: [language, grammar, communication, expression]
+category:
+- Languages & Linguistics
+tags:
+- language
+- grammar
+- communication
+- expression
 comments: true
 description: This is Part 2 of Language series where we will talk about grammar.
 ---

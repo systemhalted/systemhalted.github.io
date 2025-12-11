@@ -1,12 +1,28 @@
 ---
 layout: post
 title: Learn Python - Resources
-category: [Technology, Programming]
-tags: [Computer scientist, Development Tools, Games programming in Python, How to Think like a Computer Scientist, Javaranch, Jython, Language, Learn Python, Learning, Mark Lutz, Mark Pilgrim, Palak Mathur, PalakMathur, Programming, python]
+category:
+- Technology
+- Software Engineering
+tags:
+- Computer scientist
+- Development Tools
+- Games programming in Python
+- How to Think like a Computer Scientist
+- Javaranch
+- Jython
+- Language
+- Learn Python
+- Learning
+- Mark Lutz
+- Mark Pilgrim
+- Palak Mathur
+- PalakMathur
+- Programming
+- python
 comments: true
 description: Here I am listing few of the resources that I think will be good for someone to refer if (s)he wants to learn Python.
 ---
-
 Python is a dynamic object-oriented programming language that can be used for many kinds of software development. It offers strong support for integration with other languages and tools, comes with extensive standard libraries, and can be learned in a few days. Many Python programmers report substantial productivity gains and feel the language encourages the development of higher quality, more maintainable code.
 
 Here I am listing few of the resources that I think will be good for someone to refer if (s)he wants to learn Python.

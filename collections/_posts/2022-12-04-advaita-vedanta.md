@@ -1,13 +1,20 @@
 ---
 layout: post
 title: What is Advaita Vedanta?
-category: [ Vedanta, Hinduism, Religion, Artificial Intelligence, Philosophy]
-tags: [vedanta, hindusim, hindu, advaita, non-dualism, AI]
+category:
+- Spirituality & Philosophy
+- AI & Data
+tags:
+- vedanta
+- hindusim
+- hindu
+- advaita
+- non-dualism
+- AI
 comments: true
-description: Advaita Vedanta is a powerful and transformative philosophy that teaches the concept of non-dualism. Through the realization of the oneness of the individual self and the universal self, we can attain liberation from the cycle of reincarnation and experience true freedom and peace. 
+description: Advaita Vedanta is a powerful and transformative philosophy that teaches the concept of non-dualism. Through the realization of the oneness of the individual self and the universal self, we can attain liberation from the cycle of reincarnation and experience true freedom and peace.
 featured: false
 ---
-
 In few of my past posts on AI, I used Advaita Vedanta to come up with a test of intelligence. But did not discuss Advaita Vedanta. This post is to fill that gap.  
 
 Advaita Vedanta is a school of Hindu philosophy that teaches the concept of non-dualism, or the idea that the individual self and the universal self are one and the same. This philosophy is based on the teachings of the Upanishads, which are part of the Vedas, the oldest sacred texts of Hinduism.

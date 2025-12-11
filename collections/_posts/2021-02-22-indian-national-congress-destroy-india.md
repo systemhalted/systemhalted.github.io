@@ -1,8 +1,16 @@
 ---
 layout: post
 title: Rahul Gandhi Hatao, Desh Bachao
-category: [Politics, Insane Thoughts]
-tags: [Indian National Congress, INC, India, BJP, Political Opposition, Opposition]
+category:
+- Politics & Governance
+- Personal Essays
+tags:
+- Indian National Congress
+- INC
+- India
+- BJP
+- Political Opposition
+- Opposition
 comments: true
 description: “Rahul Gandhi Hatao, Desh Bachao"
 ---

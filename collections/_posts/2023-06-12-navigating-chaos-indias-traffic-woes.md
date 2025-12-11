@@ -1,13 +1,18 @@
 ---
 layout: post
 title: Navigating Chaos - Reflecting on India's Traffic Woes and Empowering Change on India's Road with AI
-category: [Social Issues, India, Artificial Intelligence]
-tags: [karma, indians, traffic, chaos]
+category:
+- Society & Economy
+- Politics & Governance
+- AI & Data
+tags:
+- karma
+- indians
+- traffic
+- chaos
 comments: true
 description: In the bustling streets of India, a chaotic symphony unfolds daily, as vehicles of all shapes and sizes jostle for space. For some, this spectacle is a source of amazement and curiosity, but for others, like myself, it evokes a profound sense of frustration and disappointment, which makes me persistently angry. The disregard for traffic laws, the lack of compassion for fellow travelers, and the pervasive "me-first" attitude have turned our roads into an ocean of malice. In this blog post, we delve into the realities of India's traffic chaos and explore potential avenues for change including use of Artificial Intelligence (AI).
 ---
-
-
 ## Introduction:
 In the bustling streets of India, a chaotic symphony unfolds daily, as vehicles of all shapes and sizes jostle for space. For some, this spectacle is a source of amazement and curiosity, but for others, like myself, it evokes a profound sense of frustration and disappointment, which makes me persistently angry. The disregard for traffic laws, the lack of compassion for fellow travelers, and the pervasive "me-first" attitude have turned our roads into an ocean of malice. In this blog post, we delve into the realities of India's traffic chaos and explore potential avenues for change.
 

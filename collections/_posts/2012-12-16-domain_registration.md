@@ -2,12 +2,17 @@
 layout: post
 date: 2012-12-16 23:59
 title: Domain Registration - One Week Headache
-category: [Insane Thoughts, Technology]
-tags: [domain registration, domains, crazydomains, in domains]
+category:
+- Personal Essays
+- Technology
+tags:
+- domain registration
+- domains
+- crazydomains
+- in domains
 comments: true
-description: Domain registration became a weeklong headache for me. What happened? How I overcame it. This post is on a personal experience. 
+description: Domain registration became a weeklong headache for me. What happened? How I overcame it. This post is on a personal experience.
 ---
-
 Early this week, after I returned from Mumbai, the first thing that I did was to create my site using Github Pages. I soon became excited enough to register a domain and use that for my site. I have been doing some research on the domains but still many things were unclear to me and I had marked them as doubts and placed them safely in a text file saved in a personal folder on my ThinkPad. 
 
 However, on that day I was overexcited and wanted to register a domain as early as possible. From Google Ads, I had came to know that CrazyDomains.in is giving away [.in domains](http://www.registry.in/) for Rs.99/year. So, I went to CrazyDomains.in and registered the domain from there for a period of years at a total cost of Rs. 495/-. I received a mail from CrazyDomains that the Registration is awaiting approval and will take maximum 48 hours. I was fine with that. But this was where the painful days started. I sent CrazyDomains a mail the very next day about the status for which they replied the next day of my mail. The content of their mail is as follows:  

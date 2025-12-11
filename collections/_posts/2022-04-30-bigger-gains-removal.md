@@ -1,10 +1,17 @@
 ---
 layout: post
 title: Bigger Gains Are Often Found Through Removal
-category: [Behavior, Management]
-tags: [Ravi Raman, team, project management, software management, people leadership]
+category:
+- Personal Essays
+- Software Engineering
+tags:
+- Ravi Raman
+- team
+- project management
+- software management
+- people leadership
 comments: true
-description:  
+description: 
 featured: false
 ---
 This is profound. It is counter-intuitive to what most of us do but it makes total sense. When I transitioned from Individual Contributor to Manager, the transition was little scary as most of the time I was involved in things that didn't require "coding". I was filled with guilt when I was putting more effort to manage than coding while my team was busy coding and doing the "real" work. I would take up stories in the sprint but more often would not be able to finish them. Also, since I have taken up stories, it was becoming difficult for me to effectively help the team - answering their questions, helping them troubleshoot when they needed my help, etc.

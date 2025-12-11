@@ -3,7 +3,6 @@ layout: post
 title: iPhone Apps, Distractions and Life - App Inventory
 category:
 - Personal Essays
-- Personal Essays
 tags:
 - iphone
 - distraction

@@ -4,6 +4,7 @@ title: Clojure and Polish Notation
 category:
 - Technology
 - Software Engineering
+- Computer Science
 tags:
 - Clojure
 - Prefix Notation

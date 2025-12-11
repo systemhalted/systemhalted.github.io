@@ -2,7 +2,7 @@
 layout: post
 title: Unix-like Command Line Experience in Windows - PowerShell
 category:
-- Software Engineering
+- Technology
 tags:
 - Powershell
 - Unix-shell

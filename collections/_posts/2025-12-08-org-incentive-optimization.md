@@ -2,7 +2,7 @@
 layout: post
 title: Org Incentive Optimization Problem
 category:
-- Software Engineering
+- Personal Essays
 tags:
 - Work
 - Leadership

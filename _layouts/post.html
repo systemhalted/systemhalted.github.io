@@ -13,22 +13,62 @@ layout: default
 </div>
 
 <div class="post-categories">
-      {% if post %}
-      {% assign categories = post.categories %}
-      {% else %}
-      {% assign categories = page.categories %}
-      {% endif %}
-      {% for category in categories %}
-      <a href="{{site.baseurl}}/categories/#{{category|slugize}}">{{category}}</a>
-      {% unless forloop.last %}&nbsp;{% endunless %}
-      {% endfor %}
+  {% if post %}
+    {% assign categories = post.categories %}
+  {% else %}
+    {% assign categories = page.categories %}
+  {% endif %}
+  {% for category in categories %}
+    <a href="{{site.baseurl}}/categories/#{{category|slugize}}">{{category}}</a>
+    {% unless forloop.last %}&nbsp;{% endunless %}
+  {% endfor %}
 </div>
 
-{% if site.related_posts.size >= 1 %}
+{%- comment -%}
+  Build related posts by finding other posts in categories that share the same theme(s) as this page.
+{%- endcomment -%}
+{% assign themes = site.data.taxonomy.themes %}
+{% assign page_categories = page.categories %}
+{% if page_categories == nil or page_categories == empty %}
+  {% assign page_categories = post.categories %}
+{% endif %}
+{% if page_categories == nil %}
+  {% assign page_categories = "" | split: "" %}
+{% endif %}
+{% assign matched_theme_ids = "" | split: "," %}
+
+{% for theme in themes %}
+  {% assign has_match = false %}
+  {% for cat in theme.categories %}
+    {% if page_categories contains cat %}
+      {% assign has_match = true %}
+    {% endif %}
+  {% endfor %}
+  {% if has_match %}
+    {% assign matched_theme_ids = matched_theme_ids | push: theme.id %}
+  {% endif %}
+{% endfor %}
+
+{% assign theme_posts = "" | split: "" %}
+{% for theme in themes %}
+  {% if matched_theme_ids contains theme.id %}
+    {% for cat in theme.categories %}
+      {% assign cat_posts = site.categories[cat] %}
+      {% if cat_posts %}
+        {% assign theme_posts = theme_posts | concat: cat_posts %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+{% assign related_posts = theme_posts | uniq | sort: "date" | reverse %}
+{% assign related_posts = related_posts | where_exp: "related_post", "related_post.url != page.url" %}
+
+{% if related_posts.size >= 1 %}
 <div class="related">
   <h2>Related posts</h2>
   <ul class="related-posts">
-    {% for post in site.related_posts limit:3 %}
+    {% for post in related_posts limit:5 %}
       <li>
         <h3>
           <a href="{{ site.baseurl }}{{ post.url }}">
@@ -43,5 +83,3 @@ layout: default
  {% if page.comments == true %}{% include comments.html %}{% endif %}
  
 {% endif %}
-
-

@@ -4,11 +4,8 @@ title: Silence in the face of the evil is itself evil!
 category:
 - Personal Essays
 tags:
-- India
-- US
-- governments
-- protests
-- evil
+- personal
+- opinion
 comments: true
 ---
 “Silence in the face of evil is itself evil!” 

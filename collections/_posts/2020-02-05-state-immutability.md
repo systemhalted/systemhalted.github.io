@@ -4,12 +4,11 @@ title: State, Immutability and Microservices
 category:
 - Software Engineering
 - Computer Science
-tags:
-- state
-- immutability
-- microservices
 comments: true
 description: Through this post trying to make sense of microservices
+tags:
+- software
+- computer-science
 ---
 The state of a system is the information you need at a given moment, together with its rules of behaviour, to predict how it will evolve in the future. At time T the system has some state, it receives inputs, applies its rules, and moves to a new state at time T plus one.
 

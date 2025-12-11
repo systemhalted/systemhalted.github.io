@@ -2,12 +2,10 @@
 layout: page
 title: Lessons from Ancient Indian Text - Embracing Timely Action in Leadership and Management
 tags:
-- nesletter
-- management
+- newsletter
 - leadership
-- Panchatantra
-- Peter Drucker
-- Proactive Leadership
+- management
+- india
 category:
 - Newsletter
 ---

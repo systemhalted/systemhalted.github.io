@@ -4,13 +4,8 @@ title: South Carolina Shooting and Shooting is a Norm!
 category:
 - Personal Essays
 tags:
-- gun laws
-- constitution
-- US Constitution
-- 2nd Amendment
-- South Carlonia
-- Shallow Capitalism
-- Feudal age
+- personal
+- opinion
 comments: true
 description: I didn’t feel a thing today. And then I did some.
 featured: false

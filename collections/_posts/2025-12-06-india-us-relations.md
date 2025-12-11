@@ -5,11 +5,14 @@ category:
 - Politics & Governance
 - Society & Economy
 tags:
-- India
-- United States
-- geopolitics
-- tariffs
-- trade war
+- politics
+- society
+- economy
+- movie-review
+- travel
+- leadership
+- india
+- united-states
 comments: true
 featured: true
 description: Let us explore the Indo-US relations over the year and where they are headed after recent tariffs imposed by US on India

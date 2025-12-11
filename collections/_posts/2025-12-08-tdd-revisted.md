@@ -4,10 +4,9 @@ title: TDD as a Management Technique Revisited
 category:
 - Software Engineering
 tags:
-- TDD
-- Testing
-- Management
-- Software Design
+- software
+- leadership
+- management
 comments: true
 featured: false
 description: I still think TDD is a Taylorian construct. But I now care less about the ritual and more about a deeper idea - thinking about evaluation and testing before we write code.

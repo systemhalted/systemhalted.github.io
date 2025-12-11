@@ -4,8 +4,10 @@ title: दूर आगरा से
 category:
 - Poetry & Literature
 tags:
-- आगरा
+- poetry
+- travel
 - agra
+- hindi
 comments: true
 description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 featured: false

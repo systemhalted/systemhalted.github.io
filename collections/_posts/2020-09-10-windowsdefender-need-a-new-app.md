@@ -3,12 +3,10 @@ layout: post
 title: You'll need a new app to open this windowsdefender
 category:
 - Technology
-tags:
-- Powershell
-- Unix-shell
-- Windows
 comments: true
 description: Getting the weird error while trying to open Windows Defender, follow on.
+tags:
+- technology
 ---
 Recently I purchased a used ThinkPad T430[^fn1] from ebay. However, when I tried to open the Windows Defender, I saw the following pop-up:
 

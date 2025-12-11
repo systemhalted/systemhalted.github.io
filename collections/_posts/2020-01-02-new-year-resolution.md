@@ -3,11 +3,11 @@ layout: post
 title: New Year 2020 - Resolution
 category:
 - Personal Essays
-tags:
-- 2020
-- resolution
 comments: true
 description: Procrastinator's attempt to follow a better lifestyle. First Post.
+tags:
+- personal
+- opinion
 ---
 I am lazy, a procrastinator and I skip exercising, cycling, and lot of “living”. I want to change this habit. As I am getting older, it will be wiser for me to stop thinking and start “living”.
 

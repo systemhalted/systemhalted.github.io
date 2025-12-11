@@ -5,15 +5,9 @@ category:
 - Technology
 - AI & Data
 tags:
-- data
-- artificial intelligence
-- Bernard Marr
-- Predictive Test
-- GPT
-- Machine Learning
-- ML
+- technology
 - ai
-- Forbes
+- data
 comments: true
 description: This is the review of Forbes Article by Bernard Marr on AI.
 ---

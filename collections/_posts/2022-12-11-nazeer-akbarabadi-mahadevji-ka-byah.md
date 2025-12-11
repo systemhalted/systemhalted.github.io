@@ -4,15 +4,16 @@ title: Nazeer Akbarabadi - Mahadevji ka byah
 category:
 - Politics & Governance
 - Poetry & Literature
-tags:
-- Nazeer Akbarabadi
-- mahadevji ka byah
-- ganga
-- jamuna
-- tehzeeb
 comments: true
 description: This post is about Nazeer Akbarabadi (1735-1830), a poet who wrote beautiful poetry on Indian festivals.
 featured: false
+tags:
+- politics
+- poetry
+- travel
+- india
+- agra
+- hindi
 ---
 Nazeer Akbarabadi, a contemporary poet of Mir Taqi Mir, was born in Delhi. He moved to Agra when he was around 21-22 years old as Mughal Empire started declining during the the reign of Mohammad Shah and Alamgir II. 
 

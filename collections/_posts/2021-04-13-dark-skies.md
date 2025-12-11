@@ -5,14 +5,12 @@ category:
 - Sports & Hobbies
 - Personal Essays
 tags:
-- dark skies
-- bortle scale
-- john e bortle
-- amateur astronomy
-- galaxies
-- suburban sprawl
-- class 4
-- class 5
+- sports
+- personal
+- opinion
+- astronomy
+- travel
+- india
 comments: true
 description: There is light everywhere, and you want it to go off. Need dark skies more than ever. There is nothing that tell and forces and pleads to the people to dare to dream than the beauty of a night sky with it’s beautiful nebulas, distant galaxies, star clusters and the wish to explore them all.
 ---

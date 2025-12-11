@@ -3,12 +3,10 @@ layout: post
 title: Book Review - Banquets on the Dead by Sharath Komarraju
 category:
 - Books & Reading
-tags:
-- banquets on the dead
-- Hamid Pasha
-- Sharath Komarraju
 comments: true
 description: Banquet on the Dead is fantastically thought and written thriller which will keep you engrossed in the story all the time. It was certainly a joy to read the book. Hamid Pasha, the lead detective, in the novel will give you the rusty feeling. The one that I had experienced earlier. I kept thinking about this experience that I had previously and was having while reading the novel when my mind left for the past days. If you know there was one detective series from Doordarshan days, Byomkesh Bakshi, the famous Bengali character created by Sharadindu Bandyopadhyaya. Those were the days!
+tags:
+- book-review
 ---
 [<img title="Buy Banquets on the Dead from Flipkart.com" alt="Buy Banquets on the Dead from Flipkart.com" src="http://img6a.flixcart.com/image/book/9/8/6/banquet-on-the-dead-275x275-imadesfg8b3ynfzm.jpeg" height="200" width="129" />](http://www.flipkart.com/banquet-dead-9381626987/p/itmdepnpzwhpus55?pid=9789381626986&affid=palakmathu)
 <br>

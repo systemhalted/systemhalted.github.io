@@ -5,9 +5,9 @@ category:
 - Sports & Hobbies
 - AI & Data
 tags:
-- roblox
-- cybersecurity
-- gaming
+- sports
+- ai
+- data
 comments: true
 description: This post will discuss some tips for parents to keep the kids safe while playing Roblox.
 ---

@@ -1,12 +1,18 @@
 ---
 layout: post
 title: Language Part 6 - Non-Verbal Communication, Tone, and Body language
-category: [Languages, Linguistics]
-tags: [language, non-verbal, tone, body labguage, communication, expression]
+category:
+- Languages & Linguistics
+tags:
+- language
+- non-verbal
+- tone
+- body labguage
+- communication
+- expression
 comments: true
 description: This is Part 6 of Language series where we will talk about non-verbal communication.
 ---
-
 ***Disclaimer***
 I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
 

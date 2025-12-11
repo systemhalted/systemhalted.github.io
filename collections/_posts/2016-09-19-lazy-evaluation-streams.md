@@ -1,14 +1,14 @@
 ---
 layout: post
 title: Lazy Evaluation, Streams, Reactive Programming and Reactive architecture
-date: 2016-09-19  23:07:00.000000000 -6
+date: 2016-09-19 23:07:00.000000000 -06:00
 type: post
 published: true
 comments: true
 status: publish
 categories:
 - Technology
-- Programming
+- Software Engineering
 tags:
 - lazy evaluation
 - streams
@@ -16,7 +16,7 @@ tags:
 - reactive architecture
 - haskell
 - spring xd
-description: An attempt to make sense of the world I work in. 
+description: An attempt to make sense of the world I work in.
 ---
 Last year I spent a lot of time working with distributed runtime environments, especially using Spring XD. Spring XD gives you a way to define streams that process continuous flows of data in near real time. Under the covers it builds on Spring Integration and messaging. No single module can keep up with every burst of traffic on its own, so Spring XD relies on messaging middleware such as queues and topics. These queues decouple producers and consumers and buffer data so that the system as a whole can keep up, even when individual modules have limited capacity.
 

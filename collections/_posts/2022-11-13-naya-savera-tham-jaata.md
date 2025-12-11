@@ -1,14 +1,17 @@
 ---
 layout: post
 title: नया सवेरा थम जाता, तो क्या होता?
-category: [Poetry, Hindi, Urdu, हिंदी, Hindustani]
-tags: [naya savera, philosophical, life]
+category:
+- Poetry & Literature
+- Languages & Linguistics
+tags:
+- naya savera
+- philosophical
+- life
 comments: true
 description: A new philosophical poem
 featured: false
 ---
-
-
     Naya Savera, Tham Jaata, To Kya Hota,
     Umra Ka Padav, Ruk Jaata, To kya hota,
     Be-talab ziist, sawaal na karti,

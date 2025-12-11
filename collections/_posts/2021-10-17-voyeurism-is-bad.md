@@ -1,12 +1,23 @@
 ---
 layout: post
 title: Voyeurism is bad
-category: [Insane Thoughts, Spirituality]
-tags: [spirituality, mental health, physical health, life, lgbtq, queer, sex,sexuality, yukteswar giri, voyeurism]
+category:
+- Personal Essays
+- Spirituality & Philosophy
+tags:
+- spirituality
+- mental health
+- physical health
+- life
+- lgbtq
+- queer
+- sex
+- sexuality
+- yukteswar giri
+- voyeurism
 comments: true
 description: If we are all souls impersonating as man or woman, we have no sex. We are just a pure soul, an image of God. Leave people and their sex lives alone. Voyeurism is bad!
 ---
-
 "In sleep, you do not know whether you are a man or a woman. Just as a man, impersonating a woman, does not become one, so the soul, impersonating both man and woman, has no sex. The soul is the pure, changeless image of God."
 
    ~ Sri Yukteswar Giri

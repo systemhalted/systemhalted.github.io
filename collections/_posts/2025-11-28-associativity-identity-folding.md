@@ -6,11 +6,9 @@ category:
 - Software Engineering
 - Technology
 tags:
-- java
-- streams
-- reduce
-- functional programming
-- algebra
+- computer-science
+- software
+- technology
 comments: true
 featured: true
 description: A practical look at associativity, identity, and folding in Java Streams, and why some reduce calls behave nicely while others explode in surprising ways.

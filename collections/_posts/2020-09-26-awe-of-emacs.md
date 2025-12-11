@@ -4,7 +4,7 @@ title: I am in awe of Emacs
 category:
 - Software Engineering
 tags:
-- emacs
+- software
 comments: true
 description: I am in awe of Emacs. I wrote this post originally on Reddit. Just copying it here to save it.
 featured: true

@@ -10,12 +10,7 @@ status: publish
 category:
 - Technology
 tags:
-- Banking Services
-- Financial Services
-- Money mule
-- online banks
-- online security
-- Phish
+- technology
 meta:
   _edit_last: '547454'
   geo_latitude: '27.129264'

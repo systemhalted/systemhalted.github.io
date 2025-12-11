@@ -2,10 +2,10 @@
 layout: page
 title: Balancing Diplomacy and Firmness - Insights from Ancient Wisdom
 tags:
-- nesletter
-- management
+- newsletter
+- sports
 - leadership
-- Panchtantra
+- india
 category:
 - Newsletter
 ---

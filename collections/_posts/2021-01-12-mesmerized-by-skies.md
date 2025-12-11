@@ -4,17 +4,8 @@ title: Mesmerized by Skies
 category:
 - Sports & Hobbies
 tags:
-- binoculars
-- orion
-- dark skies
-- binocular astronomy
-- pleiades
-- m45
-- seven sisters
-- messier objects
-- orion nebula
-- m42
-- ngc1976
+- sports
+- astronomy
 comments: true
 description: First look at the skies through the binoculars and I must say I am hooked for life
 featured: true

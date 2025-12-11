@@ -4,11 +4,9 @@ title: Gun Laws and Constitution - A quick take
 category:
 - Personal Essays
 tags:
-- gun laws
-- constitution
-- US Constitution
-- Uvalde
-- 2nd Amendment
+- personal
+- opinion
+- united-states
 comments: true
 description: The Preface to the Constitution talks about bringing tranquility to the nation. Gun Laws in many state just go against the Constitution.
 featured: false

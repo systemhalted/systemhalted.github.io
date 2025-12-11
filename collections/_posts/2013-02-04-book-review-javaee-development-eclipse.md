@@ -4,12 +4,11 @@ title: Book Review - Java EE Development with Eclipse by Deepak Vohra
 category:
 - Books & Reading
 - Technology
-tags:
-- Java
-- JEE
-- Eclipse
 comments: true
 description: Java EE Development with Eclipse is a practical guide and a ready reckoner for anyone interested in Java EE Development. Deepak Vohra in this book has included commonly used Java EE Technologies and provides an extensive details about how to develop them using Eclipse. This post tries to review the book to find out whether the book really do justice or not.
+tags:
+- book-review
+- technology
 ---
 Java EE Development with Eclipse by Deepak Vohra is the book that one would like to buy and follow if one wants Tutorial/Workshop kind of environment to learn developing Java EE applications using Eclipse IDE and Oracle Weblogic Server. If you want to gain in-depth theoretical knowledge about any of the Java EE technologies, then certainly this is not the book for you but if you want to gain practical knoweldge and answers to questions like *"How To?"* then this book can surely help. 
 

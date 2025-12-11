@@ -10,12 +10,8 @@ categories:
 - Software Engineering
 - Computer Science
 tags:
-- C
-- Strings
-- strlen
-- Null-pointer
-- anti-pattern
-- technology
+- software
+- computer-science
 description: C is a funny language. Strings are a joke.
 featured: true
 ---

@@ -5,11 +5,11 @@ category:
 - Personal Essays
 - Software Engineering
 tags:
-- Ravi Raman
-- team
-- project management
-- software management
-- people leadership
+- personal
+- opinion
+- software
+- movie-review
+- leadership
 comments: true
 description: 
 featured: false

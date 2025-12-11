@@ -5,13 +5,10 @@ category:
 - Politics & Governance
 - Personal Essays
 tags:
-- Gandhi
-- Rayirth
-- Independence
-- India
-- Pakistan
-- Jinnah
-- Bapu
+- politics
+- personal
+- opinion
+- india
 comments: true
 description: Watched Gandhi with Rayirth today.  He had read about him in the school but I thought it would be a good idea to show him the movie. His appreciation for Gandhi and India’s Struggle for Independence increased manifold.
 featured: false

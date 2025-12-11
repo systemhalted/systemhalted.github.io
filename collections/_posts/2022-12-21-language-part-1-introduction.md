@@ -3,11 +3,6 @@ layout: post
 title: Language Part 1 - Introduction
 category:
 - Languages & Linguistics
-tags:
-- language
-- vocabulary
-- communication
-- expression
 comments: true
 description: This is part 1 of Language series where we will define Language and why it is important.
 ---

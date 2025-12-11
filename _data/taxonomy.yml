@@ -60,3 +60,12 @@ themes:
     description: "My Newsletters"
     categories:
       - "Newsletter"
+
+tags:
+  - people/places: india, united-states, agra, pune, mumbai
+  - topics: politics, economy, society, law, education, technology, software, computer-science, ai, data, security, management, leadership
+  - culture: poetry, hindi, urdu, literature
+  - formats: book-review, movie-review, newsletter
+  - misc: personal, opinion, travel, sports, astronomy
+
+

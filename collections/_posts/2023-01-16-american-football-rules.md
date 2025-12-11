@@ -4,8 +4,9 @@ title: American Football - Beginners Guide
 category:
 - Sports & Hobbies
 tags:
-- american football
-- nfl
+- sports
+- leadership
+- united-states
 comments: true
 description: As a newcomer to USA in 2013, American Football was really confusing at first. Here I summarize the rules at high level for the people who are new to the USA and want to understand and enjoy the game.
 ---

@@ -3,12 +3,16 @@ layout: post
 title: iPhone Apps, Distractions and Life - App Inventory
 category:
 - Personal Essays
-tags:
-- iphone
-- distraction
-- life
 comments: true
 description: Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone
+tags:
+- personal
+- opinion
+- astronomy
+- travel
+- leadership
+- india
+- urdu
 ---
 Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone. And deleted 29 apps. There are over 150 apps on my phone. This list doesn’t contain the stock Apple apps and Finance apps.
 

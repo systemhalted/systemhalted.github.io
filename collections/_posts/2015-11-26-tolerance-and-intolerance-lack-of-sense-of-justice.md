@@ -10,14 +10,13 @@ categories:
 - Personal Essays
 - Society & Economy
 tags:
-- Aamir Khan
-- Authority
-- Benjamin Franklin
-- India
-- Intolerance
-- Kiran Rao
-- questioning authority
-- Tolerance
+- politics
+- personal
+- opinion
+- society
+- economy
+- india
+- united-states
 description: Aamir Khan's recent statement started a debate and widespread criticism. My quick thoughts!
 ---
 <div class="_209g _2vxa">People keep saying that Aamir Khan is defaming the country. Really? Is speaking out ones mind means defaming the country? No. Not at all.</div>

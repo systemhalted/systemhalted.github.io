@@ -4,14 +4,9 @@ title: IS FUNDAMENTAL RIGHT TO FREEDOM IN INDIA ONLY AVAILABLE FOR PRIVILEGED FE
 category:
 - Personal Essays
 tags:
-- BAL THACKERAY
-- BHAGAT SINGH
-- CHANDRASEKHAR AZAD
-- FACEBOOK
-- FREEDOM OF SPEECH
-- INDIARINI SHRINIVASAN
-- SHAHEEN DHADA
-- SHIV SENA
+- personal
+- opinion
+- india
 comments: true
 ---
 Part III of The Constitution of India guarantees Fundamental Rights to citizens of India which includes right to freedom of speech and expression. However, with series of recent incidents that have taken place, it seems that it is available only to few people who have reach and means to show their clout – physical or monetary.  And the recent incident of the arrest of 2 girls for posting their point of view (totally harmless from any perception) only aggravates this view and issue.  Have we totally lost it?

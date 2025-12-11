@@ -5,12 +5,10 @@ category:
 - Politics & Governance
 - Personal Essays
 tags:
-- Indian National Congress
-- INC
-- India
-- BJP
-- Political Opposition
-- Opposition
+- politics
+- personal
+- opinion
+- india
 comments: true
 description: “Rahul Gandhi Hatao, Desh Bachao"
 ---

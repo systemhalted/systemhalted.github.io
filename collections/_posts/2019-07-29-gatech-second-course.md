@@ -5,8 +5,9 @@ category:
 - Personal Essays
 - Computer Science
 tags:
-- gatech
-- IIS
+- personal
+- opinion
+- computer-science
 comments: true
 description: Finished Second course in GATech OMSCS program
 ---

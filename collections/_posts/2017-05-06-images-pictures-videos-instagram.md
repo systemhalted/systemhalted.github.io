@@ -9,12 +9,9 @@ status: publish
 categories:
 - Personal Essays
 tags:
-- instagram
-- pictures
-- photos
-- amazon
-- dropbox
-- glacier
+- personal
+- opinion
+- travel
 description: Instagram changed the way I share pictures and short videos.
 ---
 I like taking pictures. But I am lazy to click pictures using a DSLR. I own one 

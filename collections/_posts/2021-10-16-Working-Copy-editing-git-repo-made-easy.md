@@ -4,13 +4,11 @@ title: Working Copy - The Powerful Git Client for iPad
 category:
 - Technology
 - Media Reviews
-tags:
-- git
-- git client
-- github
-- bitbucket
 comments: true
 description: Working Copy is the missing Git Client and Editor for iPad.
+tags:
+- technology
+- sports
 ---
 I use Github pages to host my blog posts. Even though it seems easier that you are using Github to host your blog/website, it is a tedious job. To add one post, you have to be on your laptop to do so and deal with all the git paraphernalia. It gets tiring after a point. As an evidence, you can see the amount of posts that I used to do before switching to Github pages and how many I do now. There is a vast difference. 
 

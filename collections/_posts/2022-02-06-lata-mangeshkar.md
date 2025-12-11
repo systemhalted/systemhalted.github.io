@@ -4,8 +4,8 @@ title: Lata Mangeshkar
 category:
 - Life Events
 tags:
-- Lata Mangeshkar
-- nightingale of india
+- personal
+- india
 comments: true
 description: Om Shanti! Lata Mangeshkar will live forever!
 featured: false

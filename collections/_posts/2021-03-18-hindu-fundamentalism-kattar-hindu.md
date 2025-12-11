@@ -6,9 +6,10 @@ category:
 - Politics & Governance
 - Spirituality & Philosophy
 tags:
-- hinduism
-- kattar hindu
-- india
+- personal
+- opinion
+- politics
+- leadership
 comments: true
 description: Hinduism is one of the most flexible religions of the world. Recently I saw someone calling themselves “Kattar Hindu” (Hindu Fundamentalist). I was wondering what it would mean to be a “Kattar Hindu”.
 ---

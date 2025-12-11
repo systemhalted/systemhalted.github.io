@@ -4,7 +4,6 @@ title: Navigating Chaos - Reflecting on India's Traffic Woes and Empowering Chan
 category:
 - Society & Economy
 - Politics & Governance
-- AI & Data
 tags:
 - karma
 - indians

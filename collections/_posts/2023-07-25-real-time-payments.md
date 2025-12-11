@@ -4,7 +4,6 @@ title: Revolutionizing Global Payments - A Comprehensive Analysis of Real-Time P
 category:
 - Society & Economy
 - Technology
-- AI & Data
 - Politics & Governance
 tags:
 - UPI

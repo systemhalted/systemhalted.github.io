@@ -1,13 +1,14 @@
 ---
 layout: post
 title: Dhurandhar - Review
-category: [Movie Review]
-tags: [Dhurandhar]
+category:
+- Media Reviews
+tags:
+- Dhurandhar
 comments: true
 featured: true
 description: Review of Hindi movie Dhurandhar
 ---
-
 Watched Dhurandhar today in a cinema hall after a very long gap from Hindi movies on the big screen, and it was absolutely worth it. It was completely unplanned – on a whim, Priti and I decided to go to a cinema hall, found a Hindi movie playing nearby, and booked the 4:10 pm show at 3:45 pm. We didn’t know who were the actors in the movie, when was it released, rating - nothing. 
 
 Dhurandhar is a lot to take in – literally the longest Hindi film in 17 years – nearly three-and-a-half hours, very violent, very loud, very extra. But it never felt boring.

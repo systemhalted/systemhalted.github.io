@@ -1,10 +1,17 @@
 ---
 layout: post
 title: General Data Protection Regulation and Personal Data
-category: [Technology, Data Protection, Data, Artificial Intelligence]
-tags: [gdpr, personal data, european union, artificial intellgence, ai ]
+category:
+- Technology
+- AI & Data
+tags:
+- gdpr
+- personal data
+- european union
+- artificial intellgence
+- ai
 comments: true
-description: GDPR and its impact on Advertising. Submitted as part of CS7637 Homework 
+description: GDPR and its impact on Advertising. Submitted as part of CS7637 Homework
 featured: true
 ---
 *Note: Submitted as part of CS7637 Homework*

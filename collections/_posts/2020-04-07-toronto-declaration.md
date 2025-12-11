@@ -1,13 +1,20 @@
 ---
 layout: post
 title: Toronto Declaration
-category: [Technology, Artificial Intelligence, Machine Learning]
-tags: [data, artificial intelligence, Toronto Declaration, Machine Learning, ML, ai]
+category:
+- Technology
+- AI & Data
+tags:
+- data
+- artificial intelligence
+- Toronto Declaration
+- Machine Learning
+- ML
+- ai
 comments: true
 description: Machine Learning (ML) and Artificial Intelligence (AI) are going to change the society by bringing significant benefits and improvements to the way of life. However, without any checks-and-balance in place, they can pose serious threat to the same way of life by creating agents with biases and undermining rule of law. Toronto Declaration 1 is a huge step the area of providing checks-and-balances. It defines the humans rights standard that the intelligent machines must adhere to so as not infringe upon the basic human rights as declared by The Universal Declaration of Human Rights 2 adopted by UN in 1948.
 featured: true
 ---
-
 ## Summary
 
 ### Preamble

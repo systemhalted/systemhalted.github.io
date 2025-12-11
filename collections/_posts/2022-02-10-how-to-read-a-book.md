@@ -1,13 +1,16 @@
 ---
 layout: post
 title: How to read a book
-category: [Reading]
-tags: [techniques, reading, howto]
+category:
+- Books & Reading
+tags:
+- techniques
+- reading
+- howto
 comments: true
 description: Reading is fun and in this post I will share how I approach reading and reading alternatives
 featured: true
 ---
-
 I recently made a post on LinkedIn[^1][^2] on having read 72 books last year and few of the folks asked how I managed to do that. 
 
 I am a vociferous reader and there was a time when I could read 100s of books in a year. In this post I will share what works for me. 

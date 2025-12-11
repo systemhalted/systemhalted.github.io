@@ -6,10 +6,9 @@ type: post
 published: true
 status: publish
 categories:
-- Democracy
-- India
-- Insane Thoughts
-- Social Issues
+- Politics & Governance
+- Personal Essays
+- Society & Economy
 tags:
 - Aamir Khan
 - Authority

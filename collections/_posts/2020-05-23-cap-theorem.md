@@ -8,6 +8,7 @@ comments: true
 status: publish
 categories:
 - Technology
+- Computer Science
 tags:
 - cap theorem
 - availability

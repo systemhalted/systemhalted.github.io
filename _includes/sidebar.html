@@ -13,7 +13,7 @@
   
     <a
       class="sidebar-nav-item{% if page.url == item.url %} active{% endif %}"
-      href="{{ item.url | absolute_url }}">
+      href="{{ item.url | relative_url }}">
       {{ item.title }}
     </a>
     {% endfor %}

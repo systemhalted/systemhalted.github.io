@@ -27,7 +27,7 @@ description: "An archive of posts sorted by tag."
 			{% if group == null or group == post.group %}
 			 <li>
        <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
      </li>
 			{% endif %}
 			{% endif %}

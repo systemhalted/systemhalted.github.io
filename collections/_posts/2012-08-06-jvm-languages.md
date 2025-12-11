@@ -4,6 +4,7 @@ title: Java and JVM Languages
 category:
 - Technology
 - Software Engineering
+- Computer Science
 tags:
 - Jython
 - JVM

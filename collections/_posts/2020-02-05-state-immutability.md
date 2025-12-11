@@ -2,8 +2,6 @@
 layout: post
 title: State, Immutability and Microservices
 category:
-- Personal Essays
-- Technology
 - Software Engineering
 - Computer Science
 tags:

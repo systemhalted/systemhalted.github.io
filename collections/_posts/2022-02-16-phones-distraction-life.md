@@ -2,7 +2,7 @@
 layout: post
 title: iPhone Apps, Distractions and Life - App Inventory
 category:
-- Software Engineering
+- Personal Essays
 - Personal Essays
 tags:
 - iphone

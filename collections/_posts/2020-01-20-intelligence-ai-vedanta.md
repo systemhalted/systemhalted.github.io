@@ -116,4 +116,3 @@ them is what makes humans different from machines.
 [^3]: Turing, Alan (1950). “COMPUTING MACHINERY AND INTELLIGENCE”. In: url: (https://www.csee.umbc.edu/courses/471/papers/turing.pdf).
 [^4]: Vidyabhusana, Satis Chandra (2006). A History of Indian Logic: Ancient, Me- diaeval and Modern Schools. url: (https://books.google.com/books?id=0lG85RD9YZoC&dq=taittiriya+pratyaksa&source=gbs_navlinks_s).
 [^5]: Deutch, Eliot and Dalvi, Rohit (2004). The Essential Vedanta - New Source Book of Advaita Vedanta.url: (https://archive.org/details/EliotDeutschRohitDalviTheEssentialVed page/n19).
-

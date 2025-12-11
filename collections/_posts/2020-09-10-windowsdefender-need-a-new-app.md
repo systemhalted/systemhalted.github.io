@@ -2,7 +2,7 @@
 layout: post
 title: You'll need a new app to open this windowsdefender
 category:
-- Software Engineering
+- Technology
 tags:
 - Powershell
 - Unix-shell

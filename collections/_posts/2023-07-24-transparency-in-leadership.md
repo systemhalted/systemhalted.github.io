@@ -2,7 +2,7 @@
 layout: post
 title: The Power of Transparency in Leadership - Lessons from Experience
 category:
-- Software Engineering
+- Personal Essays
 tags:
 - Transparency
 - Leadership

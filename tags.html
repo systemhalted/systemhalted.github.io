@@ -4,35 +4,40 @@ title: Tags
 description: "An archive of posts sorted by tag."
 ---
 
+{% assign tags_list = site.tags %}
+
 <ul class="tag-box inline">
-{% assign tags_list = site.tags %}  
   {% if tags_list.first[0] == null %}
-    {% for tag in tags_list %} 
-    	<li><a href="#{{ tag }}">{{ tag }} </a> <span>({{ site.tags[tag].size }})</span></li>
+    {% for tag in tags_list %}
+      {% assign tag_id = tag | slugify %}
+      <li><a href="#{{ tag_id }}">{{ tag }}</a> <span>({{ site.tags[tag].size }})</span></li>
     {% endfor %}
   {% else %}
-    {% for tag in tags_list %} 
-    	<li><a href="#{{ tag[0] }}">{{ tag[0] }} </a> <span>({{ tag[1].size }})</span></li>
+    {% for tag in tags_list %}
+      {% assign tag_id = tag[0] | slugify %}
+      <li><a href="#{{ tag_id }}">{{ tag[0] }}</a> <span>({{ tag[1].size }})</span></li>
     {% endfor %}
   {% endif %}
-{% assign tags_list = nil %}
 </ul>
 
-{% for tag in site.tags %} 
-	<h2 id="{{ tag[0] }}" style="color: #c91b26">{{ tag[0] }}</h2>
-	<ul class="post-list">
-		{% assign pages_list = tag[1] %}  
-		{% for post in pages_list %}
-			{% if post.title != null %}
-			{% if group == null or group == post.group %}
-			 <li>
-       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-     </li>
-			{% endif %}
-			{% endif %}
-		{% endfor %}
-		{% assign pages_list = nil %}
-		{% assign group = nil %}
-	</ul>
+{% assign tags_list = nil %}
+
+{% for tag in site.tags %}
+  {% assign tag_id = tag[0] | slugify %}
+  <h2 id="{{ tag_id }}" style="color: #c91b26">{{ tag[0] }}</h2>
+  <ul class="post-list">
+    {% assign pages_list = tag[1] %}
+    {% for post in pages_list %}
+      {% if post.title != null %}
+        {% if group == null or group == post.group %}
+          <li>
+            <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% assign pages_list = nil %}
+    {% assign group = nil %}
+  </ul>
 {% endfor %}

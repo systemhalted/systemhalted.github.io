@@ -24,6 +24,20 @@ layout: default
   {% endfor %}
 </div>
 
+{% if post %}
+  {% assign tags = post.tags %}
+{% else %}
+  {% assign tags = page.tags %}
+{% endif %}
+{% if tags and tags != empty %}
+<div class="post-tags">
+  {% for tag in tags %}
+    <a href="{{ site.baseurl }}/tags/#{{ tag | slugify }}">{{ tag }}</a>
+    {% unless forloop.last %}&nbsp;{% endunless %}
+  {% endfor %}
+</div>
+{% endif %}
+
 {%- comment -%}
   Build related posts by finding other posts in categories that share the same theme(s) as this page.
 {%- endcomment -%}

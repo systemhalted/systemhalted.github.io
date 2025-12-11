@@ -3,11 +3,11 @@ layout: post
 title: Bhupinder Singh
 category:
 - Life Events
-tags:
-- Bhupinder Singh
 comments: true
 description: Om Shanti! Bhupinder Singh ji your voice will continue to mesmerize us.
 featured: false
+tags:
+- personal
 ---
 Bhupinder Singh, different voice, but power to go straight through your heart. I first heard about him when I might be in 4th or 5th grade and listened to song Naam Gum Jaayega on Chitrahaar. It instantly became my favorite song.
   

@@ -3,13 +3,12 @@ layout: post
 title: नया सवेरा थम जाता, तो क्या होता?
 category:
 - Poetry & Literature
-tags:
-- naya savera
-- philosophical
-- life
 comments: true
 description: A new philosophical poem
 featured: false
+tags:
+- poetry
+- hindi
 ---
     Naya Savera, Tham Jaata, To Kya Hota,
     Umra Ka Padav, Ruk Jaata, To kya hota,

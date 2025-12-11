@@ -6,9 +6,12 @@ category:
 - AI & Data
 - Spirituality & Philosophy
 tags:
-- vedanta
-- intelligence
-- artificial intelligence
+- technology
+- ai
+- data
+- leadership
+- poetry
+- india
 comments: true
 description: This post attempts to define a Test of Intelligence based on my understanding of Advaita Vedanta. Submitted as part of CS7637 Homework
 featured: true

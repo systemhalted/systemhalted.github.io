@@ -5,11 +5,8 @@ category:
 - Books & Reading
 - Technology
 tags:
-- Go
-- GoLang
-- Programming
-- Language
-- Programming Language
+- book-review
+- technology
 comments: true
 description: Go lang Go!
 ---

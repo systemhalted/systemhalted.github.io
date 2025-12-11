@@ -9,14 +9,11 @@ status: publish
 categories:
 - Technology
 - Computer Science
+description: CAP Theorem essentially only mandates CP and AP as out of C, A and P, we always need to account for P. What are these C, A and P?
 tags:
-- cap theorem
-- availability
-- consistency
-- partitiion-tolerance
-description: CAP Theorem essentially only mandates CP and AP as out of C, A and P, we always need to account for P. What are these C, A and P? 
+- technology
+- computer-science
 ---
-
 Fifteen years ago, when I started working as a Software Engineer, scalability normally meant fine tuning the application, specially the database. The other option was to increase the configuration of existing hardware, i.e., scale-up (vertical scaling).  However, these days, people prefer to scale out (horizontal scaling; as the commodity hardware becomes cheap, this has become the go to strategy) - add more hardware to fulfil the request with reasonable response time. Scale out seems easy to architect, but is profoundly complex. And to increase the complexity, the CAP Theorem comes into picture. 
 
 According to CAP Theorem[^fn1], "it is impossible for a distributed data store to simultaneously provide more than two out of the following three guarantees:

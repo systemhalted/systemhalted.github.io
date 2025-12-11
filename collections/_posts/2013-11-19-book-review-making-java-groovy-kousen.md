@@ -4,12 +4,11 @@ title: Book Review - Making Java Groovy by Ken Kousen
 category:
 - Books & Reading
 - Technology
-tags:
-- Java
-- Groovy
-- JVM
 comments: true
 description: Making Java Groovy - Certainly Does that!
+tags:
+- book-review
+- technology
 ---
 Making Java Groovy certainly makes Java groovy. It is a fantastic technical book that I have come across in long time with plenty of use cases. A technical book should talk less and do more and this is the book that does the same.
 

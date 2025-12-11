@@ -1,12 +1,13 @@
 ---
 layout: post
 title: Git Bisect - Finding the Source of a Bug in Your Codebase
-category: [Software Engineering]
-tags: [Git, Bisect, Bug]
+category:
+- Software Engineering
 comments: true
 description: Git bisect allows you to quickly and easily identify the commit that introduced a bug by using a binary search algorithm. The process works by narrowing down the possible commits that could have introduced the bug by repeatedly selecting a "good" and "bad" commit and checking the ones in between.
+tags:
+- software
 ---
-
 As a software developer, it's inevitable that bugs will appear in your codebase. When this happens, it can be a time-consuming and frustrating process to track down the source of the problem. However, there is a powerful tool built into Git that can help: bisect.
 
 Git bisect allows you to quickly and easily identify the commit that introduced a bug by using a binary search algorithm. The process works by narrowing down the possible commits that could have introduced the bug by repeatedly selecting a "good" and "bad" commit and checking the ones in between.

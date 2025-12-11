@@ -5,15 +5,9 @@ category:
 - Technology
 - AI & Data
 tags:
-- data
-- artificial intelligence
-- Seabrook
-- Predictive Test
-- GPT
-- Machine Learning
-- ML
+- technology
 - ai
-- The New Yorker
+- data
 comments: true
 description: This is the review of The New Yorker Article by John Seabrook on Predictive Text.
 ---

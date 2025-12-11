@@ -9,12 +9,6 @@ password: ''
 status: publish
 category:
 - Technology
-tags:
-- Email client
-- infosys
-- Microsoft Outlook
-- Outlook
-- Visual Basic
 meta:
   _edit_last: '547454'
   geo_latitude: '27.129264'
@@ -33,6 +27,9 @@ author:
   first_name: Palak
   last_name: Mathur
 permalink: "/2011/04/27/avoiding-emails-without-subject/"
+tags:
+- technology
+- leadership
 ---
 More often than not I used to compile a fantastic mail to send to my colleagues (even managers) in office and just after clicking **Send**, it used to strike me that I had missed mentioning the subject. So, I requested a few friends on [Infosys](http://www.infosys.com/) internal blogs to send me the script for Outlook. Nikhil Kurien mailed me the requested piece of code back in 2007. I was just cleaning up my mails and thought it would be better if I keep it on my blog, as it would make it easy for me to access it whenever I wish rather than searching for the mail.
 

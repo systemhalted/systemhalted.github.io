@@ -6,8 +6,12 @@ category:
 - Personal Essays
 - Travel
 tags:
-- USA
-- India
+- personal
+- opinion
+- travel
+- india
+- united-states
+- mumbai
 comments: true
 description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went?
 featured: true

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Language Part 3 - Vocabulary
-category: [Languages, Linguistics, Insane Thoughts]
+category: [Languages, Linguistics]
 tags: [language, vocabulary, communication, expression]
 comments: true
 description: This is Part 3 of Language series where we will talk about vocabulary.
@@ -35,6 +35,5 @@ In conclusion, vocabulary is an essential part of language that allows us to exp
 ***References***
 
 [^1]: https://www.tesol.org/docs/books/bk_ELTD_Vocabulary_974
-
 
 

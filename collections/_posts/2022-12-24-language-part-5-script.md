@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Language Part 5 - Script
-category: [Languages, Linguistics, Insane Thoughts]
+category: [Languages, Linguistics]
 tags: [language, script, communication, expression]
 comments: true
 description: This is Part 5 of Language series where we will talk about script.

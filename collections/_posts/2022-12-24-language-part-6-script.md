@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Language Part 6 - Non-Verbal Communication, Tone, and Body language
-category: [Languages, Linguistics, Insane Thoughts]
+category: [Languages, Linguistics]
 tags: [language, non-verbal, tone, body labguage, communication, expression]
 comments: true
 description: This is Part 6 of Language series where we will talk about non-verbal communication.
@@ -23,6 +23,5 @@ Tone is another important aspect of language that can convey meaning and emotion
 It is important to be aware of the tone that is being used when speaking, as it can have a significant impact on the meaning and interpretation of words and sentences. For example, a statement spoken in a sarcastic tone may be interpreted differently than the same statement spoken in a sincere tone. Tone can also be used to convey emphasis and to signal the end of a sentence or thought. For example, a rising pitch at the end of a sentence can indicate a question, while a falling pitch can indicate a statement.
 
 Overall, nonverbal communication is a complex and important aspect of language that can convey a wide range of meanings and emotions. It is important to be aware of the role that nonverbal communication plays in language and to consider it when communicating with others.
-
 
 

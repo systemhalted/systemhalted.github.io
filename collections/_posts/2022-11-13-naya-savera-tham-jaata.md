@@ -3,7 +3,6 @@ layout: post
 title: नया सवेरा थम जाता, तो क्या होता?
 category:
 - Poetry & Literature
-- Languages & Linguistics
 tags:
 - naya savera
 - philosophical
@@ -23,4 +22,3 @@ featured: false
     ज़िंदगी रुक जाती, तो क्या होता?
     
     ~ पलक
-

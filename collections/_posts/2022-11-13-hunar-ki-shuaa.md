@@ -3,7 +3,6 @@ layout: post
 title: हुनर की शूआ’
 category:
 - Poetry & Literature
-- Languages & Linguistics
 tags:
 - hunar
 - हुनर
@@ -28,4 +27,3 @@ Yesterday night I wrote this poem in Hindustani. In the evening today we watched
     हर जगह तेरे हुनर की शूआ’ पहुँची,
     जब सूरज सुबह उजली धूप लाया॥
     ~ पलक
-

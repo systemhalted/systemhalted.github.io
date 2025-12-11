@@ -2,7 +2,7 @@
 layout: post
 title: Windows 10 Battery Report
 category:
-- Software Engineering
+- Technology
 tags:
 - Powershell
 - Unix-shell

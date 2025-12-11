@@ -9,6 +9,7 @@ status: publish
 categories:
 - Technology
 - Software Engineering
+- Computer Science
 tags:
 - lazy evaluation
 - streams
@@ -27,4 +28,3 @@ Reactive programming in general is not the same thing as lazy evaluation, and it
 This is where the analogy with Spring XD comes in. In Spring XD the queues between modules let you treat incoming data as an unbounded stream that can be processed at the pace of the consumers. Producers publish messages as they arrive, queues hold those messages, and consumers pull and process them as they are ready. You never loop over a fixed collection of all possible data. Instead you react to data as it flows through the system over time.
 
 So Haskell laziness and reactive architectures like those built with Spring XD solve similar problems from different directions. Laziness delays computation until a value is demanded. Reactive architectures delay work until an event arrives and a downstream component is ready. The mechanisms are different, but the shared idea is powerful: do work only when there is a consumer that actually needs the result.
-

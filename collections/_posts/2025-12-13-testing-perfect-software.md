@@ -14,9 +14,9 @@ But testing cannot guarantee a perfect product.
 
 At best, testing gives you information. That information helps you mitigate the risk of releasing something that is quietly wrong, and quietly expensive.
 
-If you want a perfect product, you would need perfect and exhaustive testing. Gerald M. Weinberg points out the trap: exhaustive testing implies an infinite number of tests, and that takes more time than the life of the product itself[^2].
+If you want a perfect product, you would need perfect and exhaustive testing. Gerald M. Weinberg points out the trap: exhaustive testing implies an infinite number of tests, and that takes more time than the life of the product itself[^1].
 
-Edsger W. Dijkstra said, “Testing may convincingly demonstrate the presence of bugs, but can never demonstrate their absence[^2].”
+Edsger W. Dijkstra said, “Testing may convincingly demonstrate the presence of bugs, but can never demonstrate their absence.”[^2]
 
 So do not treat tests like a purity ritual. Treat them like a flashlight. A very practical flashlight. One you point at the dark corners first.
 
@@ -260,11 +260,20 @@ A low-quality product is a choice.
 ## References
 
 [^1]. Gerald M. Weinberg, *Perfect Software*. (leanpub.com). https://leanpub.com/perfectsoftware?utm_source=systemhalted.in
-[^2] Dijkstra, *Reliability of programs*. (utexas.edu). https://www.cs.utexas.edu/users/EWD/transcriptions/EWD03xx/EWD303.html?utm_source=systemhalted.in
+
+[^2] Dijkstra, *Reliability of programs*. (utexas.edu).
+https://www.cs.utexas.edu/users/EWD/transcriptions/EWD03xx/EWD303.html?utm_source=systemhalted.in
+
 [^3]  Simon Stewart, *Google Test Sizes*. (googleblog.com). https://testing.googleblog.com/2010/12/test-sizes.html?utm_source=systemhalted.in
+
 [^4] Titus Winters, Tom Manshreck, and Hyrum Wright. “Testing Overview.” Software Engineering at Google, n.d., https://abseil.io/resources/swe-book/html/ch11.html
+
 [^5] Michael Feathers, *Working Effectively With Legacy Code*. 1st Edition, Pearson
+
 [^6] Martin Fowler. “Integration Test.” (martinfowler.com). 2018, https://martinfowler.com/bliki/IntegrationTest.html
+
 [^7]: Martin Fowler. “Contract Test.” *martinfowler.com*, 2011, <https://martinfowler.com/bliki/ContractTest.html>
+
 [^8]: Thoughtworks. “Consumer-driven contract testing.” *Technology Radar*, 2015, <https://www.thoughtworks.com/en-us/radar/techniques/consumer-driven-contract-testing>
+
 

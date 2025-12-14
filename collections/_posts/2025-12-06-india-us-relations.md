@@ -22,7 +22,7 @@ For most of my life, India–US relations were a story you heard about only when
 A nuclear test.  
 A war with Pakistan.  
 Some new sanctions.  
-A US president lecturing India on something.
+A US president lecturing India on something.     
 Indian PM "aligning" with Non-Aligned Movement. 
 
 Today the relationship is everywhere and nowhere at once. It is in H-1B visas and OCI cards, in TikTok bans and chip fabs, in Quad communiqués and tariff notices to the WTO. It is no longer an exotic foreign policy file. It is infrastructure.

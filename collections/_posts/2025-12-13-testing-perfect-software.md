@@ -91,7 +91,8 @@ The pyramid is not a moral statement. It is a cost statement.
 ### Unit tests
 Best for pure and deterministic logic: calculations, transformations, validation, edge cases, invariants.
 
-Unit tests answer: “Is this piece correct in isolation?”
+Unit tests answer:
+> Is this piece correct in isolation?
 
 A unit test is most valuable when it is **small**, **fast**, **deterministic**, and cheap enough to run on every change. Google’s testing guidance emphasizes “small tests”, their closest equivalent to unit tests as constrained in resources, and their book[^4] stresses that unit tests should be fast and deterministic so engineers can run them frequently.
 

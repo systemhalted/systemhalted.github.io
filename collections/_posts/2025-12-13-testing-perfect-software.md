@@ -261,8 +261,7 @@ A low-quality product is a choice.
 
 [^1]: Gerald M. Weinberg, *Perfect Software*. (leanpub.com). https://leanpub.com/perfectsoftware?utm_source=systemhalted.in
 
-[^2]: Dijkstra, *Reliability of programs*. (utexas.edu).
-https://www.cs.utexas.edu/users/EWD/transcriptions/EWD03xx/EWD303.html?utm_source=systemhalted.in
+[^2]: Dijkstra, *Reliability of programs*. (utexas.edu).https://www.cs.utexas.edu/users/EWD/transcriptions/EWD03xx/EWD303.html?utm_source=systemhalted.in
 
 [^3]:  Simon Stewart, *Google Test Sizes*. (googleblog.com). https://testing.googleblog.com/2010/12/test-sizes.html?utm_source=systemhalted.in
 

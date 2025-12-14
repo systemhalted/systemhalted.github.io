@@ -4,7 +4,6 @@ title: Project Jigsaw (JPMS) - What is Modularity?
 type: post
 published: false
 comments: true
-status: draft
 categories:
   - Technology
   - Software Engineering

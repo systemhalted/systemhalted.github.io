@@ -259,18 +259,18 @@ A low-quality product is a choice.
 
 ## References
 
-[^1]. Gerald M. Weinberg, *Perfect Software*. (leanpub.com). https://leanpub.com/perfectsoftware?utm_source=systemhalted.in
+[^1]: Gerald M. Weinberg, *Perfect Software*. (leanpub.com). https://leanpub.com/perfectsoftware?utm_source=systemhalted.in
 
-[^2] Dijkstra, *Reliability of programs*. (utexas.edu).
+[^2]: Dijkstra, *Reliability of programs*. (utexas.edu).
 https://www.cs.utexas.edu/users/EWD/transcriptions/EWD03xx/EWD303.html?utm_source=systemhalted.in
 
-[^3]  Simon Stewart, *Google Test Sizes*. (googleblog.com). https://testing.googleblog.com/2010/12/test-sizes.html?utm_source=systemhalted.in
+[^3]:  Simon Stewart, *Google Test Sizes*. (googleblog.com). https://testing.googleblog.com/2010/12/test-sizes.html?utm_source=systemhalted.in
 
-[^4] Titus Winters, Tom Manshreck, and Hyrum Wright. “Testing Overview.” Software Engineering at Google, n.d., https://abseil.io/resources/swe-book/html/ch11.html
+[^4]: Titus Winters, Tom Manshreck, and Hyrum Wright. “Testing Overview.” Software Engineering at Google, n.d., https://abseil.io/resources/swe-book/html/ch11.html
 
-[^5] Michael Feathers, *Working Effectively With Legacy Code*. 1st Edition, Pearson
+[^5]: Michael Feathers, *Working Effectively With Legacy Code*. 1st Edition, Pearson
 
-[^6] Martin Fowler. “Integration Test.” (martinfowler.com). 2018, https://martinfowler.com/bliki/IntegrationTest.html
+[^6]: Martin Fowler. “Integration Test.” (martinfowler.com). 2018, https://martinfowler.com/bliki/IntegrationTest.html
 
 [^7]: Martin Fowler. “Contract Test.” *martinfowler.com*, 2011, <https://martinfowler.com/bliki/ContractTest.html>
 

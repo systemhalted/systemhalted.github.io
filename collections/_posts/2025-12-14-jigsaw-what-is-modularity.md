@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Project Jigsaw (JPMS) - What is Modularity?
-original_draft_date: 2016-08-31
 type: post
 published: false
 comments: true

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: India and the United States - From suspicious democracies to quarrelling partners
+title: India and the United States 
 category:
 - Politics & Governance
 - Society & Economy

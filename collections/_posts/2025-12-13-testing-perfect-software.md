@@ -94,7 +94,7 @@ Best for pure and deterministic logic: calculations, transformations, validation
 Unit tests answer:
 > Is this piece correct in isolation?
 
-A unit test is most valuable when it is **small**, **fast**, **deterministic**, and cheap enough to run on every change. Google’s testing guidance emphasizes “small tests”, their closest equivalent to unit tests as constrained in resources, and their book[^4] stresses that unit tests should be fast and deterministic so engineers can run them frequently.
+A unit test is most valuable when it is **small**, **fast**, **deterministic**, and cheap enough to run on every change. Google’s testing guidance[^3] emphasizes “small tests”, their closest equivalent to unit tests as constrained in resources, and their book[^4] stresses that unit tests should be fast and deterministic so engineers can run them frequently.
 
 Michael Feathers’ commonly cited rule of thumb is also useful as a boundary. If a test touches a database, the network, the filesystem, or needs a special environment configuration, it’s not a unit test. It's pretending to be one[^5].
 

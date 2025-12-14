@@ -8,8 +8,6 @@ tags:
 - politics
 - society
 - economy
-- movie-review
-- travel
 - leadership
 - india
 - united-states

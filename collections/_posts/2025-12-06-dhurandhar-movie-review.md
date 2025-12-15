@@ -2,7 +2,7 @@
 layout: post
 title: Dhurandhar - Review
 category:
-- Media Reviews
+- Movie Reviews
 comments: true
 featured: true
 description: Review of Hindi movie Dhurandhar

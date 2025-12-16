@@ -13,7 +13,7 @@ tags:
   - jpms
   - modularity
   - module-info
-description: "A practical definition of modularity in Java, why Jigsaw existed even though we already had packages and JARs, and what the module system actually enforces."
+description: A practical definition of modularity in Java, why Jigsaw existed even though we already had packages and JARs, and what the module system actually enforces.
 ---
 
 ## A note from the future

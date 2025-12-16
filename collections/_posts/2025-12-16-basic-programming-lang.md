@@ -1,6 +1,6 @@
 —-  
 layout: post  
-title: “BASIC: The Language That Taught Me to Think Step by Step”. 
+title: “BASIC: The Language That Taught Me to Think Step by Step”             
 categories: [Technology, Computer Science] 
 tags: [basic, gw-basic, programming, education, imperative-programming]  
 published: true      

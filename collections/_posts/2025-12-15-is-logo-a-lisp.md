@@ -136,7 +136,7 @@ So the sentence "Logo is a Lisp dialect" is not a joke. It is a reminder that pr
 
 In Class IV, we had no idea that we were accidentally being taught one of the deepest ideas in CS, that lists can represent both data and instructions, and the difference between them is often just "how you choose to evaluate."
 
-⸻
+---
 
 ## Notes and references
 

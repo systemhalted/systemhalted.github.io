@@ -117,9 +117,9 @@ In other words: the basic building blocks of the “imperative” style of progr
 
 BASIC’s errors are blunt little teachers.
 
-“Syntax error.”
-“Type mismatch.”
-“Out of data.”
+“Syntax error.” 
+“Type mismatch.” 
+“Out of data.”  
 
 Each one says: you assumed the computer would guess what you meant. It will not.
 

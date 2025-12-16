@@ -5,7 +5,7 @@ published: true
 comments: true
 categories: [Technology, Software Engineering, AI]
 tags: [agentic-workflows, vibe-coding, testing, observability, conventions, testing]
-description: Vibe coding is fun again. Agents are still baby geniuses. The fix is turning preferences into accountability.
+description: Vibe coding is fun again. However, Agents are still baby geniuses. The fix is turning preferences into accountability.
 ---
 
 Vibe coding has been ridiculously fun.

@@ -7,6 +7,8 @@ published: true
 comments: true
 description: “How BASIC’s “tell the machine exactly what to do” mindset shaped how I learned programming.”  
 —-
+
+
 Logo taught me to draw.
 
 BASIC taught me to instruct.

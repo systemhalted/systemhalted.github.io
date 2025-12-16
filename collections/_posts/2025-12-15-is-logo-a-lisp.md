@@ -123,12 +123,12 @@ That is very Lisp. It is also very sneaky.
 
 Logo doesn’t look like Lisp because it was designed for humans first, especially young humans.
 
-But the bones show through:
-	1.	Prefix function application (verbs first)
-	2.	List-centered data thinking
-	3.	Quoting and symbol/value separation
-	4.	Comfort with recursion
-	5.	A path toward code-as-data
+But the bones show through:    
+	1.	Prefix function application (verbs first)  
+	2.	List-centered data thinking  
+	3.	Quoting and symbol/value separation  
+	4.	Comfort with recursion  
+	5.	A path toward code-as-data  
 
 So the sentence "Logo is a Lisp dialect" is not a joke. It is a reminder that programming languages can share a soul even when they do not share a wardrobe.
 

@@ -1,11 +1,11 @@
-—-
+—-  
 layout: post
 title: “BASIC: The Language That Taught Me to Think Step by Step”
 categories: [Technology, Computer Science]
 tags: [basic, gw-basic, programming, education, imperative-programming]
 published: true
 comments: true
-description: “How BASIC’s “tell the machine exactly what to do” mindset shaped how I learned programming.”
+description: “How BASIC’s “tell the machine exactly what to do” mindset shaped how I learned programming.”  
 —-
 Logo taught me to draw.
 

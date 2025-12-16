@@ -23,12 +23,12 @@ BASIC’s core lesson is simple:
 Computers do not infer intent.
 They execute steps.
 
-So you learn to think in sequences:  
-	1.	Put the input somewhere. 
-	2.	Transform it in small moves. 
-	3.	Store intermediate results. 
-	4.	Print the outcome. 
-	5.	Stop. 
+So you learn to think in sequences:   
+	1.	Put the input somewhere.    
+	2.	Transform it in small moves.   
+	3.	Store intermediate results.   
+	4.	Print the outcome.    
+	5.	Stop.   
 
 That “step-by-step” habit is not just syntax. It is a worldview.
 

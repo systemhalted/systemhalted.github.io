@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: Logo Looks Nothing Like Lisp and Yet It Is

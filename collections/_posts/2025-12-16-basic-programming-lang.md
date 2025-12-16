@@ -1,4 +1,4 @@
-i---
+---
 layout: post
 title:  "BASIC: The Language That Taught Me to Think Step by Step"
 published: true

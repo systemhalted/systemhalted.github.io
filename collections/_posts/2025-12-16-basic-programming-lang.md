@@ -51,7 +51,7 @@ No magic. No hidden state. No geometry fairy.
 
 Just: ask, compute, print.
 
-And even that tiny program quietly teaches important ideas:
+And even that tiny program quietly teaches important ideas:  
 variables, arithmetic, input/output, and the idea that a program is a controlled sequence of actions.
 
 ## Line numbers: the original breadcrumb trail
@@ -60,7 +60,7 @@ The first thing you notice in old-school BASIC is the line numbers.
 
 They are not decoration. They are control points.
 
-You don’t just write code.
+You don’t just write code.  
 You create a path the computer will walk.
 
 {% highlight basic %}
@@ -102,6 +102,7 @@ Variables are the center of gravity. They change, they accumulate, they persist.
 That teaches a different kind of thinking than Logo:
 
 Logo: move an agent, watch an effect
+
 BASIC: change a value, watch consequences
 
 And you start noticing patterns:
@@ -123,23 +124,23 @@ BASIC’s errors are blunt little teachers.
 
 Each one says: you assumed the computer would guess what you meant. It will not.
 
-So you learn to be explicit.
-You learn to reduce ambiguity.
-You learn to debug.
+So you learn to be explicit.  
+You learn to reduce ambiguity.  
+You learn to debug.  
 
 Not as a skill for code, but as a skill for thought.
 
 ## The punchline
 
-Logo gave me wonder.
-BASIC gave me discipline.
+Logo gave me wonder.  
+BASIC gave me discipline.  
 
-Logo made me feel like programming was art.
-BASIC made me feel like programming was logic.
+Logo made me feel like programming was art.  
+BASIC made me feel like programming was logic.  
 
-And both were true.
+And both were true.  
 
-BASIC’s gift is not that it’s the most elegant language.
+BASIC’s gift is not that it’s the most elegant language.  
 Its gift is that it forces you to think like a machine for a while.
 
 And once you can do that, you can later learn the higher trick: how to make machines feel a little more human.

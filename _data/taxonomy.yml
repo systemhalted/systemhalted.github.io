@@ -11,7 +11,8 @@ themes:
     title: "AI, Data, and Digital Risk"
     description: "Artificial intelligence, machine learning, data, and online safety."
     categories:
-      - "AI & Data"
+      - "AI"
+      - "Data"
 
   - id: politics_society
     title: "Politics, Economy, and Society"

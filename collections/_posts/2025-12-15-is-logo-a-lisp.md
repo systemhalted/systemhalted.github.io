@@ -6,6 +6,7 @@ comments: true
 categories:
   - Technology
   - Computer Science
+  - Series 2 - Turtle, BASIC, and the Long Road to Taste
 tags: [logo, lisp, computer-science, education, turtle-graphics]
 description: Why Logo can be called a Lisp dialect even though it does not look like one?
 ---

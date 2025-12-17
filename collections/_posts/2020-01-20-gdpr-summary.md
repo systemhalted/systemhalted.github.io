@@ -3,7 +3,8 @@ layout: post
 title: General Data Protection Regulation and Personal Data
 category:
 - Technology
-- AI & Data
+- AI
+- Data
 tags:
 - technology
 - ai

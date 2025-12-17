@@ -3,7 +3,7 @@ layout: post
 title: Intelligence, Artificial Intelligence and Vedanta Hinduism
 category:
 - Technology
-- AI & Data
+- AI 
 - Spirituality & Philosophy
 tags:
 - technology

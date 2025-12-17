@@ -2,12 +2,10 @@
 layout: post
 title: How to keep kids safe playing Roblox?
 category:
-- Sports & Hobbies
-- AI & Data
+- Technology
 tags:
-- sports
-- ai
-- data
+- video games
+- Security
 comments: true
 description: This post will discuss some tips for parents to keep the kids safe while playing Roblox.
 ---

@@ -3,7 +3,7 @@ layout: post
 title: "[Article Review] The Next Word - Where will predictive text take us by John Seabrook"
 category:
 - Technology
-- AI & Data
+- AI 
 tags:
 - technology
 - ai

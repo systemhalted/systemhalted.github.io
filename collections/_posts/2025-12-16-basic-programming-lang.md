@@ -3,7 +3,10 @@ layout: post
 title:  "BASIC: The Language That Taught Me to Think Step by Step"
 published: true
 comments: true
-categories: [Technology, Computer Science]
+categories:
+  - Technology
+  - Computer Science
+  - Series 2 - Turtle, BASIC, and the Long Road to Taste
 tags: [basic, gw-basic, programming, education, imperative-programming]
 description: "How BASIC’s “tell the machine exactly what to do” mindset shaped how I learned programming."
 ---

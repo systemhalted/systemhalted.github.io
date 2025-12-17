@@ -3,6 +3,7 @@ layout: post
 title: Language Part 5 - Script
 category:
 - Languages & Linguistics
+- Series 1: Language and Linguistics
 comments: true
 description: This is Part 5 of Language series where we will talk about script.
 tags:

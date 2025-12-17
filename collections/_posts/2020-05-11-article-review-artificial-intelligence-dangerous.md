@@ -3,7 +3,7 @@ layout: post
 title: "[Article Review] Is Artificial Intelligence Dangerous by Bernard Marr"
 category:
 - Technology
-- AI & Data
+- AI
 tags:
 - technology
 - ai

@@ -1,4 +1,12 @@
 themes:
+
+  - id: series
+    title: "Series"
+    description: "Posts part of a series"
+    categories:
+      - "Series 1 - Language and Linguistics" 
+      - "Series 2 - Turtle, BASIC, and the Long Road to Taste"
+
   - id: tech_engineering
     title: "Tech, Software, and Engineering"
     description: "Software, programming, tools, and engineering practice."
@@ -62,12 +70,6 @@ themes:
     categories:
       - "Newsletter"
       
-  - id: series
-    title: "Series"
-    description: "Posts part of a series"
-    categories:
-      - "Series 1 - Language and Linguistics" 
-      - "Series 2 - Turtle, BASIC, and the Long Road to Taste"
 
 tags:
   - people/places: india, united-states, agra, pune, mumbai

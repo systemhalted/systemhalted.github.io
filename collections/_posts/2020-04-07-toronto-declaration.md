@@ -3,7 +3,8 @@ layout: post
 title: Toronto Declaration
 category:
 - Technology
-- AI & Data
+- AI
+- Data
 tags:
 - technology
 - ai

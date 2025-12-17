@@ -3,7 +3,7 @@ layout: post
 title: Language Part 3 - Vocabulary
 category:
 - Languages & Linguistics
-- Series 1: Language and Linguistics
+- Series 1 - Language and Linguistics
 comments: true
 description: This is Part 3 of Language series where we will talk about vocabulary.
 tags:

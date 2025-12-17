@@ -3,7 +3,7 @@ layout: post
 title: Language Part 2 - Grammar
 category:
 - Languages & Linguistics
-- Series 1: Language and Linguistics
+- Series 1 - Language and Linguistics
 comments: true
 description: This is Part 2 of Language series where we will talk about grammar.
 ---

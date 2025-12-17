@@ -4,7 +4,10 @@ title: "Escaping GOTO: How We Learned to Make Programs Readable"
 date: 2025-12-17
 published: true
 comments: true
-categories: [Technology, Computer Science]
+categories: 
+  - Technology, 
+  - Computer Science
+  - Series 2 - Turtle, BASIC, and the Long Road to Taste
 tags: [basic, gw-basic, goto, structured-programming, programming, software-engineering]
 description: Line numbers made BASIC feel orderly. GOTO made it powerful. Then everything turned into spaghetti.
 ---

@@ -3,6 +3,7 @@ layout: post
 title: Language Part 1 - Introduction
 category:
 - Languages & Linguistics
+- Series 1: Language and Linguistics
 comments: true
 description: This is part 1 of Language series where we will define Language and why it is important.
 ---

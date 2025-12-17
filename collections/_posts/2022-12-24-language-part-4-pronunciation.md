@@ -3,7 +3,7 @@ layout: post
 title: Language Part 4 - Pronunciation
 category:
 - Languages & Linguistics
-- Series 1: Language and Linguistics
+- Series 1 - Language and Linguistics
 comments: true
 description: This is Part 4 of Language series where we will talk about pronunciation.
 ---

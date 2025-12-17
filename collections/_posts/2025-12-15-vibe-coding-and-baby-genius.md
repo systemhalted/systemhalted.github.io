@@ -203,7 +203,7 @@ Vacation grade code needs boring grown up traits:
 
 Because when you are on vacation, the only thing worse than an outage is an outage that speaks in riddles.
 
-## Closing thought
+## Final thoughts
 
 Agents don’t mainly need to be smarter.
 They need to be more accountable.

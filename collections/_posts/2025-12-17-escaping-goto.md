@@ -99,10 +99,10 @@ That’s not programming. That’s anxiety with line numbers.
 Structured programming wasn’t invented to be fancy.
 It was invented to make code readable at scale.
 
-Instead of "jump anywhere," you get a small set of composable structures:
-	•	sequence (do this, then that)
-	•	selection (if/else)
-	•	iteration (for/while)
+Instead of "jump anywhere," you get a small set of composable structures:  
+	•	sequence (do this, then that)   
+	•	selection (if/else)   
+	•	iteration (for/while)   
 
 You still do the same things, but the control flow becomes visible again.
 

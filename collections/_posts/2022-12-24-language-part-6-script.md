@@ -3,6 +3,7 @@ layout: post
 title: Language Part 6 - Non-Verbal Communication, Tone, and Body language
 category:
 - Languages & Linguistics
+- Series 1: Language and Linguistics
 comments: true
 description: This is Part 6 of Language series where we will talk about non-verbal communication.
 ---

@@ -119,7 +119,7 @@ Even when you never say the word "eval," you are inching toward the same philoso
 
 That is very Lisp. It is also very sneaky.
 
-## The punchline
+## Final Thoughts
 
 Logo doesn’t look like Lisp because it was designed for humans first, especially young humans.
 

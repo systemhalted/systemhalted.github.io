@@ -6,8 +6,6 @@ category:
 - Series 1 - Language and Linguistics
 comments: true
 description: This is Part 5 of Language series where we will talk about script.
-tags:
-- sports
 ---
 ***Disclaimer***
 I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.

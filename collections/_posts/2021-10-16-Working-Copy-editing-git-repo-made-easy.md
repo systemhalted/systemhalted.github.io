@@ -3,7 +3,7 @@ layout: post
 title: Working Copy - The Powerful Git Client for iPad
 category:
 - Technology
-- Media Reviews
+- Media Review
 comments: true
 description: Working Copy is the missing Git Client and Editor for iPad.
 tags:

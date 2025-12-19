@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Review - Making Java Groovy by Ken Kousen
+title: "[Book Review] Making Java Groovy by Ken Kousen"
 category:
 - Books & Reading
 - Technology

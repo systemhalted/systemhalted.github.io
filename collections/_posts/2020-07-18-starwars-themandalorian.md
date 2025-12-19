@@ -3,7 +3,7 @@ layout: post
 title: Star Wars - Mandalorian
 category:
 - Society & Economy
-- Media Reviews
+- Media Review
 comments: true
 description: Mandalorian - an extension of Star Wars Universe. Not really, it is `part` of Star Wars Universe.
 tags:

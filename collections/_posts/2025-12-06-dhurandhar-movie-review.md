@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[Moview Review] Dhurandhar"
+title: "[Movie Review] Dhurandhar"
 category:
-- Movie Reviews
+- Movie Review
 comments: true
 featured: true
 description: Review of Hindi movie Dhurandhar

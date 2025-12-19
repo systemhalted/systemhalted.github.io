@@ -34,7 +34,9 @@ themes:
     description: "Book reviews, media reviews, and other curated content."
     categories:
       - "Books & Reading"
+      - "Moview Reviews"
       - "Media Reviews"
+      - "Article Reviews"
 
   - id: language_lit_spirit
     title: "Language, Literature, and Spirituality"

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Review - Banquets on the Dead by Sharath Komarraju
+title: "[Book Review] Banquets on the Dead by Sharath Komarraju"
 category:
 - Books & Reading
 comments: true

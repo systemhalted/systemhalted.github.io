@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Review - Oracle Certified Associate Java Se 7 Programmer Study Guide by Richard M. Reese
+title: [Book Review] Oracle Certified Associate Java Se 7 Programmer Study Guide by Richard M. Reese
 category:
 - Books & Reading
 - Technology

@@ -5,7 +5,7 @@ date: 2025-12-17
 published: true
 comments: true
 categories: 
-  - Technology, 
+  - Technology
   - Computer Science
   - Series 2 - Turtle, BASIC, and the Long Road to Taste
 tags: [basic, gw-basic, goto, structured-programming, programming, software-engineering]

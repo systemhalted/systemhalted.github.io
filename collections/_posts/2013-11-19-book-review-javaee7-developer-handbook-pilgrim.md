@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Review - Java EE 7 Developer Handbook by Peter A. Pilgirm
+title: "[Book Review] Java EE 7 Developer Handbook by Peter A. Pilgirm"
 category:
 - Books & Reading
 - Technology

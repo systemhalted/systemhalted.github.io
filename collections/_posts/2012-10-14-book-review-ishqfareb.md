@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Review - IshqFareb by Chandan Pandey
+title: "[Book Review] IshqFareb by Chandan Pandey"
 category:
 - Books & Reading
 - Poetry & Literature

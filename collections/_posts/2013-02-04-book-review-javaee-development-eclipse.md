@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Review - Java EE Development with Eclipse by Deepak Vohra
+title: "[Book Review] Java EE Development with Eclipse by Deepak Vohra"
 category:
 - Books & Reading
 - Technology

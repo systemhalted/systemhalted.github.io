@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Review - Node Cookbook Second Edition by David Mark Clements
+title: "[Book Review] Node Cookbook Second Edition by David Mark Clements"
 category:
 - Books & Reading
 - Technology

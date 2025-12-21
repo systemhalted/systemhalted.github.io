@@ -1,11 +1,12 @@
 ---
 layout: post
-title: Project Jigsaw (JPMS) - What is Modularity?
+title: Project Jigsaw (JPMS) - Part 1 - What is Modularity?
 published: true
 comments: true
 categories:
   - Technology
   - Software Engineering
+  - Series 3 - Project Jigsaw (JPMS)
 tags:
   - java
   - jdk9
@@ -289,3 +290,14 @@ It turns modularity from a cultural norm into a constraint you can build against
 
 That is the difference between "please do not touch" and "the door is locked."
 
+## What is next
+
+This was Part 1: the definition, the motivation, and the shape of the solution.
+
+In Part 2, we will go concrete:
+
+* A tiny multi-module project you can compile and run.
+* The first "why can I not access this package anymore?" moment, explained.
+* Practical patterns: what to export, what to keep internal, and how to avoid designing a module system that only you understand.
+
+Because nothing teaches architecture faster than a compiler error that is technically correct and emotionally rude.

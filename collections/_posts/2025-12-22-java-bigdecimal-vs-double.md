@@ -181,7 +181,7 @@ public static BigDecimal valueOf(double val) {
 
 The key piece here is `Double.toString(val)`. That method does not dump all the internal bits. Instead, it produces the **canonical decimal string** for that double:
 
-> A decimal string with just enough digits to round back to the same double (i.e., to distinguish it from adjacent doubles).
+> The shortest decimal string that, if you parse it back with `Double.parseDouble`, gives you exactly the same double bits.
 
 In code, it guarantees:
 
@@ -202,7 +202,7 @@ Double.toString(0.1); // "0.1"
 So the pipeline for `BigDecimal.valueOf(0.1)` is:
 
 1. Start from the binary double for 0.1.  
-2. Turn it into its canonical decimal string `"0.1"` – the shortest string that round-trips back to the same double.  
+2. Turn it into its canonical decimal string `"0.1"` – a decimal string with just enough digits to round back to the same double (i.e., to distinguish it from adjacent doubles).  
 3. Feed that string into `new BigDecimal("0.1")`.
 
 Result: an exact decimal 0.1, not the giant tail.

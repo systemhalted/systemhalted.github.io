@@ -7,7 +7,9 @@ category:
 - Technology
 - Series 4 - Floating Point Without Tears
 comments: true
-featured: true
+featured: false
+type: post
+published: true
 tags: 
 - java
 - bigdecimal

@@ -5,7 +5,7 @@ category:
 - Computer Science
 - Software Engineering
 - Technology
-- Series 4 - Floating Point Without Tears"
+- Series 4 - Floating Point Without Tears
 comments: true
 featured: true
 tags: 

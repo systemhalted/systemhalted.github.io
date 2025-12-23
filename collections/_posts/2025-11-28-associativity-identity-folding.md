@@ -1,10 +1,11 @@
 ---
 layout: post
-title: Associativity, Identity, and Folding - Why Your reduce Keeps Biting You
+title: "Part 2: Associativity, Identity, and Folding - Why Your reduce Keeps Biting You"
 category:
 - Computer Science
 - Software Engineering
 - Technology
+- Series 4 - Floating Point Without Tears"
 tags:
 - computer-science
 - software

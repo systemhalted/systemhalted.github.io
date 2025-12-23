@@ -372,7 +372,7 @@ System.out.println(x.compareTo(y)); // 0
 
 `compareTo` cares only about numeric value. From that point of view they are both exactly one, so the comparison says zero.
 
-If you put BigDecimal keys into a `HashMap` or `HashSet`, you are using `equals`. If you put them in a `TreeMap` or `TreeSet`, you are using `compareTo`. That difference has bitten enough people that the Javadoc has an explicit warning.
+If you put BigDecimal keys into a `HashMap` or `HashSet`, you are using `equals`. If you put them in a `TreeMap` or `TreeSet`, you are using `compareTo`. That difference has bitten enough people that the Javadoc has an explicit warning[^1].
 
 ### What to do about it
 
@@ -451,3 +451,5 @@ Doubles take a binary view of the universe and do their best to approximate your
 
 Neither is the "right" choice in isolation. The trick is to know which world you are in.
 
+## References
+[^1]: BigDecimal Java 17 JavaDocs: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/math/BigDecimal.html#equals(java.lang.Object)

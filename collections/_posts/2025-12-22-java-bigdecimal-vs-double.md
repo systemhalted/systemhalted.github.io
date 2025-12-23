@@ -181,7 +181,7 @@ public static BigDecimal valueOf(double val) {
 
 The key piece here is `Double.toString(val)`. That method does not dump all the internal bits. Instead, it produces the **canonical decimal string** for that double:
 
-> The shortest decimal string that, if you parse it back with `Double.parseDouble`, gives you exactly the same double bits.
+> A decimal string with just enough digits to round back to the same double (i.e., to distinguish it from adjacent doubles).
 
 In code, it guarantees:
 

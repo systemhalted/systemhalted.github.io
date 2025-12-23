@@ -7,6 +7,7 @@ themes:
       - "Series 1 - Language and Linguistics" 
       - "Series 2 - Turtle, BASIC, and the Long Road to Taste"
       - "Series 3 - Project Jigsaw (JPMS)"
+      - "Series 4 - Floating Point Without Tears"
 
   - id: tech_engineering
     title: "Tech, Software, and Engineering"

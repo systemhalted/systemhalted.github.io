@@ -14,9 +14,9 @@ comments: true
 featured: true
 description: A practical look at associativity, identity, and folding in Java Streams, and why some reduce calls behave nicely while others explode in surprising ways.
 ---
-*This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them*
+*This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
-If you write Java today, you probably use `Stream.reduce` or something like it.
+If you write Java today, you probably use `Stream.reduce()` or something like it.
 
 Sometimes it feels magical.
 

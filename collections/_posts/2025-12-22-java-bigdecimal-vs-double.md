@@ -265,8 +265,16 @@ List<Double> doubleAmounts = List.of(
 );
 double doubleSum = doubleAmounts.stream()
     .mapToDouble(Double::doubleValue).sum();
-System.out.println(doubleSum); // 1.0E16 (lost the small values!)
+System.out.println(doubleSum); // 1.0000000000000004E16
 
+{% endhighlight %}
+
+
+The result is mathematically correct (10^16 + 4), but the representation shows how rounding noise creeps in when you mix huge and small magnitudes in binary floating point. At this scale, many consecutive integers are not exactly representable as double, so tiny adjustments end up living in the low bits and surfacing as ...0004E16.
+
+Now compare with BigDecimal:
+
+{% highlight java %}
 // With BigDecimal - exact
 List<BigDecimal> amounts = List.of(
     new BigDecimal("10000000000000000.00"),

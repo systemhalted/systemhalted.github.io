@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "BigDecimal: When Doubles Aren't Enough"
+title: "Part 3: BigDecimal - When Doubles Aren't Enough"
 category:
 - Computer Science
 - Software Engineering
 - Technology
+- Series 4 - Floating Point Without Tears"
 comments: true
 featured: true
 tags: 

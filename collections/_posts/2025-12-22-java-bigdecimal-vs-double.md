@@ -46,10 +46,11 @@ new BigDecimal(0.1);        // Exposes the binary approximation as decimal
 
 {% highlight java %}
 double x = 0.1;
-System.out.println(x);
+System.out.println(x);              // prints 0.1 (canonical string)
+System.out.printf("%.20f%n", x);    // 0.10000000000000000555...
 {% endhighlight %}
 
-you are already off by a tiny amount. Most of the time you are happy to ignore that tiny tail. Then you sum millions of rows, or reorder operations, or start comparing for equality, and the tail starts wagging the dog.
+you are already off by a tiny amount, even though the default printout shows `0.1`. Most of the time you are happy to ignore that tiny tail (technically binary approximation). But then you sum millions of rows, or reorder operations, or start comparing for equality, and the tail starts wagging the dog.
 
 BigDecimal cuts across this by working in base 10.
 
@@ -162,7 +163,7 @@ This constructor works directly from the binary bits of the double:
 - It is some messy binary fraction very close to 0.1.  
 - `new BigDecimal(double)` asks: "What is the exact decimal value of this binary fraction?"
 
-So you see the full tail:
+So you see the full binary approximation:
 
 > 0.1000000000000000055511151231257827021181583404541015625  
 

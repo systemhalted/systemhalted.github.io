@@ -20,7 +20,7 @@ description: Why BigDecimal exists, how it really works, and when you should rea
 ---
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
-In my earlier post on [IEEE 754 doubles]({% post_url2025/12/04/ieee-754-doubles/ %}) I showed how a tiny Java example could break your intuition about numbers. The JVM was not being sloppy. It was faithfully following the floating point rules. The surprise came from my mental model, not from the hardware.
+In my earlier post on [IEEE 754 doubles]({% post_url 2025/12/04/ieee-754-doubles/ %}) I showed how a tiny Java example could break your intuition about numbers. The JVM was not being sloppy. It was faithfully following the floating point rules. The surprise came from my mental model, not from the hardware.
 
 BigDecimal is Java's answer to a different problem: *what if I actually need decimal correctness, not fast binary approximation?* It is the type you reach for when cents matter, reconciliation matters, or auditors matter.
 

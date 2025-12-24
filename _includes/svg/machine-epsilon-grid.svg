@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="340" viewBox="0 0 920 340" role="img" aria-label="Double precision grid spacing near 1.0 vs near 1e16">
+  <style>
+    .title { font: 700 18px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #111; }
+    .label { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #222; }
+    .small { font: 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; fill: #222; }
+    .tick { stroke: #111; stroke-width: 2; }
+    .axis { stroke: #111; stroke-width: 2.5; }
+    .ghost { stroke: #888; stroke-width: 2; stroke-dasharray: 5 5; }
+    .note { font: 12px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #333; }
+    .box { fill: #fafafa; stroke: #ddd; stroke-width: 1.5; }
+  </style>
+
+  <text x="20" y="28" class="title">Double is a grid: spacing depends on magnitude</text>
+
+  <!-- Panel boxes -->
+  <rect x="20" y="50" width="880" height="130" rx="10" class="box"/>
+  <rect x="20" y="195" width="880" height="125" rx="10" class="box"/>
+
+  <!-- Panel 1: near 1.0 -->
+  <text x="40" y="78" class="label">Zoom near 1.0</text>
+  <text x="40" y="98" class="note">Adjacent representable values are extremely close: spacing ≈ ε = 2⁻⁵² ≈ 2.22e−16</text>
+
+  <!-- Axis 1 -->
+  <line x1="60" y1="135" x2="860" y2="135" class="axis"/>
+  <text x="60" y="158" class="small">…</text>
+
+  <!-- Dense ticks -->
+  <!-- center tick at 1.0 -->
+  <line x1="430" y1="118" x2="430" y2="152" class="tick"/>
+  <text x="410" y="112" class="small">1.0</text>
+
+  <!-- ticks around it -->
+  <line x1="380" y1="122" x2="380" y2="148" class="tick"/>
+  <line x1="405" y1="122" x2="405" y2="148" class="tick"/>
+  <line x1="455" y1="122" x2="455" y2="148" class="tick"/>
+  <line x1="480" y1="122" x2="480" y2="148" class="tick"/>
+
+  <!-- epsilon arrow -->
+  <line x1="430" y1="165" x2="455" y2="165" stroke="#111" stroke-width="2"/>
+  <polygon points="455,165 448,161 448,169" fill="#111"/>
+  <text x="470" y="169" class="small">ε (next rung)</text>
+
+  <text x="780" y="158" class="small">…</text>
+
+  <!-- Panel 2: near 1e16 -->
+  <text x="40" y="223" class="label">Zoom near 1e16</text>
+  <text x="40" y="243" class="note">Here the grid is coarse: ulp(1e16) = 2.0, so +1.0 lands between rungs and vanishes</text>
+
+  <!-- Axis 2 -->
+  <line x1="60" y1="275" x2="860" y2="275" class="axis"/>
+
+  <!-- Rungs: 1e16, 1e16+2, 1e16+4 -->
+  <line x1="360" y1="258" x2="360" y2="292" class="tick"/>
+  <text x="310" y="252" class="small">1e16</text>
+
+  <line x1="460" y1="258" x2="460" y2="292" class="tick"/>
+  <text x="425" y="252" class="small">+2</text>
+
+  <line x1="560" y1="258" x2="560" y2="292" class="tick"/>
+  <text x="525" y="252" class="small">+4</text>
+
+  <!-- The missing +1 (ghost tick) -->
+  <line x1="410" y1="258" x2="410" y2="292" class="ghost"/>
+  <text x="392" y="312" class="small">+1</text>
+  <text x="430" y="312" class="small">does not exist</text>
+
+  <!-- ulp arrow -->
+  <line x1="360" y1="305" x2="460" y2="305" stroke="#111" stroke-width="2"/>
+  <polygon points="460,305 453,301 453,309" fill="#111"/>
+  <text x="470" y="309" class="small">ulp = 2.0</text>
+
+  <!-- Summary callout -->
+  <text x="40" y="332" class="note">Takeaway: doubles keep ~53 bits of precision, so absolute spacing grows as numbers grow.</text>
+</svg>

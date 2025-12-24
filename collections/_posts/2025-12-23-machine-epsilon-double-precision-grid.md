@@ -127,9 +127,31 @@ That is why comparisons that seem symmetric can behave oddly if two values strad
 
 ## Near zero: subnormals exist and they are weird
 
-For very small magnitudes (below about 2⁻¹⁰²²), double switches to subnormal representation. In that range, spacing becomes *constant* at approximately 5×10⁻³²⁴ rather than scaling with magnitude like it does for normal numbers.
+For very small magnitudes below `Double.MIN_NORMAL` (approximately 2.225×10⁻³⁰⁸), double switches to subnormal (also called denormal) representation.
 
-Most business code never goes near subnormals. Numerical code sometimes does. It is worth knowing the behavior changes near zero.
+**What changes in subnormal land:**
+
+Normal doubles have an implicit leading `1.` in the mantissa:
+- value = (1.fraction) × 2^exponent
+- This gives you full precision
+
+Subnormals drop that leading `1.`:
+- value = (0.fraction) × 2^(minExponent)
+- You lose precision gradually as you approach zero
+
+**Why they exist:** 
+
+Without subnormals, there would be a hard cliff from tiny normal numbers straight to 0.0. Subnormals provide *gradual underflow* - a ramp instead of a cliff.
+
+**Key differences:**
+
+- Spacing becomes constant at approximately 5×10⁻³²⁴ (the value of `Double.MIN_VALUE`) rather than scaling with magnitude
+- Arithmetic can be slower on some CPUs
+- Relative precision is much worse (you may have only a few significant bits left)
+
+Everything in the range `(0, Double.MIN_NORMAL)` is subnormal. That's the range from about 4.9×10⁻³²⁴ up to about 2.225×10⁻³⁰⁸.
+
+Most business code never goes near subnormals. Numerical code sometimes does. It is worth knowing that floating-point has an emergency mode near zero that trades precision for continuity.
 
 ## Why tiny increments vanish when numbers get big
 

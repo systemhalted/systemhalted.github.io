@@ -78,7 +78,7 @@ That spacing is called **ULP**, short for **Unit in the Last Place**.
 
 Java gives it to you with `Math.ulp(x)`.
 
-{% raw %}{% include svg/machine-epsilon-grid.svg %}{% endraw %}
+{% include svg/machine-epsilon-grid.svg %}
 
 ## How spacing grows with magnitude
 

@@ -248,5 +248,6 @@ And that is why, at 1e16, adding 1.0 is like whispering into a hurricane.
      1 ÷ 4,503,599,627,370,496 = 0.00000000000000022204460492503130808472633361816…  
      In scientific notation: 2.2204460492503130808… × 10⁻¹⁶  
      The displayed value 2.220446049250313E-16 is this value rounded to 15-16 significant decimal digits for display.  
+     
 [^3]: For deeper reading, see David Goldberg’s classic paper, ["What Every Computer Scientist Should Know About Floating-Point Arithmetic"](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html).*
 

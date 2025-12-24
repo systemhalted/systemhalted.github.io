@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="340" viewBox="0 0 920 340" role="img" aria-label="Double precision grid spacing near 1.0 vs near 1e16">
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="380" viewBox="0 0 920 380" role="img" aria-label="Double precision grid spacing near 1.0 vs near 1e16">
   <style>
     .title { font: 700 18px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #111; }
     .label { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #222; }
@@ -14,7 +14,7 @@
 
   <!-- Panel boxes -->
   <rect x="20" y="50" width="880" height="130" rx="10" class="box"/>
-  <rect x="20" y="195" width="880" height="125" rx="10" class="box"/>
+  <rect x="20" y="195" width="880" height="150" rx="10" class="box"/>
 
   <!-- Panel 1: near 1.0 -->
   <text x="40" y="78" class="label">Zoom near 1.0</text>
@@ -25,11 +25,9 @@
   <text x="60" y="158" class="small">…</text>
 
   <!-- Dense ticks -->
-  <!-- center tick at 1.0 -->
   <line x1="430" y1="118" x2="430" y2="152" class="tick"/>
   <text x="410" y="112" class="small">1.0</text>
 
-  <!-- ticks around it -->
   <line x1="380" y1="122" x2="380" y2="148" class="tick"/>
   <line x1="405" y1="122" x2="405" y2="148" class="tick"/>
   <line x1="455" y1="122" x2="455" y2="148" class="tick"/>
@@ -61,14 +59,16 @@
 
   <!-- The missing +1 (ghost tick) -->
   <line x1="410" y1="258" x2="410" y2="292" class="ghost"/>
-  <text x="392" y="312" class="small">+1</text>
-  <text x="430" y="312" class="small">does not exist</text>
 
-  <!-- ulp arrow -->
-  <line x1="360" y1="305" x2="460" y2="305" stroke="#111" stroke-width="2"/>
-  <polygon points="460,305 453,301 453,309" fill="#111"/>
-  <text x="470" y="309" class="small">ulp = 2.0</text>
+  <!-- ulp arrow (moved down so it doesn't collide with +1 text) -->
+  <line x1="360" y1="323" x2="460" y2="323" stroke="#111" stroke-width="2"/>
+  <polygon points="460,323 453,319 453,327" fill="#111"/>
+  <text x="470" y="327" class="small">ulp = 2.0</text>
 
-  <!-- Summary callout -->
-  <text x="40" y="332" class="note">Takeaway: doubles keep ~53 bits of precision, so absolute spacing grows as numbers grow.</text>
+  <!-- +1 annotation (moved further down) -->
+  <text x="392" y="345" class="small">+1</text>
+  <text x="430" y="345" class="small">does not exist</text>
+
+  <!-- Summary callout (pushed down and within new height) -->
+  <text x="40" y="372" class="note">Takeaway: doubles keep ~53 bits of precision, so absolute spacing grows as numbers grow.</text>
 </svg>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Part 4: Machine Epsilon - The Smallest Change a Double Can See"
-date: 2025-12-22
+date: 2025-12-23
 type: post
 published: true
 comments: true

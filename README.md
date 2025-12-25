@@ -14,6 +14,9 @@ This repo hosts the Jekyll source for systemhalted.in. Use `bundle exec jekyll s
   tags: [jekyll, notes]
   comments: true
   featured: true        # optional flag used in layouts
+  featured_image: assets/images/2025-12-hero.jpg   # optional hero/thumbnail path
+  featured_image_alt: Brief alt text for the image
+  featured_image_caption: Photo credit or context
   description: One-line summary for previews.
   ---
   ```
@@ -69,6 +72,9 @@ This repo hosts the Jekyll source for systemhalted.in. Use `bundle exec jekyll s
   tags: [jekyll, notes]
   comments: true
   featured: true        # optional flag used in layouts
+  featured_image: assets/images/2025-12-hero.jpg   # optional hero/thumbnail path
+  featured_image_alt: Brief alt text for the image
+  featured_image_caption: Photo credit or context
   description: One-line summary for previews.
   ---
   ```

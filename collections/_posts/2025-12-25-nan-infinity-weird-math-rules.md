@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Part 5: NaN, Infinity and the Rules of Weird Math"
-date: 2025-12-23
+date: 2025-12-25
 type: post
 published: true
 comments: true

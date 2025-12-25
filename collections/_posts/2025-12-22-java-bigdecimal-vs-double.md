@@ -16,6 +16,9 @@ tags:
 - ieee-754 
 - money
 - numeric-precision
+featured_image: assets/images/featured/2025-12-22-java-bigdecimal-vs-double.png
+featured_image_alt: Illustration for BigDecimal vs double
+featured_image_caption: BigDecimal vs double precision
 description: Why BigDecimal exists, how it really works, and when you should reach for it instead of double.
 ---
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*

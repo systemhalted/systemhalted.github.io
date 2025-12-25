@@ -9,6 +9,11 @@ title: Home
 
   <div class="post">
 
+    {% if post.featured_image %}
+    <a class="post-thumb" href="{{ post.url | relative_url }}">
+      <img src="{{ post.featured_image | relative_url }}" alt="{{ post.featured_image_alt | default: post.title }}">
+    </a>
+    {% endif %}
     
     <span class="post-date">{{ post.date | date_to_string }}</span>
     

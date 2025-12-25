@@ -180,7 +180,7 @@ This is where things get interesting. Java has *two* ways to compare doubles, an
 - Any comparison with NaN returns `false`
 - These are what you use in `if` statements
 
-**Java's total order** (`Double.compare()`, `Double.compareTo()`):
+**Java's total order** (`Double.compare()`, `Double.compareTo()`)[^2]:
 - NaN is considered greater than all other values, including `+∞`
 - All NaNs are considered equal
 - This is what `Arrays.sort()` and `Arrays.binarySearch()` use
@@ -247,4 +247,5 @@ In the next post, we'll look at how to actually *handle* these special cases in 
 ## References and Notes
 
 [^1]: [Part 1: IEEE 754 Doubles - The Numbers That Lie With A Straight Face]({% post_url 2025-12-04-ieee-754-doubles %})
+[^2]: [Java's Total Order](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html)
 

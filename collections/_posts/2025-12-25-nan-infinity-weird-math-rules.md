@@ -106,7 +106,7 @@ System.out.println(1.0 / posZero);       // Infinity
 System.out.println(1.0 / negZero);       // -Infinity
 {% endhighlight %}
 
-Signed zero exists so that `1.0 / (tiny positive number → 0)` gives `+∞` while `1.0 / (tiny negative number → 0)` gives `−∞`. It preserves the direction you approached zero from, which matters for continuity and limit-style reasoning.
+Signed zero exists so that `1.0 / (tiny positive number → 0)` gives `+∞` while `1.0 / (tiny negative number → 0)` gives `−∞`. It preserves the direction you approached zero from, which matters for continuity and limit-style reasoning (aka Calculus).
 
 ### 2. Infinity: +∞ and −∞
 

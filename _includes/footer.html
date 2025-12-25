@@ -1,0 +1,42 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-avatar">{{ site.title | slice: 0, 1 | upcase }}</div>
+      <div>
+        <div class="footer-title">{{ site.title }}</div>
+        <div class="footer-subtitle">{{ site.tagline }}</div>
+        {% if site.description %}
+          <p class="footer-description">{{ site.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-column">
+        <div class="footer-heading">Browse</div>
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/featured/' | relative_url }}">Featured</a>
+        <a href="{{ '/archives/' | relative_url }}">Archives</a>
+        <a href="{{ '/categories/' | relative_url }}">Categories</a>
+      </div>
+      <div class="footer-column">
+        <div class="footer-heading">Connect</div>
+        <a href="mailto:{{ site.author.email | default: 'contact@example.com' }}">Email</a>
+        <a href="https://www.linkedin.com/in/systemhalted/" rel="noopener">LinkedIn</a>
+        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      </div>
+    </div>
+
+    <div class="footer-subscribe">
+      <div class="footer-heading">Subscribe</div>
+      <p class="footer-description">Get new posts via RSS or drop me a note.</p>
+      <div class="footer-cta">
+        <a class="footer-button" href="{{ '/feed.xml' | relative_url }}">View RSS Feed</a>
+        <a class="footer-button ghost" href="mailto:{{ site.author.email | default: 'contact@example.com' }}">Say hello</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <span>© {{ 'now' | date: '%Y' }} {{ site.tagline }}</span>
+  </div>
+</footer>

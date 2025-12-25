@@ -3,43 +3,37 @@ layout: default
 title: Home
 ---
 
-<div class="posts">
-
+<div class="post-grid">
   {% for post in paginator.posts %}
-
-  <div class="post">
-
-    {% if post.featured_image %}
-    <a class="post-thumb" href="{{ post.url | relative_url }}">
-      <img src="{{ post.featured_image | relative_url }}" alt="{{ post.featured_image_alt | default: post.title }}">
-    </a>
-    {% endif %}
-    
-    <span class="post-date">{{ post.date | date_to_string }}</span>
-    
-    <h2 class="post-title">
-      <a href="{{ post.url | relative_url }}">
-        {{ post.title }}
+    {% assign summary = post.description | default: post.excerpt | strip_html | truncate: 140 %}
+    {% assign author_name = post.author | default: site.author.name | default: "systemhalted" %}
+    {% assign thumb = post.featured_image %}
+    <article class="post-card">
+      <a class="card-media" href="{{ post.url | relative_url }}">
+        {% if thumb %}
+          <img src="{{ thumb | relative_url }}" alt="{{ post.featured_image_alt | default: post.title }}">
+        {% else %}
+          <div class="card-thumb-placeholder">
+            <span>{{ post.title | slice: 0, 1 | upcase }}</span>
+          </div>
+        {% endif %}
       </a>
-    </h2>
-      
-    <div class="post-categories">
-      {% assign categories = post.categories %}
-      {% for category in categories %}
-      <a href="{{ site.baseurl }}/categories/#cat-{{ category | slugify }}">
-	{{ category }}
-      </a>
-
-      {% unless forloop.last %}&nbsp;{% endunless %}
-      {% endfor %}
-    </div>
-    
-    {% if post.description %} 
-      <span class="post-description">{{ post.description }}</span> <br>
-    {% endif %}
-    <!-- <span class="read-more"><a href="{{ post.url | relative_url }}">[&nbsp;Read&nbsp;more&nbsp;]</a></span> -->
-  </div>
- 
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">{{ post.date | date: "%b %d, %Y" }}</span>
+        </div>
+        <h2 class="card-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h2>
+        {% if summary %}
+          <p class="card-excerpt">{{ summary }}</p>
+        {% endif %}
+        <div class="card-author">
+          <div class="author-avatar">{{ author_name | slice: 0, 1 | upcase }}</div>
+          <span class="author-name">{{ author_name }}</span>
+        </div>
+      </div>
+    </article>
   {% endfor %}
 </div>
 

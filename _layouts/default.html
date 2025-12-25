@@ -22,10 +22,15 @@
       <div class="container content">
         {{ content }}
       </div>
+
+      {% include footer.html %}
     </div>
 
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script src='{{ site.baseurl }}/public/js/script.js'></script>
+    {% if site.disqus_shortname %}
+    <script id="dsq-count-scr" src="//{{ site.disqus_shortname }}.disqus.com/count.js" async></script>
+    {% endif %}
   </body>
 </html>

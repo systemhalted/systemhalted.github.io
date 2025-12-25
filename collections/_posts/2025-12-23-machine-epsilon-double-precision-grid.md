@@ -12,6 +12,9 @@ category:
 - Series 4 - Floating Point Without Tears
 tags: [java, floating-point, ieee-754, double, machine-epsilon, ulp, numerics]
 description: How fine is the double-precision grid, and why does 1.0 vanish next to 1e16?
+featured_image: assets/images/MachineEpsilon.png
+featured_image_alt: Visual grid showing machine epsilon spacing near 1.0
+featured_image_caption: Machine epsilon marks the smallest step above 1.0 in double precision
 ---
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
@@ -250,4 +253,3 @@ And that is why, at 1e16, adding 1.0 is like whispering into a hurricane.
      The displayed value 2.220446049250313E-16 is this value rounded to 15-16 significant decimal digits for display.  
      
 [^3]: For deeper reading, see David Goldberg’s classic paper, ["What Every Computer Scientist Should Know About Floating-Point Arithmetic"](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html).*
-

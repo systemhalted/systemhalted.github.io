@@ -10,7 +10,7 @@ category:
 - Software Engineering
 - Technology
 - Series 4 - Floating Point Without Tears
-tags: [java, floating-point, ieee-754, double, machine-epsilon, ulp, numerics]
+tags: [java, floating-point, ieee-754, double, machine-epsilon, ulp, numerics, NaN, infinity]
 description: In IEEE 754 floating point, there are special values (NaN, +∞, −∞) that follow rules that look like broken logic, until you realize they're trying to protect you from lying math.
 ---
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*

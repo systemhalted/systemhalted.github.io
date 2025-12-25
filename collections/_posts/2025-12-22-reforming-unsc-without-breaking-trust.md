@@ -9,6 +9,9 @@ categories:
 - Politics & Governance
 tags: [un, unsc, security-council, reform, diplomacy, governance]
 description: "A practical case for UNSC reform that preserves stability, legitimacy, and the incentives for major powers to stay invested."
+featured_image: assets/images/featured/2025-12-22-reforming-unsc-without-breaking-trust.png
+featured_image_alt: Composite illustration of a UN Security Council session with the UN emblem over a world map, delegates in silhouette facing the chamber, national flags in the background, and a “VETO” vote board and checklist suggesting accountability and reform.
+featured_image_caption: NaN on a calculator — the "not a number" sentinel in the real world
 ---
 
 I have written about United Nations Security Council reforms before, and the older I get, the more I realize this is not a topic that rewards anger. It rewards clarity.

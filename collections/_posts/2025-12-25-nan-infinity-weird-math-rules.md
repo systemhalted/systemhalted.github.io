@@ -137,7 +137,7 @@ But some combinations are undefined and produce NaN:
 
 ### 3. NaN: Not a Number
 
-NaN means "this result is undefined," like `0.0 / 0.0` or `√(−1)`. Once NaN enters a computation, it spreads--any operation involving NaN produces NaN:
+NaN means "this result is undefined," like `0.0 / 0.0` or `√(−1)`. Once NaN enters a computation, it spreads into any operation involving NaN to produce a NaN:
 
 {% highlight java %}
 double nan = 0.0 / 0.0;

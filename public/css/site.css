@@ -282,58 +282,32 @@ tbody tr:nth-child(odd) th {
 }
 
 
-/*
- * Container
- *
- * Center the page content.
- */
-
-.container {
-  max-width: 38rem;
-  padding-left:  1rem;
-  padding-right: 1rem;
-  margin-left:  auto;
-  margin-right: auto;
-}
-
-
-/*
- * Masthead
- *
- * Super small header above the content for site name and short description.
- */
-
-.masthead {
-  padding-top:    1rem;
-  padding-bottom: 1rem;
-  margin-bottom: 3rem;
-}
-.masthead-title {
-  margin-top: 0;
-  margin-bottom: 0;
-  color: #505050;
-}
-.masthead-title a {
-  color: #505050;
-}
-.masthead-title small {
-  font-size: 75%;
-  font-weight: 400;
-  color: #c0c0c0;
-  letter-spacing: 0;
-}
-
-
-/*
- * Posts and pages
- *
- * Each post is wrapped in `.post` and is used on default and post layouts. Each
- * page is wrapped in `.page` and is only used on the page layout.
- */
-
 .page,
 .post {
   margin-bottom: 4em;
+}
+
+.content .post,
+.content .page {
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-categories,
+.post-tags,
+.related {
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+#disqus_thread {
+  max-width: 48rem;
+  margin: 2rem auto;
+  padding: 0 0.5rem;
 }
 
 /* Blog post or page title */
@@ -596,16 +570,20 @@ h1, h2, h3, h4, h5, h6 {
  */
 
 .container {
-  max-width: 28rem;
+  max-width: 72rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 @media (min-width: 38em) {
   .container {
-    max-width: 32rem;
+    max-width: 72rem;
   }
 }
 @media (min-width: 56em) {
   .container {
-    max-width: 38rem;
+    max-width: 72rem;
   }
 }
 
@@ -637,12 +615,34 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0;
 }
 
+/* Override masthead to leave room for the toggle and show full title */
+.masthead .container {
+  padding-left: 4.5rem;
+}
+.masthead-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #313131;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.masthead-title a {
+  color: #b22222;
+}
+.masthead-title small {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0;
+  margin-left: 0.35rem;
+  display: inline;
+}
 @media (max-width: 48em) {
-  .masthead-title {
-    text-align: center;
+  .masthead .container {
+    padding-left: 4rem;
   }
   .masthead-title small {
-    display: none;
+    display: inline;
   }
 }
 
@@ -1136,8 +1136,8 @@ a.pagination-item:hover {
 
 .post-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
   margin: 1rem 0 2rem;
 }
 

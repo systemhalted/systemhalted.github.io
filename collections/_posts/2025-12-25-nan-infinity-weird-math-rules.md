@@ -12,6 +12,9 @@ category:
 - Series 4 - Floating Point Without Tears
 tags: [java, floating-point, ieee-754, double, machine-epsilon, ulp, numerics, NaN, infinity]
 description: In IEEE 754 floating point, there are special values (NaN, +∞, −∞) that follow rules that look like broken logic, until you realize they're trying to protect you from lying math.
+featured_image: assets/images/NaN.png
+featured_image_alt: NaN value displayed on a calculator screen
+featured_image_caption: NaN on a calculator — the "not a number" sentinel in the real world
 ---
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
@@ -248,4 +251,3 @@ In the next post, we'll look at how to actually *handle* these special cases in 
 
 [^1]: [Part 1: IEEE 754 Doubles - The Numbers That Lie With A Straight Face]({% post_url 2025-12-04-ieee-754-doubles %})
 [^2]: [Java's Total Order](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html)
-

@@ -23,7 +23,7 @@ IEEE 754 formalizes that haunting by defining special values that let computatio
 
 ## Why Special Values Exist in Floating Point
 
-In earlier posts, we saw how floating-point numbers work: they use a fixed number of bits to represent the sign, exponent, and significand (mantissa). This representation has limits:
+In Part 1 of this series[^1], we saw how floating-point numbers work: they use a fixed number of bits to represent the sign, exponent, and significand (mantissa). This representation has limits:
 
 - **Largest representable number**: Around `1.8 × 10^308` for doubles (`Double.MAX_VALUE`)
 - **Smallest positive normalized number**: Around `2.2 × 10^-308` (`Double.MIN_NORMAL`)
@@ -243,3 +243,8 @@ NaN isn't a bug. It is math raising its hand and saying, politely but firmly:
 When your balance sheet shows NaN, don't curse floating point. Ask what division by zero or invalid square root you missed three steps ago. The special values aren't betraying you; they're the only honest answer to questions that have no answer.
 
 In the next post, we'll look at how to actually *handle* these special cases in production code without littering your logic with endless `isNaN()` checks.
+
+## References and Notes
+
+[^1]: [Part 1: IEEE 754 Doubles - The Numbers That Lie With A Straight Face]({% post_url 2025-12-04-ieee-754-doubles %})
+

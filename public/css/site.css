@@ -617,7 +617,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Override masthead to leave room for the toggle and show full title */
 .masthead .container {
-  padding-left: 4.5rem;
+  padding-left: calc(5.5rem + env(safe-area-inset-left));
+  padding-right: calc(1rem + env(safe-area-inset-right));
 }
 .masthead-title {
   margin-top: 0;
@@ -640,7 +641,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (max-width: 48em) {
   .masthead .container {
-    padding-left: 4rem;
+    padding-left: calc(5rem + env(safe-area-inset-left));
+    padding-right: calc(1rem + env(safe-area-inset-right));
   }
   .masthead-title {
     font-size: 1.4rem;

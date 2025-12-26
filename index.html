@@ -40,6 +40,7 @@ title: Home
 <nav class="pager" aria-label="Pagination">
   {% assign total_pages = paginator.total_pages %}
   {% assign current = paginator.page %}
+  {% assign paginate_path = site.paginate_path | default: '/page:num' %}
 
   {% assign window = 2 %}
   {% assign start_page = current | minus: window %}
@@ -67,10 +68,11 @@ title: Home
   {% endif %}
 
   {% for page_num in (start_page..end_page) %}
+    {% assign page_link = paginate_path | replace: ':num', page_num %}
     {% if page_num == current %}
       <span class="page-btn active">{{ page_num }}</span>
     {% else %}
-      <a class="page-btn" href="{{ paginator.paginate_path | replace: ':num', page_num | relative_url }}">{{ page_num }}</a>
+      <a class="page-btn" href="{{ page_link | relative_url }}">{{ page_num }}</a>
     {% endif %}
   {% endfor %}
 
@@ -82,13 +84,13 @@ title: Home
     {% if current == total_pages %}
       <span class="page-btn active">{{ total_pages }}</span>
     {% else %}
-      <a class="page-btn" href="{{ paginator.paginate_path | replace: ':num', total_pages | relative_url }}">{{ total_pages }}</a>
+      <a class="page-btn" href="{{ paginate_path | replace: ':num', total_pages | relative_url }}">{{ total_pages }}</a>
     {% endif %}
   {% endif %}
 
   {% if paginator.next_page %}
     <a class="page-btn" href="{{ paginator.next_page_path | relative_url }}">Next ›</a>
-    <a class="page-btn" href="{{ paginator.paginate_path | replace: ':num', total_pages | relative_url }}">Last</a>
+    <a class="page-btn" href="{{ paginate_path | replace: ':num', total_pages | relative_url }}">Last</a>
   {% else %}
     <span class="page-btn disabled">Next ›</span>
     <span class="page-btn disabled">Last</span>

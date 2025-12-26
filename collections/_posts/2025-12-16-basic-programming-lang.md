@@ -9,6 +9,9 @@ categories:
   - Series 2 - Turtle, BASIC, and the Long Road to Taste
 tags: [basic, gw-basic, programming, education, imperative-programming]
 description: "How BASIC’s “tell the machine exactly what to do” mindset shaped how I learned programming."
+featured_image: assets/images/featured/2025-12-16-basic-programming-lang.png
+featured_image_alt: Illustration for BASIC step-by-step programming
+featured_image_caption: BASIC — learning to think step by step
 ---
 
 Logo taught me to draw.

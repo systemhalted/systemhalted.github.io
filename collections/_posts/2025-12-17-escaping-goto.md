@@ -10,6 +10,9 @@ categories:
   - Series 2 - Turtle, BASIC, and the Long Road to Taste
 tags: [basic, gw-basic, goto, structured-programming, programming, software-engineering]
 description: Line numbers made BASIC feel orderly. GOTO made it powerful. Then everything turned into spaghetti.
+featured_image: assets/images/featured/2025-12-17-escaping-goto.png
+featured_image_alt: Illustration for Escaping GOTO
+featured_image_caption: Escaping GOTO — how we learned to make programs readable
 ---
 
 In early BASIC, the line numbers felt like street addresses.

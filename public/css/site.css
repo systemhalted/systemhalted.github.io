@@ -1428,6 +1428,62 @@ a.pagination-item:hover {
   font-size: 0.95rem;
   color: #6b7280;
 }
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  padding: 0.4rem 0.7rem;
+  border-radius: 9px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.15s ease;
+}
+
+.page-btn:hover,
+.page-btn:focus {
+  background: #ffffff;
+  border-color: #dcdfe6;
+  text-decoration: none;
+}
+
+.page-btn.active {
+  background: #fe5c34;
+  border-color: #fe5c34;
+  color: #fff;
+}
+
+.page-btn.disabled {
+  background: #f9fafb;
+  color: #c4ccd5;
+  border-color: #eceff3;
+  cursor: not-allowed;
+}
+
+.page-btn + .page-btn {
+  margin-left: 0.1rem;
+}
+
+.page-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  color: #9ca3af;
+  font-weight: 600;
+}
 .post-featured {
   margin: 1rem 0 1.5rem;
 }

@@ -37,19 +37,60 @@ title: Home
   {% endfor %}
 </div>
 
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path | relative_url }}">Older</a>
+<nav class="pager" aria-label="Pagination">
+  {% assign total_pages = paginator.total_pages %}
+  {% assign current = paginator.page %}
+
+  {% assign window = 2 %}
+  {% assign start_page = current | minus: window %}
+  {% if start_page < 2 %}{% assign start_page = 2 %}{% endif %}
+  {% assign end_page = current | plus: window %}
+  {% assign last_inner = total_pages | minus: 1 %}
+  {% if end_page > last_inner %}{% assign end_page = last_inner %}{% endif %}
+
+  {% if current > 1 %}
+    <a class="page-btn" href="{{ '/' | relative_url }}">First</a>
+    <a class="page-btn" href="{{ paginator.previous_page_path | relative_url }}">‹ Back</a>
   {% else %}
-    <span class="pagination-item older">Older</span>
+    <span class="page-btn disabled">First</span>
+    <span class="page-btn disabled">‹ Back</span>
   {% endif %}
-  {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="{{ '/' | relative_url }}">Newer</a>
+
+  {% if current == 1 %}
+    <span class="page-btn active">1</span>
+  {% else %}
+    <a class="page-btn" href="{{ '/' | relative_url }}">1</a>
+  {% endif %}
+
+  {% if start_page > 2 %}
+    <span class="page-ellipsis">…</span>
+  {% endif %}
+
+  {% for page_num in (start_page..end_page) %}
+    {% if page_num == current %}
+      <span class="page-btn active">{{ page_num }}</span>
     {% else %}
-      <a class="pagination-item newer" href="{{ paginator.previous_page_path | relative_url }}">Newer</a>
+      <a class="page-btn" href="{{ paginator.paginate_path | replace: ':num', page_num | relative_url }}">{{ page_num }}</a>
     {% endif %}
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
+  {% endfor %}
+
+  {% if end_page < last_inner %}
+    <span class="page-ellipsis">…</span>
   {% endif %}
-</div>
+
+  {% if total_pages > 1 %}
+    {% if current == total_pages %}
+      <span class="page-btn active">{{ total_pages }}</span>
+    {% else %}
+      <a class="page-btn" href="{{ paginator.paginate_path | replace: ':num', total_pages | relative_url }}">{{ total_pages }}</a>
+    {% endif %}
+  {% endif %}
+
+  {% if paginator.next_page %}
+    <a class="page-btn" href="{{ paginator.next_page_path | relative_url }}">Next ›</a>
+    <a class="page-btn" href="{{ paginator.paginate_path | replace: ':num', total_pages | relative_url }}">Last</a>
+  {% else %}
+    <span class="page-btn disabled">Next ›</span>
+    <span class="page-btn disabled">Last</span>
+  {% endif %}
+</nav>

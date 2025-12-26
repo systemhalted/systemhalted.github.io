@@ -625,6 +625,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #313131;
   font-size: 1.6rem;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 .masthead-title a {
   color: #b22222;
@@ -641,8 +642,12 @@ h1, h2, h3, h4, h5, h6 {
   .masthead .container {
     padding-left: 4rem;
   }
+  .masthead-title {
+    font-size: 1.4rem;
+  }
   .masthead-title small {
-    display: inline;
+    display: block;
+    margin-left: 0;
   }
 }
 

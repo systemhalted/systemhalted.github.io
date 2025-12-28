@@ -9,6 +9,9 @@ categories:
   - Series 2 - Turtle, BASIC, and the Long Road to Taste
 tags: [logo, lisp, computer-science, education, turtle-graphics]
 description: Why Logo can be called a Lisp dialect even though it does not look like one?
+featured_image: assets/images/featured/2025-12-15-is-logo-a-lisp.png
+featured_image_alt: Illustration with two computers - one with Logo code and the other with lisp - for comparison purposes
+featured_image_caption: Logo Looks Nothing Like Lisp and Yet It Is
 ---
 
 It was in 1991 that my school[^1] introduced Computer Science for everyone from class IV onwards. It was the first school in Agra[^2] to do so[^3]. Luckily for me I was in class IV and was excited to learn Computer Science. 

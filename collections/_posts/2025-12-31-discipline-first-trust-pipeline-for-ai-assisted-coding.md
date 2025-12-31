@@ -171,7 +171,7 @@ For the Dismisser: pick one internal task, define your own quality gates, and le
 
 For the Viber: no big diffs, and every change must come with a failing test first.[^12]
 
-For the Builder: make discipline the default--publish the Agent Brief template, standardize rules files, and optimize the workflow so the safest path is the easiest path.
+For the Builder: make discipline the default - publish the Agent Brief template, standardize rules files, and optimize the workflow so the safest path is the easiest path.
 
 ## Sources and Footnotes
 

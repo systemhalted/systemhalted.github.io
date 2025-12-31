@@ -21,7 +21,7 @@ tags:
   - engineering-discipline
 featured_image: assets/images/featured/2025-12-31-discipline-first-trust-pipeline-for-ai-assisted-coding.png
 featured_image_alt: 'Illustration of a human and an AI collaborating at a laptop beside a colorful pipeline labeled "Brief," "Guardrails," "Tests," and "Ship," each with a checkmark, ending in a rocket launch to represent reliable delivery.'
-featured_image_caption: 'Discipline First: a trust pipeline for AI-assisted coding, where briefs, guardrails, and tests turn speed into shippable software.'
+featured_image_caption: "Discipline First: a trust pipeline for AI-assisted coding, where briefs, guardrails, and tests turn speed into shippable software."
 description: "AI-assisted coding is a force multiplier. This post argues that disciplined engineering practices, rooted in Extreme Programming, are what make agentic workflows trustworthy and shippable."
 ---
 
@@ -91,7 +91,7 @@ Here’s a concrete example (for one service):
 **Test plan:** Add functional tests for 200, 429, and boundary conditions; include concurrency test; all tests deterministic in CI.  
 **Observability:** Emit metric `payments.rate_limited.count`; structured log `rate_limit_decision` with customer id hash; dashboard alert on spikes.  
 **Dependencies:** Redis (or in-memory) limiter library already approved; no new infrastructure.  
-**Recovery and blast radius:** Feature flag the limiter; default off; rollback is flag flip; document emergency disable procedure. 
+**Recovery and blast radius:** Feature flag the limiter; default off; rollback is flag flip; document emergency disable procedure.  
 
 Then three hard rules.
 
@@ -105,7 +105,7 @@ Not vibes. Guardrails.
 
 Unit tests and functional tests. Contract checks. Architecture checks. Code review. Small tasks. CI as referee.
 
-If an agent can ship code faster than a human, your only sane response is to make the truth show up faster than the code. We have already seen public "trust cliff" moments when autonomy meets weak guardrails.[^incident]
+If an agent can ship code faster than a human, your only sane response is to make the truth show up faster than the code. We have already seen public "trust cliff" moments when autonomy meets weak guardrails.[^1][^2]
 
 Small diffs are not about being precious. They are about control. A small change is easier to review, easier to reason about, easier to test, and easier to roll back. Agents tend to expand scope unless you constrain them, so "small diffs" is both a safety boundary and a way to keep context from exploding.
 
@@ -113,9 +113,9 @@ Small diffs are not about being precious. They are about control. A small change
 
 Modern agentic tooling is quietly reinventing the same old idea: durable project instructions.
 
-Rules files in agentic IDEs make behavior persistent across prompts.[^rules]  
-Repo-level instruction files like AGENTS.md make "how to behave here" predictable.[^agents]  
-For conventions that should survive editors and IDEs, EditorConfig gives you portable, version controlled style rules.[^editorconfig]
+Rules files in agentic IDEs make behavior persistent across prompts.[^3]  
+Repo-level instruction files like AGENTS.md make "how to behave here" predictable.[^4][^5]  
+For conventions that should survive editors and IDEs, EditorConfig gives you portable, version controlled style rules.[^6][^7][^8]
 
 Practical rule of thumb:
 
@@ -159,7 +159,7 @@ The fix is the same as always: tighten the slice, keep the checks honest, and sc
 
 Because productivity gains are not guaranteed.
 
-One of the clearest public data points so far is a randomized controlled trial from METR (published July 2025) studying experienced open source developers working in codebases they already knew. When AI tools were allowed, developers expected big speedups and later felt faster, but measured completion time was slower on average in that setting.[^metr]
+One of the clearest public data points so far is a randomized controlled trial from METR (published July 2025) studying experienced open source developers working in codebases they already knew. When AI tools were allowed, developers expected big speedups and later felt faster, but measured completion time was slower on average in that setting.[^9][^10][^11]
 
 That result does not mean "AI slows everyone down." Tools and workflows change fast, task types vary wildly, and many teams report real gains. It means your intuition is not an instrument. Discipline First is not "trust the agent." It’s "instrument the work."
 
@@ -169,43 +169,32 @@ For the Skeptic: run one Discipline First experiment on tests only in a sandboxe
 
 For the Dismisser: pick one internal task, define your own quality gates, and let the experiment decide.
 
-For the Viber: no big diffs, and every change must come with a failing test first.[^tdd]
+For the Viber: no big diffs, and every change must come with a failing test first.[^12]
 
 For the Builder: make discipline the default--publish the Agent Brief template, standardize rules files, and optimize the workflow so the safest path is the easiest path.
 
-## Sources
+## Sources and Footnotes
 
-[^rules]: Cursor Rules documentation.
-[^agents]: OpenAI Codex guidance for AGENTS.md.
-[^editorconfig]: EditorConfig specification and IDE support docs.
-[^metr]: METR RCT on experienced open-source developer productivity with early-2025 AI tools.
-[^tdd]: Kent Beck’s test-first discipline (red-green-refactor).
-[^incident]: Public reporting and statements on a July 2025 Replit incident, used here as a cautionary example of autonomy without guardrails.
+[^1]: Replit incident reporting (Business Insider): https://www.businessinsider.com/replit-ceo-apologizes-ai-coding-tool-delete-company-database-2025-7
 
-{% highlight text %}
-Cursor Rules
-- https://cursor.com/docs/context/rules
+[^2]: Replit CEO statement (X): https://x.com/amasad/status/1943062428929892384
 
-AGENTS.md (OpenAI Codex)
-- https://developers.openai.com/codex/guides/agents-md/
-- https://openai.com/index/introducing-codex/
+[^3]: Cursor Rules documentation: https://cursor.com/docs/context/rules
 
-EditorConfig
-- https://editorconfig.org/
-- https://spec.editorconfig.org/
-- https://www.jetbrains.com/help/idea/editorconfig.html
+[^4]: OpenAI Codex guidance for AGENTS.md: https://developers.openai.com/codex/guides/agents-md/
 
-METR study (productivity not guaranteed)
-- https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
-- https://arxiv.org/abs/2507.09089
-- https://www.reuters.com/business/ai-slows-down-some-experienced-software-developers-study-finds-2025-07-10/
+[^5]: OpenAI "Introducing Codex" (see "How Codex Works"): https://openai.com/index/introducing-codex/
 
-TDD reference (test-first, red-green-refactor)
-- https://martinfowler.com/articles/is-tdd-dead/
-- https://stanislaw.github.io/2016-01-25-notes-on-test-driven-development-by-example-by-kent-beck.html
+[^6]: EditorConfig homepage: https://editorconfig.org/
 
-Incident footnote (trust cliff example)
-- https://www.businessinsider.com/replit-ceo-apologizes-ai-coding-tool-delete-company-database-2025-7
-- https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-coding-platform-goes-rogue-during-code-freeze-and-deletes-entire-company-database-replit-ceo-apologizes-after-ai-engine-says-it-made-a-catastrophic-error-in-judgment-and-destroyed-all-production-data
-- https://x.com/amasad/status/1943062428929892384
-{% endhighlight %}
+[^7]: EditorConfig specification: https://spec.editorconfig.org/
+
+[^8]: JetBrains IDE support for EditorConfig: https://www.jetbrains.com/help/idea/editorconfig.html
+
+[^9]: METR study write-up (July 2025): https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
+
+[^10]: METR paper on arXiv: https://arxiv.org/abs/2507.09089
+
+[^11]: Reuters coverage of the METR study: https://www.reuters.com/business/ai-slows-down-some-experienced-software-developers-study-finds-2025-07-10/
+
+[^12]: Martin Fowler on TDD: https://martinfowler.com/articles/is-tdd-dead/

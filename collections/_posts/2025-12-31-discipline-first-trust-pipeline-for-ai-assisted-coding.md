@@ -29,7 +29,7 @@ Vibe coding is not a software engineering paradigm. It’s a mood. Engineering i
 
 My core claim is simple: engineers who set up a task with clear instructions, a thin prototype, and hard guardrails tend to have a better experience with AI-assisted coding, and they tend to keep their good faith in the tools. Engineers who don’t, often walk away with confusion, rewrites, and a lingering sense that the agent is "untrustworthy." And that’s why the same tool creates opposite stories, depending on who’s holding it.
 
-This post is my framework, **Discipline First: a trust pipeline for AI-assisted coding**. It’s a small kit you can use immediately: an Agent Brief that makes intent hard to misread, guardrails that make failures visible early, and a one-week experiment that turns belief into evidence.
+This post is my framework, **[Discipline First: a trust pipeline for AI-assisted coding](https://github.com/systemhalted/DisciplineFirst)**. It’s a small kit you can use immediately: an Agent Brief that makes intent hard to misread, guardrails that make failures visible early, and a one-week experiment that turns belief into evidence.
 
 ## The axis that matters
 

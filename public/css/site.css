@@ -598,21 +598,20 @@ h1, h2, h3, h4, h5, h6 {
   padding-top:    1rem;
   padding-bottom: 1rem;
   margin-bottom: 3rem;
-  background-color: #1d4ed8;
-  border-bottom: 1px solid #1e40af;
+  border-bottom: 1px solid #eee;
 }
 .masthead-title {
   margin-top: 0;
   margin-bottom: 0;
-  color: #eff6ff;
+  color: #505050;
 }
 .masthead-title a {
-  color: #eff6ff;
+  color: #505050;
 }
 .masthead-title small {
   font-size: 75%;
   font-weight: 400;
-  color: #bfdbfe;
+  color: #c0c0c0;
   letter-spacing: 0;
 }
 
@@ -624,18 +623,18 @@ h1, h2, h3, h4, h5, h6 {
 .masthead-title {
   margin-top: 0;
   margin-bottom: 0;
-  color: #eff6ff;
+  color: #313131;
   font-size: 1.6rem;
   font-weight: 800;
   overflow-wrap: anywhere;
 }
 .masthead-title a {
-  color: #eff6ff;
+  color: #b22222;
 }
 .masthead-title small {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #bfdbfe;
+  color: #9ca3af;
   letter-spacing: 0;
   margin-left: 0.35rem;
   display: inline;

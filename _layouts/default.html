@@ -19,10 +19,31 @@
               <span class="masthead-byline">{{ site.tagline }}</span>
               {% endif %}
             </h3>
-            <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
-              <i class="fa fa-paint-brush" aria-hidden="true"></i>
-              <span class="theme-toggle-label">Dark mode</span>
+            <div class="masthead-actions">
+              <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
+                <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                <span class="theme-toggle-label">Dark mode</span>
+              </button>
+              <button id="search-toggle" class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <span class="sr-only">Search</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="search-overlay" class="search-overlay" aria-hidden="true">
+        <div class="search-dialog" role="dialog" aria-modal="true" aria-label="Search">
+          <div class="search-header">
+            <label class="sr-only" for="search-input">Search posts</label>
+            <input id="search-input" class="search-input" type="search" placeholder="Search posts and notes..." autocomplete="off">
+            <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search">
+              <i class="fa fa-times" aria-hidden="true"></i>
             </button>
+          </div>
+          <div id="search-results" class="search-results">
+            <p class="search-empty">Type to search the archive.</p>
           </div>
         </div>
       </div>
@@ -36,6 +57,8 @@
 
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
+    <script src="{{ '/public/js/elasticlunr.min.js' | relative_url }}"></script>
+    <script src="{{ '/public/js/webcmd.js' | relative_url }}"></script>
     <script src='{{ site.baseurl }}/public/js/script.js'></script>
     {% if site.disqus_shortname %}
     <script id="dsq-count-scr" src="//{{ site.disqus_shortname }}.disqus.com/count.js" async></script>

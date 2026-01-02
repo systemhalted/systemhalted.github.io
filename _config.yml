@@ -1,6 +1,6 @@
 # Setup
-title:                systemhalted
-tagline:             'by Palak Mathur'
+title:                The System Halted
+tagline:             'By Palak Mathur'
 description:         'SystemHalted - I am just a DOS error'
 url:                 https://systemhalted.in
 baseurl:             ''
@@ -73,4 +73,3 @@ sidebar:
       url: /webcmd/
 
     # add / remove / reorder as you like
-

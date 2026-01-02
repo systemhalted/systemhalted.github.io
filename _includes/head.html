@@ -14,6 +14,37 @@
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   {% endif %}
 
+  <script>
+    (function() {
+      var storageKey = 'theme';
+      var className = 'theme-nord-dark';
+      var root = document.documentElement;
+      var saved = null;
+
+      try {
+        saved = localStorage.getItem(storageKey);
+      } catch (e) {
+        saved = null;
+      }
+
+      if (!saved) {
+        try {
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            saved = 'dark';
+          } else {
+            saved = 'light';
+          }
+        } catch (e) {
+          saved = 'light';
+        }
+      }
+
+      if (saved === 'dark') {
+        root.classList.add(className);
+      }
+    })();
+  </script>
+
   <link rel="stylesheet" href="{{ '/public/css/site.css' | relative_url }}">
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap">

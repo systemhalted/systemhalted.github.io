@@ -12,12 +12,17 @@
     <div class="wrap">
       <div class="masthead">
         <div class="container">
-          <h3 class="masthead-title">
-            <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
-            {% if site.tagline %}
-            <small>{{ site.tagline }}</small>
-            {% endif %}
-          </h3>
+          <div class="masthead-inner">
+            <h3 class="masthead-title">
+              <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
+              {% if site.tagline %}
+              <small>{{ site.tagline }}</small>
+              {% endif %}
+            </h3>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
+              <span class="theme-toggle-label">Dark mode</span>
+            </button>
+          </div>
         </div>
       </div>
 

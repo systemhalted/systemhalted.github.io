@@ -15,6 +15,70 @@
 })(document);
 
 (function(document) {
+  var root = document.documentElement;
+  var toggle = document.querySelector('#theme-toggle');
+
+  if (!toggle) return;
+
+  var storageKey = 'theme';
+  var className = 'theme-nord-dark';
+  var label = toggle.querySelector('.theme-toggle-label');
+
+  function getStoredTheme() {
+    try {
+      return localStorage.getItem(storageKey);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getPreferredTheme() {
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+    } catch (e) {
+      return 'light';
+    }
+    return 'light';
+  }
+
+  function updateToggle(theme) {
+    var isDark = theme === 'dark';
+    toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    if (label) {
+      label.textContent = isDark ? 'Light mode' : 'Dark mode';
+    }
+  }
+
+  function applyTheme(theme, persist) {
+    if (theme === 'dark') {
+      root.classList.add(className);
+    } else {
+      root.classList.remove(className);
+    }
+
+    if (persist) {
+      try {
+        localStorage.setItem(storageKey, theme);
+      } catch (e) {
+        return;
+      }
+    }
+
+    updateToggle(theme);
+  }
+
+  var initialTheme = getStoredTheme() || getPreferredTheme();
+  applyTheme(initialTheme, false);
+
+  toggle.addEventListener('click', function() {
+    var nextTheme = root.classList.contains(className) ? 'light' : 'dark';
+    applyTheme(nextTheme, true);
+  });
+})(document);
+
+(function(document) {
   var container = document.querySelector('#archive-years');
   var sortSelect = document.querySelector('#archive-sort');
 

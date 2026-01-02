@@ -5,21 +5,44 @@ title: Archives
 
 <h4>There are {{ site.posts | size }} published articles. </h4>
 
-<ul>
-  {% for post in site.posts %}
-  <div class="post-list">
-<!--     <li>
-       <span class="post-list-date">{{ post.date | date_to_string }}</span> 
-     
-       <a href="{{ post.url | relative_url }}">  <span class="post-title"> {{ post.title }}  </span> </a>
-    
-    </li> -->
-<!--     <li><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a> - <span class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></li> -->
-    
-     <li>
-       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-     </li>
-   </div>
+<div class="archive-controls">
+  <label for="archive-sort">Sort by</label>
+  <select id="archive-sort" class="archive-sort">
+    <option value="year-desc" selected>Year (newest)</option>
+    <option value="year-asc">Year (oldest)</option>
+    <option value="count-desc">Post count (high to low)</option>
+    <option value="count-asc">Post count (low to high)</option>
+  </select>
+</div>
+
+{% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+
+<div id="archive-years">
+  {% for year in posts_by_year %}
+    {% assign year_count = year.items | size %}
+    <details class="archive-year" data-year="{{ year.name }}" data-count="{{ year_count }}"{% if forloop.first %} open{% endif %}>
+      <summary id="year-{{ year.name }}" class="archive-year-summary">
+        <span class="archive-year-title">{{ year.name }}</span>
+        <span class="archive-year-count">({{ year_count }})</span>
+      </summary>
+      <ul class="archive-posts">
+        {% for post in year.items %}
+          {% assign post_summary = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 40 %}
+          <li class="archive-post">
+            <details class="archive-post-details">
+              <summary class="archive-post-summary">
+                <span class="archive-post-meta">
+                  <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+                  <a class="archive-post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </span>
+              </summary>
+              {% if post_summary and post_summary != "" %}
+                <p class="archive-post-description">{{ post_summary }}</p>
+              {% endif %}
+            </details>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
   {% endfor %}
-</ul>
+</div>

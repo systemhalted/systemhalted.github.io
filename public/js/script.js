@@ -47,6 +47,8 @@
   function updateToggle(theme) {
     var isDark = theme === 'dark';
     toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    toggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
     if (label) {
       label.textContent = isDark ? 'Light mode' : 'Dark mode';
     }

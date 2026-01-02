@@ -53,7 +53,7 @@ This repo hosts the Jekyll source for systemhalted.in. Use `bundle exec jekyll s
 - Layouts live in `_layouts/`:
   - `default.html` sets the shell; `post.html` and `page.html` render posts/pages; `category.html` lists posts by category; `collections.html` lists a named collection.
 - Includes live in `_includes/`:
-  - `head.html` handles meta and the single CSS bundle (`public/css/site.css`).
+  - `head.html` handles meta and the single CSS bundle (`public/css/nord.css`).
   - `sidebar.html`, `comments.html`, and `share-buttons.html` are reusable fragments invoked from layouts.
 
 ## Webcmd
@@ -111,7 +111,7 @@ This repo hosts the Jekyll source for systemhalted.in. Use `bundle exec jekyll s
 - Layouts live in `_layouts/`:
   - `default.html` sets the shell; `post.html` and `page.html` render posts/pages; `category.html` lists posts by category; `collections.html` lists a named collection.
 - Includes live in `_includes/`:
-  - `head.html` handles meta and the single CSS bundle (`public/css/site.css`).
+  - `head.html` handles meta and the single CSS bundle (`public/css/nord.css`).
   - `sidebar.html`, `comments.html`, and `share-buttons.html` are reusable fragments invoked from layouts.
 
 ## Webcmd

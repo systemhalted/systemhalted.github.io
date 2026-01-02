@@ -1,0 +1,164 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+posts_dir="$root/collections/_posts"
+
+usage() {
+  cat <<'EOF'
+Usage: scripts/posts [command] [options]
+
+Commands:
+  list [--year YYYY] [--limit N]   List posts grouped by year.
+  search <query>                   List posts containing a query.
+  help                             Show this help.
+EOF
+}
+
+list_files() {
+  local year="${1:-}"
+
+  if command -v rg >/dev/null 2>&1; then
+    if [[ -n "$year" ]]; then
+      rg --files -g "${year}-*.md" -g "${year}-*.html" "$posts_dir"
+    else
+      rg --files -g "*.md" -g "*.html" "$posts_dir"
+    fi
+  else
+    if [[ -n "$year" ]]; then
+      find "$posts_dir" -type f \( -name "${year}-*.md" -o -name "${year}-*.html" \)
+    else
+      find "$posts_dir" -type f \( -name "*.md" -o -name "*.html" \)
+    fi
+  fi | LC_ALL=C sort -r
+}
+
+list_posts() {
+  local year_filter=""
+  local limit=""
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --year)
+        if [[ -z "${2:-}" ]]; then
+          usage
+          exit 1
+        fi
+        year_filter="$2"
+        shift 2
+        ;;
+      --limit)
+        if [[ -z "${2:-}" ]]; then
+          usage
+          exit 1
+        fi
+        limit="$2"
+        shift 2
+        ;;
+      *)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+
+  if [[ -n "$year_filter" && ! "$year_filter" =~ ^[0-9]{4}$ ]]; then
+    echo "Year must be in YYYY format."
+    exit 1
+  fi
+
+  if [[ -n "$limit" && ! "$limit" =~ ^[0-9]+$ ]]; then
+    echo "Limit must be a number."
+    exit 1
+  fi
+
+  local count=0
+  local current_year=""
+  local first=1
+
+  while IFS= read -r file; do
+    [[ -z "$file" ]] && continue
+    local basename
+    basename="$(basename "$file")"
+    local year="${basename:0:4}"
+
+    if [[ "$year" != "$current_year" ]]; then
+      if [[ "$first" -eq 0 ]]; then
+        echo ""
+      fi
+      first=0
+      current_year="$year"
+      echo "$current_year"
+      echo "----"
+    fi
+
+    local rel="${file#$root/}"
+    echo "$rel"
+    count=$((count + 1))
+
+    if [[ -n "$limit" && "$count" -ge "$limit" ]]; then
+      break
+    fi
+  done < <(list_files "$year_filter")
+
+  if [[ "$count" -eq 0 ]]; then
+    echo "No posts found."
+  fi
+}
+
+search_posts() {
+  if [[ $# -lt 1 ]]; then
+    usage
+    exit 1
+  fi
+
+  local query="$*"
+
+  if command -v rg >/dev/null 2>&1; then
+    mapfile -t matches < <(
+      rg --files-with-matches -g "*.md" -g "*.html" -- "$query" "$posts_dir" || true
+    )
+  else
+    mapfile -t matches < <(grep -rl -- "$query" "$posts_dir" || true)
+  fi
+
+  if [[ "${#matches[@]}" -eq 0 ]]; then
+    echo "No matches found."
+    return 0
+  fi
+
+  for match in "${matches[@]}"; do
+    echo "${match#$root/}"
+  done
+}
+
+main() {
+  local command="list"
+  if [[ $# -gt 0 ]]; then
+    command="$1"
+    shift
+  fi
+
+  if [[ "$command" =~ ^[0-9]{4}$ ]]; then
+    list_posts --year "$command" "$@"
+    return 0
+  fi
+
+  case "$command" in
+    list|ls)
+      list_posts "$@"
+      ;;
+    search|find|rg)
+      search_posts "$@"
+      ;;
+    help|-h|--help)
+      usage
+      ;;
+    *)
+      usage
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

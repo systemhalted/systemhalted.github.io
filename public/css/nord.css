@@ -349,11 +349,17 @@ tbody tr:nth-child(odd) th {
 .theme-toggle {
   grid-column: 3;
   justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text-strong);
-  padding: 0.35rem 0.85rem;
-  border-radius: 999px;
+  border-radius: 50%;
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 1;
@@ -371,7 +377,20 @@ tbody tr:nth-child(odd) th {
 }
 
 .theme-toggle-label {
-  display: inline-block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.theme-toggle .fa {
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
 @media (max-width: 48em) {

@@ -1,5 +1,3 @@
----
----
 /* Webcmd command interface with built-in search index */
 
 // Build siteDocs and search index at load time (includes all output docs across collections).
@@ -18,8 +16,10 @@ siteDocs.push({
 });
 {% assign doc_id = doc_id | plus: 1 %}
     {% endif %}
-  {% endfor %}
 {% endfor %}
+{% endfor %}
+
+window.siteStore = siteDocs;
 
 if(typeof elasticlunr !== "undefined"){
   var preloadIndex = elasticlunr(function () {
@@ -38,7 +38,6 @@ if(typeof elasticlunr !== "undefined"){
     });
   }
   window.siteIndex = preloadIndex;
-  window.siteStore = siteDocs;
 }
 
 /* Palak Mathur | In the beginning was a command line */
@@ -47,8 +46,6 @@ if(typeof elasticlunr !== "undefined"){
 var navigation = {
     "p":   "http://systemhalted.in/webcmd",
     "pi":   "http://systemhalted.in/about",
-    // "pa":   "http://systemhalted.in/articles/",
-    // "pc":   "http://systemhalted.in/contact",
     "pr":   "http://systemhalted.in/feed.xml",
     "ph":   "http://systemhalted.in/",
     "pgh":   "https://github.com/systemhalted"
@@ -351,13 +348,21 @@ function runcmd(cmd)
 // Print output on page.
 function output(s)
 {
-    document.getElementById("output").innerHTML += s + "<br>";
+    var out = document.getElementById("output");
+    if (!out) {
+        return;
+    }
+    out.innerHTML += s + "<br>";
 }
 
 // Print error on page.
 function error(s)
 {
-    document.getElementById("error").innerHTML += s + "<br>";
+    var err = document.getElementById("error");
+    if (!err) {
+        return;
+    }
+    err.innerHTML += s + "<br>";
 }
 
 // Convert whatever split returns into an Array.
@@ -401,6 +406,10 @@ function navigations(cmd, arg, args)
     window.location = navigation[cmd];
 }
 
-$('a').click(function() {
-    $(this).attr('target', '_blank');
-}); 
+if (typeof window.jQuery !== "undefined") {
+    window.jQuery(function($) {
+        if (document.getElementById("output")) {
+            $('a').attr('target', '_blank');
+        }
+    });
+}

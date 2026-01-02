@@ -21,7 +21,8 @@
   if (!toggle) return;
 
   var storageKey = 'theme';
-  var className = 'theme-nord-dark';
+  var lightClass = 'theme-nord-light';
+  var darkClass = 'theme-nord-dark';
   var label = toggle.querySelector('.theme-toggle-label');
 
   function getStoredTheme() {
@@ -52,11 +53,8 @@
   }
 
   function applyTheme(theme, persist) {
-    if (theme === 'dark') {
-      root.classList.add(className);
-    } else {
-      root.classList.remove(className);
-    }
+    root.classList.remove(lightClass, darkClass);
+    root.classList.add(theme === 'dark' ? darkClass : lightClass);
 
     if (persist) {
       try {
@@ -73,7 +71,7 @@
   applyTheme(initialTheme, false);
 
   toggle.addEventListener('click', function() {
-    var nextTheme = root.classList.contains(className) ? 'light' : 'dark';
+    var nextTheme = root.classList.contains(darkClass) ? 'light' : 'dark';
     applyTheme(nextTheme, true);
   });
 })(document);

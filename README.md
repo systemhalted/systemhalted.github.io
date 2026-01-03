@@ -1,120 +1,75 @@
 # systemhalted.github.io
 
-This repo hosts the Jekyll source for systemhalted.in. Use `bundle exec jekyll serve --livereload` while drafting to see changes locally.
+Jekyll source for systemhalted.in. The build output goes to `_site/` (generated), so edit sources only.
 
-## How to add a new post
-- Create `collections/_posts/YYYY-MM-DD-title.md` (kebab-case title). Date drives the permalink.
+## Quickstart
+- `bundle install`
+- `bundle exec jekyll serve --livereload`
+- `bundle exec jekyll build` (pre-push check)
+- `bundle exec jekyll doctor` (sanity checks)
+
+## Development workflow
+- Drafts live in `collections/_drafts/`; preview them with `bundle exec jekyll serve --livereload --drafts`.
+- Publish by moving drafts to `collections/_posts/` and renaming to `YYYY-MM-DD-title.md`.
+- Newsletters live in `collections/_newsletter/`; preview the listing at `/kartavya-path`.
+- JSGames are standalone in `jsgames/`; open `jsgames/<game>/index.html` directly or via the Jekyll server and keep assets nearby.
+- For production parity, run `JEKYLL_ENV=production bundle exec jekyll serve`.
+
+## Project structure
+- `_config.yml`: site metadata, collections, pagination, sidebar nav, plugins.
+- `collections/_posts/`, `collections/_drafts/`, `collections/_newsletter/`, `collections/_emacs/`: authored content.
+- `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`).
+- `_includes/`: shared UI fragments (head, sidebar, share buttons, comments).
+- `_data/taxonomy.yml`: category themes + tag groups used by `categories.html` and related-post logic.
+- `assets/`: images and static post assets.
+- `public/`: site-level CSS/JS and favicons (main bundle is `public/css/nord.css`).
+- `jsgames/`: standalone JS games with local assets.
+- `webcmd/`: terminal-style UI entry page.
+- `scripts/posts`: helper to list or search posts from the CLI.
+
+## Authoring posts
+- Create `collections/_posts/YYYY-MM-DD-title.md` (kebab-case title).
 - Front matter example:
   ```
   ---
   layout: post
   title: Sample Post
   date: 2025-12-31
-  category: [Tech]      # or `categories:` if you prefer plural key
+  categories: [Tech]
   tags: [jekyll, notes]
   comments: true
-  featured: true        # optional flag used in layouts
-  featured_image: assets/images/2025-12-hero.jpg   # optional hero/thumbnail path
+  featured: true
+  featured_image: assets/images/2025-12-hero.jpg
   featured_image_alt: Brief alt text for the image
   featured_image_caption: Photo credit or context
   description: One-line summary for previews.
   ---
   ```
-- Write Markdown below the front matter. Use fenced code blocks and relative asset paths (e.g., `assets/images/2025-12-hero.jpg`).
-- Run `bundle exec jekyll build` before pushing to ensure there are no front matter or Liquid errors.
+- Write Markdown below the front matter; use relative asset paths like `assets/images/2025-12-hero.jpg`.
 
-## How to add a new collection
-- Add the collection to `_config.yml` under `collections:`. Example:
-  ```
-  collections:
-    guides:
-      output: true
-  ```
-- Create a directory `collections/_guides/` and add items with front matter:
-  ```
-  ---
-  layout: page   # or a custom layout for that collection
-  title: My Guide
-  date: 2025-01-01
-  ---
-  ```
-- If you want a listing page, add a page (e.g., `guides.html`) with:
-  ```
-  ---
-  layout: collections
-  title: Guides
-  collection_name: guides
-  show_dates: true
-  ---
-  ```
-  The `collections` layout loops through `site[collection_name]` and can show dates when `show_dates` is true.
+## Collections
+- Define new collections in `_config.yml` under `collections:`.
+- Add docs under `collections/_<name>/` with standard front matter.
+- Use `layout: collections` + `collection_name:` pages for listings (see `emacs.html` and `kartavya-path.html`).
 
-## Layouts and includes
-- Layouts live in `_layouts/`:
-  - `default.html` sets the shell; `post.html` and `page.html` render posts/pages; `category.html` lists posts by category; `collections.html` lists a named collection.
-- Includes live in `_includes/`:
-  - `head.html` handles meta and the single CSS bundle (`public/css/nord.css`).
-  - `sidebar.html`, `comments.html`, and `share-buttons.html` are reusable fragments invoked from layouts.
+## Key pages
+- `index.html`: paginated home grid.
+- `archives.html`: year-grouped archive with client-side sorting.
+- `categories.html`: category taxonomy grouped by theme.
+- `tags.html`: tag archive.
+- `featured.html`: posts with `featured: true`.
+- `about.md`, `404.md`: static pages.
 
-## Webcmd
-- Legacy command-line UI lives in `webcmd/index.html` and depends on `public/js/webcmd.js`.
-- Open `webcmd/` directly to test changes; keep assets referenced via `../public/...` so they work when deployed under the site root.***
+## Search and webcmd
+- Search index is built at build time in `public/js/webcmd.js` using all output docs.
+- The search overlay in `public/js/script.js` consumes the same index.
+- `webcmd/index.html` exposes the command-line UI; `find <query>` performs a site search.
 
-## How to add a new post
-- Create `collections/_posts/YYYY-MM-DD-title.md` (kebab-case title). Date drives the permalink.
-- Front matter example:
-  ```
-  ---
-  layout: post
-  title: Sample Post
-  date: 2025-12-31
-  category: [Tech]      # or `categories:` if you prefer plural key
-  tags: [jekyll, notes]
-  comments: true
-  featured: true        # optional flag used in layouts
-  featured_image: assets/images/2025-12-hero.jpg   # optional hero/thumbnail path
-  featured_image_alt: Brief alt text for the image
-  featured_image_caption: Photo credit or context
-  description: One-line summary for previews.
-  ---
-  ```
-- Write Markdown below the front matter. Use fenced code blocks and relative asset paths (e.g., `assets/images/2025-12-hero.jpg`).
-- Run `bundle exec jekyll build` before pushing to ensure there are no front matter or Liquid errors.
+## Docs
+- CSS updates guide: `docs/css-updates.md`
+- CSS example snippets: see "Examples" in `docs/css-updates.md`
+- Search architecture: `docs/search-architecture.md`
 
-## How to add a new collection
-- Add the collection to `_config.yml` under `collections:`. Example:
-  ```
-  collections:
-    guides:
-      output: true
-  ```
-- Create a directory `collections/_guides/` and add items with front matter:
-  ```
-  ---
-  layout: page   # or a custom layout for that collection
-  title: My Guide
-  date: 2025-01-01
-  ---
-  ```
-- If you want a listing page, add a page (e.g., `guides.html`) with:
-  ```
-  ---
-  layout: collections
-  title: Guides
-  collection_name: guides
-  show_dates: true
-  ---
-  ```
-  The `collections` layout loops through `site[collection_name]` and can show dates when `show_dates` is true.
-
-## Layouts and includes
-- Layouts live in `_layouts/`:
-  - `default.html` sets the shell; `post.html` and `page.html` render posts/pages; `category.html` lists posts by category; `collections.html` lists a named collection.
-- Includes live in `_includes/`:
-  - `head.html` handles meta and the single CSS bundle (`public/css/nord.css`).
-  - `sidebar.html`, `comments.html`, and `share-buttons.html` are reusable fragments invoked from layouts.
-
-## Webcmd
-- Legacy command-line UI lives in `webcmd/index.html` and depends on `public/js/webcmd.js`.
-- Use `find <query>` inside the prompt to search posts via the built-in elasticlunr index.
-- Open `webcmd/` directly to test changes; keep assets referenced via `../public/...` so they work when deployed under the site root.
+## Notes
+- Avoid editing `_site/` directly.
+- Keep filenames kebab-case and asset names short.

@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div id="search-overlay" class="search-overlay" aria-hidden="true" data-webcmd-url="{{ '/webcmd/' | relative_url }}">
         <div class="search-dialog" role="dialog" aria-modal="true" aria-label="Search">
           <div class="search-header">
             <label class="sr-only" for="search-input">Search posts</label>
@@ -42,6 +42,7 @@
               <i class="fa fa-times" aria-hidden="true"></i>
             </button>
           </div>
+          <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
           <div id="search-results" class="search-results">
             <p class="search-empty">Type to search the archive.</p>
           </div>

@@ -126,6 +126,8 @@
   var closeBtn = document.querySelector('#search-close');
   var input = document.querySelector('#search-input');
   var results = document.querySelector('#search-results');
+  var status = document.querySelector('#search-status');
+  var webcmdUrl = overlay ? overlay.getAttribute('data-webcmd-url') : '/webcmd/';
 
   if (!toggle || !overlay || !closeBtn || !input || !results) return;
 
@@ -156,6 +158,24 @@
     msg.className = 'search-empty';
     msg.textContent = message;
     results.appendChild(msg);
+  }
+
+  function setStatus(message, options) {
+    if (!status) return;
+    var opts = options || {};
+    status.classList.remove('is-loading', 'is-error', 'is-hidden');
+    if (!message) {
+      status.textContent = '';
+      status.classList.add('is-hidden');
+      return;
+    }
+    status.classList.toggle('is-loading', !!opts.loading);
+    status.classList.toggle('is-error', !!opts.error);
+    if (opts.html) {
+      status.innerHTML = message;
+    } else {
+      status.textContent = message;
+    }
   }
 
   function buildSearchIndex() {
@@ -206,16 +226,25 @@
 
   function renderResults(query) {
     var trimmed = query.trim();
+    setStatus('');
     if (!trimmed) {
       clearResults('Type to search the archive.');
       return;
     }
 
+    if (!(window.siteIndex && window.siteStore)) {
+      setStatus('Building search index...', { loading: true });
+    }
+
     var indexData = buildSearchIndex();
     if (!indexData) {
-      clearResults('Search index not available. Try again in a moment.');
+      results.innerHTML = '';
+      var fallbackUrl = webcmdUrl || '/webcmd/';
+      var fallbackMessage = 'Search index not available. Try again in a moment or use the <a href="' + fallbackUrl + '">command-line search</a>.';
+      setStatus(fallbackMessage, { error: true, html: true });
       return;
     }
+    setStatus('');
 
     var matches = findMatches(trimmed, indexData);
     results.innerHTML = '';
@@ -273,6 +302,7 @@
   function closeSearch() {
     setOverlayState(false);
     input.value = '';
+    setStatus('');
     clearResults('Type to search the archive.');
   }
 

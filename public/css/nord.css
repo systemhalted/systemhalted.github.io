@@ -5,6 +5,7 @@
   --font-display: "Rubik", "Noto Sans", "Helvetica Neue", Helvetica, sans-serif;
   --font-mono: "Source Code Pro", "Fira Code", Menlo, Monaco, "Courier New", monospace;
   --font-wordmark: "UnifrakturMaguntia", "UnifrakturCook", "Old English Text MT", "Goudy Text MT", "Times New Roman", serif;
+  --font-serif: "Times New Roman", "Georgia", Times, serif;
 }
 
 .theme-nord-light {
@@ -243,6 +244,100 @@ pre code {
   padding: 0;
   background: transparent;
   color: inherit;
+}
+
+.highlight,
+.highlighter-rouge {
+  font-family: var(--font-mono);
+  color: var(--text-strong);
+}
+
+.highlight .hll {
+  background: rgba(136, 192, 208, 0.15);
+}
+
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cp,
+.highlight .cs {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt {
+  color: var(--nord9);
+  font-weight: 600;
+}
+
+.highlight .s,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .s1,
+.highlight .ss {
+  color: var(--nord14);
+}
+
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo,
+.highlight .mx,
+.highlight .il {
+  color: var(--nord15);
+}
+
+.highlight .na,
+.highlight .nb,
+.highlight .nc,
+.highlight .no,
+.highlight .nd,
+.highlight .ni,
+.highlight .ne,
+.highlight .nf,
+.highlight .nl,
+.highlight .nn,
+.highlight .nt,
+.highlight .nv,
+.highlight .nx,
+.highlight .py {
+  color: var(--nord8);
+}
+
+.highlight .o,
+.highlight .ow,
+.highlight .p {
+  color: var(--text);
+}
+
+.highlight .gd {
+  color: var(--nord11);
+  background: rgba(191, 97, 106, 0.15);
+}
+
+.highlight .gi {
+  color: var(--nord14);
+  background: rgba(163, 190, 140, 0.12);
+}
+
+.highlight .err {
+  color: var(--nord11);
+  background: rgba(191, 97, 106, 0.12);
 }
 
 blockquote {
@@ -723,6 +818,7 @@ a.sidebar-nav-item:focus {
   max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
+  font-family: var(--font-mono);
 }
 
 .page-title,

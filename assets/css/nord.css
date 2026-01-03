@@ -872,6 +872,181 @@ a.sidebar-nav-item:focus {
   text-decoration: none;
 }
 
+/* Webcmd page */
+.webcmd {
+  max-width: 56rem;
+  margin: 0 auto 4rem;
+}
+
+.webcmd-shell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+
+.webcmd-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.webcmd-kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.webcmd-title {
+  margin: 0.25rem 0 0;
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+}
+
+.webcmd-subtitle {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  max-width: 36rem;
+}
+
+
+.webcmd-terminal {
+  padding: 1.25rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+
+.webcmd-form {
+  margin: 0;
+}
+
+.webcmd-input {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.webcmd-input:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.webcmd-prompt {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.webcmd-input input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.webcmd-input input:focus {
+  outline: none;
+}
+
+.webcmd-hint {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.webcmd-command {
+  display: inline-block;
+  font-family: var(--font-mono);
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-strong);
+}
+
+.webcmd-output {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  color: var(--text-strong);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.webcmd-output a {
+  font-weight: 600;
+}
+
+.webcmd-output .snippet {
+  color: var(--muted);
+  display: block;
+  margin-left: 1.5rem;
+}
+
+.webcmd-error {
+  margin-top: 0.75rem;
+  color: var(--nord11);
+  font-family: var(--font-mono);
+}
+
+.webcmd-help {
+  margin-top: 1.25rem;
+}
+
+.webcmd-help-panel {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  overflow-x: auto;
+}
+
+.webcmd-help-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.webcmd-help-panel td {
+  padding: 0.2rem 0.4rem;
+  border: none;
+  vertical-align: top;
+}
+
+.webcmd-help-panel b {
+  color: var(--text-strong);
+}
+
+.webcmd-footer {
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.webcmd-footer-text {
+  margin: 0;
+}
+
+@media (min-width: 48em) {
+  .webcmd-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .related {
   padding-top: 2rem;
   padding-bottom: 2rem;

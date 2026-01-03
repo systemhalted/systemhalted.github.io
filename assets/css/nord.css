@@ -1014,19 +1014,50 @@ a.sidebar-nav-item:focus {
   overflow-x: auto;
 }
 
-.webcmd-help-panel table {
-  width: 100%;
-  border-collapse: collapse;
+.webcmd-help-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
 }
 
-.webcmd-help-panel td {
-  padding: 0.2rem 0.4rem;
-  border: none;
-  vertical-align: top;
+.webcmd-help-block {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  align-self: start;
 }
 
-.webcmd-help-panel b {
+.webcmd-help-heading {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
   color: var(--text-strong);
+}
+
+.webcmd-help-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.webcmd-help-list li {
+  display: grid;
+  grid-template-columns: minmax(2.5rem, 3.8rem) 1fr;
+  gap: 0.6rem;
+  align-items: start;
+}
+
+.webcmd-help-key {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.webcmd-help-desc {
+  color: var(--text);
 }
 
 .webcmd-footer {
@@ -1044,6 +1075,14 @@ a.sidebar-nav-item:focus {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .webcmd-help-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .webcmd-help-list li {
+    grid-template-columns: minmax(2.8rem, 4rem) 1fr;
   }
 }
 

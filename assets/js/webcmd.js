@@ -47,10 +47,10 @@ if(typeof elasticlunr !== "undefined"){
 
 // Simple shortcuts: name: url.
 var navigation = {
-    "p":   "http://systemhalted.in/webcmd",
-    "pi":   "http://systemhalted.in/about",
-    "pr":   "http://systemhalted.in/feed.xml",
-    "ph":   "http://systemhalted.in/",
+    "p":   {{ "/webcmd/" | relative_url | jsonify }},
+    "pi":   {{ "/about/" | relative_url | jsonify }},
+    "pr":   {{ "/feed.xml" | relative_url | jsonify }},
+    "ph":   {{ "/" | relative_url | jsonify }},
     "pgh":   "https://github.com/systemhalted"
 }
 

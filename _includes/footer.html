@@ -1,7 +1,9 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="footer-avatar">{{ site.title | slice: 0, 1 | upcase }}</div>
+      <div class="footer-avatar">
+        <img src="{{ '/assets/images/avatar.jpeg' | relative_url }}" alt="SystemHalted logo">
+      </div>
       <div>
         <div class="footer-title">{{ site.title }}</div>
         <div class="footer-subtitle">{{ site.tagline }}</div>

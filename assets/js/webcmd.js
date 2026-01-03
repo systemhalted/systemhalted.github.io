@@ -61,7 +61,7 @@ var shortcuts = {
     "r":   "http://reddit.com/",
     "bb":   "http://boingboing.net/",
     "fb":   "http://facebook.com",
-    "gp":   "http://getpocket.com/",
+    
     "git":   "http://gitref.org/",
     "omscs": "http://omscs.gatech.edu/current-courses",
     "l": "https://library.gatech.edu",

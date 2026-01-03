@@ -30,25 +30,33 @@ permalink: /categories/
     {% for cat in theme.categories %}
       {% assign posts = site.categories[cat] %}
       {% if posts %}
-          {% assign posts = posts | sort: "date" | reverse %}
+        {% assign posts = posts | sort: "date" | reverse %}
       {% endif %}
       {% if posts and posts.size > 0 %}
-        <section id="cat-{{ cat | slugify }}" class="category-block">
-          <details>
-            <summary>
-              {{ cat }}
-              <span class="category-count">({{ posts.size }})</span>
-            </summary>
-            <ul class="category-posts">
-              {% for post in posts %}
-                 <li>
-       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-     </li>
-              {% endfor %}
-            </ul>
-          </details>
-        </section>
+        <details id="cat-{{ cat | slugify }}" class="archive-year">
+          <summary class="archive-year-summary">
+            <span class="archive-year-title">{{ cat }}</span>
+            <span class="archive-year-count">({{ posts.size }})</span>
+          </summary>
+          <ul class="archive-posts">
+            {% for post in posts %}
+              {% assign post_summary = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 40 %}
+              <li class="archive-post">
+                <details class="archive-post-details">
+                  <summary class="archive-post-summary">
+                    <span class="archive-post-meta">
+                      <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+                      <a class="archive-post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </span>
+                  </summary>
+                  {% if post_summary and post_summary != "" %}
+                    <p class="archive-post-description">{{ post_summary }}</p>
+                  {% endif %}
+                </details>
+              </li>
+            {% endfor %}
+          </ul>
+        </details>
       {% endif %}
     {% endfor %}
   {% endif %}
@@ -71,24 +79,30 @@ permalink: /categories/
   {% endif %}
 
   {% unless in_taxonomy %}
-    <section id="cat-{{ cat_name | slugify }}" class="category-block">
-      <details>
-        <summary>
-          {{ cat_name }}
-          <span class="category-count">({{ posts.size }})</span>
-        </summary>
+    <details id="cat-{{ cat_name | slugify }}" class="archive-year">
+      <summary class="archive-year-summary">
+        <span class="archive-year-title">{{ cat_name }}</span>
+        <span class="archive-year-count">({{ posts.size }})</span>
+      </summary>
 
-        <ul class="category-posts">
-          {% for post in posts %}
-            
-              <li>
-       <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-     </li>
-            
-          {% endfor %}
-        </ul>
-      </details>
-    </section>
+      <ul class="archive-posts">
+        {% for post in posts %}
+          {% assign post_summary = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 40 %}
+          <li class="archive-post">
+            <details class="archive-post-details">
+              <summary class="archive-post-summary">
+                <span class="archive-post-meta">
+                  <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
+                  <a class="archive-post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </span>
+              </summary>
+              {% if post_summary and post_summary != "" %}
+                <p class="archive-post-description">{{ post_summary }}</p>
+              {% endif %}
+            </details>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
   {% endunless %}
 {% endfor %}

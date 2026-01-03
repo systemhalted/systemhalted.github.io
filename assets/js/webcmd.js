@@ -62,7 +62,6 @@ var shortcuts = {
     "bb":   "http://boingboing.net/",
     "fb":   "http://facebook.com",
     
-    "git":   "http://gitref.org/",
     "omscs": "http://omscs.gatech.edu/current-courses",
     "l": "https://library.gatech.edu",
     "n":   "http://netflix.com",

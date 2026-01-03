@@ -1,6 +1,6 @@
 # CSS Update Guide
 
-This site uses a single stylesheet: `public/css/nord.css`. It is loaded from `_includes/head.html` and applies globally to all layouts, collections, and static pages.
+This site uses a single stylesheet: `assets/css/nord.css`. It is loaded from `_includes/head.html` and applies globally to all layouts, collections, and static pages.
 
 ## How CSS is organized
 - Theme tokens live in the `theme-nord-light` and `theme-nord-dark` blocks and drive all colors, surfaces, borders, and shadows.
@@ -10,7 +10,7 @@ This site uses a single stylesheet: `public/css/nord.css`. It is loaded from `_i
 - Utilities and legacy helpers are near the end: `.alignleft`, `.alignright`, `.wp-caption`, `.pull-quote`, org-mode helpers.
 
 ## Theme system
-The root `<html>` element gets either `theme-nord-light` or `theme-nord-dark` (set in `_includes/head.html` and toggled in `public/js/script.js`). Colors are never hard-coded in component rules; they are referenced through variables like `--bg`, `--surface`, `--text`, and `--accent`.
+The root `<html>` element gets either `theme-nord-light` or `theme-nord-dark` (set in `_includes/head.html` and toggled in `assets/js/script.js`). Colors are never hard-coded in component rules; they are referenced through variables like `--bg`, `--surface`, `--text`, and `--accent`.
 
 When you change colors:
 - Update both `theme-nord-light` and `theme-nord-dark`.
@@ -24,7 +24,7 @@ Start from the markup, then jump to the selector:
 
 Helpful searches:
 ```
-rg -n "post-grid|post-card|masthead|search-overlay|archive" public/css/nord.css
+rg -n "post-grid|post-card|masthead|search-overlay|archive" assets/css/nord.css
 rg -n "post-grid|post-card|masthead|search-overlay|archive" _layouts _includes *.html
 ```
 
@@ -41,7 +41,7 @@ rg -n "post-grid|post-card|masthead|search-overlay|archive" _layouts _includes *
 
 ## Updating existing styles
 1. Identify the class in the layout or page that renders the UI you want to change.
-2. Locate its selector in `public/css/nord.css`.
+2. Locate its selector in `assets/css/nord.css`.
 3. Modify spacing, typography, and color using existing tokens.
 4. Check both themes (toggle with the UI button in the masthead).
 5. Validate responsive behavior; there are a few breakpoints:
@@ -52,9 +52,9 @@ rg -n "post-grid|post-card|masthead|search-overlay|archive" _layouts _includes *
 ## Adding new styles
 If you add new markup or classes:
 - Add the class to the relevant layout/include/page first.
-- Co-locate the new CSS near related component sections in `public/css/nord.css`.
+- Co-locate the new CSS near related component sections in `assets/css/nord.css`.
 - Use existing tokens and spacing patterns (rem units, consistent borders, rounded corners).
-- If the new element needs JS interaction, ensure selectors are aligned with `public/js/script.js`.
+- If the new element needs JS interaction, ensure selectors are aligned with `assets/js/script.js`.
 
 ## JS-coupled selectors to keep stable
 Some selectors are referenced in JavaScript and should not be renamed without updating JS:
@@ -62,7 +62,7 @@ Some selectors are referenced in JavaScript and should not be renamed without up
 - Search overlay: `.search-overlay`, `.search-overlay.is-open`, `body.search-open`, `#search-toggle`, `#search-input`
 - Sidebar: `#sidebar-checkbox`, `.sidebar-toggle`, `.sidebar`
 
-If you rename any of these, update `public/js/script.js` and the related HTML in `_layouts/default.html` or `_includes/sidebar.html`.
+If you rename any of these, update `assets/js/script.js` and the related HTML in `_layouts/default.html` or `_includes/sidebar.html`.
 
 ## Verification checklist
 - Run `bundle exec jekyll serve --livereload`.
@@ -71,7 +71,7 @@ If you rename any of these, update `public/js/script.js` and the related HTML in
 - Confirm category/tag chips, pagination buttons, and footer layout on mobile widths.
 
 ## Examples
-Use these as templates; apply them near the existing component blocks in `public/css/nord.css`.
+Use these as templates; apply them near the existing component blocks in `assets/css/nord.css`.
 
 ### Example: tighten the masthead wordmark
 Adjust the wordmark block in the masthead section:

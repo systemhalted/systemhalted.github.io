@@ -1015,16 +1015,15 @@ a.sidebar-nav-item:focus {
 }
 
 .webcmd-help-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
+  column-count: 1;
+  column-gap: 1.5rem;
 }
 
 .webcmd-help-block {
   display: grid;
   gap: 0.5rem;
-  align-content: start;
-  align-self: start;
+  break-inside: avoid;
+  margin-bottom: 1rem;
 }
 
 .webcmd-help-heading {
@@ -1077,12 +1076,12 @@ a.sidebar-nav-item:focus {
     justify-content: space-between;
   }
 
-  .webcmd-help-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .webcmd-help-list li {
     grid-template-columns: minmax(2.8rem, 4rem) 1fr;
+  }
+
+  .webcmd-help-grid {
+    column-count: 2;
   }
 }
 

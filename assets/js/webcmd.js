@@ -227,30 +227,27 @@ ensureSiteIndex();
 // Compute help text.
 function helptext()
 {
-    //alert("helptext");
     var a;
     var i = 0;
     var s = "";
-    
-    s += "<table cellspacing=0 cellpadding=0 border=0>";   
-    //alert("1");
-    
+
+    s += "<div class=\"webcmd-help-grid\">";
+
     a = new Array();
     i = 0;
     for(var k in navigation)
 	a[i++] = k;
-    //a.sort();
-    //alert("2");
-    s += "<tr><td colspan=3><b>Site Navigation Commands:</b>";
-    
-    for(i=0; i<a.length; i++){	  
-	var h = help[a[i]];        
+    s += "<div class=\"webcmd-help-block\">";
+    s += "<div class=\"webcmd-help-heading\">Site Navigation Commands</div>";
+    s += "<ul class=\"webcmd-help-list\">";
+    for(i=0; i<a.length; i++){
+	var h = help[a[i]];
 	if(h == undefined)
 	    h = navigation[a[i]];
-	s += "<tr><td><b>" + a[i] + "</b><td width=10><td>" + h + "\n";
+	s += "<li><span class=\"webcmd-help-key\">" + a[i] + "</span><span class=\"webcmd-help-desc\">" + h + "</span></li>";
     }
-    s += "<tr height=10>\n";
-    
+    s += "</ul></div>";
+
     a = new Array();
     i = 0;
     for(var k in searches)
@@ -258,34 +255,35 @@ function helptext()
     if(a.indexOf("find") === -1)
         a[i++] = "find";
     a.sort();
-    s += "<tr><td colspan=3><b>Searches:</b>";
-    for(i=0; i<a.length; i++){	     
+    s += "<div class=\"webcmd-help-block\">";
+    s += "<div class=\"webcmd-help-heading\">Searches</div>";
+    s += "<ul class=\"webcmd-help-list\">";
+    for(i=0; i<a.length; i++){
 	var h = help[a[i]];
 	if(h == undefined && searches[a[i]] != undefined)
 	    h = searches[a[i]][0];
 	if(h == undefined)
             h = "???";
-        //alert("a[" + i +"]:" + a[i]);
-	s += "<tr><td><b>" + a[i] + "</b><td width=10><td>" + h + "\n";
-	
+	s += "<li><span class=\"webcmd-help-key\">" + a[i] + "</span><span class=\"webcmd-help-desc\">" + h + "</span></li>";
     }
-    
-    s += "<tr height=10>\n";
+    s += "</ul></div>";
 
     a = new Array();
     i = 0;
     for(var k in shortcuts)
 	a[i++] = k;
     a.sort();
-    s += "<tr><td colspan=3><b>Shortcuts:</b>";
+    s += "<div class=\"webcmd-help-block\">";
+    s += "<div class=\"webcmd-help-heading\">Shortcuts</div>";
+    s += "<ul class=\"webcmd-help-list\">";
     for(i=0; i<a.length; i++){
 	var h = help[a[i]];
 	if(h == undefined)
 	    h = shortcuts[a[i]];
-	s += "<tr><td><b>" + a[i] + "</b><td width=10><td>" + h + "\n";
+	s += "<li><span class=\"webcmd-help-key\">" + a[i] + "</span><span class=\"webcmd-help-desc\">" + h + "</span></li>";
     }
-    s += "<tr height=10>\n";
-    
+    s += "</ul></div>";
+
     a = new Array();
     i = 0;
     for(var k in window)
@@ -295,17 +293,19 @@ function helptext()
 	    a[i++] = cmdName;
         }
     a.sort();
-    s += "<tr><td colspan=3><b>Additional Commands:</b>";
+    s += "<div class=\"webcmd-help-block\">";
+    s += "<div class=\"webcmd-help-heading\">Additional Commands</div>";
+    s += "<ul class=\"webcmd-help-list\">";
     for(i=0; i<a.length; i++){
 	var h = help[a[i]];
 	if(h == undefined)
 	    h = "???";
-	s += "<tr><td><b>" + a[i] + "</b><td width=10><td>" + h + "\n";
+	s += "<li><span class=\"webcmd-help-key\">" + a[i] + "</span><span class=\"webcmd-help-desc\">" + h + "</span></li>";
     }
-    s += "<tr height=10>\n";
+    s += "</ul></div>";
 
-    s += "</table>\n";
-    
+    s += "</div>";
+
     return s;
 }
 

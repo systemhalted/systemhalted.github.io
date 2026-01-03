@@ -4,6 +4,7 @@
   {% include head.html %}
 
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
     {% include sidebar.html %}
 
@@ -13,7 +14,7 @@
       <div class="masthead">
         <div class="container">
           <div class="masthead-inner">
-            <label for="sidebar-checkbox" class="sidebar-toggle" aria-label="Toggle sidebar"></label>
+            <label for="sidebar-checkbox" class="sidebar-toggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false" role="button" tabindex="0"></label>
             <h3 class="masthead-title">
               <a class="masthead-wordmark" href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
               {% if site.tagline %}
@@ -50,9 +51,9 @@
         </div>
       </div>
 
-      <div class="container content">
+      <main id="main-content" class="container content" tabindex="-1">
         {{ content }}
-      </div>
+      </main>
 
       {% include footer.html %}
     </div>

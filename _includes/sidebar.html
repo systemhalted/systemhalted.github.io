@@ -19,12 +19,9 @@
     {% endfor %}
 
     <!-- Manually entered links stay as-is -->
-    <span style="cursor:pointer;"
-          onclick="javascript:var hypothesis = document.createElement('script');
-          hypothesis.setAttribute('src','https://hypothes.is/embed.js');
-          document.head.appendChild(hypothesis);">
-      <a class="sidebar-nav-item">Annotate me</a>
-    </span>
+    <button class="sidebar-nav-item sidebar-nav-action" id="annotate-toggle" type="button">
+      Annotate me
+    </button>
   </nav>
 
   <div class="sidebar-item">

@@ -41,4 +41,6 @@ validation-report.json
 
 # Folders to ignore
 node_modules
+.bundle
+vendor
 *.iml

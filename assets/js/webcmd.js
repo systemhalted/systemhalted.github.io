@@ -256,12 +256,16 @@ function helptext()
     i = 0;
     for(var k in searches)
 	a[i++] = k;
+    if(a.indexOf("find") === -1)
+        a[i++] = "find";
     a.sort();
     s += "<tr><td colspan=3><b>Searches:</b>";
     for(i=0; i<a.length; i++){	     
 	var h = help[a[i]];
-	if(h == undefined)
+	if(h == undefined && searches[a[i]] != undefined)
 	    h = searches[a[i]][0];
+	if(h == undefined)
+            h = "???";
         //alert("a[" + i +"]:" + a[i]);
 	s += "<tr><td><b>" + a[i] + "</b><td width=10><td>" + h + "\n";
 	
@@ -286,10 +290,11 @@ function helptext()
     a = new Array();
     i = 0;
     for(var k in window)
-	if(k.substr(0,4) == "cmd_")
-	    a[i++] = k.substr(4);
-    // Guarantee explicit commands are listed even if not enumerable by the runtime.
-    if(a.indexOf("find") === -1) a[i++] = "find";
+	if(k.substr(0,4) == "cmd_") {
+            var cmdName = k.substr(4);
+            if(cmdName === "find") continue;
+	    a[i++] = cmdName;
+        }
     a.sort();
     s += "<tr><td colspan=3><b>Additional Commands:</b>";
     for(i=0; i<a.length; i++){

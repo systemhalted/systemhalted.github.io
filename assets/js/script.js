@@ -2,6 +2,13 @@
   var toggle = document.querySelector('.sidebar-toggle');
   var sidebar = document.querySelector('#sidebar');
   var checkbox = document.querySelector('#sidebar-checkbox');
+  var annotateToggle = document.querySelector('#annotate-toggle');
+
+  if (!toggle || !sidebar || !checkbox) return;
+
+  function setExpandedState() {
+    toggle.setAttribute('aria-expanded', checkbox.checked ? 'true' : 'false');
+  }
 
   document.addEventListener('click', function(e) {
     var target = e.target;
@@ -11,7 +18,32 @@
        (target === checkbox || target === toggle)) return;
 
     checkbox.checked = false;
+    setExpandedState();
   }, false);
+
+  checkbox.addEventListener('change', function() {
+    setExpandedState();
+  });
+
+  toggle.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      checkbox.checked = !checkbox.checked;
+      setExpandedState();
+    }
+  });
+
+  setExpandedState();
+
+  if (annotateToggle) {
+    annotateToggle.addEventListener('click', function() {
+      if (document.getElementById('hypothesis-script')) return;
+      var script = document.createElement('script');
+      script.src = 'https://hypothes.is/embed.js';
+      script.id = 'hypothesis-script';
+      document.head.appendChild(script);
+    });
+  }
 })(document);
 
 (function(document) {
@@ -128,6 +160,7 @@
   var results = document.querySelector('#search-results');
   var status = document.querySelector('#search-status');
   var webcmdUrl = overlay ? overlay.getAttribute('data-webcmd-url') : '/webcmd/';
+  var lastFocusedElement = null;
 
   if (!toggle || !overlay || !closeBtn || !input || !results) return;
 
@@ -145,6 +178,7 @@
   }
 
   function openSearch() {
+    lastFocusedElement = document.activeElement;
     setOverlayState(true);
     window.setTimeout(function() {
       input.focus();
@@ -304,6 +338,18 @@
     input.value = '';
     setStatus('');
     clearResults('Type to search the archive.');
+    if (lastFocusedElement && lastFocusedElement.focus) {
+      lastFocusedElement.focus();
+    }
+    lastFocusedElement = null;
+  }
+
+  function getFocusableElements() {
+    return Array.prototype.slice.call(
+      overlay.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')
+    ).filter(function(el) {
+      return el.offsetWidth || el.offsetHeight || el === document.activeElement;
+    });
   }
 
   toggle.addEventListener('click', function() {
@@ -317,6 +363,21 @@
   overlay.addEventListener('click', function(event) {
     if (event.target === overlay) {
       closeSearch();
+    }
+  });
+
+  overlay.addEventListener('keydown', function(event) {
+    if (event.key !== 'Tab' || !overlay.classList.contains('is-open')) return;
+    var focusable = getFocusableElements();
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
   });
 

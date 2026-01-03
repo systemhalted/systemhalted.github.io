@@ -69,6 +69,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - CSS example snippets: see "Examples" in `docs/css-updates.md`
 - Search architecture: `docs/search-architecture.md`
 - Webcmd guide: `docs/webcmd.md`
+- Accessibility guide: `docs/accessibility.md`
 - Content metadata guide: `docs/content-metadata.md`
 
 ## Notes

@@ -1,3 +1,5 @@
+---
+---
 /* Webcmd command interface with built-in search index */
 
 // Build siteDocs and search index at load time (includes all output docs across collections).
@@ -19,6 +21,7 @@ siteDocs.push({
 {% endfor %}
 {% endfor %}
 
+window.siteDocs = siteDocs;
 window.siteStore = siteDocs;
 
 if(typeof elasticlunr !== "undefined"){

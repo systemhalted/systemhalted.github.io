@@ -21,8 +21,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`).
 - `_includes/`: shared UI fragments (head, sidebar, share buttons, comments).
 - `_data/taxonomy.yml`: category themes + tag groups used by `categories.html` and related-post logic.
-- `assets/`: images and static post assets.
-- `public/`: site-level CSS/JS and favicons (main bundle is `public/css/nord.css`).
+- `assets/`: images, site-level CSS/JS, and favicons (main bundle is `assets/css/nord.css`).
 - `jsgames/`: standalone JS games with local assets.
 - `webcmd/`: terminal-style UI entry page.
 - `scripts/posts`: helper to list or search posts from the CLI.
@@ -61,8 +60,8 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - `about.md`, `404.md`: static pages.
 
 ## Search and webcmd
-- Search index is built at build time in `public/js/webcmd.js` using all output docs.
-- The search overlay in `public/js/script.js` consumes the same index.
+- Search index is built at build time in `assets/js/webcmd.js` using all output docs.
+- The search overlay in `assets/js/script.js` consumes the same index.
 - `webcmd/index.html` exposes the command-line UI; `find <query>` performs a site search.
 
 ## Docs

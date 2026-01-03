@@ -1,33 +1,34 @@
 ---
 layout: default
 ---
+<div class="page">
+  <h1>{{ page.title }}</h1>
 
-<h1>{{ page.title }}</h1>
+  {% assign coll_name = page.collection_name %}
+  {% assign docs = site[coll_name] | sort: "date" | reverse %}
+  {% assign show_dates = page.show_dates | default: false %}
 
-{% assign coll_name  = page.collection_name %}
-{% assign docs       = site[coll_name] | sort: "date" | reverse %}
-{% assign show_dates = page.show_dates | default: false %}
+  {% if docs and docs.size > 0 %}
+  <ul class="collection-list">
+    {% for doc in docs %}
+    <li class="collection-item">
 
-{% if docs and docs.size > 0 %}
-<ul class="collection-list">
-  {% for doc in docs %}
-  <li class="collection-item">
+      {% if show_dates and doc.date %}
+      <div class="collection-item-date">
+        {{ doc.date | date: "%B %d, %Y" }}
+      </div>
+      {% endif %}
 
-    {% if show_dates and doc.date %}
-    <div class="collection-item-date">
-      {{ doc.date | date: "%B %d, %Y" }}
-    </div>
-    {% endif %}
+      <div class="collection-item-title">
+        <a href="{{ doc.url | relative_url }}">
+          {{ doc.title }}
+        </a>
+      </div>
 
-    <div class="collection-item-title">
-      <a href="{{ doc.url | relative_url }}">
-        {{ doc.title }}
-      </a>
-    </div>
-
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No documents in this collection yet.</p>
-{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No documents in this collection yet.</p>
+  {% endif %}
+</div>

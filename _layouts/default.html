@@ -60,7 +60,7 @@
     <script src="{{ '/assets/js/elasticlunr.min.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/webcmd.js' | relative_url }}"></script>
     <script src='{{ site.baseurl }}/assets/js/script.js'></script>
-    {% if site.disqus_shortname %}
+    {% if site.disqus_shortname and page.layout == "post" and page.comments == true %}
     <script id="dsq-count-scr" src="//{{ site.disqus_shortname }}.disqus.com/count.js" async></script>
     {% endif %}
   </body>

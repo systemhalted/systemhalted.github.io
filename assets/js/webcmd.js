@@ -416,3 +416,54 @@ if (typeof window.jQuery !== "undefined") {
         }
     });
 }
+
+// Wire up the webcmd UI when present.
+(function() {
+    function initWebcmdUI() {
+        var form = document.getElementById("webcmd-form");
+        var input = document.getElementById("line");
+        var helpPanel = document.getElementById("help");
+        var helpToggle = document.getElementById("webcmd-help-toggle");
+        var errorBox = document.getElementById("error");
+
+        if (!form || !input) {
+            return;
+        }
+
+        if (helpPanel && typeof helptext === "function") {
+            helpPanel.innerHTML = helptext();
+        }
+
+        if (helpToggle && helpPanel) {
+            helpToggle.addEventListener("click", function() {
+                var isOpen = !helpPanel.hasAttribute("hidden");
+                if (isOpen) {
+                    helpPanel.setAttribute("hidden", "");
+                    helpToggle.setAttribute("aria-expanded", "false");
+                    helpToggle.textContent = "Show commands";
+                } else {
+                    helpPanel.removeAttribute("hidden");
+                    helpToggle.setAttribute("aria-expanded", "true");
+                    helpToggle.textContent = "Hide commands";
+                }
+            });
+        }
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            if (typeof runcmd === "function") {
+                runcmd(input.value);
+            } else if (errorBox) {
+                errorBox.textContent = "Command engine not available. Try reloading the page.";
+            }
+        });
+
+        input.focus();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initWebcmdUI);
+    } else {
+        initWebcmdUI();
+    }
+})();

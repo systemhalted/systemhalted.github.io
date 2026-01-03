@@ -13,6 +13,7 @@
       <div class="masthead">
         <div class="container">
           <div class="masthead-inner">
+            <label for="sidebar-checkbox" class="sidebar-toggle" aria-label="Toggle sidebar"></label>
             <h3 class="masthead-title">
               <a class="masthead-wordmark" href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
               {% if site.tagline %}
@@ -55,8 +56,6 @@
 
       {% include footer.html %}
     </div>
-
-    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script src="{{ '/public/js/elasticlunr.min.js' | relative_url }}"></script>
     <script src="{{ '/public/js/webcmd.js' | relative_url }}"></script>

@@ -22,8 +22,12 @@
       var root = document.documentElement;
       var saved = null;
 
+      function normalizeTheme(value) {
+        return value === 'dark' || value === 'light' ? value : null;
+      }
+
       try {
-        saved = localStorage.getItem(storageKey);
+        saved = normalizeTheme(localStorage.getItem(storageKey));
       } catch (e) {
         saved = null;
       }

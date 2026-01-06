@@ -347,75 +347,74 @@ Your job is to stop leaving rakes in the hallway.
 
 ## Notes
 [^1]: We can do even better. We can preserve error categorization.
-{% highlight java %}
-sealed interface CalcResult permits CalcResult.Valid, CalcResult.Invalid {
-    
-    record Valid(double value) implements CalcResult {
-        public Valid {
-            if (!Double.isFinite(value)) {
-                throw new IllegalArgumentException("Valid result must be finite");
-            }
-        }
-    }
-    
-    sealed interface Invalid permits Invalid.NonFiniteInput, Invalid.DivisionByZero, Invalid.Other 
-        extends CalcResult {
-        
-        String reason();
-        
-        record NonFiniteInput() implements Invalid {
-            @Override public String reason() { return "non-finite input"; }
-        }
-        
-        record DivisionByZero() implements Invalid {
-            @Override public String reason() { return "division by zero"; }
-        }
-        
-        record Other(String reason) implements Invalid {}
-    }
-    
-    static Valid ok(double value) {
-        return new Valid(value);
-    }
-    
-    static Invalid.NonFiniteInput nonFiniteInput() {
-        return new Invalid.NonFiniteInput();
-    }
-    
-    static Invalid.DivisionByZero divisionByZero() {
-        return new Invalid.DivisionByZero();
-    }
-    
-    static Invalid.Other failed(String reason) {
-        return new Invalid.Other(reason);
-    }
-}
-{% endhighlight %}
+  {% highlight java %}
+  sealed interface CalcResult permits CalcResult.Valid, CalcResult.Invalid {
+      
+      record Valid(double value) implements CalcResult {
+          public Valid {
+              if (!Double.isFinite(value)) {
+                  throw new IllegalArgumentException("Valid result must be finite");
+              }
+          }
+      }
+      
+      sealed interface Invalid permits Invalid.NonFiniteInput, Invalid.DivisionByZero, Invalid.Other 
+          extends CalcResult {
+          
+          String reason();
+          
+          record NonFiniteInput() implements Invalid {
+              @Override public String reason() { return "non-finite input"; }
+          }
+          
+          record DivisionByZero() implements Invalid {
+              @Override public String reason() { return "division by zero"; }
+          }
+          
+          record Other(String reason) implements Invalid {}
+      }
+      
+      static Valid ok(double value) {
+          return new Valid(value);
+      }
+      
+      static Invalid.NonFiniteInput nonFiniteInput() {
+          return new Invalid.NonFiniteInput();
+      }
+      
+      static Invalid.DivisionByZero divisionByZero() {
+          return new Invalid.DivisionByZero();
+      }
+      
+      static Invalid.Other failed(String reason) {
+          return new Invalid.Other(reason);
+      }
+  }
+  {% endhighlight %}
 
-Then usage becomes even more structured:
-{% highlight java %}
-CalcResult safeDivide(double a, double b) {
-    if (!Double.isFinite(a) || !Double.isFinite(b)) {
-        return CalcResult.nonFiniteInput();
-    }
-    if (b == 0.0) {
-        return CalcResult.divisionByZero();
-    }
-    return CalcResult.ok(a / b);
-}
-
-// Pattern match on specific error types
-CalcResult result = safeDivide(10.0, 0.0);
-switch (result) {
-    case CalcResult.Valid(double v) -> 
-        System.out.println("Result: " + v);
-    case CalcResult.Invalid.NonFiniteInput() -> 
-        System.err.println("Input was NaN or Infinity");
-    case CalcResult.Invalid.DivisionByZero() -> 
-        System.err.println("Cannot divide by zero");
-    case CalcResult.Invalid.Other(String reason) -> 
-        System.err.println("Error: " + reason);
-}
-{% endhighlight %}
-
+  Then usage becomes even more structured:
+  {% highlight java %}
+  CalcResult safeDivide(double a, double b) {
+      if (!Double.isFinite(a) || !Double.isFinite(b)) {
+          return CalcResult.nonFiniteInput();
+      }
+      if (b == 0.0) {
+          return CalcResult.divisionByZero();
+      }
+      return CalcResult.ok(a / b);
+  }
+  
+  // Pattern match on specific error types
+  CalcResult result = safeDivide(10.0, 0.0);
+  switch (result) {
+      case CalcResult.Valid(double v) -> 
+          System.out.println("Result: " + v);
+      case CalcResult.Invalid.NonFiniteInput() -> 
+          System.err.println("Input was NaN or Infinity");
+      case CalcResult.Invalid.DivisionByZero() -> 
+          System.err.println("Cannot divide by zero");
+      case CalcResult.Invalid.Other(String reason) -> 
+          System.err.println("Error: " + reason);
+  }
+  {% endhighlight %}
 

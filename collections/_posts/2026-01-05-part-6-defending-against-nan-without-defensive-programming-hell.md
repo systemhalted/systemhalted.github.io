@@ -346,8 +346,7 @@ Your job is not to sprinkle rakes with warning stickers.
 Your job is to stop leaving rakes in the hallway.
 
 ## Notes
-[^1]: We can do even better. We can preserve error categorization:
-
+[^1]: We can do even better. We can preserve error categorization.
 {% highlight java %}
 sealed interface CalcResult permits CalcResult.Valid, CalcResult.Invalid {
     
@@ -417,7 +416,6 @@ switch (result) {
     case CalcResult.Invalid.Other(String reason) -> 
         System.err.println("Error: " + reason);
 }
-
 {% endhighlight %}
 
 

@@ -82,7 +82,7 @@ This is Checkpoint Syndrome because:
 	3.	It forces you to decide "what now" in a dozen places, inconsistently.
 	4.	It often converts "unknown" into "zero," which is how financial bugs are born.
 
-The antidote is not "more checks." The antidote is better geometry--put the checks where they matter, once, with intent.
+The antidote is not "more checks." The antidote is better geometry - put the checks where they matter, once, with intent.
 
 ## The core principle: validate at the edges, compute in the middle
 
@@ -115,7 +115,7 @@ static double requireFinite(double x, String name) {
 }
 {% endhighlight %}
 
-**Why `Double.isFinite()` is your single weapon:** It returns `true` only when `x` is neither NaN nor Infinity--exactly what "finite by default" means. You don't need two checks (`isNaN` and `isInfinite`). You need one: "is this a normal, usable number?"
+**Why `Double.isFinite()` is your single weapon:** It returns `true` only when `x` is neither NaN nor Infinity - exactly what "finite by default" means. You don't need two checks (`isNaN` and `isInfinite`). You need one: "is this a normal, usable number?"
 
 Use it at public boundaries and layer transitions, not inside every private method.
 
@@ -202,7 +202,7 @@ Infinity can be a legitimate signal in some domains:
 	2.	"Unbounded" score
 	3.	A mathematical asymptote that you intentionally model
 
-But if your domain does not explicitly accept Infinity, treat it exactly like NaN--reject both at the boundary with `Double.isFinite()`. This is why `requireFinite` uses that single check: it enforces "no NaN, no Infinity" in one line.
+But if your domain does not explicitly accept Infinity, treat it exactly like NaN - reject both at the boundary with `Double.isFinite()`. This is why `requireFinite` uses that single check: it enforces "no NaN, no Infinity" in one line.
 
 If you *do* need to distinguish between NaN and Infinity (rare), check them separately. But for most code, "not finite" is the only distinction that matters.
 

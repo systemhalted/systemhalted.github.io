@@ -1,0 +1,150 @@
+<svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Dramatic gradient background -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e1b4b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c2d12;stop-opacity:1" />
+    </linearGradient>
+
+```
+<!-- Intense glow -->
+<filter id="intense-glow">
+  <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+  <feMerge>
+    <feMergeNode in="coloredBlur"/>
+    <feMergeNode in="coloredBlur"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+
+<!-- Danger glow -->
+<filter id="danger">
+  <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
+  <feMerge>
+    <feMergeNode in="coloredBlur"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+
+<!-- Text shadow -->
+<filter id="text-shadow">
+  <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.8"/>
+</filter>
+```
+
+  </defs>
+
+  <!-- Background -->
+
+  <rect width="1600" height="900" fill="url(#bgGrad)"/>
+
+  <!-- Animated particle effects -->
+
+  <g opacity="0.4">
+    <circle cx="150" cy="100" r="3" fill="#ef4444">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1400" cy="150" r="2" fill="#10b981">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="800" r="2.5" fill="#3b82f6">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1300" cy="700" r="3" fill="#8b5cf6">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Giant NaN symbol - stylized and dramatic -->
+
+  <g opacity="0.15" transform="translate(300, 150)">
+    <text x="0" y="0" font-family="'Courier New', monospace" font-size="420" font-weight="bold" fill="#ef4444" transform="rotate(-15)">NaN</text>
+  </g>
+
+  <!-- Central explosive visual metaphor -->
+
+  <g transform="translate(800, 450)">
+    <!-- Explosion rays from center -->
+    <g opacity="0.6">
+      <line x1="0" y1="0" x2="300" y2="-200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+      <line x1="0" y1="0" x2="350" y2="0" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+      <line x1="0" y1="0" x2="300" y2="200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+      <line x1="0" y1="0" x2="-300" y2="200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+      <line x1="0" y1="0" x2="-350" y2="0" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+      <line x1="0" y1="0" x2="-300" y2="-200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+      <line x1="0" y1="0" x2="0" y2="-250" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+      <line x1="0" y1="0" x2="0" y2="250" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+    </g>
+
+```
+<!-- Center danger symbol -->
+<circle cx="0" cy="0" r="80" fill="none" stroke="#ef4444" stroke-width="8" filter="url(#intense-glow)">
+  <animate attributeName="r" values="80;90;80" dur="2s" repeatCount="indefinite"/>
+</circle>
+<circle cx="0" cy="0" r="60" fill="#ef4444" opacity="0.3" filter="url(#danger)">
+  <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite"/>
+</circle>
+
+<!-- Alert symbol inside -->
+<text x="0" y="25" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle" filter="url(#text-shadow)">!</text>
+```
+
+  </g>
+
+  <!-- Floating code fragments showing the chaos -->
+
+  <g opacity="0.7">
+    <g transform="translate(200, 300) rotate(-8)">
+      <rect x="0" y="0" width="280" height="80" fill="#1e293b" rx="8" opacity="0.9"/>
+      <text x="140" y="35" font-family="monospace" font-size="18" fill="#ef4444" text-anchor="middle">if (isNaN(x))</text>
+      <text x="140" y="60" font-family="monospace" font-size="16" fill="#94a3b8" text-anchor="middle">return 0; // ???</text>
+    </g>
+
+```
+<g transform="translate(1150, 250) rotate(5)">
+  <rect x="0" y="0" width="320" height="80" fill="#1e293b" rx="8" opacity="0.9"/>
+  <text x="160" y="35" font-family="monospace" font-size="18" fill="#10b981" text-anchor="middle">requireFinite(x)</text>
+  <text x="160" y="60" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">// validate once</text>
+</g>
+
+<g transform="translate(150, 600) rotate(-5)">
+  <rect x="0" y="0" width="300" height="60" fill="#1e293b" rx="8" opacity="0.9"/>
+  <text x="150" y="40" font-family="monospace" font-size="16" fill="#ef4444" text-anchor="middle">Double.isNaN(result)</text>
+</g>
+```
+
+  </g>
+
+  <!-- Main headline - massive and bold -->
+
+<text x="800" y="140" font-family="Arial, sans-serif" font-size="84" font-weight="900" fill="#fff" text-anchor="middle" filter="url(#text-shadow)">STOP THE</text>
+<text x="800" y="220" font-family="Arial, sans-serif" font-size="96" font-weight="900" fill="#ef4444" text-anchor="middle" filter="url(#intense-glow)">CHECKPOINT</text>
+<text x="800" y="300" font-family="Arial, sans-serif" font-size="96" font-weight="900" fill="#ef4444" text-anchor="middle" filter="url(#intense-glow)">SYNDROME</text>
+
+  <!-- Powerful tagline -->
+
+  <g transform="translate(800, 730)">
+    <rect x="-420" y="-35" width="840" height="70" fill="#10b981" opacity="0.2" rx="8"/>
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#10b981" text-anchor="middle" filter="url(#text-shadow)">Validate at Edges. Compute in Peace.</text>
+  </g>
+
+  <!-- Series branding - sleek badge -->
+
+  <g transform="translate(800, 850)">
+    <rect x="-280" y="-25" width="560" height="50" fill="#0ea5e9" opacity="0.3" rx="25"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="22" font-weight="600" fill="#0ea5e9" text-anchor="middle">Floating Point Without Tears · Part 6</text>
+  </g>
+
+  <!-- Rake icon (the metaphor) - bottom left corner -->
+
+  <g transform="translate(50, 820)" opacity="0.5">
+    <line x1="20" y1="0" x2="20" y2="60" stroke="#fbbf24" stroke-width="4"/>
+    <line x1="5" y1="60" x2="35" y2="60" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="8" y1="60" x2="8" y2="70" stroke="#fbbf24" stroke-width="2"/>
+    <line x1="20" y1="60" x2="20" y2="70" stroke="#fbbf24" stroke-width="2"/>
+    <line x1="32" y1="60" x2="32" y2="70" stroke="#fbbf24" stroke-width="2"/>
+    <text x="50" y="50" font-family="Arial, sans-serif" font-size="14" fill="#fbbf24">⚠️ Stop leaving</text>
+    <text x="50" y="70" font-family="Arial, sans-serif" font-size="14" fill="#fbbf24">rakes everywhere</text>
+  </g>
+</svg>

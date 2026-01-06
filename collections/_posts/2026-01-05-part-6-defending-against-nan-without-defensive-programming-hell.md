@@ -12,7 +12,7 @@ categories:
 tags: [java, floating-point, ieee-754, nan, validation, reliability]
 featured_image: assets/images/featured/2026-01-05-defending-against-nan-without-defensive-programming-hell.svg
 featured_image_alt: "Part 6 hero image: Bold warning against Checkpoint Syndrome, the anti-pattern of scattering NaN checks throughout code. Central danger symbol with radiating lines represents validation chaos. Contrasts bad pattern (red if-isNaN checks) with good pattern (green requireFinite at boundaries)."
-featured_image_caption: "NaN spreads like wildfire when you scatter if (isNaN) checks everywhere. The cure? Validate once at your system’s boundaries, then let your computation core stay blissfully clean."
+featured_image_caption: "NaN spreads like wildfire when you scatter if (isNaN) checks everywhere. The cure? Validate once at your system's boundaries, then let your computation core stay blissfully clean."
 description: "Learn how to handle NaN and Infinity in Java without scattering if (isNaN) checks everywhere. Five practical patterns: boundary validation with Double.isFinite(), result types, domain types, centralized sanitization, and detecting NaN at its source. Avoid Checkpoint Syndrome and keep your computation code clean."
 ---
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
@@ -59,7 +59,7 @@ That disguise is the whole problem.
 
 ## Defensive programming hell: "Checkpoint Syndrome"
 
-The naïve reaction is understandable:
+The naive reaction is understandable:
 
 You discover NaN in production.
 You add checks.

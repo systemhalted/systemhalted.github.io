@@ -32,11 +32,11 @@ So what exactly is this receipt for?
 NaN stands for "Not a Number." Expand it once, then treat it like a proper noun: NaN.
 
 You get NaN from operations that have no real number answer, such as:
-	1.	0.0 / 0.0
-	2.	Math.sqrt(-1.0)
-	3.	Math.log(-1.0)
-	4.	Any operation that already contains NaN, because NaN is contagious in the best and worst ways
-
+	1.	0.0 / 0.0  
+	2.	Math.sqrt(-1.0)  
+	3.	Math.log(-1.0)  
+	4.	Any operation that already contains NaN, because NaN is contagious in the best and worst ways  
+ 
 Java follows IEEE 754 here. The JVM will not throw an exception for most floating point invalid operations. It will produce NaN (or Infinity), and your program continues with a tiny invisible crack in reality.
 
 Here is the first mind-bending property:
@@ -61,11 +61,11 @@ That disguise is the whole problem.
 
 The naive reaction is understandable:
 
-You discover NaN in production.
-You add checks.
-You discover it again.
-You add more checks.
-Eventually every function looks like airport security staffed by anxious squirrels.
+You discover NaN in production.  
+You add checks.  
+You discover it again.  
+You add more checks.  
+Eventually every function looks like airport security staffed by anxious squirrels.  
 
 You get code like:
 
@@ -76,23 +76,23 @@ if (Double.isNaN(price) || Double.isInfinite(price)) {
 }
 {% endhighlight %}
 
-This is Checkpoint Syndrome because:
-	1.	It spreads everywhere.
-	2.	It hides the real cause. The first invalid operation is upstream.
-	3.	It forces you to decide "what now" in a dozen places, inconsistently.
-	4.	It often converts "unknown" into "zero," which is how financial bugs are born.
+This is Checkpoint Syndrome because:  
+	1.	It spreads everywhere.  
+	2.	It hides the real cause. The first invalid operation is upstream.  
+	3.	It forces you to decide "what now" in a dozen places, inconsistently.  
+	4.	It often converts "unknown" into "zero," which is how financial bugs are born.  
 
-The antidote is not "more checks." The antidote is better geometry - put the checks where they matter, once, with intent.
+The antidote is not "more checks." The antidote is better geometry - put the checks where they matter, once, with intent.  
 
 ## The core principle: validate at the edges, compute in the middle
 
 ![Diagram showing validation at boundaries and a clean computation core.]({{ "/assets/images/2026-01-05-core-principals.png" | relative_url }})
 
-Most NaN outbreaks begin at boundaries:
-	1.	Parsing and deserialization (CSV, JSON, user input, partner payloads)
-	2.	Sensor-style data (telemetry, percentages, rates)
-	3.	Divide by something that might be zero or missing
-	4.	"This should never happen" conversions (and then it happens)
+Most NaN outbreaks begin at boundaries:  
+	1.	Parsing and deserialization (CSV, JSON, user input, partner payloads)  
+	2.	Sensor-style data (telemetry, percentages, rates)  
+	3.	Divide by something that might be zero or missing  
+	4.	"This should never happen" conversions (and then it happens)  
 
 Your best defense is to establish a simple contract:
 
@@ -136,10 +136,10 @@ public double monthlyPayment(double principal, double annualRate, int months) {
 }
 {% endhighlight %}
 
-This gives you three wins:
-	1.	The failure is loud and early.
-	2.	The computation stays clean.
-	3.	The exception points to a real contract violation, not a mysterious downstream symptom.
+This gives you three wins:  
+	1.	The failure is loud and early.  
+	2.	The computation stays clean.  
+	3.	The exception points to a real contract violation, not a mysterious downstream symptom.  
 
 ## Pattern 2: Separate "invalid" from "zero" with a result type
 
@@ -208,11 +208,11 @@ They are money, rates, counts, durations, percentages.
 
 Those are not great candidates for raw double.
 
-A few examples:
-	1.	Money: store cents as long, or use BigDecimal where precision matters
-	2.	Counts: long or int
-	3.	Percentages: maybe basis points as int (one basis point = 0.01%, so 550 bps = 5.50%)
-	4.	Durations: java.time.Duration
+A few examples:  
+	1.	Money: store cents as long, or use BigDecimal where precision matters  
+	2.	Counts: long or int  
+	3.	Percentages: maybe basis points as int (one basis point = 0.01%, so 550 bps = 5.50%)  
+	4.	Durations: java.time.Duration  
 
 When you tighten types, you reduce the surface area where NaN can even appear. That is the most reliable NaN defense there is: make the invalid state unrepresentable.
 
@@ -222,10 +222,10 @@ NaN cannot enter a long. It can only stand outside and glare.
 
 Part 5 covered Infinity and signed zero. Here is the practical angle.
 
-Infinity can be a legitimate signal in some domains:
-	1.	"Unlimited" limit
-	2.	"Unbounded" score
-	3.	A mathematical asymptote that you intentionally model
+Infinity can be a legitimate signal in some domains:  
+	1.	"Unlimited" limit  
+	2.	"Unbounded" score  
+	3.	A mathematical asymptote that you intentionally model  
 
 But if your domain does not explicitly accept Infinity, treat it exactly like NaN - reject both at the boundary with `Double.isFinite()`. This is why `requireFinite` uses that single check: it enforces "no NaN, no Infinity" in one line.
 
@@ -246,12 +246,12 @@ double safe = Double.isFinite(x) ? x : 0.0;
 
 That turns "unknown" into "zero," and zero is not neutral in most systems.
 
-A safer pattern is to either:
-	1.	Drop the datapoint (for aggregates), and count it
-	2.	Mark the result invalid
-	3.	Fall back to a documented default that has real meaning, and log it
+A safer pattern is to either:  
+	1.	Drop the datapoint (for aggregates), and count it   
+	2.	Mark the result invalid  
+	3.	Fall back to a documented default that has real meaning, and log it  
 
-Example for aggregation:
+Example for aggregation:  
 
 {% highlight java %}
 double averageFinite(double[] xs) {

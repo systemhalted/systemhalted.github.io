@@ -86,7 +86,7 @@ The antidote is not "more checks." The antidote is better geometry - put the che
 
 ## The core principle: validate at the edges, compute in the middle
 
-![Diagram showing validation at boundaries and a clean computation core.]({{ "/assets/images/2026-01-05-core-principals.png" | relative_url }})
+![Diagram showing validation at boundaries and a clean computation core.]({{ "/assets/images/2026-01-05-core-principles.png" | relative_url }})
 
 Most NaN outbreaks begin at boundaries:  
 	1.	Parsing and deserialization (CSV, JSON, user input, partner payloads)  

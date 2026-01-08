@@ -4,7 +4,7 @@ tagline:             'By Palak Mathur'
 description:         'SystemHalted - I am just a DOS error'
 url:                 https://systemhalted.in
 baseurl:             ''
-paginate:            8
+paginate:            10
 permalink:           pretty
 disqus_shortname:    palakmathurgithub
 

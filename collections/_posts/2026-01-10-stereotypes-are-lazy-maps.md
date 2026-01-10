@@ -10,7 +10,7 @@ categories:
   - Personal Essays
 tags: [stereotypes, generalization, immigrants, critical-thinking, social-media]
 description: "A short essay on why stereotypes feel efficient but fail under scrutiny, and how to talk about groups: Indians, Americans, immigrants, anyone, without flattening millions of people into a single sentence."
-featured_image: assets/images/featured/2026-01-10-stereotypes-are-lazy-maps.jpg
+featured_image: assets/images/featured/2026-01-10-stereotypes-are-lazy-maps.png
 featured_image_alt: "Illustration of diverse people on a map under a magnifying glass"
 featured_image_caption: "Stereotypes flatten people into map pins; reality is richer."
 ---

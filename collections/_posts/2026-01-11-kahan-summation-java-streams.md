@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Part 7: Kahan Summation - When Your Sum Is Lying (Politely)"
+title: "Part 7: Kahan Summation -- A Better sum() for Java Streams"
 date: 2026-01-11
 type: post
 published: true

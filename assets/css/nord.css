@@ -1191,6 +1191,18 @@ body.search-open {
   }
 }
 
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .post-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (hover: none) and (pointer: coarse) and (min-width: 48em) {
+  .post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .post-card {
   background: var(--surface);
   border: 1px solid var(--border);

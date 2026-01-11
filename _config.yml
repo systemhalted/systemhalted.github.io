@@ -17,6 +17,8 @@ author:
 
 markdown: kramdown
 highlighter: rouge
+kramdown:
+  math_engine: katex
 # Gems
 plugins:
   - jekyll-paginate

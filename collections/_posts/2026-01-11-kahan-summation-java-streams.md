@@ -20,7 +20,7 @@ featured_image_caption: "Kahan summation in one image: the sum grows, the crumbs
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
 In [Part 6](https://systemhalted.in/2026/01/05/defending-against-nan-without-defensive-programming-hell/), we learned to defend against NaN by validating at boundaries. Now we tackle a different kind of quiet failure: when your sum is correct at every step but still wrong at the end.
----
+___
 
 Your sum is lying.
 

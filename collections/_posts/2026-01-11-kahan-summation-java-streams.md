@@ -50,9 +50,9 @@ That last line is the whole drama: `S = S + YI`.
 
 People then drop a line like this:
 
-> Rounding or truncation in the addition can contribute to a loss of almost log10(N) significant decimal digits in S.
+> Rounding or truncation in the addition can contribute to a loss of almost $\log_{10}(N)$ significant decimal digits in S.
 
-That `log10(N)` sounds like wizardry.
+That $\log_{10}(N)$ sounds like wizardry.
 
 It is not.
 
@@ -76,9 +76,9 @@ $$
 \Delta S \approx |S| \cdot 10^{-p}
 $$
 
-Think of `ΔS` as the width of the grid lines at the altitude where `S` lives.
+Think of $\Delta S$ as the width of the grid lines at the altitude where `S` lives.
 
-When you do `S = S + YI`, the result is rounded back to `p` digits. Any increment much smaller than `ΔS` can vanish.
+When you do `S = S + YI`, the result is rounded back to `p` digits. Any increment much smaller than $\Delta S$ can vanish.
 
 At the end, `|S| \approx N|Y|`, so the grid spacing near the final sum is:
 
@@ -94,7 +94,7 @@ $$
 
 That ratio is the punchline.
 
-Multiplying by `N` shifts magnitudes by `log10(N)` decimal digits. So as the running sum grows by a factor of `N`, the rounding grid spacing grows by the same factor. Relative to the scale of the things you are adding, you effectively lose about `log10(N)` digits.
+Multiplying by `N` shifts magnitudes by $\log_{10}(N)$ decimal digits. So as the running sum grows by a factor of `N`, the rounding grid spacing grows by the same factor. Relative to the scale of the things you are adding, you effectively lose about $\log_{10}(N)$ digits.
 
 Another way to say it:
 
@@ -106,15 +106,15 @@ $$
 
 Suppose you have about `p = 7` significant decimal digits (single-ish precision). Sum `N = 10^6` numbers of size about 1.
 
-`log10(10^6) = 6`
+$\log_{10}(10^6) = 6$
 
 So you can be left with roughly:
 
-`7 - 6 = 1` meaningful decimal digit at the scale of 1
+$7 - 6 = 1$ meaningful decimal digit at the scale of 1
 
 By the time `S` reaches around one million, the grid spacing near `S` is roughly:
 
-`10^6 * 10^(-7) = 10^(-1) = 0.1`
+$10^6 \cdot 10^{-7} = 10^{-1} = 0.1$
 
 So adding `0.01` can literally do nothing. It gets rounded away.
 

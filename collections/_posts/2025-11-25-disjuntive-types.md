@@ -23,6 +23,34 @@ Scala did, in the form of `Either`.
 I found `Either` while searching through Scala docs and it felt exactly right for the problem in front of me. Simple idea, huge leverage. That sent me down the path of thinking about what disjunctive types really are and why I want them in my everyday Java code.
 
 ---
+**TL;DR**
+
+You can treat "either this or that" as a *first-class* thing in Java today:
+
+- For **"value or error"** results, define a small `Result<E, T>` type (a home-grown `Either`):  
+  - See section **"Making The Disjunction Explicit: A `Result` Type"**.  
+  - Change methods like `Ast parse(String)` or `Optional<Ast> parse(...)` into  
+    `Result<ParseError, Ast> parse(String input)`.  
+  - Callers are now *forced* by the compiler to handle both success and failure.
+
+- For **ASTs and node kinds**, use **sealed hierarchies** as N-way disjunctive types:  
+  - See section **"Disjunctive AST Nodes: An N-Way Either"**.  
+  - Model your tree as:  
+    `sealed interface AstNode permits PackageNode, FunctionNode, StoredProcNode, ...`  
+  - Traversals return `AstNode` and pattern matching becomes exhaustive and honest.
+
+- Use the tools where they fit:  
+  - `Optional<T>` → "T or nothing" (absence is the *only* alternative).  
+  - `Result<E, T>` / `Either<L, R>` → "this meaningful thing or that meaningful thing".  
+  - Sealed hierarchies → "one of these shapes, and the compiler knows all of them".
+
+If a method’s real contract is "either this or that", this post shows you exactly how to:  
+1. Encode that as a `Result<E, T>` (for outcomes), and  
+2. Encode it as a sealed interface hierarchy (for AST/node shapes),  
+
+so the type system finally tells the same story you do in your head.
+
+---
 
 ## Where My Idea Of Disjunctive Types Comes From
 

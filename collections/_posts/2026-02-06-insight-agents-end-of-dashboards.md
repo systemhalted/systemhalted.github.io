@@ -36,9 +36,9 @@ What really stood out to me was the engineering discipline.
 
 They did **not** use an LLM for everything.
 
-An auto-encoder handles intent detection in **0.009 seconds** instead of 1.6 seconds.
+- An auto-encoder handles intent detection in **0.009 seconds** instead of 1.6 seconds.
 
-A fine-tuned BERT model handles routing in **0.3 seconds** instead of ~2 seconds.
+- A fine-tuned BERT model handles routing in **0.3 seconds** instead of ~2 seconds.
 
 Only after this fast triage does the LLM come in for reasoning and narrative insight generation.
 

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Part 7: Kahan Summation -- A Better sum() for Java Streams"
-date: 2026-01-11
 type: post
 published: true
 comments: true
@@ -367,7 +366,7 @@ public final class NeumaierAccumulator {
 
 Pairwise summation (tree reduction) reduces error growth by summing numbers of similar magnitude together. Some stream implementations may do something like this internally, but the key benefit of writing your own is that you make the behavior explicit and reviewable.
 
-## When to use what
+## When to use what 
 
 Use BigDecimal when you need decimal semantics and you mean it.
 
@@ -378,7 +377,16 @@ Use Kahan (or Neumaier) when:
 * `N` is large (thousands to millions of values)
 * values span many orders of magnitude
 * small contributions matter
-* you want better accuracy without dragging BigDecimal everywhere
+* you want better accuracy without dragging BigDecimal everywhere   
+
+### A note on BigDecimal vs Kahan (so we don’t mix the tools)
+
+BigDecimal and Kahan solve different problems. **BigDecimal is about decimal *semantics*** (money, accounting, "pennies must add up," explicit rounding rules). **Kahan is about double *accumulation error*** (metrics, measurements, statistics, ML features, telemetry) when `double` is the right representation but naive summation bleeds low-order bits.   
+
+- If your requirements mention **cents, statements, taxes, interest, regulatory accuracy, or mandated rounding policies** → use **BigDecimal** (and decide scale + rounding mode explicitly).   
+- If your requirements mention **large aggregates, mixed magnitudes, order sensitivity, or "why did parallel give a different total?"** → keep **double**, but upgrade the summation (**Kahan/Neumaier/pairwise**) and be explicit about ordering if determinism matters.    
+
+Also, BigDecimal only stays "decimal-correct" if you construct it correctly (prefer parsing from decimal text, or `BigDecimal.valueOf(double)` over `new BigDecimal(double)`). 
 
 ## Closing
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Part 7: Kahan Summation -- A Better sum() for Java Streams"
+title: "Part 7: Kahan Summation - A Better sum() for Java Streams"
 type: post
 published: true
 comments: true

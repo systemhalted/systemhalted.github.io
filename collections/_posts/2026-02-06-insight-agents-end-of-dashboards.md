@@ -25,7 +25,7 @@ featured_image_alt: "A futuristic illustration of AI insight agents collaboratin
 featured_image_caption: "Insight Agents at work: a shift from dashboard-driven analytics to agentic systems that understand business context and generate decisions, not just charts."
 ---
 
-I just finished reading the Amazon Research paper *"Insight Agents: An LLM-Based Multi-Agent System for Data Insights"*[^1] and this is the first time I’ve seen a serious, production-minded attempt to close that gap with agentic analytics.
+I just finished reading the Amazon Research paper *"Insight Agents: An LLM-Based Multi-Agent System for Data Insights"*[^1] and this is the first time I have seen a truly production-minded attempt to close the gap between dashboards that show data and systems that actually help make decisions..
 
 This is not a chatbot over a database.  
 This is not Text-to-SQL dressed up as AI.

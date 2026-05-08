@@ -25,53 +25,23 @@ featured_image_alt: "A futuristic illustration of AI insight agents collaboratin
 featured_image_caption: "Insight Agents at work: a shift from dashboard-driven analytics to agentic systems that understand business context and generate decisions, not just charts."
 ---
 
-I just finished reading the Amazon Research paper *"Insight Agents: An LLM-Based Multi-Agent System for Data Insights"*[^1] and this is the first time I have seen a truly production-minded attempt to close the gap between dashboards that show data and systems that actually help make decisions..
+I have just finished reading the Amazon Research paper *"Insight Agents: An LLM-Based Multi-Agent System for Data Insights"*[^1], and it is, I think, the first genuinely production-minded attempt I have seen to close the long-standing gap between dashboards that *show* data and systems that actually help people *decide* anything on the basis of it. The paper describes a hierarchical multi-agent system that, somewhat unusually, seems to actually understand the chain by which a business question becomes a data query and then becomes an insight, rather than treating that chain as a single LLM prompt to be optimised.
 
-This is not a chatbot over a database.  
-This is not Text-to-SQL dressed up as AI.
-
-This is a hierarchical multi-agent system that actually understands how business questions turn into data queries and then into insights.
-
-What really stood out to me was the engineering discipline.
-
-They did **not** use an LLM for everything.
+What stood out to me, reading through it, was less the model architecture than the engineering discipline behind the choice of where to use which kind of model. The authors did not, in fact, reach for an LLM as the answer to every problem, which is increasingly unusual in this space. Instead, they appear to have asked, at each stage of the pipeline, what the cheapest model that does the job correctly actually is, and to have used that. Two of the numbers in the paper are particularly striking:
 
 - An auto-encoder handles intent detection in **0.009 seconds** instead of 1.6 seconds.   
 
 - A fine-tuned BERT model handles routing in **0.3 seconds** instead of ~2 seconds.   
 
-Only after this fast triage does the LLM come in for reasoning and narrative insight generation.
+The LLM, in their architecture, only enters the picture once this fast triage stage has narrowed the problem space — at which point it is being used for what large language models are actually good at, which is reasoning over a focused problem and generating narrative explanations for a human reader.
 
-Small models for speed.  
-LLM for thinking.
+They also, sensibly, avoid the naive Text-to-SQL approach that has become almost a cliché in this area. Instead, they describe an augmented querying flow that brings business context, internal APIs, and a plan-and-execute style of decomposition to bear on the question. The system breaks a query into a sequence of steps, fetches the right data at each step, and produces explanations that a human reader can actually act on, rather than a single SQL query that is correct in the abstract but unhelpful in context. In their reported evaluation, the system holds 90th-percentile latency under roughly 13 seconds, with about 89% relevance and correctness as judged by human raters — which, for an agentic pipeline of this kind, is a meaningfully better number than I would have expected.
 
-That pattern alone is worth studying.
+The most important idea in the paper, however, is, I think, the one that follows from all of this rather than being stated outright. It is the implicit observation that, in the model described, the user is no longer expected to navigate a dashboard at all. They are expected, instead, to ask questions of a system that already understands the schema, the metrics, the seasonality of the business, and the internal vocabulary that the team uses to talk about what is happening — and to receive, in response, an explanation of what happened and, where the data supports it, why it happened.
 
-They also avoid naive Text-to-SQL. Instead, they use augmented querying with business context, APIs, and plan-and-execute workflows. The system breaks a question into steps, fetches the right data, and produces explanations that humans can actually act on.
+This is not, to be clear, an argument for replacing BI teams or data engineers; on the contrary, it is an argument for amplifying them. What this kind of system promises, if it works at the scale claimed, is to turn the underlying data infrastructure into something a non-specialist part of the business can actually query in plain language, and to receive a structured explanation back rather than a chart that someone still has to interpret. The future of analytics, on this view, is less likely to be a continued proliferation of dashboards and more likely to be a steady shift toward conversational understanding layered on top of structured data — with dashboards retained, in the end, mostly for the cases in which a human still wants to look at the underlying time series themselves.
 
-In their evaluation, 90th percentile latency is under ~13 seconds with ~89% relevance and correctness judged by humans.
-
-That is interactive. That is usable. That is very close to real.
-
-The most important idea here is this:
-
-You don’t explore dashboards anymore.
-
-You ask questions to a system that already understands your schema, your metrics, your seasonality, and your business vocabulary.
-
-And it tells you what happened and why.
-
-This does not replace BI teams or data engineers.
-
-It amplifies them.
-
-It turns data infrastructure into a thinking layer for the business.
-
-If you are building analytics platforms, GenAI agents, or data products, this paper is worth your time.
-
-The future of analytics is not more charts.
-
-It is conversational understanding over structured data.
+If you are working on analytics platforms, on GenAI agents, or on data products of any meaningful scale, I would encourage you to read the paper end to end. It is, by some distance, the most thoughtful treatment of where to put which kind of intelligence in an agentic data system that I have come across in the last year.
 
 ## References
 [^1]: Paper, https://arxiv.org/pdf/2601.20048

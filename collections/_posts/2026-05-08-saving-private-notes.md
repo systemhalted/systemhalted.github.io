@@ -58,7 +58,7 @@ The rule I went with is simple. If it has a "done" state, it goes in Reminders. 
 
 ## What I'd actually tell someone
 
-The cleanup itself was not the hard part. The hard part was admitting that the Zettelkasten folders I had set up years earlier were aspirational, not active. They had been sitting there making the system look organised while making the actual mess worse.
+The cleanup itself was not the hard part. The hard part was admitting that the Zettelkasten folders I had set up years earlier were aspirational, not active. I was impressed by how useful it was for Niklas Luhmann and thought it would be useful for me as well in the same way it was for him. However, these folders had been sitting there making the system look organised while making the actual mess worse.
 
 Most of the work was being honest about what I really do with notes — capture things, look them up later, occasionally write something longer — and building the smallest structure that supported those three things. No folders that existed only because some method I had read about said they should.
 

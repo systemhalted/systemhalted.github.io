@@ -1191,9 +1191,9 @@ body.search-open {
   }
 }
 
-@media (min-width: 1025px) and (max-width: 1366px) {
+@media (min-width: 1025px) {
   .post-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

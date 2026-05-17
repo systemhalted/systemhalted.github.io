@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.8.8)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
     bigdecimal (4.0.1)
@@ -13,13 +13,20 @@ GEM
       http_parser.rb (~> 0)
     eventmachine (1.2.7)
     faraday (2.14.1)
+    execjs (2.10.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
+    faraday-retry (2.4.0)
+      faraday (~> 2.0)
+    ffi (1.17.3-x86_64-darwin)
     ffi (1.17.3-x86_64-linux-gnu)
     forwardable-extended (2.6.0)
+    google-protobuf (4.33.2-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.33.2-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
@@ -58,9 +65,14 @@ GEM
       jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-    json (2.18.1)
+    json (2.19.2)
+    katex (0.10.0)
+      execjs (~> 2.8)
     kramdown (2.5.1)
       rexml (>= 3.3.9)
+    kramdown-math-katex (1.0.1)
+      katex (~> 0.4)
+      kramdown (~> 2.0)
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.4)
@@ -76,7 +88,7 @@ GEM
       sawyer (~> 0.9)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
-    public_suffix (7.0.0)
+    public_suffix (7.0.5)
     rake (13.3.1)
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
@@ -84,6 +96,8 @@ GEM
     rexml (3.4.4)
     rouge (4.7.0)
     safe_yaml (1.0.5)
+    sass-embedded (1.97.1-x86_64-darwin)
+      google-protobuf (~> 4.31)
     sass-embedded (1.97.1-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     sawyer (0.9.3)
@@ -96,15 +110,18 @@ GEM
     webrick (1.9.2)
 
 PLATFORMS
+  x86_64-darwin-21
   x86_64-linux-gnu
 
 DEPENDENCIES
-  jekyll
+  faraday-retry
+  jekyll (~> 4.3)
   jekyll-feed
   jekyll-gist
   jekyll-paginate
   jekyll-seo-tag
   jekyll-sitemap
+  kramdown-math-katex
 
 BUNDLED WITH
    2.4.20

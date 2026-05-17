@@ -201,10 +201,12 @@
   function openSearch() {
     lastFocusedElement = document.activeElement;
     setOverlayState(true);
-    window.setTimeout(function() {
-      input.focus();
-      input.select();
-    }, 0);
+    window.requestAnimationFrame(function() {
+      window.requestAnimationFrame(function() {
+        input.focus();
+        input.select();
+      });
+    });
   }
 
   function clearResults(message) {

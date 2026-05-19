@@ -6,11 +6,10 @@ url:                 https://systemhalted.in
 baseurl:             ''
 paginate:            8
 permalink:           pretty
-disqus_shortname:    palakmathurgithub
 
 # About/contact
 author:
-  name:              systemhalted
+  name:              Palak Mathur
   url:               https://systemhalted.in
   email:             insanethoughts@live.com
 
@@ -26,7 +25,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
-# - jekyll-toc
+  - jekyll-toc
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:year/:month/:day/:title/
@@ -65,8 +64,6 @@ sidebar:
       url: "/archives/"
     - title: "Categories"
       url: "/categories/"
-    - title: "Tags"
-      url: "/tags/"
     - title: "Emacs"
       url: "/emacs/"
     - title: "Javascript Games"

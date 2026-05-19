@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: newsletter
 title: Balancing Diplomacy and Firmness - Insights from Ancient Wisdom
 tags:
 - newsletter

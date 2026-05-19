@@ -6,7 +6,6 @@ title: Home
 <div class="post-grid">
   {% for post in paginator.posts %}
     {% assign summary = post.description | default: post.excerpt | strip_html | truncate: 140 %}
-    {% assign author_name = post.author | default: site.author.name | default: "systemhalted" %}
     {% assign thumb = post.featured_image %}
     <article class="post-card">
       <a class="card-media" href="{{ post.url | relative_url }}">
@@ -28,10 +27,6 @@ title: Home
         {% if summary %}
           <p class="card-excerpt">{{ summary }}</p>
         {% endif %}
-        <div class="card-author">
-          <div class="author-avatar">{{ author_name | slice: 0, 1 | upcase }}</div>
-          <span class="author-name">{{ author_name }}</span>
-        </div>
       </div>
     </article>
   {% endfor %}

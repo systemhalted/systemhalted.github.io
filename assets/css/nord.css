@@ -893,7 +893,13 @@ body.search-open {
   margin-bottom: 4rem;
 }
 
-.content .post,
+.content .post {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--font-sans);
+}
+
 .content .page {
   max-width: 48rem;
   margin-left: auto;
@@ -908,26 +914,16 @@ body.search-open {
   font-family: var(--font-sans);
 }
 
-.post-content > pre,
-.post-content > figure,
-.post-content > .highlight,
-.post-content > table,
-.post-content > blockquote {
-  max-width: 48rem;
-  margin-left: calc((36rem - 48rem) / 2);
-  margin-right: calc((36rem - 48rem) / 2);
+.post-featured img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
-@media (max-width: 52rem) {
-  .post-content > pre,
-  .post-content > figure,
-  .post-content > .highlight,
-  .post-content > table,
-  .post-content > blockquote {
-    max-width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-  }
+.comments {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page-title,
@@ -939,6 +935,46 @@ body.search-open {
 .page-title,
 .post-title {
   margin-top: 0;
+}
+
+.post-title {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.35rem, 2vw, 1.55rem);
+  line-height: 1.25;
+}
+
+/* Long URLs in prose (citations, reference lists) break cleanly */
+.post-content a {
+  word-break: break-all;
+}
+
+/* Standalone paragraphs between two lists usually belong to one of them
+   (kramdown closes a list when an unindented paragraph follows). Tighten
+   the gap so they read as continuations, not orphans. */
+.post-content ul + p,
+.post-content ol + p,
+.post-content p + ul,
+.post-content p + ol {
+  margin-top: 0.4rem;
+}
+
+/* Continuation paragraphs inside list items shouldn't feel orphaned */
+.post-content li > p {
+  margin: 0.4rem 0;
+}
+
+.post-content li > p:first-child {
+  margin-top: 0;
+}
+
+.post-content li > p:last-child {
+  margin-bottom: 0;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
 }
 
 .post-meta {
@@ -1227,7 +1263,7 @@ body.search-open {
   padding-top: 2rem;
   padding-bottom: 2rem;
   border-top: 1px solid var(--border);
-  max-width: 48rem;
+  max-width: 36rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1972,7 +2008,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 }
 
 .newsletter-issue {
-  max-width: 48rem;
+  max-width: 36rem;
   margin: 0 auto 3rem;
 }
 

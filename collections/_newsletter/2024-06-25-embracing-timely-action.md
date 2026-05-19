@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: newsletter
 title: Lessons from Ancient Indian Text - Embracing Timely Action in Leadership and Management
 tags:
 - newsletter

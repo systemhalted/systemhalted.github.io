@@ -5,13 +5,12 @@ title: Featured Posts
 description: "An archive of posts sorted by date."
 ---
 
-<ul class="post-list">
-{% for post in site.posts %}
-{% if post.featured %}
-<li>
-  <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-  <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-</li>
-{% endif %}
-{% endfor %}
+<section class="featured-hero">
+  <p class="featured-kicker">Editor's picks</p>
+  <h1 class="featured-headline">Featured posts</h1>
+  <p class="featured-lede">A small set of posts I keep coming back to.</p>
+</section>
+
+<ul class="post-feed">
+  {% for post in site.posts %}{% if post.featured %}{% include post-list-item.html post=post %}{% endif %}{% endfor %}
 </ul>

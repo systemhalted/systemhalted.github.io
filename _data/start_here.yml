@@ -1,0 +1,12 @@
+# Curated "Start here" list rendered above the recent-posts feed on the home page (page 1 only).
+# Edit `posts:` to set the canonical entry points for new readers — exact post URLs with trailing slash.
+# To hide the section entirely, delete this file.
+
+lede: "A few posts that capture what this site is about."
+
+posts:
+  - /2026/01/11/kahan-summation-java-streams/
+  - /2025/12/31/discipline-first-trust-pipeline-for-ai-assisted-coding/
+  - /2025/12/22/reforming-unsc-without-breaking-trust/
+  - /2025/12/09/tdd-revisted/
+  - /2025/12/06/dhurandhar-movie-review/

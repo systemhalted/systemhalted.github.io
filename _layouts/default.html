@@ -45,8 +45,18 @@
             </button>
           </div>
           <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
-          <div id="search-results" class="search-results">
-            <p class="search-empty">Type to search the archive.</p>
+          <div id="search-results" class="search-results"
+               data-suggestions="emacs,sdkman,leadership,java,bigdecimal">
+            <div class="search-empty-state">
+              <p class="search-empty">Type to search, or try:</p>
+              <ul class="search-suggestions">
+                <li><button type="button" data-suggest="emacs">emacs</button></li>
+                <li><button type="button" data-suggest="sdkman">sdkman</button></li>
+                <li><button type="button" data-suggest="leadership">leadership</button></li>
+                <li><button type="button" data-suggest="java">java</button></li>
+                <li><button type="button" data-suggest="bigdecimal">bigdecimal</button></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -61,8 +71,5 @@
     <script src="{{ '/assets/js/elasticlunr.min.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/webcmd.js' | relative_url }}"></script>
     <script src='{{ site.baseurl }}/assets/js/script.js'></script>
-    {% if site.disqus_shortname and page.layout == "post" and page.comments == true %}
-    <script id="dsq-count-scr" src="//{{ site.disqus_shortname }}.disqus.com/count.js" async></script>
-    {% endif %}
   </body>
 </html>

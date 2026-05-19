@@ -1,7 +1,23 @@
 ---
 title: Kartavya Path
-layout: collections
-collection_name: newsletter
-permalink: /kartavya-path
-show_dates: true
+layout: page
+permalink: /kartavya-path/
 ---
+
+<section class="newsletter-hero">
+  <p class="newsletter-kicker">कर्तव्य पथ · Kartavya Path</p>
+  <h1 class="newsletter-headline">A note on leadership, management, and the long road</h1>
+  <p class="newsletter-lede">
+    Kartavya Path means "the path of duty" — short essays on leading teams, doing the
+    harder right thing over the easier wrong one, and the long arc of building anything
+    that lasts. Cross-posted to LinkedIn; you can read it here or there.
+  </p>
+</section>
+
+{% include newsletter-cta.html context="landing" %}
+
+<h2 class="recent-title">Past issues</h2>
+<ul class="post-feed">
+  {% assign issues = site.newsletter | sort: 'date' | reverse %}
+  {% for issue in issues %}{% include newsletter-list-item.html issue=issue %}{% endfor %}
+</ul>

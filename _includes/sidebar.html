@@ -10,18 +10,13 @@
 
   <nav class="sidebar-nav">
     {% for item in site.sidebar.items %}
-  
+
     <a
       class="sidebar-nav-item{% if page.url == item.url %} active{% endif %}"
       href="{{ item.url | relative_url }}">
       {{ item.title }}
     </a>
     {% endfor %}
-
-    <!-- Manually entered links stay as-is -->
-    <button class="sidebar-nav-item sidebar-nav-action" id="annotate-toggle" type="button">
-      Annotate me
-    </button>
   </nav>
 
   <div class="sidebar-item">

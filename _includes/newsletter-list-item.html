@@ -1,0 +1,11 @@
+{% assign issue = include.issue %}
+{% assign summary = issue.description | default: issue.excerpt | strip_html | truncate: 300 %}
+<li class="post-feed-item">
+  <div class="post-feed-meta">
+    <time class="post-feed-date" datetime="{{ issue.date | date_to_xmlschema }}">{{ issue.date | date: "%b %-d, %Y" }}</time>
+    <span class="post-feed-sep" aria-hidden="true">·</span>
+    <span class="post-feed-cat">Kartavya Path</span>
+  </div>
+  <h2 class="post-feed-title"><a href="{{ issue.url | relative_url }}">{{ issue.title }}</a></h2>
+  {% if summary %}<p class="post-feed-excerpt">{{ summary }}</p>{% endif %}
+</li>

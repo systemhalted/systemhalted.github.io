@@ -102,6 +102,14 @@
     }
 
     updateToggle(theme);
+
+    var giscusFrame = document.querySelector('iframe.giscus-frame');
+    if (giscusFrame && giscusFrame.contentWindow) {
+      giscusFrame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+        'https://giscus.app'
+      );
+    }
   }
 
   if (window.matchMedia) {
@@ -184,6 +192,12 @@
   var lastFocusedElement = null;
 
   if (!toggle || !overlay || !closeBtn || !input || !results) return;
+
+  var emptyStateHTML = results.innerHTML;
+
+  function renderEmptyState() {
+    results.innerHTML = emptyStateHTML;
+  }
 
   function isEditableTarget(target) {
     if (!target) return false;
@@ -285,7 +299,7 @@
     var trimmed = query.trim();
     setStatus('');
     if (!trimmed) {
-      clearResults('Type to search the archive.');
+      renderEmptyState();
       return;
     }
 
@@ -360,7 +374,7 @@
     setOverlayState(false);
     input.value = '';
     setStatus('');
-    clearResults('Type to search the archive.');
+    renderEmptyState();
     if (lastFocusedElement && lastFocusedElement.focus) {
       lastFocusedElement.focus();
     }
@@ -406,6 +420,21 @@
 
   input.addEventListener('input', function(event) {
     renderResults(event.target.value);
+  });
+
+  results.addEventListener('click', function(event) {
+    var btn = event.target.closest ? event.target.closest('button[data-suggest]') : null;
+    if (!btn) return;
+    input.value = btn.getAttribute('data-suggest') || '';
+    var evt;
+    try {
+      evt = new Event('input', { bubbles: true });
+    } catch (e) {
+      evt = document.createEvent('Event');
+      evt.initEvent('input', true, true);
+    }
+    input.dispatchEvent(evt);
+    input.focus();
   });
 
   document.addEventListener('keydown', function(event) {

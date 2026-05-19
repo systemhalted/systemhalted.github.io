@@ -1,0 +1,57 @@
+---
+layout: default
+---
+
+<article class="newsletter-issue">
+  <header class="newsletter-issue-header">
+    <p class="newsletter-kicker">Kartavya Path · {{ page.date | date: "%b %-d, %Y" }}</p>
+    <h1 class="newsletter-title">{{ page.title }}</h1>
+    {% assign words = content | number_of_words %}
+    {% assign read_time = words | divided_by: 220 | at_least: 1 %}
+    <p class="newsletter-meta">{{ read_time }} min read</p>
+  </header>
+
+  <div class="post-content">
+    {% if page.toc %}
+    <nav class="post-toc" aria-label="Table of contents">
+      <p class="post-toc-title">On this page</p>
+      {{ content | toc_only }}
+    </nav>
+    {% endif %}
+    {{ content | inject_anchors }}
+  </div>
+
+  {% include newsletter-cta.html context="end-of-issue" %}
+
+  {% if page.linkedin_url %}
+  <p class="linkedin-discuss">
+    <a href="{{ page.linkedin_url }}" rel="noopener" target="_blank">Discuss on LinkedIn →</a>
+  </p>
+  {% endif %}
+
+  {% assign issues = site.newsletter | sort: 'date' %}
+  {% assign idx = 0 %}
+  {% for iss in issues %}
+    {% if iss.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}
+  {% endfor %}
+  {% assign prev_idx = idx | minus: 1 %}
+  {% assign next_idx = idx | plus: 1 %}
+  {% if prev_idx >= 0 or next_idx < issues.size %}
+  <nav class="post-nav" aria-label="More issues">
+    {% if next_idx < issues.size %}
+      {% assign next_issue = issues[next_idx] %}
+      <a class="post-nav-prev" href="{{ next_issue.url | relative_url }}">
+        <span class="post-nav-label">← Newer issue</span>
+        <strong class="post-nav-title">{{ next_issue.title }}</strong>
+      </a>
+    {% else %}<span></span>{% endif %}
+    {% if prev_idx >= 0 %}
+      {% assign prev_issue = issues[prev_idx] %}
+      <a class="post-nav-next" href="{{ prev_issue.url | relative_url }}">
+        <span class="post-nav-label">Older issue →</span>
+        <strong class="post-nav-title">{{ prev_issue.title }}</strong>
+      </a>
+    {% else %}<span></span>{% endif %}
+  </nav>
+  {% endif %}
+</article>

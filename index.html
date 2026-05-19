@@ -3,34 +3,38 @@ layout: default
 title: Home
 ---
 
-<div class="post-grid">
-  {% for post in paginator.posts %}
-    {% assign summary = post.description | default: post.excerpt | strip_html | truncate: 140 %}
-    {% assign thumb = post.featured_image %}
-    <article class="post-card">
-      <a class="card-media" href="{{ post.url | relative_url }}">
-        {% if thumb %}
-          <img src="{{ thumb | relative_url }}" alt="{{ post.featured_image_alt | default: post.title }}">
-        {% else %}
-          <div class="card-thumb-placeholder">
-            <span>{{ post.title | slice: 0, 1 | upcase }}</span>
-          </div>
-        {% endif %}
-      </a>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-date">{{ post.date | date: "%b %d, %Y" }}</span>
-        </div>
-        <h2 class="card-title">
-          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        </h2>
-        {% if summary %}
-          <p class="card-excerpt">{{ summary }}</p>
-        {% endif %}
-      </div>
-    </article>
-  {% endfor %}
-</div>
+{% if paginator.page == 1 and site.data.start_here %}
+<section class="start-here">
+  <h2 class="start-here-title">Start here</h2>
+  {% if site.data.start_here.lede %}<p class="start-here-lede">{{ site.data.start_here.lede }}</p>{% endif %}
+  <ul class="post-feed start-here-feed">
+    {% for slug in site.data.start_here.posts %}
+      {% assign p = site.posts | where: "url", slug | first %}
+      {% if p %}{% include post-list-item.html post=p %}{% endif %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if paginator.page == 1 %}
+  {% assign latest_issue = site.newsletter | sort: 'date' | reverse | first %}
+  {% if latest_issue %}
+  <section class="home-newsletter-promo">
+    <p class="newsletter-kicker">Latest from Kartavya Path</p>
+    <h3 class="home-newsletter-title"><a href="{{ latest_issue.url | relative_url }}">{{ latest_issue.title }}</a></h3>
+    <p class="home-newsletter-meta">
+      <time datetime="{{ latest_issue.date | date_to_xmlschema }}">{{ latest_issue.date | date: "%b %-d, %Y" }}</time>
+      · <a href="{{ '/kartavya-path/' | relative_url }}">all issues →</a>
+    </p>
+  </section>
+  {% endif %}
+{% endif %}
+
+{% if paginator.page == 1 %}<h2 class="recent-title">Recent posts</h2>{% endif %}
+
+<ul class="post-feed">
+  {% for post in paginator.posts %}{% include post-list-item.html post=post %}{% endfor %}
+</ul>
 
 <nav class="pager" aria-label="Pagination">
   {% assign total_pages = paginator.total_pages %}

@@ -4,6 +4,7 @@ title: "Part 7: Kahan Summation - A Better sum() for Java Streams"
 type: post
 published: true
 comments: true
+toc: true
 categories:
   - Computer Science
   - Software Engineering

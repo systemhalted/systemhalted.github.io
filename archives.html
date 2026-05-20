@@ -17,7 +17,7 @@ title: Archives
 
 {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 
-<div id="archive-years">
+<div id="archive-years" aria-live="polite" aria-busy="false">
   {% for year in posts_by_year %}
     {% assign year_count = year.items | size %}
     <details class="archive-year" data-year="{{ year.name }}" data-count="{{ year_count }}"{% if forloop.first %} open{% endif %}>

@@ -40,7 +40,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
   comments: true
   featured: true
   featured_image: assets/images/2025-12-hero.jpg
-  featured_image_alt: Brief alt text for the image
+  featured_image_alt: Brief alt text for the image  # required when featured_image is set; empty if decorative
   featured_image_caption: Photo credit or context
   description: One-line summary for previews.
   ---
@@ -82,6 +82,8 @@ bundle exec jekyll serve   # in one terminal
 npm run a11y               # in another
 ```
 Config lives in `.pa11yci`. `/jsgames/*` is excluded by design — different constraints. See `docs/accessibility.md` for the full a11y inventory and Safari/Tab-preference caveats.
+
+`.github/workflows/a11y.yml` runs the same audit on every PR and push to `master` and fails the check on any violation, so fix locally before pushing.
 
 ## Docs
 - CSS updates guide: `docs/css-updates.md`

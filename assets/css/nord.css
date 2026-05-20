@@ -34,17 +34,22 @@
   --text: var(--nord3);
   --text-strong: var(--nord0);
   --muted: var(--nord3);
-  --link: var(--nord10);
-  --link-hover: var(--nord9);
+  --link: #3a5879;
+  --link-hover: var(--nord10);
   --accent: var(--nord8);
   --accent-strong: var(--nord10);
   --accent-warm: var(--nord12);
+  --accent-warm-text: #a14d2a;
+  --accent-press: #3a5879;
   --on-accent: var(--nord6);
   --shadow: 0 12px 28px rgba(46, 52, 64, 0.12);
   --shadow-strong: 0 16px 36px rgba(46, 52, 64, 0.18);
   --code-bg: var(--nord5);
   --code-text: var(--nord11);
   --code-border: var(--nord4);
+  --code-block-bg: var(--nord0);
+  --code-block-text: var(--nord6);
+  --code-block-border: var(--nord2);
   --sidebar-bg: var(--nord0);
   --sidebar-text: var(--nord4);
   --sidebar-link: var(--nord6);
@@ -83,12 +88,17 @@
   --accent: var(--nord8);
   --accent-strong: var(--nord10);
   --accent-warm: var(--nord13);
-  --on-accent: var(--nord6);
+  --accent-warm-text: var(--nord13);
+  --accent-press: var(--nord8);
+  --on-accent: var(--nord0);
   --shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
   --shadow-strong: 0 16px 36px rgba(0, 0, 0, 0.45);
   --code-bg: var(--nord1);
   --code-text: var(--nord6);
   --code-border: var(--nord2);
+  --code-block-bg: var(--nord0);
+  --code-block-text: var(--nord6);
+  --code-block-border: var(--nord2);
   --sidebar-bg: var(--nord1);
   --sidebar-text: var(--nord4);
   --sidebar-link: var(--nord6);
@@ -100,6 +110,17 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 html,
@@ -162,7 +183,7 @@ a {
 }
 
 a:hover,
-a:focus {
+a:focus-visible {
   color: var(--link-hover);
   text-decoration: underline;
 }
@@ -264,8 +285,9 @@ pre {
   padding: 1rem;
   font-size: 0.9rem;
   line-height: 1.5;
-  background: var(--code-bg);
-  border: 1px solid var(--code-border);
+  background: var(--code-block-bg);
+  color: var(--code-block-text);
+  border: 1px solid var(--code-block-border);
   border-radius: 8px;
   overflow-x: auto;
 }
@@ -287,10 +309,19 @@ pre code {
   overflow-y: hidden;
 }
 
-.highlight,
 .highlighter-rouge {
   font-family: var(--font-mono);
   color: var(--text-strong);
+}
+
+.highlight {
+  font-family: var(--font-mono);
+  color: var(--code-block-text);
+}
+
+.highlight .highlighter-rouge,
+pre .highlighter-rouge {
+  color: inherit;
 }
 
 .highlight .hll {
@@ -302,7 +333,7 @@ pre code {
 .highlight .c1,
 .highlight .cp,
 .highlight .cs {
-  color: var(--muted);
+  color: var(--nord4);
   font-style: italic;
 }
 
@@ -340,7 +371,7 @@ pre code {
 .highlight .mo,
 .highlight .mx,
 .highlight .il {
-  color: var(--nord15);
+  color: #d4b3df;
 }
 
 .highlight .na,
@@ -363,7 +394,7 @@ pre code {
 .highlight .o,
 .highlight .ow,
 .highlight .p {
-  color: var(--text);
+  color: var(--nord4);
 }
 
 .highlight .gd {
@@ -480,7 +511,7 @@ tbody tr:nth-child(odd) th {
 }
 
 .masthead-wordmark:hover,
-.masthead-wordmark:focus {
+.masthead-wordmark:focus-visible {
   color: var(--link);
   text-decoration: none;
 }
@@ -699,7 +730,7 @@ body.search-open {
 }
 
 .search-result:hover,
-.search-result:focus {
+.search-result:focus-visible {
   border-color: var(--accent);
   box-shadow: var(--shadow);
   transform: translateY(-1px);
@@ -832,7 +863,7 @@ body.search-open {
 
 .sidebar-nav-item.active,
 .sidebar-nav-item:hover,
-.sidebar-nav-item:focus {
+.sidebar-nav-item:focus-visible {
   text-decoration: none;
   background: var(--sidebar-border);
   color: var(--sidebar-link);
@@ -1059,6 +1090,56 @@ body.search-open {
   text-decoration: none;
 }
 
+/* Share buttons */
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 1rem 0;
+}
+
+.share-buttons-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-right: 0.25rem;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.share-button svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.share-button:hover,
+.share-button:focus-visible {
+  background: var(--surface-strong);
+  text-decoration: none;
+}
+
+.share-facebook:hover,
+.share-facebook:focus-visible { color: #1877f2; }
+.share-twitter:hover,
+.share-twitter:focus-visible { color: #1da1f2; }
+.share-linkedin:hover,
+.share-linkedin:focus-visible { color: #0a66c2; }
+.share-pinterest:hover,
+.share-pinterest:focus-visible { color: #bd081c; }
+.share-mail:hover,
+.share-mail:focus-visible { color: var(--text-strong); }
+
 /* Webcmd page */
 .webcmd {
   max-width: 56rem;
@@ -1142,10 +1223,6 @@ body.search-open {
   font-size: 1rem;
   margin: 0;
   padding: 0;
-}
-
-.webcmd-input input:focus {
-  outline: none;
 }
 
 .webcmd-hint {
@@ -1353,11 +1430,11 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 }
 
 .post-feed-item .post-feed-sep {
-  color: var(--border);
+  color: var(--muted);
 }
 
 .post-feed-item .post-feed-cat {
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
   font-weight: 600;
 }
 
@@ -1449,7 +1526,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
   font-weight: 700;
 }
 
@@ -1489,15 +1566,15 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 }
 
 .page-btn:hover,
-.page-btn:focus {
+.page-btn:focus-visible {
   background: var(--surface-strong);
   text-decoration: none;
 }
 
 .page-btn.active {
-  background: var(--accent-strong);
-  border-color: var(--accent-strong);
-  color: var(--on-accent);
+  background: var(--accent-press);
+  border-color: var(--accent-press);
+  color: #fff;
 }
 
 .page-btn.disabled {
@@ -1999,7 +2076,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 
 .newsletter-brand {
   margin: 0 0 0.35rem;
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
   font-family: var(--font-sans);
   font-size: clamp(2rem, 4vw, 2.75rem);
   font-weight: 700;
@@ -2012,7 +2089,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
   font-weight: 700;
 }
 
@@ -2093,7 +2170,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 .newsletter-cta-fallback {
   display: inline-block;
   margin-top: 0.5rem;
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
   font-weight: 600;
 }
 
@@ -2198,7 +2275,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 
 .post-toc li::before {
   content: "·";
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
   margin-right: 0.5rem;
 }
 
@@ -2251,7 +2328,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
   font-weight: 700;
 }
 
@@ -2315,5 +2392,53 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 
 .footer-shortcuts button:hover,
 .footer-shortcuts button:focus-visible {
-  color: var(--accent-warm);
+  color: var(--accent-warm-text);
+}
+
+/* Windows High Contrast / forced-colors mode: ensure interactive states
+   remain perceivable when the OS strips custom backgrounds and borders. */
+@media (forced-colors: active) {
+  a,
+  .skip-link {
+    color: LinkText;
+  }
+
+  a:visited {
+    color: VisitedText;
+  }
+
+  button,
+  .icon-button,
+  .page-btn,
+  .share-button,
+  .sidebar-toggle,
+  .sidebar-nav-item,
+  .footer-button,
+  .annotate-toggle {
+    border: 1px solid ButtonText;
+    color: ButtonText;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  .icon-button:focus-visible,
+  .page-btn:focus-visible,
+  .share-button:focus-visible,
+  .sidebar-toggle:focus-visible,
+  .sidebar-nav-item:focus-visible,
+  .footer-button:focus-visible,
+  .annotate-toggle:focus-visible,
+  .search-result:focus-visible,
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .page-btn.active,
+  .sidebar-nav-item.active {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
 }

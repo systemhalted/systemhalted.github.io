@@ -16,7 +16,7 @@ layout: default
 
   {% if page.featured_image %}
   <figure class="post-featured">
-    <img src="{{ page.featured_image | relative_url }}" alt="{{ page.featured_image_alt | default: page.title }}">
+    <img src="{{ page.featured_image | relative_url }}" alt="{{ page.featured_image_alt | default: '' }}">
     {% if page.featured_image_caption %}
     <figcaption>{{ page.featured_image_caption }}</figcaption>
     {% endif %}

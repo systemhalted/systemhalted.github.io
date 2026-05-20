@@ -14,19 +14,19 @@
     </div>
 
     <div class="footer-links">
-      <div class="footer-column">
+      <nav class="footer-column" aria-label="Browse">
         <div class="footer-heading">Browse</div>
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/featured/' | relative_url }}">Featured</a>
         <a href="{{ '/archives/' | relative_url }}">Archives</a>
         <a href="{{ '/categories/' | relative_url }}">Categories</a>
-      </div>
-      <div class="footer-column">
+      </nav>
+      <nav class="footer-column" aria-label="Connect">
         <div class="footer-heading">Connect</div>
         <a href="mailto:{{ site.author.email | default: 'contact@example.com' }}">Email</a>
         <a href="https://www.linkedin.com/in/systemhalted/" rel="noopener">LinkedIn</a>
         <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-      </div>
+      </nav>
     </div>
 
     <div class="footer-subscribe">

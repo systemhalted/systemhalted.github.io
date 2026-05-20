@@ -17,6 +17,20 @@ When you change colors:
 - Prefer semantic tokens (`--bg`, `--surface`, `--text-strong`) over palette tokens (`--nord8`) inside components.
 - If you introduce a new token, add it to both theme blocks.
 
+### Accent-warm split (text vs. fill)
+The raw Nord12 / Nord13 warm accent doesn't meet WCAG AA as text on the light bg, so we split the token:
+- `--accent-warm` — backgrounds, borders, decorative fills only.
+- `--accent-warm-text` — any `color:` rule that needs the warm accent (kickers, brand marks, link emphasis).
+
+If you reach for the warm color in a `color:` rule, use `--accent-warm-text`. The light theme value is a darker burnt orange tuned for ≥4.5:1 on `--bg`.
+
+### Code blocks vs. inline code
+Two separate token families intentionally diverge:
+- Inline `<code>` uses `--code-bg` / `--code-text` / `--code-border` — light bg in light theme, contained chip look.
+- `<pre>` code blocks use `--code-block-bg` / `--code-block-text` / `--code-block-border` — always a dark Nord canvas so the Rouge syntax tokens (which are designed for dark backgrounds) hit AA in both themes.
+
+Don't merge them — that's the trap the original styling fell into. The block-vs-inline distinction is the whole point.
+
 ## Finding the right selector
 Start from the markup, then jump to the selector:
 - Layouts are in `_layouts/` and includes in `_includes/`.
@@ -38,10 +52,11 @@ rg -n "post-grid|post-card|masthead|search-overlay|archive" _layouts _includes *
 - Posts and pages: `.post`, `.post-content` (36rem reading column), `.post-title`, `.page-title` (gated by `hide_page_title` front-matter flag), `.post-date`, `.post-featured`, `.post-categories`, `.post-tags`, `.post-toc`
 - Emacs notes: `.emacs-note`, `.emacs-note-header` (individual notes rendered by `_layouts/emacs.html`)
 - Post cards (legacy; still used in some places): `.post-grid`, `.post-card`, `.card-media`, `.card-body`, `.card-title`, `.card-excerpt`
-- Pagination: `.pager`, `.page-btn`
+- Pagination: `.pager`, `.page-btn`, `.page-btn.active` (uses `--accent-press` for AA contrast)
 - Categories/tags: `.category-block`, `.category-posts`, `.tag-box`
 - Archives: `.archive-controls`, `.archive-year`, `.archive-post-summary`, `.archive-post-description`
-- Footer: `.site-footer`, `.footer-*`, `.footer-shortcuts` (the `Keyboard shortcuts (?)` trigger)
+- Share buttons: `.share-buttons` (nav landmark), `.share-buttons-label`, `.share-button` + per-network variants (`.share-facebook`, `.share-twitter`, `.share-linkedin`, `.share-pinterest`, `.share-mail`)
+- Footer: `.site-footer`, `.footer-*`, `.footer-shortcuts` (the `Keyboard shortcuts (?)` trigger); the Browse and Connect columns are `<nav class="footer-column" aria-label="…">` landmarks
 
 ## Updating existing styles
 1. Identify the class in the layout or page that renders the UI you want to change.
@@ -72,6 +87,12 @@ If you rename any of these, update `assets/js/script.js` and the related HTML in
 
 ## Layout flags worth knowing
 - **`hide_page_title: true`** in a page's front matter suppresses the `<h2 class="page-title">` that `_layouts/page.html` would otherwise inject. Use this on any page that provides its own h1 via a hero block (`.newsletter-hero`, `.featured-hero`, etc.) to avoid a duplicate, off-width title. Applied today on `emacs.html`, `jsgames/index.html`, `featured.html`, `kartavya-path.html`. Pages without a hero (`about.md`, `archives.html`, `categories.html`, `tags.html`, `docs/content-metadata.md`) should *not* set this — they rely on `.page-title` as their only heading.
+
+## Motion and forced-colors
+
+Two global media queries near the top and bottom of `assets/css/nord.css` apply site-wide and don't usually need to be touched:
+- `@media (prefers-reduced-motion: reduce)` near the top neutralizes all animations and transitions for users who request reduced motion. New components inherit this for free — don't add component-level `prefers-reduced-motion` blocks unless you have a specific override.
+- `@media (forced-colors: active)` at the bottom of the file maps interactive elements (buttons, focus rings, active pagination, sidebar items) to Windows High Contrast system colors (`ButtonText`, `Highlight`, `LinkText`, `CanvasText`). If you add a new interactive component, ensure it's covered in this block or relies on already-covered base selectors.
 
 ## Sidebar / horizontal-overflow invariant
 The sidebar open animation applies `transform: translateX(14rem)` to `.wrap` (full-viewport-width). This pushes the wrap 14rem past the viewport's right edge while it's open. To prevent a horizontal scrollbar, `overflow-x: hidden` is set on **both** `html` and `body`. Don't remove either — body-only doesn't always propagate to the viewport scrollbar. Code blocks keep their own scoped `overflow-x: auto`, so syntax-highlighted prose still scrolls horizontally inside the block.
@@ -165,8 +186,9 @@ Adjust the wordmark block in the masthead section:
 }
 
 .search-result:hover,
-.search-result:focus {
+.search-result:focus-visible {
   border-color: var(--accent);
   box-shadow: var(--shadow-strong);
 }
 ```
+Prefer `:focus-visible` over `:focus` for interactive states — mouse-click users don't get a sticky focus ring, keyboard users still do. The codebase has been converted to this pattern; match it when adding new components.

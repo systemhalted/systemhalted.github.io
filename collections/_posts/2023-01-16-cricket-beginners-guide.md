@@ -11,6 +11,7 @@ tags:
 comments: true
 description: This post summarizes sport of cricket for people who are interested in the game.
 ---
+
 Cricket is a sport that is played between two teams of eleven players each. The objective of the game is for one team to score more runs than the other team. If you are new to the game, it can seem complex and difficult to understand. However, with a basic understanding of the rules and strategies, anyone can enjoy watching and playing cricket.
 
 ### The Field
@@ -47,7 +48,6 @@ The game can end in one of several ways:
 * The second team may score more runs than the first team before all their players are out, in which case the second team wins. 
 * The game may end in a tie if both teams have the same score.
 
-
 ### Match Formats
 
 #### Test Match
@@ -63,6 +63,5 @@ The test match format is considered to be the most challenging and demanding for
 These formats are designed to be completed in a shorter amount of time and are often considered to be more fast-paced and exciting. The two most popular limited-overs formats are One Day and T20.
     * One Day - In One Day format, each team has a set number of overs, usually 50, to score as many runs as possible. The team that scores the most runs wins the match. This format is considered to be a balance between the longer test format and the shorter T20 format, and it is popular for international matches.
     * T20 - T20 format is the shortest and most exciting format of cricket, where each team has 20 overs to score as many runs as possible. The team that scores the most runs wins the match. This format is popular for domestic and international matches, and it is known for its fast-paced action and high-scoring matches.
-
 
 Cricket is a sport with many rules and strategies, and can take some time to fully understand. However, with a basic understanding of the game and its rules, anyone can enjoy watching and playing cricket. The game is known for its rich history and traditions, as well as its unique terminology and strategies. It is especially popular in countries such as England, Australia, India, and South Africa. Give it a try, you might find it to be a fascinating sport!

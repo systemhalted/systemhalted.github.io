@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Article Review] Is Artificial Intelligence Dangerous by Bernard Marr"
+title: '[Article Review] Is Artificial Intelligence Dangerous by Bernard Marr'
 category:
 - Technology
 - AI
@@ -11,6 +11,7 @@ tags:
 comments: true
 description: This is the review of Forbes Article by Bernard Marr on AI.
 ---
+
 ### Summary
 
  The author[^1] starts the article by mentioning the concerns raised by Elon Musk, et.al and talks about the difference between Narrow AI and General AI. Then it mentions 6 AI risks, viz., autonomous weapons, social ma- nipulation, invasion of privacy and social grading, misalignment between human goals and that of machine, and discrimination.
@@ -22,7 +23,3 @@ This article is very simple and it accurately portrays the risk associated with 
 *References*
 
 [^1]:  Marr, Bernard (2018). Is Artificial Intelligence Dangerous? 6 AI Risks Everyone Should Know About. [link](https://www.forbes.com/sites/bernardmarr/2018/11/19/is-artificial-intelligence-dangerous-6-ai-risks-everyone-should-know-about/?sh=5132f2ed2404)
-
-
-
-

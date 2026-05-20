@@ -1,35 +1,13 @@
 ---
 layout: post
 title: Be Alert Be Secure
-date: 2011-05-06 18:58:50.000000000 -05:00
-type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
+date: 2011-05-06 18:58:50-05:00
 category:
 - Technology
 tags:
 - technology
-meta:
-  _edit_last: '547454'
-  geo_latitude: '27.129264'
-  geo_longitude: '78.054729'
-  geo_accuracy: '0'
-  geo_address: street, Agra H O, Uttar Pradesh, India
-  geo_public: '0'
-  _wpas_done_yup: '1'
-  reddit: a:2:{s:5:"count";s:1:"0";s:4:"time";s:10:"1329601662";}
-  _wpas_done_twitter: '1'
-  _wpas_done_fb: '1'
-author:
-  login: palakmathur
-  email: palakmathur@gmail.com
-  display_name: Palak Mathur
-  first_name: Palak
-  last_name: Mathur
-permalink: "/2011/05/06/be-alert-be-secure/"
 ---
+
 IT has revolutionised the entire world. Banking sector has also been revolutionised by this IT revolution. Gone are the days when you had to stand in the queue in a bank to get your cheques cleared, or stand in a queue to pay your electricity bills and fight with a bill collecting clerk at BSNL office. Internet has revolutionised the way users used to do their daily businesses. It has made it easy to shop and avail services like internet banking from anywhere, anytime without physical presence.
 
 However, it has also increased the opportunity for fraudsters to target their preys and commit frauds. It is important for online users to be aware of such frauds and protect themselves against them.

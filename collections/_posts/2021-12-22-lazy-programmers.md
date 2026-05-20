@@ -9,9 +9,10 @@ tags:
 - opinion
 - software
 comments: true
-description: 
 featured: false
+description: null
 ---
+
 "Lazy programmers are the best programmers!" You will often here this when someone automates a task that takes x time units spending y time units and obviously here x < y. 
 
 I personally find this a good joke if told once. However, this has been repeated so many times that I find it offensive. People who try automating their work/task are not lazy. They are trying to be efficient in a longer run. 

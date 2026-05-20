@@ -1,11 +1,7 @@
 ---
 layout: post
 title: Implications of the M.S. Gill precedent on statecraft
-date: 2008-04-09 13:10:00.000000000 -05:00
-type: post
-published: true
-comments: true
-status: publish
+date: 2008-04-09 13:10:00-05:00
 category:
 - Personal Essays
 - Politics & Governance
@@ -13,7 +9,9 @@ tags:
 - personal
 - opinion
 - politics
+comments: true
 ---
+
 <p>Read an article with the same title on <a href="http://www.hindu.com/2008/04/08/stories/2008040854301000.htm">Hindu</a> by Harish Khare. Here is my opinion on the issue.</p>
 
 # Should top bureaucrats, police chiefs, and judges be allowed to enter politics?
@@ -96,4 +94,4 @@ That is how you keep the door open without turning neutrality into a commodity.
 [^6]: Election Commission letter reported: EC asked for cooling off period clause between leaving government job and joining political party (Times of India, Jan 29, 2012). https://timesofindia.indiatimes.com/india/election-commission-asks-govt-to-bar-civil-servants-in-poll-fray/articleshow/11674228.cms  
 [^7]: Government rejection of EC suggestion reported (Economic Times, Oct 6, 2013). https://economictimes.indiatimes.com/news/politics-and-nation/government-rejects-ec-suggestion-on-cooling-off-period-for-bureaucrats-taking-political-plunge/articleshow/23604335.cms  
 [^8]: CJI Gavai on ethical concerns and public trust regarding judges entering politics or taking government posts after retirement (Times of India, Jun 5, 2025). https://timesofindia.indiatimes.com/india/judges-taking-poll-plunge-or-govt-posts-after-retirement-improper-cji/articleshow/121635797.cms  
-[^9]: Open court statement: CJI Gavai and Justice Abhay S Oka will not accept post retirement jobs (Bar and Bench, May 23, 2025). https://www.barandbench.com/news/justice-as-oka-and-i-have-decided-not-to-accept-post-retirement-jobs-cji-br-gavai  
+[^9]: Open court statement: CJI Gavai and Justice Abhay S Oka will not accept post retirement jobs (Bar and Bench, May 23, 2025). https://www.barandbench.com/news/justice-as-oka-and-i-have-decided-not-to-accept-post-retirement-jobs-cji-br-gavai

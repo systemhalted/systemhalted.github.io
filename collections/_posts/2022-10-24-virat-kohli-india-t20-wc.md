@@ -7,9 +7,10 @@ tags:
 - sports
 - india
 comments: true
-description: This is a note to self for memories in the later years. This was the innings that proved why Virat Kohli is a King!
 featured: false
+description: This is a note to self for memories in the later years. This was the innings that proved why Virat Kohli is a King!
 ---
+
 Virat Kohli’s knock today in the T20 World Cup 2022 match againt [Pakistan](https://www.espncricinfo.com/series/icc-men-s-t20-world-cup-2022-23-1298134/india-vs-pakistan-16th-match-group-2-1298150/live-cricket-score) was amazing, He was so calm and composed that if I were not watching the replay of the game, I would be cursing him. Then again, he is the king 👑 and I am an ordinary spectator. 
 
 Yes, I didn’t watch the game live and only after my Exam, I watched the replay. But replay gave me the opportunity to focus on other aspects of the game than the live match would.

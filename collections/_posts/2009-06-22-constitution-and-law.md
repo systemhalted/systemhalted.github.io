@@ -1,0 +1,25 @@
+---
+layout: post
+title: Constitution and Law
+date: 2009-06-22 23:25:54-05:00
+category:
+- Politics & Governance
+tags:
+- politics
+- india
+---
+
+I was having a discussion with few of my friends and as the discussion progress my frustration grew so stronger that I had to stand up and say SHUT UP!! I don't know what we were discussing when suddenly the discussion went on Constitution and Law and I was ashamed on their ignorance about the subject. They were confusing the meanings of the two words. It would have been okay, if my friends would have discussed it normally but their attitude was like "I Know All" kind. We all can't know everything, there are certain restrictions that we all should be aware of and not ashamed. I can't score 100%ile in CAT and I know that ;). But having a wrong attitude not only shows ones unworthiness but also makes you stand stupid.
+
+However, after thinking for a while I realized that there would be many people who might have this confusion. So, here I am trying to explain the two terms and the difference between them in the simplest of the terms. Though it is a vast topic. But I will stick to the explanation of terms and the differences in as simplest form as possible.
+
+**<!--more-->Constitution**  
+What is Constitution? What are its functions? What is its role in our society? These are the few questions that if we can answer we would be able to understand the meaning of Constitution and the answers are not tough either.
+
+As per NCERT book Indian Constitution at work, "Constitution is a set of basic rules that allow for minimal coordination amongst members of a society."
+
+So simple isn't it? Yes, Constitution allows coordination and assurance among the members of a society. Imagine India. We are a big country with diverse people, diverse people with varied interests, likes and dislikes. We all are living together and dependent on each other in one way or the other. So, how to maintain a cooperation in such a big group. It is possible if these people could agree on few basic rules or principles. Here is where Constitution comes into picture. Consitution is these basic rules or principle which are necessary for the harmonical existence of people in a society.
+
+Having said so, it is also important to know that Consititution if not enforceable has no use of its existence. So, these rules and principles that are set in Constitution should not only be known but should also be enforceable. If citizens have no assurance that others will follow these rules, they will themselves have no reason to follow these rules. Here is where Law comes into existence. Saying that the rules are legally enforceable gives an assurance to everybody that others will follow these because if they do not, they will be punished.
+
+Thus, Constitution is a framework and Law is its definition. Or we can say that Constitution is a framework on which Law stands.

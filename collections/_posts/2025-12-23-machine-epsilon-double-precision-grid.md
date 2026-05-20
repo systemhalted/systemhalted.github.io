@@ -1,21 +1,27 @@
 ---
 layout: post
-title: "Part 4: Machine Epsilon - The Smallest Change a Double Can See"
+title: 'Part 4: Machine Epsilon - The Smallest Change a Double Can See'
 date: 2025-12-23
-type: post
-published: true
-comments: true
 category:
 - Computer Science
 - Software Engineering
 - Technology
 - Series 4 - Floating Point Without Tears
-tags: [java, floating-point, ieee-754, double, machine-epsilon, ulp, numerics]
-description: How fine is the double-precision grid, and why does 1.0 vanish next to 1e16?
+tags:
+- java
+- floating-point
+- ieee-754
+- double
+- machine-epsilon
+- ulp
+- numerics
+comments: true
 featured_image: assets/images/MachineEpsilon.png
 featured_image_alt: Visual grid showing machine epsilon spacing near 1.0
 featured_image_caption: Machine epsilon marks the smallest step above 1.0 in double precision
+description: How fine is the double-precision grid, and why does 1.0 vanish next to 1e16?
 ---
+
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
 In my post on associativity and reduce[^1], we saw something that feels like a prank. In Example 5, adding 1.0 to 1e16 did not change the value at all.

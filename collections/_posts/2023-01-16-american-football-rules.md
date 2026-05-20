@@ -10,6 +10,7 @@ tags:
 comments: true
 description: As a newcomer to USA in 2013, American Football was really confusing at first. Here I summarize the rules at high level for the people who are new to the USA and want to understand and enjoy the game.
 ---
+
 As a newcomer to USA in 2013, American Football was really confusing at first. Here I summarize the rules at high level for the people who are new to the USA and want to understand and enjoy the game. 
 
 American football is a sport played by two teams, each consisting of eleven players. The objective of the game is to advance an oval-shaped ball down the field and score points by crossing the opposing team's goal line or kicking the ball through a set of goalposts.
@@ -31,4 +32,4 @@ Points can be scored in several ways:
 * Safety: 2 points, awarded when the defense tackles the offensive player with the ball in their own end zone.
 * Extra point: 1 point, awarded after a touchdown, the offense can choose to attempt to kick the ball through the opponent's goalposts for one point or run/pass the ball into the end zone for 2 points.
 
-Go and enjoy the game! 
+Go and enjoy the game!

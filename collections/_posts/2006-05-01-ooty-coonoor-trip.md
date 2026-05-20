@@ -1,9 +1,14 @@
 ---
 layout: post
-title: "Ooty–Coonoor Trip"
-categories: [Travel]
-tags: [ooty, coonoor, mysore, trip, travel]
-published: true
+title: Ooty–Coonoor Trip
+categories:
+- Travel
+tags:
+- ooty
+- coonoor
+- mysore
+- trip
+- travel
 ---
 
 ## A letter to Sunanda Mainji (May 1, 2006)

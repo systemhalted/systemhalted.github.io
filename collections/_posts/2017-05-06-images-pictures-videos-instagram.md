@@ -2,18 +2,16 @@
 layout: post
 title: Images, Pictures, Videos and Instagram
 date: 2017-05-06
-type: post
-published: true
-comments: true
-status: publish
 categories:
 - Personal Essays
 tags:
 - personal
 - opinion
 - travel
+comments: true
 description: Instagram changed the way I share pictures and short videos.
 ---
+
 I like taking pictures. But I am lazy to click pictures using a DSLR. I own one 
 but use it occasionally. The truth is that I don't even need one.  My iPhone is 
 one of the best point and shoot cameras in the world and I simply love it. 
@@ -43,5 +41,4 @@ share (apply filters if you wish). The best part is - it is free.
 
 Instagram has revolutionized the way I share my pics. I love it. 
 
-
-P.S.: I use the word images for both pictures and videos. 
+P.S.: I use the word images for both pictures and videos.

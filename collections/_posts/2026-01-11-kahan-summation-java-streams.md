@@ -1,20 +1,25 @@
 ---
 layout: post
-title: "Part 7: Kahan Summation - A Better sum() for Java Streams"
-type: post
-published: true
-comments: true
-toc: true
+title: 'Part 7: Kahan Summation - A Better sum() for Java Streams'
 categories:
-  - Computer Science
-  - Software Engineering
-  - Technology
-  - Series 4 - Floating Point Without Tears
-tags: [java, floating-point, ieee-754, kahan, numerical-analysis, streams, collector]
-description: "Learn why naive summation loses digits and how Kahan compensated summation helps. Includes Java Stream integration, test strategies, and when to use BigDecimal instead."
+- Computer Science
+- Software Engineering
+- Technology
+- Series 4 - Floating Point Without Tears
+tags:
+- java
+- floating-point
+- ieee-754
+- kahan
+- numerical-analysis
+- streams
+- collector
+comments: true
 featured_image: /assets/images/featured/2026-01-11-kahan-summation-java-streams.png
 featured_image_alt: 'Retro tech illustration of floating point summation: a terminal showing "S = 0.0" and "S = S + Yᵢ", a large glowing sigma (Σ), and a result of "1000000.0" over a grid with scattered numeric crumbs; subtle watermark "@systemhalted.in" in the lower right.'
-featured_image_caption: "Kahan summation in one image: the sum grows, the crumbs fall off, and compensation helps you sweep them back."
+featured_image_caption: 'Kahan summation in one image: the sum grows, the crumbs fall off, and compensation helps you sweep them back.'
+description: Learn why naive summation loses digits and how Kahan compensated summation helps. Includes Java Stream integration, test strategies, and when to use BigDecimal instead.
+toc: true
 ---
 
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*

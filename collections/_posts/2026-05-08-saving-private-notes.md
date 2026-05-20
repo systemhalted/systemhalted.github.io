@@ -1,24 +1,22 @@
 ---
 layout: post
-title: "Saving Private Notes"
+title: Saving Private Notes
 date: 2026-05-08
-type: post
-published: true
-comments: true
 categories:
-  - Personal Essays
-  - Technology
+- Personal Essays
+- Technology
 tags:
-  - notes
-  - productivity
-  - apple-notes
-  - para
-  - johnny-decimal
-  - zettelkasten
+- notes
+- productivity
+- apple-notes
+- para
+- johnny-decimal
+- zettelkasten
+comments: true
 featured_image: assets/images/featured/2026-05-08-saving-private-notes.png
-featured_image_alt: "Illustration of a person at a desk working on a MacBook with Apple Notes open. Above them, a thought bubble shows a chaotic mass of more than a thousand colourful sticky notes. Two arrows lead from the bubble: one to a tidy set of folders labelled Ideas, Clients, Knowledge, and Ref; the other to a separate Tasks list with checkbox items like Schedule meeting, Email presentation, and Buy groceries. A bookshelf in the background includes Digital Minimalism and Getting Things Done."
-featured_image_caption: "From a thousand unfiled notes to a small folder structure on one side and a tasks list on the other."
-description: "How I cleaned up a thousand Apple Notes by being honest about what I actually use notes for, building a small folder structure to match, and drawing a hard line between notes and tasks."
+featured_image_alt: 'Illustration of a person at a desk working on a MacBook with Apple Notes open. Above them, a thought bubble shows a chaotic mass of more than a thousand colourful sticky notes. Two arrows lead from the bubble: one to a tidy set of folders labelled Ideas, Clients, Knowledge, and Ref; the other to a separate Tasks list with checkbox items like Schedule meeting, Email presentation, and Buy groceries. A bookshelf in the background includes Digital Minimalism and Getting Things Done.'
+featured_image_caption: From a thousand unfiled notes to a small folder structure on one side and a tasks list on the other.
+description: How I cleaned up a thousand Apple Notes by being honest about what I actually use notes for, building a small folder structure to match, and drawing a hard line between notes and tasks.
 ---
 
 I had over 1000 notes in Apple Notes when I finally decided to clean them up. Most were in a folder called "Misc" or sitting loose in the root. Some were years old. A few I did not recognise as mine.

@@ -3,13 +3,14 @@ layout: post
 title: हुनर की शूआ’
 category:
 - Poetry & Literature
-comments: true
-description: A new philosophical poem
-featured: false
 tags:
 - poetry
 - hindi
+comments: true
+featured: false
+description: A new philosophical poem
 ---
+
 Yesterday night I wrote this poem in Hindustani. In the evening today we watched #Uunchai. I didn’t know the poem will be so apt. Here presenting again
 
     Naya Savera Sang Nayi Umra Laaya,

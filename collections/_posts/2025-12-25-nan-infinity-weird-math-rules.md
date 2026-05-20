@@ -1,21 +1,29 @@
 ---
 layout: post
-title: "Part 5: NaN, Infinity and the Rules of Weird Math"
+title: 'Part 5: NaN, Infinity and the Rules of Weird Math'
 date: 2025-12-25
-type: post
-published: true
-comments: true
 category:
 - Computer Science
 - Software Engineering
 - Technology
 - Series 4 - Floating Point Without Tears
-tags: [java, floating-point, ieee-754, double, machine-epsilon, ulp, numerics, NaN, infinity]
-description: In IEEE 754 floating point, there are special values (NaN, +∞, −∞) that follow rules that look like broken logic, until you realize they're trying to protect you from lying math.
+tags:
+- java
+- floating-point
+- ieee-754
+- double
+- machine-epsilon
+- ulp
+- numerics
+- NaN
+- infinity
+comments: true
 featured_image: assets/images/NaN.png
 featured_image_alt: NaN value displayed on a calculator screen
 featured_image_caption: NaN on a calculator — the "not a number" sentinel in the real world
+description: In IEEE 754 floating point, there are special values (NaN, +∞, −∞) that follow rules that look like broken logic, until you realize they're trying to protect you from lying math.
 ---
+
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
 Floating point math is fast, useful, and occasionally haunted. Not philosophically, literally haunted, as in values that aren't equal to themselves.

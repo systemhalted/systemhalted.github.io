@@ -4,14 +4,14 @@ title: Language Part 3 - Vocabulary
 category:
 - Languages & Linguistics
 - Series 1 - Language and Linguistics
-comments: true
-description: This is Part 3 of Language series where we will talk about vocabulary.
 tags:
 - sports
+comments: true
+description: This is Part 3 of Language series where we will talk about vocabulary.
 ---
+
 ***Disclaimer***
 I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
-
 
 Vocabulary is an essential part of language that refers to the set of words that we use to express our thoughts, feelings, and ideas. It is a key aspect of effective communication, as it allows us to express a wide range of concepts and ideas in a clear and concise manner.
 
@@ -33,9 +33,6 @@ Maintaining a purity of language does no good and people who are puritan in thei
 
 In conclusion, vocabulary is an essential part of language that allows us to express a wide range of concepts and ideas. It is a key aspect of effective communication, and it is something that can be improved and expanded through practice and effort. By building a rich vocabulary, we can more effectively express ourselves and understand the words and ideas of others.
 
-
 ***References***
 
 [^1]: https://www.tesol.org/docs/books/bk_ELTD_Vocabulary_974
-
-

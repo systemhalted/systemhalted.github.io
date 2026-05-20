@@ -5,14 +5,15 @@ category:
 - Technology
 - Software Engineering
 - Computer Science
-comments: true
-description: Over the years, [JVM](http://en.wikipedia.org/wiki/Java_Virtual_Machine "Java Virtual Machine") has become not only the host of Java but also of several other languages. Categorized together as [JVM-based languages](http://en.wikipedia.org/wiki/List_of_JVM_languages), these languages claim to better what and how Java does performs specific functions. Some of this that needs specific mention and those that interests me are listed in this post.
 tags:
 - technology
 - software
 - computer-science
 - leadership
+comments: true
+description: Over the years, [JVM](http://en.wikipedia.org/wiki/Java_Virtual_Machine "Java Virtual Machine") has become not only the host of Java but also of several other languages. Categorized together as [JVM-based languages](http://en.wikipedia.org/wiki/List_of_JVM_languages), these languages claim to better what and how Java does performs specific functions. Some of this that needs specific mention and those that interests me are listed in this post.
 ---
+
 Over the years,
 [JVM](http://en.wikipedia.org/wiki/Java_Virtual_Machine "Java Virtual
 Machine") has become not only the host of Java but also of several
@@ -21,8 +22,6 @@ languages](http://en.wikipedia.org/wiki/List_of_JVM_languages), these
 languages claim to better what and how Java does performs specific
 functions. Some of these that need specific mention and those that
 interests me are listed below-
-
-
 
 [Jython](http://www.jython.org/ "Jython") - It is originally a port of
 popular language Python to the JVM. However, I am very much interested

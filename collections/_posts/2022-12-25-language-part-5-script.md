@@ -7,6 +7,7 @@ category:
 comments: true
 description: This is Part 5 of Language series where we will talk about script.
 ---
+
 ***Disclaimer***
 I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
 
@@ -25,8 +26,3 @@ At the same time, the use of script can also be a source of controversy and conf
 However, it is important to note that script is not essential for a language. Language can also be communicated through speech, gestures, or other forms of expression, and a language can still function and be understood even if it is not written down. Many languages have been spoken for centuries or even millennia without a written form, and they have been passed down through oral tradition. 
 
 In conclusion, though without a script, it would be difficult to convey written messages or to record and preserve written language, it is not necessary to have a script for communication. Also, it is important to note that choice of script can have cultural, political, and social implications much like the choice of language itself.
-
-
-
-
-

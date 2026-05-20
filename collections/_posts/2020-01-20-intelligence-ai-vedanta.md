@@ -3,7 +3,7 @@ layout: post
 title: Intelligence, Artificial Intelligence and Vedanta Hinduism
 category:
 - Technology
-- AI 
+- AI
 - Spirituality & Philosophy
 tags:
 - technology
@@ -13,9 +13,10 @@ tags:
 - poetry
 - india
 comments: true
-description: This post attempts to define a Test of Intelligence based on my understanding of Advaita Vedanta. Submitted as part of CS7637 Homework
 featured: true
+description: This post attempts to define a Test of Intelligence based on my understanding of Advaita Vedanta. Submitted as part of CS7637 Homework
 ---
+
 ### Intelligence - What is it?
 
 Meriam-Webster dictionary defines **intelligence** as 

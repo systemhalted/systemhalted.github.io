@@ -5,14 +5,14 @@ category:
 - Technology
 - Software Engineering
 - Computer Science
-comments: true
-featured: true
-summary: Clojure syntax uses prefix notation and lots of parentheses. That sounds scary if you grew up on infix, but it doesn’t have to be.
 tags:
 - technology
 - software
 - computer-science
+comments: true
+featured: true
 ---
+
 Clojure is a functional programming language for the JVM created by Rich Hickey. It is a dialect of Lisp, which is famous for its use of parentheses and a prefix-style syntax often associated with Polish notation.
 
 In Lisp and Clojure, code is written as fully parenthesized S-expressions, with the operator first and the arguments after it. For example:
@@ -97,5 +97,4 @@ Some talks and articles that were shared in the original Java Ranch thread:
 
 If prefix notation and all those parentheses still feel odd, that’s fine. Our brains are heavily trained on infix. Spend a bit of time thinking in trees instead of lines of code, and Clojure’s syntax starts to feel less like an alien language and more like a very direct way of writing down structure.
 
-
-Edit: (28th Nov 2025) Updated with latest understanding of some terminology. 
+Edit: (28th Nov 2025) Updated with latest understanding of some terminology.

@@ -2,17 +2,15 @@
 layout: post
 title: Migrating SVN Repo to Git
 date: 2016-06-24
-type: post
-published: true
-comments: true
-status: publish
 categories:
 - Technology
-description: How to migrate SVN repository to Git?
 tags:
 - technology
 - travel
+comments: true
+description: How to migrate SVN repository to Git?
 ---
+
 Recently, I had to move one of my SVN repository from SVN to Git. As there was no tag or trunk and only branch (it is weird but true) it was fairly simple. Git comes with a great Git-Svn toolkit that you can use. However, there are few caveats and I will tell you how I overcame them. 
 
 I started by creating a new folder on my machine. On Git bash, I simply typed the following command:
@@ -24,7 +22,6 @@ git svn clone https://subversion.abc.com/svn/api-services/branches/apiservices_s
 It took some time and my repo was cloned. However, when I did git log to check history, the comments were of following format:
 
 ![Not so good log]({{ site.url }}/assets/images/git-log.png "git log")
-
 
 It doesn't look like what normal and proper git logs look like. There are few problems. Firstly, the author is unidentifiable:
 
@@ -62,4 +59,4 @@ And, finally, I got the nice clone with good looking comments:
 
   ![Better log]({{ site.url }}/assets/images/git-log1.png "git log")
 
-This looks cleaner and much better than the previous commit message and more **Gitly**, if I may use that word. 
+This looks cleaner and much better than the previous commit message and more **Gitly**, if I may use that word.

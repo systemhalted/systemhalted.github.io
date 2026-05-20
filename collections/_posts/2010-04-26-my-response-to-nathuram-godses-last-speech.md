@@ -1,11 +1,7 @@
 ---
 layout: post
 title: Views on Nathuram Godse’s Last Speech
-date: 2010-04-26 16:24:40.000000000 -05:00
-type: post
-published: true
-status: publish
-comments: true
+date: 2010-04-26 16:24:40-05:00
 category:
 - Politics & Governance
 - Personal Essays
@@ -15,8 +11,10 @@ tags:
 - opinion
 - leadership
 - india
+comments: true
 description: My personal reflections on Nathuram Godse’s courtroom speech, and the precise point where any agreement with him must end
 ---
+
 Recently I read Nathuram Godse’s courtroom speech[^1], the one he delivered when tried for the assassination of Mahatma Gandhi. It is a text that has been quoted, shared, selectively edited, and mythologised for decades. I wanted to sit with it myself rather than rely on what others say about it.
 
 This post is my attempt to process that reading, in my own words and from my own contradictions.

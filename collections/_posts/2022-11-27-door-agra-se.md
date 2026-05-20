@@ -9,9 +9,10 @@ tags:
 - agra
 - hindi
 comments: true
-description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 featured: false
+description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 ---
+
 This probably is my first Ghazal.
 
     दूर आगरा से (door Agra se)
@@ -37,6 +38,5 @@ This probably is my first Ghazal.
     Kyun kar gumsum yeh reh paaye door Agra se
     
     ~पलक (Palak)
-
 
 ![](/assets/images/taj-lego.jpeg)

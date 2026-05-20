@@ -1,0 +1,21 @@
+---
+layout: post
+title: Agra in News
+date: 2007-10-09 21:50:00-05:00
+category:
+- Society & Economy
+tags:
+- society
+- economy
+- travel
+- leadership
+- agra
+---
+
+So Agra was in news and that too because of our college... Anand Engineering College. And there is nothing to cheer about. It was all for bad reasons.
+
+<!--more-->The [act](http://www.dnaindia.com/report.asp?newsid=1125200) that I am talking about is unacceptable under any circumstances. And again the reaction of the college authorities is not at all responsible one. What is needed is a strict action against these acts and to ensure that this doesn't happen in future again.
+
+We are trying hard to make our college's mark in corporate world. My friends and colleagues ask about this and I feel ashamed. It is just a setback to what we have achieved so far. We are still considered to be from a state that is of no use except in politics and a college that stands nowhere. We are trying hard and working towards making a name for our college and the activities like these hinder our goal.
+
+I would like the management to accept the responsibility and take necessary action to curb such act of violent ragging in future.

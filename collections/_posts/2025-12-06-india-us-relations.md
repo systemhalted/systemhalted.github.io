@@ -1,6 +1,6 @@
 ---
 layout: post
-title: India and the United States 
+title: India and the United States
 category:
 - Politics & Governance
 - Society & Economy
@@ -15,6 +15,7 @@ comments: true
 featured: true
 description: Let us explore the Indo-US relations over the year and where they are headed after recent tariffs imposed by US on India
 ---
+
 For most of my life, India–US relations were a story you heard about only when something went wrong.
 
 A nuclear test.  
@@ -200,4 +201,3 @@ And, slowly, becoming too important to be left to just diplomats and tariff lawy
 [^20]: Reuters, “Trump imposes extra 25% tariff on Indian goods, ties hit new low,” Aug 6, 2025. [reuters.com](https://www.reuters.com/world/india/trump-imposes-extra-25-tariff-indian-goods-ties-hit-new-low-2025-08-06/)
 
 [^21]: Reuters, “Missed signals, lost deal: How India-US trade talks collapsed”, Aug 6, 2025. [reuters.com](https://www.reuters.com/world/india/missed-signals-lost-deal-how-india-us-trade-talks-collapsed-2025-08-06/)
-

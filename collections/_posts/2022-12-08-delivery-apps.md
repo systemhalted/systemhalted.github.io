@@ -11,9 +11,10 @@ tags:
 - economy
 - united-states
 comments: true
-description: There are certainly problems with Delivery Apps when it comes down to employee and customer satisfaction. A quick take.
 featured: false
+description: There are certainly problems with Delivery Apps when it comes down to employee and customer satisfaction. A quick take.
 ---
+
 The problem with delivery apps like Grubhub, DoorDash, Instacart, etc. is :
 
 1. Marked up price
@@ -27,5 +28,3 @@ I am not sure why the onus of providing a reasonable living to the delivery driv
 I know it is a controversial topic to touch in USA but that is mind boggling that a company has its entire revenue model where it can push the onus of their "employee" paychecks on the end customer in addition to charging the cost of providing the service to the customer.
 
 Basically, they are screwing both the customer and their "employees".
-
-

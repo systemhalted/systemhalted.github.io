@@ -8,6 +8,7 @@ tags:
 comments: true
 description: List of top 10 emerging technologies of 2017.
 ---
+
 These are the top 10 emerging technologies[^fn1] of 2017:
 1. Liquid biopsies
 2. Harvesting clean water from air

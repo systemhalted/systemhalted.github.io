@@ -1,19 +1,18 @@
 ---
 layout: post
 title: Project Jigsaw (JPMS) - Part 1 - What is Modularity?
-published: true
-comments: true
 categories:
-  - Technology
-  - Software Engineering
-  - Series 3 - Project Jigsaw (JPMS)
+- Technology
+- Software Engineering
+- Series 3 - Project Jigsaw (JPMS)
 tags:
-  - java
-  - jdk9
-  - project-jigsaw
-  - jpms
-  - modularity
-  - module-info
+- java
+- jdk9
+- project-jigsaw
+- jpms
+- modularity
+- module-info
+comments: true
 description: A practical definition of modularity in Java, why Jigsaw existed even though we already had packages and JARs, and what the module system actually enforces.
 ---
 

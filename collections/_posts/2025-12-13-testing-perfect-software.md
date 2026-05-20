@@ -1,8 +1,13 @@
 ---
 layout: post
 title: Testing and the Perfect Software
-category: [Software Engineering]
-tags: [testing, quality, risk, tdd]
+category:
+- Software Engineering
+tags:
+- testing
+- quality
+- risk
+- tdd
 comments: true
 featured: false
 description: Testing matters, but choosing what to test is the real craft. A practical way to decide what must be tested, what should be tested, and what is good to have.
@@ -75,7 +80,6 @@ Two rules keep you honest:
 
 The classic pyramid is still useful, not as dogma, but as economics.
 
-
 ```
 End-to-End (few)
 Integration / Component (some)
@@ -118,7 +122,6 @@ Examples:
 2. Serialization, schema evolution, backward compatibility.
 3. Messaging, retries, dedupe, idempotency under real conditions.
 4. Service-to-service calls with real HTTP and real headers.
-
 
 ### Contract tests
 The underappreciated secret weapon in distributed systems.
@@ -275,5 +278,3 @@ A low-quality product is a choice.
 [^7]: Martin Fowler. “Contract Test.” *martinfowler.com*, 2011, <https://martinfowler.com/bliki/ContractTest.html>
 
 [^8]: Thoughtworks. “Consumer-driven contract testing.” *Technology Radar*, 2015, <https://www.thoughtworks.com/en-us/radar/techniques/consumer-driven-contract-testing>
-
-

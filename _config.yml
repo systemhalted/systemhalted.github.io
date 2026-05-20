@@ -18,6 +18,7 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   math_engine: katex
+  syntax_highlighter: rouge
 # Gems
 plugins:
   - jekyll-paginate

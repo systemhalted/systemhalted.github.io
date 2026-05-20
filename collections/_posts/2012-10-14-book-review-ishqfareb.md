@@ -1,21 +1,20 @@
 ---
 layout: post
-title: "[Book Review] IshqFareb by Chandan Pandey"
+title: '[Book Review] IshqFareb by Chandan Pandey'
 category:
 - Books & Reading
 - Poetry & Literature
-comments: true
-image:
-  feature: http://img6a.flixcart.com/image/book/5/7/9/ishqfareb-275x275-imadbrjesafwbyyk.jpeg
 tags:
 - book-review
 - poetry
 - india
+comments: true
 description: Book Review of Hindi book IshqFareb by Chandan Pandey
 ---
-[![Buy Ishqfareb from Flipkart.com](http://img6a.flixcart.com/image/book/5/7/9/ishqfareb-275x275-imadbrjesafwbyyk.jpeg)](http://www.flipkart.com/ishqfareb-014341657x/p/itmdbzvtgu4gyajt?pid=9780143416579&amp;affid=palakmathu)
+
+[![Buy Ishqfareb from Flipkart.com](http://img6a.flixcart.com/image/book/5/7/9/ishqfareb-275x275-imadbrjesafwbyyk.jpeg)](http://www.flipkart.com/ishqfareb-014341657x/p/itmdbzvtgu4gyajt?pid=9780143416579&affid=palakmathu)
 <br>
-[![](http://img7a.flixcart.com/www/prod/images/buy_btn_4-2e64b79e.png)](http://www.flipkart.com/ishqfareb-014341657x/p/itmdbzvtgu4gyajt?pid=9780143416579&amp;affid=palakmathu)
+[![](http://img7a.flixcart.com/www/prod/images/buy_btn_4-2e64b79e.png)](http://www.flipkart.com/ishqfareb-014341657x/p/itmdbzvtgu4gyajt?pid=9780143416579&affid=palakmathu)
 
 Recently, I got an opportunity to read a Hindi book IshqFareb authored by Chandan Pandey. The book consists of three short stories all telling the story about Love and Hatred, Love and Betrayal and stories are all weaved with how love is cheated with treachery.
 
@@ -35,6 +34,4 @@ Rating: With hope for the best for the Hindi Literature, I would rate the book 4
 
 Final Verdict: Must read for Hindi enthusiasts and lovers.  
 
-
-*P.S.:- I received this book as a gift from the publishers, Penguin India in exchange of a review of this book on my blog.* 
-
+*P.S.:- I received this book as a gift from the publishers, Penguin India in exchange of a review of this book on my blog.*

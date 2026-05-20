@@ -1,15 +1,14 @@
 ---
 layout: post
 title: I bought some Neighbours Envy
-published: true
 category:
 - Personal Essays
 tags:
-  - personal
-  - opinion
-  - sanghvi
-  - onida
-  - weekends
+- personal
+- opinion
+- sanghvi
+- onida
+- weekends
 ---
 
 Hi friends,

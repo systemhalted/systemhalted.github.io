@@ -13,6 +13,7 @@ tags:
 comments: true
 description: Hinduism is one of the most flexible religions of the world. Recently I saw someone calling themselves “Kattar Hindu” (Hindu Fundamentalist). I was wondering what it would mean to be a “Kattar Hindu”.
 ---
+
 Recently I saw someone calling themselves “Kattar Hindu” (Hindu Fundamentalist). I was wondering what it would mean to be a “Kattar Hindu”. 
 “Kattar Hindu” or Hindu Fundamentalist will be someone who adheres to Hindu tradition and culture. That would mean someone respectful of others - people of any faith and religion. He would have place in his heart for people who differ in philosophy and ideology than the ones in which he finds comforts. That is the only thing that Hindu Philosophy supports. It goes out of its way to adopt people from different philosophies and consider them Hindus. I hope whoever calls themselves “Kattar Hindu” has this fundamental understanding of Hinduism.
 

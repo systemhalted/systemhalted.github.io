@@ -1,19 +1,17 @@
 ---
 layout: post
-title: "Mumbai - As I Like It"
-published: true
-status: publish
+title: Mumbai - As I Like It
 categories:
-  - Personal Essays
-  - Travel
+- Personal Essays
+- Travel
 tags:
-  - personal
-  - opinion
-  - travel
-  - india
-  - pune
-  - mumbai
-featured_image: /assets/images/featured/2011-11-07-mumbai-as-i-like-it.png 
+- personal
+- opinion
+- travel
+- india
+- pune
+- mumbai
+featured_image: /assets/images/featured/2011-11-07-mumbai-as-i-like-it.png
 ---
 
 Mumbai, the city I once thought was appalling, changed my attitude toward itself. Somewhere between arriving and leaving, my apprehensions turned into appreciation, and there are many of them.

@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2013-02-15 00:24
 title: First Day in USA
+date: 2013-02-15 00:24
 category:
 - Personal Essays
 - Travel
@@ -13,10 +13,11 @@ tags:
 - united-states
 - mumbai
 comments: true
-description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went?
 featured: true
+description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went?
 ---
-   Leaving India was not easy. If there would have been no one, probably it would have been but with Shalank being there, 
+
+Leaving India was not easy. If there would have been no one, probably it would have been but with Shalank being there, 
    it was not. Also, past one year we all (Mummy, Papa, Shalank, Priti and Calvin, our dog) were staying together. 
    It is fun being part of family, but parting with the family is equally painful.
    
@@ -58,5 +59,4 @@ featured: true
    to get a wireless connection - two very important things.
    
    We had dinner as salad from the cafeteria in Hyatt and came back to the room. It was starting to snow. Our first experience. It was
-   straight out of a fairy tale. We watched snow fall for some time and when fell asleep. Thus ended the first day in America. 
-    
+   straight out of a fairy tale. We watched snow fall for some time and when fell asleep. Thus ended the first day in America.

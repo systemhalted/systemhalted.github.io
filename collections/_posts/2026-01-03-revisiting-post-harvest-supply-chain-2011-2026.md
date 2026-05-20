@@ -1,25 +1,23 @@
 ---
 layout: post
-title: "Revisiting India's Post-Harvest Supply Chain (2011 → 2026)"
+title: Revisiting India's Post-Harvest Supply Chain (2011 → 2026)
 date: 2026-01-03
-type: post
-published: true
-comments: true
 categories:
-  - Politics & Governance
+- Politics & Governance
 tags:
-  - agriculture
-  - india
-  - supply-chain
-  - post-harvest
-  - cold-chain
-  - mandis
-  - farmers
-  - policy
+- agriculture
+- india
+- supply-chain
+- post-harvest
+- cold-chain
+- mandis
+- farmers
+- policy
+comments: true
 featured_image: assets/images/featured/2026-01-03-tomato-journey-post-harvest-supply-chain-2011-2026.png
-featured_image_alt: "A large, dew-covered tomato in a burlap sack in the foreground, with a farm field, a transport truck, and a market scene behind it, illustrating India’s post-harvest supply chain from 2011 to 2026."
-featured_image_caption: "A tomato’s journey through India’s post-harvest supply chain (2011 → 2026): where time, temperature, and incentives decide who wins."
-description: "A 2026 revisit of a 2011 note: what has actually changed in India's post-harvest supply chain since 2011, and what still leaks value."
+featured_image_alt: A large, dew-covered tomato in a burlap sack in the foreground, with a farm field, a transport truck, and a market scene behind it, illustrating India’s post-harvest supply chain from 2011 to 2026.
+featured_image_caption: 'A tomato’s journey through India’s post-harvest supply chain (2011 → 2026): where time, temperature, and incentives decide who wins.'
+description: 'A 2026 revisit of a 2011 note: what has actually changed in India''s post-harvest supply chain since 2011, and what still leaks value.'
 ---
 
 In April 2011, I wrote a short post pointing at a problem that has stayed with me ever since: India's price signals tend to die on the way back to the farm. The original post is still up at [What's wrong with our post-harvest agricultural supply chain?](https://systemhalted.in/2011/04/26/whats-wrong-with-our-post-harvest-agricultural-supply-chain/), and it was, in honesty, more of a finger pointed at a wound than a worked argument.

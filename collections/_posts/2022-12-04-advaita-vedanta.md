@@ -6,9 +6,10 @@ category:
 tags:
 - leadership
 comments: true
-description: Advaita Vedanta is a powerful and transformative philosophy that teaches the concept of non-dualism. Through the realization of the oneness of the individual self and the universal self, we can attain liberation from the cycle of reincarnation and experience true freedom and peace.
 featured: false
+description: Advaita Vedanta is a powerful and transformative philosophy that teaches the concept of non-dualism. Through the realization of the oneness of the individual self and the universal self, we can attain liberation from the cycle of reincarnation and experience true freedom and peace.
 ---
+
 In few of my past posts on AI, I used Advaita Vedanta to come up with a test of intelligence. But did not discuss Advaita Vedanta. This post is to fill that gap.  
 
 Advaita Vedanta is a school of Hindu philosophy that teaches the concept of non-dualism, or the idea that the individual self and the universal self are one and the same. This philosophy is based on the teachings of the Upanishads, which are part of the Vedas, the oldest sacred texts of Hinduism.
@@ -25,6 +26,4 @@ One of the key concepts in Advaita Vedanta is the idea of Maya, or illusion. Thi
 
 This idea may seem difficult to understand at first, but it is actually a very profound and powerful concept. By recognizing the illusory nature of the world, we can begin to let go of our attachment to it, and instead focus on the ultimate reality of the non-dual self.
 
-
 In conclusion, Advaita Vedanta is a powerful and transformative philosophy that teaches the concept of non-dualism. Through the realization of the oneness of the individual self and the universal self, we can attain liberation (from the cycle of reincarnation) and experience true freedom and peace.
-

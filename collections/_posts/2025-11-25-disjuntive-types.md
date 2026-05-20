@@ -11,9 +11,10 @@ tags:
 - technology
 - travel
 comments: true
-description: When your Java methods really mean "either this or that" but the type system only says "here’s something…maybe," you’re flying blind. This post walks through using Result types, sealed hierarchies, and a bit of logic-thinking to make those hidden alternatives explicit, so the compiler – not your Javadoc – tells the truth about your code.
 featured: true
+description: When your Java methods really mean "either this or that" but the type system only says "here’s something…maybe," you’re flying blind. This post walks through using Result types, sealed hierarchies, and a bit of logic-thinking to make those hidden alternatives explicit, so the compiler – not your Javadoc – tells the truth about your code.
 ---
+
 A few years ago at work, while hacking on a parser and analyser, I realised I needed something my language did not give me: disjunctive types.
 
 Java did not have it.  
@@ -89,7 +90,6 @@ Most of the time, existing data structures are enough.
 If I want to group several fields together, I can define a record, a data class, or a POJO. These are conjunctive types: they say "you get this and that and that".
 
 For example, if I want a result that always includes both a status and a payload, a simple class like this works fine:
-
 
 {% highlight java %}
 public final class ResultWithStatus {

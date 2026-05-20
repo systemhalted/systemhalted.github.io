@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: emacs
 title: which-key - A Helpful Emacs Package
 tags: [emacs, gnu emacs, which-key]
 category: [emacs]

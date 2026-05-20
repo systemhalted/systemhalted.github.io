@@ -1,0 +1,9 @@
+# Manually-curated list of JavaScript games shown on /jsgames/.
+# These games live as standalone HTML/CSS/JS apps under jsgames/<slug>/
+# and bypass Jekyll's layout system, so we list them here for the index.
+- title: Pig Game
+  url: /jsgames/pig-game/
+  description: Classic dice game for two players. First to 100 wins, but roll a 1 and you lose your turn's score.
+- title: Guess the Number
+  url: /jsgames/guess-number/
+  description: Pick a number between 1 and 20. Get hints until you find it.

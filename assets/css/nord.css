@@ -1984,6 +1984,16 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
   margin: 1.5rem auto 1.5rem;
 }
 
+.newsletter-brand {
+  margin: 0 0 0.35rem;
+  color: var(--accent-warm);
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
 .newsletter-kicker {
   margin: 0 0 0.5rem;
   font-size: 0.8rem;
@@ -2180,4 +2190,15 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
   color: var(--text-strong);
   border-bottom-color: var(--accent-warm);
   text-decoration: none;
+}
+
+/* Emacs notes */
+.emacs-note {
+  max-width: 36rem;
+  margin: 0 auto 3rem;
+}
+
+.emacs-note-header {
+  max-width: 36rem;
+  margin: 0 auto 1.5rem;
 }

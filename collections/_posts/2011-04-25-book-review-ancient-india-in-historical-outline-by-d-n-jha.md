@@ -8,7 +8,7 @@ tags:
 - book-review
 - india
 featured_image: /assets/2011/04/8173042853.01._SX140_SY225_SCLZZZZZZZ_.jpg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: Ancient India in Historical Outline by D. N. Jha'
 ---
 
 **

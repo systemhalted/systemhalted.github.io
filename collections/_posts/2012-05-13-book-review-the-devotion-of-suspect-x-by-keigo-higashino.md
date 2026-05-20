@@ -8,7 +8,7 @@ tags:
 - book-review
 - india
 featured_image: /assets/2012/05/devotionofsuspect.jpg?w=300
-featured_image_alt: ''
+featured_image_alt: 'Book cover: The Devotion of Suspect X by Keigo Higashino'
 ---
 
 **

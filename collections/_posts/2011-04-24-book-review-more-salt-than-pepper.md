@@ -8,7 +8,7 @@ tags:
 - book-review
 - travel
 featured_image: /assets/2011/04/8329909.jpg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: More Salt Than Pepper by Karan Thapar'
 ---
 
 **

@@ -9,9 +9,10 @@ tags:
 - economy
 - movie-review
 - india
+featured_image: /assets/2011/09/4635726563_1c371985f0_m.jpg
+featured_image_alt: Air India 777-300ER VT-ALS
 ---
 
-![Air India 777-300ER VT-ALS]({{ site.baseurl }}/assets/2011/09/4635726563_1c371985f0_m.jpg)
 **
 
 Air India is India's national flag carrier. Over the years it has lost its fervour and there has been plenty of reforms to make it work and bring it out of the losses it has incurred.  It is continuously facing financial crisis. For instance see the following figures:-

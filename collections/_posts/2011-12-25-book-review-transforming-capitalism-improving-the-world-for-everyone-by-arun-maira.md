@@ -7,9 +7,10 @@ category:
 tags:
 - book-review
 - india
+featured_image: /assets/2011/12/front_capitalism.JPG
+featured_image_alt: ''
 ---
 
-![Buy Transforming Capitalism from Flipkart]({{ site.baseurl }}/assets/2011/12/front_capitalism.JPG)
 **
 
 I recently got an opportunity to read and review this book under BlogAdda’s Book Review program. I have been a huge fan of [Arun Maira](http://en.wikipedia.org/wiki/Arun_Maira "Arun Maira")’s articles and being able to review his book was like a dream come true. The book is a collection of thought-provoking articles written by Arun Maira and covers all the aspects to which capitalism is directly or indirectly related.

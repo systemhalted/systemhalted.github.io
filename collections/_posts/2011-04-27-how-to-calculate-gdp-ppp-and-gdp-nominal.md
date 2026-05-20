@@ -8,9 +8,10 @@ tags:
 - society
 - economy
 - india
+featured_image: /assets/2011/04/170px-Indian_Rupee_symbol.svg.png
+featured_image_alt: ''
 ---
 
-![The Symbol of Indian Rupee approved by the Uni...]({{ site.baseurl }}/assets/2011/04/170px-Indian_Rupee_symbol.svg.png)
 **
 
 Take a basket of commodities (like 1 kg sugar,wheat,veggies and cloths etc).

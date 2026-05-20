@@ -17,7 +17,7 @@ tags:
 
 Lately we have seen this coming up as a major issue and finding a great TRP for news channel. The hue and cry about the issue and the implication of speeches of leaders fighting against migration and those favouring it has led to the sufferage and humility by most of the non-Marathis(I don't want to use this phrase, but this is the common usage these days and so people are familiar with this phrase more than any relative of this phrase) in the state of Maharashtra. The people who were beaten mercilessly were mostly poor people belonging to lower income group and ofcourse were easily vulnerable to these attacks on them.
 
-<!--more-->I am not here to play a blame game and opine who is right and who is wrong. We all know the issue and can have our own opinion about this issue though this has certainly effected the thawing relationship between the countrymen.
+I am not here to play a blame game and opine who is right and who is wrong. We all know the issue and can have our own opinion about this issue though this has certainly effected the thawing relationship between the countrymen.
 
 Why do people migrate leaving their comfort zones to an alien space where everyone is a stranger? Why will one want to migrate? These are the questions the answers of which are needed to be known.
 

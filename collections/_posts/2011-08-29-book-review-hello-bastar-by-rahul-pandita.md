@@ -7,9 +7,10 @@ category:
 tags:
 - book-review
 - india
+featured_image: /assets/2011/08/HelloBastarImg
+featured_image_alt: ''
 ---
 
-![Buy Hello Bastar by Rahul Pandita from Flipkart]({{ site.baseurl }}/assets/2011/08/HelloBastarImg)
 **
 
 Few years back I was searching for information on Naxal Movement in India, when I encountered website of Hilary Pais. I found good amount of knowledge about Naxals or Maoists. It is one of the best-written documents about Naxalism. However, one thing that lacked was the views of Naxal Movement leaders and members. Rahul Pandita now fills this gap in his book “Hello, Bastar.” This book mentions anecdotes after anecdotes and keeps answering questions that you must have thought about:

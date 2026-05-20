@@ -12,9 +12,10 @@ tags:
 - travel
 - leadership
 - india
+featured_image: /assets/2011/08/300px-Conceptual_diagram_of_political_triangulation.png
+featured_image_alt: ''
 ---
 
-![A conceptual diagram illustrating political tr...]({{ site.baseurl }}/assets/2011/08/300px-Conceptual_diagram_of_political_triangulation.png)
 **
 
 The other day while reading “India after Independence” by [Bipan Chandra](http://en.wikipedia.org/wiki/Bipan_Chandra "Bipan Chandra"), I was overwhelmed by thoughts about India and its politics. Soon I was thinking about my [political ideology](http://en.wikipedia.org/wiki/List_of_political_ideologies "List of political ideologies") and myself. I have always been confused about this and my opinions in favour of any political ideology have been very frail and feeble. I have always been unsuccessful in deciding which ideology interests me and since the day I have started understanding politics I have been indecisive about my political loyalty.

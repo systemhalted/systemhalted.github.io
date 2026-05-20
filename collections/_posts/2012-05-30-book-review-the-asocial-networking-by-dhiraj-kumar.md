@@ -6,9 +6,10 @@ category:
 - Books & Reading
 tags:
 - book-review
+featured_image: /assets/2012/05/9789381115879.jpg
+featured_image_alt: ''
 ---
 
-![Buy The Asocial Networking from Flipkart.com]({{ site.baseurl }}/assets/2012/05/9789381115879.jpg)
 **
 
 Man is a social animal. This has been taught to us since we were a child and we firmly believe in it not only because it was taught but also because we appreciate the phrase from our experience. Man cannot live alone. He needs a community to take care of him, a group of people always surrounding him, helping him, talking and supporting him. A society is a reason for very existence. Solitude is something we all hate. We always want to be with someone to enjoy the journey called life.

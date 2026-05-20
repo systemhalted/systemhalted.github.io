@@ -9,9 +9,10 @@ tags:
 - movie-review
 - travel
 - india
+featured_image: /assets/2011/04/early-settlements.jpg
+featured_image_alt: ''
 ---
 
-![Buy Early Records of British India: A History of the English Settlements in India as Told in the Government Records, the Works of Old Travellers, and Othe from Flipkart.com]({{ site.baseurl }}/assets/2011/04/early-settlements.jpg)
 **
 
 The book name is [Early records of British India: a history of the English settlements in India, as told in the Government Records, the works of old travellers and other contemporary documents, from the earliest period down to the rise of British power in India](http://www.flipkart.com/early-records-british-india-james-book-1177745887?ref=81567112-0a28-486d-90cd-f6fc5cdf75bd).  I happen to read it few years back and loved it. Though I could not finish reading it but there remains this interest to complete it. Still searching for this book in a good condition. I can buy it online like I normally do but would love to buy it from a book shop.<!--more-->

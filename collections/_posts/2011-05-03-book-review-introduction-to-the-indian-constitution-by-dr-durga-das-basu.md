@@ -8,9 +8,10 @@ tags:
 - book-review
 - leadership
 - india
+featured_image: /assets/2011/05/introduction-to-the-constitution-of-india-275x275-imadbkwtxqgpw7jr.jpeg
+featured_image_alt: Introduction to the Constitution of India by DD Basu
 ---
 
-![Introduction to the Constitution of India by DD Basu]({{ site.baseurl }}/assets/2011/05/introduction-to-the-constitution-of-india-275x275-imadbkwtxqgpw7jr.jpeg)
 **
 
 Introduction to the Constitution of India is a fantastic book on the subject of [Indian Constitution](http://en.wikipedia.org/wiki/Constitution_of_India "Constitution of India") and presents a wonderful commentary on the same. It deals with everything and nothing substantial is left out. The language is simply beautiful which is least expected from an Indian academic author at university level.

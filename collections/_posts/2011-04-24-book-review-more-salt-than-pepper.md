@@ -7,9 +7,10 @@ category:
 tags:
 - book-review
 - travel
+featured_image: /assets/2011/04/8329909.jpg
+featured_image_alt: ''
 ---
 
-![To Buy More Salt Than Pepper from Flipkart.com Click on the Image or Button Below]({{ site.baseurl }}/assets/2011/04/8329909.jpg)
 **
 
 If you have missed [Karan Thapar](http://en.wikipedia.org/wiki/Karan_Thapar "Karan Thapar")'s articles in HT either because of you were not born or were too young to understand or read or your interest developed late or for any other reason, then please read this book.

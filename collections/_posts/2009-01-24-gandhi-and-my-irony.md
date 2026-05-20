@@ -8,9 +8,10 @@ tags:
 - politics
 - travel
 - india
+featured_image: /assets/2009/01/gandhi-main.jpg
+featured_image_alt: Mahatma Gandhi
 ---
 
-![Mahatma Gandhi]({{ site.baseurl }}/assets/2009/01/gandhi-main.jpg)
 **
 
 Condemning Gandhi has become a fashion these days. People don't understand and can't appreciate what he has done. They must realize that the real force behind uniting the nation was Gandhi. For years we have lived as Feuds and the idea of being a "Nation" was not known. He consolidated the masses and gave them voice. He united people. Satyagraha was not an easy thing to do. It needed support of many from the front and also of the people who were sitting in their homes.<!--more-->

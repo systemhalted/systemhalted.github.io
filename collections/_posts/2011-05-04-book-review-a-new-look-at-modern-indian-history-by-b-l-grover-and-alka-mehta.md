@@ -7,9 +7,10 @@ category:
 tags:
 - book-review
 - india
+featured_image: /assets/2011/05/04052011001.jpg
+featured_image_alt: B L Grover
 ---
 
-![B L Grover]({{ site.baseurl }}/assets/2011/05/04052011001.jpg)
 **
 
 This is an important book on Modern [Indian History](http://en.wikipedia.org/wiki/History_of_India "History of India") especially for the events before the [Revolt of 1857](http://en.wikipedia.org/wiki/Indian_Rebellion_of_1857 "Indian Rebellion of 1857") and after [Government of India Act of 1935](http://en.wikipedia.org/wiki/Government_of_India_Act_1935 "Government of India Act 1935"). The book is a fantastically arranged and divided into 50 chapters. The most interesting and favourable part of this book is that it has chapters dedicated to the tenures of Governor-Generals (before Revolt of 1857) and Viceroys (after Act of Better Government, 1858). The book talks about facts and draws conclusions from them.

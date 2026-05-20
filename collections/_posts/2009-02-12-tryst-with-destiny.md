@@ -7,9 +7,10 @@ category:
 tags:
 - politics
 - india
+featured_image: /assets/2009/02/nehru_indian_independence_speech.jpg
+featured_image_alt: Freedom at Midnight
 ---
 
-![Freedom at Midnight]({{ site.baseurl }}/assets/2009/02/nehru_indian_independence_speech.jpg)
 **
 
 Sixty-two years have passed since independence. Was thinking about the morning of August 15, 1947, when the national flag was raised over the Council Hall. I am trying to visualize the moment. How thrilling it would have been for millions of us Indians. How grand would have been the celebrations and how emotional would it have been to see"*Tiranga*"  reach the top. I was not there, was not involved in any movement, took birth in free India, but the feelings surge up within me as I try to visualize the grandeur of the event. I feel excited and the awe brings tears to my eyes. It would have been great to feel FREE!!!

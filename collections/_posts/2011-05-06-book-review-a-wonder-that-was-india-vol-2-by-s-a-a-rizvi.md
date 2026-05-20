@@ -8,9 +8,10 @@ tags:
 - book-review
 - sports
 - india
+featured_image: /assets/2011/05/the_wonder_that_was_india_volii_saa_rizvi_large.jpg
+featured_image_alt: ''
 ---
 
-![Buy The Wonder That Was India (Volume - ll) from Flipkart.com]({{ site.baseurl }}/assets/2011/05/the_wonder_that_was_india_volii_saa_rizvi_large.jpg)
 **
 
 Read the book named Wonder That Was India Vol 2 by SAA Rizvi second time since 2008. It is the second volume of the series of which the first volume is famously known by the name of its author [A.L.Basham](http://en.wikipedia.org/wiki/Arthur_Llewellyn_Basham "Arthur Llewellyn Basham").  Second Volume is famous for the coverage of Medieval Indian History.

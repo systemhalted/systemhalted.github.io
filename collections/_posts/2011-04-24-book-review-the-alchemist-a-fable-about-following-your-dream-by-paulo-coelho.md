@@ -7,9 +7,10 @@ category:
 tags:
 - book-review
 - travel
+featured_image: /assets/2011/04/9780722532935.jpg
+featured_image_alt: ''
 ---
 
-![Buy The Alchemist: A Fable About Following]({{ site.baseurl }}/assets/2011/04/9780722532935.jpg)
 **
 
 I don't like [self-help books](http://en.wikipedia.org/wiki/Self-help_book "Self-help book"). But on strong recommendation from my wife and others, I gave a chance to myself and read the book. I liked the story and kept reading until I finished it. Few of my friends did not like the book but I would recommend them to read it just like a story and it would be a good read.  I have nothing to say about the story as most of us know about it or it is easily available on internet.<!--more-->The novel tells the story of a of Andalusian shepherd boy named Santiago who has a dream and has the courage to follow it.  He listens to  "the signs" and ventures on a journey of exploration and discovery in search of a hidden treasure somewhere near the pyramids in [Egypt](http://www.lonelyplanet.com/egypt "Egypt"). Along the way he meets a Gypsy woman, a man who calls himself king, and an alchemist, all of whom points Santiago in the direction of his quest. And finally does a self-discovery and is enlightened.  It is a reawakening for him.  A renaissance.

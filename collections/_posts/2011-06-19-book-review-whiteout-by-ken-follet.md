@@ -6,9 +6,10 @@ category:
 - Books & Reading
 tags:
 - book-review
+featured_image: /assets/2011/06/3993fc2bc516b6b59362b5a5351434d414f4541.jpg
+featured_image_alt: Whiteout by Ken Follett
 ---
 
-![Whiteout by Ken Follett]({{ site.baseurl }}/assets/2011/06/3993fc2bc516b6b59362b5a5351434d414f4541.jpg)
 **
 
 - **Author:** Ken Follett

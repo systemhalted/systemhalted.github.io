@@ -12,9 +12,10 @@ tags:
 - opinion
 - sports
 - india
+featured_image: /assets/2012/11/121064692_fc0383aece_m.jpg
+featured_image_alt: politics - Clint
 ---
 
-![politics - Clint]({{ site.baseurl }}/assets/2012/11/121064692_fc0383aece_m.jpg)
 *politics - Clint's Nolan Chart - 20020718 - slightly inaccurate but good (Photo credit: Rev. Xanatos Satanicos Bombasticos (ClintJCL))*
 
 *#I wrote this on PG on 13th Oct 2010. And posted on FB Notes on 30th Jan 2011.*

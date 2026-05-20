@@ -6,9 +6,10 @@ category:
 - Books & Reading
 tags:
 - book-review
+featured_image: /assets/2011/06/62040.jpg
+featured_image_alt: ''
 ---
 
-![Buy WEB OF DECEIT from Flipkart.com]({{ site.baseurl }}/assets/2011/06/62040.jpg)
 **
 
 Web of Deceit was the third thriller that I read this week. Again, the sequence of events makes you think forever that what exactly is going to happen next. [Glenn Meade](http://en.wikipedia.org/wiki/Glenn_Meade "Glenn Meade") mesmerised me with his powerful writing and imagination.

@@ -7,9 +7,10 @@ category:
 tags:
 - book-review
 - india
+featured_image: /assets/2012/03/9789381626412.jpg
+featured_image_alt: ''
 ---
 
-![Buy Urban Shots: Bright Lights from Flipkart.com]({{ site.baseurl }}/assets/2012/03/9789381626412.jpg)
 **
 
 I have always been a non-fiction reader and as far as fiction is concerned, I am a *pucca* Wodehousean. I also **love** to read short stories and have a good collection of classics of the likes of Mark Twain, R K Narayan, etc. From last year, I am trying to refurbish my interest in fiction and new age Indian authors. For long, I was willing to read some good short stories by Indian authors and I got this opportunity in the shape of Urban Shots.

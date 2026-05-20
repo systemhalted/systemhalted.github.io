@@ -11,9 +11,10 @@ tags:
 - travel
 - india
 - mumbai
+featured_image: /assets/2011/07/160px-Newspaper_nicu_buculei_01.svg.png
+featured_image_alt: New York Times
 ---
 
-![New York Times]({{ site.baseurl }}/assets/2011/07/160px-Newspaper_nicu_buculei_01.svg.png)
 **
 
 It is not long ago that we were discussing how journalists in India and Japan differ when it come to [journalistic ethics](http://en.wikipedia.org/wiki/Journalism_ethics_and_standards "Journalism ethics and standards"). We praised Japanese for not showing any scenes of ***the horror, the trauma, and the human suffering inflicted by the tsunami*.** We talked and wrote about how we wanted that Indian journalists do the same and newspapers and news-channels have some sense of humanity and responsibility.

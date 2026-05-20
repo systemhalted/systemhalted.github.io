@@ -14,9 +14,10 @@ tags:
 - economy
 - travel
 - india
+featured_image: /assets/2011/09/175px-Emblem_of_India.svg.png
+featured_image_alt: ''
 ---
 
-![A representation of the Lion Capital of Ashoka...]({{ site.baseurl }}/assets/2011/09/175px-Emblem_of_India.svg.png)
 **
 
 In recent times, there have been multiple incidents where farmers were protesting against the Government as it took away the land from them without paying the adequate compensation and against the wishes of many farmers. The whole debate about Right to Property needs to be re-initiated under this background. The Right to Property, which was enshrined in the original Constitution of India, as Fundamental Right should be re-instated by voiding the changes made by 44th Amendment Act of 1978 in this respect.

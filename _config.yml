@@ -38,7 +38,11 @@ google_site_verification: 1v5ZSlWxFB06EQ-VB5U4n3226XFqq3ki9qusVH2m0K8
 
 feed:
   posts_limit: 50
-  
+  collections:
+    newsletter:
+      path: "/feed/newsletter.xml"
+      title: "Kartavya Path"
+
 collections_dir: collections
 
 collections:

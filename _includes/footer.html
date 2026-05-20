@@ -41,5 +41,19 @@
   </div>
   <div class="footer-meta container">
     <span>© {{ 'now' | date: '%Y' }} {{ site.tagline }}</span>
+    <span class="footer-shortcuts">
+      <button type="button" id="footer-shortcuts-trigger" aria-label="Show keyboard shortcuts">Keyboard shortcuts (?)</button>
+    </span>
   </div>
 </footer>
+
+<script>
+  (function() {
+    var trigger = document.getElementById('footer-shortcuts-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', function() {
+      var ev = new KeyboardEvent('keydown', { key: '?', bubbles: true });
+      document.dispatchEvent(ev);
+    });
+  })();
+</script>

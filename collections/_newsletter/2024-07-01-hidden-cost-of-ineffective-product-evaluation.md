@@ -13,6 +13,7 @@ tags:
 - human-centered design
 category:
 - Newsletter
+linkedin_url: https://www.linkedin.com/pulse/hidden-cost-ineffective-product-evaluation-software-palak-mathur-rasqc/?trackingId=BrCwUxSmSMe53RU%2FPNAsxQ%3D%3D
 ---
 
 # Introduction

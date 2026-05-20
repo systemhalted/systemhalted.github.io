@@ -8,6 +8,7 @@ tags:
 - india
 category:
 - Newsletter
+linkedin_url: https://www.linkedin.com/pulse/lessons-from-ancient-indian-text-embracing-timely-action-mathur-t3gcc/?trackingId=WcDMgvRaQwKfTfhlGXpnZQ%3D%3D
 ---
 In the fast-paced world of business and leadership, timely action is crucial. Reflecting on a timeless lesson from the ancient Indian text, the #Panchatantra, we find profound wisdom:
 

@@ -13,7 +13,7 @@ I am also a podcaster and host two shows, Nukkad Shukkad and Indian Dad American
 
 This is my personal blog. All views expressed here, in my articles, and on any of my linked blogs or podcasts are entirely my own and do not represent the views of my current or past employers.
 
-I also publish [Kartavya Path](/kartavya-path/), a newsletter on leadership and management — read it here or on LinkedIn.
+I also publish [Kartavya Path](/kartavya-path/), a newsletter on leadership and management. New issues land here first; I cross-post them to LinkedIn.
 
 I also publish short stories, poetry, etc. at [palakmathur.substack.com](https://palakmathur.substack.com).
   

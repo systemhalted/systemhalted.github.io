@@ -3,9 +3,10 @@ layout: newsletter
 title: "Eliminating Inequality"
 tags:
 - newsletter
-- leadership
-- management
-- india
+- society
+- economy
+- politics
+- book-review
 category:
 - Newsletter
 linkedin_url: https://www.linkedin.com/pulse/eliminating-inequality-palak-mathur-e0yrc/?trackingId=Y%2BQludkgQDuDpzowhx0Xvw%3D%3D

@@ -6,6 +6,7 @@ tags:
 - leadership
 - management
 - society
+- personal
 category:
 - Newsletter
 linkedin_url: https://www.linkedin.com/pulse/equality-idea-conditioning-inheritance-palak-mathur-ih6rc/?trackingId=4ILcTkBNSL2lgilkM0Kkuw%3D%3D

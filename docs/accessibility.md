@@ -29,6 +29,8 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 ## Color contrast
 - Maintain WCAG AA contrast for text and UI states in both Nord themes.
 - If you introduce new tokens, verify contrast against `--bg`, `--surface`, and `--surface-strong`.
+- For warm accent text, use `--accent-warm-text` (AA-compliant), not `--accent-warm` (used for backgrounds/borders only).
+- For dark code blocks, use `--code-block-bg` and `--code-block-text` (designed for Nord syntax tokens). Inline `<code>` uses `--code-bg`/`--code-text`.
 
 ## Where to update
 - Layout landmarks and skip link: `_layouts/default.html`.
@@ -81,6 +83,8 @@ npm run a11y               # in another
 
 Config lives in `.pa11yci`; URLs to audit are in the `urls` array. Add a URL when you ship a new page family (e.g. a new collection landing). The `jsgames/` directory is explicitly excluded — it's a different problem with different constraints.
 
+`.github/workflows/a11y.yml` runs the same audit on every PR and push to `master`. The job fails on any violation — fix locally before pushing.
+
 ## Browser-level caveats
 
 - **macOS Safari**: the "Press Tab to highlight each item on a webpage" preference is OFF by default. With it off, Safari only Tabs between form fields — `<a>` links and elements with `tabindex="0"` are skipped. The site can't override this from CSS/JS. Users who want full Tab navigation in Safari should enable it in Safari → Settings → Advanced → "Press Tab to highlight each item on a webpage". This is why we layer arrow-key navigation onto the sidebar menu — it works regardless of Safari's preference, because we move focus programmatically.
@@ -88,3 +92,5 @@ Config lives in `.pa11yci`; URLs to audit are in the `urls` array. Add a URL whe
 ## Known limitations
 - Many legacy posts include inline HTML with empty or missing `alt` text. Fix as you touch those posts.
 - pa11y-ci audits a curated cross-section, not every URL.
+- Third-party embeds (Kit newsletter, Giscus comments, reCAPTCHA) inject elements without proper labels. A `MutationObserver` in `script.js` stamps iframes and reCAPTCHA textareas with fallback labels; if a future embed introduces new offending elements, extend `labelIframe`/`labelRecaptchaTextarea`.
+- Tags page (`/tags/`) merges duplicate-slug tag names (e.g. `India` and `india`) under per-instance unique IDs; the first occurrence keeps the canonical slug for stable anchors.

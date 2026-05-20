@@ -22,9 +22,16 @@ description: "An archive of posts sorted by tag."
 
 {% assign tags_list = nil %}
 
+{% assign seen_slugs = "" %}
 {% for tag in site.tags %}
   {% assign tag_name = tag[0] %}
   {% assign tag_id = tag_name | slugify %}
+  {% assign slug_marker = "|" | append: tag_id | append: "|" %}
+  {% if seen_slugs contains slug_marker %}
+    {% assign tag_id = tag_id | append: "--" | append: forloop.index %}
+  {% else %}
+    {% assign seen_slugs = seen_slugs | append: slug_marker %}
+  {% endif %}
   {% assign pages_list = tag[1] %}
   <details id="{{ tag_id }}" class="archive-year">
     <summary class="archive-year-summary">

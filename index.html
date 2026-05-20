@@ -52,8 +52,8 @@ title: Home
     <a class="page-btn" href="{{ '/' | relative_url }}">First</a>
     <a class="page-btn" href="{{ paginator.previous_page_path | relative_url }}">‹ Back</a>
   {% else %}
-    <span class="page-btn disabled">First</span>
-    <span class="page-btn disabled">‹ Back</span>
+    <button type="button" class="page-btn disabled" disabled aria-disabled="true">First</button>
+    <button type="button" class="page-btn disabled" disabled aria-disabled="true">‹ Back</button>
   {% endif %}
 
   {% if current == 1 %}
@@ -91,7 +91,7 @@ title: Home
     <a class="page-btn" href="{{ paginator.next_page_path | relative_url }}">Next ›</a>
     <a class="page-btn" href="{{ paginate_path | replace: ':num', total_pages | relative_url }}">Last</a>
   {% else %}
-    <span class="page-btn disabled">Next ›</span>
-    <span class="page-btn disabled">Last</span>
+    <button type="button" class="page-btn disabled" disabled aria-disabled="true">Next ›</button>
+    <button type="button" class="page-btn disabled" disabled aria-disabled="true">Last</button>
   {% endif %}
 </nav>

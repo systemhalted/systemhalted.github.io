@@ -1,0 +1,53 @@
+name: Accessibility
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  pa11y:
+    name: pa11y-ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.9'
+          bundler-cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
+
+      - name: Serve Jekyll site
+        run: |
+          bundle exec jekyll serve --skip-initial-build --no-watch --port 4002 --detach
+          npx --yes wait-on http://127.0.0.1:4002 --timeout 60000
+
+      - name: Run pa11y-ci
+        run: npm run a11y
+
+      - name: Upload pa11y output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pa11y-output
+          path: |
+            pa11y-results.json
+          if-no-files-found: ignore

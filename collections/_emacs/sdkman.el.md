@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: emacs
 title: sdkman.el - Manage your SDKs without leaving Emacs
 tags: [emacs, gnu emacs]
 category: [emacs]

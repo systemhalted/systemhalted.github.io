@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: emacs
 title: Emacs Resources
 tags: [emacs, gnu emacs]
 category: [emacs]

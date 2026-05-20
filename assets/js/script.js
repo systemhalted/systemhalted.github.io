@@ -326,11 +326,7 @@
     }
     status.classList.toggle('is-loading', !!opts.loading);
     status.classList.toggle('is-error', !!opts.error);
-    if (opts.html) {
-      status.innerHTML = message;
-    } else {
-      status.textContent = message;
-    }
+    status.textContent = message;
   }
 
   function buildSearchIndex() {
@@ -395,8 +391,14 @@
     if (!indexData) {
       results.innerHTML = '';
       var fallbackUrl = webcmdUrl || '/webcmd/';
-      var fallbackMessage = 'Search index not available. Try again in a moment or use the <a href="' + fallbackUrl + '">command-line search</a>.';
-      setStatus(fallbackMessage, { error: true, html: true });
+      status.classList.remove('is-loading', 'is-hidden');
+      status.classList.add('is-error');
+      status.textContent = 'Search index not available. Try again in a moment or use the ';
+      var link = document.createElement('a');
+      link.href = fallbackUrl;
+      link.textContent = 'command-line search';
+      status.appendChild(link);
+      status.appendChild(document.createTextNode('.'));
       return;
     }
     setStatus('');

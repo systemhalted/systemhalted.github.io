@@ -30,14 +30,18 @@ rg -n "post-grid|post-card|masthead|search-overlay|archive" _layouts _includes *
 
 ## Component map (where styles live)
 - Masthead: `.masthead`, `.masthead-title`, `.masthead-wordmark`, `.masthead-actions`, `.icon-button`
-- Sidebar: `.sidebar`, `.sidebar-toggle`, `#sidebar-checkbox` (checked-state is controlled with sibling selectors)
+- Sidebar: `.sidebar`, `.sidebar-toggle`, `.sidebar-nav`, `.sidebar-nav-item`, `#sidebar-checkbox` (sr-only clip pattern; checked-state controlled with sibling selectors)
 - Search overlay: `.search-overlay`, `.search-dialog`, `.search-input`, `.search-result`, `.search-status`
-- Posts and pages: `.post`, `.post-title`, `.post-date`, `.post-featured`, `.post-categories`, `.post-tags`
-- Post cards (home): `.post-grid`, `.post-card`, `.card-media`, `.card-body`, `.card-title`, `.card-excerpt`
+- Shortcuts dialog: `.shortcuts-overlay` (reuses `.search-overlay` base), `.shortcuts-dialog`, `.shortcuts-title`, `.shortcuts-body`, `.shortcuts-section`, `.shortcuts-heading`, `.shortcuts-list` (dl/dt/dd), `kbd`, `.shortcut-or`
+- Hero blocks (used by landing pages with `hide_page_title: true`): `.newsletter-hero`, `.newsletter-brand` (warm accent brand mark for `/kartavya-path/`), `.newsletter-kicker`, `.newsletter-headline`, `.newsletter-lede`, `.newsletter-title`, `.newsletter-issue`; `.featured-hero`, `.featured-kicker`, `.featured-headline` (used by `/featured/`)
+- Single-column reading feed (replaced the old `.post-grid` card grid): `.post-feed`, `.post-feed-item`, `.post-feed-meta`, `.post-feed-date`, `.post-feed-cat`, `.post-feed-sep`, `.post-feed-title`, `.post-feed-excerpt`
+- Posts and pages: `.post`, `.post-content` (36rem reading column), `.post-title`, `.page-title` (gated by `hide_page_title` front-matter flag), `.post-date`, `.post-featured`, `.post-categories`, `.post-tags`, `.post-toc`
+- Emacs notes: `.emacs-note`, `.emacs-note-header` (individual notes rendered by `_layouts/emacs.html`)
+- Post cards (legacy; still used in some places): `.post-grid`, `.post-card`, `.card-media`, `.card-body`, `.card-title`, `.card-excerpt`
 - Pagination: `.pager`, `.page-btn`
 - Categories/tags: `.category-block`, `.category-posts`, `.tag-box`
 - Archives: `.archive-controls`, `.archive-year`, `.archive-post-summary`, `.archive-post-description`
-- Footer: `.site-footer`, `.footer-*`
+- Footer: `.site-footer`, `.footer-*`, `.footer-shortcuts` (the `Keyboard shortcuts (?)` trigger)
 
 ## Updating existing styles
 1. Identify the class in the layout or page that renders the UI you want to change.
@@ -58,17 +62,27 @@ If you add new markup or classes:
 
 ## JS-coupled selectors to keep stable
 Some selectors are referenced in JavaScript and should not be renamed without updating JS:
-- Theme toggle: `theme-nord-light`, `theme-nord-dark` on `<html>`
-- Search overlay: `.search-overlay`, `.search-overlay.is-open`, `body.search-open`, `#search-toggle`, `#search-input`
-- Sidebar: `#sidebar-checkbox`, `.sidebar-toggle`, `.sidebar`
+- Theme toggle: `theme-nord-light`, `theme-nord-dark` on `<html>`, `#theme-toggle`
+- Search overlay: `.search-overlay`, `.search-overlay.is-open`, `body.search-open`, `#search-toggle`, `#search-input`, `#search-close`, `#search-overlay`, `#search-results`, `#search-status`
+- Shortcuts dialog: `#shortcuts-overlay`, `.shortcuts-overlay.is-open`, `body.shortcuts-open`, `#shortcuts-close`, `#footer-shortcuts-trigger`
+- Sidebar: `#sidebar-checkbox`, `.sidebar-toggle`, `.sidebar`, `.sidebar-nav-item` (the script reads the list at startup and manages a roving `tabindex` across items, so each menu link needs the `.sidebar-nav-item` class and a `role="menuitem"`)
+- Archive sort: `#archive-years`, `#archive-sort`, `.archive-year` (with `data-year` and `data-count`)
 
-If you rename any of these, update `assets/js/script.js` and the related HTML in `_layouts/default.html` or `_includes/sidebar.html`.
+If you rename any of these, update `assets/js/script.js` and the related HTML in `_layouts/default.html`, `_includes/sidebar.html`, or `_includes/footer.html`.
+
+## Layout flags worth knowing
+- **`hide_page_title: true`** in a page's front matter suppresses the `<h2 class="page-title">` that `_layouts/page.html` would otherwise inject. Use this on any page that provides its own h1 via a hero block (`.newsletter-hero`, `.featured-hero`, etc.) to avoid a duplicate, off-width title. Applied today on `emacs.html`, `jsgames/index.html`, `featured.html`, `kartavya-path.html`. Pages without a hero (`about.md`, `archives.html`, `categories.html`, `tags.html`, `docs/content-metadata.md`) should *not* set this — they rely on `.page-title` as their only heading.
+
+## Sidebar / horizontal-overflow invariant
+The sidebar open animation applies `transform: translateX(14rem)` to `.wrap` (full-viewport-width). This pushes the wrap 14rem past the viewport's right edge while it's open. To prevent a horizontal scrollbar, `overflow-x: hidden` is set on **both** `html` and `body`. Don't remove either — body-only doesn't always propagate to the viewport scrollbar. Code blocks keep their own scoped `overflow-x: auto`, so syntax-highlighted prose still scrolls horizontally inside the block.
 
 ## Verification checklist
 - Run `bundle exec jekyll serve --livereload`.
 - Check light and dark themes on the home page, a post page, and the archives page.
-- Verify search overlay and sidebar interactions still work.
+- Verify search overlay and sidebar interactions still work (open with click, open with `m`, open with `?` for the shortcuts dialog).
 - Confirm category/tag chips, pagination buttons, and footer layout on mobile widths.
+- Open the sidebar and confirm there's no horizontal scrollbar.
+- Run `npm run a11y` for an automated WCAG2AA sweep (see `docs/accessibility.md`).
 
 ## Examples
 Use these as templates; apply them near the existing component blocks in `assets/css/nord.css`.

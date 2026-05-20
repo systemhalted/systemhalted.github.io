@@ -106,6 +106,12 @@ html,
 body {
   margin: 0;
   padding: 0;
+  /* The sidebar slide uses transform: translateX(14rem) on .wrap when open,
+     which pushes the full-width wrap 14rem past the viewport right edge.
+     Apply overflow-x: hidden to both html and body so the viewport scrollbar
+     is suppressed (overflow on body alone doesn't always propagate). Code
+     blocks keep their own .overflow-x: auto and remain scrollable. */
+  overflow-x: hidden;
 }
 
 html {
@@ -764,7 +770,14 @@ body.search-open {
 
 .sidebar-checkbox {
   position: absolute;
-  opacity: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
   user-select: none;
 }
 
@@ -2084,9 +2097,24 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
   font-weight: 600;
 }
 
+.newsletter-cta-alt {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.linkedin-discuss-prelude {
+  max-width: 36rem;
+  margin: 1.5rem auto 0.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: right;
+}
+
 .linkedin-discuss {
   max-width: 36rem;
-  margin: 1.5rem auto 0;
+  margin: 0 auto 0;
   text-align: right;
   font-size: 0.95rem;
 }
@@ -2201,4 +2229,91 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 .emacs-note-header {
   max-width: 36rem;
   margin: 0 auto 1.5rem;
+}
+
+/* Keyboard shortcuts help dialog (reuses .search-overlay base) */
+.shortcuts-title {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--text-strong);
+}
+
+.shortcuts-body {
+  padding: 0.5rem 0 0;
+}
+
+.shortcuts-section + .shortcuts-section {
+  margin-top: 1.25rem;
+}
+
+.shortcuts-heading {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+  font-weight: 700;
+}
+
+.shortcuts-list {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.shortcuts-list dt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem;
+  color: var(--text);
+}
+
+.shortcuts-list dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.shortcuts-list kbd {
+  display: inline-block;
+  min-width: 1.4rem;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--text-strong);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+
+.shortcut-or {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.footer-shortcuts {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.footer-shortcuts button {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+
+.footer-shortcuts button:hover,
+.footer-shortcuts button:focus-visible {
+  color: var(--accent-warm);
 }

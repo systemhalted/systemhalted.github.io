@@ -1,7 +1,9 @@
 # Content Metadata Guide
 
-This guide covers taxonomy, tag hygiene, featured images, and front matter conventions for posts and newsletters.
-Posts live in `collections/_posts/`. Newsletters live in `collections/_newsletter/`.
+This guide covers taxonomy, tag hygiene, featured images, and front matter conventions for posts, newsletters, and emacs notes.
+- Posts live in `collections/_posts/`.
+- Newsletters live in `collections/_newsletter/`.
+- Emacs notes live in `collections/_emacs/` (rendered with `_layouts/emacs.html`).
 
 ## Taxonomy and categories
 Category themes live in `_data/taxonomy.yml` under `themes`. They are used by:
@@ -89,3 +91,55 @@ tags:
 description: One-line summary for listings.
 ---
 ```
+
+### Newsletter publishing workflow
+
+The blog is the source of truth for Kartavya Path; LinkedIn is a syndication destination.
+
+1. Write the issue in `collections/_newsletter/YYYY-MM-DD-slug.md` with `layout: newsletter`, `title`, `date`, optional `description`.
+2. **Publish on the blog first** — commit, push, let Pages build, confirm the public URL renders.
+3. **Cross-post to LinkedIn** after the blog URL is live. Prefix the LinkedIn version with "Originally published at <blog URL>" and link the title to the canonical blog post.
+4. **Capture the LinkedIn URL** in front matter as `linkedin_url: https://www.linkedin.com/...`. This activates the "Join the discussion on LinkedIn →" link at the end of the blog issue. If `linkedin_url` is absent, the link doesn't render — fine for issues you don't cross-post.
+
+`jekyll-seo-tag` already emits `<link rel="canonical">` pointing to the blog URL, so search engines treat the blog post as canonical even after the LinkedIn cross-post — no extra config needed.
+
+## Emacs notes
+
+Notes live in `collections/_emacs/` and are surfaced on `/emacs/` via `_includes/emacs-list-item.html`. They render through `_layouts/emacs.html` (kicker + title + content + tag chips — no date, comments, or prev/next, since they're evergreen reference material, not dated posts).
+
+Required:
+- `layout: emacs`
+- `title`
+
+Optional:
+- `tags`, `category` — same conventions as posts.
+- `toc: true` — render a Table of Contents at the top of the body (uses `jekyll-toc`).
+- `description` — short summary used as the excerpt on `/emacs/`. **Strongly recommended** for any note whose first paragraph isn't a natural one-liner; without it, the include falls back to `note.excerpt`, which can be visually noisy or (in pathological cases) malformed HTML.
+
+Emacs note example:
+```
+---
+layout: emacs
+title: which-key - A Helpful Emacs Package
+tags: [emacs, gnu emacs, which-key]
+category: [emacs]
+toc: true
+description: which-key surfaces all candidate keybindings after a prefix key, removing the need to memorize chord trees.
+---
+```
+
+## Hero landing pages — `hide_page_title`
+
+Landing pages that provide their own `<h1>` via a hero block (e.g. `.newsletter-hero` on `/kartavya-path/` and `/emacs/`, `.featured-hero` on `/featured/`) should set `hide_page_title: true` in front matter. This suppresses the `<h2 class="page-title">` that `_layouts/page.html` would otherwise inject — preventing a duplicate, off-width heading above the hero.
+
+Example:
+```
+---
+title: Emacs
+layout: page
+permalink: /emacs/
+hide_page_title: true
+---
+```
+
+Pages without a hero block (`about.md`, `archives.html`, `categories.html`, `tags.html`) should *not* set this flag — they rely on the auto-injected `.page-title` as their only heading. See `docs/css-updates.md` for the full list.

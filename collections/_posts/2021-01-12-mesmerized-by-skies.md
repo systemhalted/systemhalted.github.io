@@ -7,9 +7,10 @@ tags:
 - sports
 - astronomy
 comments: true
-description: First look at the skies through the binoculars and I must say I am hooked for life
 featured: true
+description: First look at the skies through the binoculars and I must say I am hooked for life
 ---
+
 I always wanted a telescope and start foraging through the skies. Recently, this urge to get a telescope increased and I got a cheap refractor from Best Buy, which I received broken and had to return. It was supposed to be a Christmas gift for my son. But it was not meant to be (good riddance! We got him something else).
 
 After reading through blogs and articles online, I realized whatever happened, happened for good. After lots of recommendations from so many experienced amateur astronomers, I ordered Orion Classic Dobsonian XT8. The catch was it was back-ordered [^1].
@@ -23,6 +24,5 @@ Today, again, I went out to explore before it became cloudy and spent time the b
 I am mesmerized. You do not need to know the names of the stars to admire them. You can call them anything you want. They remain as beautiful and as Shakespeare said "What is in name?"
 
 *Notes:*
-
 
 [^1]: Sometimes I think COVID-19 came as a boon to half of humanity - we are indulging ourselves in the things that we always wanted to do. Markets are out of bikes, telescopes, everything you can think of is either out of stock or back-ordered)

@@ -3,33 +3,30 @@ layout: post
 title: How to read a book
 category:
 - Books & Reading
-comments: true
-description: Reading is fun and in this post I will share how I approach reading and reading alternatives
-featured: true
 tags:
 - book-review
 - travel
+comments: true
+featured: true
+description: Reading is fun and in this post I will share how I approach reading and reading alternatives
 ---
+
 I recently made a post on LinkedIn[^1][^2] on having read 72 books last year and few of the folks asked how I managed to do that. 
 
 I am a vociferous reader and there was a time when I could read 100s of books in a year. In this post I will share what works for me. 
 
 ### Motivation to Read
 
-
 Reading is more than the number of books you read in a year. We don't read because we are in a competition but because we want to enjoy, get clarity on certain things, gain knowledge or simply to entertain ourselves. You need to find your motivation. But don't just make it 'number of book read in a year." Gamification sometimes is a great motivator but soon it becomes exhausting. Remember
 reading just one book a year is fine as long as you enjoyed reading it and it helped you with whatever you desired from it. In short there are more ways to enjoy the bliss of reading than just the numbers of books read.
 
 ### Reading and Discipline 
 
-
 Reading itself requires discipline. Just like any other thing in life you need to set aside time for it. If you want to be healthy, you have to spend time on your body, if you want to improve your relationships you will need to spend time on it. Same with reading. What I do is I set some time on my calendar for reading. How much and how often will depend on your preferences. But putting time on calendar is important.  I put one hour at night for reading just before I go to bed. It gives me good winding down time. For you it might be different - say 15 min a day or one hour on Sunday afternoon - whatever works for you.
 
 ### Feel Empowered to Spend Time Wisely
 
-
 Though reading is a great habit but we must remember that not all books are made equal. That means you don't have to read all the books cover-to-cover. Sooner you realize this, better it will be for your reading confidence and help you maintain reading discipline. You get to decide which book you want to read, and also once start, whether you want to finish it or just shelve it. It is your time and you must feel empowered to use it wisely. 
-
 
 ### Reading Books
 
@@ -71,7 +68,6 @@ That's it. In most cases Pass 3 would be the most you will reach and like I said
 
 ### Reading Alternatives
 
-
  If you can't read yourself, let someone else read it to you. Audio books are a great way to explore books and you can do it anywhere - even while driving. You can loan audiobooks from libraries. Most libraries have digital presence. Try the Libby app[4] and search for the library you have membership with.
 
 Recently there are number of Apps that give you short summaries of the books. I would recommend them for non-fiction books other than autobiographies and textbooks. Apps like Blinkist[^5], Lucid[^6], StoryShots[^7], Get Abstract[^8] are few that I have tied in the past and they are great if you want to get a gist of a book like we discussed in Pass 1,2 and 3 above. This is also helpful before you decide to make a purchase. 
@@ -94,4 +90,4 @@ Recently there are number of Apps that give you short summaries of the books. I 
 [^5]: [Blinkist App](https://www.blinkist.com)
 [^6]: [Lucid App](https://lucid.fyi)
 [^7]: [Story Shots App](https://www.getstoryshots.com). They are currently running a Lifetime membership plan.
-[^8]: [Get Abstract App](https://www.getabstract.com/en/). I think this has the most Enterprise Subscriptions. 
+[^8]: [Get Abstract App](https://www.getabstract.com/en/). I think this has the most Enterprise Subscriptions.

@@ -6,9 +6,10 @@ category:
 tags:
 - personal
 comments: true
-description: Finally, I completed my MS in Computer Science from Georgia Institute of Technology
 featured: false
+description: Finally, I completed my MS in Computer Science from Georgia Institute of Technology
 ---
+
 #Copied from LinkedIn
 I'm excited to announce that I recently completed my MS in Computer Science from Georgia Institute of Technology or Georgia Tech, with a specialization in Computing Systems.
 

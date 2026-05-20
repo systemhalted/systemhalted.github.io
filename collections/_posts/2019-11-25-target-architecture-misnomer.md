@@ -2,17 +2,15 @@
 layout: post
 title: What is Target Architecture?
 date: 2019-11-25
-type: post
-published: true
-comments: true
-status: publish
 categories:
 - Technology
 tags:
 - technology
-description: One phrase true for Target Architecture - Never Achieved.
+comments: true
 featured: true
+description: One phrase true for Target Architecture - Never Achieved.
 ---
+
 “I want to be in Target Architecture”, a high stake person in a company said. The problem is that no body understands what is Target Architecture. The phrase is so convoluted and confusing that it is not easy to define it, rest alone achieve it. Technology is always evolving. If it is evolving, then your architecture should be evolving as well. If our architecture is evolving, then there cannot be a finite target architecture. We can only have Target States of Architecture - one which help you set the goal and vision for the current set of projects to prevent them go rogue. But you will keep moving from one Target State to another. 
 
 From Domain Driven Design perspective, you can define Target Domains, as once we have identified domains for wer company/department/line of business, it is highly unlikely they will change frequently. They may also evolve as wer understanding of problem domain expands, but mostly they should remain stable at a high-level.  
@@ -28,4 +26,4 @@ There is a term called Emergent Architecture, which is better than Evolutionary 
 
 I have observed that we are trying to design the overall architecture upfront and by the time we finish and make decisions, the project is either scrapped because we didn't start delivering value or the assumptions that we made about the architecture and design decisions that we made are no longer valid. 
 
-Thus we need some agility (real sense Agile development, not in the form that we do it in enterprises these days). We need architecture, but like salt, it should be right amount and added at right time. 
+Thus we need some agility (real sense Agile development, not in the form that we do it in enterprises these days). We need architecture, but like salt, it should be right amount and added at right time.

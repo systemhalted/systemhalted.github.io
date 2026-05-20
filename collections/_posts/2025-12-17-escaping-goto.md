@@ -1,18 +1,23 @@
 ---
 layout: post
-title: "Escaping GOTO: How We Learned to Make Programs Readable"
+title: 'Escaping GOTO: How We Learned to Make Programs Readable'
 date: 2025-12-17
-published: true
+categories:
+- Technology
+- Computer Science
+- Series 2 - Turtle, BASIC, and the Long Road to Taste
+tags:
+- basic
+- gw-basic
+- goto
+- structured-programming
+- programming
+- software-engineering
 comments: true
-categories: 
-  - Technology
-  - Computer Science
-  - Series 2 - Turtle, BASIC, and the Long Road to Taste
-tags: [basic, gw-basic, goto, structured-programming, programming, software-engineering]
-description: Line numbers made BASIC feel orderly. GOTO made it powerful. Then everything turned into spaghetti.
 featured_image: assets/images/featured/2025-12-17-escaping-goto.png
 featured_image_alt: Illustration for Escaping GOTO
 featured_image_caption: Escaping GOTO — how we learned to make programs readable
+description: Line numbers made BASIC feel orderly. GOTO made it powerful. Then everything turned into spaghetti.
 ---
 
 In early BASIC, the line numbers felt like street addresses.
@@ -157,7 +162,6 @@ If you need to reuse, use a function.
 If you need to abort, return early or throw an error.
 
 Your future self will thank you. Your teammates will thank you. Your pager will thank you.
-
 
 ## Final Thoughts
 

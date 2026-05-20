@@ -1,18 +1,21 @@
 ---
 layout: post
-title: "Stereotypes Are Lazy Maps"
+title: Stereotypes Are Lazy Maps
 date: 2026-01-10
-type: post
-published: true
-comments: true
 categories:
-  - Society & Economy
-  - Personal Essays
-tags: [stereotypes, generalization, immigrants, critical-thinking, social-media]
-description: "A short essay on why stereotypes feel efficient but fail under scrutiny, and how to talk about groups: Indians, Americans, immigrants, anyone, without flattening millions of people into a single sentence."
+- Society & Economy
+- Personal Essays
+tags:
+- stereotypes
+- generalization
+- immigrants
+- critical-thinking
+- social-media
+comments: true
 featured_image: assets/images/featured/2026-01-10-stereotypes-are-lazy-maps.png
-featured_image_alt: "Illustration of diverse people on a map under a magnifying glass"
-featured_image_caption: "Stereotypes flatten people into map pins; reality is richer."
+featured_image_alt: Illustration of diverse people on a map under a magnifying glass
+featured_image_caption: Stereotypes flatten people into map pins; reality is richer.
+description: 'A short essay on why stereotypes feel efficient but fail under scrutiny, and how to talk about groups: Indians, Americans, immigrants, anyone, without flattening millions of people into a single sentence.'
 ---
 
 A stereotype is, in essence, a shortcut: a way of thinking about people in groups so that one does not have to do the considerably harder work of thinking about them as individuals. A generalization is, technically, a slightly more careful cousin of the same instinct — a guess about a population, ideally informed by some kind of evidence — but in practice the two tend to blur into each other, and both can be dangerously tempting when you are tired, when you are annoyed, or when you are trying to compress the human universe into a single sentence in order to win an argument on the internet. The trouble is that a shortcut, however efficient, is never quite the same thing as the truth, and when the shortcut is being applied to several million people at once, the gap between the two can become very large.

@@ -44,3 +44,4 @@ node_modules
 .bundle
 vendor
 *.iml
+scripts/.venv/

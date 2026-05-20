@@ -1,0 +1,18 @@
+---
+layout: post
+title: Diversity and Cross-cultural Sensitivity
+date: 2009-01-31 03:33:29-06:00
+category:
+- Personal Essays
+- Politics & Governance
+tags:
+- personal
+- opinion
+- politics
+- travel
+- india
+---
+
+I don't want to use the divisive terms - North Indian and South Indian, but want to say something that will involve these, so please don't mind. I actually hate these terms, but they are the fact they exist.
+
+North Indians feel that every part of India should be like what have been in their native place and South Indian think that North Indians have a colonial mindset. So, when you go to Tamil Nadu, very few people will talk to you in Hindi and North Indians will think that they are ignoring them as they want everyone there to talk to them in Hindi or English. We have cross-cultural sensitivity sessions in my company for the people who are being sent for onsite assignments in US, UK, etc. Why can't we have cross-cultural sensitivity programs for the people who get transferred from one state to another. Also, when we travel abroad, say US, we will study all about culture over there, why can't we do so when we are going for holiday to some other state? Sorry for deviating from the topic. We have diversity in culture. We are different people throughout India. We all know that and feel proud of our diverse culture. But when it comes to cross-cultural sensitivity we forget this. We ignore this diversity. Why? When we go to US, we easily learn their ways and try to behave like them. But when we move from one state to another, say from UP to Maharashtra or Karnataka, why can't we learn their ways and try to behave like one of them?

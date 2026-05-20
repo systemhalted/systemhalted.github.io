@@ -1,26 +1,24 @@
 ---
 layout: post
-title: "Part 8: Big Decimal Rounding Modes - Why HALF_UP Isn't Always the Answer"
-type: post
-published: true
-comments: true
-slug: rounding-modes-why-half-up-isnt-always-the-answer
+title: 'Part 8: Big Decimal Rounding Modes - Why HALF_UP Isn''t Always the Answer'
 categories:
-  - Computer Science
-  - Software Engineering
-  - Technology
-  - Series 4 - Floating Point Without Tears
+- Computer Science
+- Software Engineering
+- Technology
+- Series 4 - Floating Point Without Tears
 tags:
-  - java
-  - floating-point
-  - bigdecimal
-  - rounding
-  - finance
-  - numerics
-description: "Learn why HALF_UP rounding isn't always correct and how to choose a rounding policy in Java (HALF_EVEN, HALF_UP, HALF_DOWN, UP, DOWN, CEILING, FLOOR, UNNECESSARY)."
+- java
+- floating-point
+- bigdecimal
+- rounding
+- finance
+- numerics
+comments: true
 featured_image: /assets/images/featured/2026-02-05-rounding-modes-half-up-isnt-always-the-answer.png
-featured_image_alt: "Abstract illustration of rounding in Java: decimal numbers float above a dial labeled HALF_UP and HALF_EVEN, with arrows showing tie-breaking directions and a subtle bias toward HALF_UP."
-featured_image_caption: "Rounding is policy in disguise: HALF_UP always nudges ties the same way, while HALF_EVEN spreads the bias out."
+featured_image_alt: 'Abstract illustration of rounding in Java: decimal numbers float above a dial labeled HALF_UP and HALF_EVEN, with arrows showing tie-breaking directions and a subtle bias toward HALF_UP.'
+featured_image_caption: 'Rounding is policy in disguise: HALF_UP always nudges ties the same way, while HALF_EVEN spreads the bias out.'
+description: Learn why HALF_UP rounding isn't always correct and how to choose a rounding policy in Java (HALF_EVEN, HALF_UP, HALF_DOWN, UP, DOWN, CEILING, FLOOR, UNNECESSARY).
+slug: rounding-modes-why-half-up-isnt-always-the-answer
 ---
 
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*

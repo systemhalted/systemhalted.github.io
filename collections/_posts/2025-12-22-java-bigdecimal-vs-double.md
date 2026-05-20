@@ -1,26 +1,25 @@
 ---
 layout: post
-title: "Part 3: BigDecimal - When Doubles Aren't Enough"
+title: 'Part 3: BigDecimal - When Doubles Aren''t Enough'
 category:
 - Computer Science
 - Software Engineering
 - Technology
 - Series 4 - Floating Point Without Tears
-comments: true
-featured: false
-type: post
-published: true
-tags: 
+tags:
 - java
 - bigdecimal
-- ieee-754 
+- ieee-754
 - money
 - numeric-precision
+comments: true
+featured: false
 featured_image: assets/images/featured/2025-12-22-java-bigdecimal-vs-double.png
 featured_image_alt: Illustration for BigDecimal vs double
 featured_image_caption: BigDecimal vs double precision
 description: Why BigDecimal exists, how it really works, and when you should reach for it instead of double.
 ---
+
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
 In my earlier post on [IEEE 754 doubles]({% post_url 2025-12-04-ieee-754-doubles %}) I showed how a tiny Java example could break your intuition about numbers. The JVM was not being sloppy. It was faithfully following the floating point rules. The surprise came from my mental model, not from the hardware.
@@ -123,7 +122,6 @@ Your `123.45` example fits happily in compact form:
 - `intCompact = 12345L`  
 - `intVal = null`  
 - `scale = 2`
-
 
 ## Never construct BigDecimal from a double
 
@@ -275,7 +273,6 @@ double doubleSum = doubleAmounts.stream()
 System.out.println(doubleSum); // 1.0000000000000004E16
 
 {% endhighlight %}
-
 
 The result is mathematically correct (10^16 + 4), but the representation shows how rounding noise creeps in when you mix huge and small magnitudes in binary floating point. At this scale, many consecutive integers are not exactly representable as double, so tiny adjustments end up living in the low bits and surfacing as ...0004E16.
 

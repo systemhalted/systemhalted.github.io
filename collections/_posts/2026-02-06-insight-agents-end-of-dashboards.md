@@ -1,28 +1,26 @@
 ---
 layout: post
-title: "Insight Agents and the End of Dashboard-Driven Analytics"
-type: post
-published: true
-comments: true
+title: Insight Agents and the End of Dashboard-Driven Analytics
 categories:
-  - Technology
-  - Software Engineering
-  - Computer Science
-  - Data
-  - AI
+- Technology
+- Software Engineering
+- Computer Science
+- Data
+- AI
 tags:
-  - analytics
-  - agentic-ai
-  - genai
-  - llm
-  - multi-agent-systems
-  - data-insights
-  - business-intelligence
-  - amazon-research
-description: "Why Insight Agents signal a shift from dashboard-driven analytics to conversational, agentic systems that prioritize speed, context, and real business understanding."
+- analytics
+- agentic-ai
+- genai
+- llm
+- multi-agent-systems
+- data-insights
+- business-intelligence
+- amazon-research
+comments: true
 featured_image: /assets/images/featured/2026-02-06-insight-agents-end-of-dashboards.png
-featured_image_alt: "A futuristic illustration of AI insight agents collaborating around a central intelligence, analyzing business data through holographic charts and replacing traditional dashboards with conversational analytics."
-featured_image_caption: "Insight Agents at work: a shift from dashboard-driven analytics to agentic systems that understand business context and generate decisions, not just charts."
+featured_image_alt: A futuristic illustration of AI insight agents collaborating around a central intelligence, analyzing business data through holographic charts and replacing traditional dashboards with conversational analytics.
+featured_image_caption: 'Insight Agents at work: a shift from dashboard-driven analytics to agentic systems that understand business context and generate decisions, not just charts.'
+description: Why Insight Agents signal a shift from dashboard-driven analytics to conversational, agentic systems that prioritize speed, context, and real business understanding.
 ---
 
 I have just finished reading the Amazon Research paper *"Insight Agents: An LLM-Based Multi-Agent System for Data Insights"*[^1], and it is, I think, the first genuinely production-minded attempt I have seen to close the long-standing gap between dashboards that *show* data and systems that actually help people *decide* anything on the basis of it. The paper describes a hierarchical multi-agent system that, somewhat unusually, seems to actually understand the chain by which a business question becomes a data query and then becomes an insight, rather than treating that chain as a single LLM prompt to be optimised.

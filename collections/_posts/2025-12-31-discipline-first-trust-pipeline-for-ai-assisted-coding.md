@@ -1,28 +1,26 @@
 ---
 layout: post
-title: "Discipline First: A Trust Pipeline for AI-Assisted Coding"
+title: 'Discipline First: A Trust Pipeline for AI-Assisted Coding'
 date: 2025-12-31
-type: post
-published: true
-comments: true
 categories:
-  - Technology
-  - Software Engineering
+- Technology
+- Software Engineering
 tags:
-  - ai-assisted-coding
-  - agentic-coding
-  - vibe-coding
-  - extreme-programming
-  - xp
-  - tdd
-  - continuous-integration
-  - testing
-  - guardrails
-  - engineering-discipline
+- ai-assisted-coding
+- agentic-coding
+- vibe-coding
+- extreme-programming
+- xp
+- tdd
+- continuous-integration
+- testing
+- guardrails
+- engineering-discipline
+comments: true
 featured_image: assets/images/featured/2025-12-31-discipline-first-trust-pipeline-for-ai-assisted-coding.png
-featured_image_alt: 'Illustration of a human and an AI collaborating at a laptop beside a colorful pipeline labeled "Brief," "Guardrails," "Tests," and "Ship," each with a checkmark, ending in a rocket launch to represent reliable delivery.'
-featured_image_caption: "Discipline First: a trust pipeline for AI-assisted coding, where briefs, guardrails, and tests turn speed into shippable software."
-description: "AI-assisted coding is a force multiplier. This post argues that disciplined engineering practices, rooted in Extreme Programming, are what make agentic workflows trustworthy and shippable."
+featured_image_alt: Illustration of a human and an AI collaborating at a laptop beside a colorful pipeline labeled "Brief," "Guardrails," "Tests," and "Ship," each with a checkmark, ending in a rocket launch to represent reliable delivery.
+featured_image_caption: 'Discipline First: a trust pipeline for AI-assisted coding, where briefs, guardrails, and tests turn speed into shippable software.'
+description: AI-assisted coding is a force multiplier. This post argues that disciplined engineering practices, rooted in Extreme Programming, are what make agentic workflows trustworthy and shippable.
 ---
 
 Vibe coding is not a software engineering paradigm. It’s a mood. Engineering is what makes it ship.

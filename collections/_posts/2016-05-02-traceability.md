@@ -2,22 +2,19 @@
 layout: post
 title: Traceability Matrix - How important is its role in an Agile World
 date: 2016-04-02
-type: post
-published: true
-comments: true
-status: publish
 categories:
 - Software Engineering
-description: Do we really need to maintain a Requirements Traceability Matrix as a separate entity?
 tags:
 - software
+comments: true
+description: Do we really need to maintain a Requirements Traceability Matrix as a separate entity?
 ---
+
 Requirements traceability is “the ability to describe and follow the life of a requirement, in both a forwards and backwards direction (i.e., from its origins, through its development and specification, to its subsequent deployment and use, and through all periods of on-going refinement and iteration in any of these phases)” [1]. It is primarily useful for verification and validation to make sure that the right processes have been used to build the right system. Mostly in the old world, namely, Waterfall, the way to maintain traceability was using Requirements Traceability Matrix or simply Traceability Matrix (RTM). However, from my experience, I can certainly vouch that I have never looked at RTM except for during software audits.
 
 The value that you get by maintaining RTM is not very cost effective. RTM is one more document in a chain of document that requires maintainence. Everytime a requirement changes, you not only need to modify code and your acceptance tests, which is basically what you should do, but also modify the RTM. Over the time cost to maintain RTM becomes so high that the value attained by keeping the document alive is lost.
 
 In 2008, there was a thread on Yahoo! Groups on Traceability in Agile. I would like to quote a [reply by](https://groups.yahoo.com/neo/groups/agile-testing/conversations/topics/13320?threaded=1&p=7) [Michael Bolton](http://www.developsense.com) here:
-
 
       I think of it as something more abstract--a concept that
       helps us understand the historical links between one set of ideas and
@@ -43,7 +40,6 @@ In 2008, there was a thread on Yahoo! Groups on Traceability in Agile. I would l
       the cost will be matched by value. Things that can be read by a human
       typically require a human to write them--yet most projects I've seen tend to
       be short on extra humans.
-
 
 These days there is a ask to automatically create RTMs. Questions that we need to ask as suggested in the above reply by Michael Bolton are: 1) What will
 happen if I do? 2) What won't happen if I do? 3) What will happen if I don't? 4) What won't happen if I don't?
@@ -76,8 +72,4 @@ I think the maturity that ATDD (BDD), TDD, TBD nad EBT bring are far more worthy
 
 Most of the advantages that Traceability provides can be obtained through TDD, Continuous Integration and Proper Version Control system like Git. A high-level stories can be maintained in a system like Version One or Project wiki in Enterprise Github wiki page and the same story id can be used while committing changes in the version control for the tests and the application code. If needed, the results of these can be monitored through a tool like Splunk for reporting purposes.
 
-If you are still thinking about Traceability Matrix, it is high time you read the above articles before making up your mind. Because there are n-number of ways to do so, RTM might not be the one you have to choose. 
-
-
-
-
+If you are still thinking about Traceability Matrix, it is high time you read the above articles before making up your mind. Because there are n-number of ways to do so, RTM might not be the one you have to choose.

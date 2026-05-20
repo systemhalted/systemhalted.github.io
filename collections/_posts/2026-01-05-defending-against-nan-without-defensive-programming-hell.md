@@ -1,20 +1,25 @@
 ---
 layout: post
-title: "Part 6: Defending Against NaN Without Defensive Programming Hell"
-type: post
-published: true
-comments: true
+title: 'Part 6: Defending Against NaN Without Defensive Programming Hell'
 categories:
-  - Computer Science
-  - Software Engineering
-  - Technology
-  - Series 4 - Floating Point Without Tears
-tags: [java, floating-point, ieee-754, nan, validation, reliability]
+- Computer Science
+- Software Engineering
+- Technology
+- Series 4 - Floating Point Without Tears
+tags:
+- java
+- floating-point
+- ieee-754
+- nan
+- validation
+- reliability
+comments: true
 featured_image: assets/images/featured/2026-01-05-defending-against-nan-without-defensive-programming-hell.svg
-featured_image_alt: "Part 6 hero image: Bold warning against Checkpoint Syndrome, the anti-pattern of scattering NaN checks throughout code. Central danger symbol with radiating lines represents validation chaos. Contrasts bad pattern (red if-isNaN checks) with good pattern (green requireFinite at boundaries)."
-featured_image_caption: "NaN spreads like wildfire when you scatter if (isNaN) checks everywhere. The cure? Validate once at your system's boundaries, then let your computation core stay blissfully clean."
-description: "Learn how to handle NaN and Infinity in Java without scattering if (isNaN) checks everywhere. Five practical patterns: boundary validation with Double.isFinite(), result types, domain types, centralized sanitization, and detecting NaN at its source. Avoid Checkpoint Syndrome and keep your computation code clean."
+featured_image_alt: 'Part 6 hero image: Bold warning against Checkpoint Syndrome, the anti-pattern of scattering NaN checks throughout code. Central danger symbol with radiating lines represents validation chaos. Contrasts bad pattern (red if-isNaN checks) with good pattern (green requireFinite at boundaries).'
+featured_image_caption: NaN spreads like wildfire when you scatter if (isNaN) checks everywhere. The cure? Validate once at your system's boundaries, then let your computation core stay blissfully clean.
+description: 'Learn how to handle NaN and Infinity in Java without scattering if (isNaN) checks everywhere. Five practical patterns: boundary validation with Double.isFinite(), result types, domain types, centralized sanitization, and detecting NaN at its source. Avoid Checkpoint Syndrome and keep your computation code clean.'
 ---
+
 *This post is part of my [Floating Point Without Tears](https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears) series on how Java numbers misbehave and how to live with them.*
 
 When IEEE 754 arithmetic encounters an operation for which there is no real-number answer — dividing zero by zero, taking the square root of a negative number, and so on — it does not throw an exception. Instead, it produces a special value called NaN, short for "Not a Number," and the program continues running as if nothing in particular had happened. This is, as a piece of language design, both a strength and a quiet curse: it allows numerical code to keep flowing in the presence of locally invalid operations, but it also means that NaN tends to slip downstream silently and only surface much later, in log files, in metrics, and on dashboards, long after the operation that actually produced it has scrolled out of view.

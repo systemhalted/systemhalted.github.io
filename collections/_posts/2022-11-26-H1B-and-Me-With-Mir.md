@@ -4,9 +4,6 @@ title: Mir and My H1B and GC Travails
 category:
 - Personal Essays
 - Poetry & Literature
-comments: true
-description: Here I try to express my life, H1B and GC travails using Mir's couplets.
-featured: false
 tags:
 - personal
 - opinion
@@ -16,7 +13,11 @@ tags:
 - agra
 - pune
 - hindi
+comments: true
+featured: false
+description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 ---
+
 I have been in United States of America for a while now and even though I am a legal resident, chances of me getting an employment-based Green Card (GC) are very slim. 
 
 I share the sentiment behind the following couplets from Mir Taqi Mir:
@@ -41,4 +42,3 @@ The above couplet is so right, that though I found the job, my life is still sca
         
         
 And the above couplet explains my issues with H1B and GC much better than I will be ever able to explain.
-

@@ -1,17 +1,16 @@
 ---
 layout: post
-title: "[Book Review] Oracle Certified Associate Java Se 7 Programmer Study Guide by Richard M. Reese"
-published: true
-type: post
+title: '[Book Review] Oracle Certified Associate Java Se 7 Programmer Study Guide by Richard M. Reese'
 category:
 - Books & Reading
 - Technology
-comments: true
 tags:
 - book-review
 - technology
+comments: true
 description: Oracle has now introduced a new certification named Oracle Certified Associate, Java SE7 Programmer, which is mandatory if you want to become Oracle Certified Professional, Java SE7 Programmer (given to understand that you already are not OCP in some other version of Java). So, Oracle Certified Associate, Java SE7 Programmer (OCA7) is really important exam for a Java developer who wants to get certified and valued.
 ---
+
 [<img title="Buy Oracle Certified Associate, Java Se 7 Programmer Study Guide from Flipkart.com" alt="Buy Oracle Certified Associate, Java Se 7 Programmer Study Guide from Flipkart.com" src="http://techjaunt.files.wordpress.com/2012/11/oca7.jpg" height="200" width="129" />](http://www.flipkart.com/oracle-certified-associate-java-se-7-programmer-study-guide-1849687323/p/itmdd5czxmuuyvfw?pid=9781849687324&ref=627e4509-432f-487d-b3a9-0c43fa67640e&srno=s_1&otracker=from-search&query=oracle-certified-associate-Java-se-7-programmer-study-guide&affid=palakmathu)
 <br>
 [<img alt="" src="http://img8a.flixcart.com/www/prod/images/buy_btn_1-161e3e31.png" />](http://www.flipkart.com/oracle-certified-associate-java-se-7-programmer-study-guide-1849687323/p/itmdd5czxmuuyvfw?pid=9781849687324&ref=627e4509-432f-487d-b3a9-0c43fa67640e&srno=s_1&otracker=from-search&query=oracle-certified-associate-Java-se-7-programmer-study-guide&affid=palakmathu)
@@ -35,4 +34,3 @@ In the end, I would just say that if you are planning to take OCA7 examination, 
 [View all my reviews](http://www.goodreads.com/review/list/1863824-palak-mathur)
 
 *P.S.:- I received this book as a gift from the publisher in return of the review on my blog(s) and other sites. *
-

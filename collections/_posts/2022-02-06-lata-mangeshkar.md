@@ -7,9 +7,10 @@ tags:
 - personal
 - india
 comments: true
-description: Om Shanti! Lata Mangeshkar will live forever!
 featured: false
+description: Om Shanti! Lata Mangeshkar will live forever!
 ---
+
 <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6895976237865467904" height="692" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
 
 Death of Lata Mangeshkar ji comes as a shock. I can’t imagine the world without her voice. She was the nightingale of India. Thankfully, her voice will remain. 

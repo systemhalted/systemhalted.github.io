@@ -3,8 +3,6 @@ layout: post
 title: iPhone Apps, Distractions and Life - App Inventory
 category:
 - Personal Essays
-comments: true
-description: Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone
 tags:
 - personal
 - opinion
@@ -13,7 +11,10 @@ tags:
 - leadership
 - india
 - urdu
+comments: true
+description: Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone
 ---
+
 Tired of distractions that I carry with myself all the time - my iPhone Apps, today I did an inventory of all the apps that I have on my phone. And deleted 29 apps. There are over 150 apps on my phone. This list doesn’t contain the stock Apple apps and Finance apps.
 
 Trying to reduce the number of apps installed on my phone. I had already removed plenty of other apps - Facebook, Instagram and Twitter were few of them. Now to that list 29 more apps got added. Hopefully, I will be able to get the minimalist iPhone that I would love to have. This is the first step toward gaining my independence from the SmartPhone. :-)
@@ -156,7 +157,6 @@ Trying to reduce the number of apps installed on my phone. I had already removed
 | 135.  | SoundTouch      | Utility        | Bose                          |                           |          |
 | 136.  | Spotify         | Music          | Music Streaming               |                           |          |
 | 137.  | YouTubeMusic    | Music          | Music Streaming               |                           |          |
-
 
 P.S.: This does not include Finance Apps  
 Edit 1: Around 29 apps deleted from iPhone.

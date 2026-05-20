@@ -7,6 +7,7 @@ category:
 comments: true
 description: This is Part 4 of Language series where we will talk about pronunciation.
 ---
+
 ***Disclaimer***
 I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
 
@@ -22,6 +23,4 @@ For example, while English and Hindi do have some similarities in their stress p
 
 In Hindi, stress patterns are generally more predictable than in English, and they are typically based on the length of the syllables in a word. In Hindi, stressed syllables are generally longer and louder than unstressed syllables, and they are often pronounced with a higher pitch.
 
-In conclusion, pronunciation is an important aspect of language that helps us to convey meaning and be understood by others. It involves the sounds of the language, the stress patterns of words, and the intonation and rhythm of speech, and it requires practice and effort to master. By understanding and mastering pronunciation, we can more effectively communicate with others and express our thoughts and ideas. 
-
-
+In conclusion, pronunciation is an important aspect of language that helps us to convey meaning and be understood by others. It involves the sounds of the language, the stress patterns of words, and the intonation and rhythm of speech, and it requires practice and effort to master. By understanding and mastering pronunciation, we can more effectively communicate with others and express our thoughts and ideas.

@@ -12,6 +12,7 @@ comments: true
 featured: true
 description: Most orgs are unknowingly running an “Org Incentive Optimization” algorithm that over-rewards flashy new platforms and under-values quiet reliability work, so you have to translate maintenance into visible, computable outcomes.
 ---
+
 Recently, in a conversation on [LinkedIn](https://www.linkedin.com/posts/jessewarden_heard-a-rumor-google-used-to-have-an-incentive-activity-7403871145076162560-IfQs?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAEFJMcB_miK-56ZKPbmvTNGUxM6IrkeN_M), I came to realization that most companies are secretly running an algorithm they’ve never actually written down.
 
 I call it the **Org Incentive Optimization Problem**.
@@ -98,4 +99,4 @@ Translate it into:
 
 Same work.  
 Different representation in the algorithm.  
-Very different outcome.  
+Very different outcome.

@@ -10,9 +10,10 @@ tags:
 - movie-review
 - leadership
 comments: true
-description: Loved this talk by Richard Feldman on Roc-lang in particular and language optimization in general.
 featured: true
+description: Loved this talk by Richard Feldman on Roc-lang in particular and language optimization in general.
 ---
+
 Recently,  I listened to the talk "Outperforming Imperative with Pure Functional Languages"[^1] by Richard Feldman [^2] on Roc Lang's[^3] performance. I loved the talk. I have listened to several talks on new languages and language design but this talk stands out because it was not a talk that bashed other languages but articulated the need for a new language (albeit briefly) and how functional programs can be made to be performant in comparison to the imperative languages like Java, C++, etc. 
 
 This is really a great talk. The talk covered three main performance considerations:  
@@ -54,5 +55,4 @@ This talk was fantastic. I would recommend go and listen to the talk. It is amaz
 [^7]: https://arxiv.org/pdf/1908.05647.pdf  
 [^8]: https://wiki.haskell.org/Lazy_evaluation 
 [^9]: [CS6340 - Software Analysis and Test](https://omscs.gatech.edu/cs-6340-software-analysis) is one of the best courses offered in OMSCS. If you are planning to take one course in OMSCS, try this one. Thoroughly enjoyed this course.  
-[^10]: https://omscs.gatech.edu/home    
-
+[^10]: https://omscs.gatech.edu/home

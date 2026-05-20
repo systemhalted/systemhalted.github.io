@@ -7,9 +7,10 @@ tags:
 - personal
 - opinion
 comments: true
-description: I didn’t feel a thing today. And then I did some.
 featured: false
+description: I didn’t feel a thing today. And then I did some.
 ---
+
 Today was another shooting. This time in a [South Carolina restaurant](https://abcnews.go.com/US/injured-shooting-south-carolina-restaurant-police/story?id=84135698&fbclid=IwAR1RH0hnWci0e7yBiFtjjIoqKNFxuZZa1Uj_Rrj-OwNNYcY1XkcmBebFJ3k).
                           
 I didn’t feel a thing today. And then I did some. 

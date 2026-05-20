@@ -4,9 +4,6 @@ title: Nazeer Akbarabadi - Mahadevji ka byah
 category:
 - Politics & Governance
 - Poetry & Literature
-comments: true
-description: This post is about Nazeer Akbarabadi (1735-1830), a poet who wrote beautiful poetry on Indian festivals.
-featured: false
 tags:
 - politics
 - poetry
@@ -14,7 +11,11 @@ tags:
 - india
 - agra
 - hindi
+comments: true
+featured: false
+description: This post is about Nazeer Akbarabadi (1735-1830), a poet who wrote beautiful poetry on Indian festivals.
 ---
+
 Nazeer Akbarabadi, a contemporary poet of Mir Taqi Mir, was born in Delhi. He moved to Agra when he was around 21-22 years old as Mughal Empire started declining during the the reign of Mohammad Shah and Alamgir II. 
 
 Nazeer Akbarabadi loved Agra so much that though he was born in Delhi and moved to Agra as a grown men, he took Akbarabadi as his Taqallus or pen name. Agra was also known as Akbarabad as it was re-founded by Akbar. 
@@ -22,7 +23,6 @@ Nazeer Akbarabadi loved Agra so much that though he was born in Delhi and moved 
 He wrote beautiful poetry on Indian, specially Hindu festivals. 
 His poetry is a great example Ganga-Jamuni Tehzeeb (culture), showcasing the syncretic Indian and Muslim thought.
 Here I am presenting one of his Nazms, "Mahadevji ka Byah"
-
 
         पहले नाँव गणेश का, लीजिए सीस नवाए 
         जा से कारज सिद्ध हों, सदा महूरत लाए 
@@ -53,6 +53,3 @@ Here I am presenting one of his Nazms, "Mahadevji ka Byah"
         महिमा उस की भी रहे जिस का नाम 'नज़ीर'  
         ḳhushī rahe din raat vo, kabhī na ho dil-gīr 
         mahimā us kī bhī rahe jis kā naam 'nazīr'
-
-
-

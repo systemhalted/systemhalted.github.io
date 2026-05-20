@@ -1,11 +1,7 @@
 ---
 layout: post
 title: Lazy Evaluation, Streams, Reactive Programming and Reactive architecture
-date: 2016-09-19 23:07:00.000000000 -06:00
-type: post
-published: true
-comments: true
-status: publish
+date: 2016-09-19 23:07:00-06:00
 categories:
 - Technology
 - Software Engineering
@@ -14,8 +10,10 @@ tags:
 - technology
 - software
 - computer-science
+comments: true
 description: An attempt to make sense of the world I work in.
 ---
+
 Last year I spent a lot of time working with distributed runtime environments, especially using Spring XD. Spring XD gives you a way to define streams that process continuous flows of data in near real time. Under the covers it builds on Spring Integration and messaging. No single module can keep up with every burst of traffic on its own, so Spring XD relies on messaging middleware such as queues and topics. These queues decouple producers and consumers and buffer data so that the system as a whole can keep up, even when individual modules have limited capacity.
 
 In Haskell you see a different but related idea in the form of lazy evaluation. For example, you can write a simple definition like b = a + 2. Even if a is not known yet, the definition of b is valid. Haskell does not compute b until some later point when its value is actually needed and a has been provided. This is the essence of laziness in the language. Functional reactive programming libraries in Haskell build on this style of thinking, representing time varying values and streams as ordinary values that are only evaluated when required.

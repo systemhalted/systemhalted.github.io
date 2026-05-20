@@ -1,10 +1,7 @@
 ---
 layout: post
 title: Tolerance and Intolerance - Lack of Sense of Justice
-date: 2015-11-26 11:50:52.000000000 -06:00
-type: post
-published: true
-status: publish
+date: 2015-11-26 11:50:52-06:00
 categories:
 - Politics & Governance
 - Personal Essays
@@ -19,6 +16,7 @@ tags:
 - united-states
 description: Aamir Khan's recent statement started a debate and widespread criticism. My quick thoughts!
 ---
+
 <div class="_209g _2vxa">People keep saying that Aamir Khan is defaming the country. Really? Is speaking out ones mind means defaming the country? No. Not at all.</div>
 <div class="_209g _2vxa"></div>
 <div class="_209g _2vxa"><span><span>No one is defaming the country. He is just speaking his mind out and questioning the reason for despondency which you might have not felt and he may have felt. </span></span></div>

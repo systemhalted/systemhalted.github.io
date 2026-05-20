@@ -11,9 +11,10 @@ tags:
 - data
 - leadership
 comments: true
-description: GDPR and its impact on Advertising. Submitted as part of CS7637 Homework
 featured: true
+description: GDPR and its impact on Advertising. Submitted as part of CS7637 Homework
 ---
+
 *Note: Submitted as part of CS7637 Homework*
 
 Article 4 of General Data Protection Regulation (GDPR) [^1] defines personal data as "any information relating to an identified or identifiable natural person (‘data subject’)." Article 5 of GDPR defines following principles relating to processing of personal data:

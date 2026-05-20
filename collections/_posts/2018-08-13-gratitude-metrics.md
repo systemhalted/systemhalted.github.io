@@ -4,13 +4,14 @@ title: Gratitude Metrics
 category:
 - Personal Essays
 - Life Events
-comments: true
-description: Gratitude is important. Quantifying is importanter.
-featured: true
 tags:
 - personal
 - opinion
+comments: true
+featured: true
+description: Gratitude is important. Quantifying is importanter.
 ---
+
 I am not perfect. I have made mistakes and understand that many people might not have. I try fixing one and make another. I don’t know if there will be a time when I won’t make any mistakes.
 
 For now, I am changing my personal daily log to include 4 things:-

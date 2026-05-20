@@ -7,6 +7,7 @@ category:
 comments: true
 description: This is Part 2 of Language series where we will talk about grammar.
 ---
+
 ***Disclaimer***
 I am not a linquist and have no knowledge about languages. Even though I am filing this under `Linguistic` category, it is more of my `Insane Thoughts` and thus is twin filed under that category as well.
 

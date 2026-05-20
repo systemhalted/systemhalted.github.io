@@ -1,17 +1,15 @@
 ---
 layout: post
-title: "Parkinson’s Law of Triviality"
-date: 2012-07-13 01:28:46 -05:00
-type: post
-published: true
+title: Parkinson’s Law of Triviality
+date: 2012-07-13 01:28:46-05:00
 categories:
-  - Personal Essays
-  - Software Engineering
+- Personal Essays
+- Software Engineering
 tags:
-  - organizational behavior
-  - bikeshedding
-  - management
-  - software engineering
+- organizational behavior
+- bikeshedding
+- management
+- software engineering
 ---
 
 Some ideas have the rude honesty of a mirror. You glance, you laugh, and then you realize you’ve been doing that exact thing all week.

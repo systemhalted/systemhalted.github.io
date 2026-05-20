@@ -1,14 +1,15 @@
 ---
 layout: post
-date: 2012-12-15 21:45
 title: As Touch is to UNIX, New-Item is to Windows PowerShell
+date: 2012-12-15 21:45
 category:
 - Technology
-comments: true
-description: As Touch is to UNIX, New-Item is to Windows PowerShell
 tags:
 - technology
+comments: true
+description: As Touch is to UNIX, New-Item is to Windows PowerShell
 ---
+
 Unix has a command called Touch that creates an empty file
 
 	$ touch touch_test.txt  
@@ -25,9 +26,7 @@ This will ask you to enter a `Type`
 
 The output will look something like this:
 
-
     Directory: C:\Documents and Settings\Administrator\Workspace
-
 
 	Mode                LastWriteTime            Length   Name
 	----                -------------            ------   ----
@@ -40,7 +39,6 @@ You can also specify the type inline with the command
 	PS C:\Documents and Settings\Administrator\Workspace>New-item palakmathur.txt -type file 
 
 The output will look something like this:
-
 
      Directory: C:\Documents and Settings\Administrator\Workspace
 

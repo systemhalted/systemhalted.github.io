@@ -12,6 +12,7 @@ tags:
 comments: true
 description: “Rahul Gandhi Hatao, Desh Bachao"
 ---
+
 Indian National Congress will destroy the country. That is true. Why? Because we do not have a strong opposition and we will not have a strong opposition till we have Gandhi family at the top.
 
 Rahul Gandhi is a sidelined politician in India who does not have mass following outside of some “Chamchas” in Congress. I think Congress realizes that, but for reason unknown, do not act. 

@@ -15,6 +15,6 @@ This is my personal blog. All views expressed here, in my articles, and on any o
 
 I also publish [Kartavya Path](/kartavya-path/), a newsletter on leadership and management — read it here or on LinkedIn.
 
-Separate older essays live at [palakmathur.substack.com](https://palakmathur.substack.com).
+I also publish short stories at [palakmathur.substack.com](https://palakmathur.substack.com).
   
  

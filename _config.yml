@@ -67,7 +67,7 @@ sidebar:
     - title: "Emacs"
       url: "/emacs/"
     - title: "Javascript Games"
-      url: "jsgames/"
+      url: "/jsgames/"
     - title: In the beginning...
       url: /webcmd/
 

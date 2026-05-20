@@ -1,18 +1,18 @@
 ---
 layout: page
-title: Javascript Games 
+title: JavaScript Games
+permalink: /jsgames/
+hide_page_title: true
 ---
 
+<section class="newsletter-hero">
+  <p class="newsletter-kicker">Side projects</p>
+  <h1 class="newsletter-headline">JavaScript Games</h1>
+  <p class="newsletter-lede">
+    Small games I built while learning vanilla JavaScript. Each one runs in the browser, no build step.
+  </p>
+</section>
 
-<ul>
-  <div class="post-list">
-     <li>
-     
-         <span class="post-title"> <a href="pig-game/index.html"> Pig Game</a></span>
-    
-    </li> 
-   <li>
-   <span class="post-title"><a href="guess-number/index.html">Guess the number</a></span>  
-     </li>
-   </div>
+<ul class="post-feed">
+  {% for game in site.data.jsgames %}{% include jsgame-list-item.html game=game %}{% endfor %}
 </ul>

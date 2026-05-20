@@ -1,7 +1,19 @@
 ---
 title: Emacs
-layout: collections
-collection_name: emacs
+layout: page
 permalink: /emacs/
-show_dates: false
+hide_page_title: true
 ---
+
+<section class="newsletter-hero">
+  <p class="newsletter-kicker">Notes & references</p>
+  <h1 class="newsletter-headline">Emacs</h1>
+  <p class="newsletter-lede">
+    A small wiki of Emacs notes, configs, and packages I keep coming back to.
+  </p>
+</section>
+
+<ul class="post-feed">
+  {% assign notes = site.emacs | sort: 'title' %}
+  {% for note in notes %}{% include emacs-list-item.html note=note %}{% endfor %}
+</ul>

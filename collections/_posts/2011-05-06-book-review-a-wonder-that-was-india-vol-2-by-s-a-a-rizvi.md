@@ -9,7 +9,7 @@ tags:
 - sports
 - india
 featured_image: /assets/2011/05/the_wonder_that_was_india_volii_saa_rizvi_large.jpg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: A Wonder That Was India, Volume 2 by S. A. A. Rizvi'
 ---
 
 **

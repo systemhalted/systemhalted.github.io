@@ -7,7 +7,7 @@ category:
 tags:
 - book-review
 featured_image: /assets/2012/05/9789381115879.jpg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: The Asocial Networking by Dhiraj Kumar'
 ---
 
 **

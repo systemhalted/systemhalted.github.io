@@ -8,7 +8,7 @@ tags:
 - book-review
 - india
 featured_image: /assets/2011/12/front_capitalism.JPG
-featured_image_alt: ''
+featured_image_alt: 'Book cover: Transforming Capitalism by Arun Maira'
 ---
 
 **

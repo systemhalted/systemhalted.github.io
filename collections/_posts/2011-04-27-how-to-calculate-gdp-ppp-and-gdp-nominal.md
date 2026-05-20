@@ -9,7 +9,7 @@ tags:
 - economy
 - india
 featured_image: /assets/2011/04/170px-Indian_Rupee_symbol.svg.png
-featured_image_alt: ''
+featured_image_alt: 'The Indian Rupee symbol (₹)'
 ---
 
 **

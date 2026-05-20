@@ -8,7 +8,7 @@ tags:
 - book-review
 - india
 featured_image: /assets/2012/03/9789381626412.jpg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: Urban Shots — Bright Lights, edited by Paritosh Uttam'
 ---
 
 **

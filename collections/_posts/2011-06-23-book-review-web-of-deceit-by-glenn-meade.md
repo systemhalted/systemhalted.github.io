@@ -7,7 +7,7 @@ category:
 tags:
 - book-review
 featured_image: /assets/2011/06/62040.jpg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: Web of Deceit by Glenn Meade'
 ---
 
 **

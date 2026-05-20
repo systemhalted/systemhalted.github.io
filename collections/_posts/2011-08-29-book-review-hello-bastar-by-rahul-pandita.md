@@ -8,7 +8,7 @@ tags:
 - book-review
 - india
 featured_image: /assets/2011/08/HelloBastarImg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: Hello, Bastar by Rahul Pandita'
 ---
 
 **

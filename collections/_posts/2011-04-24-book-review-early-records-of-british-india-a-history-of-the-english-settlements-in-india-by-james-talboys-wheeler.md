@@ -10,7 +10,7 @@ tags:
 - travel
 - india
 featured_image: /assets/2011/04/early-settlements.jpg
-featured_image_alt: ''
+featured_image_alt: 'Book cover: Early Records of British India by James Talboys Wheeler'
 ---
 
 **

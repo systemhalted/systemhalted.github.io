@@ -7,6 +7,6 @@
     "a11y:json": "pa11y-ci --json"
   },
   "devDependencies": {
-    "pa11y-ci": "^3.1.0"
+    "pa11y-ci": "^4.1.1"
   }
 }

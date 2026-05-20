@@ -21,13 +21,14 @@ layout: default
     {{ content | inject_anchors }}
   </div>
 
-  {% include newsletter-cta.html context="end-of-issue" %}
-
   {% if page.linkedin_url %}
+  <p class="linkedin-discuss-prelude">This issue was published here first.</p>
   <p class="linkedin-discuss">
-    <a href="{{ page.linkedin_url }}" rel="noopener" target="_blank">Discuss on LinkedIn →</a>
+    <a href="{{ page.linkedin_url }}" rel="noopener" target="_blank">Join the discussion on LinkedIn →</a>
   </p>
   {% endif %}
+
+  {% include newsletter-cta.html context="end-of-issue" %}
 
   {% assign issues = site.newsletter | sort: 'date' %}
   {% assign idx = 0 %}

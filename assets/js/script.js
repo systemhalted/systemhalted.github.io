@@ -6,8 +6,39 @@
 
   if (!toggle || !sidebar || !checkbox) return;
 
+  var navItems = Array.prototype.slice.call(sidebar.querySelectorAll('.sidebar-nav-item'));
+
   function setExpandedState() {
     toggle.setAttribute('aria-expanded', checkbox.checked ? 'true' : 'false');
+  }
+
+  function focusFirstItem() {
+    if (!navItems.length) return;
+    setRovingIndex(0);
+    navItems[0].focus();
+  }
+
+  function setRovingIndex(activeIdx) {
+    for (var i = 0; i < navItems.length; i++) {
+      navItems[i].setAttribute('tabindex', i === activeIdx ? '0' : '-1');
+    }
+  }
+
+  function openSidebar() {
+    if (checkbox.checked) return;
+    checkbox.checked = true;
+    // Programmatic assignment to .checked does NOT fire the change event,
+    // so we must call the same logic the change handler would.
+    setExpandedState();
+    window.requestAnimationFrame(focusFirstItem);
+  }
+
+  function closeSidebar(restoreFocus) {
+    if (!checkbox.checked) return;
+    var focusWasInside = sidebar.contains(document.activeElement);
+    checkbox.checked = false;
+    setExpandedState();
+    if (restoreFocus || focusWasInside) toggle.focus();
   }
 
   document.addEventListener('click', function(e) {
@@ -17,19 +48,62 @@
        sidebar.contains(target) ||
        (target === checkbox || target === toggle)) return;
 
-    checkbox.checked = false;
-    setExpandedState();
+    closeSidebar(false);
   }, false);
 
+  // Auto-close when focus moves out of the sidebar and off the toggle.
+  // The toggle stays a valid neighbor of an open sidebar (it's the close
+  // affordance); anything else means the user has moved on.
+  document.addEventListener('focusin', function(e) {
+    if (!checkbox.checked) return;
+    var target = e.target;
+    if (sidebar.contains(target) || target === toggle || target === checkbox) return;
+    closeSidebar(false);
+  });
+
+  // Native click on the <label> toggles the checkbox via the browser and
+  // fires this change event. Keyboard (Space/Enter) goes through openSidebar()
+  // / closeSidebar() above and does NOT fire change — both paths converge on
+  // the same setExpandedState + focusFirstItem behavior.
   checkbox.addEventListener('change', function() {
     setExpandedState();
+    if (checkbox.checked) {
+      window.requestAnimationFrame(focusFirstItem);
+    }
   });
 
   toggle.addEventListener('keydown', function(event) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      checkbox.checked = !checkbox.checked;
-      setExpandedState();
+      if (checkbox.checked) {
+        closeSidebar(true);
+      } else {
+        openSidebar();
+      }
+    }
+  });
+
+  sidebar.addEventListener('keydown', function(event) {
+    var key = event.key;
+    if (key === 'Escape') {
+      event.preventDefault();
+      closeSidebar(true);
+      return;
+    }
+
+    var currentIdx = navItems.indexOf(document.activeElement);
+    if (currentIdx === -1) return;
+
+    var nextIdx = -1;
+    if (key === 'ArrowDown') nextIdx = (currentIdx + 1) % navItems.length;
+    else if (key === 'ArrowUp') nextIdx = (currentIdx - 1 + navItems.length) % navItems.length;
+    else if (key === 'Home') nextIdx = 0;
+    else if (key === 'End') nextIdx = navItems.length - 1;
+
+    if (nextIdx !== -1) {
+      event.preventDefault();
+      setRovingIndex(nextIdx);
+      navItems[nextIdx].focus();
     }
   });
 
@@ -44,6 +118,12 @@
       document.head.appendChild(script);
     });
   }
+
+  // Expose for the global shortcuts IIFE to use.
+  window.__sidebarToggle = function() {
+    if (checkbox.checked) closeSidebar(true);
+    else openSidebar();
+  };
 })(document);
 
 (function(document) {
@@ -444,6 +524,164 @@
     } else if (event.key === 'Escape' && overlay.classList.contains('is-open')) {
       event.preventDefault();
       closeSearch();
+    }
+  });
+
+  // Expose for the shortcuts IIFE.
+  window.__openSearch = openSearch;
+  window.__closeSearch = closeSearch;
+})(document);
+
+// ---------------------------------------------------------------------------
+// Global keyboard shortcuts + help dialog
+// ---------------------------------------------------------------------------
+(function(document) {
+  var helpOverlay = document.querySelector('#shortcuts-overlay');
+  var helpClose = document.querySelector('#shortcuts-close');
+  var lastFocused = null;
+  var pendingG = false;
+  var pendingGTimer = null;
+
+  function isEditableTarget(target) {
+    if (!target) return false;
+    var tag = target.tagName ? target.tagName.toLowerCase() : '';
+    return tag === 'input' || tag === 'textarea' || target.isContentEditable;
+  }
+
+  function isAnyOverlayOpen() {
+    var search = document.querySelector('#search-overlay');
+    if (search && search.classList.contains('is-open')) return true;
+    if (helpOverlay && helpOverlay.classList.contains('is-open')) return true;
+    return false;
+  }
+
+  function openHelp() {
+    if (!helpOverlay) return;
+    lastFocused = document.activeElement;
+    helpOverlay.classList.add('is-open');
+    helpOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('shortcuts-open');
+    window.requestAnimationFrame(function() {
+      window.requestAnimationFrame(function() {
+        if (helpClose) helpClose.focus();
+      });
+    });
+  }
+
+  function closeHelp() {
+    if (!helpOverlay) return;
+    helpOverlay.classList.remove('is-open');
+    helpOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('shortcuts-open');
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+    lastFocused = null;
+  }
+
+  function clearPendingG() {
+    pendingG = false;
+    if (pendingGTimer) {
+      clearTimeout(pendingGTimer);
+      pendingGTimer = null;
+    }
+  }
+
+  function handleGoTo(letter) {
+    var routes = {
+      h: '/',
+      f: '/featured/',
+      k: '/kartavya-path/',
+      e: '/emacs/',
+      a: '/about/'
+    };
+    if (routes[letter]) {
+      window.location.href = routes[letter];
+    }
+  }
+
+  if (helpClose) {
+    helpClose.addEventListener('click', closeHelp);
+  }
+  if (helpOverlay) {
+    helpOverlay.addEventListener('click', function(event) {
+      if (event.target === helpOverlay) closeHelp();
+    });
+    helpOverlay.addEventListener('keydown', function(event) {
+      if (event.key === 'Tab') {
+        // Keep focus inside the dialog.
+        var focusable = Array.prototype.slice.call(
+          helpOverlay.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        ).filter(function(el) { return el.offsetWidth || el.offsetHeight; });
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+
+  document.addEventListener('keydown', function(event) {
+    var key = event.key;
+
+    // Escape closes the help dialog (search overlay handles its own Escape).
+    if (key === 'Escape' && helpOverlay && helpOverlay.classList.contains('is-open')) {
+      event.preventDefault();
+      closeHelp();
+      return;
+    }
+
+    // Never trigger shortcuts while typing, while a modifier is held, or while another overlay is open.
+    if (isEditableTarget(event.target)) return;
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (isAnyOverlayOpen() && key !== '?') return;
+
+    // Handle pending `g` chord.
+    if (pendingG) {
+      var lower = key.length === 1 ? key.toLowerCase() : key;
+      clearPendingG();
+      if ('hfkea'.indexOf(lower) !== -1) {
+        event.preventDefault();
+        handleGoTo(lower);
+      }
+      return;
+    }
+
+    if (key === 'g') {
+      pendingG = true;
+      pendingGTimer = setTimeout(clearPendingG, 1200);
+      return;
+    }
+
+    if (key === '?') {
+      event.preventDefault();
+      openHelp();
+      return;
+    }
+
+    if (key === 't') {
+      var themeToggle = document.querySelector('#theme-toggle');
+      if (themeToggle) {
+        event.preventDefault();
+        themeToggle.click();
+      }
+      return;
+    }
+
+    if (key === 's') {
+      event.preventDefault();
+      if (window.__openSearch) window.__openSearch();
+      return;
+    }
+
+    if (key === 'm') {
+      event.preventDefault();
+      if (window.__sidebarToggle) window.__sidebarToggle();
+      return;
     }
   });
 })(document);

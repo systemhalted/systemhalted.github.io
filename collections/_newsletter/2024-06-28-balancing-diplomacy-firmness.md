@@ -8,6 +8,7 @@ tags:
 - india
 category:
 - Newsletter
+linkedin_url: https://www.linkedin.com/pulse/tech-leadership-management-insights-from-ancient-wisdom-palak-mathur-4k48c/?trackingId=wOfc1tlWQMaNamtO%2FxYOtA%3D%3D
 ---
 In the rapidly evolving tech industry, effective leadership and management hinge on the principles of diplomacy and strategic thinking. Tech leaders are constantly navigating through conflicts, tough situations, and sometimes dealing with downright difficult people. While contemporary management theories offer a plethora of strategies, there’s a wealth of timeless wisdom to be gleaned from ancient texts. One such powerful lesson comes from the Panchatantra, an ancient Indian collection of interrelated animal fables in Sanskrit śloka (verse) and prose.
 

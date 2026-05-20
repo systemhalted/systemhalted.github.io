@@ -8,11 +8,13 @@
     <p>{{ site.description }}</p>
   </div>
 
-  <nav class="sidebar-nav">
+  <nav class="sidebar-nav" role="menu" aria-label="Site navigation">
     {% for item in site.sidebar.items %}
 
     <a
       class="sidebar-nav-item{% if page.url == item.url %} active{% endif %}"
+      role="menuitem"
+      tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
       href="{{ item.url | relative_url }}">
       {{ item.title }}
     </a>

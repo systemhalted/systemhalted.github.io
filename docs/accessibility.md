@@ -6,7 +6,9 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 - Skip link to main content (`_layouts/default.html` + styles in `assets/css/nord.css`).
 - `<main>` landmark around the page content (`_layouts/default.html`).
 - Sidebar toggle is keyboard operable and exposes `aria-expanded` (`_layouts/default.html`, `assets/js/script.js`).
+- Sidebar is a roving-tabindex ARIA menu: opening it moves focus to the first item; ArrowUp/Down/Home/End walk items; Escape closes and restores focus to the toggle (`_includes/sidebar.html`, `assets/js/script.js`).
 - Search overlay has focus trapping and returns focus on close (`assets/js/script.js`).
+- Keyboard shortcuts + in-app help dialog launched with `?` (see [Keyboard shortcuts](#keyboard-shortcuts) below).
 - Webcmd help uses semantic lists and headings (`assets/js/webcmd.js`).
 
 ## Content guidelines
@@ -39,6 +41,50 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 - Screen reader spot-check: search overlay labels, help text in webcmd, and headings.
 - Image alt audit for any new posts or pages.
 
+## Keyboard shortcuts
+
+Bound globally in `assets/js/script.js`. None fire while focus is in a form field (`<input>`, `<textarea>`, contenteditable), and none fire while a modifier (Cmd/Ctrl/Alt) is held.
+
+**Go to** (chord, second key within 1.2s):
+- `g h` — Home
+- `g f` — Featured
+- `g k` — Kartavya Path
+- `g e` — Emacs
+- `g a` — About
+
+**Actions:**
+- `/` or `s` — open search
+- `t` — toggle light / dark
+- `m` — toggle the sidebar menu
+- `?` — open this help dialog
+- `Esc` — close any open overlay
+
+**In the sidebar menu** (once focus is inside it):
+- `ArrowDown` / `ArrowUp` — walk items
+- `Home` / `End` — first / last
+- `Enter` — open the focused item
+
+The `?` help dialog (`#shortcuts-overlay` in `_layouts/default.html`) is the canonical in-app reference; keep it in sync if you add or change a shortcut.
+
+## Running automated audits
+
+[pa11y-ci](https://github.com/pa11y/pa11y-ci) is wired up as a dev dependency. It runs against a curated URL list (NOT the full sitemap — the sitemap has hundreds of legacy posts and would drown the signal).
+
+```bash
+# One-time
+npm install
+
+# Each run: build + serve, then audit
+bundle exec jekyll serve   # in one terminal
+npm run a11y               # in another
+```
+
+Config lives in `.pa11yci`; URLs to audit are in the `urls` array. Add a URL when you ship a new page family (e.g. a new collection landing). The `jsgames/` directory is explicitly excluded — it's a different problem with different constraints.
+
+## Browser-level caveats
+
+- **macOS Safari**: the "Press Tab to highlight each item on a webpage" preference is OFF by default. With it off, Safari only Tabs between form fields — `<a>` links and elements with `tabindex="0"` are skipped. The site can't override this from CSS/JS. Users who want full Tab navigation in Safari should enable it in Safari → Settings → Advanced → "Press Tab to highlight each item on a webpage". This is why we layer arrow-key navigation onto the sidebar menu — it works regardless of Safari's preference, because we move focus programmatically.
+
 ## Known limitations
 - Many legacy posts include inline HTML with empty or missing `alt` text. Fix as you touch those posts.
-- No automated accessibility tests are wired into the repo.
+- pa11y-ci audits a curated cross-section, not every URL.

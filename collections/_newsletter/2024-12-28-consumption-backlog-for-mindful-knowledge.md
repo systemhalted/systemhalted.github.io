@@ -3,9 +3,8 @@ layout: newsletter
 title: "Consumption Backlog for Mindful Knowledge"
 tags:
 - newsletter
-- leadership
-- management
 - productivity
+- personal
 category:
 - Newsletter
 linkedin_url: https://www.linkedin.com/pulse/consumption-backlog-mindful-knowledge-palak-mathur-zmeoc/?trackingId=MShVp7lvTdaZzLWvtYxmjw%3D%3D

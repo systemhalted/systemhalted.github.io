@@ -207,7 +207,6 @@ window.REETI_SLIDES = [
   },
   { type: "savage", q: "How many noises do you make when getting up from a chair?" },
   { type: "savage", q: "Is 40 the new 30… or just 20 with back pain?" },
-  { type: "savage", q: "What hurts more: your knees or your Wi-Fi when kids are home?" },
   {
     type: "savage",
     q: "What's your wildest birthday wish — peace, sleep, or lower-back support?",

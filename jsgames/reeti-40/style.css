@@ -410,9 +410,110 @@ body {
   text-decoration: underline;
 }
 
+/* Help button in HUD */
+.hud-help-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.hud-help-btn:hover kbd { background: var(--gold); }
+
+/* Help overlay (section jump + keyboard reference) */
+.help-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(20, 20, 40, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.help-overlay[hidden] { display: none; }
+
+.help-card {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.75rem 2rem;
+  max-width: min(560px, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.help-card h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.7rem;
+  color: var(--navy);
+  margin: 0 0 0.5rem;
+}
+
+.help-card h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.1rem;
+  color: var(--coral);
+  margin: 1.25rem 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.help-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.help-table td {
+  padding: 0.35rem 0.5rem;
+  vertical-align: top;
+}
+
+.help-table td:first-child {
+  width: 6.5rem;
+  white-space: nowrap;
+}
+
+.help-table kbd {
+  background: var(--paper);
+  border: 1px solid rgba(29, 43, 75, 0.3);
+  border-radius: 4px;
+  padding: 1px 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--navy);
+  box-shadow: 0 1px 0 rgba(29, 43, 75, 0.2);
+}
+
+.help-close {
+  display: block;
+  margin: 1.25rem auto 0;
+  background: var(--navy);
+  color: var(--paper);
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.help-close:hover { background: var(--coral); }
+
 /* Small screens */
 @media (max-width: 640px) {
   .tap-zone { width: 25vw; }
   .hud-hint { display: none; }
   .choices { grid-template-columns: 1fr; }
+  .help-card { padding: 1.25rem; }
 }

@@ -10,8 +10,46 @@
   let rapidTimerId = null;
   let rapidRemaining = 0;
   let helpVisible = false;
+  let editVisible = false;
 
   const RAPID_SECONDS = 5;
+  const EDITS_KEY = "reeti-40:edits";
+  // Field order used when serializing slides for export — matches questions.js layout.
+  const KEY_ORDER = ["type", "kicker", "q", "choices", "answer", "sub", "vs", "note", "source"];
+
+  let edits = loadEdits();
+
+  function loadEdits() {
+    try {
+      const raw = localStorage.getItem(EDITS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (_e) {
+      return {};
+    }
+  }
+
+  function persistEdits() {
+    try {
+      localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
+    } catch (_e) {
+      /* quota / private mode — ignore */
+    }
+  }
+
+  function getSlide(i) {
+    const base = slides[i];
+    if (!base) return null;
+    return edits[i] ? { ...base, ...edits[i] } : base;
+  }
+
+  function equalDeep(a, b) {
+    if (a === b) return true;
+    if (Array.isArray(a) && Array.isArray(b)) {
+      if (a.length !== b.length) return false;
+      return a.every((x, i) => equalDeep(x, b[i]));
+    }
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
 
   // Section markers — anything the host might want to jump to directly.
   // Derived from the slide array so reordering questions.js keeps shortcuts correct.
@@ -59,7 +97,7 @@
   }
 
   function updateProgress() {
-    const slide = slides[index];
+    const slide = getSlide(index);
     if (!slide) {
       progressEl.textContent = "—";
       return;
@@ -82,6 +120,7 @@
     } else {
       progressEl.textContent = "—";
     }
+    if (edits[index]) progressEl.textContent += " · edited";
   }
 
   function renderSourceLink(source) {
@@ -217,7 +256,7 @@
     clearRapidTimer();
     revealed = false;
 
-    const slide = slides[index];
+    const slide = getSlide(index);
     if (!slide) {
       stage.innerHTML = '<article class="slide"><h2 class="slide-q">No slides loaded.</h2></article>';
       return;
@@ -313,6 +352,7 @@
         <table class="help-table">
           <tr><td><kbd>←</kbd></td><td>Previous slide</td></tr>
           <tr><td><kbd>→</kbd> or <kbd>Space</kbd></td><td>Reveal answer / next slide</td></tr>
+          <tr><td><kbd>E</kbd></td><td>Edit current slide</td></tr>
           <tr><td><kbd>R</kbd></td><td>Start rapid-fire timer</td></tr>
           <tr><td><kbd>F</kbd></td><td>Toggle fullscreen</td></tr>
           <tr><td><kbd>?</kbd> or <kbd>Esc</kbd></td><td>Show / hide this help</td></tr>
@@ -343,6 +383,254 @@
     else openHelp();
   }
 
+  // ─── Edit overlay ─────────────────────────────────────────────────
+  function editField(name, label, value, opts) {
+    const o = opts || {};
+    const v = value == null ? "" : value;
+    if (o.textarea) {
+      return `
+        <label class="edit-field">
+          <span class="edit-field-label">${label}</span>
+          <textarea class="edit-input" data-field="${name}" rows="${o.rows || 2}">${escapeHtml(v)}</textarea>
+        </label>
+      `;
+    }
+    return `
+      <label class="edit-field">
+        <span class="edit-field-label">${label}</span>
+        <input type="text" class="edit-input" data-field="${name}" value="${escapeHtml(v)}">
+      </label>
+    `;
+  }
+
+  function renderEditFields(slide) {
+    const t = slide.type;
+    if (t === "mcq") {
+      const choices = (slide.choices || []).slice(0, 4);
+      while (choices.length < 4) choices.push("");
+      const choiceFields = choices
+        .map((c, i) => editField(`choices.${i}`, `Choice ${letter(i)}`, c))
+        .join("");
+      const answerRadios = choices
+        .map(
+          (c, i) => `
+        <label class="edit-radio">
+          <input type="radio" name="answer" data-field="answer" value="${i}" ${
+            i === slide.answer ? "checked" : ""
+          }>
+          <span>${letter(i)} — ${escapeHtml(c)}</span>
+        </label>
+      `,
+        )
+        .join("");
+      return `
+        ${editField("kicker", "Kicker", slide.kicker)}
+        ${editField("q", "Question", slide.q, { textarea: true, rows: 2 })}
+        <div class="edit-group">
+          <span class="edit-field-label">Choices</span>
+          ${choiceFields}
+        </div>
+        <div class="edit-group">
+          <span class="edit-field-label">Correct answer</span>
+          ${answerRadios}
+        </div>
+        ${editField("note", "Note", slide.note, { textarea: true, rows: 3 })}
+        ${editField("source", "Source URL", slide.source)}
+      `;
+    }
+    if (t === "tf") {
+      return `
+        ${editField("kicker", "Kicker", slide.kicker)}
+        ${editField("q", "Statement", slide.q, { textarea: true, rows: 2 })}
+        <div class="edit-group">
+          <span class="edit-field-label">Correct answer</span>
+          <label class="edit-radio">
+            <input type="radio" name="answer" data-field="answer" value="true" ${
+              slide.answer ? "checked" : ""
+            }>
+            <span>TRUE</span>
+          </label>
+          <label class="edit-radio">
+            <input type="radio" name="answer" data-field="answer" value="false" ${
+              !slide.answer ? "checked" : ""
+            }>
+            <span>FALSE</span>
+          </label>
+        </div>
+        ${editField("note", "Note", slide.note, { textarea: true, rows: 3 })}
+        ${editField("source", "Source URL", slide.source)}
+      `;
+    }
+    if (t === "rapid" || t === "savage") {
+      return editField("q", "Question", slide.q, { textarea: true, rows: 2 });
+    }
+    if (t === "gag") {
+      return `
+        ${editField("kicker", "Kicker", slide.kicker)}
+        ${editField("q", "Heading", slide.q)}
+        <p class="edit-export-hint">The population numbers and punchline below are hardcoded in the slide template, not editable here.</p>
+      `;
+    }
+    // title / divider / finale
+    return `
+      ${editField("kicker", "Kicker", slide.kicker)}
+      ${editField("q", "Heading", slide.q)}
+      ${editField("sub", "Subhead", slide.sub)}
+    `;
+  }
+
+  function orderKeys(obj) {
+    const out = {};
+    KEY_ORDER.forEach((k) => {
+      if (k in obj) out[k] = obj[k];
+    });
+    Object.keys(obj).forEach((k) => {
+      if (!(k in out)) out[k] = obj[k];
+    });
+    return out;
+  }
+
+  function buildExportText() {
+    const merged = slides.map((s, i) => orderKeys({ ...s, ...(edits[i] || {}) }));
+    return `window.REETI_SLIDES = ${JSON.stringify(merged, null, 2)};\n`;
+  }
+
+  function openEdit() {
+    const overlay = document.getElementById("edit-overlay");
+    if (!overlay) return;
+    const slide = getSlide(index);
+    if (!slide) return;
+    overlay.innerHTML = `
+      <div class="edit-card" role="dialog" aria-labelledby="edit-title">
+        <header class="edit-header">
+          <h2 id="edit-title">Edit slide ${index + 1} of ${slides.length}</h2>
+          <span class="edit-type-badge">${escapeHtml(slide.type)}</span>
+        </header>
+        <form class="edit-form" onsubmit="return false;">
+          ${renderEditFields(slide)}
+        </form>
+        <div class="edit-actions">
+          <button type="button" class="edit-btn edit-btn-primary" data-action="edit-save">Save (⌘S)</button>
+          ${
+            edits[index]
+              ? '<button type="button" class="edit-btn edit-btn-danger" data-action="edit-discard">Discard this slide\'s edits</button>'
+              : ""
+          }
+          <button type="button" class="edit-btn" data-action="edit-close">Close</button>
+        </div>
+        <details class="edit-export">
+          <summary>Export all edits as JSON</summary>
+          <p class="edit-export-hint">Copy this and paste into <code>jsgames/reeti-40/questions.js</code> to commit edits back to the repo.</p>
+          <textarea class="edit-export-text" readonly rows="14">${escapeHtml(buildExportText())}</textarea>
+          <div class="edit-actions">
+            <button type="button" class="edit-btn edit-btn-primary" data-action="edit-copy">Copy to clipboard</button>
+            <button type="button" class="edit-btn edit-btn-danger" data-action="edit-clear-all">Clear all local edits</button>
+            <span class="edit-copy-status" id="edit-copy-status" aria-live="polite"></span>
+          </div>
+        </details>
+      </div>
+    `;
+    overlay.hidden = false;
+    editVisible = true;
+    const firstInput = overlay.querySelector("input[type=text], textarea");
+    if (firstInput) firstInput.focus();
+  }
+
+  function closeEdit() {
+    const overlay = document.getElementById("edit-overlay");
+    if (!overlay) return;
+    overlay.hidden = true;
+    editVisible = false;
+  }
+
+  function saveSlideEdits() {
+    const overlay = document.getElementById("edit-overlay");
+    if (!overlay) return;
+    const form = overlay.querySelector(".edit-form");
+    if (!form) return;
+    const baseline = slides[index];
+    if (!baseline) return;
+    const next = { ...baseline };
+
+    form.querySelectorAll("[data-field]").forEach((el) => {
+      const path = el.dataset.field;
+      if (el.type === "radio" && !el.checked) return;
+      let value = el.value;
+      if (path === "answer" && baseline.type === "tf") {
+        value = value === "true";
+      } else if (path === "answer" && baseline.type === "mcq") {
+        value = parseInt(value, 10);
+      }
+      if (path.startsWith("choices.")) {
+        const idx = parseInt(path.split(".")[1], 10);
+        if (!Array.isArray(next.choices)) next.choices = [...(baseline.choices || [])];
+        else next.choices = [...next.choices];
+        next.choices[idx] = value;
+      } else {
+        // Drop empty strings for optional fields so they don't override absent baselines
+        if (value === "" && !(path in baseline)) return;
+        next[path] = value;
+      }
+    });
+
+    const diff = {};
+    Object.keys(next).forEach((k) => {
+      if (!equalDeep(next[k], baseline[k])) diff[k] = next[k];
+    });
+
+    if (Object.keys(diff).length === 0) delete edits[index];
+    else edits[index] = diff;
+
+    persistEdits();
+    closeEdit();
+    render();
+  }
+
+  function discardSlideEdits() {
+    delete edits[index];
+    persistEdits();
+    closeEdit();
+    render();
+  }
+
+  function copyExportToClipboard() {
+    const overlay = document.getElementById("edit-overlay");
+    if (!overlay) return;
+    const textarea = overlay.querySelector(".edit-export-text");
+    const status = overlay.querySelector("#edit-copy-status");
+    if (!textarea) return;
+    const flash = (msg) => {
+      if (!status) return;
+      status.textContent = msg;
+      setTimeout(() => {
+        if (status) status.textContent = "";
+      }, 2000);
+    };
+    const fallback = () => {
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        flash("Copied!");
+      } catch (_e) {
+        flash("Select and copy manually.");
+      }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textarea.value).then(() => flash("Copied!"), fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function clearAllEdits() {
+    if (Object.keys(edits).length === 0) return;
+    if (!confirm("Discard ALL local edits across every slide? This can't be undone.")) return;
+    edits = {};
+    persistEdits();
+    closeEdit();
+    render();
+  }
+
   function startRapidTimer() {
     const timerEl = document.getElementById("rapid-timer");
     if (!timerEl) return;
@@ -364,6 +652,19 @@
 
   // Keyboard
   document.addEventListener("keydown", (e) => {
+    // When the edit overlay is open, let form inputs receive keys naturally.
+    // Only Escape (close) and ⌘/Ctrl+S (save) are intercepted.
+    if (editVisible) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeEdit();
+      } else if ((e.key === "s" || e.key === "S") && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        saveSlideEdits();
+      }
+      return;
+    }
+
     if (e.key === "ArrowRight" || e.key === " " || e.key === "Spacebar") {
       e.preventDefault();
       next();
@@ -376,6 +677,9 @@
     } else if (e.key === "f" || e.key === "F") {
       e.preventDefault();
       toggleFullscreen();
+    } else if (e.key === "e" || e.key === "E") {
+      e.preventDefault();
+      openEdit();
     } else if (e.key === "?" || (e.key === "/" && e.shiftKey)) {
       e.preventDefault();
       toggleHelp();
@@ -398,12 +702,15 @@
       else if (action === "reveal") reveal();
       else if (action === "close-help") closeHelp();
       else if (action === "toggle-help") toggleHelp();
+      else if (action === "edit-save") saveSlideEdits();
+      else if (action === "edit-discard") discardSlideEdits();
+      else if (action === "edit-close") closeEdit();
+      else if (action === "edit-copy") copyExportToClipboard();
+      else if (action === "edit-clear-all") clearAllEdits();
       return;
     }
-    // Click outside the help card dismisses the overlay
-    if (helpVisible && e.target.id === "help-overlay") {
-      closeHelp();
-    }
+    if (helpVisible && e.target.id === "help-overlay") closeHelp();
+    if (editVisible && e.target.id === "edit-overlay") closeEdit();
   });
 
   buildHelpOverlay();

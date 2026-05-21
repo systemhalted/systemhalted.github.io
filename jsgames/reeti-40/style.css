@@ -510,10 +510,206 @@ body {
 
 .help-close:hover { background: var(--coral); }
 
+/* Edit overlay (in-browser slide editor) */
+.edit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(20, 20, 40, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.edit-overlay[hidden] { display: none; }
+
+.edit-card {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem 1.75rem;
+  width: min(720px, 96vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.edit-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.edit-header h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin: 0;
+}
+
+.edit-type-badge {
+  font-family: "Inter", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: var(--navy);
+  color: var(--paper);
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.edit-field-label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--coral);
+}
+
+.edit-input {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: #fffaf0;
+  border: 1.5px solid rgba(29, 43, 75, 0.18);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  width: 100%;
+  resize: vertical;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: var(--coral);
+  background: var(--paper);
+  box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.18);
+}
+
+.edit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem 0.75rem;
+  background: rgba(212, 167, 62, 0.07);
+  border-radius: 10px;
+}
+
+.edit-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.edit-radio input { margin: 0; }
+
+.edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.edit-btn {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-size: 0.88rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--navy);
+  background: transparent;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.edit-btn:hover { background: rgba(29, 43, 75, 0.08); }
+
+.edit-btn-primary {
+  background: var(--navy);
+  color: var(--paper);
+  border-color: var(--navy);
+}
+
+.edit-btn-primary:hover { background: var(--coral); border-color: var(--coral); }
+
+.edit-btn-danger {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+.edit-btn-danger:hover { background: var(--coral); color: var(--paper); }
+
+.edit-export {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(29, 43, 75, 0.12);
+}
+
+.edit-export summary {
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--navy);
+  padding: 0.25rem 0;
+}
+
+.edit-export-hint {
+  font-size: 0.82rem;
+  color: var(--ink);
+  opacity: 0.75;
+  margin: 0.6rem 0;
+}
+
+.edit-export-text {
+  width: 100%;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #fafaf2;
+  border: 1.5px solid rgba(29, 43, 75, 0.18);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  resize: vertical;
+}
+
+.edit-copy-status {
+  display: inline-block;
+  margin-left: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--coral);
+  font-weight: 600;
+}
+
 /* Small screens */
 @media (max-width: 640px) {
   .tap-zone { width: 25vw; }
   .hud-hint { display: none; }
   .choices { grid-template-columns: 1fr; }
   .help-card { padding: 1.25rem; }
+  .edit-card { padding: 1.25rem; }
+  .edit-actions { flex-direction: column; }
+  .edit-actions .edit-btn { width: 100%; }
 }

@@ -43,6 +43,15 @@ window.REETI_SLIDES = [
     source: "https://en.wikipedia.org/wiki/1986",
   },
   {
+    type: "mcq",
+    kicker: "Round 1 · Class of '86",
+    q: "Which of these Indian stars also turn 40 with Reeti this year?",
+    choices: ["Deepika Padukone", "Shruti Haasan", "Ali Fazal", "All of the above"],
+    answer: 3,
+    note: "Deepika (Jan 5) · Shruti (Jan 28) · Ali Fazal (Oct 15). Also class of '86: Naga Chaitanya (Nov 23), Aditi Rao Hydari (Oct 28), Richa Chadha (Dec 18).",
+    source: "https://en.wikipedia.org/wiki/Deepika_Padukone",
+  },
+  {
     type: "tf",
     kicker: "Round 1 · Class of '86",
     q: "Rafael Nadal was born five days before Reeti.",
@@ -115,11 +124,16 @@ window.REETI_SLIDES = [
   {
     type: "mcq",
     kicker: "Round 3 · Iconic Moments",
-    q: "In the 1986 World Cup quarterfinal, Maradona's 'Hand of God' was scored against:",
-    choices: ["Brazil", "England", "Belgium", "Germany"],
+    q: "Who was the President of India in 1986?",
+    choices: [
+      "Neelam Sanjiva Reddy",
+      "Zail Singh",
+      "R. Venkataraman",
+      "Shankar Dayal Sharma",
+    ],
     answer: 1,
-    note: "June 22, 1986. Followed four minutes later by the 'Goal of the Century.'",
-    source: "https://en.wikipedia.org/wiki/Argentina_v_England_(1986_FIFA_World_Cup)",
+    note: "Giani Zail Singh — India's first (and to date only) Sikh President. Served 1982–1987. Rajiv Gandhi was PM at the time.",
+    source: "https://en.wikipedia.org/wiki/Zail_Singh",
   },
   {
     type: "mcq",

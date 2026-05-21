@@ -24,7 +24,7 @@ window.REETI_SLIDES = [
     type: "title",
     kicker: "June 8, 2026 · Happy Birthday",
     q: "Reeti @ 40",
-    sub: "15 trivia questions, then a roast — Limited Edition since 1986",
+    sub: "12 trivia questions, then a roast — Limited Edition since 1986",
   },
 
   // ─── Round 1: Reeti's Class of '86 ────────────────────────────────

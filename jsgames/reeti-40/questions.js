@@ -75,7 +75,7 @@ window.REETI_SLIDES = [
   {
     type: "tf",
     kicker: "Round 1 · Class of '86",
-    q: "The Statue of Liberty turned 100 in 1986 — making Reeti exactly 40 years younger than its centennial.",
+    q: "The Statue of Liberty turned 100 the same year Reeti was born.",
     answer: true,
     note: "'Liberty Weekend,' July 3–6, 1986. Reagan rededicated the restored statue.",
     source: "https://en.wikipedia.org/wiki/Liberty_Weekend",

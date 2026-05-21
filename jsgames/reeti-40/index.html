@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="robots" content="noindex,follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Reeti @ 40 — 40 Questions for 40 Years</title>
+  </head>
+  <body>
+    <div class="confetti" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <main id="stage" class="stage" tabindex="0" aria-live="polite">
+      <!-- Slide content is rendered by script.js -->
+    </main>
+
+    <button class="tap-zone tap-back" data-action="back" aria-label="Previous slide"></button>
+    <button class="tap-zone tap-next" data-action="next" aria-label="Next slide"></button>
+
+    <footer class="hud">
+      <span class="hud-progress" id="progress">—</span>
+      <span class="hud-hint">
+        <kbd>←</kbd> back · <kbd>→</kbd> next · <kbd>Space</kbd> reveal ·
+        <kbd>R</kbd> timer · <kbd>F</kbd> fullscreen
+      </span>
+    </footer>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

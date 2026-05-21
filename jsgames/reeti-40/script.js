@@ -9,8 +9,21 @@
   let revealed = false;
   let rapidTimerId = null;
   let rapidRemaining = 0;
+  let helpVisible = false;
 
   const RAPID_SECONDS = 5;
+
+  // Section markers — anything the host might want to jump to directly.
+  // Derived from the slide array so reordering questions.js keeps shortcuts correct.
+  const SECTION_TYPES = new Set(["title", "divider", "gag", "finale"]);
+  const sections = slides
+    .map((s, i) => ({ slide: s, index: i }))
+    .filter(({ slide }) => SECTION_TYPES.has(slide.type))
+    .map(({ slide, index: i }) => ({
+      index: i,
+      label: slide.q,
+      kicker: slide.kicker || "",
+    }));
 
   function escapeHtml(s) {
     return String(s)
@@ -278,6 +291,58 @@
     }
   }
 
+  function jumpToSection(n) {
+    if (n < 1 || n > sections.length) return;
+    index = sections[n - 1].index;
+    render();
+  }
+
+  function buildHelpOverlay() {
+    const overlay = document.getElementById("help-overlay");
+    if (!overlay) return;
+    const rows = sections
+      .map(
+        (s, i) =>
+          `<tr><td><kbd>${i + 1}</kbd></td><td>${escapeHtml(s.label)}</td></tr>`,
+      )
+      .join("");
+    overlay.innerHTML = `
+      <div class="help-card" role="dialog" aria-labelledby="help-title">
+        <h2 id="help-title">Keyboard shortcuts</h2>
+        <h3>Navigation</h3>
+        <table class="help-table">
+          <tr><td><kbd>←</kbd></td><td>Previous slide</td></tr>
+          <tr><td><kbd>→</kbd> or <kbd>Space</kbd></td><td>Reveal answer / next slide</td></tr>
+          <tr><td><kbd>R</kbd></td><td>Start rapid-fire timer</td></tr>
+          <tr><td><kbd>F</kbd></td><td>Toggle fullscreen</td></tr>
+          <tr><td><kbd>?</kbd> or <kbd>Esc</kbd></td><td>Show / hide this help</td></tr>
+        </table>
+        <h3>Jump to a section</h3>
+        <table class="help-table">${rows}</table>
+        <button class="help-close" data-action="close-help">Close</button>
+      </div>
+    `;
+  }
+
+  function openHelp() {
+    const overlay = document.getElementById("help-overlay");
+    if (!overlay) return;
+    overlay.hidden = false;
+    helpVisible = true;
+  }
+
+  function closeHelp() {
+    const overlay = document.getElementById("help-overlay");
+    if (!overlay) return;
+    overlay.hidden = true;
+    helpVisible = false;
+  }
+
+  function toggleHelp() {
+    if (helpVisible) closeHelp();
+    else openHelp();
+  }
+
   function startRapidTimer() {
     const timerEl = document.getElementById("rapid-timer");
     if (!timerEl) return;
@@ -311,18 +376,36 @@
     } else if (e.key === "f" || e.key === "F") {
       e.preventDefault();
       toggleFullscreen();
+    } else if (e.key === "?" || (e.key === "/" && e.shiftKey)) {
+      e.preventDefault();
+      toggleHelp();
+    } else if (e.key === "Escape" && helpVisible) {
+      e.preventDefault();
+      closeHelp();
+    } else if (/^[1-9]$/.test(e.key)) {
+      e.preventDefault();
+      jumpToSection(parseInt(e.key, 10));
     }
   });
 
   // Touch / click
   document.addEventListener("click", (e) => {
     const target = e.target.closest("[data-action]");
-    if (!target) return;
-    const action = target.dataset.action;
-    if (action === "next") next();
-    else if (action === "back") back();
-    else if (action === "reveal") reveal();
+    if (target) {
+      const action = target.dataset.action;
+      if (action === "next") next();
+      else if (action === "back") back();
+      else if (action === "reveal") reveal();
+      else if (action === "close-help") closeHelp();
+      else if (action === "toggle-help") toggleHelp();
+      return;
+    }
+    // Click outside the help card dismisses the overlay
+    if (helpVisible && e.target.id === "help-overlay") {
+      closeHelp();
+    }
   });
 
+  buildHelpOverlay();
   render();
 })();

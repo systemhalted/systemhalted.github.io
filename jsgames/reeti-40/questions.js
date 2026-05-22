@@ -21,6 +21,13 @@
 window.REETI_SLIDES = [
   // ─── Pre-show warm-up (silent, auto-advances every 5s) ────────────
   {
+    type: "title",
+    autoplayMs: 6000,
+    kicker: "Welcome",
+    q: "Happy 40th, Reeti!",
+    sub: "June 8, 2026 · Limited Edition since 1986",
+  },
+  {
     type: "photo",
     autoplayMs: 5000,
     src: "photos/childhood-toddler.jpg",

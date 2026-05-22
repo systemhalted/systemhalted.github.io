@@ -510,6 +510,45 @@ body {
 
 .help-close:hover { background: var(--coral); }
 
+/* Photo + collage slides (pre-show warm-up) */
+.slide.photo,
+.slide.collage {
+  padding: 0;
+  overflow: hidden;
+  background: var(--paper);
+  width: min(960px, 92vw);
+  aspect-ratio: 16 / 10;
+}
+
+.slide.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slide.collage .collage-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 4px;
+  background: var(--paper);
+}
+
+.slide.collage .collage-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Layouts tuned to image count */
+.slide.collage[data-count="2"] .collage-grid { grid-template-columns: 1fr 1fr; }
+.slide.collage[data-count="3"] .collage-grid { grid-template-columns: repeat(3, 1fr); }
+.slide.collage[data-count="4"] .collage-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.slide.collage[data-count="5"] .collage-grid,
+.slide.collage[data-count="6"] .collage-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+
 /* Edit overlay (in-browser slide editor) */
 .edit-overlay {
   position: fixed;
@@ -712,4 +751,9 @@ body {
   .edit-card { padding: 1.25rem; }
   .edit-actions { flex-direction: column; }
   .edit-actions .edit-btn { width: 100%; }
+  .slide.photo,
+  .slide.collage { aspect-ratio: 4 / 5; }
+  .slide.collage[data-count="3"] .collage-grid,
+  .slide.collage[data-count="5"] .collage-grid,
+  .slide.collage[data-count="6"] .collage-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; grid-auto-rows: 1fr; }
 }

@@ -9,6 +9,7 @@
   let revealed = false;
   let rapidTimerId = null;
   let rapidRemaining = 0;
+  let autoTimerId = null;
   let helpVisible = false;
   let editVisible = false;
 
@@ -74,6 +75,13 @@
 
   function letter(i) {
     return ["A", "B", "C", "D", "E", "F"][i] || String(i + 1);
+  }
+
+  function clearAutoTimer() {
+    if (autoTimerId !== null) {
+      clearTimeout(autoTimerId);
+      autoTimerId = null;
+    }
   }
 
   function clearRapidTimer() {
@@ -241,6 +249,29 @@
     `;
   }
 
+  function renderPhoto(slide) {
+    return `
+      <article class="slide photo" data-type="photo">
+        <img src="${escapeHtml(slide.src || "")}" alt="${escapeHtml(slide.alt || "")}">
+      </article>
+    `;
+  }
+
+  function renderCollage(slide) {
+    const imgs = (slide.images || [])
+      .map(
+        (img) =>
+          `<img src="${escapeHtml(img.src || "")}" alt="${escapeHtml(img.alt || "")}" loading="lazy">`,
+      )
+      .join("");
+    const count = (slide.images || []).length;
+    return `
+      <article class="slide collage" data-type="collage" data-count="${count}">
+        <div class="collage-grid">${imgs}</div>
+      </article>
+    `;
+  }
+
   function renderFinale(slide) {
     return `
       <article class="slide finale" data-type="finale">
@@ -254,6 +285,7 @@
 
   function render() {
     clearRapidTimer();
+    clearAutoTimer();
     revealed = false;
 
     const slide = getSlide(index);
@@ -272,6 +304,8 @@
       case "rapid": html = renderRapid(slide); break;
       case "savage": html = renderSavage(slide); break;
       case "finale": html = renderFinale(slide); break;
+      case "photo": html = renderPhoto(slide); break;
+      case "collage": html = renderCollage(slide); break;
       default: html = renderDivider(slide); break;
     }
 
@@ -286,6 +320,13 @@
       const correctValue = slide.answer ? "true" : "false";
       const btn = stage.querySelector(`.tf-btn[data-tf="${correctValue}"]`);
       if (btn) btn.classList.add("correct");
+    }
+
+    if (typeof slide.autoplayMs === "number" && slide.autoplayMs > 0) {
+      autoTimerId = setTimeout(() => {
+        autoTimerId = null;
+        next();
+      }, slide.autoplayMs);
     }
 
     updateProgress();

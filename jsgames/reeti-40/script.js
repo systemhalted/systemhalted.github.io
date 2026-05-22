@@ -10,6 +10,7 @@
   let rapidTimerId = null;
   let rapidRemaining = 0;
   let autoTimerId = null;
+  let hasInteracted = false;
   let helpVisible = false;
   let editVisible = false;
 
@@ -322,7 +323,7 @@
       if (btn) btn.classList.add("correct");
     }
 
-    if (typeof slide.autoplayMs === "number" && slide.autoplayMs > 0) {
+    if (hasInteracted && typeof slide.autoplayMs === "number" && slide.autoplayMs > 0) {
       autoTimerId = setTimeout(() => {
         autoTimerId = null;
         next();
@@ -342,6 +343,7 @@
   }
 
   function next() {
+    hasInteracted = true;
     const slide = slides[index];
     const isTrivia = slide && (slide.type === "mcq" || slide.type === "tf");
 
@@ -357,6 +359,7 @@
   }
 
   function back() {
+    hasInteracted = true;
     if (index > 0) {
       index--;
       render();
@@ -373,6 +376,7 @@
 
   function jumpToSection(n) {
     if (n < 1 || n > sections.length) return;
+    hasInteracted = true;
     index = sections[n - 1].index;
     render();
   }

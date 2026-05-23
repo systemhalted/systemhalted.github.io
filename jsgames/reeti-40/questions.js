@@ -19,59 +19,12 @@
  */
 
 window.REETI_SLIDES = [
-  // ─── Pre-show warm-up (silent, auto-advances every 5s) ────────────
+  // ─── Welcome banner ───────────────────────────────────────────────
   {
     type: "title",
     kicker: "Welcome",
     q: "Happy 40th, Reeti!",
     sub: "June 8, 2026 · Limited Edition since 1986",
-  },
-  {
-    type: "photo",
-    autoplayMs: 5000,
-    src: "photos/childhood-toddler.jpg",
-    alt: "Reeti as a toddler",
-  },
-  {
-    type: "collage",
-    autoplayMs: 5000,
-    images: [
-      { src: "photos/mathur-trio.jpg", alt: "With mother and sister" },
-      { src: "photos/mathur-sarees.jpg", alt: "With mother and sister in sarees" },
-      { src: "photos/mathur-brother.jpg", alt: "With brother and mother" },
-      { src: "photos/mathur-blue-saree.jpg", alt: "With mother" },
-    ],
-  },
-  {
-    type: "collage",
-    autoplayMs: 5000,
-    images: [
-      { src: "photos/solo-graduation.jpg", alt: "Graduation" },
-      { src: "photos/solo-ladakh.jpg", alt: "Ladakh" },
-      { src: "photos/solo-disney.jpg", alt: "Magic Kingdom" },
-    ],
-  },
-  {
-    type: "collage",
-    autoplayMs: 5000,
-    images: [
-      { src: "photos/couple-santorini.jpg", alt: "Santorini" },
-      { src: "photos/couple-vegas.jpg", alt: "Las Vegas" },
-      { src: "photos/couple-diwali.jpg", alt: "Diwali" },
-      { src: "photos/couple-bar.jpg", alt: "Date night" },
-    ],
-  },
-  {
-    type: "collage",
-    autoplayMs: 5000,
-    images: [
-      { src: "photos/family-cotswolds-bridge.jpg", alt: "Cotswolds" },
-      { src: "photos/family-stonehenge.jpg", alt: "Stonehenge" },
-      { src: "photos/family-tower.jpg", alt: "Tower of London" },
-      { src: "photos/family-peninsula.jpg", alt: "Peninsula Grill" },
-      { src: "photos/family-lower-slaughter.jpg", alt: "Lower Slaughter" },
-      { src: "photos/family-taj.jpg", alt: "Taj Mahal" },
-    ],
   },
 
   // ─── Opening ──────────────────────────────────────────────────────

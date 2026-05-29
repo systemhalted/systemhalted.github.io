@@ -1,0 +1,29 @@
+# Jekyll themes shown on /themes/. Each demo is the theme's example/ site,
+# deployed to GitHub Pages from its own repo.
+- name: System Halted
+  gem: jekyll-theme-systemhalted
+  version: "1.0.1"
+  description: Bold homepage grid with archives, tags and categories, a search overlay, theme toggle, and optional Disqus comments.
+  image: /assets/images/themes/systemhalted.png
+  demo: https://systemhalted.in/jekyll-theme-systemhalted/
+  repo: https://github.com/systemhalted/jekyll-theme-systemhalted
+  rubygems: https://rubygems.org/gems/jekyll-theme-systemhalted
+  tags: [blog, search, dark mode]
+- name: Nord Newsletter
+  gem: jekyll-theme-nord-newsletter
+  version: "0.1.1"
+  description: A config-driven theme on the Nord palette with a post grid, client-side search, a keyboard command-line overlay, optional Giscus comments, and a newsletter CTA. Powers this very site.
+  image: /assets/images/themes/nord-newsletter.png
+  demo: https://systemhalted.in/jekyll-theme-nord-newsletter/
+  repo: https://github.com/systemhalted/jekyll-theme-nord-newsletter
+  rubygems: https://rubygems.org/gems/jekyll-theme-nord-newsletter
+  tags: [newsletter, nord, search, dark mode]
+- name: Midnight Mountains
+  gem: jekyll-theme-midnight-mountains
+  version: "0.1.2"
+  description: A moody, card-based theme with a featured-post hero and a bold sidebar layout.
+  image: /assets/images/themes/midnight-mountains.png
+  demo: https://systemhalted.in/jekyll-theme-midnight-mountains/
+  repo: https://github.com/systemhalted/jekyll-theme-midnight-mountains
+  rubygems: https://rubygems.org/gems/jekyll-theme-midnight-mountains
+  tags: [featured hero, sidebar, dark]

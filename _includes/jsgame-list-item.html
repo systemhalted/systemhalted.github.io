@@ -1,8 +1,0 @@
-{% assign game = include.game %}
-<li class="post-feed-item">
-  <div class="post-feed-meta">
-    <span class="post-feed-cat">JS Game</span>
-  </div>
-  <h2 class="post-feed-title"><a href="{{ game.url | relative_url }}">{{ game.title }}</a></h2>
-  {% if game.description %}<p class="post-feed-excerpt">{{ game.description }}</p>{% endif %}
-</li>

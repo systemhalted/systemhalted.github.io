@@ -4,7 +4,11 @@ tagline:             'By Palak Mathur'
 description:         'SystemHalted - I am just a DOS error'
 url:                 https://systemhalted.in
 baseurl:             ''
+
+theme:               jekyll-theme-nord-newsletter
+
 paginate:            8
+paginate_path:       "/page:num"
 permalink:           pretty
 
 # About/contact
@@ -12,6 +16,8 @@ author:
   name:              Palak Mathur
   url:               https://systemhalted.in
   email:             insanethoughts@live.com
+  linkedin:          https://www.linkedin.com/in/systemhalted/
+  avatar:            /assets/images/avatar.jpeg
 
 
 markdown: kramdown
@@ -77,3 +83,27 @@ sidebar:
       url: /webcmd/
 
     # add / remove / reorder as you like
+
+# Theme (nord-newsletter) content config
+newsletter_cta:
+  title:       "Kartavya Path"
+  lede:        "A note on leadership, management, and the long road. Free, occasional, no spam."
+  path:        /kartavya-path/
+  feed_path:   /feed/newsletter.xml
+  footer_blurb: "Get Kartavya Path — short essays on leadership and management — by email, or follow the blog by RSS."
+  kit_uid:     b1d6fc350a
+  kit_url:     https://kartavya-path-by-palak-mathur.kit.com
+
+giscus:
+  repo:        systemhalted/systemhalted.github.io
+  repo_id:     MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==
+  category:    Comments
+  category_id: DIC_kwDOAsitYs4C9Yut
+  mapping:     pathname
+
+search:
+  suggestions:
+    - emacs
+    - leadership
+    - newsletter
+    - javascript

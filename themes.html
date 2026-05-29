@@ -1,0 +1,129 @@
+---
+layout: page
+title: Jekyll Themes
+permalink: /themes/
+hide_page_title: true
+---
+
+<section class="newsletter-hero">
+  <p class="newsletter-kicker">Open source</p>
+  <h1 class="newsletter-headline">Jekyll Themes</h1>
+  <p class="newsletter-lede">Themes I've built and published as Ruby gems &mdash; including the one this site runs on. Each has a live demo and installs in one command.</p>
+</section>
+
+<ul class="theme-gallery">
+  {% for t in site.data.themes %}
+  <li class="theme-card">
+    <a class="theme-shot" href="{{ t.demo }}">
+      <img src="{{ t.image | relative_url }}" alt="Screenshot of the {{ t.name }} Jekyll theme" loading="lazy">
+    </a>
+    <div class="theme-body">
+      <h2 class="theme-name">{{ t.name }} <span class="theme-version">v{{ t.version }}</span></h2>
+      <p class="theme-desc">{{ t.description }}</p>
+      {% if t.tags %}
+      <ul class="theme-tags">
+        {% for tag in t.tags %}<li>{{ tag }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      <p class="theme-install"><code>gem install {{ t.gem }}</code></p>
+      <p class="theme-links">
+        <a href="{{ t.demo }}">Live demo</a>
+        <a href="{{ t.repo }}">GitHub</a>
+        <a href="{{ t.rubygems }}">RubyGems</a>
+      </p>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+
+<style>
+  .theme-gallery {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .theme-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .theme-shot {
+    display: block;
+    line-height: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .theme-shot img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .theme-body {
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .theme-name {
+    margin: 0 0 .5rem;
+    font-family: var(--font-display);
+  }
+  .theme-version {
+    font-family: var(--font-mono);
+    font-size: .7em;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .theme-desc {
+    margin: 0 0 1rem;
+    color: var(--text);
+  }
+  .theme-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .theme-tags li {
+    font-size: .75rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .15rem .65rem;
+  }
+  .theme-install {
+    margin: 0 0 1rem;
+  }
+  .theme-install code {
+    display: block;
+    background: var(--code-bg);
+    color: var(--code-text);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: .5rem .75rem;
+    font-family: var(--font-mono);
+    font-size: .85rem;
+    overflow-x: auto;
+  }
+  .theme-links {
+    margin: auto 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  .theme-links a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .theme-links a:hover {
+    color: var(--link-hover);
+  }
+</style>

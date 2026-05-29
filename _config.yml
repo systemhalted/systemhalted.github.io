@@ -79,6 +79,8 @@ sidebar:
       url: "/emacs/"
     - title: "Javascript Games"
       url: "/jsgames/"
+    - title: "Jekyll Themes"
+      url: "/themes/"
     - title: In the beginning...
       url: /webcmd/
 

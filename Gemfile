@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 gem 'jekyll', '~> 4.3'
+gem 'jekyll-theme-nord-newsletter'
 gem 'jekyll-feed'
 gem 'jekyll-paginate'
 gem 'jekyll-gist'

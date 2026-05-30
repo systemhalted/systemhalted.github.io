@@ -310,7 +310,7 @@
       default: html = renderDivider(slide); break;
     }
 
-    stage.innerHTML = html;
+    stage.innerHTML = DOMPurify.sanitize(html);
 
     // Apply correct-highlight classes (visible after reveal)
     if (slide.type === "mcq") {

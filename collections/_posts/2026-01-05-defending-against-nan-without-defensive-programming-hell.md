@@ -14,6 +14,7 @@ tags:
 - validation
 - reliability
 comments: true
+toc: true
 featured_image: assets/images/featured/2026-01-05-defending-against-nan-without-defensive-programming-hell.svg
 featured_image_alt: 'Part 6 hero image: Bold warning against Checkpoint Syndrome, the anti-pattern of scattering NaN checks throughout code. Central danger symbol with radiating lines represents validation chaos. Contrasts bad pattern (red if-isNaN checks) with good pattern (green requireFinite at boundaries).'
 featured_image_caption: NaN spreads like wildfire when you scatter if (isNaN) checks everywhere. The cure? Validate once at your system's boundaries, then let your computation core stay blissfully clean.

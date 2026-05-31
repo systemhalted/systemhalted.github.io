@@ -7,7 +7,6 @@ category:
 tags:
 - politics
 - poetry
-- travel
 - india
 - agra
 - hindi

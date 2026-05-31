@@ -6,8 +6,6 @@ category:
 - Technology
 tags:
 - technology
-- travel
-- leadership
 - india
 - agra
 ---

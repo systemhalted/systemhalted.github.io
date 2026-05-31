@@ -6,7 +6,6 @@ category:
 - Politics & Governance
 tags:
 - politics
-- travel
 - mumbai
 featured_image: /assets/2009/03/3272818761_463433b001.jpg
 featured_image_alt: 'Earth Hour 2009 promotional poster'

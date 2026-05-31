@@ -6,8 +6,6 @@ category:
 - Meta & Guest
 tags:
 - sports
-- travel
-- leadership
 - india
 - urdu
 ---

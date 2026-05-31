@@ -9,7 +9,6 @@ tags:
 - politics
 - society
 - economy
-- travel
 - india
 - pune
 ---

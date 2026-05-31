@@ -8,7 +8,6 @@ tags:
 - personal
 - opinion
 - sports
-- travel
 - india
 - mumbai
 featured_image: /assets/2011/07/160px-Newspaper_nicu_buculei_01.svg.png

@@ -9,8 +9,6 @@ tags:
 - personal
 - opinion
 - politics
-- travel
-- leadership
 - india
 featured_image: /assets/2011/08/300px-Conceptual_diagram_of_political_triangulation.png
 featured_image_alt: 'Conceptual diagram of political triangulation'

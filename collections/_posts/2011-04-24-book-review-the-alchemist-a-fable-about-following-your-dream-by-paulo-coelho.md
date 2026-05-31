@@ -6,7 +6,6 @@ category:
 - Books & Reading
 tags:
 - book-review
-- travel
 featured_image: /assets/2011/04/9780722532935.jpg
 featured_image_alt: 'Book cover: The Alchemist by Paulo Coelho'
 ---

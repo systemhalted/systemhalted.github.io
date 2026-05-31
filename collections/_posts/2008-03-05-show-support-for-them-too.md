@@ -5,7 +5,6 @@ date: 2008-03-05 14:56:00-06:00
 category: []
 tags:
 - sports
-- leadership
 - india
 ---
 

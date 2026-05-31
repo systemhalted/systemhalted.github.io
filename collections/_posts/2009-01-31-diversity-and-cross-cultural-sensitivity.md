@@ -9,7 +9,6 @@ tags:
 - personal
 - opinion
 - politics
-- travel
 - india
 ---
 

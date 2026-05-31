@@ -8,7 +8,6 @@ tags:
 - society
 - economy
 - sports
-- leadership
 - india
 ---
 

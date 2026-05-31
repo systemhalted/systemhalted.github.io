@@ -9,8 +9,6 @@ tags:
 - society
 - economy
 - politics
-- travel
-- leadership
 - india
 - mumbai
 ---

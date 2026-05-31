@@ -6,7 +6,6 @@ category:
 - Technology
 tags:
 - technology
-- movie-review
 ---
 
 [![A tag cloud (a typical Web 2.0 phenomenon in i...]({{ site.baseurl }}/assets/2009/04/300px-Web_2.0_Map.svg.png)](http://commons.wikipedia.org/wiki/File:Web_2.0_Map.svg)

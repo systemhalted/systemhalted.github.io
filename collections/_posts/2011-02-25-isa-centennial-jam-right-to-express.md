@@ -9,7 +9,6 @@ tags:
 - personal
 - opinion
 - technology
-- leadership
 - india
 ---
 

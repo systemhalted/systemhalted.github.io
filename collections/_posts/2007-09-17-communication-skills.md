@@ -7,7 +7,6 @@ category:
 tags:
 - personal
 - opinion
-- travel
 - agra
 - pune
 ---

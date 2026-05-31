@@ -7,7 +7,6 @@ category:
 tags:
 - society
 - economy
-- movie-review
 - india
 ---
 

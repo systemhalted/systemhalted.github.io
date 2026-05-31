@@ -12,7 +12,6 @@ tags:
 - opinion
 - society
 - economy
-- movie-review
 - india
 ---
 

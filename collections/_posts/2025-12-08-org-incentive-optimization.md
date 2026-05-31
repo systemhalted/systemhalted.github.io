@@ -6,7 +6,6 @@ category:
 tags:
 - personal
 - opinion
-- movie-review
 - leadership
 comments: true
 featured: true

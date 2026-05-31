@@ -7,7 +7,6 @@ categories:
 tags:
 - personal
 - opinion
-- travel
 comments: true
 description: Instagram changed the way I share pictures and short videos.
 ---

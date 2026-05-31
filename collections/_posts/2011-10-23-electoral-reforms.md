@@ -6,9 +6,7 @@ category:
 - Politics & Governance
 tags:
 - politics
-- movie-review
 - sports
-- leadership
 - india
 ---
 

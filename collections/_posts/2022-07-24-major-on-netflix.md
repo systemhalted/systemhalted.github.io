@@ -5,7 +5,6 @@ category:
 - Movie Review
 tags:
 - movie-review
-- travel
 - india
 - mumbai
 comments: true

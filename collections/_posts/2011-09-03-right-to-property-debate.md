@@ -12,7 +12,6 @@ tags:
 - politics
 - society
 - economy
-- travel
 - india
 featured_image: /assets/2011/09/175px-Emblem_of_India.svg.png
 featured_image_alt: 'The Lion Capital of Ashoka, India''s national emblem'

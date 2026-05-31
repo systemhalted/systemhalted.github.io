@@ -9,7 +9,7 @@ tags:
 - technology
 - software
 - computer-science
-- leadership
+- programming-language
 comments: true
 description: Over the years, [JVM](http://en.wikipedia.org/wiki/Java_Virtual_Machine "Java Virtual Machine") has become not only the host of Java but also of several other languages. Categorized together as [JVM-based languages](http://en.wikipedia.org/wiki/List_of_JVM_languages), these languages claim to better what and how Java does performs specific functions. Some of this that needs specific mention and those that interests me are listed in this post.
 ---

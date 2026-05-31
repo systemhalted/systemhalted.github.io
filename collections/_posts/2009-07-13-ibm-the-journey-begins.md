@@ -7,8 +7,6 @@ category:
 tags:
 - personal
 - opinion
-- travel
-- leadership
 - pune
 ---
 

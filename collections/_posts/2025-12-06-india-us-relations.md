@@ -8,7 +8,6 @@ tags:
 - politics
 - society
 - economy
-- leadership
 - india
 - united-states
 comments: true

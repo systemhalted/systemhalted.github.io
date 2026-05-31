@@ -6,7 +6,6 @@ category:
 - Books & Reading
 tags:
 - book-review
-- movie-review
 - travel
 - india
 featured_image: /assets/2011/04/early-settlements.jpg

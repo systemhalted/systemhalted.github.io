@@ -6,7 +6,6 @@ category:
 - Books & Reading
 tags:
 - book-review
-- travel
 - india
 ---
 

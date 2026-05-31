@@ -6,7 +6,6 @@ category:
 - Politics & Governance
 tags:
 - politics
-- travel
 - india
 featured_image: /assets/2009/01/gandhi-main.jpg
 featured_image_alt: Mahatma Gandhi

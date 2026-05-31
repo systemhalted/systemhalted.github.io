@@ -8,7 +8,6 @@ tags:
 - personal
 - opinion
 - software
-- movie-review
 - leadership
 comments: true
 featured: false

@@ -6,7 +6,6 @@ category:
 - Technology
 tags:
 - technology
-- movie-review
 ---
 
 [![Image representing Google as depicted in Crunc...]({{ site.baseurl }}/assets/2010/08/29578v7-max-450x450.jpg)](http://www.crunchbase.com/company/google)

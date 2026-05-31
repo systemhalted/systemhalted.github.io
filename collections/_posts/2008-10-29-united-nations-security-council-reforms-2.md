@@ -6,7 +6,7 @@ category:
 - Politics & Governance
 tags:
 - security
-- United Nations
+- united-nations
 ---
 
 At present UN Security Council comprises of 5 permanent members and 10 elected members. Of these former 5 have power to 'Veto' while latter don't enjoy such power. The latter states are mere dumb spectators and decisioning power remains with the Big 5s. So, the UNSC is not balanced and needs to be reformed.<!--more-->Few people suggest that veto power should be given to elected members also. However, I would say that this is very easy to do but less advantageous. Giving veto power to more members will not serve any purpose as this is only going to create chaos and havoc in the UNSC. The veto can be misused and this may lead to unconclusive end of meetings or delay in arriving on a conclusion.   

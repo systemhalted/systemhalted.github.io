@@ -6,7 +6,6 @@ category:
 - Politics & Governance
 tags:
 - politics
-- movie-review
 - india
 ---
 

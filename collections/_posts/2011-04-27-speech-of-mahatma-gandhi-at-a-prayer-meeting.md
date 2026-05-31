@@ -5,7 +5,6 @@ date: 2011-04-27 11:55:47-05:00
 category:
 - Meta & Guest
 tags:
-- travel
 - india
 ---
 

@@ -9,7 +9,6 @@ tags:
 - technology
 - ai
 - data
-- leadership
 - poetry
 - india
 comments: true

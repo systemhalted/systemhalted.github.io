@@ -9,7 +9,6 @@ tags:
 - technology
 - personal
 - opinion
-- travel
 - agra
 - pune
 ---

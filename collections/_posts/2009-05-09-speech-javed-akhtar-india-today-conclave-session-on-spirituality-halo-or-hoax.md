@@ -5,8 +5,6 @@ date: 2009-05-09 00:53:19-05:00
 category:
 - Meta & Guest
 tags:
-- travel
-- leadership
 - india
 - pune
 - urdu

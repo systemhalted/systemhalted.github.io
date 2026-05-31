@@ -9,7 +9,6 @@ tags:
 - society
 - economy
 - politics
-- leadership
 - india
 ---
 

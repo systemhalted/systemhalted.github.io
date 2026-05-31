@@ -9,9 +9,7 @@ tags:
 - technology
 - personal
 - opinion
-- movie-review
 - sports
-- travel
 ---
 
 Dear COAFians,

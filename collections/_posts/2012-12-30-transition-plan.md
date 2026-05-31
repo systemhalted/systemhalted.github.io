@@ -7,8 +7,6 @@ category:
 tags:
 - personal
 - opinion
-- travel
-- leadership
 - agra
 comments: true
 description: I am an Electronics Engineer by education and a Software Engineer (???) by profession. There is always a feeling that I lack the knowledge to be a suitable person for my profession as I do not have the skills that a CS graduation might have. So, here is my study plan to finish this lacuna. A plan to help me switch from forgotten Electronics Engineer cum not-so-good-Software Engineer to a better person in the world of Computer Science and Engineering.

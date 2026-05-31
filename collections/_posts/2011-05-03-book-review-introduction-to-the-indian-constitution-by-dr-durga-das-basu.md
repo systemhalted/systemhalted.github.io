@@ -6,7 +6,6 @@ category:
 - Books & Reading
 tags:
 - book-review
-- leadership
 - india
 featured_image: /assets/2011/05/introduction-to-the-constitution-of-india-275x275-imadbkwtxqgpw7jr.jpeg
 featured_image_alt: Introduction to the Constitution of India by DD Basu

@@ -7,8 +7,6 @@ category:
 tags:
 - society
 - economy
-- movie-review
-- travel
 - india
 - agra
 ---

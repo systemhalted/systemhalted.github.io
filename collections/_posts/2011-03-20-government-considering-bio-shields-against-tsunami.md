@@ -9,7 +9,6 @@ tags:
 - society
 - economy
 - politics
-- travel
 ---
 
 I was going through this news sometime back  so thought it is worth sharing. Here are the excerpts:

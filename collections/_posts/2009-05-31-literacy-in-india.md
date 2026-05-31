@@ -9,7 +9,6 @@ tags:
 - politics
 - society
 - economy
-- movie-review
 - sports
 - india
 ---

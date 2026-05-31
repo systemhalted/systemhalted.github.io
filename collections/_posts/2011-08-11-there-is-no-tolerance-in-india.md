@@ -7,7 +7,6 @@ category:
 tags:
 - personal
 - opinion
-- movie-review
 - india
 ---
 

@@ -11,7 +11,7 @@ tags:
 - project-jigsaw
 - jpms
 - modularity
-- module-info
+- programming-language
 comments: true
 description: A practical definition of modularity in Java, why Jigsaw existed even though we already had packages and JARs, and what the module system actually enforces.
 ---

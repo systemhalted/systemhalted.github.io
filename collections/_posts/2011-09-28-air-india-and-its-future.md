@@ -7,7 +7,6 @@ category:
 tags:
 - society
 - economy
-- movie-review
 - india
 featured_image: /assets/2011/09/4635726563_1c371985f0_m.jpg
 featured_image_alt: Air India 777-300ER VT-ALS

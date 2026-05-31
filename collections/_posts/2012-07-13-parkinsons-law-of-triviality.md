@@ -6,10 +6,10 @@ categories:
 - Personal Essays
 - Software Engineering
 tags:
-- organizational behavior
+- organizational-behavior
 - bikeshedding
 - management
-- software engineering
+- software-engineering
 ---
 
 Some ideas have the rude honesty of a mirror. You glance, you laugh, and then you realize you’ve been doing that exact thing all week.

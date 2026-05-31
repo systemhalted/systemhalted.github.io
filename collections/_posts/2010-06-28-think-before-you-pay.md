@@ -13,7 +13,6 @@ tags:
 - society
 - economy
 - sports
-- travel
 ---
 
 Few days back I wanted to drink Coke. Here outside my office, there are many "tapris" (a roadside shop) on the footpath. In the absence of a good alternative like a cafeteria, etc people from nearby companies rely on these places for their snacks, tea, etc. Whether these shops are under patronage of PMC or not is hard to say as I have not inquired about it.

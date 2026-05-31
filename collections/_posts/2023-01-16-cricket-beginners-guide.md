@@ -5,8 +5,6 @@ category:
 - Sports & Hobbies
 tags:
 - sports
-- travel
-- leadership
 - india
 comments: true
 description: This post summarizes sport of cricket for people who are interested in the game.

@@ -7,7 +7,6 @@ category:
 tags:
 - society
 - economy
-- travel
 - india
 - pune
 permalink: /2011/04/23/schooling-in-india%e2%80%93-bishop%e2%80%99s-flawed-reason-for-detaining-a-student/

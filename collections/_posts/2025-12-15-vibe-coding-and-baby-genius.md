@@ -11,7 +11,6 @@ tags:
 - testing
 - observability
 - conventions
-- testing
 comments: true
 featured_image: assets/images/featured/2025-12-15-vibe-coding-and-baby-genius.png
 featured_image_alt: A programmer at a multi monitor desk codes beside a cute "baby genius" robot with a pacifier under a neon "Vibe Coding" sign, with charts, a ping pong paddle, and a suitcase hinting at trust, context, and autonomy.

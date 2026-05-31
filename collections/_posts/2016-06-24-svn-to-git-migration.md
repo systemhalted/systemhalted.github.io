@@ -6,7 +6,6 @@ categories:
 - Technology
 tags:
 - technology
-- travel
 comments: true
 description: How to migrate SVN repository to Git?
 ---

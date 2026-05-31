@@ -5,7 +5,6 @@ category:
 - Books & Reading
 tags:
 - book-review
-- travel
 comments: true
 featured: true
 description: Reading is fun and in this post I will share how I approach reading and reading alternatives

@@ -7,8 +7,6 @@ tags:
 - personal
 - opinion
 - astronomy
-- travel
-- leadership
 - india
 - urdu
 comments: true

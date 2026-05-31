@@ -11,8 +11,6 @@ tags:
 - technology
 - society
 - economy
-- travel
-- leadership
 - india
 ---
 

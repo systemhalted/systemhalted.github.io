@@ -9,8 +9,6 @@ tags:
 - personal
 - opinion
 - technology
-- travel
-- leadership
 - mumbai
 comments: true
 description: Domain registration became a weeklong headache for me. What happened? How I overcame it. This post is on a personal experience.

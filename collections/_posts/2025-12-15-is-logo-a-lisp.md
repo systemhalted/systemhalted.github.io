@@ -11,6 +11,7 @@ tags:
 - computer-science
 - education
 - turtle-graphics
+- programming-language
 comments: true
 featured_image: assets/images/featured/2025-12-15-is-logo-a-lisp.png
 featured_image_alt: Illustration with two computers - one with Logo code and the other with lisp - for comparison purposes

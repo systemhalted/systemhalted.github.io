@@ -9,9 +9,6 @@ tags:
 - technology
 - personal
 - opinion
-- movie-review
-- travel
-- leadership
 - pune
 ---
 

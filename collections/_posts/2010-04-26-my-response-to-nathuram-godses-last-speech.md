@@ -9,7 +9,6 @@ tags:
 - politics
 - personal
 - opinion
-- leadership
 - india
 comments: true
 description: My personal reflections on Nathuram Godse’s courtroom speech, and the precise point where any agreement with him must end

@@ -7,8 +7,6 @@ category:
 tags:
 - society
 - economy
-- travel
-- leadership
 - agra
 ---
 

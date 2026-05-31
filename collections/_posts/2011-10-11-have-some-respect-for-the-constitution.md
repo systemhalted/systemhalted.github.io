@@ -12,7 +12,6 @@ tags:
 - politics
 - personal
 - opinion
-- leadership
 - india
 ---
 

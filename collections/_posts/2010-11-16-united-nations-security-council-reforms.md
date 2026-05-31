@@ -7,7 +7,7 @@ category:
 tags:
 - politics
 - india
-- United Nations
+- united-nations
 ---
 
 Oct 24th was marked as [UN Day](http://www.un.org/en/events/unday/2009/). [US President paid a State visit to India](http://en.wikipedia.org/wiki/Barack_Obama's_visit_to_India) and gave us a hope of [permanent membership](http://en.wikipedia.org/wiki/United_Nations_Security_Council#Permanent_members) in [UNSC](http://en.wikipedia.org/wiki/United_Nations_Security_Council) and now US has cautioned against expecting any breakthrough "anytime soon" on the UN Security Council reforms, dampening [India](http://maps.google.com/maps?ll=28.6133333333,77.2083333333&spn=10.0,10.0&q=28.6133333333,77.2083333333 (India)&t=h "India")'s hopes for a permanent seat. <!--more-->All is game and it will continue. I do not have any issues with whatever is happening. I have no interest in it either. We get a permanent seat or not, it does not make difference. We can make difference without being a part of UNSC. I am only interested in reforms in [United Nations Security Council](http://www.un.org/sc/ "United Nations Security Council") and till that happen, I do not see any difference any country would make by becoming a permanent member of UNSC.

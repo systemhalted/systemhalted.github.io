@@ -9,7 +9,6 @@ tags:
 - technology
 - ai
 - data
-- leadership
 comments: true
 featured: true
 description: GDPR and its impact on Advertising. Submitted as part of CS7637 Homework

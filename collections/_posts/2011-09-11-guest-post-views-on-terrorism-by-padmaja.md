@@ -10,8 +10,6 @@ tags:
 - politics
 - society
 - economy
-- travel
-- leadership
 - india
 - united-states
 ---

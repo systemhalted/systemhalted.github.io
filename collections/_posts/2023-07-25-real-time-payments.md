@@ -10,8 +10,6 @@ tags:
 - economy
 - technology
 - politics
-- movie-review
-- travel
 - india
 - united-states
 comments: true

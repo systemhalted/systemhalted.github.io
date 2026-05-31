@@ -14,6 +14,7 @@ tags:
 - finance
 - numerics
 comments: true
+toc: true
 featured_image: /assets/images/featured/2026-02-05-rounding-modes-half-up-isnt-always-the-answer.png
 featured_image_alt: 'Abstract illustration of rounding in Java: decimal numbers float above a dial labeled HALF_UP and HALF_EVEN, with arrows showing tie-breaking directions and a subtle bias toward HALF_UP.'
 featured_image_caption: 'Rounding is policy in disguise: HALF_UP always nudges ties the same way, while HALF_EVEN spreads the bias out.'

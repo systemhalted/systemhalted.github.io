@@ -14,6 +14,7 @@ tags:
 featured_image: assets/images/featured/2026-01-03-quiet-rebuild-assets-webcmd-accessibility.jpg
 featured_image_alt: Translucent UI panels with code, layered cards, and checkmark lists in a cool blue palette.
 featured_image_caption: 'Site maintenance: assets, webcmd, accessibility.'
+toc: true
 ---
 
 Over the last day or so, I made a round of changes to this site that will not look like much from the outside, but that I think materially improve how it loads, how it behaves, and how it feels to use — especially for readers who navigate by keyboard or rely on assistive technology. None of this is glamorous work, but the kind of unglamorous maintenance that quietly removes friction is, in my experience, often the thing that makes a site usable over the long run. What follows is a short walkthrough of what changed and why I thought it was worth doing.

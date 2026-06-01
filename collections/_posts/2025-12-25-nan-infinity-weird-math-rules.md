@@ -18,6 +18,7 @@ tags:
 - NaN
 - infinity
 comments: true
+toc: true
 featured_image: assets/images/NaN.png
 featured_image_alt: NaN value displayed on a calculator screen
 featured_image_caption: NaN on a calculator — the "not a number" sentinel in the real world

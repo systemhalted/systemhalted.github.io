@@ -14,6 +14,7 @@ tags:
 - programming
 - software-engineering
 comments: true
+toc: true
 featured_image: assets/images/featured/2025-12-17-escaping-goto.png
 featured_image_alt: Illustration for Escaping GOTO
 featured_image_caption: Escaping GOTO — how we learned to make programs readable

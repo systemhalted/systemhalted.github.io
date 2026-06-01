@@ -11,6 +11,7 @@ tags:
 - diplomacy
 - governance
 comments: true
+toc: true
 featured: false
 featured_image: assets/images/featured/2025-12-22-reforming-unsc-without-breaking-trust.png
 featured_image_alt: Composite illustration of a UN Security Council session with the UN emblem over a world map, delegates in silhouette facing the chamber, national flags in the background, and a “VETO” vote board and checklist suggesting accountability and reform.

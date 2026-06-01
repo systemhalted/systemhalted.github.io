@@ -17,6 +17,7 @@ tags:
 - guardrails
 - engineering-discipline
 comments: true
+toc: true
 featured_image: assets/images/featured/2025-12-31-discipline-first-trust-pipeline-for-ai-assisted-coding.png
 featured_image_alt: Illustration of a human and an AI collaborating at a laptop beside a colorful pipeline labeled "Brief," "Guardrails," "Tests," and "Ship," each with a checkmark, ending in a rocket launch to represent reliable delivery.
 featured_image_caption: 'Discipline First: a trust pipeline for AI-assisted coding, where briefs, guardrails, and tests turn speed into shippable software.'

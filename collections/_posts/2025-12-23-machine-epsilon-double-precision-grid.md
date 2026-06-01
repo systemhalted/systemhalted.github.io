@@ -16,6 +16,7 @@ tags:
 - ulp
 - numerics
 comments: true
+toc: true
 featured_image: assets/images/MachineEpsilon.png
 featured_image_alt: Visual grid showing machine epsilon spacing near 1.0
 featured_image_caption: Machine epsilon marks the smallest step above 1.0 in double precision

@@ -14,6 +14,7 @@ tags:
 - farmers
 - policy
 comments: true
+toc: true
 featured_image: assets/images/featured/2026-01-03-tomato-journey-post-harvest-supply-chain-2011-2026.png
 featured_image_alt: A large, dew-covered tomato in a burlap sack in the foreground, with a farm field, a transport truck, and a market scene behind it, illustrating India’s post-harvest supply chain from 2011 to 2026.
 featured_image_caption: 'A tomato’s journey through India’s post-harvest supply chain (2011 → 2026): where time, temperature, and incentives decide who wins.'

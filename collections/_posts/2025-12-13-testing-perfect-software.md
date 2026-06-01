@@ -9,6 +9,7 @@ tags:
 - risk
 - tdd
 comments: true
+toc: true
 featured: false
 description: Testing matters, but choosing what to test is the real craft. A practical way to decide what must be tested, what should be tested, and what is good to have.
 ---

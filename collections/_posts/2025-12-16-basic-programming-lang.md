@@ -12,6 +12,7 @@ tags:
 - imperative-programming
 - programming-language
 comments: true
+toc: true
 featured_image: assets/images/featured/2025-12-16-basic-programming-lang.png
 featured_image_alt: Illustration for BASIC step-by-step programming
 featured_image_caption: BASIC — learning to think step by step

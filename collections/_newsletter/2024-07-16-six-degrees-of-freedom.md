@@ -3,8 +3,8 @@ layout: newsletter
 title: "6 Degrees of Freedom: Exploring Personal Autonomy in a Modern World"
 tags:
 - newsletter
-- personal
-- society
+- leadership
+- management
 category:
 - Newsletter
 linkedin_url: https://www.linkedin.com/pulse/6-degrees-freedom-exploring-personal-autonomy-modern-world-mathur-ie3mc/?trackingId=cfUD9BAuSJmpktJ2F1UyBw%3D%3D

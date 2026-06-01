@@ -3,10 +3,11 @@ layout: newsletter
 title: "The State of Gurgaon: A City of Promises and Pitfalls"
 tags:
 - newsletter
+- leadership
+- management
 - india
-- politics
-- society
-- ai
+- gurgaon
+- urban planning
 category:
 - Newsletter
 linkedin_url: https://www.linkedin.com/pulse/state-gurgaon-city-promises-pitfalls-palak-mathur-s1kic/?trackingId=iRBb5es6TWWh5zAG3WrLIQ%3D%3D

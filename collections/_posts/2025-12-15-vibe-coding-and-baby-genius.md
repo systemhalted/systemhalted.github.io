@@ -14,7 +14,7 @@ tags:
 comments: true
 toc: true
 featured_image: assets/images/featured/2025-12-15-vibe-coding-and-baby-genius.png
-featured_image_alt: A programmer at a multi monitor desk codes beside a cute "baby genius" robot with a pacifier under a neon "Vibe Coding" sign, with charts, a ping pong paddle, and a suitcase hinting at trust, context, and autonomy.
+featured_image_alt: A programmer at a multi-monitor desk codes beside a cute "baby genius" robot with a pacifier under a neon "Vibe Coding" sign, with charts, a ping pong paddle, and a suitcase hinting at trust, context, and autonomy.
 featured_image_caption: AI Agents as baby geniuses - brilliant, needy, and not quite ready for ping pong or vacation.
 description: Vibe coding is fun again. However, Agents are still baby geniuses. The fix is turning preferences into accountability.
 ---
@@ -23,7 +23,7 @@ Vibe coding has been ridiculously fun.
 
 It has brought back the joy to programming. The kind of joy you thought adulthood, meetings, and Jira had permanently confiscated.
 
-And yet, right now, most agents are more or less **super intelligent babies**.
+And yet, right now, most agents are more or less **super-intelligent babies**.
 
 They are brilliant. They are fast. They can surprise you.
 But they still need to be fed context again and again.
@@ -62,7 +62,7 @@ API models "datafy" representational state.
 So there is no separate request and response.
 There is only one state to represent for both request and response.
 
-Some fields are read only, sure.
+Some fields are read-only, sure.
 But it is still one state.
 
 So instead of:
@@ -182,7 +182,7 @@ If your API layer is OpenAPI driven, treat API models as edge artifacts and gene
 Then keep domain models intentionally authored and stable.
 
 The principle is simple:
-> when the outside world changes, your domain shouldn’t shatter like glass.
+> when the outside world changes, your domain model shouldn’t break.
 
 ### Option 3: a definition of done for agents
 
@@ -205,14 +205,14 @@ Vacation needs observability.
 If an agent writes code that "works" but cannot explain itself at runtime, you have not delegated work.
 You have adopted a mystery.
 
-Vacation grade code needs boring grown up traits:
+Vacation-grade code needs boring, grown-up traits:
 
 * structured logs you can search
 * correlation IDs you can follow
 * meaningful error handling
 * metrics and traces where it matters
 
-Because when you are on vacation, the only thing worse than an outage is an outage that speaks in riddles.
+Because on vacation, the only thing worse than an outage is one you cannot diagnose from the logs.
 
 ## Final thoughts
 
@@ -222,7 +222,7 @@ They need to be more accountable.
 An agent without a stop condition is just a very confident infinite loop.
 
 The trick is not to lecture the agent harder.
-The trick is to build a world where "following instructions" is measurable.
+The trick is to make "following instructions" measurable.
 
 Then you can pick up the paddle.
 

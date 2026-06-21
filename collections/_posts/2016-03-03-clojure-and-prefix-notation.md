@@ -11,7 +11,6 @@ tags:
 - computer-science
 - programming-language
 comments: true
-featured: true
 ---
 
 Clojure is a functional programming language for the JVM created by Rich Hickey. It is a dialect of Lisp, which is famous for its use of parentheses and a prefix-style syntax often associated with Polish notation.

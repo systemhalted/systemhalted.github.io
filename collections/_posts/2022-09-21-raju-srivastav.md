@@ -7,7 +7,6 @@ tags:
 - personal
 - india
 comments: true
-featured: false
 description: Raju Srivastav was the king of comedy
 ---
 

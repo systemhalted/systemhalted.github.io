@@ -7,7 +7,6 @@ tags:
 - personal
 - india
 comments: true
-featured: false
 description: Om Shanti! Lata Mangeshkar will live forever!
 ---
 

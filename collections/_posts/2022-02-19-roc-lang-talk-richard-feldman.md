@@ -9,7 +9,6 @@ tags:
 - computer-science
 - programming-language
 comments: true
-featured: true
 description: Loved this talk by Richard Feldman on Roc-lang in particular and language optimization in general.
 ---
 

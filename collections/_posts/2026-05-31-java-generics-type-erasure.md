@@ -9,7 +9,6 @@ tags:
 - type-erasure
 - programming-language
 comments: true
-featured: false
 toc: true
 description: Generic types in Java are excellent for compile-time safety, but weak as runtime type descriptors. Whenever a framework crosses a runtime boundary such as JSON, reflection, dependency injection, messaging, persistence, or RPC, it often needs an explicit replacement for the erased generic type information.
 ---

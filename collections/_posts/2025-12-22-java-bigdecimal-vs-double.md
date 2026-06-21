@@ -14,7 +14,6 @@ tags:
 - numeric-precision
 comments: true
 toc: true
-featured: false
 featured_image: assets/images/featured/2025-12-22-java-bigdecimal-vs-double.png
 featured_image_alt: Illustration for BigDecimal vs double
 featured_image_caption: BigDecimal vs double precision

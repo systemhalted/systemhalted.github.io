@@ -9,7 +9,6 @@ tags:
 - personal
 - astronomy
 comments: true
-featured: false
 description: This is the first question that everyone asks when getting into star-gazing. Here I repeat what experienced amateur astronomers say.
 ---
 

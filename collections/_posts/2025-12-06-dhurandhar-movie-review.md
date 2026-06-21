@@ -4,7 +4,6 @@ title: '[Movie Review] Dhurandhar'
 category:
 - Movie Review
 comments: true
-featured: true
 description: Review of Hindi movie Dhurandhar
 ---
 

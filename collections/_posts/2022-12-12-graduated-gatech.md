@@ -6,7 +6,6 @@ category:
 tags:
 - personal
 comments: true
-featured: false
 description: Finally, I completed my MS in Computer Science from Georgia Institute of Technology
 ---
 

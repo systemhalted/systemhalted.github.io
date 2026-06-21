@@ -9,7 +9,6 @@ tags:
 - software
 - computer-science
 comments: true
-featured: true
 description: C is a funny language. Strings are a joke.
 ---
 

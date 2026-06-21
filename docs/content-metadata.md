@@ -37,6 +37,26 @@ Guidelines:
 - Use a landscape image; the home card uses a ~16:10 aspect ratio (`padding-top: 62%`).
 - Keep the focal subject away from edges so it crops well on cards.
 
+## Start here / featured
+Highlighted posts are curated in one place — `_data/start_here.yml` — not via per-post front matter. The file is a short, hand-ordered list of post URLs:
+
+```yaml
+lede: "A few posts that capture what this site is about."
+posts:
+  - /2026/01/11/kahan-summation-java-streams/
+  - /2025/12/31/discipline-first-trust-pipeline-for-ai-assisted-coding/
+```
+
+The same list drives both surfaces:
+- The **"Start here"** section at the top of the home page (page 1 only, rendered by `index.html`).
+- The **`/featured/`** page (`featured.html`), linked in the sidebar nav.
+
+Guidelines:
+- Use exact post URLs with a trailing slash, in the order you want them displayed.
+- Keep it to ~5-6 entries. This is the only knob; there is no `featured: true` flag on posts.
+- Deleting the file hides the home "Start here" section entirely.
+- Don't confuse this with `featured_image` (the per-post hero image, above) — unrelated.
+
 ## Front matter
 Front matter drives listing pages, archives, tags, and related posts.
 
@@ -50,8 +70,9 @@ Required (posts):
 Common optional keys:
 - `description`: One-line summary used on the home grid and archives.
 - `comments: true`: Enables the Disqus include for that post.
-- `featured: true`: Includes the post on `featured.html`.
 - `featured_image`, `featured_image_alt`, `featured_image_caption`
+
+There is no per-post `featured` flag. To highlight a post, add its URL to `_data/start_here.yml` (see "Start here / featured" below).
 
 Notes:
 - Both `category` and `categories` are supported by Jekyll; prefer `categories` for new posts.
@@ -70,7 +91,6 @@ tags:
   - software-engineering
 description: One-line summary used in listings.
 comments: true
-featured: true
 featured_image: assets/images/2025-01-hero.jpg
 featured_image_alt: Short, descriptive alt text.
 featured_image_caption: Optional caption for the post header.

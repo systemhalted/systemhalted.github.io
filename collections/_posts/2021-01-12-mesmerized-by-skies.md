@@ -7,7 +7,6 @@ tags:
 - sports
 - astronomy
 comments: true
-featured: true
 description: First look at the skies through the binoculars and I must say I am hooked for life
 ---
 

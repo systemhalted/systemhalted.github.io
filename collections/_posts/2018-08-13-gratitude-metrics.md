@@ -8,7 +8,6 @@ tags:
 - personal
 - opinion
 comments: true
-featured: true
 description: Gratitude is important. Quantifying is importanter.
 ---
 

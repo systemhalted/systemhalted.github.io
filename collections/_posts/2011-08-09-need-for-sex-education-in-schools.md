@@ -13,7 +13,6 @@ tags:
 - society
 - economy
 - india
-featured: true
 ---
 
 I was not shying away from this topic. Yes, it is late, but better late then never. I was going through my notes on the subject when I realized that I have not posted anything on this topic. I talked about [Social stigma of an unwed mother](http://palakmathur.wordpress.com/2009/05/03/social-and-cultural-stigma-unwed-mothers/ "Social and Cultural Stigma – Unwed Mothers"), but this topic should have come somewhere at that time only. I wrote that post in May 2009 and at that time only in April, a parliamentary committee had put forward his stand on the issue.

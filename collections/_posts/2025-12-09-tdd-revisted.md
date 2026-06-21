@@ -9,7 +9,6 @@ tags:
 - management
 comments: true
 toc: true
-featured: false
 description: I still think TDD is a Taylorian construct. What I care about now is thinking about testing and evaluation before writing code.
 ---
 

@@ -7,7 +7,6 @@ tags:
 - sports
 - india
 comments: true
-featured: false
 description: This is a note to self for memories in the later years. This was the innings that proved why Virat Kohli is a King!
 ---
 

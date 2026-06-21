@@ -10,7 +10,6 @@ tags:
 - software
 - leadership
 comments: true
-featured: false
 description: null
 ---
 

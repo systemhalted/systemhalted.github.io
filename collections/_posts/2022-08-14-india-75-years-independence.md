@@ -7,7 +7,6 @@ tags:
 - politics
 - india
 comments: true
-featured: false
 description: India celebrates its 75th Independence Day tomorrow, 15th August. There is so much to dream about India; so much to cherish, so much to cheer, so much to hate and so much to desire about it.
 ---
 

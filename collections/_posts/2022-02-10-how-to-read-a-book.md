@@ -6,7 +6,6 @@ category:
 tags:
 - book-review
 comments: true
-featured: true
 description: Reading is fun and in this post I will share how I approach reading and reading alternatives
 ---
 

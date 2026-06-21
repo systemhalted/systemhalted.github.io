@@ -10,7 +10,6 @@ tags:
 - leadership
 - management
 comments: true
-featured: false
 description: As a manager and specially as a new manager, your philosophy and approach to leadership can have a significant impact on your team and the overall success of your organization. Whether you're new to management or an experienced leader, it's important to have a clear and well-defined management philosophy that guides your actions and decisions.
 ---
 

@@ -8,7 +8,6 @@ tags:
 - india
 - mumbai
 comments: true
-featured: false
 description: If I have to rate, I will give it 3 out of 5. 2 marks for emotions and 1 for being committed enough to make a movie on Maj Unnikrishnan.
 ---
 

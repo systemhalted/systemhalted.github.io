@@ -9,7 +9,6 @@ tags:
 - opinion
 - software
 comments: true
-featured: false
 description: null
 ---
 

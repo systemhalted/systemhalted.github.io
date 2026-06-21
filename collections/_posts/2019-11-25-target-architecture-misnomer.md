@@ -7,7 +7,6 @@ categories:
 tags:
 - technology
 comments: true
-featured: true
 description: One phrase true for Target Architecture - Never Achieved.
 ---
 

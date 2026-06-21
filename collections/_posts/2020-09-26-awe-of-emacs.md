@@ -6,7 +6,6 @@ category:
 tags:
 - software
 comments: true
-featured: true
 description: I am in awe of Emacs. I wrote this post originally on Reddit. Just copying it here to save it.
 ---
 

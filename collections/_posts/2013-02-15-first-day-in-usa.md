@@ -13,7 +13,6 @@ tags:
 - united-states
 - mumbai
 comments: true
-featured: true
 description: Today, 15th Feb 2013, is the day when Priti and I came to The USA for the first time. How the first day went?
 ---
 

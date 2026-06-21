@@ -11,7 +11,6 @@ tags:
 - economy
 - united-states
 comments: true
-featured: false
 description: There are certainly problems with Delivery Apps when it comes down to employee and customer satisfaction. A quick take.
 ---
 

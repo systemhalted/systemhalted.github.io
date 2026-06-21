@@ -12,7 +12,6 @@ tags:
 - technology
 comments: true
 toc: true
-featured: true
 description: A practical look at associativity, identity, and folding in Java Streams, and why some reduce calls behave nicely while others explode in surprising ways.
 ---
 

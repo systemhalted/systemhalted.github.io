@@ -1,6 +1,9 @@
-# Curated "Start here" list rendered above the recent-posts feed on the home page (page 1 only).
-# Edit `posts:` to set the canonical entry points for new readers — exact post URLs with trailing slash.
-# To hide the section entirely, delete this file.
+# Curated post list — the single source of truth for both the home "Start here" section
+# (rendered above the recent-posts feed on page 1) and the /featured/ page.
+# Edit `posts:` to set the canonical entry points for new readers — exact post URLs with trailing
+# slash, in display order. Keep it short (~5-6). There is no per-post `featured` front matter anymore;
+# this list is the only place that controls which posts are highlighted.
+# To hide the home "Start here" section entirely, delete this file.
 
 lede: "A few posts that capture what this site is about."
 

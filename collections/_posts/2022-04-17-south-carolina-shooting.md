@@ -7,7 +7,6 @@ tags:
 - personal
 - opinion
 comments: true
-featured: false
 description: I didn’t feel a thing today. And then I did some.
 ---
 

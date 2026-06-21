@@ -38,7 +38,6 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
   categories: [Tech]
   tags: [jekyll, notes]
   comments: true
-  featured: true
   featured_image: assets/images/2025-12-hero.jpg
   featured_image_alt: Brief alt text for the image  # required when featured_image is set; empty if decorative
   featured_image_caption: Photo credit or context
@@ -59,7 +58,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - `archives.html`: year-grouped archive with client-side sorting.
 - `categories.html`: category taxonomy grouped by theme.
 - `tags.html`: tag archive.
-- `featured.html`: posts with `featured: true`.
+- `featured.html`: a curated set of posts, listed by URL in `_data/start_here.yml`. The same file also drives the home page's "Start here" section, so it is the single source of truth for highlighted posts (keep it to ~5-6). There is no per-post `featured` front matter.
 - `about.md`, `404.md`: static pages.
 
 ## Search and webcmd

@@ -12,7 +12,6 @@ tags:
 - programming-language
 comments: true
 toc: true
-featured: true
 description: When your Java methods really mean "either this or that" but the type system only says "here’s something…maybe," you’re flying blind. This post walks through using Result types, sealed hierarchies, and a bit of logic-thinking to make those hidden alternatives explicit, so the compiler – not your Javadoc – tells the truth about your code.
 ---
 

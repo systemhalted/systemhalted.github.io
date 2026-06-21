@@ -6,7 +6,6 @@ category:
 tags:
 - personal
 comments: true
-featured: false
 description: Om Shanti! Bhupinder Singh ji your voice will continue to mesmerize us.
 ---
 

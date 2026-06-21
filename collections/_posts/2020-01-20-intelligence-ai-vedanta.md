@@ -12,7 +12,6 @@ tags:
 - poetry
 - india
 comments: true
-featured: true
 description: This post attempts to define a Test of Intelligence based on my understanding of Advaita Vedanta. Submitted as part of CS7637 Homework
 ---
 

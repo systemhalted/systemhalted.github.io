@@ -14,7 +14,6 @@ tags:
 - pune
 - hindi
 comments: true
-featured: false
 description: Here I try to express my life, H1B and GC travails using Mir's couplets.
 ---
 

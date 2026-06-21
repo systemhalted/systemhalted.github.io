@@ -13,5 +13,8 @@ hide_page_title: true
 </section>
 
 <ul class="post-feed">
-  {% for post in site.posts %}{% if post.featured %}{% include post-list-item.html post=post %}{% endif %}{% endfor %}
+  {% for slug in site.data.start_here.posts %}
+    {% assign p = site.posts | where: "url", slug | first %}
+    {% if p %}{% include post-list-item.html post=p %}{% endif %}
+  {% endfor %}
 </ul>

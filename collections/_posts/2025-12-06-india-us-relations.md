@@ -12,7 +12,6 @@ tags:
 - united-states
 comments: true
 toc: true
-featured: true
 description: Let us explore the Indo-US relations over the year and where they are headed after recent tariffs imposed by US on India
 ---
 

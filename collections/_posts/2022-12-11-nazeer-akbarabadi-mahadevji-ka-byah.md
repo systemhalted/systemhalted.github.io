@@ -11,7 +11,6 @@ tags:
 - agra
 - hindi
 comments: true
-featured: false
 description: This post is about Nazeer Akbarabadi (1735-1830), a poet who wrote beautiful poetry on Indian festivals.
 ---
 

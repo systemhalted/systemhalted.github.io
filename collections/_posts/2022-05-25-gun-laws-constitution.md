@@ -8,7 +8,6 @@ tags:
 - opinion
 - united-states
 comments: true
-featured: false
 description: The Preface to the Constitution talks about bringing tranquility to the nation. Gun Laws in many state just go against the Constitution.
 ---
 

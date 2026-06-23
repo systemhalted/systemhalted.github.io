@@ -1,0 +1,21 @@
+---
+layout: page
+---
+
+<h1>{{ page.title }}</h1>
+
+{% assign cat = page.category %}
+{% assign posts = site.categories[cat] | sort: 'date' | reverse %}
+
+{% if posts %}
+  <ul>
+    {% for post in posts %}
+      <li>
+        <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No posts yet in this category.</p>
+{% endif %}

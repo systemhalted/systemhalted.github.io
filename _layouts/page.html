@@ -1,0 +1,10 @@
+---
+layout: default
+---
+
+<div class="page">
+  {% unless page.hide_page_title %}
+  <h2 class="page-title">{{ page.title }}</h2>
+  {% endunless %}
+  {{ content }}
+</div>

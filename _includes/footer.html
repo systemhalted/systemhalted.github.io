@@ -1,0 +1,63 @@
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <div class="footer-brand">
+      <div class="footer-avatar">
+        <img src="{{ site.author.avatar | default: '/assets/images/avatar.jpeg' | relative_url }}" alt="{{ site.title }}">
+      </div>
+      <div>
+        <div class="footer-title">{{ site.title }}</div>
+        <div class="footer-subtitle">{{ site.tagline }}</div>
+        {% if site.description %}
+          <p class="footer-description">{{ site.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <nav class="footer-column" aria-label="Browse">
+        <div class="footer-heading">Browse</div>
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/featured/' | relative_url }}">Featured</a>
+        <a href="{{ '/archives/' | relative_url }}">Archives</a>
+        <a href="{{ '/categories/' | relative_url }}">Categories</a>
+      </nav>
+      <nav class="footer-column" aria-label="Connect">
+        <div class="footer-heading">Connect</div>
+        {% if site.author.email %}<a href="mailto:{{ site.author.email }}">Email</a>{% endif %}
+        {% if site.author.linkedin %}<a href="{{ site.author.linkedin }}" rel="noopener">LinkedIn</a>{% endif %}
+        {% if site.author.github %}<a href="{{ site.author.github }}" rel="noopener">GitHub</a>{% endif %}
+        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      </nav>
+    </div>
+
+    {% if site.newsletter_cta %}
+    {% assign nl_title = site.newsletter_cta.title | default: 'the newsletter' %}
+    <div class="footer-subscribe">
+      <div class="footer-heading">Subscribe</div>
+      <p class="footer-description">{% if site.newsletter_cta.footer_blurb %}{{ site.newsletter_cta.footer_blurb }}{% else %}Get {{ nl_title }} by email, or follow the blog by RSS.{% endif %}</p>
+      <div class="footer-cta">
+        <a class="footer-button" href="{{ site.newsletter_cta.path | default: '/' | relative_url }}#newsletter-cta">Subscribe to {{ nl_title }} →</a>
+        <a class="footer-button ghost" href="{{ '/feed.xml' | relative_url }}">RSS Feed</a>
+        {% if site.author.email %}<a class="footer-button ghost" href="mailto:{{ site.author.email }}">Say hello</a>{% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="footer-meta container">
+    <span>© {{ 'now' | date: '%Y' }} {{ site.tagline }}</span>
+    <span class="footer-shortcuts">
+      <button type="button" id="footer-shortcuts-trigger" aria-label="Show keyboard shortcuts">Keyboard shortcuts (?)</button>
+    </span>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var trigger = document.getElementById('footer-shortcuts-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', function() {
+      var ev = new KeyboardEvent('keydown', { key: '?', bubbles: true });
+      document.dispatchEvent(ev);
+    });
+  })();
+</script>

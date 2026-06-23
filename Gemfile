@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'jekyll', '~> 4.3'
-gem 'jekyll-theme-nord-newsletter', '~> 1.0'
+# Theme is vendored into this repo (no theme gem). Plugins the theme relies on
+# are listed directly below.
 gem 'jekyll-feed'
 gem 'jekyll-paginate'
 gem 'jekyll-gist'

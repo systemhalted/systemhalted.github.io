@@ -23,7 +23,7 @@ These are some of the notes.
 
 ## A green test is not a correct program
 
-The function was about as simple as they come. Write the buffer to a path, then mark the document as having no unsaved changes.
+The function performed following tasjs - write the buffer to a path, then mark the document as having no unsaved changes.
 
 ```rust
 pub fn save(&mut self, path: &Path) -> io::Result<()> {

@@ -17,7 +17,7 @@ toc: true
 description: 'Notes from building a small text editor in Rust, and what a green-but-wrong save() function taught me about the line between what a type system can prove and what only a test can.'
 ---
 
-I am writing a small text editor in Rust to learn the language -- a document model, opening a file, saving a file,etc. While building the `save` function I hit a bug that made me reconsider what tests are for and where the compiler takes over. 
+I am writing a small text editor in Rust to learn the language -- a document model, opening a file, saving a file, etc. While building the `save` function I hit a bug that made me reconsider what tests are for and where the compiler takes over. 
 
 These are some of the notes.
 

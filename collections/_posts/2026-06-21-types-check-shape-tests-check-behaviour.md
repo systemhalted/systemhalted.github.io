@@ -33,7 +33,7 @@ pub fn save(&mut self, path: &Path) -> io::Result<()> {
 }
 ```
 
-I had written the following test as my TDD practice:
+and I had also written the following test:
 
 ```rust
 #[test]

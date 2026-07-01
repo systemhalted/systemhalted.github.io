@@ -159,6 +159,81 @@
   background-attachment: fixed;
 }
 
+/* ============================================================
+   Hidden CRT / phosphor theme (Easter egg).
+   Toggled from the webcmd `crt` command (window.__toggleCRT) and
+   applied pre-paint in head.html via the `theme-crt` class on
+   <html>. It fully re-maps the semantic tokens to amber phosphor
+   on near-black, so it reads the same over light or dark and is
+   independent of glaze. Not shown in the theme menu.
+   ============================================================ */
+.theme-crt {
+  --bg: #0a0a06;
+  --surface: #13110a;
+  --surface-strong: #1c1810;
+  --border: #4a3a12;
+  --text: #ffb000;
+  --text-strong: #ffc94d;
+  --muted: #c08a1f;
+  --accent: #ffd166;
+  --accent-press: #ffe09a;
+  --shadow: 0 0 0 1px rgba(255, 176, 0, 0.12);
+  --shadow-strong: 0 0 24px rgba(255, 176, 0, 0.18);
+  --code-bg: #1c1810;
+  --code-text: #ffc94d;
+  --code-border: #4a3a12;
+  --code-block-bg: #0a0a06;
+  --code-block-text: #ffb000;
+  --code-block-border: #4a3a12;
+  --sidebar-bg: #0a0a06;
+  --sidebar-text: #ffb000;
+  --sidebar-link: #ffc94d;
+  --sidebar-border: #4a3a12;
+  --footer-bg: #0a0a06;
+  --font-sans: var(--font-mono);
+  --font-display: var(--font-mono);
+  --font-serif: var(--font-mono);
+}
+
+.theme-crt body {
+  color: var(--text);
+  text-shadow: 0 0 1px rgba(255, 176, 0, 0.55);
+}
+
+/* Scanline + glow overlay sitting above the page (non-interactive). */
+.theme-crt body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.22) 0,
+      rgba(0, 0, 0, 0.22) 1px,
+      transparent 2px,
+      transparent 3px
+    ),
+    radial-gradient(120% 120% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+/* Gentle flicker — disabled for reduced-motion users below. */
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.96; }
+}
+
+.theme-crt body {
+  animation: crt-flicker 4s steps(60) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-crt body {
+    animation: none;
+  }
+}
+
 /* Frost the main panels: they already paint on var(--surface), now
    translucent, so we just add the blur, a bright top "glass lip",
    and a floating shadow. */
@@ -1634,6 +1709,33 @@ body.reading-focus .post-content {
   color: var(--muted);
   display: block;
   margin-left: 1.5rem;
+}
+
+/* OS-history Easter-egg output (fortune / history / uname / halt).
+   Neutralize the global dark code-block <pre> styling so the text sits on
+   the terminal surface and stays readable in every theme. */
+.webcmd-pre {
+  margin: 0.25rem 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  white-space: pre-wrap;
+  color: var(--text-strong);
+}
+
+.webcmd-fortune {
+  color: var(--text-strong);
+  font-style: italic;
+}
+
+/* halt keeps the authentic blue-screen look as its own block. */
+.webcmd-halt {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  background: #0000aa;
+  color: #fff;
 }
 
 .webcmd-error {

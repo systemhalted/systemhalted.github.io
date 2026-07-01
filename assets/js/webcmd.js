@@ -224,9 +224,19 @@ function osEscape(s)
         .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// Clear prior output/errors so each command shows a fresh screen.
+function webcmdClear()
+{
+    var out = document.getElementById("output");
+    var err = document.getElementById("error");
+    if(out){ out.innerHTML = ""; }
+    if(err){ err.innerHTML = ""; }
+}
+
 // fortune — a random line of OS-history lore.
 function cmd_fortune(cmd, arg, args)
 {
+    webcmdClear();
     if(!osFortunes.length){ output("(no fortunes loaded)"); return; }
     var i = Math.floor(Math.random() * osFortunes.length);
     output("<span class=\"webcmd-fortune\">" + osEscape(osFortunes[i]) + "</span>");
@@ -236,6 +246,7 @@ window.cmd_fortune = cmd_fortune;
 // history — a short timeline of operating systems.
 function cmd_history(cmd, arg, args)
 {
+    webcmdClear();
     if(!osTimeline.length){ output("(no timeline loaded)"); return; }
     var lines = ["A very short history of operating systems:", ""];
     for(var i = 0; i < osTimeline.length; i++){
@@ -251,6 +262,7 @@ window.cmd_history = cmd_history;
 // uname — a playful system banner.
 function cmd_uname(cmd, arg, args)
 {
+    webcmdClear();
     var banner = [
         "SystemHalted DOS 1.0 (i am just a DOS error)",
         "kernel: nostalgia " + (new Date().getFullYear()) + " #1 RETRO",
@@ -265,6 +277,7 @@ window.cmd_uname = cmd_uname;
 // halt / bsod — a compact System Halted screen, right in the terminal.
 function cmd_halt(cmd, arg, args)
 {
+    webcmdClear();
     var screen = [
         "*** SYSTEM HALTED ***",
         "",
@@ -288,6 +301,7 @@ window.cmd_bsod = cmd_bsod;
 // crt — toggle the hidden phosphor CRT theme (defined in script.js).
 function cmd_crt(cmd, arg, args)
 {
+    webcmdClear();
     if(typeof window.__toggleCRT === "function"){
         var on = window.__toggleCRT();
         output("CRT mode " + (on ? "engaged. Mind the scanlines." : "disengaged."));

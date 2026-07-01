@@ -1711,21 +1711,31 @@ body.reading-focus .post-content {
   margin-left: 1.5rem;
 }
 
-/* OS-history Easter-egg output (fortune / history / uname / halt) */
+/* OS-history Easter-egg output (fortune / history / uname / halt).
+   Neutralize the global dark code-block <pre> styling so the text sits on
+   the terminal surface and stays readable in every theme. */
 .webcmd-pre {
   margin: 0.25rem 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
   font-family: var(--font-mono);
   white-space: pre-wrap;
   color: var(--text-strong);
 }
 
 .webcmd-fortune {
-  color: var(--accent);
+  color: var(--text-strong);
   font-style: italic;
 }
 
+/* halt keeps the authentic blue-screen look as its own block. */
 .webcmd-halt {
-  color: var(--nord11);
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  background: #0000aa;
+  color: #fff;
 }
 
 /* ------------------------------------------------------------------ */

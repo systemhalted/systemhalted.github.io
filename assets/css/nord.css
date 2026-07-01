@@ -159,6 +159,81 @@
   background-attachment: fixed;
 }
 
+/* ============================================================
+   Hidden CRT / phosphor theme (Easter egg).
+   Toggled from the webcmd `crt` command (window.__toggleCRT) and
+   applied pre-paint in head.html via the `theme-crt` class on
+   <html>. It fully re-maps the semantic tokens to amber phosphor
+   on near-black, so it reads the same over light or dark and is
+   independent of glaze. Not shown in the theme menu.
+   ============================================================ */
+.theme-crt {
+  --bg: #0a0a06;
+  --surface: #13110a;
+  --surface-strong: #1c1810;
+  --border: #4a3a12;
+  --text: #ffb000;
+  --text-strong: #ffc94d;
+  --muted: #c08a1f;
+  --accent: #ffd166;
+  --accent-press: #ffe09a;
+  --shadow: 0 0 0 1px rgba(255, 176, 0, 0.12);
+  --shadow-strong: 0 0 24px rgba(255, 176, 0, 0.18);
+  --code-bg: #1c1810;
+  --code-text: #ffc94d;
+  --code-border: #4a3a12;
+  --code-block-bg: #0a0a06;
+  --code-block-text: #ffb000;
+  --code-block-border: #4a3a12;
+  --sidebar-bg: #0a0a06;
+  --sidebar-text: #ffb000;
+  --sidebar-link: #ffc94d;
+  --sidebar-border: #4a3a12;
+  --footer-bg: #0a0a06;
+  --font-sans: var(--font-mono);
+  --font-display: var(--font-mono);
+  --font-serif: var(--font-mono);
+}
+
+.theme-crt body {
+  color: var(--text);
+  text-shadow: 0 0 1px rgba(255, 176, 0, 0.55);
+}
+
+/* Scanline + glow overlay sitting above the page (non-interactive). */
+.theme-crt body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.22) 0,
+      rgba(0, 0, 0, 0.22) 1px,
+      transparent 2px,
+      transparent 3px
+    ),
+    radial-gradient(120% 120% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+/* Gentle flicker — disabled for reduced-motion users below. */
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.96; }
+}
+
+.theme-crt body {
+  animation: crt-flicker 4s steps(60) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-crt body {
+    animation: none;
+  }
+}
+
 /* Frost the main panels: they already paint on var(--surface), now
    translucent, so we just add the blur, a bright top "glass lip",
    and a floating shadow. */
@@ -1634,6 +1709,120 @@ body.reading-focus .post-content {
   color: var(--muted);
   display: block;
   margin-left: 1.5rem;
+}
+
+/* OS-history Easter-egg output (fortune / history / uname / halt) */
+.webcmd-pre {
+  margin: 0.25rem 0;
+  font-family: var(--font-mono);
+  white-space: pre-wrap;
+  color: var(--text-strong);
+}
+
+.webcmd-fortune {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.webcmd-halt {
+  color: var(--nord11);
+}
+
+/* ------------------------------------------------------------------ */
+/* System Halted overlay (Konami-code Easter egg) + shared halt screen */
+/* ------------------------------------------------------------------ */
+.halt-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #0000aa; /* classic BSOD blue */
+  color: #fff;
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
+.halt-overlay.is-open {
+  display: flex;
+}
+
+.halt-screen {
+  max-width: 40rem;
+  outline: none;
+}
+
+.halt-title {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  padding: 0.15rem 1rem;
+  background: #c0c0c0;
+  color: #0000aa;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.halt-body,
+.halt-trivia,
+.halt-dismiss {
+  margin: 0.75rem 0;
+  line-height: 1.6;
+}
+
+.halt-trivia {
+  color: #ffd166;
+}
+
+.halt-dismiss {
+  margin-top: 2rem;
+  opacity: 0.85;
+}
+
+/* Blinking cursor on the dismiss line — stilled for reduced motion. */
+.halt-dismiss::after {
+  content: "";
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .halt-overlay.is-open .halt-dismiss {
+    animation: halt-blink 1.1s steps(2, start) infinite;
+  }
+}
+
+@keyframes halt-blink {
+  50% { opacity: 0.25; }
+}
+
+/* Inline "System Halted" card used by the 404 page (theme-aware, not the
+   full-screen blue overlay, so link contrast stays AA in every theme). */
+.halt-404 {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+.halt-404-heading {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  color: var(--text-strong);
+}
+
+.halt-404-actions {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0;
+  line-height: 1.9;
+}
+
+.halt-404 .halt-trivia {
+  color: var(--accent);
 }
 
 .webcmd-error {

@@ -86,7 +86,13 @@ var help = {
     "c":	"google calendar",
     "e":	"javascript evaluator",
     "cls":  "clear output/errors",
-    "find": "search site posts (find <query>)"
+    "find": "search site posts (find <query>)",
+    "fortune": "a random line of OS-history lore",
+    "history": "a short history of operating systems",
+    "uname":   "system banner (you are running SystemHalted)",
+    "halt":    "give up gracefully — *** SYSTEM HALTED ***",
+    "bsod":    "alias for halt",
+    "crt":     "toggle the hidden phosphor CRT theme"
 }
 
 // Commands: args are command name, arg text,
@@ -198,6 +204,98 @@ window.cmd_find = cmd_find;
 
 // Build the index as soon as scripts load so find works immediately.
 ensureSiteIndex();
+
+/////
+///// OS-history Easter eggs. Content lives in _data/os_history.yml and is
+///// emitted below via Liquid so it stays data-driven and easy to extend.
+/////
+
+var osFortunes = [
+{% for f in site.data.os_history.fortunes %}  {{ f | jsonify }},
+{% endfor %}];
+
+var osTimeline = [
+{% for t in site.data.os_history.timeline %}  { year: {{ t.year | jsonify }}, event: {{ t.event | jsonify }} },
+{% endfor %}];
+
+function osEscape(s)
+{
+    return String(s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// fortune — a random line of OS-history lore.
+function cmd_fortune(cmd, arg, args)
+{
+    if(!osFortunes.length){ output("(no fortunes loaded)"); return; }
+    var i = Math.floor(Math.random() * osFortunes.length);
+    output("<span class=\"webcmd-fortune\">" + osEscape(osFortunes[i]) + "</span>");
+}
+window.cmd_fortune = cmd_fortune;
+
+// history — a short timeline of operating systems.
+function cmd_history(cmd, arg, args)
+{
+    if(!osTimeline.length){ output("(no timeline loaded)"); return; }
+    var lines = ["A very short history of operating systems:", ""];
+    for(var i = 0; i < osTimeline.length; i++){
+        var row = osTimeline[i];
+        lines.push(osEscape(row.year) + "  —  " + osEscape(row.event));
+    }
+    lines.push("");
+    lines.push("Type 'fortune' for more lore, or 'halt' to give up gracefully.");
+    output("<pre class=\"webcmd-pre\">" + lines.join("\n") + "</pre>");
+}
+window.cmd_history = cmd_history;
+
+// uname — a playful system banner.
+function cmd_uname(cmd, arg, args)
+{
+    var banner = [
+        "SystemHalted DOS 1.0 (i am just a DOS error)",
+        "kernel: nostalgia " + (new Date().getFullYear()) + " #1 RETRO",
+        "machine: x86 real-mode dreams",
+        "uptime: since 1969",
+        "status: HALTED, with affection"
+    ];
+    output("<pre class=\"webcmd-pre\">" + osEscape(banner.join("\n")) + "</pre>");
+}
+window.cmd_uname = cmd_uname;
+
+// halt / bsod — a compact System Halted screen, right in the terminal.
+function cmd_halt(cmd, arg, args)
+{
+    var screen = [
+        "*** SYSTEM HALTED ***",
+        "",
+        "A problem has been detected and the daydream has been",
+        "shut down to prevent damage to your productivity.",
+        "",
+        "    THE_INTERNET_IS_TOO_INTERESTING",
+        "",
+        "If this is the first time you've seen this screen,",
+        "type 'history' to learn where it all began.",
+        "",
+        "Press any key to continue _"
+    ];
+    output("<pre class=\"webcmd-pre webcmd-halt\">" + osEscape(screen.join("\n")) + "</pre>");
+}
+window.cmd_halt = cmd_halt;
+
+function cmd_bsod(cmd, arg, args){ cmd_halt(cmd, arg, args); }
+window.cmd_bsod = cmd_bsod;
+
+// crt — toggle the hidden phosphor CRT theme (defined in script.js).
+function cmd_crt(cmd, arg, args)
+{
+    if(typeof window.__toggleCRT === "function"){
+        var on = window.__toggleCRT();
+        output("CRT mode " + (on ? "engaged. Mind the scanlines." : "disengaged."));
+    } else {
+        error("CRT mode unavailable on this page.");
+    }
+}
+window.cmd_crt = cmd_crt;
 
 /////
 ///// Below here you should not need to fiddle with.

@@ -136,6 +136,19 @@
       {% include footer.html %}
     </div>
 
+    <!-- Hidden "System Halted" screen, summoned by the Konami code (↑↑↓↓←→←→ B A). -->
+    <div id="halt-overlay" class="halt-overlay" aria-hidden="true">
+      <div class="halt-screen" role="dialog" aria-modal="true" aria-labelledby="halt-title">
+        <p class="halt-title" id="halt-title">SYSTEM HALTED</p>
+        <p class="halt-body">
+          A problem has been detected and SystemHalted has been shut down
+          to celebrate the history of operating systems.
+        </p>
+        <p class="halt-trivia" id="halt-trivia" aria-live="polite"></p>
+        <p class="halt-dismiss">Press any key to continue _</p>
+      </div>
+    </div>
+
     <script>
       window.NORD_SHORTCUTS = {
         h: {{ '/' | relative_url | jsonify }},
@@ -143,6 +156,9 @@
         k: {{ site.newsletter_cta.path | default: '/' | relative_url | jsonify }},
         e: {{ '/emacs/' | relative_url | jsonify }},
         a: {{ '/about/' | relative_url | jsonify }}
+      };
+      window.OS_HISTORY = {
+        halt_trivia: {{ site.data.os_history.halt_trivia | jsonify }}
       };
     </script>
     <script src="{{ '/assets/js/elasticlunr.min.js' | relative_url }}"></script>

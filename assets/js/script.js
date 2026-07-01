@@ -306,6 +306,17 @@
     applyTheme(mode === 'dark' ? 'dark' : 'light', true);
   };
   window.__currentMode = currentMode;
+
+  // Hidden phosphor CRT theme — an Easter egg toggled from webcmd (`crt`).
+  // Persisted under its own key and applied pre-paint in head.html.
+  var crtClass = 'theme-crt';
+  var crtKey = 'theme-crt';
+  window.__toggleCRT = function() {
+    var on = !root.classList.contains(crtClass);
+    root.classList.toggle(crtClass, on);
+    write(crtKey, on ? 'on' : 'off');
+    return on;
+  };
 })(document);
 
 (function(document) {
@@ -665,6 +676,47 @@
   var pendingG = false;
   var pendingGTimer = null;
 
+  // --- Konami-code "System Halted" Easter egg ---
+  var haltOverlay = document.querySelector('#halt-overlay');
+  var haltLastFocused = null;
+  var konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  var konamiBuffer = [];
+
+  function isHaltOpen() {
+    return haltOverlay && haltOverlay.classList.contains('is-open');
+  }
+
+  function openHalt() {
+    if (!haltOverlay || isHaltOpen()) return;
+    var trivia = document.querySelector('#halt-trivia');
+    var lines = (window.OS_HISTORY && window.OS_HISTORY.halt_trivia) || [];
+    if (trivia && lines.length) {
+      trivia.textContent = lines[Math.floor(Math.random() * lines.length)];
+    }
+    haltLastFocused = document.activeElement;
+    haltOverlay.classList.add('is-open');
+    haltOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('halt-open');
+    var screen = haltOverlay.querySelector('.halt-screen');
+    if (screen) {
+      screen.setAttribute('tabindex', '-1');
+      screen.focus();
+    }
+  }
+
+  function closeHalt() {
+    if (!haltOverlay) return;
+    haltOverlay.classList.remove('is-open');
+    haltOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('halt-open');
+    if (haltLastFocused && haltLastFocused.focus) haltLastFocused.focus();
+    haltLastFocused = null;
+  }
+
+  if (haltOverlay) {
+    haltOverlay.addEventListener('click', closeHalt);
+  }
+
   function isEditableTarget(target) {
     if (!target) return false;
     var tag = target.tagName ? target.tagName.toLowerCase() : '';
@@ -751,6 +803,13 @@
   document.addEventListener('keydown', function(event) {
     var key = event.key;
 
+    // The System Halted overlay dismisses on any key.
+    if (isHaltOpen()) {
+      event.preventDefault();
+      closeHalt();
+      return;
+    }
+
     // Escape closes the help dialog (search overlay handles its own Escape).
     if (key === 'Escape' && helpOverlay && helpOverlay.classList.contains('is-open')) {
       event.preventDefault();
@@ -762,6 +821,20 @@
     if (isEditableTarget(event.target)) return;
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (isAnyOverlayOpen() && key !== '?') return;
+
+    // Track the Konami code. We only record keys (no preventDefault) so arrow
+    // keys keep scrolling; the overlay fires only on a full match.
+    konamiBuffer.push(key.length === 1 ? key.toLowerCase() : key);
+    if (konamiBuffer.length > konamiCode.length) {
+      konamiBuffer.shift();
+    }
+    if (konamiBuffer.length === konamiCode.length &&
+        konamiBuffer.join(',') === konamiCode.join(',')) {
+      konamiBuffer = [];
+      event.preventDefault();
+      openHalt();
+      return;
+    }
 
     // Escape leaves focus reading mode (overlays handled above / by their own listeners).
     if (key === 'Escape' && document.body.classList.contains('reading-focus')) {
@@ -997,3 +1070,28 @@
   window.__toggleFocus = toggle;
   window.__exitFocus = exit;
 })(document);
+
+// ---------------------------------------------------------------------------
+// Console greeting — a breadcrumb for the curious who open devtools.
+// ---------------------------------------------------------------------------
+(function() {
+  try {
+    var art = [
+      '',
+      '  ██████ ██    ██ ███████ ████████ ███████ ███    ███',
+      '  ██     ██    ██ ██         ██    ██      ████  ████',
+      '  ██████  ██  ██  ███████    ██    █████   ██ ████ ██',
+      '      ██   ████        ██    ██    ██      ██  ██  ██',
+      '  ██████    ██    ███████    ██    ███████ ██      ██',
+      '            H A L T E D',
+      ''
+    ].join('\n');
+    console.log('%c' + art, 'color:#ffb000;font-family:monospace;');
+    console.log(
+      '%cSystem Halted — I am just a DOS error.%c\nCurious? Open /webcmd/ and type %chistory%c (or %cfortune%c). And somewhere here, an old cheat code still works…',
+      'color:#88c0d0;font-weight:bold', 'color:inherit',
+      'color:#ffb000', 'color:inherit',
+      'color:#ffb000', 'color:inherit'
+    );
+  } catch (e) {}
+})();

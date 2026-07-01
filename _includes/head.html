@@ -56,6 +56,12 @@
           root.classList.add('theme-glazed');
         }
       } catch (e) {}
+
+      try {
+        if (localStorage.getItem('theme-crt') === 'on') {
+          root.classList.add('theme-crt');
+        }
+      } catch (e) {}
     })();
   </script>
 

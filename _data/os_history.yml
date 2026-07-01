@@ -1,0 +1,38 @@
+# Content for the OS-history Easter eggs (webcmd commands, BSOD overlay).
+# Edit freely — webcmd.js and the Konami overlay read from here.
+
+# Random one-liners shown by `fortune` in webcmd and rotated on the BSOD overlay.
+fortunes:
+  - "Unix is simple. It just takes a genius to understand its simplicity. — Dennis Ritchie"
+  - "Those who don't understand Unix are condemned to reinvent it, poorly. — Henry Spencer"
+  - "MS-DOS isn't dead, it just smells funny. — Henry Spencer"
+  - "Real programmers don't comment their code. It was hard to write; it should be hard to read."
+  - "640K ought to be enough for anybody. — misattributed to Bill Gates (he denies it)"
+  - "The Amiga: a computer years ahead of its time, and a company years behind on payroll."
+  - "Guru Meditation: the Amiga's blinking red way of saying it had given up."
+  - "On a clear disk you can seek forever."
+  - "A kernel panic is just the machine's most honest moment."
+  - "Linux: because rebooting is for adding hardware."
+  - "BeOS booted in seconds and broke everyone's heart by losing anyway."
+  - "CP/M walked so DOS could run — and then DOS forgot to say thank you."
+  - "There are two ways to write error-free programs; only the third one works."
+  - "It is not enough for the OS to halt — it must do so with style: SYSTEM HALTED."
+  - "Multics aimed for the stars; Unix shipped, and that made all the difference."
+
+# Printed by `history` in webcmd. Keep chronological.
+timeline:
+  - { year: 1964, event: "Multics project begins — the ambitious ancestor of Unix" }
+  - { year: 1969, event: "Unix is born at Bell Labs (Thompson & Ritchie)" }
+  - { year: 1973, event: "Unix rewritten in C — portability changes everything" }
+  - { year: 1974, event: "CP/M arrives — the OS that ruled early microcomputers" }
+  - { year: 1981, event: "MS-DOS 1.0 ships with the IBM PC" }
+  - { year: 1984, event: "Apple Macintosh brings the GUI to the masses" }
+  - { year: 1985, event: "Commodore Amiga & Windows 1.0 both debut" }
+  - { year: 1987, event: "OS/2 — IBM and Microsoft's brief alliance" }
+  - { year: 1991, event: "Linus posts 'just a hobby, won't be big' — Linux begins" }
+  - { year: 1993, event: "Windows NT and FreeBSD/NetBSD set the modern stage" }
+  - { year: 1995, event: "Windows 95 — Start me up" }
+  - { year: 2000, event: "BeOS open-sourced as Haiku; Windows 2000 lands" }
+  - { year: 2001, event: "Mac OS X (NeXT lineage) and Windows XP arrive" }
+  - { year: 2007, event: "iPhone OS & Android — the OS goes mobile-first" }
+  - { year: 2008, event: "The cloud era: the OS quietly becomes a fleet" }

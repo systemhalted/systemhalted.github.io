@@ -306,6 +306,17 @@
     applyTheme(mode === 'dark' ? 'dark' : 'light', true);
   };
   window.__currentMode = currentMode;
+
+  // Hidden phosphor CRT theme — toggled from webcmd (`crt`). Persisted under
+  // its own key and applied pre-paint in head.html.
+  var crtClass = 'theme-crt';
+  var crtKey = 'theme-crt';
+  window.__toggleCRT = function() {
+    var on = !root.classList.contains(crtClass);
+    root.classList.toggle(crtClass, on);
+    write(crtKey, on ? 'on' : 'off');
+    return on;
+  };
 })(document);
 
 (function(document) {

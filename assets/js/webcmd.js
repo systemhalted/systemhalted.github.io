@@ -287,9 +287,8 @@ function cmd_halt(cmd, arg, args)
         "    THE_INTERNET_IS_TOO_INTERESTING",
         "",
         "If this is the first time you've seen this screen,",
-        "type 'history' to learn where it all began.",
-        "",
-        "Press any key to continue _"
+        "type 'history' to learn where it all began,",
+        "or 'cls' to clear."
     ];
     output("<pre class=\"webcmd-pre webcmd-halt\">" + osEscape(screen.join("\n")) + "</pre>");
 }

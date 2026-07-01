@@ -2886,6 +2886,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 
 /* Keyboard shortcuts help dialog (reuses .search-overlay base) */
 .shortcuts-title {
+  flex: 1;
   margin: 0;
   font-size: 1.15rem;
   color: var(--text-strong);

@@ -22,6 +22,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - `_includes/`: shared UI fragments (head, sidebar, footer, share buttons, comments, list-item partials for emacs and jsgames).
 - `_data/taxonomy.yml`: category themes + tag groups used by `categories.html` and related-post logic.
 - `_data/jsgames.yml`: hand-curated list of standalone JS games shown on `/jsgames/`.
+- `_data/os_history.yml`: quotes, timeline, and BSOD trivia for the OS-history Easter eggs (see below).
 - `assets/`: images, site-level CSS/JS, and favicons (main bundle is `assets/css/nord.css`; main behavior is `assets/js/script.js`).
 - `jsgames/`: standalone JS games with local assets.
 - `webcmd/`: terminal-style UI entry page.
@@ -70,8 +71,19 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 Globally bound in `assets/js/script.js`; in-app reference opens with `?`. See `docs/accessibility.md` for the full list. Highlights:
 - `g h` / `g f` / `g k` / `g e` / `g a` — go to Home / Featured / Kartavya Path / Emacs / About
 - `/` or `s` — open search; `t` — toggle theme; `m` — toggle the sidebar menu
-- `?` — open the shortcuts help dialog; `Esc` — close any overlay
+- `f` — toggle focus mode on a post (distraction-free reading; also via the on-page button or `#focus` hash)
+- `?` — open the shortcuts help dialog; `Esc` — close any overlay (or exit focus mode)
 - Inside the sidebar: ArrowUp / ArrowDown / Home / End walk menu items; the sidebar auto-closes when focus moves away.
+
+## Easter eggs (OS history)
+The blog is named after the "System Halted" DOS error, so a few hidden nods to operating-systems history are wired in. They are **lightly hinted, not advertised** — keep them out of visitor-facing copy so discovery stays fun. All content (quotes, timeline, BSOD trivia) lives in `_data/os_history.yml`; edit there rather than in code.
+
+- **webcmd commands** (`assets/js/webcmd.js`) — on `/webcmd/`, type `fortune` (random OS lore), `history` (an OS timeline), `uname` (playful banner), `halt` / `bsod` (a System Halted screen), or `crt` (toggle the CRT theme below). Each clears prior output first, and all appear in the page's "Show commands" panel — the tier-1 hint.
+- **Konami code → System Halted screen** — pressing `↑ ↑ ↓ ↓ ← → ← → b a` on any page shows a full-screen BSOD overlay with rotating trivia; any key dismisses it. Overlay markup is `#halt-overlay` in `_layouts/default.html`; the key tracker and show/hide logic are in `assets/js/script.js`; trivia is injected via inline `window.OS_HISTORY`.
+- **Hidden CRT theme** — the webcmd `crt` command toggles an amber-phosphor / scanline look (`theme-crt` class), persisted in `localStorage` and applied pre-paint in `_includes/head.html` to avoid a flash. Deliberately not shown in the theme menu.
+- **BSOD 404 + console greeting** — `404.md` renders a retro "System Halted" card (with a real heading and a working home link); `assets/js/script.js` prints an ASCII console greeting nudging the curious toward `/webcmd/` — the tier-2 breadcrumb.
+
+All animated eggs respect `prefers-reduced-motion` and stay keyboard/screen-reader escapable.
 
 ## Accessibility audits
 Node-based [pa11y-ci](https://github.com/pa11y/pa11y-ci) is wired as a dev dependency. Run against a curated URL list (the full sitemap would drown signal):

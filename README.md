@@ -18,6 +18,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 ## Project structure
 - `_config.yml`: site metadata, collections, pagination, sidebar nav, plugins.
 - `collections/_posts/`, `collections/_drafts/`, `collections/_newsletter/`, `collections/_emacs/`: authored content.
+- `org/`: Org Mode post sources and the `ox-jekyll.el` exporter (excluded from the Jekyll build; posts are exported to `collections/_posts/`).
 - `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`, `newsletter.html`, `emacs.html`).
 - `_includes/`: shared UI fragments (head, sidebar, footer, share buttons, comments, list-item partials for emacs and jsgames).
 - `_data/taxonomy.yml`: category themes + tag groups used by `categories.html` and related-post logic.
@@ -27,7 +28,18 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - `webcmd/`: terminal-style UI entry page.
 - `scripts/posts`: helper to list or search posts from the CLI.
 
-## Authoring posts
+## Authoring posts (Org Mode)
+New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
+- Create `org/posts/YYYY-MM-DD-title.org` (drafts go in `org/drafts/`, exporting to `collections/_drafts/`).
+- Keywords map to front matter: `#+TITLE`, `#+DATE`, `#+DESCRIPTION`, `#+CATEGORIES:` and `#+TAGS:` (comma-separated), `#+JEKYLL_COMMENTS` (defaults to true), `#+JEKYLL_TOC`, `#+JEKYLL_LAYOUT` (defaults to post).
+- Export with `M-x org-jekyll-export` (after `(load "<repo>/org/ox-jekyll.el")`), or from the shell:
+  ```
+  emacs --batch -l org/ox-jekyll.el -f org-jekyll-export-file org/posts/YYYY-MM-DD-title.org
+  ```
+- Enable `org-jekyll-auto-export-mode` in the buffer to re-export on every save.
+- Commit **both** the `.org` source and the generated `.md` — CI builds the Markdown and never needs Emacs. The generated file carries `org_source:` in its front matter; edit the `.org`, not the `.md`.
+
+## Authoring posts (Markdown, legacy)
 - Create `collections/_posts/YYYY-MM-DD-title.md` (kebab-case title).
 - Front matter example:
   ```

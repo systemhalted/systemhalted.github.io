@@ -52,6 +52,11 @@ feed:
       path: "/feed/newsletter.xml"
       title: "Kartavya Path"
 
+# Org-mode sources (exported to collections/_posts by org/ox-jekyll.el);
+# never publish them as static files.
+exclude:
+  - org/
+
 collections_dir: collections
 
 collections:

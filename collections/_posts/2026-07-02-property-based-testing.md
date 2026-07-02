@@ -14,11 +14,12 @@ tags:
 comments: true
 toc: true
 description: An example test checks the inputs you happened to choose. A property-based test states a rule and lets the framework generate inputs that try to break it. Notes from continuing a small text editor in Rust.
+org_source: org/posts/2026-07-02-property-based-testing.org # generated file — edit the .org source
 ---
-
 In an [earlier post](/2026/06/21/types-check-shape-tests-check-behaviour/) I wrote about a small text editor I am building in Rust, and a `save` function that passed its test while being wrong. The test built a document, changed it, saved it, read the file back, and checked that the contents matched. It was green. The implementation dropped the `Result` from the disk write, so a failed save would still report success and clear the unsaved-changes flag. The test and the bug lived together without any conflict, because the test only ever ran the happy path.
 
 That post was about the boundary between what a type system can prove and what only a test can. There is a separate limitation worth looking at, one that has little to do with that particular bug. An example test only runs the input I give it. My save test proves something about the string `abcdef` written to a temporary file, and nothing about the other inputs the function will see. I chose the input, so the input agrees with me. Writing more example tests does not remove this, because I choose those inputs too.
+
 
 ## From examples to a property
 
@@ -58,6 +59,7 @@ proptest! {
 
 `proptest` runs this body a few hundred times with different generated values, and the test passes only if the property holds for all of them. I am no longer asserting a fact about `"hello"`. I am asserting a fact about `insert` and `delete`.
 
+
 ## Reading the generator line
 
 Most of the work in that test is in the signature, so it is worth going through it slowly.
@@ -77,6 +79,7 @@ let at = at % (doc.len() + 1);   // an offset into the buffer
 The modulo maps any generated integer into the range `0..=doc.len()`, where `doc.len()` is the length of the document in bytes. The range is inclusive at the top because you can insert at the end of the buffer as well as inside it. Generating a wide value and then mapping it into range is a common pattern with `proptest`, because it keeps every generated value usable instead of throwing away the ones that fall out of range. There is a more precise tool for producing an index into a generated collection, the `prop_flat_map` combinator, which lets one strategy depend on the value another produced. For a single index the modulo is simpler.
 
 So the signature reads as follows: for any strings `base` and `ins`, and any index `at` mapped into range, the body must hold. `proptest` runs the body many times with different values, and the test passes only if the property holds for all of them.
+
 
 ## When a property fails
 
@@ -128,6 +131,7 @@ There is a more general point here, beyond the Unicode detail. A property test d
 
 The type system does not close this gap. `String` guarantees the buffer is valid UTF-8, but an index into it is a plain `usize`, and the type says nothing about whether that `usize` lands on a boundary. That check happens at runtime, and until I wrote the property it was happening nowhere in my tests.
 
+
 ## Where property-based testing helps, and where it does not
 
 It would be easy to read this and decide that property tests should replace example tests. They should not, any more than tests replace types. Each answers a different question, and property testing has a cost. A good property is harder to find than a good example, and a weak property is worse than no test at all.
@@ -142,6 +146,7 @@ That runs a few hundred times, passes every time, and checks nothing. A property
 
 Here is the rule I settled on. A property test earns its place when there is a rule that must hold across many inputs, not a single value I am checking. `save` then `load` should return the same buffer, and that is a rule. "The About dialog shows version 2.1" is a single value, and writing it as a property gains nothing.
 
+
 ## Types, examples and properties
 
 I now think of three tools rather than two, each covering what the previous one cannot.
@@ -154,9 +159,11 @@ Property tests cover the space in between, the behaviour that must hold across a
 
 The three fit together in order. Push what you can into types, so the compiler proves it for every input. Use examples to record the specific behaviour you have decided on. Use properties for the rules that must hold everywhere and that you would never cover by hand.
 
+
 ## Summary
 
 An example test checks the inputs I thought of. A property-based test states a rule and lets the framework generate inputs that try to break it. That is the difference that matters. On my own I tend to write the tests my code already passes, because I imagine the same cases when I write the code and when I test it. The generator does not share that imagination, and shrinking makes what it finds small enough to read and fix. Writing the property also forces me to say what a valid input is, which is often where the real gap turns out to be. The reason to reach for property testing is not that the code is otherwise untestable. It is that it exercises the inputs I would not have chosen, and in a text editor those are often the inputs a real user will produce.
+
 
 ## References and Notes
 

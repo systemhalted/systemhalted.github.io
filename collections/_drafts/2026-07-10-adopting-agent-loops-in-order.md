@@ -1,0 +1,30 @@
+---
+layout: post
+title: "Adopting Agent Loops in Order"
+date: 2026-07-10
+categories:
+- Technology
+- Software Engineering
+- AI
+tags:
+- ai
+- agents
+- claude-code
+- engineering-management
+comments: true
+description: The four agent loops depend on each other's artifacts. Notes on the order in which a team should adopt them.
+org_source: org/drafts/2026-07-10-adopting-agent-loops-in-order.org # generated file — edit the .org source
+---
+In an [earlier post](/2026/07/03/what-sits-underneath-the-agent-loops-post/) I wrote about the four kinds of agent loops that Anthropic's Claude Code team described, and about where the check on the work lives in each one. That post looked at the loops one at a time. There is also an order to them. Each loop leaves behind an artifact that the next loop depends on, so the sequence in which a team adopts them matters as much as the choice of which ones to use.
+
+The turn-based loop comes first because its artifact is the foundation. Working turn by turn with an agent forces a team to answer a basic question: how do we know a change is good? Writing the answer down as a runnable check produces the skill file. Nothing about this requires autonomy. It only requires noticing what a person does before accepting a result, and recording it.
+
+Second is the goal-based loop, which consumes that check. An exit criterion is only useful if there is a way to evaluate it, and the evaluation is the check the turn-based stage wrote down. Defining the criterion is work of its own. A team has to say what done means in language precise enough for an evaluator to apply, and that precision usually does not exist yet. Producing it is the real output of this stage.
+
+After the criterion is in place, a schedule or an event trigger follows, and this is the rung where teams most often stall. A schedule is the easiest of the four artifacts to create, so it tends to appear early and stay. A prompt that runs every morning feels like automation, and nobody revisits it. The better path is to treat the schedule as provisional from the day it is created, and to replace it with an event trigger when the source system offers one. A calendar entry is a guess about when the world changes. An event is a report that it did.
+
+A proactive routine can only come last, because it consumes everything: the check, the criterion, the trigger, and the operational guardrails around all three. At this stage the question stops being technical. A routine that touches production systems needs an owner, a budget, and a way to be turned off, and those are organisational decisions. A platform team can supply the machinery. Only the owning team can supply the ownership.
+
+Skipping a rung defers work rather than removing it. A proactive routine adopted before the exit criterion exists will need that criterion defined during an incident instead of during design. A goal-based loop adopted before the check is written down will evaluate against an evaluator's guess. The artifacts get produced either way. The order decides whether they are produced deliberately or under pressure.
+
+So the most capable loop is not the right starting point. The right starting point is the artifact underneath the rung a team is already on, finished and written down before the next step up.

@@ -1,0 +1,18 @@
+#+TITLE: Agent Loops as a Team Diagnostic
+#+DATE: 2026-07-17
+#+CATEGORIES: Technology, Software Engineering, AI
+#+TAGS: ai, agents, claude-code, engineering-management
+#+JEKYLL_COMMENTS: true
+#+DESCRIPTION: Four questions a team can ask about its own work, using Anthropic's agent loop taxonomy, to find the artifact it should write next.
+
+In an [[/2026/07/03/what-sits-underneath-the-agent-loops-post/][earlier post]] I wrote about the four kinds of agent loops that Anthropic's Claude Code team described, and about where the check on the work lives in each one. The taxonomy also supports a practical exercise. A team can read the four types as four questions about its own work, and the answers point to the artifact it should write next.
+
+The first question is what the team still verifies by hand. Every manual verification habit is a candidate skill file. The content is nothing more than the steps a reviewer already performs before trusting a change: what to start, what to click, what to compare, which tests to run. The habit feels too obvious to document, which is exactly why it never gets documented. A useful test for the finished file is whether a new team member could follow it without asking anyone.
+
+The next question is how the team decides that a piece of work is done. If the honest answer is that an experienced person looks at it and says so, the missing artifact is a measurable exit criterion. A worthwhile exercise is to take one recent change that was accepted on judgement and restate the acceptance in checkable terms: a response time under a stated number, a set of tests that must pass, a score from an audit tool. Not every kind of done converts into a measurement, but more of them convert than the first attempt suggests, and each conversion is one less decision that has to be relitigated per change.
+
+Then there are the tasks people do at the same time every day. A morning routine of reading a channel, sweeping a queue, or checking a dashboard is a schedule that exists only in someone's habits. Writing it down as an actual schedule is the small step. The more valuable step is to ask what change in the world the routine is standing in for, and whether the system where that change happens can announce it. A webhook or a queue alert replaces a guess about timing with a fact about the source.
+
+The last question concerns streams: bug reports, support tickets, dependency alerts, anything that arrives continuously and gets triaged by a person. This is where a proactive routine could stand, and it is also where the diagnostic has to be most careful. The routine needs a scoped goal, a budget, a rate limit, a shutoff, and an owner. The owner is the deciding item. If no one can be named who is responsible when the routine acts wrongly, the routine is not ready to build, whatever the tooling makes possible.
+
+The output of the exercise is a short list: the checks nobody has written down, the criteria that live in one person's judgement, the schedules that exist as habits, and the streams with no owner for their automation. A team does not need to adopt all four loops, and most should not. It needs to know which artifact on that list to write first.

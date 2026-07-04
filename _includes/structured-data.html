@@ -1,0 +1,41 @@
+{%- comment -%}
+Custom JSON-LD to strengthen brand-entity signals for "systemhalted" / "system halted".
+The Person node is emitted on every page; the WebSite node (carrying the alternateName
+query variants) is emitted only on the homepage. This complements jekyll-seo-tag, which
+also emits `sameAs` from site.social on the homepage.
+{%- endcomment -%}
+{%- assign person_name = site.social.name | default: site.author.name -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": {{ '/#person' | absolute_url | jsonify }},
+  "name": {{ person_name | jsonify }},
+  "url": {{ '/about/' | absolute_url | jsonify }},
+  "image": {{ site.author.avatar | absolute_url | jsonify }},
+  "jobTitle": "Director of Software Engineering"
+  {%- if site.social.links %},
+  "sameAs": [
+    {%- for link in site.social.links -%}
+    {{ link | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+  {%- endif %}
+}
+</script>
+{%- if page.url == '/' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": {{ '/#website' | absolute_url | jsonify }},
+  "name": {{ site.title | jsonify }},
+  "alternateName": ["System Halted", "systemhalted"],
+  "url": {{ '/' | absolute_url | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "inLanguage": "en-US",
+  "publisher": { "@id": {{ '/#person' | absolute_url | jsonify }} },
+  "author": { "@id": {{ '/#person' | absolute_url | jsonify }} }
+}
+</script>
+{%- endif -%}

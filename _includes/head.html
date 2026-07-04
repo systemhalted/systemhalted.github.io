@@ -10,9 +10,7 @@
   <!-- Enable responsiveness on mobile devices -->
   <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no" />
 
-  {% if page.url %}
-  <link rel="canonical" href="{{ page.url | absolute_url }}">
-  {% endif %}
+  {% comment %} Canonical is emitted by jekyll-seo-tag ({% seo %} below). {% endcomment %}
 
   {% if page.robots == "noindex" or paginator.page > 1 %}
   <meta name="robots" content="noindex,follow">
@@ -111,4 +109,5 @@
   {% endif %}
 
   {% seo %}
+  {% include structured-data.html %}
 </head>

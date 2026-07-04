@@ -1,7 +1,7 @@
 # Setup
 title:                The System Halted
 tagline:             'By Palak Mathur'
-description:         'SystemHalted - I am just a DOS error'
+description:         'The System Halted is the personal blog of Palak Mathur, covering software engineering, leadership, management, and Emacs, plus the Kartavya Path newsletter.'
 url:                 https://systemhalted.in
 baseurl:             ''
 
@@ -20,6 +20,18 @@ author:
   email:             insanethoughts@live.com
   linkedin:          https://www.linkedin.com/in/systemhalted/
   avatar:            /assets/images/avatar.jpeg
+
+# Default social share image + publisher logo (picked up by jekyll-seo-tag)
+logo:                /assets/images/avatar.jpeg
+
+# Social profiles — jekyll-seo-tag emits these as schema.org `sameAs` on the
+# homepage, tying "systemhalted" / "system halted" queries to this brand/person.
+social:
+  name:              Palak Mathur
+  links:
+    - https://github.com/systemhalted
+    - https://www.linkedin.com/in/systemhalted/
+    - https://palakmathur.substack.com
 
 
 markdown: kramdown

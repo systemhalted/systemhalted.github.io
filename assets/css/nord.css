@@ -2349,6 +2349,7 @@ ul.post-feed > li.post-feed-item + li.post-feed-item {
 .footer-avatar {
   width: 52px;
   height: 52px;
+  flex: 0 0 auto;
   border-radius: 14px;
   background: linear-gradient(135deg, var(--nord9), var(--nord10));
   color: var(--on-accent);

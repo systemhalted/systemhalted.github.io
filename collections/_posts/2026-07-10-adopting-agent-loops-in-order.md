@@ -13,7 +13,7 @@ tags:
 - engineering-management
 comments: true
 description: The four agent loops depend on each other's artifacts. Notes on the order in which a team should adopt them.
-org_source: org/drafts/2026-07-10-adopting-agent-loops-in-order.org # generated file — edit the .org source
+org_source: org/posts/2026-07-10-adopting-agent-loops-in-order.org # generated file — edit the .org source
 ---
 In an [earlier post](/2026/07/03/what-sits-underneath-the-agent-loops-post/) I wrote about the four kinds of agent loops that Anthropic's Claude Code team described, and about where the check on the work lives in each one. That post looked at the loops one at a time. There is also an order to them. Each loop leaves behind an artifact that the next loop depends on, so the sequence in which a team adopts them matters as much as the choice of which ones to use.
 

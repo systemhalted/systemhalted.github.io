@@ -3,11 +3,11 @@ layout: page
 permalink: /about/index.html
 title: About
 tags: [Palak Mathur, Palak, Mathur]
-description: About Palak Mathur and The System Halted — a personal blog on software engineering, leadership, management, and Emacs.
+description: About Palak Mathur and SystemHalted (The System Halted) — a personal blog on software engineering, leadership, management, and Emacs.
 image: /assets/images/avatar.jpeg
 ---
 
-The System Halted is my personal blog. I am Palak Mathur, and I have written here for years about software engineering, leadership and management, Emacs, and whatever else I am thinking through.
+SystemHalted (also written The System Halted) is my personal blog. I am Palak Mathur, and I have written here for years about software engineering, leadership and management, Emacs, and whatever else I am thinking through.
 
 I am currently a Director of Software Engineering at Toyota Financial Services, working on large scale platforms and systems in financial services.
 

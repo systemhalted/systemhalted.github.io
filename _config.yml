@@ -27,7 +27,6 @@ logo:                /assets/images/avatar.jpeg
 # Social profiles — jekyll-seo-tag emits these as schema.org `sameAs` on the
 # homepage, tying "systemhalted" / "system halted" queries to this brand/person.
 social:
-  name:              Palak Mathur
   links:
     - https://github.com/systemhalted
     - https://www.linkedin.com/in/systemhalted/

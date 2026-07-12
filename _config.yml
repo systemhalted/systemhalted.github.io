@@ -1,7 +1,7 @@
 # Setup
 title:                The System Halted
 tagline:             'By Palak Mathur'
-description:         'The System Halted is the personal blog of Palak Mathur, covering software engineering, leadership, management, and Emacs, plus the Kartavya Path newsletter.'
+description:         'The System Halted (systemhalted) is the personal blog of Palak Mathur, covering software engineering, leadership, management, and Emacs, plus the Kartavya Path newsletter.'
 url:                 https://systemhalted.in
 baseurl:             ''
 

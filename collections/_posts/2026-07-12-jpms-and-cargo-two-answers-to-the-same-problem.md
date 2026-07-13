@@ -2,8 +2,8 @@
 layout: post
 title: "JPMS and Cargo: Two Answers to the Same Problem"
 date: 2026-07-12
-categories: [java, rust, programming-languages]
-tags: [jpms, cargo, modules, encapsulation, type-systems]
+categories: [Computer Science]
+tags: [jpms, cargo, modules, encapsulation, type-systems, java, rust, programming-languages]
 comments: true
 toc: true
 description: The same project built twice, in Java (JPMS + Maven) and Rust (Cargo) — how each answers compilation, distribution, and encapsulation, why a crate maps to a JPMS module and a Rust module to a Java package, and where the analogy breaks down.

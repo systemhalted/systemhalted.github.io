@@ -864,16 +864,10 @@ tbody tr:nth-child(odd) th {
 }
 
 @media (max-width: 48em) {
+  /* Symmetric side columns keep the title optically centered even though the
+     theme+search cluster is wider than the lone hamburger toggle. */
   .masthead-inner {
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas:
-      "toggle . actions"
-      "title title title";
-    row-gap: 0.6rem;
-  }
-
-  .masthead-title {
-    justify-self: center;
+    grid-template-columns: 1fr auto 1fr;
   }
 
   .masthead-byline {

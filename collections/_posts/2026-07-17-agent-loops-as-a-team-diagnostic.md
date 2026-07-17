@@ -13,7 +13,7 @@ tags:
 - engineering-management
 comments: true
 description: Four questions a team can ask about its own work, using Anthropic's agent loop taxonomy, to find the artifact it should write next.
-org_source: org/drafts/2026-07-17-agent-loops-as-a-team-diagnostic.org # generated file — edit the .org source
+org_source: org/posts/2026-07-17-agent-loops-as-a-team-diagnostic.org # generated file — edit the .org source
 ---
 In an [earlier post](/2026/07/03/what-sits-underneath-the-agent-loops-post/) I wrote about the four kinds of agent loops that Anthropic's Claude Code team described, and about where the check on the work lives in each one. The taxonomy also supports a practical exercise. A team can read the four types as four questions about its own work, and the answers point to the artifact it should write next.
 

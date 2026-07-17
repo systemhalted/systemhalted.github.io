@@ -21,7 +21,7 @@ Open a file in any editor and you see a grid: rows of text, a cursor at "line 12
 
 But the file underneath is not a grid. A text file is a one-dimensional sequence: a flat run of characters, `h e l l o \n w o r l d`, where the newline is a character that means "start drawing on the next row." The buffer that holds the document in memory is the same, a sequence you index with a single number.
 
-So every editor lives with a permanent translation problem. This post looks at how three of them solve it: a from-scratch Rust editor I'm building ([textr](https://github.com/systemhalted/textr)), plus the two it is modeled on, **gedit** and **Emacs**.
+So every editor lives with a permanent translation problem. This post looks at how a few of them solve it: a from-scratch Rust editor I'm building ([textr](https://github.com/systemhalted/textr)), the two it is modeled on (**gedit** and **Emacs**), and **VS Code** for a fourth point of comparison.
 
 * TOC
 {:toc}
@@ -134,16 +134,22 @@ Emacs also separates **character positions from byte positions** ([`position-byt
 ![Emacs editing the same Markdown source, with (12,4) shown in the mode line](/assets/images/2026-07-17-emacs-modeline.png)
 *Figure 4 — Emacs with the same file open. The mode line reads `(12,4)`, the line and column derived from point.*
 
+## How VS Code does it: a piece tree
+
+VS Code reaches a similar place to textr from a different direction.[^vscode] Its buffer is a **piece tree**: a piece table whose pieces hang off a balanced red-black tree, where each node caches the text length and line-break count of its subtree, so a lookup by line or by offset walks the tree in roughly *O(log n)* instead of scanning. Its canonical position is 2D, like textr's — the editor keeps the cursor as a [`Position`](https://microsoft.github.io/monaco-editor/typedoc/interfaces/IPosition.html) of `lineNumber` and `column`, both 1-based, and the flat offset is derived on demand through `getOffsetAt` and its inverse `getPositionAt`. The reason for keeping 2D canonical differs from textr's, though: the whole editor API is written in terms of `Position`, so 2D is the natural currency for the interface, not because vertical movement is the hardest job.
+
+One detail sets VS Code apart from the other three. It measures `column` and the offset in **UTF-16 code units**, not characters, so an emoji outside the Basic Multilingual Plane counts as two columns and a grapheme built from combining marks spans several units. textr, gedit, and Emacs all index by `char` (Unicode scalar values); VS Code indexes by UTF-16 unit, and the two do not agree on where a given column falls.
+
 ## Side by side
 
-| | **textr** (Rust) | **gedit** (GTK/C) | **Emacs** (C/Elisp) |
-|---|---|---|---|
-| Buffer structure | rope (ropey) | B-tree (`GtkTextBTree`) | gap buffer |
-| Canonical position | **2D** `(line, column)` | a **mark**; read via iters | **1D** `point` (integer) |
-| 2D → 1D | `line_to_char + col` — *O(log n)* | build a `GtkTextIter` — *O(log n)* | rare; `goto-line` scans |
-| 1D → 2D | `char_to_line` — *O(log n)* | iter carries line + offset | `line-number-at-pos` — scan + cache |
-| Persist across edits | recompute from `(line,col)` | `GtkTextMark` | markers |
-| Indexing unit | chars | chars (bytes tracked too) | chars (bytes separate) |
+| | **textr** (Rust) | **gedit** (GTK/C) | **Emacs** (C/Elisp) | **VS Code** (Monaco/TS) |
+|---|---|---|---|---|
+| Buffer structure | rope (ropey) | B-tree (`GtkTextBTree`) | gap buffer | piece tree |
+| Canonical position | **2D** `(line, column)` | a **mark**; read via iters | **1D** `point` (integer) | **2D** `Position` (line, column) |
+| 2D → 1D | `line_to_char + col` — *O(log n)* | build a `GtkTextIter` — *O(log n)* | rare; `goto-line` scans | `getOffsetAt` — *O(log n)* |
+| 1D → 2D | `char_to_line` — *O(log n)* | iter carries line + offset | `line-number-at-pos` — scan + cache | `getPositionAt` — *O(log n)* |
+| Persist across edits | recompute from `(line,col)` | `GtkTextMark` | markers | tracked ranges |
+| Indexing unit | chars | chars (bytes tracked too) | chars (bytes separate) | UTF-16 code units |
 
 ## The choice follows the data structure and the dominant operation
 
@@ -152,6 +158,7 @@ There is no universally correct answer, only trade-offs that fall out of two thi
 - Emacs's gap buffer makes *offsets* cheap and edits-at-point cheap, so 1D-canonical is the simplest choice; it pays for line and column with scans and caches.
 - gedit's tree makes *both* directions cheap, so it can afford to hide the whole question behind iterators and lean on marks for persistence.
 - textr's rope also makes both directions cheap (*O(log n)* either way), so the choice was free. I picked **2D-canonical** because the `View`'s busiest and hardest job is *vertical* movement with a goal column, which is a 2D idea. The representation matches the operation it does most.
+- VS Code's piece tree makes both directions cheap like gedit's, and it too keeps a 2D `Position` canonical — but for a different reason than textr: its whole editor API speaks in positions, so 2D is a matter of interface rather than of any single dominant operation.
 
 One point is easy to miss: a raw offset is only correct for one moment. Once the text changes ahead of it, an old index points to the wrong place. That is why converting on demand (textr) or letting the buffer maintain the position (marks and markers) is safer than storing the number and reusing it. textr avoids the problem today because it has a single cursor that updates itself; when it grows multiple cursors or collaborative editing, it will want marks too, for the same reason every editor eventually adopts them.
 
@@ -174,3 +181,4 @@ One point is easy to miss: a raw offset is only correct for one moment. Once the
 [^gtk]: [gedit](https://gedit-text-editor.org/) · [source](https://gitlab.gnome.org/GNOME/gedit); the B-tree that powers `GtkTextBuffer`, [`gtktextbtree.c`](https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gtk/gtktextbtree.c).
 [^emacs]: Emacs [buffer internals — the gap](https://www.gnu.org/software/emacs/manual/html_node/elisp/Buffer-Internals.html); source at [git.savannah.gnu.org](https://git.savannah.gnu.org/cgit/emacs.git) (`src/buffer.h`, `src/insdel.c`, `src/marker.c`).
 [^unicode]: [UAX #29, *Unicode Text Segmentation*](https://unicode.org/reports/tr29/) (grapheme clusters); Rust crates [`unicode-width`](https://docs.rs/unicode-width) (display width, UAX #11) and [`unicode-segmentation`](https://docs.rs/unicode-segmentation) (UAX #29).
+[^vscode]: VS Code / Monaco — `Position` (`lineNumber`/`column`, 1-based) in [`position.ts`](https://github.com/microsoft/vscode/blob/main/src/vs/editor/common/core/position.ts) and the [`IPosition`](https://microsoft.github.io/monaco-editor/typedoc/interfaces/IPosition.html) typedoc; `getOffsetAt`/`getPositionAt` in [`model.ts`](https://github.com/microsoft/vscode/blob/main/src/vs/editor/common/model.ts); columns measured in UTF-16 code units per [`vscode.d.ts`](https://github.com/microsoft/vscode/blob/main/src/vscode-dts/vscode.d.ts).

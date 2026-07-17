@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <rect x="10" y="10" width="760" height="450" rx="14" fill="#ECEFF4" stroke="#D8DEE9"/>
+  <text x="390" y="40" text-anchor="middle" font-size="19" font-weight="700" fill="#3B4252">Four ways to store a buffer</text>
+  <text x="390" y="58" text-anchor="middle" font-size="12" fill="#4C566A">the structure decides which coordinate is cheap</text>
+
+  <!-- ===================== A: Gap buffer ===================== -->
+  <rect x="24" y="72" width="352" height="176" rx="10" fill="#FFFFFF" stroke="#D8DEE9"/>
+  <text x="40" y="96" font-size="14" font-weight="700" fill="#5E81AC">Gap buffer <tspan font-weight="400" fill="#4C566A" font-size="12">· Emacs</tspan></text>
+  <!-- array with gap -->
+  <g font-size="13" fill="#2E3440" text-anchor="middle">
+    <rect x="40" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="51" y="128">H</text>
+    <rect x="62" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="73" y="128">e</text>
+    <rect x="84" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="95" y="128">l</text>
+    <rect x="106" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="117" y="128">l</text>
+    <rect x="128" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="139" y="128">o</text>
+    <rect x="150" y="110" width="88" height="26" fill="none" stroke="#BF616A" stroke-dasharray="4 3"/><text x="194" y="127" font-size="11" fill="#BF616A">gap</text>
+    <rect x="238" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="249" y="128">w</text>
+    <rect x="260" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="271" y="128">o</text>
+    <rect x="282" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="293" y="128">r</text>
+    <rect x="304" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="315" y="128">l</text>
+    <rect x="326" y="110" width="22" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="337" y="128">d</text>
+  </g>
+  <text x="40" y="176" font-size="11.5" fill="#A3BE8C">✔ cheap: insert / delete at the gap</text>
+  <text x="40" y="196" font-size="11.5" fill="#BF616A">✘ costs: line &amp; column (scan, then cache)</text>
+  <text x="40" y="224" font-size="11.5" fill="#4C566A">canonical position: <tspan fill="#5E81AC">point</tspan> — a 1D integer</text>
+
+  <!-- ===================== B: Rope ===================== -->
+  <rect x="404" y="72" width="352" height="176" rx="10" fill="#FFFFFF" stroke="#D8DEE9"/>
+  <text x="420" y="96" font-size="14" font-weight="700" fill="#5E81AC">Rope <tspan font-weight="400" fill="#4C566A" font-size="12">· textr / ropey</tspan></text>
+  <!-- small tree -->
+  <line x1="580" y1="122" x2="520" y2="150" stroke="#4C566A"/>
+  <line x1="580" y1="122" x2="640" y2="150" stroke="#4C566A"/>
+  <circle cx="580" cy="118" r="14" fill="#88C0D0" stroke="#2E3440"/><text x="580" y="122" text-anchor="middle" font-size="11" fill="#2E3440">9·2</text>
+  <rect x="482" y="150" width="76" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="520" y="168" text-anchor="middle" font-size="13" fill="#2E3440">Hello</text>
+  <rect x="602" y="150" width="76" height="26" fill="#ECEFF4" stroke="#D8DEE9"/><text x="640" y="168" text-anchor="middle" font-size="13" fill="#2E3440">world</text>
+  <text x="548" y="140" font-size="10" fill="#4C566A">chars·lines</text>
+  <text x="420" y="200" font-size="11.5" fill="#A3BE8C">✔ cheap: line ↔ char, both O(log n)</text>
+  <text x="420" y="224" font-size="11.5" fill="#4C566A">canonical (in textr): <tspan fill="#5E81AC">2D (line, column)</tspan></text>
+
+  <!-- ===================== C: B-tree ===================== -->
+  <rect x="24" y="260" width="352" height="188" rx="10" fill="#FFFFFF" stroke="#D8DEE9"/>
+  <text x="40" y="284" font-size="14" font-weight="700" fill="#5E81AC">B-tree <tspan font-weight="400" fill="#4C566A" font-size="12">· GTK / gedit</tspan></text>
+  <!-- tree: root over three line leaves -->
+  <line x1="200" y1="316" x2="86" y2="352" stroke="#4C566A"/>
+  <line x1="200" y1="316" x2="200" y2="352" stroke="#4C566A"/>
+  <line x1="200" y1="316" x2="314" y2="352" stroke="#4C566A"/>
+  <rect x="150" y="298" width="100" height="24" rx="4" fill="#88C0D0" stroke="#2E3440"/><text x="200" y="315" text-anchor="middle" font-size="11" fill="#2E3440">line + offset index</text>
+  <rect x="52" y="352" width="68" height="24" fill="#ECEFF4" stroke="#D8DEE9"/><text x="86" y="369" text-anchor="middle" font-size="11" fill="#2E3440">line 0</text>
+  <rect x="166" y="352" width="68" height="24" fill="#ECEFF4" stroke="#D8DEE9"/><text x="200" y="369" text-anchor="middle" font-size="11" fill="#2E3440">line 1</text>
+  <rect x="280" y="352" width="68" height="24" fill="#ECEFF4" stroke="#D8DEE9"/><text x="314" y="369" text-anchor="middle" font-size="11" fill="#2E3440">line 2</text>
+  <text x="40" y="400" font-size="11.5" fill="#A3BE8C">✔ cheap: both directions (tree-indexed)</text>
+  <text x="40" y="420" font-size="11.5" fill="#4C566A">position = <tspan fill="#5E81AC">GtkTextIter</tspan> (carries both)</text>
+  <text x="40" y="438" font-size="11.5" fill="#4C566A">persists across edits via <tspan fill="#5E81AC">GtkTextMark</tspan></text>
+
+  <!-- ===================== D: Piece table ===================== -->
+  <rect x="404" y="260" width="352" height="188" rx="10" fill="#FFFFFF" stroke="#D8DEE9"/>
+  <text x="420" y="284" font-size="14" font-weight="700" fill="#5E81AC">Piece table <tspan font-weight="400" fill="#4C566A" font-size="12">· VS Code</tspan></text>
+  <rect x="420" y="298" width="300" height="22" fill="#ECEFF4" stroke="#D8DEE9"/><text x="428" y="313" font-size="11" fill="#4C566A">original buffer (read-only)</text>
+  <rect x="420" y="324" width="300" height="22" fill="#ECEFF4" stroke="#D8DEE9"/><text x="428" y="339" font-size="11" fill="#4C566A">add buffer (append-only)</text>
+  <text x="420" y="366" font-size="11" fill="#4C566A">pieces →</text>
+  <rect x="472" y="354" width="52" height="20" fill="#EBCB8B" stroke="#2E3440"/><text x="498" y="368" text-anchor="middle" font-size="10" fill="#2E3440">piece</text>
+  <rect x="528" y="354" width="52" height="20" fill="#EBCB8B" stroke="#2E3440"/><text x="554" y="368" text-anchor="middle" font-size="10" fill="#2E3440">piece</text>
+  <rect x="584" y="354" width="52" height="20" fill="#EBCB8B" stroke="#2E3440"/><text x="610" y="368" text-anchor="middle" font-size="10" fill="#2E3440">piece</text>
+  <text x="420" y="400" font-size="11.5" fill="#A3BE8C">✔ cheap: edits = append + repoint</text>
+  <text x="420" y="420" font-size="11.5" fill="#4C566A">line / column: index over the piece list</text>
+</svg>

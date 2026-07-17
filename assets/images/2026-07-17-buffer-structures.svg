@@ -54,7 +54,7 @@
 
   <!-- ===================== D: Piece table ===================== -->
   <rect x="404" y="260" width="352" height="188" rx="10" fill="#FFFFFF" stroke="#D8DEE9"/>
-  <text x="420" y="284" font-size="14" font-weight="700" fill="#5E81AC">Piece table <tspan font-weight="400" fill="#4C566A" font-size="12">· VS Code</tspan></text>
+  <text x="420" y="284" font-size="14" font-weight="700" fill="#5E81AC">Piece tree <tspan font-weight="400" fill="#4C566A" font-size="12">· VS Code</tspan></text>
   <rect x="420" y="298" width="300" height="22" fill="#ECEFF4" stroke="#D8DEE9"/><text x="428" y="313" font-size="11" fill="#4C566A">original buffer (read-only)</text>
   <rect x="420" y="324" width="300" height="22" fill="#ECEFF4" stroke="#D8DEE9"/><text x="428" y="339" font-size="11" fill="#4C566A">add buffer (append-only)</text>
   <text x="420" y="366" font-size="11" fill="#4C566A">pieces →</text>
@@ -62,5 +62,5 @@
   <rect x="528" y="354" width="52" height="20" fill="#EBCB8B" stroke="#2E3440"/><text x="554" y="368" text-anchor="middle" font-size="10" fill="#2E3440">piece</text>
   <rect x="584" y="354" width="52" height="20" fill="#EBCB8B" stroke="#2E3440"/><text x="610" y="368" text-anchor="middle" font-size="10" fill="#2E3440">piece</text>
   <text x="420" y="400" font-size="11.5" fill="#A3BE8C">✔ cheap: edits = append + repoint</text>
-  <text x="420" y="420" font-size="11.5" fill="#4C566A">line / column: index over the piece list</text>
+  <text x="420" y="420" font-size="11.5" fill="#4C566A">line / column: red-black tree over pieces</text>
 </svg>

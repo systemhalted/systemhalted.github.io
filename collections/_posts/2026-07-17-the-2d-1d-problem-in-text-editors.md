@@ -3,8 +3,6 @@ layout: post
 title: "The 2D↔1D Problem in Text Editors"
 date: 2026-07-17
 categories:
-- Technology
-- Software Engineering
 - Computer Science
 tags:
 - rust

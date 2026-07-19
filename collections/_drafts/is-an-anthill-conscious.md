@@ -95,7 +95,7 @@ Asking whether the system feels conscious is not very useful, because we do not 
 - What absences can it detect?
 - What past knowledge does it rely on?
 
-Those questions are practical. They can be tested. They also keep us from giving a system metaphysical credit for behavior that may be explainable through coordination, feedback, and memory.
+Those questions are practical. They can be tested. They also keep us from giving a system metaphysical credit[^1] for behavior that may be explainable through coordination, feedback, and memory.
 
 An anthill teaches a useful humility here. Complex behavior does not require a tiny human sitting inside the system, making central decisions. Intelligence can emerge from interaction. But the existence of emergence does not automatically settle the question of consciousness, and it is worth keeping those two questions apart.
 
@@ -106,3 +106,7 @@ Bob Holmes, "The Mind of an Anthill", Knowable Magazine, 2018.
 Deborah M. Gordon, "Your brain has more in common with an ant colony than you realised", World Economic Forum, 2019.
 
 Eliot Deutsch and Rohit Dalvi, *The Essential Vedanta: A New Source Book of Advaita Vedanta*, 2004.
+
+## Notes
+[^1] In this context, "metaphysical credit" means attributing consciousness or subjective experience to a system just because it produces impressive behavior. It's the leap from "this system does something smart" to "this system must be aware of what it's doing." My point in this post is that complex coordinated behavior, such as an anthill solving problems, an AI generating text, etc. can be fully explained by local interactions, feedback, and memory without invoking inner experience. Giving the system "metaphysical credit" is treating emergence as evidence of consciousness, when it might just be coordination.
+

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: AI Governance Needs Responsibility, Not Just Principles
-date: 2026-08-01
+date: 2026-08-21
 categories:
 - AI
 - Politics & Governance
@@ -44,7 +44,7 @@ Licensing individual engineers would not solve that allocation problem on its ow
 
 ## Soft law needs hard edges
 
-That is why proposals for AI governance bodies are worth taking seriously. A [global or international coordinating body](/2026/07/24/review-agile-ethical-legal-model-ai-robotics-governance/) for AI and robotics would not magically solve enforcement. It would, however, give shape to the otherwise scattered world of soft law: professional guidelines, research norms, insurance requirements, audit expectations, publication standards, procurement rules, and sector-specific regulation.
+That is why proposals for AI governance bodies are worth taking seriously. A [global or international coordinating body](/2026/07/31/review-agile-ethical-legal-model-ai-robotics-governance/) for AI and robotics would not magically solve enforcement. It would, however, give shape to the otherwise scattered world of soft law: professional guidelines, research norms, insurance requirements, audit expectations, publication standards, procurement rules, and sector-specific regulation.
 
 This matters because AI systems cross borders more easily than laws do. The GDPR gives people enforceable rights within the European Union, but many AI harms are not geographically tidy. A model may be trained in one country, deployed by a company in another, served through infrastructure in a third, and used on people who live everywhere.
 
@@ -54,7 +54,7 @@ The useful governance question is therefore not "what should AI value?" We alrea
 
 ## Crowds are intelligent, but not automatically wise
 
-Collective intelligence complicates the picture further. [Crowds can outperform individuals](/2026/07/30/review-studying-wisdom-of-crowds-at-scale/). Aggregated judgment can be more accurate and more stable than the judgment of any one participant. This is true in markets, elections, forecasts, open-source communities, scientific review, and even in the simple way many small signals can produce a better result than one large opinion.
+Collective intelligence complicates the picture further. [Crowds can outperform individuals](/2026/08/14/review-studying-wisdom-of-crowds-at-scale/). Aggregated judgment can be more accurate and more stable than the judgment of any one participant. This is true in markets, elections, forecasts, open-source communities, scientific review, and even in the simple way many small signals can produce a better result than one large opinion.
 
 But crowds also herd. Social influence can make a group less accurate when people stop contributing independent judgment and start copying visible signals. Once that happens, the crowd is no longer a distributed intelligence system. It is an amplification system.
 
@@ -70,7 +70,7 @@ The right to be forgotten, the right to public anonymity, and the right to disco
 
 Search engines, social networks, cheap storage, facial recognition, workplace messaging, and always-on devices shifted power. One person, company, or state can now remember, locate, classify, and interrupt another person at a scale that older social norms were not built to handle. The underlying interest existed earlier, but the duty became visible only when technology made the imbalance sharp enough.
 
-That is the strongest argument for treating some rights as ["revealed"](/2026/07/28/review-how-technological-advances-can-reveal-rights/) by technology. Not invented out of thin air, but made urgent by a new asymmetry of power.
+That is the strongest argument for treating some rights as ["revealed"](/2026/08/07/review-how-technological-advances-can-reveal-rights/) by technology. Not invented out of thin air, but made urgent by a new asymmetry of power.
 
 ## The actual work
 

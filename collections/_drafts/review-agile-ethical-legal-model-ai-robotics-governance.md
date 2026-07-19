@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Review: An Agile Ethical/Legal Model for AI and Robotics Governance"
-date: 2026-07-24
+date: 2026-07-31
 categories:
 - Article Review
 - AI

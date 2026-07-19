@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Is an Anthill Conscious?
-date: 2026-07-23
+date: 2026-07-28
 categories:
 - AI
 - Spirituality & Philosophy
@@ -21,6 +21,8 @@ The brain and the anthill make an unsettling comparison because both seem to do 
 
 A neuron does not think. An ant does not plan the long-term fate of a colony. But a brain produces cognition through the interaction of neurons, and an ant colony produces coordinated behavior through the interaction of ants. In both cases, the interesting property lives at the level of the system, not the individual unit.
 
+![A diagram with two columns, brain and anthill, each showing many simple units at the bottom, their local interactions in the middle, and a single system-level property at the top: neurons produce cognition, and ants produce colony behavior](/assets/images/2026-07-28-brain-anthill-emergence.svg)
+
 That does not prove that an anthill is conscious. It does, however, make the question harder to dismiss.
 
 ## The analogy
@@ -33,6 +35,8 @@ At the simplest level, the mapping looks like this:
 - Cognition maps to the organized behavior that emerges from many small interactions.
 
 The analogy is not perfect. A brain and a colony are built differently, operate at different speeds, and solve different classes of problems. But the analogy is useful because it forces a discipline on the question. If we are willing to talk about cognition as something that emerges from many non-conscious parts in the brain, we should at least ask what kind of intelligence emerges from many simple agents in a colony.
+
+![A two-column diagram mapping parts of the brain to parts of an anthill: neuron to individual ant, whole brain to ant colony, neurotransmitters and dendrites to antennae, scent, and movement, and cognition to coordinated colony behavior](/assets/images/2026-07-28-brain-anthill-mapping.svg)
 
 ## A Vedantic test
 

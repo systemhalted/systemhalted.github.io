@@ -1,7 +1,7 @@
 ---
 layout: post
 title: AI in People Management
-date: 2026-07-31
+date: 2026-08-18
 categories:
 - AI
 - Technology

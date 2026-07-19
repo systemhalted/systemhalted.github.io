@@ -1,7 +1,7 @@
 ---
 layout: post
 title: AI Governance Needs Responsibility, Not Just Principles
-date: 2026-07-18
+date: 2026-08-01
 categories:
 - AI
 - Politics & Governance
@@ -30,11 +30,11 @@ So when an AI system harms someone, the natural question is not only "who wrote 
 - Who monitored failures after release?
 - Who had the power to stop deployment?
 
-If responsibility cannot be traced through those questions, then the system has not been governed. It has only been shipped.
+If responsibility cannot be traced through those questions, the system has been shipped rather than governed.
 
 ## Professionalism is not enough
 
-One proposed answer is to treat software engineers more like licensed professionals. There is something attractive about that idea. Software systems now mediate medicine, finance, transport, hiring, speech, policing, and public administration. It is strange that the people who build such systems often operate with less formal professional accountability than people in older professions whose mistakes affect fewer people.
+One proposed answer is to treat [software engineers more like licensed professionals](/2026/07/21/review-software-malpractice-in-the-age-of-ai/). There is something attractive about that idea. Software systems now mediate medicine, finance, transport, hiring, speech, policing, and public administration. It is strange that the people who build such systems often operate with less formal professional accountability than people in older professions whose mistakes affect fewer people.
 
 But the analogy has limits.
 
@@ -44,17 +44,17 @@ Licensing individual engineers would not solve that allocation problem on its ow
 
 ## Soft law needs hard edges
 
-That is why proposals for AI governance bodies are worth taking seriously. A global or international coordinating body for AI and robotics would not magically solve enforcement. It would, however, give shape to the otherwise scattered world of soft law: professional guidelines, research norms, insurance requirements, audit expectations, publication standards, procurement rules, and sector-specific regulation.
+That is why proposals for AI governance bodies are worth taking seriously. A [global or international coordinating body](/2026/07/24/review-agile-ethical-legal-model-ai-robotics-governance/) for AI and robotics would not magically solve enforcement. It would, however, give shape to the otherwise scattered world of soft law: professional guidelines, research norms, insurance requirements, audit expectations, publication standards, procurement rules, and sector-specific regulation.
 
 This matters because AI systems cross borders more easily than laws do. The GDPR gives people enforceable rights within the European Union, but many AI harms are not geographically tidy. A model may be trained in one country, deployed by a company in another, served through infrastructure in a third, and used on people who live everywhere.
 
 Without institutions that can connect principles to incentives, the result is predictable. Companies follow the rules where enforcement is real and convert everything else into policy language.
 
-The useful governance question is therefore not "what should AI value?" We already have many plausible lists. The better question is: which institutions can make those values expensive to ignore?
+The useful governance question is therefore not "what should AI value?" We already have many plausible lists. It is which institutions can make those values expensive to ignore.
 
 ## Crowds are intelligent, but not automatically wise
 
-Collective intelligence complicates the picture further. Crowds can outperform individuals. Aggregated judgment can be more accurate and more stable than the judgment of any one participant. This is true in markets, elections, forecasts, open-source communities, scientific review, and even in the simple way many small signals can produce a better result than one large opinion.
+Collective intelligence complicates the picture further. [Crowds can outperform individuals](/2026/07/30/review-studying-wisdom-of-crowds-at-scale/). Aggregated judgment can be more accurate and more stable than the judgment of any one participant. This is true in markets, elections, forecasts, open-source communities, scientific review, and even in the simple way many small signals can produce a better result than one large opinion.
 
 But crowds also herd. Social influence can make a group less accurate when people stop contributing independent judgment and start copying visible signals. Once that happens, the crowd is no longer a distributed intelligence system. It is an amplification system.
 
@@ -70,7 +70,7 @@ The right to be forgotten, the right to public anonymity, and the right to disco
 
 Search engines, social networks, cheap storage, facial recognition, workplace messaging, and always-on devices shifted power. One person, company, or state can now remember, locate, classify, and interrupt another person at a scale that older social norms were not built to handle. The underlying interest existed earlier, but the duty became visible only when technology made the imbalance sharp enough.
 
-That is the strongest argument for treating some rights as "revealed" by technology. Not invented out of thin air, but made urgent by a new asymmetry of power.
+That is the strongest argument for treating some rights as ["revealed"](/2026/07/28/review-how-technological-advances-can-reveal-rights/) by technology. Not invented out of thin air, but made urgent by a new asymmetry of power.
 
 ## The actual work
 
@@ -89,7 +89,7 @@ The practical work is to connect them:
 
 The real test of AI governance is not whether an organization can write a responsible AI policy. It is whether, when the system fails, the organization can answer a harder question clearly: who was responsible for knowing this could happen, and what power did they have to prevent it?
 
-That is where ethics stops being a statement of intent and starts becoming governance.
+An organization that can answer that question has turned its ethics into governance.
 
 ## References
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Review: An Agile Ethical/Legal Model for AI and Robotics Governance"
-date: 2026-07-18
+date: 2026-07-24
 categories:
 - Article Review
 - AI
@@ -82,9 +82,9 @@ These questions do not weaken the need for governance. They show where the real 
 
 "An Agile Ethical/Legal Model for the International and National Governance of AI and Robotics" is persuasive because it recognizes that AI governance is not a single lever. It is a network of institutions.
 
-The paper's GCC proposal may or may not be the exact institution the world needs, but the underlying point is sound: AI principles require coordinated enforcement pathways. Without that, responsible AI remains mostly a language system.
+The paper's GCC proposal may or may not be the exact institution the world needs, but the underlying point is sound: AI principles require coordinated enforcement pathways. Without that, responsible AI stays mostly a matter of language.
 
-The hard part is not writing down what AI should respect. The hard part is building institutions that make those commitments difficult to ignore.
+Writing down what AI should respect is the easy part. The harder work is building the institutions that make those commitments difficult to ignore.
 
 ## Reference
 

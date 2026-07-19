@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Review: How Technological Advances Can Reveal Rights"
-date: 2026-07-18
+date: 2026-07-28
 categories:
 - Article Review
 - AI
@@ -83,7 +83,7 @@ Those questions are where the theory has to become governance.
 
 The paper does not argue that every technological change creates a new right. It argues that technology can shift causal power so dramatically that a previously latent duty becomes visible.
 
-That is a strong way to think about AI-era rights. The task is not only to ask what people care about. It is to ask how technology has changed who has power over those interests, and what duties must now exist because of that change.
+That is a strong way to think about AI-era rights. It asks us to look past what people care about and examine how technology has changed who holds power over those interests, and what duties should now exist because of that change.
 
 ## Reference
 

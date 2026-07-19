@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Is an Anthill Conscious?
-date: 2026-07-18
+date: 2026-07-23
 categories:
 - AI
 - Spirituality & Philosophy
@@ -36,7 +36,7 @@ The analogy is not perfect. A brain and a colony are built differently, operate 
 
 ## A Vedantic test
 
-In an earlier post, I used the six `pramanas` from Advaita Vedanta as a way to think about intelligence and artificial intelligence. They are not a laboratory test in the modern scientific sense. They are a philosophical framework for asking how knowledge is acquired and justified.
+In an [earlier post](/2020/01/20/intelligence-ai-vedanta/) I used the six `pramanas` from Advaita Vedanta as a way to think about intelligence and artificial intelligence. They are not a laboratory test in the modern scientific sense. They are a philosophical framework for asking how knowledge is acquired and justified.
 
 Applied to an anthill, they give us a useful checklist.
 
@@ -82,9 +82,7 @@ Modern AI systems are increasingly built as networks of smaller processes: model
 
 This is useful, but it also creates a temptation. Once a distributed system begins producing impressive behavior, people start reaching for words like intelligence, agency, and consciousness. Sometimes those words clarify. Often they hide the real engineering question.
 
-The better question is not "does the system feel conscious?" We do not know how to answer that well.
-
-The better question is:
+Asking whether the system feels conscious is not very useful, because we do not know how to answer it well. It is more practical to ask what the system actually does:
 
 - What does the system perceive?
 - What can it infer?
@@ -95,9 +93,7 @@ The better question is:
 
 Those questions are practical. They can be tested. They also keep us from giving a system metaphysical credit for behavior that may be explainable through coordination, feedback, and memory.
 
-An anthill teaches a useful humility here. Complex behavior does not require a tiny human sitting inside the system, making central decisions. Intelligence can emerge from interaction. But the existence of emergence does not automatically settle the question of consciousness.
-
-That is the line worth holding.
+An anthill teaches a useful humility here. Complex behavior does not require a tiny human sitting inside the system, making central decisions. Intelligence can emerge from interaction. But the existence of emergence does not automatically settle the question of consciousness, and it is worth keeping those two questions apart.
 
 ## References
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Review: Studying the Wisdom of Crowds at Scale"
-date: 2026-07-18
+date: 2026-07-30
 categories:
 - Article Review
 - AI
@@ -70,9 +70,9 @@ These questions matter because many real-world systems cannot simply remove soci
 
 "Studying the Wisdom of Crowds at Scale" is valuable because it treats collective intelligence as an empirical question rather than a slogan.
 
-The paper shows that crowds can be powerful, but not magically wise. The crowd works when it contributes independent information. Once the system turns participants into followers of each other's signals, the crowd can become less a source of intelligence and more a machine for amplification.
+The paper shows that crowds can be powerful without being automatically wise. The crowd works when it contributes independent information. Once the system turns participants into followers of each other's signals, it stops adding information and starts amplifying whatever was already visible.
 
-That distinction is essential for AI, social platforms, and any product that depends on aggregated human judgment.
+That condition matters for AI, social platforms, and any product that depends on aggregated human judgment.
 
 ## Reference
 

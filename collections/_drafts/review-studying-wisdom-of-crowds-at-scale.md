@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Review: Studying the Wisdom of Crowds at Scale"
-date: 2026-07-30
+date: 2026-08-14
 categories:
 - Article Review
 - AI

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Free Will, AI, and the Limits of Intentionality
-date: 2026-07-29
+date: 2026-08-11
 categories:
 - AI
 - Spirituality & Philosophy
@@ -43,7 +43,7 @@ One reason narrow AI lacks free will is that its knowledge is incomplete and ext
 
 To make a genuinely self-determined choice, one must be able to consider alternatives, understand consequences, and rule out paths not merely because a rule forbids them, but because one has an intentional stance toward them. Narrow AI cannot do that in the full sense. Its available alternatives are created by architecture and context. Its refusals are policy behavior, not moral renunciation.
 
-This is where the [earlier discussion of consciousness](/2026/07/23/is-an-anthill-conscious/) becomes relevant. If free will requires consciousness, then an AI agent would need more than inference, memory, and pattern completion. It would need perception and non-perception in a deeper sense: the ability to acquire awareness on its own, and to understand absence or non-existence with something stronger than statistical limitation.
+This is where the [earlier discussion of consciousness](/2026/07/28/is-an-anthill-conscious/) becomes relevant. If free will requires consciousness, then an AI agent would need more than inference, memory, and pattern completion. It would need perception and non-perception in a deeper sense: the ability to acquire awareness on its own, and to understand absence or non-existence with something stronger than statistical limitation.
 
 Current narrow AI does not meet that bar.
 

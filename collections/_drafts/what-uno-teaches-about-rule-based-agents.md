@@ -1,7 +1,7 @@
 ---
 layout: post
 title: What UNO Teaches About Rule-Based Agents
-date: 2026-07-25
+date: 2026-08-04
 categories:
 - AI
 - Computer Science

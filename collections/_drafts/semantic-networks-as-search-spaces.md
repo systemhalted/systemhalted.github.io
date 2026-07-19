@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Semantic Networks as Search Spaces
-date: 2026-07-22
+date: 2026-07-24
 categories:
 - AI
 - Computer Science
@@ -14,6 +14,8 @@ tags:
 comments: true
 description: A short note on semantic networks, generate-and-test search, and why explicit state representation matters in knowledge-based AI.
 ---
+
+A semantic network is a graph-based system to represent knowledge. It is a mind-map, that uses nodes to represent concepts and edges to define the relationship.
 
 A semantic network is useful because it forces you to say what the world contains and how one state can become another.
 

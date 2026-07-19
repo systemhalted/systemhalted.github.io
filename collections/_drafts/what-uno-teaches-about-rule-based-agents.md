@@ -1,7 +1,7 @@
 ---
 layout: post
 title: What UNO Teaches About Rule-Based Agents
-date: 2026-07-18
+date: 2026-07-25
 categories:
 - AI
 - Computer Science
@@ -83,7 +83,7 @@ Many production systems in business software are really rule-based agents. They 
 
 The danger comes when people mistake a rule system for a learning system, or a legal action for an intelligent action.
 
-An agent can be rule-compliant and still brittle. It can be explainable and still shallow. It can perform well in ordinary cases and fail whenever the situation requires long-term planning.
+An agent can follow every rule and still be brittle. It can be fully explainable and still make shallow choices, performing well in ordinary cases and failing whenever the situation requires long-term planning.
 
 That is not a criticism of rule-based systems. It is a reminder to use them honestly.
 
@@ -93,4 +93,4 @@ A production system is a good first agent when the domain has clear rules and a 
 
 But the moment success depends on strategy, hidden information, opponent modeling, or learning from history, rules alone are not enough.
 
-UNO makes that limitation easy to see. Playing legally is a rule problem. Playing well is a knowledge, memory, and search problem.
+UNO makes that limitation easy to see. Playing a legal card only takes rules. Playing well takes knowledge, memory, and search.

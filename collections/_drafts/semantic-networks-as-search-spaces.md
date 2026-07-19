@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Semantic Networks as Search Spaces
-date: 2026-07-18
+date: 2026-07-22
 categories:
 - AI
 - Computer Science
@@ -66,4 +66,4 @@ Many AI discussions jump too quickly to model capability. But for knowledge-base
 
 A weak representation makes even a clever search look confused. A strong representation can make a simple generate-and-test loop surprisingly effective.
 
-That is the lesson I take from semantic networks: intelligence often begins before the search starts. It begins in the act of deciding what the agent is allowed to see.
+So a lot of the work in a knowledge-based system happens before the search runs at all. It happens when you decide what the agent is allowed to see.

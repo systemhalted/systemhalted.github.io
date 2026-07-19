@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Review: Software Malpractice in the Age of AI"
-date: 2026-07-18
+date: 2026-07-21
 categories:
 - Article Review
 - AI
@@ -71,7 +71,7 @@ The strongest version of this argument would move from analogy to mechanism. It 
 
 But the solution cannot simply be "treat software engineers like doctors." Software is too collaborative, too organizational, and too entangled with product and business incentives for that analogy to carry the whole burden.
 
-The better conclusion is this: AI malpractice, if the term is to mean anything useful, has to attach responsibility to the system of production. That includes the engineer, but it also includes the company that creates the incentives, approves the risks, and profits from the deployment.
+AI malpractice, if the term is to mean anything useful, has to attach responsibility to the system of production. That includes the engineer, but it also includes the company that creates the incentives, approves the risks, and profits from the deployment.
 
 ## Reference
 

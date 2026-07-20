@@ -26,4 +26,4 @@ An ambitious debut. If you liked The Hunger Games, you will recognize the genre.
 
 Rating: 4.5/5
 
-Find the book on [Goodreads](https://www.goodreads.com/author/list/16094623.Ankit_Saxena).
+Find the book on [Amazon](https://www.amazon.com/Kindle-Store-Ankit-Saxena/s?rh=n%3A133140011%2Cp_27%3AAnkit%2BSaxena).

@@ -24,12 +24,12 @@ I ran each test inside a real window of each terminal on the T430 (Ubuntu,
 GNOME on Wayland; WezTerm 20240203, GNOME Terminal 3.52 with VTE 0.76), six
 runs each, first run discarded as warm-up. The results fall into two groups.
 
-| Test | WezTerm | GNOME Terminal |
-|------|---------|----------------|
-| Open a window, run a command, close (overhead) | 0.06–0.09 s | 0.73–0.78 s |
-| `cat` a 50 MB text file | 8.0 s | 1.95 s |
-| `seq 1 1000000` | 1.33 s | 0.93 s |
-| Memory with one window open | ~206 MB | ~50 MB |
+| Test                                           | WezTerm     | GNOME Terminal |
+|------------------------------------------------|-------------|----------------|
+| Open a window, run a command, close (overhead) | 0.06–0.09 s | 0.73–0.78 s    |
+| `cat` a 50 MB text file                        | 8.0 s       | 1.95 s         |
+| `seq 1 1000000`                                | 1.33 s      | 0.93 s         |
+| Memory with one window open                    | ~206 MB     | ~50 MB         |
 
 The first row is the difference I remembered. WezTerm puts a usable window on
 screen in under a tenth of a second; GNOME Terminal takes about three quarters
@@ -210,14 +210,14 @@ After pressing `Ctrl+Space`, you have one second to press the next key.
 Modeled after the Emacs window commands (`C-x 2`, `C-x 3`, `C-x 0`, `C-x 1`),
 so the muscle memory transfers:
 
-| Shortcut | Action | Emacs equivalent |
-|----------|--------|-----------------|
-| `Leader 3` | Split horizontal (side by side) | `C-x 3` |
-| `Leader 2` | Split vertical (top/bottom) | `C-x 2` |
-| `Leader o` | Cycle to next pane | `C-x o` |
-| `Leader 0` | Close current pane | `C-x 0` |
-| `Leader 1` | Zoom (maximize) current pane | `C-x 1` |
-| `Leader ←↓↑→` | Navigate panes by direction | — |
+| Shortcut      | Action                          | Emacs equivalent |
+|---------------|---------------------------------|------------------|
+| `Leader 3`    | Split horizontal (side by side) | `C-x 3`          |
+| `Leader 2`    | Split vertical (top/bottom)     | `C-x 2`          |
+| `Leader o`    | Cycle to next pane              | `C-x o`          |
+| `Leader 0`    | Close current pane              | `C-x 0`          |
+| `Leader 1`    | Zoom (maximize) current pane    | `C-x 1`          |
+| `Leader ←↓↑→` | Navigate panes by direction     | —                |
 
 ```lua
 config.keys = {
@@ -235,12 +235,12 @@ config.keys = {
 
 ### Tab management
 
-| Shortcut | Action |
-|----------|--------|
+| Shortcut   | Action         |
+|------------|----------------|
 | `Leader c` | Create new tab |
-| `Leader b` | Previous tab |
-| `Leader f` | Next tab |
-| `Leader k` | Close tab |
+| `Leader b` | Previous tab   |
+| `Leader f` | Next tab       |
+| `Leader k` | Close tab      |
 
 ```lua
 { key = 'c', mods = 'LEADER', action = act.SpawnTab 'CurrentPaneDomain' },
@@ -274,11 +274,11 @@ config.key_tables = {
 
 ### Utility shortcuts
 
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+Shift+P` | Command palette |
-| `Leader v` | Copy/scroll mode |
-| `Leader q` | Quick select (URLs, hashes) |
+| Shortcut       | Action                      |
+|----------------|-----------------------------|
+| `Ctrl+Shift+P` | Command palette             |
+| `Leader v`     | Copy/scroll mode            |
+| `Leader q`     | Quick select (URLs, hashes) |
 
 (On macOS the palette is `Cmd+Shift+P`.) The copy mode and quick select
 defaults (`Ctrl+Shift+X`, `Ctrl+Shift+Space`) keep working; the leader
@@ -292,11 +292,11 @@ and switching between them swaps the whole window contents.
 
 ### Basic workspace commands
 
-| Shortcut | Action |
-|----------|--------|
-| `Leader w` | Create new named workspace |
+| Shortcut   | Action                          |
+|------------|---------------------------------|
+| `Leader w` | Create new named workspace      |
 | `Leader s` | Switch workspace (fuzzy finder) |
-| `Leader d` | Switch to default workspace |
+| `Leader d` | Switch to default workspace     |
 
 ```lua
 { key = 'w', mods = 'LEADER', action = act.PromptInputLine {
@@ -423,27 +423,27 @@ overrides for paths and preferences that differ.
 
 ## Quick reference
 
-| Leader = `Ctrl+Space` | |
-|---|---|
-| **Panes** | |
-| `Leader 2` | Split vertical |
-| `Leader 3` | Split horizontal |
-| `Leader o` | Next pane |
-| `Leader 0` | Close pane |
-| `Leader 1` | Zoom pane |
-| `Leader r` | Resize mode (arrows, then Esc) |
-| **Tabs** | |
-| `Leader c` | New tab |
-| `Leader b/f` | Prev/next tab |
-| `Leader k` | Close tab |
-| **Workspaces** | |
-| `Leader w` | New workspace |
-| `Leader s` | Switch (fuzzy) |
-| `Leader d` | Default workspace |
-| **Other** | |
-| `Leader v` | Copy/scroll mode |
-| `Leader q` | Quick select |
-| `Ctrl+Shift+P` | Command palette |
+| Leader = `Ctrl+Space` |                                |
+|-----------------------|--------------------------------|
+| **Panes**             |                                |
+| `Leader 2`            | Split vertical                 |
+| `Leader 3`            | Split horizontal               |
+| `Leader o`            | Next pane                      |
+| `Leader 0`            | Close pane                     |
+| `Leader 1`            | Zoom pane                      |
+| `Leader r`            | Resize mode (arrows, then Esc) |
+| **Tabs**              |                                |
+| `Leader c`            | New tab                        |
+| `Leader b/f`          | Prev/next tab                  |
+| `Leader k`            | Close tab                      |
+| **Workspaces**        |                                |
+| `Leader w`            | New workspace                  |
+| `Leader s`            | Switch (fuzzy)                 |
+| `Leader d`            | Default workspace              |
+| **Other**             |                                |
+| `Leader v`            | Copy/scroll mode               |
+| `Leader q`            | Quick select                   |
+| `Ctrl+Shift+P`        | Command palette                |
 
 ## Conclusion
 
@@ -453,3 +453,6 @@ performance to spare. The benchmarks put a number on the speed I had felt:
 it comes from window-open latency, not throughput, and GNOME Terminal still
 handles bulk output better. If you try WezTerm, start with the basics — font,
 theme, leader key — and add workspaces and hyperlink rules as you need them.
+
+I will be using WezTerm and GNOME Terminal together for a while before deciding
+which one I will keep. As a human, something new is always exciting. 

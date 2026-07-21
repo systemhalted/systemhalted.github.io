@@ -16,14 +16,13 @@ I first switched to WezTerm on my old ThinkPad T430, a 2012 laptop with an
 i5-3320M and 8&nbsp;GB of RAM. Two things pushed me off GNOME Terminal on that
 machine: WezTerm felt a little faster, and copying and pasting took fewer steps.
 Before writing this post I went back to the same T430 and measured both claims,
-because "felt faster" on a fourteen-year-old laptop is exactly the kind of
-impression that can be placebo.
+because an impression like "felt faster" can easily be placebo.
 
 ## Was it actually faster?
 
 I ran each test inside a real window of each terminal on the T430 (Ubuntu,
 GNOME on Wayland; WezTerm 20240203, GNOME Terminal 3.52 with VTE 0.76), six
-runs each, first run discarded as warm-up. The results split cleanly in two.
+runs each, first run discarded as warm-up. The results fall into two groups.
 
 | Test | WezTerm | GNOME Terminal |
 |------|---------|----------------|
@@ -32,11 +31,10 @@ runs each, first run discarded as warm-up. The results split cleanly in two.
 | `seq 1 1000000` | 1.33 s | 0.93 s |
 | Memory with one window open | ~206 MB | ~50 MB |
 
-The snappiness I remembered is the first row. WezTerm puts a usable window on
+The first row is the difference I remembered. WezTerm puts a usable window on
 screen in under a tenth of a second; GNOME Terminal takes about three quarters
-of a second even with its background server process already running. Opening a
-terminal is something I do dozens of times a day, so that latency is the speed
-you actually feel.
+of a second even with its background server process already running. I open a
+terminal dozens of times a day, so this is the delay I notice most.
 
 The second and third rows go the other way, and by a wide margin. When a
 command floods the screen with output, VTE (the library under GNOME Terminal)
@@ -47,24 +45,24 @@ software on the T430's ancient Intel HD 4000 by rerunning with
 behaves. It also uses about four times the memory.
 
 So "a little faster" was not placebo, but it needs qualifying: WezTerm is much
-faster at the thing I do constantly — opening a terminal — and slower at
-dumping bulk output. If your day is `cat`-ing huge logs on old hardware,
-GNOME Terminal is the faster terminal. Mine isn't, so WezTerm wins where it
-matters to me.
+faster at opening a terminal, which I do constantly, and slower at dumping
+bulk output, which I do rarely. If you spend your day `cat`-ing huge logs on
+old hardware, GNOME Terminal is the faster terminal for you. For how I use a
+terminal, the trade-off favors WezTerm.
 
 ## The copy-paste difference
 
-This one is checkable directly from the default keybindings (`wezterm
-show-keys`). In WezTerm, releasing a mouse selection runs
-`CompleteSelection(ClipboardAndPrimarySelection)` — the selected text lands in
-the system clipboard immediately. Selecting text *is* copying it. Plain
-`Ctrl+C` and `Ctrl+V` also work: `Ctrl+C` copies when a selection exists and
-sends the interrupt signal when one doesn't.
+You can check this one against the default keybindings (`wezterm show-keys`).
+In WezTerm, releasing a mouse selection runs
+`CompleteSelection(ClipboardAndPrimarySelection)`, which puts the selected
+text in the system clipboard immediately; there is no separate copy step.
+Plain `Ctrl+C` and `Ctrl+V` also work: `Ctrl+C` copies when a selection exists
+and sends the interrupt signal when one doesn't.
 
 In GNOME Terminal, a mouse selection only goes to the X primary selection.
 Getting it into the clipboard needs an explicit `Ctrl+Shift+C`, and pasting
-into the terminal needs `Ctrl+Shift+V`. That extra shifted chord, dozens of
-times a day, is the friction I was feeling.
+into the terminal needs `Ctrl+Shift+V`. That extra step, repeated dozens of
+times a day, was the difference I had been feeling.
 
 WezTerm adds two keyboard-only tools GNOME Terminal has no equivalent for:
 Quick Select (`Ctrl+Shift+Space`) overlays short labels on URLs, paths, and
@@ -450,9 +448,8 @@ overrides for paths and preferences that differ.
 ## Conclusion
 
 WezTerm replaced tmux, a color scheme plugin, and a hyperlink plugin for me,
-all from a single Lua file, and it did it first on hardware where every bit of
-responsiveness counts. The benchmarks say the speed I felt is window-open
-latency, and that impression survives measurement even though GNOME Terminal
-still wins at raw output throughput. Start with the basics — font, theme,
-leader key — and layer in workspaces and hyperlink rules as your workflow
-asks for them.
+all from a single Lua file, and it did so first on a machine with little
+performance to spare. The benchmarks put a number on the speed I had felt:
+it comes from window-open latency, not throughput, and GNOME Terminal still
+handles bulk output better. If you try WezTerm, start with the basics — font,
+theme, leader key — and add workspaces and hyperlink rules as you need them.

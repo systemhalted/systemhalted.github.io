@@ -102,6 +102,7 @@
                 <dt><kbd>g</kbd> <kbd>f</kbd></dt><dd>Featured</dd>
                 <dt><kbd>g</kbd> <kbd>k</kbd></dt><dd>{{ site.newsletter_cta.title | default: 'Newsletter' }}</dd>
                 <dt><kbd>g</kbd> <kbd>e</kbd></dt><dd>Emacs</dd>
+                <dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd>
                 <dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>About</dd>
               </dl>
             </section>
@@ -142,6 +143,7 @@
         f: {{ '/featured/' | relative_url | jsonify }},
         k: {{ site.newsletter_cta.path | default: '/' | relative_url | jsonify }},
         e: {{ '/emacs/' | relative_url | jsonify }},
+        p: {{ '/projects/' | relative_url | jsonify }},
         a: {{ '/about/' | relative_url | jsonify }}
       };
     </script>

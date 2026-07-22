@@ -1,0 +1,166 @@
+available:
+  - name: Pinstack
+    status: Beta
+    status_class: beta
+    description: A web-based RSS and Atom reader for following your favorite sources in one place.
+    tags:
+      - rss
+      - web
+      - reader
+    primary_cta:
+      label: Try the beta
+      url: https://pinstack.in
+
+  - name: torg
+    status: Released
+    status_class: released
+    description: An Org-mode-flavored terminal editor with structural editing for Org and Markdown files.
+    tags:
+      - rust
+      - terminal
+      - editor
+    primary_cta:
+      label: Install torg
+      url: https://github.com/systemhalted/torg/releases
+    secondary_cta:
+      label: View source
+      url: https://github.com/systemhalted/torg
+
+  - name: ScribeDay
+    status: Released
+    status_class: released
+    description: A local-first desktop journal organized around a calendar, with search, moods, and backups.
+    tags:
+      - java
+      - desktop
+      - local-first
+    primary_cta:
+      label: Download ScribeDay
+      url: https://github.com/systemhalted/scribeday/releases
+    secondary_cta:
+      label: View source
+      url: https://github.com/systemhalted/scribeday
+
+  - name: sdkman.el
+    status: Usable
+    status_class: usable
+    description: Apply each project's SDKMAN toolchain to Emacs buffers, subprocesses, and Java language servers.
+    tags:
+      - emacs
+      - sdkman
+      - java
+    primary_cta:
+      label: Read the guide
+      url: /emacs/sdkman.el/
+    secondary_cta:
+      label: View source
+      url: https://github.com/systemhalted/sdkman.el
+
+  - name: shellenv
+    status: Released
+    status_class: released
+    description: Per-project shell sandboxes for testing scripts across shells without polluting your setup.
+    tags:
+      - go
+      - cli
+      - testing
+    primary_cta:
+      label: Download shellenv
+      url: https://github.com/systemhalted/shellenv/releases
+    secondary_cta:
+      label: View source
+      url: https://github.com/systemhalted/shellenv
+
+  - name: Discipline First
+    status: Ready to use
+    status_class: usable
+    description: A copy-in operating standard and trust pipeline for disciplined AI-assisted software delivery.
+    tags:
+      - ai-assisted coding
+      - engineering
+      - starter kit
+    primary_cta:
+      label: Get the starter pack
+      url: https://github.com/systemhalted/DisciplineFirst
+
+  - name: Applied AI
+    status: Published
+    status_class: released
+    description: A free, self-paced curriculum for building a rigorous, hands-on foundation in AI engineering.
+    tags:
+      - ai
+      - curriculum
+      - open learning
+    primary_cta:
+      label: Start the curriculum
+      url: https://github.com/systemhalted/applied-ai
+
+  - name: Jekyll Themes
+    status: Published
+    status_class: released
+    description: Three open-source Jekyll themes published as Ruby gems, each with a live demo.
+    tags:
+      - jekyll
+      - ruby
+      - open-source
+    primary_cta:
+      label: Browse themes
+      url: /themes/
+
+workshop:
+  - name: Notive
+    status: In development
+    status_class: development
+    description: A local-first knowledge workspace combining notes, tasks, wiki links, graphs, and search.
+    tags:
+      - tauri
+      - knowledge tools
+      - local-first
+    primary_cta:
+      label: Follow development
+      url: https://github.com/systemhalted/notive
+
+  - name: UniVani
+    status: In development
+    status_class: development
+    description: A real-time voice translation platform designed around ten Indian languages.
+    tags:
+      - voice
+      - translation
+      - accessibility
+    primary_cta:
+      label: Follow development
+      url: https://github.com/systemhalted/univani
+
+  - name: Kisoku
+    status: In development
+    status_class: development
+    description: A Java decision-table engine for compiling and evaluating large rule sets deterministically.
+    tags:
+      - java
+      - rules engine
+      - decision tables
+    primary_cta:
+      label: Follow development
+      url: https://github.com/systemhalted/kisoku
+
+  - name: Osmosis
+    status: In development
+    status_class: development
+    description: A privacy-safe inference layer for turning live event traffic into a durable data dictionary.
+    tags:
+      - event streaming
+      - data modeling
+      - privacy
+
+  - name: textr
+    status: In development
+    status_class: development
+    description: A from-scratch Rust exploration of a headless editor core inspired by gedit's architecture.
+    tags:
+      - rust
+      - editor
+      - learning project
+    primary_cta:
+      label: Follow development
+      url: https://github.com/systemhalted/textr

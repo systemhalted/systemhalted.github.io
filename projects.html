@@ -1,0 +1,38 @@
+---
+layout: page
+title: Projects
+description: Software, tools, and open resources by Palak Mathur, including released projects, public betas, and selected work in progress.
+permalink: /projects/
+hide_page_title: true
+---
+
+<section class="newsletter-hero projects-hero">
+  <p class="newsletter-kicker">Software &amp; open resources</p>
+  <h1 class="newsletter-headline">Projects</h1>
+  <p class="newsletter-lede">Things you can use today, plus a look at what I am building next. Every project has an honest maturity label so you know what to expect.</p>
+</section>
+
+<section class="projects-section" aria-labelledby="available-projects">
+  <div class="projects-section-header">
+    <h2 id="available-projects">Available now</h2>
+    <p>Released software, public betas, and resources ready to explore.</p>
+  </div>
+  <ul class="project-grid">
+    {% for project in site.data.projects.available %}
+      {% include project-card.html project=project %}
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="projects-section projects-workshop" aria-labelledby="workshop-projects">
+  <div class="projects-section-header">
+    <p class="projects-section-kicker">The workshop</p>
+    <h2 id="workshop-projects">In development</h2>
+    <p>Promising ideas and early builds. Follow along, but expect rough edges and changing interfaces.</p>
+  </div>
+  <ul class="project-grid project-grid-compact">
+    {% for project in site.data.projects.workshop %}
+      {% include project-card.html project=project compact=true %}
+    {% endfor %}
+  </ul>
+</section>

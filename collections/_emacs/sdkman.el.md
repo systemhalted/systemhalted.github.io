@@ -1,6 +1,7 @@
 ---
 layout: emacs
 title: sdkman.el - Manage your SDKs without leaving Emacs
+description: Use project SDKMAN toolchains in Emacs buffers, subprocesses, and Java language servers.
 tags: [emacs, gnu emacs]
 category: [emacs]
 ---
@@ -77,6 +78,17 @@ vars are in place when JDT LS reads them.
 `lsp-java` is optional — the package doesn't require it and loads cleanly
 without it.
 
+### Transient menu
+
+Version 0.2.0 adds a read-only `M-x sdkman` menu. Its header shows the SDKMAN
+root, the nearest `.sdkmanrc`, and whether each configured candidate is
+installed and current.
+
+- `o` opens the nearest `.sdkmanrc`.
+- `e` shows the environment applied to the current buffer.
+- `i` lists installed candidates for a selected SDK.
+- `q` closes the menu.
+
 ### Install
 
 The package isn't on MELPA yet. Clone the repo and load it locally.
@@ -101,33 +113,20 @@ With straight.el:
 
 Requires Emacs 27.1+. No other dependencies.
 
-## What's coming
+## Current status and roadmap
 
-The current release (0.1.0) handles discovery, environment application, and
-the lsp-java layer. The roadmap covers:
+Version 0.2.0 includes project discovery, buffer-local environment application,
+the `lsp-java` integration, and the read-only transient menu. The remaining
+V1 work focuses on:
 
-**Phase 0**: The next foundation work is to expand the default `sdkman-known-env-vars`
-mapping beyond Java, Maven, and Gradle, and to add an async `sdk` CLI runner
-that later UI commands can build on.
+- Creating and editing `.sdkmanrc` files from inside Emacs, then reapplying
+  the environment to affected project buffers.
+- Running `sdk list`, `sdk current`, and later install or maintenance
+  operations asynchronously in a dedicated process buffer.
+- Adding an explicit command that applies the selected Java runtime and
+  restarts the current language server.
+- Confirmation-gating mutating SDKMAN operations such as install, uninstall,
+  default, upgrade, and selfupdate.
 
-**Phase 1**: M-x sdkman — a Magit-style transient menu showing the
-SDKMAN root, the nearest .sdkmanrc, parsed entries, and installed/current
-candidates per SDK; with o to open .sdkmanrc, e to show the active
-buffer env, and i to show installed candidates for any SDK.
-
-**Phase 2**: Wire sdk list and sdk current into the transient, running
-them asynchronously in a dedicated process buffer.
-
-**Phase 3**: Edit .sdkmanrc from inside Emacs — create one, switch
-a project's SDK via completing-read, and have all open project buffers pick up
-the new env immediately.
-
-**Phase 4**: Add an explicit LSP restart command so you can switch project
-Java and restart JDT LS in one flow.
-
-**Phase 5**: Add the mutating sdk operations — install, uninstall,
-default, upgrade, selfupdate — each confirmation-gated before touching
-global SDKMAN state.
-
-The package and its phased plan are at https://github.com/systemhalted/sdkman.el.
-Feedback and issues welcome.
+The package, complete roadmap, and issue tracker are at
+https://github.com/systemhalted/sdkman.el. Feedback and issues are welcome.

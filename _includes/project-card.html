@@ -1,0 +1,19 @@
+{% assign project = include.project %}
+<li class="project-card{% if include.compact %} project-card-compact{% endif %}">
+  <div class="project-card-header">
+    <h3 class="project-name">{{ project.name }}</h3>
+    <span class="project-status project-status-{{ project.status_class }}">{{ project.status }}</span>
+  </div>
+  <p class="project-description">{{ project.description }}</p>
+  {% if project.tags %}
+  <ul class="project-tags" aria-label="Technologies and topics">
+    {% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  {% if project.primary_cta or project.secondary_cta %}
+  <p class="project-links">
+    {% if project.primary_cta %}<a class="project-primary-link" href="{{ project.primary_cta.url }}">{{ project.primary_cta.label }}</a>{% endif %}
+    {% if project.secondary_cta %}<a href="{{ project.secondary_cta.url }}">{{ project.secondary_cta.label }}</a>{% endif %}
+  </p>
+  {% endif %}
+</li>

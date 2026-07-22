@@ -12,9 +12,10 @@ tags:
 comments: true
 description: I switched to WezTerm on a 2012 ThinkPad T430 because it felt faster than GNOME Terminal and copy-paste was simpler. Benchmarks on the same machine show where that impression holds up, followed by the full Lua setup.
 ---
-I learned about WezTerm as I was trying OpenCode. I tried to use OpenCode in
-GNOME Terminal but the experience was not up to the mark. OpenCode was sluggish
-and sometimes unresponsive. So I thought to give WezTerm a try.
+I learned about WezTerm as I was trying [OpenCode](https://opencode.ai), a
+terminal-based AI coding agent. In GNOME Terminal it was sluggish and sometimes
+unresponsive, and the experience was not up to the mark. So I thought to give
+WezTerm a try.
 
 WezTerm is an open-source, cross-platform terminal emulator written in Rust by
 Wez Furlong. It is GPU-accelerated, configured in Lua rather than a static

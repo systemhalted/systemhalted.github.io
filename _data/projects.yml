@@ -71,6 +71,18 @@ available:
       label: View source
       url: https://github.com/systemhalted/shellenv
 
+  - name: teeup.sh
+    status: Released
+    status_class: released
+    description: An idempotent developer-machine setup script for macOS and Linux, with guided and dry-run modes.
+    tags:
+      - shell
+      - developer tooling
+      - macOS and Linux
+    primary_cta:
+      label: Set up a machine
+      url: https://github.com/systemhalted/teeup.sh
+
   - name: Discipline First
     status: Ready to use
     status_class: usable

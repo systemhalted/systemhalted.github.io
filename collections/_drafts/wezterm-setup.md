@@ -42,10 +42,10 @@ runs each, first run discarded as warm-up. The results fall into two groups.
 | `seq 1 1000000`                                | 1.33 s      | 0.93 s         |
 | Memory with one window open                    | ~206 MB     | ~50 MB         |
 
-The first row is the difference I remembered. WezTerm puts a usable window on
-screen in under a tenth of a second; GNOME Terminal takes about three quarters
-of a second even with its background server process already running. I open a
-terminal dozens of times a day, so this is the delay I notice most.
+So, only thing that mattered to me was Row 1. WezTerm puts a usable window on screen 
+in under a tenth of a second; GNOME Terminal takes about three quarters of a second 
+even with its background server process already running. I open a terminal dozens of 
+times a day, so this is the delay I notice most. 
 
 The second and third rows go the other way, and by a wide margin. When a
 command floods the screen with output, VTE (the library under GNOME Terminal)
@@ -106,9 +106,12 @@ CLI works.
 ## The config file
 
 WezTerm reads `~/.wezterm.lua` (or `~/.config/wezterm/wezterm.lua`). The
-config is a Lua program, which means conditionals, loops, and per-machine
-logic live in the same file as the settings. Start with the config builder,
-which gives better error messages when a key is misspelled:
+config is a [Lua](https://www.lua.org/) program, which means conditionals, loops, and per-machine
+logic live in the same file as the settings. Surprisingly, my son is interested in Lua
+as well as it is used in Roblox. He is currently learning how to code in Lua. 
+
+Start with the config builder, which gives better error messages when a key is 
+misspelled:
 
 ```lua
 local wezterm = require 'wezterm'

@@ -42,7 +42,7 @@ runs each, first run discarded as warm-up. The results fall into two groups.
 | `seq 1 1000000`                                | 1.33 s      | 0.93 s         |
 | Memory with one window open                    | ~206 MB     | ~50 MB         |
 
-So, only thing that mattered to me was Row 1. WezTerm puts a usable window on screen 
+So, the only thing that mattered to me was Row 1. WezTerm puts a usable window on screen 
 in under a tenth of a second; GNOME Terminal takes about three quarters of a second 
 even with its background server process already running. I open a terminal dozens of 
 times a day, so this is the delay I notice most. 
@@ -110,7 +110,7 @@ config is a [Lua](https://www.lua.org/) program, which means conditionals, loops
 logic live in the same file as the settings. Surprisingly, my son is interested in Lua
 as well as it is used in Roblox. He is currently learning how to code in Lua. 
 
-Start with the config builder, which gives better error messages when a key is 
+The config builder gives better error messages when a key is 
 misspelled:
 
 ```lua
@@ -469,4 +469,4 @@ handles bulk output better. If you try WezTerm, start with the basics — font,
 theme, leader key — and add workspaces and hyperlink rules as you need them.
 
 I will be using WezTerm and GNOME Terminal together for a while before deciding
-which one I will keep. As a human, something new is always exciting. 
+which one I will keep. 

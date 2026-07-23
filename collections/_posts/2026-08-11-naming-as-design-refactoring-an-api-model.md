@@ -139,7 +139,7 @@ An intention-revealing name matters more in the schema than in the Java, because
 
 ## Pass 3 -- No duplication: stop repeating the context
 
-Every remaining name still says *order*, inside a type that already says it. `order.orderId` says order twice; so does `OrderData.orderStatusValue` -- three times, if you count `Value` restating the type. Once a field lives inside `Order`, the context carries that word, and repeating it adds length without adding information. The `Data` suffix on the record name is the same duplication one level up: it describes what every record is.
+Every remaining name still says *order*, inside a type that already says it. `order.orderId` says order twice; so does `OrderData.orderStatusValue` -- three times, if you count `Value` restating the type. Once a field lives inside `Order`, the context carries that word, and repeating it adds length without adding information. The `Data` suffix on the record name is the same duplication one level up: it describes what every record is. In [Vibe Coding and the Baby Genius Problem](/2025/12/15/vibe-coding-and-baby-genius/) I made the same case against `Request` and `Response` suffixes on API models.
 
 This is Russ Cox's `getParametersAsNamedValuePairArray` point at the field level -- the only interesting word in that name is *parameters*, and the only interesting words in `orderStatusValue` are *status*.
 
@@ -231,3 +231,4 @@ The refactor above is presented as if it were free. It is not, and it helps to k
 - [Notes on naming](https://research.swtch.com/names), Russ Cox
 - [Parse, don't validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/), Alexis King
 - [My naming philosophy](/2026/07/23/my-naming-philosophy/), the short version of this post
+- [Vibe Coding and the Baby Genius Problem](/2025/12/15/vibe-coding-and-baby-genius/), an earlier post of mine on making naming conventions enforceable

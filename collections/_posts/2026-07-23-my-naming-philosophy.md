@@ -37,7 +37,7 @@ The variable in code and the field in an API or schema must say what it is for. 
 
 ## No duplication
 
-A name should not repeat what its surroundings already say. `order.orderId` says *order* twice; inside an `Order`, the field is just `id`. Suffixes like `Value`, `Flag`, `String`, and `Data` repeat the type, and the type is already visible in the declaration. Everything said once, and only once, applies to the words inside a name as much as to the code around it.
+A name should not repeat what its surroundings already say. `order.orderId` says *order* twice; inside an `Order`, the field is just `id`. Suffixes like `Value`, `Flag`, `String`, and `Data` repeat the type, and the type is already visible in the declaration. I made the same argument about `Request` and `Response` suffixes on API models in [Vibe Coding and the Baby Genius Problem](/2025/12/15/vibe-coding-and-baby-genius/). Everything said once, and only once, applies to the words inside a name as much as to the code around it.
 
 ## Fewest elements
 

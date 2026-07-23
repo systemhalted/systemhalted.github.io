@@ -8,6 +8,7 @@
 lede: "A few posts that capture what this site is about."
 
 posts:
+  - /2026/07/23/my-naming-philosophy/
   - /2026/06/21/types-check-shape-tests-check-behaviour/
   - /2026/01/11/kahan-summation-java-streams/
   - /2025/12/08/org-incentive-optimization/

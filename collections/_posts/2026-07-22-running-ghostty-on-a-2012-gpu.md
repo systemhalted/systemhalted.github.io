@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Running Ghostty on a 2012 GPU"
-date: 2026-07-22
+date: 2026-07-22 23:30:00 -0500
 categories:
 - Technology
 tags:

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Switching to WezTerm"
-date: 2026-07-22
+date: 2026-07-22 09:00:00 -0500
 categories:
 - Technology
 tags:

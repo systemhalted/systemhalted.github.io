@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Removing a Package and Purging Its Traces"
-date: 2026-07-23
+date: 2026-07-23 00:30:00 -0500
 categories:
 - Technology
 tags:

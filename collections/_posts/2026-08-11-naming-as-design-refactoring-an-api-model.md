@@ -124,7 +124,7 @@ createdDateTimestamp:
   format: date-time
 ```
 
-Every constraint added here is a test that runs on every request, in every environment, with no test suite involved. Alexis King's ["Parse, don't validate"](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) makes the general argument: once a value has parsed into a narrower type, the rest of the program can rely on it instead of re-checking it. This is also the pass that caught a design error the original model hid -- the amount and currency were two independent fields that could disagree, and `Money` makes that state unrepresentable.
+Every constraint added here is a test that runs on every request, in every environment, with no test suite involved. Alexis King's ["Parse, don't validate"](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) makes the general argument: once a value has parsed into a narrower type, the rest of the program can rely on it instead of re-checking it. This pass also caught a design error the original model hid: the amount and currency were two independent fields that could disagree, and `Money` makes that state unrepresentable.
 
 ## Pass 2 -- Reveals intention: say what the field is for
 
@@ -135,7 +135,7 @@ The types are now right and the names are still bad. The second pass renames eac
 - `orderNotesText`: `Text` describes the type. But striking it exposes a different failure: notes for whom, about what? If I cannot make a name specific, I usually have not decided what the field is for. In this system the field holds the customer's instructions to the courier, so the honest name is `deliveryInstructions`.
 - `isOrderActiveFlag`: `Flag` repeats the type. But after striking it, I still cannot say what *active* means here -- not cancelled? not delivered? recently touched? A field whose meaning I cannot state is a problem for a later pass; renaming it now would not fix it.
 
-An intention-revealing name matters more in the schema than in the Java, because a consumer of the API cannot read the implementation. They have the field name, the type, and the description string, and most will read only the name.
+An intention-revealing name matters more in the schema than in the Java, because a consumer of the API cannot read the implementation. They have the field name, the type, and the description string, but the name is the one part most consumers actually read.
 
 ## Pass 3 -- No duplication: stop repeating the context
 

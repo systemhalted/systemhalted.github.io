@@ -16,7 +16,7 @@ toc: true
 description: 'The rules I follow when naming variables, API fields, and schema elements. Most of it is borrowed from Kent Beck, Strunk, and Russ Cox; the rest is how I read their rules when the thing being named is a variable rather than a design.'
 ---
 
-I spend more time on names than on most other parts of writing code. Not because a well-chosen name is pleasant to read, though it is, but because naming forces the same decisions that design does: what is this thing, what does it hold, who is it for. When I cannot name something, it is usually because I have not decided what it is yet.
+I spend more time on names than on most other parts of writing code. Not because a well-chosen name is pleasant to read, though it is, but because naming forces the same decisions that design does: what it is, what it holds, who it is for. When I cannot name something, it is usually because I have not decided what it is yet.
 
 My rules for naming have settled into a small set over the years. The core is [Kent Beck's four rules of simple design](https://martinfowler.com/bliki/BeckDesignRules.html): passes the tests, reveals intention, no duplication, fewest elements. Beck stated them for a design as a whole. I find they apply, almost without translation, to naming a variable in code or a field in an API schema. The rest comes from Strunk's *The Elements of Style* and a short piece by Russ Cox. Here is how I read each rule when the thing being designed is a name.
 
@@ -37,7 +37,7 @@ The variable in code and the field in an API or schema must say what it is for. 
 
 ## No duplication
 
-A name should not repeat what its surroundings already say. `order.orderId` says *order* twice; inside an `Order`, the field is just `id`. Suffixes like `Value`, `Flag`, `String`, and `Data` repeat the type, and the type is already visible in the declaration. I made the same argument about `Request` and `Response` suffixes on API models in [Vibe Coding and the Baby Genius Problem](/2025/12/15/vibe-coding-and-baby-genius/). Everything said once, and only once, applies to the words inside a name as much as to the code around it.
+A name should not repeat what its surroundings already say. `order.orderId` says *order* twice; inside an `Order`, the field is just `id`. Suffixes like `Value`, `Flag`, `String`, and `Data` repeat the type, and the type is already visible in the declaration. I made the same argument about `Request` and `Response` suffixes on API models in [Vibe Coding and the Baby Genius Problem](/2025/12/15/vibe-coding-and-baby-genius/). Say everything once, and only once -- that holds for the words inside a name as much as for the code around it.
 
 ## Fewest elements
 
@@ -49,6 +49,6 @@ Strunk's [rule 13](https://www.bartleby.com/lit-hub/the-elements-of-style/iii-el
 
 ## Length follows scope
 
-Russ Cox [puts it](https://research.swtch.com/names) as: a name's length should not exceed its information content. A loop index that lives for three lines is `i`, and making it `loopIndexCounter` adds letters without adding information. A public field, read far from its declaration by people who never see the surrounding code, has to carry more. The farther a name is read from where it is declared, the more information it has to carry on its own.
+Russ Cox [puts it](https://research.swtch.com/names) as: a name's length should not exceed its information content. A loop index that lives for three lines is `i`, and making it `loopIndexCounter` adds letters without adding information. A public field, read far from its declaration by people who never see the surrounding code, has to carry more.
 
 These rules usually agree. When they conflict, I pick whichever name is easier for the reader. In a follow-up post I will take a badly named API model and apply these rules to it one pass at a time.

@@ -18,7 +18,7 @@ description: 'The rules I follow when naming variables, API fields, and schema e
 
 I spend more time on names than on most other parts of writing code. Not because a well-chosen name is pleasant to read, though it is, but because naming forces the same decisions that design does: what is this thing, what does it hold, who is it for. When I cannot name something, it is usually because I have not decided what it is yet.
 
-My rules for naming have settled into a small set over the years, and almost all of it is borrowed. The core is [Kent Beck's four rules of simple design](https://martinfowler.com/bliki/BeckDesignRules.html): passes the tests, reveals intention, no duplication, fewest elements. Beck stated them for a design as a whole. I find they apply, almost without translation, to naming a variable in code or a field in an API schema. The rest comes from Strunk's *The Elements of Style* and a short piece by Russ Cox. Here is how I read each rule when the thing being designed is a name.
+My rules for naming have settled into a small set over the years. The core is [Kent Beck's four rules of simple design](https://martinfowler.com/bliki/BeckDesignRules.html): passes the tests, reveals intention, no duplication, fewest elements. Beck stated them for a design as a whole. I find they apply, almost without translation, to naming a variable in code or a field in an API schema. The rest comes from Strunk's *The Elements of Style* and a short piece by Russ Cox. Here is how I read each rule when the thing being designed is a name.
 
 ## Runs the tests
 

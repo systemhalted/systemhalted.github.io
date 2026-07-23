@@ -33,7 +33,7 @@ A bare `String` passes every possible value, which means it tests nothing. An `E
 
 ## Reveals intention
 
-The variable in code and the field in an API or schema must say what it is for. If a reader has to look at usages to work out what a field means, the name has failed. This matters even more in an API than in code, because the consumer of a schema cannot read your implementation. They have the name, the type, and whatever description you wrote, and most of them will read only the name.
+The variable in code and the field in an API or schema must say what it is for. If a reader has to look at usages to work out what a field means, the name has failed. This matters even more in an API than in code, because the consumer of a schema cannot read your implementation. They have the name, the type, and whatever description you wrote, and most will read no further than the name.
 
 ## No duplication
 

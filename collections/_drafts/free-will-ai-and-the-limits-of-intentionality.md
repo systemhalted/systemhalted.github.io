@@ -17,7 +17,7 @@ description: A short opinion piece on free will, intentionality, and why narrow 
 
 Free will is usually discussed as if it is only a question of freedom from external control. That is part of it, but not the whole thing. I set the context about this in an [earlier post](/2020/04/05/free-will/), which I wrote as part of my OMSCS coursework
 
-To have free will, a being must be able to act according to its own intent. It must not only choose, but choose in a way that is meaningfully self-determined. That makes intentionality central. A choice without intent is not really free will. It is only behavior.
+To have free will, a being must be able to act according to its own intent. It must not only choose, but choose in a way that is meaningfully self-determined. That makes intentionality central. A choice without intent is not really free will. 
 
 From a Hindu perspective, this distinction connects naturally to `krita` and `karma`: the choice one makes, and the action that follows from that choice. A human being is not merely pushed around by material conditions. The human being has the capacity to control desire, evaluate alternatives, and act. Those actions then shape the moral and spiritual path of the person.
 
@@ -33,7 +33,7 @@ A narrow AI agent can select from alternatives. It can optimize against a goal. 
 
 The agent's world is bounded by its training, context window, tools, reward structure, prompts, and permissions. It can operate within that constructed space, but it does not possess the full authorship of its own aims. It does not decide what kind of being it wants to become. It does not carry moral responsibility for its actions in the way a human being does.
 
-That limitation matters because people often confuse fluent behavior with inner agency.
+We must not confuse fluent behavior with inner agency.
 
 An AI system can say "I decided" without deciding in the human sense, or "I want" and "I believe" without desire or belief behind the words. These are useful linguistic shortcuts, but they should not mislead us into treating the system as a self-determined moral actor.
 

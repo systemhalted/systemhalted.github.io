@@ -72,19 +72,15 @@ The checklist shows that an anthill can satisfy several conditions we associate 
 
 But consciousness is a heavier claim than intelligence.
 
-A system can process information without having inner experience. A market can aggregate signals. A city can route traffic. A software organization can remember habits that no employee wrote down. These systems can be intelligent in a distributed sense without obviously having a point of view.
-
-So my answer would be narrower than "yes, an anthill is conscious."
+A system can process information without having inner experience. A market can aggregate signals. A city can route traffic. A software organization can remember habits that no employee wrote down (tribal knowledge). These systems can be intelligent in a distributed sense without obviously having a point of view.
 
 An anthill behaves like a system with distributed cognition. It acquires information, compares alternatives, responds to missing signals, and preserves useful patterns across time. If consciousness is defined only in terms of knowledge acquisition and coordinated response, then the colony begins to qualify. If consciousness requires subjective experience, then the analogy becomes suggestive but not decisive.
-
-That distinction matters for AI as well.
 
 ## Why this matters for AI
 
 Modern AI systems are increasingly built as networks of smaller processes: models, tools, prompts, retrieval systems, evaluators, schedulers, memory stores, human feedback, and organizational review. Like an anthill, the behavior of the system is not located cleanly in any single part.
 
-This is useful, but it also creates a temptation. Once a distributed system begins producing impressive behavior, people start reaching for words like intelligence, agency, and consciousness. Sometimes those words clarify. Often they hide the real engineering question.
+Once a distributed system begins producing impressive behavior, people start reaching for words like intelligence, agency, and consciousness. Sometimes those words clarify. Often they hide the real engineering question.
 
 Asking whether the system feels conscious is not very useful, because we do not know how to answer it well. It is more practical to ask what the system actually does:
 
@@ -97,7 +93,7 @@ Asking whether the system feels conscious is not very useful, because we do not 
 
 Those questions are practical. They can be tested. They also keep us from giving a system metaphysical credit[^1] for behavior that may be explainable through coordination, feedback, and memory.
 
-An anthill teaches a useful humility here. Complex behavior does not require a tiny human sitting inside the system, making central decisions. Intelligence can emerge from interaction. But the existence of emergence does not automatically settle the question of consciousness, and it is worth keeping those two questions apart.
+Complex behavior does not require a tiny human sitting inside the system, making central decisions. Intelligence can emerge from interaction. But the existence of emergence does not automatically settle the question of consciousness, and it is worth keeping those two questions apart.
 
 ## References
 

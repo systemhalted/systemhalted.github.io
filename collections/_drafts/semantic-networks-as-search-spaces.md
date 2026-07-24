@@ -47,6 +47,8 @@ The tester also has at least two responsibilities:
 
 Once those responsibilities are separated, the AI problem becomes easier to reason about. You can improve the generator without changing the tester. You can make the tester stricter without rewriting the whole search.
 
+[A diagram showing Generate and Test - control cycle and the state transitions](/assets/images/2026-07-24-semantic-network-generate-and-test.svg)
+
 ## Why representation matters
 
 The value of a semantic network is not the diagram itself. The value is the discipline it imposes.

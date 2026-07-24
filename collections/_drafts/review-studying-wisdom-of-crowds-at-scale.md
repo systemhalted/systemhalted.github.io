@@ -38,7 +38,7 @@ The paper connects directly to how modern digital systems work.
 
 Recommendation systems, ratings, rankings, social media feeds, prediction markets, search results, and product reviews all rely on some form of aggregated human signal. These systems often assume that more participation means better information.
 
-But participation alone is not enough. If everyone is reacting to everyone else, the signal is no longer independent. The system may look democratic while quietly amplifying early noise, popularity, status, or visibility.
+However, if everyone is reacting to everyone else, the signal is no longer independent. The system may look democratic while quietly amplifying early noise, popularity, status, or visibility.
 
 That matters for AI too. AI systems increasingly learn from human feedback, user behavior, ratings, corrections, and engagement patterns. If those human signals are herded, biased, or shaped by the system itself, the model may learn the shape of the feedback loop rather than the truth of the underlying domain.
 

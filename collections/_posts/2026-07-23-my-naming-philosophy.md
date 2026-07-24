@@ -12,9 +12,6 @@ tags:
 - design
 - software
 comments: true
-featured_image: /assets/images/featured/2026-07-23-my-naming-philosophy.svg
-featured_image_alt: 'Poster titled "Naming" listing six rules, each paired with a code example where the needless part of a name is struck out in red: String email becomes Email email, data becomes pendingInvoices, order.orderId becomes order.id, extraMetadata becomes nothing, isActiveFlag becomes isActive, loopIndexCounter becomes i.'
-featured_image_caption: 'Six rules for naming: four from Kent Beck’s rules of simple design, one from Strunk, one from Russ Cox. Each rule shown as the reduction it produces.'
 toc: true
 description: 'The rules I follow when naming variables, API fields, and schema elements. Most of it is borrowed from Kent Beck, Strunk, and Russ Cox; the rest is how I read their rules when the thing being named is a variable rather than a design.'
 ---
@@ -55,3 +52,8 @@ Strunk's [rule 13](https://www.bartleby.com/lit-hub/the-elements-of-style/iii-el
 Russ Cox [puts it](https://research.swtch.com/names) as: a name's length should not exceed its information content. A loop index that lives for three lines is `i`, and making it `loopIndexCounter` adds letters without adding information. A public field, read far from its declaration by people who never see the surrounding code, has to carry more.
 
 These rules usually agree. When they conflict, I pick whichever name is easier for the reader. In a follow-up post I will take a badly named API model and apply these rules to it one pass at a time.
+
+<figure class="post-figure">
+  <img src="{{ '/assets/images/featured/2026-07-23-my-naming-philosophy.svg' | relative_url }}" alt='Poster titled "Naming" listing six rules, each paired with a code example where the needless part of a name is struck out in red: String email becomes Email email, data becomes pendingInvoices, order.orderId becomes order.id, extraMetadata becomes nothing, isActiveFlag becomes isActive, loopIndexCounter becomes i.'>
+  <figcaption>Six rules for naming: four from Kent Beck’s rules of simple design, one from Strunk, one from Russ Cox. Each rule shown as the reduction it produces.</figcaption>
+</figure>

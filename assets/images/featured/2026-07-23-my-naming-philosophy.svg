@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1520" width="1000" height="1520" role="img" aria-labelledby="posterTitle posterDesc">
+  <title id="posterTitle">Naming — six rules</title>
+  <desc id="posterDesc">A poster of six naming rules: runs the tests, reveals intention, no duplication, fewest elements, omit needless words, and length follows scope.</desc>
+
+  <defs>
+    <style><![CDATA[
+      .ground { fill: #D7DDE2; }
+      .panel  { fill: #F4F6F8; }
+
+      text { fill: #0F1C26; }
+
+      .display {
+        font-family: "Helvetica Neue", Inter, Arial, sans-serif;
+        font-weight: 800;
+        letter-spacing: -4px;
+        font-size: 112px;
+      }
+      .lead {
+        font-family: "Helvetica Neue", Inter, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 21px;
+        fill: #33434F;
+      }
+      .ruleTitle {
+        font-family: "Helvetica Neue", Inter, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 25px;
+        letter-spacing: -0.4px;
+      }
+      .body {
+        font-family: "Helvetica Neue", Inter, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 16.5px;
+        fill: #5E6E7A;
+      }
+      .tag {
+        font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+        font-size: 12.5px;
+        letter-spacing: 1.6px;
+        fill: #8494A0;
+      }
+      .eyebrow {
+        font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+        font-size: 13px;
+        letter-spacing: 2.4px;
+        fill: #5E6E7A;
+      }
+      .code {
+        font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+        font-size: 24px;
+      }
+      .hero {
+        font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+        font-size: 46px;
+      }
+      .caption {
+        font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+        font-size: 14px;
+        fill: #5E6E7A;
+      }
+      .strike {
+        fill: #A32A21;
+        fill-opacity: 0.75;
+        text-decoration: line-through;
+      }
+      .arrow { fill: #A32A21; }
+      .dim   { fill: #8494A0; }
+      .hair  { stroke: #B6C1C9; stroke-width: 1; }
+      .heavy { stroke: #0F1C26; stroke-width: 2.5; }
+    ]]></style>
+  </defs>
+
+  <rect class="ground" x="0" y="0" width="1000" height="1520"/>
+
+  <!-- header -->
+  <text class="eyebrow" x="72" y="64">SYSTEMHALTED.IN</text>
+  <text class="eyebrow" x="928" y="64" text-anchor="end">SIX RULES</text>
+  <line class="heavy" x1="72" y1="88" x2="928" y2="88"/>
+
+  <text class="display" x="68" y="204">NAMING</text>
+  <text class="caption" x="72" y="242">what it is &#183; what it holds &#183; who it is for</text>
+
+  <text class="lead" x="72" y="300">Naming forces the same decisions design does. When I cannot name</text>
+  <text class="lead" x="72" y="330">something, it is usually because I have not decided what it is yet.</text>
+
+  <!-- hero: the reduction -->
+  <rect class="panel" x="72" y="366" width="856" height="142" rx="2"/>
+  <rect x="72" y="366" width="4" height="142" fill="#A32A21"/>
+  <text class="hero" x="108" y="440">customerEmail<tspan class="strike">Address</tspan><tspan class="strike">String</tspan></text>
+  <text class="caption" x="108" y="480">String repeats the type. Address repeats what email already implies.</text>
+
+  <!-- rule 1 -->
+  <line class="hair" x1="72" y1="536" x2="928" y2="536"/>
+  <text class="tag" x="72" y="570">BECK</text>
+  <text class="ruleTitle" x="190" y="572">Runs the tests</text>
+  <text class="body" x="190" y="602">A declaration is a claim about the value. The type is the only part of</text>
+  <text class="body" x="190" y="624">that claim anything checks, and it checks it in production too.</text>
+  <text class="code" x="190" y="662"><tspan class="strike">String email</tspan><tspan class="arrow" dx="18">&#8594;</tspan><tspan dx="18">Email email</tspan></text>
+
+  <!-- rule 2 -->
+  <line class="hair" x1="72" y1="686" x2="928" y2="686"/>
+  <text class="tag" x="72" y="720">BECK</text>
+  <text class="ruleTitle" x="190" y="722">Reveals intention</text>
+  <text class="body" x="190" y="752">If a reader has to check the usages to learn what a field means, the</text>
+  <text class="body" x="190" y="774">name failed. API consumers cannot read your implementation.</text>
+  <text class="code" x="190" y="812"><tspan class="strike">data</tspan><tspan class="arrow" dx="18">&#8594;</tspan><tspan dx="18">pendingInvoices</tspan></text>
+
+  <!-- rule 3 -->
+  <line class="hair" x1="72" y1="836" x2="928" y2="836"/>
+  <text class="tag" x="72" y="870">BECK</text>
+  <text class="ruleTitle" x="190" y="872">No duplication</text>
+  <text class="body" x="190" y="902">A name should not repeat what its surroundings already say. Say</text>
+  <text class="body" x="190" y="924">everything once, inside the name as much as around it.</text>
+  <text class="code" x="190" y="962">order.<tspan class="strike">order</tspan>Id<tspan class="arrow" dx="18">&#8594;</tspan><tspan dx="18">order.id</tspan></text>
+
+  <!-- rule 4 -->
+  <line class="hair" x1="72" y1="986" x2="928" y2="986"/>
+  <text class="tag" x="72" y="1020">BECK</text>
+  <text class="ruleTitle" x="190" y="1022">Fewest elements</text>
+  <text class="body" x="190" y="1052">A field added for later still has to be named, documented, validated,</text>
+  <text class="body" x="190" y="1074">and migrated. If nothing reads it today, leave it out.</text>
+  <text class="code" x="190" y="1112"><tspan class="strike">extraMetadata</tspan><tspan class="arrow" dx="18">&#8594;</tspan><tspan class="dim" dx="18">nothing</tspan></text>
+
+  <!-- rule 5 -->
+  <line class="hair" x1="72" y1="1136" x2="928" y2="1136"/>
+  <text class="tag" x="72" y="1170">STRUNK 13</text>
+  <text class="ruleTitle" x="190" y="1172">Omit needless words</text>
+  <text class="body" x="190" y="1202">Suffixes like Value, Flag, String, and Data repeat the type, and the</text>
+  <text class="body" x="190" y="1224">type is already visible in the declaration.</text>
+  <text class="code" x="190" y="1262">isActive<tspan class="strike">Flag</tspan><tspan class="arrow" dx="18">&#8594;</tspan><tspan dx="18">isActive</tspan></text>
+
+  <!-- rule 6 -->
+  <line class="hair" x1="72" y1="1286" x2="928" y2="1286"/>
+  <text class="tag" x="72" y="1320">COX</text>
+  <text class="ruleTitle" x="190" y="1322">Length follows scope</text>
+  <text class="body" x="190" y="1352">A name's length should not exceed its information content. A public</text>
+  <text class="body" x="190" y="1374">field, read far from its declaration, has to carry more.</text>
+  <text class="code" x="190" y="1412"><tspan class="strike">loopIndexCounter</tspan><tspan class="arrow" dx="18">&#8594;</tspan><tspan dx="18">i</tspan></text>
+
+  <!-- footer -->
+  <line class="heavy" x1="72" y1="1436" x2="928" y2="1436"/>
+  <text class="lead" x="72" y="1472">When the rules conflict, pick the name that is easier for the reader.</text>
+  <text class="tag" x="928" y="1472" text-anchor="end">BECK &#183; STRUNK &#183; COX</text>
+</svg>

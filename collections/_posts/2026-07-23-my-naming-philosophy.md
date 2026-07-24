@@ -12,6 +12,9 @@ tags:
 - design
 - software
 comments: true
+featured_image:/assets/images/featured/2026-07-23-my-naming-philosophy.svg
+featured_image_alt: "Poster titled "Naming" listing six rules, each paired with a code example where the needless part of a name is struck out in red: String email becomes Email email, data becomes pendingInvoices, order.orderId becomes order.id, extraMetadata becomes nothing, isActiveFlag becomes isActive, loopIndexCounter becomes i."
+featured_image_caption: "Six rules for naming: four from Kent Beck’s rules of simple design, one from Strunk, one from Russ Cox. Each rule shown as the reduction it produces."
 toc: true
 description: 'The rules I follow when naming variables, API fields, and schema elements. Most of it is borrowed from Kent Beck, Strunk, and Russ Cox; the rest is how I read their rules when the thing being named is a variable rather than a design.'
 ---

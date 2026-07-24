@@ -15,7 +15,7 @@ comments: true
 description: A measured look at where AI genuinely helps in people management, and where human judgment has to stay in the loop.
 ---
 
-People management is one of the areas where AI is being adopted quickly, and also one where it is easy to overclaim. Most of the functions where AI now shows up in HR, such as hiring, performance, engagement, learning, communication, well-being, and analytics, involve judgments about people. That is where automation can save the most effort and also where it can do the most harm.
+People management is one of the areas where AI is being adopted quickly. Most of the functions where AI now shows up in HR, such as hiring, performance, engagement, learning, communication, well-being, and analytics, involve judgments about people. That is where automation can save the most effort and also where it can do the most harm.
 
 I want to set out where I think AI genuinely helps, and where it should stay in a supporting role.
 
@@ -37,12 +37,12 @@ I want to set out where I think AI genuinely helps, and where it should stay in 
 
 ## Where human judgment has to stay
 
-There is a common thread across all of these. AI in people management operates on data about people, and people respond to how they are measured. Once employees understand what a system rewards, some will manage toward the signal rather than the work. A metric that looked objective can quietly become a target.
+AI in people management operates on data about people, and people respond to how they are measured. Once employees understand what a system rewards, some will manage toward the signal rather than the work. A metric that looked objective can quietly become a target.
 
 The decisions here also carry moral weight. Who gets hired, promoted, flagged, or let go affects a person's livelihood. Those outcomes should not be handed to a system that is optimizing a proxy for something it cannot directly measure. A model can inform such a decision, but it should not be the thing that makes it.
 
-A practical rule works better than a principle. Use AI to widen what a manager can see, not to replace the manager's judgment. Keep a person accountable for any outcome that changes someone's job, pay, or standing, and make sure that person can explain the decision without pointing at a score.
+My rule is to use AI to widen what a manager can see, not to replace the manager's judgment. Keep a person accountable for any outcome that changes someone's job, pay, or standing, and make sure that person can explain the decision without pointing at a score.
 
 ## Closing
 
-AI can take a large amount of administrative load off HR and surface patterns a person would miss. That is real, and it is worth adopting where it reduces drudgery and improves visibility. But the judgments that matter most in people management are the ones where a person should remain responsible. The useful way to bring AI into this work is to let it handle the volume and keep humans in the decisions that carry consequences for other humans.
+AI can take a large amount of administrative load off HR and surface patterns a person would miss. It is worth adopting where it reduces drudgery and improves visibility. But the judgments that matter most in people management are the ones where a person should remain responsible. The useful way to bring AI into this work is to let it handle the volume and keep humans in the decisions that carry consequences for other humans.

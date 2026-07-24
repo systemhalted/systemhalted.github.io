@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Semantic Networks as Search Spaces
-date: 2026-07-24
+date: 2026-07-24 09:30:00 -0500
 categories:
 - AI
 - Computer Science

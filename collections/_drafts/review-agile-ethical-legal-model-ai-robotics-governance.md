@@ -20,15 +20,13 @@ Wendell Wallach and Gary Marchant's "An Agile Ethical/Legal Model for the Intern
 
 The core proposal is a Governance Coordinating Committee, or GCC, that would help coordinate ethical, legal, technical, and institutional responses to AI and robotics. The paper is not simply asking for another principles document. It is trying to describe an institutional mechanism for turning soft law into something more durable.
 
-That distinction is important.
-
 AI governance already has many declarations, principles, and high-level frameworks. The problem is not a shortage of ethical vocabulary. The problem is that fast-moving technology often outruns the institutions that are supposed to discipline it.
 
 ## The case for coordination
 
 The paper's strongest argument is that AI and robotics governance cannot be left entirely to one actor.
 
-Governments move slowly and are constrained by jurisdiction. Engineers understand technical feasibility but do not always have authority over deployment. Ethicists can clarify values and harms, but ethical analysis alone does not create compliance. Courts usually arrive after damage has already occurred.
+Governments move slowly and are constrained by jurisdiction. Engineers understand technical feasibility but do not always have authority or understanding of the consequences. Ethicists can clarify values and harms, but ethical analysis alone does not create compliance. Courts need framework in terms of laws, rules and precedents to make a judgment. 
 
 The proposed GCC is meant to sit across these groups and coordinate governance through multiple channels:
 
@@ -75,6 +73,8 @@ There are also questions about legitimacy:
 - How does it handle disagreement between countries with different values and legal systems?
 - How does it connect to existing laws such as GDPR?
 - How would it incorporate declarations such as the Toronto Declaration into operational requirements?
+- How GCC will operate internationally?
+- How will GCC attain autonomy and at the same time have authority delegated by the government of different nations?
 
 These questions do not weaken the need for governance. They show where the real design work begins.
 
@@ -84,7 +84,7 @@ These questions do not weaken the need for governance. They show where the real 
 
 The paper's GCC proposal may or may not be the exact institution the world needs, but the underlying point is sound: AI principles require coordinated enforcement pathways. Without that, responsible AI stays mostly a matter of language.
 
-Writing down what AI should respect is the easy part. The harder work is building the institutions that make those commitments difficult to ignore.
+Writing down what AI should respect is the easy part. The harder work is building the institutions that make those commitments difficult to ignore. 
 
 ## Reference
 

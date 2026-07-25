@@ -97,6 +97,34 @@
     });
   </script>
 
+  {% if page.mermaid %}
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js" integrity="sha384-R63zfMfSwJF4xCR11wXii+QUsbiBIdiDzDbtxia72oGWfkT7WHJfmD/I/eeHPJyT" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof mermaid === 'undefined') {
+        return;
+      }
+      // kramdown + rouge wraps a ```mermaid fence as
+      // <div class="language-mermaid highlighter-rouge">...<code>...</code></div>.
+      // Turn each such block into a <div class="mermaid"> that mermaid can render.
+      // (Also handles the plain <code class="language-mermaid"> form if highlighting changes.)
+      document.querySelectorAll('.language-mermaid').forEach(function (el) {
+        var isCode = el.tagName === 'CODE';
+        var codeEl = isCode ? el : el.querySelector('code');
+        if (!codeEl) { return; }
+        var block = isCode ? (el.closest('pre') || el) : el;
+        if (!block.parentNode) { return; }
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = codeEl.textContent;
+        block.parentNode.replaceChild(div, block);
+      });
+      mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+      mermaid.run();
+    });
+  </script>
+  {% endif %}
+
   {% if site.google_analytics_id %}
  <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics_id }}"></script>

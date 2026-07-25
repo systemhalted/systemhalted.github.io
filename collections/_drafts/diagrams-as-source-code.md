@@ -11,6 +11,7 @@ tags:
 - documentation
 comments: true
 toc: true
+mermaid: true
 description: 'Three tools that make diagrams versionable because their source is text — hand-edited SVG, Mermaid, and Graphviz — and where each one fits.'
 ---
 
@@ -52,7 +53,7 @@ Hand-writing SVG stops being reasonable once a diagram has more than a handful o
 
 Mermaid solves this for the common cases. You describe the graph and it places everything:
 
-```
+```mermaid
 flowchart LR
   client[Client] --> gw[API Gateway]
   gw --> ent[Entitlements]

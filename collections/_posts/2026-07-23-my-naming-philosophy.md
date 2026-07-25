@@ -11,6 +11,7 @@ tags:
 - java
 - design
 - software
+- literate-programming
 comments: true
 toc: true
 description: 'The rules I follow when naming variables, API fields, and schema elements. Most of it is borrowed from Kent Beck, Strunk, and Russ Cox; the rest is how I read their rules when the thing being named is a variable rather than a design.'
@@ -52,6 +53,14 @@ Strunk's [rule 13](https://www.bartleby.com/lit-hub/the-elements-of-style/iii-el
 Russ Cox [puts it](https://research.swtch.com/names) as: a name's length should not exceed its information content. A loop index that lives for three lines is `i`, and making it `loopIndexCounter` adds letters without adding information. A public field, read far from its declaration by people who never see the surrounding code, has to carry more.
 
 These rules usually agree. When they conflict, I pick whichever name is easier for the reader. In a follow-up post I will take a badly named API model and apply these rules to it one pass at a time.
+
+## Parting Thoughts
+
+I will just end with a thought from Donald Knuth. In his article introducing literate programming, he said:
+
+> ...The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author, with thesaurus in hand, chooses the names of variables carefully and explains what each variable means...
+
+And this has been my endeavor. 
 
 <figure class="post-figure">
   <img src="{{ '/assets/images/featured/2026-07-23-my-naming-philosophy.svg' | relative_url }}" alt='Poster titled "Naming" listing six rules, each paired with a code example where the needless part of a name is struck out in red: String email becomes Email email, data becomes pendingInvoices, order.orderId becomes order.id, extraMetadata becomes nothing, isActiveFlag becomes isActive, loopIndexCounter becomes i.'>

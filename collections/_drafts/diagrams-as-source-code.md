@@ -11,9 +11,9 @@ Three tools have changed that for me over the past several months: hand-edited S
 
 ## SVG is source code
 
-An SVG file is XML. You can open it in an editor, read it, change a number, and see the result. That is the entire pitch, and it turns out to be enough.
+An SVG file is XML. You can open it in an editor, read it, change a number, and see the result. That is the whole idea, and it is enough.
 
-What made this practical recently is that language models write SVG well. I describe what I want, get a file back, and then work on it directly. The generation step is not the interesting part. The editing step is. With a raster generator you get a finished artifact and your only options are to regenerate it or paint over it. With SVG you get something you can diff, review, and commit.
+What made this practical recently is that language models write SVG well. I describe what I want, get a file back, and then work on it directly. Generating the file matters less than being able to edit it afterward. With a raster generator you get a finished artifact and your only options are to regenerate it or paint over it. With SVG you get something you can diff, review, and commit.
 
 I have been asking for output shaped so it is easy to edit:
 
@@ -21,7 +21,7 @@ I have been asking for output shaped so it is easy to edit:
 - A round `viewBox`, usually `0 0 100 100`, so coordinates stay readable.
 - Colors declared once in a `<style>` block inside the SVG rather than repeated as inline attributes on every element.
 
-That last one matters more than it sounds. A theme change becomes one edit instead of fifty.
+That last one saves the most work. A theme change becomes one edit instead of fifty.
 
 Where this works is geometric and structural work: icons, logos, badges, diagrams, anything built from clean primitives with some symmetry. Where it fails is organic form. Faces, animals, illustration. If a request would need a path with fifty control points, it is the wrong tool and no amount of prompting fixes that.
 
@@ -29,13 +29,13 @@ Where this works is geometric and structural work: icons, logos, badges, diagram
 
 I recently needed a logo and asset set for an event streaming platform. The whole thing was done as SVG, generated and then edited by hand, with a script to produce the PNG sizes.
 
-The part worth knowing about is fonts. An SVG that references a font by name renders correctly only where that font is installed. On your machine it looks right. In someone else's browser, or at a printer, it falls back to something else and the layout shifts. For a logo, that is a defect.
+The thing to watch is fonts. An SVG that references a font by name renders correctly only where that font is installed. On your machine it looks right. In someone else's browser, or at a printer, it falls back to something else and the layout shifts. For a logo, that is a defect.
 
 The fix is to convert text to paths. Once converted, the glyph shapes are geometry and render identically everywhere. The cost is that the text is no longer text — you cannot retype it, and it is no longer selectable or searchable.
 
 So I keep two files. An editable master with real `<text>` elements, and a flattened copy for distribution. The flattening is a build step, not a manual one. `svgo` cleans up the output, and `resvg` handles the PNG rasterization without needing Inkscape in the pipeline.
 
-This is the same shape as a source tree and a build artifact, which is why it feels natural.
+This is the same shape as a source tree and a build artifact.
 
 ## Mermaid, for diagrams in prose
 
@@ -95,4 +95,4 @@ The split I have settled on:
 - **Graphviz** for anything generated from code, and for graphs large enough that layout tuning matters.
 - **Hand-edited SVG** for things where the visual result is the point — logos, banners, posters, anything with exact positioning.
 
-What connects them is not the file format. It is that all three let a diagram be reviewed, diffed, and rebuilt. A picture that can be regenerated from text is a picture that can be kept accurate. Every diagram I have ever seen go stale went stale because fixing it meant finding the person who had the original file.
+What connects them is not the file format but that a diagram can be reviewed, diffed, and rebuilt. A picture you can regenerate from text is a picture you can keep accurate. Every diagram I have ever seen go stale went stale because fixing it meant finding the person who had the original file.

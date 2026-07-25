@@ -3,6 +3,15 @@ layout: post
 title: "Diagrams as Source Code: SVG, Mermaid, and Graphviz"
 date: 2026-07-25
 categories: [tools, writing]
+tags:
+- svg
+- mermaid
+- graphviz
+- diagrams
+- documentation
+comments: true
+toc: true
+description: 'Three tools that make diagrams versionable because their source is text — hand-edited SVG, Mermaid, and Graphviz — and where each one fits.'
 ---
 
 For most of my career, images were the part of my work I could not version. Code went into Git, documents went into Git, and diagrams went into a PNG that someone exported from a drawing tool once and never touched again. When the architecture changed, the diagram did not. Nobody could fix it, because nobody had the file it came from.

@@ -11,7 +11,7 @@ comments: true
 description: This post looks at how Devanagari actually works in Unicode
 ---
 
-Why do we need Unicode[^unicode]? The answer usually is that ASCII[^ascii] was too small. It could represent English but not the thousands of characters used by other writing systems. Unicode fixed this by assigning every character a unique number called a code point[^codepoint].
+Why did we need Unicode[^unicode]? The answer usually is that ASCII[^ascii] was too small. It could represent English but not the thousands of characters used by other writing systems. Unicode fixed this by assigning every character a unique number called a code point[^codepoint].
 
 ```
 A    U+0041

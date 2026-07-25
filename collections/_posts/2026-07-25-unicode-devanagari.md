@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Devanagari in Unicode
-date: 2026-07-24 22:30:00 -0500
+date: 2026-07-25
 categories:
 - Computer Science
 tags:

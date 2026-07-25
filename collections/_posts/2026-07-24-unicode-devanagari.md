@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Hindi Is More Interesting Than ASCII: How Devanagari Actually Works in Unicode"
-date: 2026-07-25
+title: Devanagari in Unicode
+date: 2026-07-24 22:30:00 -0500
 categories:
 - Computer Science
 tags:
@@ -249,7 +249,7 @@ String.compareTo        Collator(hi)
   कल                      कल
   क़लम   (U+0915…)         क़लम   (U+0958…)
   खत                      क़लम   (U+0915…)
-  गाना                    खत
+  गाना                      खत
   क़लम   (U+0958…)         गाना
 ```
 
@@ -291,11 +291,9 @@ The consequences are ordinary and frequent.
 
 ## The point
 
-When we look at क्ष our eyes report one thing. The computer is handling three code points and nine bytes, and reports either one cluster or two depending on which segmentation library got linked. When we look at कि we see the vowel first, and it is stored second.
+When we look at क्ष our eyes report one thing. The computer is handling three code points and nine bytes, and reports either one cluster or two depending on which segmentation library got linked. When we look at कि we see the vowel first, but it is stored second.
 
 Neither representation is wrong. They are different layers of the same writing system. Unicode encodes the logical text, an encoding form turns it into bytes, a shaper interprets it, a font supplies the glyphs, and the renderer produces pixels. What appears on the screen is the end of that pipeline, not a picture of what is in memory.
-
-ASCII made every layer coincide, so the pipeline was invisible and the mental model survived. Devanagari makes it impossible to ignore.
 
 ---
 

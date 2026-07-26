@@ -5,34 +5,36 @@ image: /assets/images/avatar.jpeg
 
 {% if paginator.page == 1 %}<h1 class="sr-only">SystemHalted — Palak Mathur on software engineering, leadership, and Emacs</h1>{% endif %}
 
-{% if paginator.page == 1 and site.data.start_here %}
-<section class="start-here">
-  <h2 class="start-here-title">Start here</h2>
-  {% if site.data.start_here.lede %}<p class="start-here-lede">{{ site.data.start_here.lede }}</p>{% endif %}
-  <ul class="post-feed start-here-feed">
-    {% for slug in site.data.start_here.posts %}
-      {% assign p = site.posts | where: "url", slug | first %}
-      {% if p %}{% include post-list-item.html post=p %}{% endif %}
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
-
 {% if paginator.page == 1 %}
-  {% assign latest_issue = site.newsletter | sort: 'date' | reverse | first %}
-  {% if latest_issue %}
-  <section class="home-newsletter-promo">
-    <p class="newsletter-kicker">Latest from Kartavya Path</p>
-    <h3 class="home-newsletter-title"><a href="{{ latest_issue.url | relative_url }}">{{ latest_issue.title }}</a></h3>
-    <p class="home-newsletter-meta">
-      <time datetime="{{ latest_issue.date | date_to_xmlschema }}">{{ latest_issue.date | date: "%b %-d, %Y" }}</time>
-      · <a href="{{ '/kartavya-path/' | relative_url }}">all issues →</a>
-    </p>
-  </section>
-  {% endif %}
+<div class="home-grid">
+  <aside class="home-rail">
+    {% if site.data.start_here %}
+    <section class="start-here">
+      <h2 class="start-here-title">Start here</h2>
+      {% if site.data.start_here.lede %}<p class="start-here-lede">{{ site.data.start_here.lede }}</p>{% endif %}
+      <ul class="start-here-compact">
+        {% for slug in site.data.start_here.posts %}
+          {% assign p = site.posts | where: "url", slug | first %}
+          {% if p %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{% endif %}
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+    {% assign latest_issue = site.newsletter | sort: 'date' | reverse | first %}
+    {% if latest_issue %}
+    <section class="home-newsletter-promo">
+      <p class="newsletter-kicker">Latest from Kartavya Path</p>
+      <h3 class="home-newsletter-title"><a href="{{ latest_issue.url | relative_url }}">{{ latest_issue.title }}</a></h3>
+      <p class="home-newsletter-meta">
+        <time datetime="{{ latest_issue.date | date_to_xmlschema }}">{{ latest_issue.date | date: "%b %-d, %Y" }}</time>
+        · <a href="{{ '/kartavya-path/' | relative_url }}">all issues →</a>
+      </p>
+    </section>
+    {% endif %}
+  </aside>
+  <div class="home-main">
+    <h2 class="recent-title">Recent posts</h2>
 {% endif %}
-
-{% if paginator.page == 1 %}<h2 class="recent-title">Recent posts</h2>{% endif %}
 
 <ul class="post-feed">
   {% for post in paginator.posts %}{% include post-list-item.html post=post %}{% endfor %}
@@ -97,3 +99,8 @@ image: /assets/images/avatar.jpeg
     <button type="button" class="page-btn disabled" disabled aria-disabled="true">Last</button>
   {% endif %}
 </nav>
+
+{% if paginator.page == 1 %}
+  </div>
+</div>
+{% endif %}

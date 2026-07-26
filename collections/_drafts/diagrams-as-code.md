@@ -18,9 +18,9 @@ mermaid: true
 description: 'SVG, Mermaid, Graphviz, and PlantUML all make a diagram out of text. That property was adopted so we could version diagrams - and it is the same property that lets a language model draw one at all.'
 ---
 
-The interesting thing about technology is it's evolution - how one layer quietly becomes the ground the next one stands on. A format gets built for one reason, and years later it turns out to enable something nobody designed it for.
+The interesting thing about technology is its evolution - how one layer quietly becomes the ground the next one stands on. A format gets built for one reason, and years later it turns out to enable something nobody designed it for.
 
-SVG, Mermaid, Graphviz, PlantUML share one property: you write the picture as text and something renders it. That property got adopted because text is easier to diff, patched and version controlled. 
+SVG, Mermaid, Graphviz, PlantUML share one property: you write the picture as text and something renders it. That property got adopted because text is easier to diff, patch, build and version control. 
 
 Then generative AI arrived, and the same property paid off a second time. A language model produces text. Therefore, a diagram whose source is text is a diagram a model can write. One technology enabled the next without being asked to.
 
@@ -42,15 +42,13 @@ That last one saves the most work. A theme change becomes one edit instead of fi
 
 Where this works is geometric and structural work: icons, logos, badges, diagrams, anything built from clean primitives with some symmetry. Where it fails is organic form. Faces, animals, illustration. If a request would need a path with fifty control points, it is the wrong tool and no amount of prompting fixes that. This is the edge of the enablement: the model can write the text, but only where the picture is simple enough to be written as text in the first place.
 
-## A logo, start to finish
-
 I recently needed a logo and asset set for an event streaming platform. The whole thing was done as SVG, generated and then edited by hand, with a script to produce the PNG sizes. Generated first because the format let it be, edited second because the format let that too.
 
 The thing to watch is fonts. An SVG that references a font by name renders correctly only where that font is installed. On your machine it looks right. In someone else's browser, or at a printer, it falls back to something else and the layout shifts. For a logo, that is a defect. 
 
-The fix is to convert text to paths. Once converted, the glyph shapes are geometry and render identically everywhere. The cost is that the text is no longer text — you cannot retype it, and it is no longer selectable or searchable.
+The fix is to convert text to say PNG. Once converted, the glyph shapes are geometry and render identically everywhere. The cost is that the text is no longer text — you cannot retype it, and it is no longer selectable or searchable.
 
-So I keep two files. First is the editable master with real `<svg>` elements, and a generated flattened copy for distribution. `svgo` cleans up the output, and `resvg` handles the PNG rasterization without needing Inkscape in the pipeline. 
+So I keep two files. First, the editable master with real `<svg>` elements, and second, a generated flattened copy for distribution. `svgo` cleans up the output, and `resvg` handles the PNG rasterization without needing Inkscape in the pipeline. 
 
 
 ## Mermaid, for diagrams in prose
@@ -119,11 +117,9 @@ digraph pipeline {
 dot -Tsvg pipeline.dot -o pipeline.svg
 ```
 
-`dot` is the hierarchical layout engine. The distribution ships several others that take the same input file: `neato` and `fdp` do force-directed layout for undirected graphs, `circo` arranges nodes in a ring, `twopi` does radial. Changing the engine changes the picture without changing the source.
+`dot` is the hierarchical layout engine. The distribution ships several others that take the same input file - `neato` and `fdp` do force-directed layout for undirected graphs, `circo` arranges nodes in a ring, `twopi` does radial. Changing the engine changes the picture without changing the source.
 
-Two features do most of the work. `subgraph cluster_name { ... }` draws a labeled box around a group of nodes, which is how you show a service boundary or a trust zone. And `rank=same` pins nodes to the same level, which is how you stop the engine from producing something that is structurally correct but reads badly.
-
-What Graphviz has over Mermaid is that DOT is trivial to emit from a script. If the graph already exists as data — a dependency tree, a topic-to-consumer map, a module graph — you do not draw it. You write twenty lines that print DOT and let the layout engine handle the rest. The diagram is then derived from the system rather than describing it from memory, which means it cannot drift. That same triviality is why a model can produce DOT for a graph you describe in a sentence: the format is regular enough that a script can print it, and anything a script can print, a model can print too.
+What Graphviz has over Mermaid is that DOT is trivial to emit from a script. If the graph already exists as data — a dependency tree, a topic-to-consumer map, a module graph — you do not draw it. You write twenty lines that print DOT and let the layout engine handle the rest. The diagram is then derived from the system, which means it cannot drift. That same triviality is why a model can produce DOT for a graph you describe in a sentence: the format is regular enough that a script can print it, and anything a script can print, a model can print too.
 
 The output is SVG, so everything from the first section still applies. You can post-process it, restyle it with your own CSS, and check it in.
 
@@ -136,6 +132,4 @@ The split I have settled on:
 - **PlantUML** for the standard software diagrams — sequence, class, component — where its named vocabulary does the work.
 - **Hand-edited SVG** for things where the visual result is the point — logos, banners, posters, anything with exact positioning.
 
-What connects them is not the file format but that a diagram can be reviewed, diffed, and rebuilt. That property was worth having on its own; every diagram I have ever seen go stale went stale because fixing it meant finding the person who had the original file.
-
-But the larger point is the one you only see in hindsight. We made diagrams out of text so we could keep them in Git. Having done that, we also — without planning to — made them out of the one material a language model can produce. If diagrams had stayed as pixels, asking a model to draw one would mean asking it to place several hundred thousand color values, and it cannot do that well. Because the source is text, the model just writes the source, and the renderer that was already there turns it into a picture. The tool built for version control became the tool that let the machine draw. That is usually how it goes: the next capability gets built out of the last one's byproducts.
+What connects them is not the file format but that a diagram can be reviewed, diffed, and rebuilt. That property was worth having on its own. We made diagrams out of text so we could keep them in Git. Having done that, we also — without planning to — made them out of the one material a language model can produce. If diagrams had stayed as pixels, asking a model to draw one would mean asking it to place several hundred thousand color values, and it cannot do that well. Because the source is text, the model just writes the source, and the renderer that was already there turns it into a picture. The tool built for version control became the tool that let the machine draw. That is usually how it goes: the next capability gets built out of the last one's byproducts.

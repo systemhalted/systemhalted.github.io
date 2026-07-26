@@ -1,29 +1,38 @@
 ---
 layout: post
-title: "Diagrams as Code: SVG, Mermaid, and Graphviz"
+title: "Diagrams as Code: How Text Formats Let AI Draw"
 date: 2026-07-25
-categories: [tools, writing]
+categories:
+- AI
+- Tools
 tags:
 - svg
 - mermaid
 - graphviz
+- plantuml
 - diagrams
-- documentation
+- ai
 comments: true
 toc: true
 mermaid: true
-description: 'Three tools that make diagrams versionable because their source is text — hand-edited SVG, Mermaid, and Graphviz — and where each one fits.'
+description: 'SVG, Mermaid, Graphviz, and PlantUML all make a diagram out of text. That property was adopted so we could version diagrams — and it is the same property that lets a language model draw one at all.'
 ---
+
+The interesting thing about technology is how one layer quietly becomes the ground the next one stands on. A format gets built for one reason, and years later it turns out to enable something nobody designed it for.
 
 For most of my career, images were the part of my work I could not version. Code went into Git, documents went into Git, and diagrams went into a PNG that someone exported from a drawing tool once and never touched again. When the architecture changed, the diagram did not. Nobody could fix it, because nobody had the file it came from.
 
-Three tools have changed that for me over the past several months: hand-edited SVG, Mermaid, and Graphviz. All three produce vector output from text. That single property — the source is text — is what makes them worth writing about.
+The fix was to make the source of a diagram be text. SVG, Mermaid, Graphviz, PlantUML — different tools, one shared property: you write the picture as text and something renders it. That property got adopted because text is what version control understands. You can diff it, review it, and commit it.
+
+Then generative AI arrived, and the same property paid off a second time. A language model produces text. That is the only thing it produces. So a diagram whose source is text is a diagram a model can write, and a diagram that is a flat grid of pixels is not. The formats we adopted so we could diff our diagrams turned out to be exactly the formats a model can generate. One technology enabled the next without being asked to.
+
+This post is about the four tools I use, and about that second payoff.
 
 ## SVG is source code
 
 An SVG file is XML. You can open it in an editor, read it, change a number, and see the result. That is the whole idea, and it is enough.
 
-What made this practical recently is that language models write SVG well. I describe what I want, get a file back, and then work on it directly. Generating the file matters less than being able to edit it afterward. With a raster generator you get a finished artifact and your only options are to regenerate it or paint over it. With SVG you get something you can diff, review, and commit.
+It is also why a language model can draw one. Ask for an icon and you get back XML — tags, coordinates, colors — the same kind of token stream the model was trained to produce. Nothing about the request leaves the domain of text. I describe what I want, get a file back, and then work on it directly. Generating the file matters less than being able to edit it afterward, but the generation happens at all only because the format is text. With a raster generator you get a finished grid of pixels and your only options are to regenerate it or paint over it. With SVG you get something you can diff, review, and commit.
 
 I have been asking for output shaped so it is easy to edit:
 
@@ -33,11 +42,11 @@ I have been asking for output shaped so it is easy to edit:
 
 That last one saves the most work. A theme change becomes one edit instead of fifty.
 
-Where this works is geometric and structural work: icons, logos, badges, diagrams, anything built from clean primitives with some symmetry. Where it fails is organic form. Faces, animals, illustration. If a request would need a path with fifty control points, it is the wrong tool and no amount of prompting fixes that.
+Where this works is geometric and structural work: icons, logos, badges, diagrams, anything built from clean primitives with some symmetry. Where it fails is organic form. Faces, animals, illustration. If a request would need a path with fifty control points, it is the wrong tool and no amount of prompting fixes that. This is the edge of the enablement: the model can write the text, but only where the picture is simple enough to be written as text in the first place.
 
 ## A logo, start to finish
 
-I recently needed a logo and asset set for an event streaming platform. The whole thing was done as SVG, generated and then edited by hand, with a script to produce the PNG sizes.
+I recently needed a logo and asset set for an event streaming platform. The whole thing was done as SVG, generated and then edited by hand, with a script to produce the PNG sizes. Generated first because the format let it be, edited second because the format let that too.
 
 The thing to watch is fonts. An SVG that references a font by name renders correctly only where that font is installed. On your machine it looks right. In someone else's browser, or at a printer, it falls back to something else and the layout shifts. For a logo, that is a defect.
 
@@ -61,9 +70,33 @@ flowchart LR
   ent -.denied.-> client
 ```
 
-It renders in the browser without a toolchain, which is what makes it right for a blog. The diagram lives in the post as text. When the design changes, I edit four lines instead of opening a drawing tool.
+It renders in the browser without a toolchain, which is what makes it right for a blog. The diagram lives in the post as text. When the design changes, I edit four lines instead of opening a drawing tool. And because those four lines are so close to how you would describe the graph in words, a model writes them without hesitation — Mermaid is often the first thing a model reaches for when you ask for a diagram, precisely because the syntax is nearly a transcript of the sentence.
 
 Sequence diagrams are where Mermaid is clearly the best of the three. Nothing else expresses a request-response exchange as directly.
+
+## PlantUML, for the standard software diagrams
+
+PlantUML is a DSL aimed at the diagrams software teams draw over and over: sequence, class, component, state, use case. You write the diagram in its text syntax and the tool lays it out.
+
+```plantuml
+@startuml
+actor Client
+participant "API Gateway" as GW
+participant Entitlements as Ent
+participant Service as Svc
+
+Client -> GW : request
+GW -> Ent : check access
+Ent --> GW : denied
+GW --> Client : 403
+@enduml
+```
+
+```
+plantuml -tsvg flow.puml
+```
+
+There is no browser renderer for this the way there is for Mermaid, so on a page you show the source and commit the rendered SVG or PNG beside it. What PlantUML gives you is a syntax that names the concepts directly — `actor`, `participant`, `-->` — and that is also why a model writes it fluently. The vocabulary is small and the shapes are named, so there is little to get wrong. Describe a login flow and you get valid PlantUML back on the first try more often than not. A DSL this constrained is nearly the ideal target for generation: fewer degrees of freedom than raw SVG, more structure than a freehand drawing.
 
 ## Graphviz, for graphs you generate
 
@@ -93,7 +126,7 @@ dot -Tsvg pipeline.dot -o pipeline.svg
 
 Two features do most of the work. `subgraph cluster_name { ... }` draws a labeled box around a group of nodes, which is how you show a service boundary or a trust zone. And `rank=same` pins nodes to the same level, which is how you stop the engine from producing something that is structurally correct but reads badly.
 
-What Graphviz has over Mermaid is that DOT is trivial to emit from a script. If the graph already exists as data — a dependency tree, a topic-to-consumer map, a module graph — you do not draw it. You write twenty lines that print DOT and let the layout engine handle the rest. The diagram is then derived from the system rather than describing it from memory, which means it cannot drift.
+What Graphviz has over Mermaid is that DOT is trivial to emit from a script. If the graph already exists as data — a dependency tree, a topic-to-consumer map, a module graph — you do not draw it. You write twenty lines that print DOT and let the layout engine handle the rest. The diagram is then derived from the system rather than describing it from memory, which means it cannot drift. That same triviality is why a model can produce DOT for a graph you describe in a sentence: the format is regular enough that a script can print it, and anything a script can print, a model can print too.
 
 The output is SVG, so everything from the first section still applies. You can post-process it, restyle it with your own CSS, and check it in.
 
@@ -103,6 +136,9 @@ The split I have settled on:
 
 - **Mermaid** for diagrams written by hand inside a post. Fast, no toolchain, renders inline.
 - **Graphviz** for anything generated from code, and for graphs large enough that layout tuning matters.
+- **PlantUML** for the standard software diagrams — sequence, class, component — where its named vocabulary does the work.
 - **Hand-edited SVG** for things where the visual result is the point — logos, banners, posters, anything with exact positioning.
 
-What connects them is not the file format but that a diagram can be reviewed, diffed, and rebuilt. A picture you can regenerate from text is a picture you can keep accurate. Every diagram I have ever seen go stale went stale because fixing it meant finding the person who had the original file.
+What connects them is not the file format but that a diagram can be reviewed, diffed, and rebuilt. That property was worth having on its own; every diagram I have ever seen go stale went stale because fixing it meant finding the person who had the original file.
+
+But the larger point is the one you only see in hindsight. We made diagrams out of text so we could keep them in Git. Having done that, we also — without planning to — made them out of the one material a language model can produce. If diagrams had stayed as pixels, asking a model to draw one would mean asking it to place several hundred thousand color values, and it cannot do that well. Because the source is text, the model just writes the source, and the renderer that was already there turns it into a picture. The tool built for version control became the tool that let the machine draw. That is usually how it goes: the next capability gets built out of the last one's byproducts.

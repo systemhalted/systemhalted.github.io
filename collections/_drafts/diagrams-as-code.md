@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Diagrams as Source Code: SVG, Mermaid, and Graphviz"
+title: "Diagrams as Code: SVG, Mermaid, and Graphviz"
 date: 2026-07-25
 categories: [tools, writing]
 tags:

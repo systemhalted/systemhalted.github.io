@@ -13,7 +13,7 @@ permalink: /categories/
   {%- endcomment -%}
   {% assign total_posts = 0 %}
   {% for cat in theme.categories %}
-    {% assign posts = site.categories[cat] %}
+    {% assign posts = site.categories[cat.name] %}
     {% if posts %}
       {% assign post_count = posts | size %}
       {% assign total_posts = total_posts | plus: post_count %}
@@ -28,16 +28,19 @@ permalink: /categories/
     {% endif %}
 
     {% for cat in theme.categories %}
-      {% assign posts = site.categories[cat] %}
+      {% assign posts = site.categories[cat.name] %}
       {% if posts %}
         {% assign posts = posts | sort: "date" | reverse %}
       {% endif %}
       {% if posts and posts.size > 0 %}
-        <details id="cat-{{ cat | slugify }}" class="archive-year">
+        <details id="cat-{{ cat.name | slugify }}" class="archive-year">
           <summary class="archive-year-summary">
-            <span class="archive-year-title">{{ cat }}</span>
+            <span class="archive-year-title">{{ cat.name }}</span>
             <span class="archive-year-count">({{ posts.size }})</span>
           </summary>
+          {% if cat.description %}
+            <p class="archive-category-description">{{ cat.description }}</p>
+          {% endif %}
           <ul class="archive-posts">
             {% for post in posts %}
               {% assign post_summary = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 40 %}
@@ -66,7 +69,8 @@ permalink: /categories/
 
 {% assign taxonomy_cats = "" | split: "," %}
 {% for theme in themes %}
-  {% assign taxonomy_cats = taxonomy_cats | concat: theme.categories %}
+  {% assign theme_cat_names = theme.categories | map: "name" %}
+  {% assign taxonomy_cats = taxonomy_cats | concat: theme_cat_names %}
 {% endfor %}
 
 {% for cat in site.categories %}

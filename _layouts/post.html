@@ -97,7 +97,7 @@ layout: default
 {% for theme in themes %}
   {% assign has_match = false %}
   {% for cat in theme.categories %}
-    {% if page_categories contains cat %}
+    {% if page_categories contains cat.name %}
       {% assign has_match = true %}
     {% endif %}
   {% endfor %}
@@ -110,7 +110,7 @@ layout: default
 {% for theme in themes %}
   {% if matched_theme_ids contains theme.id %}
     {% for cat in theme.categories %}
-      {% assign cat_posts = site.categories[cat] %}
+      {% assign cat_posts = site.categories[cat.name] %}
       {% if cat_posts %}
         {% assign theme_posts = theme_posts | concat: cat_posts %}
       {% endif %}

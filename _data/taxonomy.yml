@@ -2,78 +2,102 @@ themes:
 
   - id: series
     title: "Series"
-    description: "Posts part of a series"
+    description: "Multi-part series, meant to be read in order."
     categories:
-      - "Series 1 - Language and Linguistics" 
-      - "Series 2 - Turtle, BASIC, and the Long Road to Taste"
-      - "Series 3 - Project Jigsaw (JPMS)"
-      - "Series 4 - Floating Point Without Tears"
+      - name: "Series 1 - Language and Linguistics"
+        description: "A six-part series on how language works: grammar, vocabulary, pronunciation, script, and non-verbal communication."
+      - name: "Series 2 - Turtle, BASIC, and the Long Road to Taste"
+        description: "How early languages — Logo, BASIC, GOTO-era code — shaped programming taste."
+      - name: "Series 3 - Project Jigsaw (JPMS)"
+        description: "The Java module system, one concept at a time."
+      - name: "Series 4 - Floating Point Without Tears"
+        description: "IEEE 754 doubles, BigDecimal, NaN, and how to compute with them without being surprised."
 
   - id: tech_engineering
     title: "Tech, Software, and Engineering"
     description: "Software, programming, tools, and engineering practice."
     categories:
-      - "Technology"
-      - "Software Engineering"
-      - "Computer Science"
+      - name: "Technology"
+        description: "Tools, platforms, and the tech industry: hardware, operating systems, terminals and editors, services, and how they hold up in daily use."
+      - name: "Software Engineering"
+        description: "The practice of building software: languages, design, testing, process, and lessons from real projects."
+      - name: "Computer Science"
+        description: "The concepts beneath the practice: language theory, data structures, distributed systems, compilers, and coursework notes."
 
   - id: ai_data
     title: "AI, Data, and Digital Risk"
     description: "Artificial intelligence, machine learning, data, and online safety."
     categories:
-      - "AI"
-      - "Data"
+      - name: "AI"
+        description: "Artificial intelligence and machine learning: what the systems can do, where they fail, and what they change about work."
+      - name: "Data"
+        description: "Data protection, privacy, and how personal data is collected and used."
 
   - id: politics_society
     title: "Politics, Economy, and Society"
     description: "Democracy, policy, corruption, economy, and social fabric."
     categories:
-      - "Politics & Governance"
-      - "Society & Economy"
+      - name: "Politics & Governance"
+        description: "Democracy, elections, policy, law, and the conduct of the state, mostly in India."
+      - name: "Society & Economy"
+        description: "Social and economic life: migration, literacy, inequality, and how communities change."
 
   - id: books_media
     title: "Books, Reviews, and Media"
     description: "Book reviews, media reviews, and other curated content."
     categories:
-      - "Books & Reading"
-      - "Movie Review"
-      - "Media Review"
-      - "Article Review"
+      - name: "Books & Reading"
+        description: "Book reviews and notes on reading, across fiction, history, and periodicals."
+      - name: "Movie Review"
+        description: "Reviews of films."
+      - name: "Media Review"
+        description: "Reviews of shows, apps, and other media that are not books or films."
+      - name: "Article Review"
+        description: "Responses to essays and articles written by others."
 
   - id: language_lit_spirit
     title: "Language, Literature, and Spirituality"
     description: "Poetry, languages, philosophy, religion, and related writing."
     categories:
-      - "Languages & Linguistics"
-      - "Poetry & Literature"
-      - "Spirituality & Philosophy"
+      - name: "Languages & Linguistics"
+        description: "How languages work: grammar, script, usage, and communication."
+      - name: "Poetry & Literature"
+        description: "Poems, mostly in Hindi and Urdu, and writing about literature."
+      - name: "Spirituality & Philosophy"
+        description: "Philosophy and religion: Vedanta, free will, and questions of belief."
 
   - id: life_personal
     title: "Life, Work, and Personal Growth"
     description: "Personal essays, behaviour, growth, and people-focused writing."
     categories:
-      - "Personal Essays"
-      - "Life Events"
+      - name: "Personal Essays"
+        description: "First-person writing on life, work, memory, and opinion."
+      - name: "Life Events"
+        description: "Milestones, years in review, and remembering people who mattered."
 
   - id: hobbies_travel
     title: "Hobbies, Travel, and Exploration"
     description: "Astronomy, sports, travel, and other hobbies."
     categories:
-      - "Travel"
-      - "Sports & Hobbies"
+      - name: "Travel"
+        description: "Trips and places, written as they happened."
+      - name: "Sports & Hobbies"
+        description: "Cricket, football, cycling, astronomy, and other things done for their own sake."
 
   - id: meta_format
     title: "Meta and Formats"
-    description: "Guest posts and content tied to talks or videos."
+    description: "Guest posts, archived speeches, and content tied to talks or videos."
     categories:
-      - "Meta & Guest"
-      
+      - name: "Meta & Guest"
+        description: "Guest posts and archived speeches, talks, and videos by others."
+
   - id: newsletter
     title: "Newsletters"
-    description: "My Newsletters"
+    description: "Issues of the newsletter, on leadership, society, and working life."
     categories:
-      - "Newsletter"
-      
+      - name: "Newsletter"
+        description: "Issues of the newsletter."
+
 
 tags:
   - people/places: india, united-states, agra, pune, mumbai
@@ -81,5 +105,3 @@ tags:
   - culture: poetry, hindi, urdu, literature
   - formats: book-review, movie-review, newsletter
   - misc: personal, opinion, travel, sports, astronomy
-
-

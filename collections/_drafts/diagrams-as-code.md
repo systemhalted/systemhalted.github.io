@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Diagrams as Code: How Text Formats Let AI Draw"
-date: 2026-07-25
+date: 2026-07-26
 categories:
 - AI
 - Tools
@@ -15,16 +15,14 @@ tags:
 comments: true
 toc: true
 mermaid: true
-description: 'SVG, Mermaid, Graphviz, and PlantUML all make a diagram out of text. That property was adopted so we could version diagrams — and it is the same property that lets a language model draw one at all.'
+description: 'SVG, Mermaid, Graphviz, and PlantUML all make a diagram out of text. That property was adopted so we could version diagrams - and it is the same property that lets a language model draw one at all.'
 ---
 
-The interesting thing about technology is how one layer quietly becomes the ground the next one stands on. A format gets built for one reason, and years later it turns out to enable something nobody designed it for.
+The interesting thing about technology is it's evolution - how one layer quietly becomes the ground the next one stands on. A format gets built for one reason, and years later it turns out to enable something nobody designed it for.
 
-For most of my career, images were the part of my work I could not version. Code went into Git, documents went into Git, and diagrams went into a PNG that someone exported from a drawing tool once and never touched again. When the architecture changed, the diagram did not. Nobody could fix it, because nobody had the file it came from.
+SVG, Mermaid, Graphviz, PlantUML share one property: you write the picture as text and something renders it. That property got adopted because text is easier to diff, patched and version controlled. 
 
-The fix was to make the source of a diagram be text. SVG, Mermaid, Graphviz, PlantUML — different tools, one shared property: you write the picture as text and something renders it. That property got adopted because text is what version control understands. You can diff it, review it, and commit it.
-
-Then generative AI arrived, and the same property paid off a second time. A language model produces text. That is the only thing it produces. So a diagram whose source is text is a diagram a model can write, and a diagram that is a flat grid of pixels is not. The formats we adopted so we could diff our diagrams turned out to be exactly the formats a model can generate. One technology enabled the next without being asked to.
+Then generative AI arrived, and the same property paid off a second time. A language model produces text. Therefore, a diagram whose source is text is a diagram a model can write. One technology enabled the next without being asked to.
 
 This post is about the four tools I use, and about that second payoff.
 
@@ -48,19 +46,18 @@ Where this works is geometric and structural work: icons, logos, badges, diagram
 
 I recently needed a logo and asset set for an event streaming platform. The whole thing was done as SVG, generated and then edited by hand, with a script to produce the PNG sizes. Generated first because the format let it be, edited second because the format let that too.
 
-The thing to watch is fonts. An SVG that references a font by name renders correctly only where that font is installed. On your machine it looks right. In someone else's browser, or at a printer, it falls back to something else and the layout shifts. For a logo, that is a defect.
+The thing to watch is fonts. An SVG that references a font by name renders correctly only where that font is installed. On your machine it looks right. In someone else's browser, or at a printer, it falls back to something else and the layout shifts. For a logo, that is a defect. 
 
 The fix is to convert text to paths. Once converted, the glyph shapes are geometry and render identically everywhere. The cost is that the text is no longer text — you cannot retype it, and it is no longer selectable or searchable.
 
-So I keep two files. An editable master with real `<text>` elements, and a flattened copy for distribution. The flattening is a build step, not a manual one. `svgo` cleans up the output, and `resvg` handles the PNG rasterization without needing Inkscape in the pipeline.
+So I keep two files. First is the editable master with real `<svg>` elements, and a generated flattened copy for distribution. `svgo` cleans up the output, and `resvg` handles the PNG rasterization without needing Inkscape in the pipeline. 
 
-This is the same shape as a source tree and a build artifact.
 
 ## Mermaid, for diagrams in prose
 
-Hand-writing SVG stops being reasonable once a diagram has more than a handful of nodes. The hard part is no longer drawing the boxes, it is deciding where they go. Layout is the work.
+Hand-writing SVG stops being reasonable once a diagram has more than a handful of nodes. XMLs are tedious and heavy anyway.
 
-Mermaid solves this for the common cases. You describe the graph and it places everything:
+Mermaid solves this by letting you describe the graph in a DSL:
 
 ```mermaid
 flowchart LR
@@ -70,7 +67,7 @@ flowchart LR
   ent -.denied.-> client
 ```
 
-It renders in the browser without a toolchain, which is what makes it right for a blog. The diagram lives in the post as text. When the design changes, I edit four lines instead of opening a drawing tool. And because those four lines are so close to how you would describe the graph in words, a model writes them without hesitation — Mermaid is often the first thing a model reaches for when you ask for a diagram, precisely because the syntax is nearly a transcript of the sentence.
+It renders in the browser without a toolchain, which is what makes it right for a blog. The diagram lives in the post as text. When the design changes, I edit four lines instead of opening a drawing tool. And because those four lines are so close to how you would describe the graph in words, a model writes them without hesitation. Mermaid is often the first thing a model reaches for when you ask for a diagram, precisely because the syntax is nearly a transcript of the sentence.
 
 Sequence diagrams are where Mermaid is clearly the best of the three. Nothing else expresses a request-response exchange as directly.
 
@@ -96,7 +93,7 @@ GW --> Client : 403
 plantuml -tsvg flow.puml
 ```
 
-There is no browser renderer for this the way there is for Mermaid, so on a page you show the source and commit the rendered SVG or PNG beside it. What PlantUML gives you is a syntax that names the concepts directly — `actor`, `participant`, `-->` — and that is also why a model writes it fluently. The vocabulary is small and the shapes are named, so there is little to get wrong. Describe a login flow and you get valid PlantUML back on the first try more often than not. A DSL this constrained is nearly the ideal target for generation: fewer degrees of freedom than raw SVG, more structure than a freehand drawing.
+There is no browser renderer for this the way there is for Mermaid, so on a page you show the source and commit the rendered SVG or PNG beside it. What PlantUML gives you is a syntax that names the concepts directly — `actor`, `participant`, `-->` and that is also why a model writes it fluently. The vocabulary is small and the shapes are named, so there is little to get wrong. Describe a login flow and you get valid PlantUML back on the first try more often than not. A DSL this constrained is nearly the ideal target for generation: fewer degrees of freedom than raw SVG, more structure than a freehand drawing.
 
 ## Graphviz, for graphs you generate
 

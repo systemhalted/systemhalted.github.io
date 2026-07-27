@@ -17,7 +17,7 @@ featured_image: assets/images/branvsanthill.png
 featured_image_alt: A diagram comparing the human brain with an anthill as an analogy for collective intelligence.
 ---
 
-The brain and the anthill make an unsettling comparison because both seem to do more than their parts can explain on their own.
+The brain and the anthill make an unsettling comparison because both seem to do more than their parts may explain on their own.
 
 A neuron does not think. An ant does not plan the long-term fate of a colony. But a brain produces cognition through the interaction of neurons, and an ant colony produces coordinated behavior through the interaction of ants. In both cases, the interesting property lives at the level of the system, not the individual unit.
 
@@ -65,8 +65,6 @@ A colony has memory beyond the life of an individual ant. Its trails, nest struc
 Under this framework, an anthill does surprisingly well.
 
 ## But is that consciousness?
-
-Here is where I would be careful.
 
 The checklist shows that an anthill can satisfy several conditions we associate with intelligence: perception, inference, comparison, tradeoff, response to absence, and retained knowledge. That makes the anthill a strong example of collective intelligence.
 

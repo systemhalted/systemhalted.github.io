@@ -39,7 +39,7 @@ The proposed GCC is meant to sit across these groups and coordinate governance t
 
 That is a realistic way to think about AI governance. In practice, behavior changes when incentives converge from multiple directions. If insurers, journals, funders, regulators, and courts all begin expecting similar safety and transparency practices, companies have a stronger reason to treat those practices as real requirements instead of optional ethics theater.
 
-Soft law is often criticized because it lacks direct enforcement. That criticism is fair, then why does it matter?
+Soft law is often criticized because it lacks direct enforcement. That criticism is fair, but then why does it matter?
 
 In fast-moving areas such as AI, soft law can do work that formal law cannot do quickly enough. It can establish norms, define expected practice, create audit vocabulary, and give courts or regulators a reference point when formal disputes arise.
 
@@ -64,7 +64,7 @@ There are also questions about legitimacy:
 - How does it avoid capture by large technology companies?
 - How does it handle disagreement between countries with different values and legal systems?
 - How does it connect to existing laws such as GDPR?
-- How would it incorporate declarations such as the Toronto Declaration into operational requirements?
+- How would it incorporate human rights declarations such as the Toronto Declaration into operational requirements?
 - How GCC will operate internationally?
 - How will GCC attain autonomy and at the same time have authority delegated by the government of different nations?
 

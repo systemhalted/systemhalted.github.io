@@ -34,8 +34,6 @@ This kind of agent is easy to understand because its behavior is explicit. You c
 
 That explainability is the main strength of a production system.
 
-## A sample play-through
-
 Here is a small example of how such an agent behaves.
 
 Suppose the visible discard card is yellow `8`, and the agent's hand contains red numbered cards, two blue `8` cards, a blue `3`, a green draw-two card, and a wild draw-four card. The agent cannot match yellow, but it can match the value. So it plays a blue `8`. This is a legal move, but it is not necessarily strategic. It simply follows the first useful rule that applies.
@@ -54,11 +52,7 @@ The example is intentionally modest. The agent is not planning several turns ahe
 - choose the next color based on the remaining hand
 - maintain enough state to avoid misreading skip and draw effects
 
-That is enough to play a legal sequence. It is not enough to be a strong player.
-
-## The rule engine is not the strategy
-
-But a legal move is not always a good move.
+That is enough to play a legal sequence. It is not enough to be a strong player because a legal move is not always a good move.
 
 A simple UNO production system can play the game, but it does not necessarily play to win. It can follow the rules while still making weak choices. It may play a special card too early, hold the wrong color too long, or fail to account for an opponent's likely hand.
 
@@ -75,19 +69,13 @@ To become stronger, the agent needs more than local rules. It needs memory and s
 
 Once those capabilities are added, the agent changes character. It is no longer merely asking "what can I play?" It begins asking "what should I play, given what might happen next?"
 
-## Why this still matters
-
-This small example maps cleanly to larger AI systems.
-
-Many production systems in business software are really rule-based agents. They approve, reject, route, escalate, notify, retry, block, or transform based on explicit conditions. That design is often the right one. It is inspectable, debuggable, and easy to constrain.
+This small example maps cleanly to larger AI systems. Many production systems in business software are really rule-based agents. They approve, reject, route, escalate, notify, retry, block, or transform based on explicit conditions. That design is often the right one. It is inspectable, debuggable, and easy to constrain.
 
 The danger comes when people mistake a rule system for a learning system, or a legal action for an intelligent action.
 
 An agent can follow every rule and still be brittle. It can be fully explainable and still make shallow choices, performing well in ordinary cases and failing whenever the situation requires long-term planning.
 
 That is not a criticism of rule-based systems. It is a reminder to use them honestly.
-
-## The practical lesson
 
 A production system is a good first agent when the domain has clear rules and a small action space. It gives you predictable behavior and a concrete explanation for each action.
 

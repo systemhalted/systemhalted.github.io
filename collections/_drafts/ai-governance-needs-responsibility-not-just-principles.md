@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AI Governance - Hard Problem
+title: AI Governance Needs Responsibility, Not Just Principles
 date: 2026-08-21
 categories:
 - AI

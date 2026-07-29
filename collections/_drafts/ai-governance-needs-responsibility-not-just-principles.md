@@ -15,7 +15,7 @@ comments: true
 description: On AI ethics, software responsibility, collective intelligence, and why new technological rights need institutions that can actually enforce them.
 ---
 
-Most AI ethics writing arrives at the same conclusion. Principles are easy to state and hard to put into practice.
+AI ethics principles are easy to state and hard to put into practice.
 
 The gap between stating a principle and enforcing it matters more than the wording of the principle. A company can say it values fairness, transparency, accountability, privacy, and human oversight, and it may mean it. But without a way to assign responsibility, test behavior, and enforce consequences, those statements do not constrain what the company does.
 
@@ -36,7 +36,7 @@ Sometimes there are no clear answers and that is why AI Governance becomes diffi
 
 One proposed answer is to treat [software engineers more like licensed professionals](/2026/07/21/review-software-malpractice-in-the-age-of-ai/). The idea has some merit. Software systems now shape medicine, finance, transport, hiring, speech, policing, and public administration. The people who build them often have less formal accountability than practitioners in older professions whose mistakes affect fewer people.
 
-However, a Software is usually not produced by a single professional exercising independent judgment. The engineer may understand the technical risk but lack authority over the business requirement. The product leader may own the user experience but not understand what causes the model to fail. The data team may know the bias in the dataset but not own the release decision. The legal team may approve a disclosure that is formally defensible but of little practical use to users. 
+However, a Software is usually not produced by a single professional exercising independent judgment. The engineer may understand the technical risk but lack authority over the business requirement. The product leader may own the user experience but not understand what causes the model to fail. The data team may know the bias in the dataset but not own the release decision. The legal team may approve a disclaimer that is formally defensible but of little practical use to users. 
 
 Licensing individual engineers would not solve that allocation problem on its own. It may raise the baseline of competence, and it may give engineers a stronger basis for refusing reckless work, but AI responsibility has to be assigned at the system level. Accountability has to include the organization, not just the coder.
 

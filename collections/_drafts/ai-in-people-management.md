@@ -4,7 +4,6 @@ title: AI in People Management
 date: 2026-08-18
 categories:
 - AI
-- Technology
 tags:
 - ai
 - people-management
@@ -15,7 +14,7 @@ comments: true
 description: A measured look at where AI genuinely helps in people management, and where human judgment has to stay in the loop.
 ---
 
-People management is one of the areas where AI is being adopted quickly. Most of the functions where AI now shows up in HR, such as hiring, performance, engagement, learning, communication, well-being, and analytics, involve judgments about people. That is where automation can save the most effort and also where it can do the most harm.
+In people management, most of the functions where AI is used, such as hiring, performance, engagement, learning, communication, well-being, and analytics, involve judgments about people. That is where automation can save the most effort and also where it can do the most harm.
 
 I want to set out where I think AI genuinely helps, and where it should stay in a supporting role.
 
@@ -45,4 +44,4 @@ My rule is to use AI to widen what a manager can see, not to replace the manager
 
 ## Closing
 
-AI can take a large amount of administrative load off HR and surface patterns a person would miss. It is worth adopting where it reduces drudgery and improves visibility. But the judgments that matter most in people management are the ones where a person should remain responsible. The useful way to bring AI into this work is to let it handle the volume and keep humans in the decisions that carry consequences for other humans.
+AI is worth adopting where it reduces drudgery and improves visibility. But the judgments that matter most in people management are the ones where a person should remain responsible. The useful way to bring AI into this work is to let it handle the volume and keep humans in the decisions that carry consequences for other humans.

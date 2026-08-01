@@ -17,7 +17,7 @@ description: On AI ethics, software responsibility, collective intelligence, and
 
 AI ethics principles are easy to write and difficult to enforce.
 
-The gap between stating a principle and enforcing it matters more than the wording of the principle. A company can say it values fairness, transparency, accountability, privacy, and human oversight, and it may mean it. But without a way to assign accountability, test behavior, and enforce consequences, those statements do not constrain what the company does.
+The gap between stating a principle and enforcing it matters more than the wording of the principle. A company can say it values fairness, transparency, accountability, privacy, and human oversight, and it may mean it. But without clearly assigned responsibilities, meaningful accountability, mechanisms to test behavior, and consequences for failure, those statements do not constrain what the company does.
 
 AI makes this problem harder for software. Traditional models of professional responsibility do not fit the way software is built. A doctor can be held responsible for a diagnosis because the decision is usually attributable to the doctor. Software rarely works that way. A product decision, data choice, architecture tradeoff, model behavior, design constraint, release deadline, and legal interpretation all combine before the system reaches a user.
 

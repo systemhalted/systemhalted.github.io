@@ -16,9 +16,9 @@ comments: true
 description: A review of Parker and Danks's argument that some rights become visible only when technology changes the balance of power.
 ---
 
-Parker and Danks's "How Technological Advances Can Reveal Rights" offers a useful way to think about new rights created, or at least exposed, by technology.
+Parker and Danks’s *How Technological Advances Can Reveal Rights* offers a useful framework for thinking about the relationship between technological change and rights.
 
-The paper's central idea is the "revealed right": a right that becomes meaningful only in a particular technological context. The right is not invented from nothing. The underlying human interest may already exist. What changes is the technology, because it shifts power enough to make a new duty visible.
+The paper's central idea is the "revealed right": a right that becomes meaningful only in a particular technological context. The right is not invented from nothing. The underlying human interest may already exist. What changes is the technology. It shifts the balance of power enough to reveal a corresponding duty. 
 
 That framing is helpful because it avoids two weak positions. It does not pretend that every new technological discomfort automatically creates a right. It also does not pretend that rights are fixed forever in the form they had before modern technology changed the world.
 
@@ -26,9 +26,9 @@ That framing is helpful because it avoids two weak positions. It does not preten
 
 The paper describes a pattern:
 
-Parties have conflicting important interests. A technology gives one party more causal power to advance its interests, while weakening another party's ability to protect theirs. When that imbalance becomes large enough, a right may be revealed.
+Parties have important but conflicting interests. A technology gives one party more causal power to advance its interests, while weakening another party's ability to protect theirs. When that imbalance becomes large enough, a right may be revealed.
 
-This is a practical way to think about rights because it connects moral language to power.
+This is a practical framework because it connects rights to changes in power rather than to technological novelty. 
 
 We usually expect power to track the ethical weight of an interest. If one person's interest is much more important, we expect the social or legal system to protect that interest more strongly. Technology can break that expectation. It can give enormous practical power to a party whose interest is actually less weighty.
 
@@ -40,21 +40,21 @@ The paper discusses rights such as the right to public anonymity, the right to b
 
 These examples make sense because the underlying interests are old, but the scale of intrusion is new.
 
-People have always cared about privacy, reputation, rest, and control over their social presence. But search engines, social networks, cheap storage, facial recognition, smartphones, and workplace messaging changed the balance. They made it easy for companies, governments, employers, and strangers to remember, locate, classify, interrupt, or expose people in ways that older norms did not fully anticipate.
+People have always cared about privacy, reputation, rest, and control over their social presence. But search engines, social media, cheap storage, facial recognition, smartphones, and workplace messaging changed the balance. They made it inexpensive and scalable for companies, governments, employers, and strangers to remember, locate, classify, interrupt, or expose people in ways that older norms did not fully anticipate.
 
-The result is not simply "technology is bad." The result is that technology can disturb the balance between interests and power. When that happens, rights language becomes a way to restore the balance.
+The result is not simply "technology is bad" but that it can disturb the balance between interests and power. When that happens, rights language becomes a way to restore the balance.
 
 ## What I found useful
 
 The paper's strongest contribution is that it gives a framework for evaluating new rights without treating them as arbitrary.
 
-The question is not merely whether someone wants protection. The question is whether a technology has changed the relationship between interests, duties, and causal power. That makes the argument more disciplined.
+The question is not merely whether someone wants protection. The question is whether a technology has changed the distribution of causal power between parties, and therefore the duties they owe one another. 
 
 This is especially useful for AI. AI systems can change power relationships quickly:
 
 - Employers can monitor workers more closely.
-- Platforms can classify users more cheaply.
-- Governments can process large populations at scale.
+- Platforms can classify users cheaply.
+- Governments can monitor and process large populations at scale.
 - Companies can infer sensitive traits from ordinary behavior.
 - Automated systems can make decisions that are difficult for individuals to understand or contest.
 
@@ -62,7 +62,7 @@ In each case, the ethical question is not only whether the technology works. It 
 
 ## What remains open
 
-The paper is less complete on what form revealed rights should take.
+The paper deliberately focuses on when rights become visible, not on how institutions should recognize, enforce, or balance those rights.
 
 Some rights may need formal legal protection. Others may be better handled through regulation, product design, professional norms, workplace policy, or social expectations. The paper gives a strong account of how a right becomes visible, but less detail on how that right should be honored in practice.
 
@@ -71,7 +71,7 @@ That leaves several important questions:
 - Which revealed rights should become law?
 - Which should become product obligations?
 - Which can be handled through social norms?
-- Who owes the duty: government, companies, employers, platforms, or individuals?
+- Who owes the duty: governments, companies, employers, platforms, or individuals?
 - What remedies should exist when the right is violated?
 - How should technology companies build revealed rights into product, legal, and marketing strategy?
 
@@ -81,9 +81,9 @@ Those questions are where the theory has to become governance.
 
 "How Technological Advances Can Reveal Rights" is valuable because it explains why technology can make old interests newly urgent.
 
-The paper does not argue that every technological change creates a new right. It argues that technology can shift causal power so dramatically that a previously latent duty becomes visible.
+The paper does not argue that every technological change creates a new right. It argues that technology can shift causal power so dramatically that a previously latent right, and the corresponding duty, become visible. The novelty of the paper is not that it argues for new rights, but that it explains when technological change justifies recognizing them.
 
-That is a strong way to think about AI-era rights. It asks us to look past what people care about and examine how technology has changed who holds power over those interests, and what duties should now exist because of that change.
+That is a strong way to think about AI-era rights. It asks us to look beyond the interests people hold and examine how technology has changed the distribution of power over those interests and what duties should now exist because of that change.
 
 ## Reference
 

@@ -17,8 +17,6 @@ description: A small UNO-playing production system shows both the usefulness and
 
 UNO is a good toy problem for thinking about rule-based agents because the rules are simple, but the decisions are not completely trivial.
 
-This post is adapted from an old coursework exercise of mine, but the version here is rewritten as a general design note. I am deliberately not reproducing the original prompt, diagram, or full submitted rule table.
-
 At the surface level, the agent only needs to choose a legal card. It can match color, match value, play a wild card, draw cards, skip turns, and remember to say "UNO" before its last card. That is enough to build a production system: a set of `if` conditions connected to actions.
 
 For example:
@@ -30,9 +28,7 @@ For example:
 - If a wild card is played, choose the color that gives the agent the strongest remaining hand.
 - If no legal play exists, draw.
 
-This kind of agent is easy to understand because its behavior is explicit. You can inspect the rules and explain why a move was made.
-
-That explainability is the main strength of a production system.
+Because the behavior is explicit, you can inspect the rules and explain why every move was made. That explainability is one of the main strengths of production systems.
 
 Here is a small example of how such an agent behaves.
 
@@ -44,7 +40,7 @@ If the discard later becomes blue `6`, the agent prefers a blue card from its ha
 
 Near the end of the hand, the agent may have only the green draw-two and wild draw-four left. If the discard is red `9`, it has no color match, no value match, and no ordinary wild card. So it plays wild draw-four, chooses the color that best matches its remaining hand, and says "UNO" because it is down to one card. If the chosen color is green, the final green draw-two becomes playable on the next turn.
 
-The example is intentionally modest. The agent is not planning several turns ahead. It is not trying to infer the opponent's hand. It is only moving through a priority order:
+The agent simply follows a priority order:
 
 - match color if possible
 - otherwise match value
@@ -56,11 +52,9 @@ That is enough to play a legal sequence. It is not enough to be a strong player 
 
 A simple UNO production system can play the game, but it does not necessarily play to win. It can follow the rules while still making weak choices. It may play a special card too early, hold the wrong color too long, or fail to account for an opponent's likely hand.
 
-That distinction matters. A rule-based agent can be competent at legality without being competent at strategy.
+A rule-based agent can be competent at legality without being competent at strategy. To become stronger, the agent needs more than local rules. It needs memory and search:
 
-To become stronger, the agent needs more than local rules. It needs memory and search:
-
-- Store the agent's own previous moves.
+- Remember previous moves.
 - Track the opponent's visible moves.
 - Remember which colors and values have appeared.
 - Estimate what cards the opponent might still hold.
@@ -69,16 +63,6 @@ To become stronger, the agent needs more than local rules. It needs memory and s
 
 Once those capabilities are added, the agent changes character. It is no longer merely asking "what can I play?" It begins asking "what should I play, given what might happen next?"
 
-This small example maps cleanly to larger AI systems. Many production systems in business software are really rule-based agents. They approve, reject, route, escalate, notify, retry, block, or transform based on explicit conditions. That design is often the right one. It is inspectable, debuggable, and easy to constrain.
+This small example maps cleanly to larger AI systems. Many production systems are really rule-based agents. They approve, reject, route, escalate, notify, retry, block, or transform based on explicit conditions. That design is often the right one. It is inspectable, debuggable, and easy to constrain.
 
-The danger comes when people mistake a rule system for a learning system, or a legal action for an intelligent action.
-
-An agent can follow every rule and still be brittle. It can be fully explainable and still make shallow choices, performing well in ordinary cases and failing whenever the situation requires long-term planning.
-
-That is not a criticism of rule-based systems. It is a reminder to use them honestly.
-
-A production system is a good first agent when the domain has clear rules and a small action space. It gives you predictable behavior and a concrete explanation for each action.
-
-But the moment success depends on strategy, hidden information, opponent modeling, or learning from history, rules alone are not enough.
-
-UNO makes that limitation easy to see. Playing a legal card only takes rules. Playing well takes knowledge, memory, and search.
+The limitation appears when success depends on strategy rather than legality. A production system can explain every decision while still making poor long-term choices because it lacks planning, opponent modeling, and learning from experience. That is not a flaw in production systems; it reflects the kinds of problems they were designed to solve. UNO makes the distinction clear: playing a legal card requires rules, but playing well requires knowledge, memory, and search.

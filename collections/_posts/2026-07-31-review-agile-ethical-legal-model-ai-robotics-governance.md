@@ -68,10 +68,6 @@ There are also questions about legitimacy:
 - How GCC will operate internationally?
 - How will GCC attain autonomy and at the same time have authority delegated by the government of different nations?
 
-These questions do not weaken the need for governance. But they do show where the real design work begins.
-
-The paper is persuasive because it recognizes that AI governance is not a single lever. It is a network of institutions.
-
 The paper's GCC proposal may or may not be the exact institution the world needs, but the underlying point is sound: AI principles require coordinated enforcement pathways. Without that, responsible AI stays mostly a matter of language.
 
 Writing down what AI should respect is the easy part. Now, the harder work will be to build the institutions that make those commitments difficult to ignore. 

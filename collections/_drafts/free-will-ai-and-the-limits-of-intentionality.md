@@ -15,13 +15,13 @@ comments: true
 description: A short opinion piece on free will, intentionality, and why narrow AI agents should not be treated as self-determined actors.
 ---
 
-Free will is usually discussed as if it is only a question of freedom from external control. That is part of it, but not the whole thing. I set the context about this in an [earlier post](/2020/04/05/free-will/), which I wrote as part of my OMSCS coursework
+Free will is usually discussed as if it is only a question of freedom from external control. That is part of it, but not the whole thing. I explored this in an [earlier post](/2020/04/05/free-will/), which I wrote as part of my OMSCS coursework
 
 To have free will, a being must be able to act according to its own intent. It must not only choose, but choose in a way that is meaningfully self-determined. That makes intentionality central. A choice without intent is not really free will. 
 
 From a Hindu perspective, this distinction connects naturally to `krita` and `karma`: the choice one makes, and the action that follows from that choice. A human being is not merely pushed around by material conditions. The human being has the capacity to control desire, evaluate alternatives, and act. Those actions then shape the moral and spiritual path of the person.
 
-That is the basic reason I think free will exists.
+That is the view of free will I find most convincing. 
 
 ## AI agents and choice
 

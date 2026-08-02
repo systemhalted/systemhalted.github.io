@@ -4,9 +4,15 @@ title: "Why Doesn’t Wisdom Accumulate?"
 date: 2026-07-31
 categories:
 - Personal Essays
+- Society & Economy
 tags:
 - opinion
+- learning
+- psychology
+- cultural-evolution
+- collective-intelligence
 comments: true
+toc: true
 description: We are extraordinarily good at accumulating technical knowledge and strangely bad at accumulating behavioral wisdom. What decades of psychology suggest about why every generation relearns patience, prejudice, and restraint almost from scratch.
 ---
 

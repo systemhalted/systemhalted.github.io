@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why Doesn’t Wisdom Accumulate?"
-date: 2026-07-31
+date: 2026-08-02
 categories:
 - Personal Essays
 - Society & Economy

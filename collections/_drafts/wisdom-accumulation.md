@@ -34,11 +34,9 @@ The psychologists have spent decades studying this very question. I expected to 
 
 ## We learn much less from failure than we think
 
-In Not Learning From Failure—The Greatest Failure of All, Lauren Eskreis-Winkler and Ayelet Fishbach found that people often learn less from failure than from success, even when failure provides exactly the same information.[^1]
+*In Not Learning From Failure—The Greatest Failure of All*, Lauren Eskreis-Winkler and Ayelet Fishbach found that people often learn less from failure than from success, even when failure provides exactly the same information.[^1]
 
-The researchers identify two reasons.
-
-The first is emotional. Failure hurts. Rather than examining it, people often avoid thinking about it because it threatens their self-image.
+The researchers identify two reasons. The first is emotional. Failure hurts. Rather than examining it, people often avoid thinking about it because it threatens their self-image.
 
 The second is cognitive. Failure tells us what did not work, but it rarely tells us what will. Figuring out the lesson requires considerably more effort than repeating something that already succeeded.
 
@@ -58,7 +56,7 @@ Institutions remember.
 
 That is one reason aviation has become safer over time. Every major accident leaves behind documentation that changes how future pilots are trained. Drivers see accidents every day, but very few permanently change how they drive because someone else crashed.[^2]
 
-The institution learns. The individual often does not.
+The institution learns. The individuals often do not.
 
 ## Civilization accumulates knowledge
 
@@ -98,11 +96,11 @@ Yet millions continue doing all of these things.
 
 Behavior is shaped not only by knowledge, but also by habits, incentives, emotions, identity and social pressure.[^5]
 
-Knowing better does not necessarily mean doing better.
+Knowing better does not necessarily mean *doing* better.
 
 ## We think everyone else is the problem
 
-There is a well-known finding in psychology called the Better-than-Average Effect. Most drivers believe they are above-average drivers, even though that is statistically impossible.[^6]
+There is a well-known finding in psychology called the *Better-than-Average Effect*. Most drivers believe they are above-average drivers, even though that is statistically impossible.[^6]
 
 If I already believe I am safer than everyone else, why would I change after seeing an accident? I assume the lesson is for someone else.
 
@@ -127,8 +125,6 @@ The governments change.
 What changes much more slowly is human psychology. Every generation believes it is different. Every generation believes it is smarter than the last. Every generation believes the warnings apply to someone else. That is probably why history keeps rhyming.
 
 ## The real problem
-
-Reading this research changed how I think about human progress.
 
 We have become exceptionally good at accumulating technical knowledge. We preserve it in books, scientific journals, engineering standards, universities and institutions. Every generation inherits that knowledge and adds a little more.
 

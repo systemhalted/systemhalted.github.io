@@ -154,5 +154,5 @@ Knowledge accumulates. Behavioral wisdom barely does.
 
 [^6]: Svenson, O. (1981). Are We All Less Risky and More Skillful Than Our Fellow Drivers? Acta Psychologica, 47(2), 143–148.
 
-[^7]: Nesse, R. M. (2019). Good Reasons for Bad Feelings: Insights from the Frontier of Evolutionary Psychiatry. Dutton. On evolutionary mismatch — the human mind adapted to small groups with immediate, local feedback rather than to modern institutions. See also Geary, D. C., & Bailey, D. H. on evolutionary perspectives in human cognition.
+[^7]: Hoogland, M., & Ploeger, A. (2022). Two Different Mismatches: Integrating the Developmental and the Evolutionary-Mismatch Hypothesis. Perspectives on Psychological Science, 17(6), 1737–1745. https://pmc.ncbi.nlm.nih.gov/articles/PMC9634284/
 

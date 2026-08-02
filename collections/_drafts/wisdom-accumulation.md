@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Do We Need Hive Mind?"
+title: "Why Doesn’t Wisdom Accumulate?"
 date: 2026-07-31
 categories:
 - Personal Essays
@@ -10,113 +10,145 @@ comments: true
 description: Author thinks that Hive Mind is the solution to human stupidity
 ---
 
-Right from the moment we are born, we have to learn. We learn to suck, crawl, walk, speak, read, write, drive and eventually make a living. We spend decades accumulating knowledge. Every scar becomes a lesson. Every mistake is supposed to make us wiser. Learning is perhaps the defining characteristic of being human. 
+Right from the moment we are born, we have to learn. We learn to suck, crawl, walk, speak, read, write, drive and eventually make a living. We spend decades accumulating knowledge. Every scar becomes a lesson. Every mistake is supposed to make us wiser. Learning is perhaps the defining characteristic of being human.
 
-And yet, collectively, we remain astonishingly bad at behaving.
+And yet, collectively, we are remarkably bad at behaving.
 
-- People still speed
-- People still jump red lights
-- People still drink and drive
-- People still kill each other over race, religion and nationality
+People still speed. People still jump red lights. People still drink and drive. We continue to fight over race, religion, nationality and ideology. We lie, cheat, steal and kill. Every generation inherits thousands of years of human history, yet somehow manages to repeat many of the same mistakes.
 
+Maybe learning simply takes time. Maybe every generation becomes a little wiser than the previous one. History, however, does not inspire much confidence. It is full of wars that should have convinced us not to start new ones. It is full of financial crises that should have made us more careful. It is full of genocides that should have made future genocides unthinkable. Yet here we are.
 
-Perhaps learning simply takes time. Perhaps every generation gets a little wiser. However, history is full of wars that should have prevented wars that we see today. History is also full of financial crisis that should have prevented today's tarrif wars. Also, it is full of genocides that should have prevented any future ones.  
+There is an old saying that history repeats itself.
 
-There is a saying, "History repeats itself". Ofcourse, it does. We struggle to learn from our own mistakes. Expecting us to learn from people who died centuries ago may simply be asking more than our minds evolved to do.
+Of course it does.
 
-What surprised me was discovering that psychologists have spent years studying exactly this problem hoping there is a hope for our rescue. There is none. 
+If we struggle to learn from our own mistakes, expecting us to learn from the mistakes of people who lived centuries ago may simply be asking too much.
 
-## We learn much less from failure than popular wisdom claims
+What surprised me was discovering that psychologists have spent decades studying this very question. I expected to find evidence that failure is our greatest teacher. Instead, I found that the reality is much less encouraging.
 
-Eskreis-Winkler & Fishbach in their research paper *Not Learning From Failure - The Greatest Failure of All* expected failure to improve learning. Instead they found the opposite. Across five experiments involving more than 1,600 participants, people remembered and learned less after failure than after success, even though failure provided exactly the same information. They identify two barriers:
+## We learn much less from failure than we think
 
-1. Emotional Barrier - Failure hurts and people avoid thinking about it. 
-2. Cognitive Barrier - Failure rarely tells us directly what to do. It only tells us what did not work. Extracting the lesson requires more mental effort than copying success. 
- 
-People celebrate failure as a teacher, but psychologically, humans often avoid learning from it.
+In Not Learning From Failure--The Greatest Failure of All, Ayelet Eskreis-Winkler and Ayelet Fishbach found that people often learn less from failure than from success, even when failure provides exactly the same information.[^1]
 
-## Organizations can learn from failure better than individuals
+The researchers identify two reasons.
 
-Dahlin, Chuang & Roulet in their research across industries on motivation and learning presented an interesting finding. 
+The first is emotional. Failure hurts. Rather than examining it, people often avoid thinking about it because it threatens their self-image.
 
-    Individuals often fail to learn.
-    
-However, they also conclude that the organizations learn when they deliberately create systems that preserve mistakes through 
+The second is cognitive. Failure tells us what did not work, but it rarely tells us what will. Figuring out the lesson requires considerably more effort than repeating something that already succeeded.
 
-- investigations,
-- checklists,
-- procedures, 
-- institutional memory
+We like to say that failure is the best teacher. Psychology suggests that it often isn’t because we simply refuse to listen.[^1]
 
-In other words, people forget, institutions remember. Which means that aviation becomes safer every year because crashes become documentation. Drivers don’t necessarily become safer after seeing crashes.
+## Institutions remember what people forget
 
-## Humans possess cumulative culture
+Research by Dahlin, Chuang and Roulet points to an interesting difference between individuals and organizations.[^2]
 
-Sociobiologist Joseph Henrich's research centers on that humans are individually less intelligent than we imagine. He says that our civilization becomes intelligent because knowledge accumulates across generations. Nobody needs to rediscover calculus, germ theory, electricity, constitutional government, or semiconductor physics from scratch. Modern humans inherit knowledge they never discovered themselves. 
+Individuals often fail to learn from failure.
 
-## Social learning is imperfect
+Organizations can do much better, but only when they deliberately preserve the lesson. Accidents become investigations. Investigations become reports. Reports become procedures. Procedures become standards.
 
-However, social learning is imperfect. Cultural evolution research shows that even though humans inherit knowledge that they never discovered, but we do not copy everyone equally. We are try to copy people who are prestigious, successful, respected and sometimes member of their own group. 
+People forget.
 
-Sometimes these models demonstrate poor behavior. So, bad behaviors can spread culturally just as efficiently as good ones. 
+Institutions remember.
 
-## Knowledge does not automatically produce behavior
+That is one reason aviation has become safer over time. Every major accident leaves behind documentation that changes how future pilots are trained. Drivers see accidents every day, but very few permanently change how they drive because someone else crashed.[^2]
 
-This is one of the oldest findings in psychology.
+The institution learns. The individual often does not.
 
-People know
+## Civilization accumulates knowledge
 
-* smoking kills
-* speeding kills
-* alcohol impairs driving
-* obesity is unhealthy
+Joseph Henrich argues that civilization advances because knowledge accumulates across generations rather than because individuals are exceptionally intelligent.[^3]
 
-Yet millions continue doing these things.
+Nobody has to rediscover calculus, electricity or germ theory. We inherit them. Every generation starts where the previous one finished.
 
-Knowledge is only one ingredient.
+That is how science progresses.
 
-Behavior is also driven by
+That is how engineering progresses.
 
-* habits
-* incentives
-* emotions
-* identity
-* peer pressure
+Technical knowledge accumulates because we know how to preserve it.
 
-The "knowledge deficit" explanation alone is insufficient.
+Behavioral wisdom does not seem to work the same way.
 
-## People systematically overestimate themselve
+## We do not learn equally from everyone
 
-There is something called "better-than-average effect." Most drivers believe they are above-average drivers. Even though this is statistically impossible, If I think I am already a safe driver, I have very little reason to change my behavior. This explains why accident statistics rarely convince individuals that they should change.
+Research on cultural evolution shows that humans copy some people more readily than others. We imitate people who are successful, respected, prestigious or part of our own group.[^4]
 
-## We evolved for small groups, not modern civilization
+Sometimes those people deserve to be copied. Sometimes they do not.
 
-Evolutionary psychologists point out that our brains evolved in environments with
+Good behavior spreads this way. Bad behavior does too.
 
-* small tribes
-* immediate feedback
-* local consequences
+## Knowing something is not enough
 
-Modern civilization asks us to navigate
+Psychologists have known for a long time that knowledge alone rarely changes behavior.[^5]
 
-* highways
-* nuclear weapons
-* financial markets
-* social media
-* AI
+Most people know smoking causes cancer.
 
-Our cognitive machinery is not always well matched to these environments.
+Most people know speeding is dangerous.
 
+Most people know excessive drinking impairs judgment.
 
-## History does repeat itself
+Most people know obesity increases health risks.
 
-We have solved the problem of preserving technical knowledge. Books, universities, standards, software repositories, engineering practices and scientific journals ensure that one generation rarely has to rediscover what the previous one already knew.
+Yet millions continue doing all of these things.
 
-We have not solved the same problem for behavioral wisdom.
+Behavior is shaped not only by knowledge, but also by habits, incentives, emotions, identity and social pressure.[^5]
 
-Every generation still has to learn patience, prejudice, greed, violence, empathy and restraint almost from scratch. We write down equations. We standardize engineering practices. We archive scientific discoveries. But we still have no reliable way of making wisdom accumulate.
+Knowing better does not necessarily mean doing better.
 
-Perhaps history repeats itself not because history has a bad memory, but because humans do.
+## We think everyone else is the problem
+
+There is a well-known finding in psychology called the Better-than-Average Effect. Most drivers believe they are above-average drivers, even though that is statistically impossible.[^6]
+
+If I already believe I am safer than everyone else, why would I change after seeing an accident? I assume the lesson is for someone else.
+
+## Our brains were built for a different world
+
+Evolutionary psychologists argue that the human mind evolved in small groups where feedback was immediate and consequences were local.[^7]
+
+Today we live with highways, financial markets, nuclear weapons, social media and artificial intelligence.
+
+The world changed much faster than the human mind.
+
+## So why does history repeat itself?
+
+Historians correctly point out that history *never* repeats exactly.
+
+The people change.
+
+The technologies change.
+
+The governments change.
+
+What changes much more slowly is human psychology. Every generation believes it is different. Every generation believes it is smarter than the last. Every generation believes the warnings apply to someone else. That is probably why history keeps rhyming.
+
+## The real problem
+
+Reading this research changed how I think about human progress.
+
+We have become exceptionally good at accumulating technical knowledge. We preserve it in books, scientific journals, engineering standards, universities and institutions. Every generation inherits that knowledge and adds a little more.
+
+We have never built an equally effective way to accumulate behavioral wisdom.
+
+Every generation still has to learn patience, prejudice, greed, empathy, cooperation and restraint almost from scratch. We continue making many of the same mistakes because the lessons never become part of a shared, reliable memory in the way scientific knowledge does.
+
+Perhaps that is the real difference.
+
+Knowledge accumulates. Behavioral wisdom barely does.
+
+## References
+
+[^1]: Eskreis-Winkler, A., & Fishbach, A. (2019). Not Learning From Failure--The Greatest Failure of All. Psychological Science, 30(12), 1733–1744. https://doi.org/10.1177/0956797619881133
+
+[^2]: Dahlin, K. B., Chuang, Y. T., & Roulet, T. J. (2018). Opportunity, Motivation, and Ability to Learn from Failures and Errors: Review, Synthesis, and Ways to Move Forward. Academy of Management Annals, 12(1), 252–277. https://doi.org/10.5465/annals.2016.0049
+
+[^3]: Henrich, J. (2016). The Secret of Our Success: How Culture Is Driving Human Evolution, Domesticating Our Species, and Making Us Smarter. Princeton University Press.
+
+[^4]: Heyes, C. (2018). Cognitive Gadgets: The Cultural Evolution of Thinking. Harvard University Press.
+
+[^5]: Fischhoff, B. (2013). The Sciences of Science Communication. Proceedings of the National Academy of Sciences, 110(Supplement 3), 14033–14039.
+
+[^6]: Svenson, O. (1981). Are We All Less Risky and More Skillful Than Our Fellow Drivers? Acta Psychologica, 47(2), 143–148.
+
+[^7]: Geary, D. C., & Bailey, D. H. (2022). Evolutionary perspectives on human cognition. See also Nesse, R. M. on evolutionary mismatch and modern environments.
 
 
 

@@ -30,7 +30,7 @@ Of course it does.
 
 If we struggle to learn from our own mistakes, expecting us to learn from the mistakes of people who lived centuries ago may simply be asking too much.
 
-What surprised me was discovering that psychologists have spent decades studying this very question. I expected to find evidence that failure is our greatest teacher. Instead, I found that the reality is much less encouraging.
+The psychologists have spent decades studying this very question. I expected to find evidence that failure is our greatest teacher. Instead, I found that the reality is much less encouraging.
 
 ## We learn much less from failure than we think
 

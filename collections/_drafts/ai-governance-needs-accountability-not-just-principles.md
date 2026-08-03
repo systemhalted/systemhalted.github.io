@@ -52,7 +52,7 @@ The useful governance question is therefore not what AI should value. It is whic
 
 Governance is not only about assigning responsibility after a failure. It is also about ensuring that the decision-making processes themselves remain reliable.
 
-Collective intelligence adds another complication. [Crowds can outperform individuals](/2026/08/14/review-studying-wisdom-of-crowds-at-scale/). Aggregated judgment can be more accurate and more stable than the judgment of any one participant. This holds in markets, elections, forecasts, open-source communities, and scientific review.
+Collective intelligence adds another complication. [Crowds can outperform individuals](/2026/08/09/review-studying-wisdom-of-crowds-at-scale/). Aggregated judgment can be more accurate and more stable than the judgment of any one participant. This holds in markets, elections, forecasts, open-source communities, and scientific review.
 
 But crowds also herd. Social influence can make a group less accurate when people stop contributing independent judgment and start copying visible signals. Once that happens, the group amplifies a shared signal instead of aggregating independent ones.
 
@@ -68,7 +68,7 @@ The right to be forgotten, the right to public anonymity, and the right to disco
 
 Search engines, social media, facial recognition, cheap storage, workplace messaging, and always-on devices shifted that power. One person, company, or state can now remember, locate, classify, and interrupt another person at a scale that older social norms were not built to handle. The underlying interest existed earlier, but the corresponding duty became visible only when technology made the imbalance large enough to matter.
 
-That is the argument for treating some rights as ["revealed"](/2026/08/07/review-how-technological-advances-can-reveal-rights/) by technology. These interests are not new; however, the imbalance of power that makes them urgent certainly is.
+That is the argument for treating some rights as ["revealed"](/2026/08/02/review-how-technological-advances-can-reveal-rights/) by technology. These interests are not new; however, the imbalance of power that makes them urgent certainly is.
 
 ## The actual work
 

@@ -23,7 +23,7 @@ These are some of the notes.
 
 ## A green test is not a correct program
 
-The function performed following tasjs - write the buffer to a path, then mark the document as having no unsaved changes.
+The function performed following tasks - write the buffer to a path, then mark the document as having no unsaved changes.
 
 ```rust
 pub fn save(&mut self, path: &Path) -> io::Result<()> {
@@ -63,9 +63,7 @@ I missed the bug, but the compiler flagged it:
 warning: unused `Result` that must be used
 ```
 
-Rust marks `Result` as `#[must_use]`[^mustuse], so the lint fires when a fallible call's return is dropped on the floor. Most languages would stay silent here; Rust does not, and it was right to complain.
-
-The warning is real help, but it is still only a warning. I could have written this instead and quieted it:
+Rust marks `Result` as `#[must_use]`[^mustuse], so the lint fires when a fallible call's return is dropped. The warning is real help, but it is still only a warning. I could have written this instead and quieted it:
 
 ```rust
 let _ = std::fs::write(path, self.text());   // explicitly discard it
@@ -73,13 +71,13 @@ self.modified = false;
 Ok(())
 ```
 
-That compiles cleanly. The type checker is satisfied: the signature returns a `Result`, a `Result` is returned, the borrow rules[^borrow] hold, the shape of the program is right. What the compiler has no way of checking is what I meant by it -- that a failed write must not clear the modified flag, that it must not be reported as success, that in a text editor a dirty buffer is not a boolean but a promise to the user.
+That compiles cleanly. The type checker is satisfied: the signature returns a `Result`, a `Result` is returned, the borrow rules[^borrow] hold, the shape of the program is right. What the compiler has no way of checking is what I meant by it -- that a failed write must not clear the modified flag, that it must not be reported as success.
 
-This is what the compiler is good at and where it stops. It checks that the types line up, that fallibility is visible in signatures, that a `Result` is not accidentally ignored, that the borrows are valid; it does not check that the program does the right thing with any of those things once it has them.
+This is where the work of compiler stops. It checks that the types line up, that fallibility is visible in signatures, that a `Result` is not accidentally ignored, that the borrows are valid; it does not check that the program does the right thing with any of those things once it has them.
 
 ## A regression test only counts once you have seen it fail
 
-The fix is one character -- the `?` operator -- which turns the dropped result into a propagated one:
+The fix is one character, the `?` operator, which turns the dropped result into a propagated one:
 
 ```rust
 std::fs::write(path, self.text())?;
@@ -87,7 +85,7 @@ self.modified = false;
 Ok(())
 ```
 
-If the write fails, the function exits before clearing the modified flag. The interesting part is not the fix but the realisation that I had no test that would have caught the bug. Adding `?` without adding a test would leave me trusting the code for no reason at all, so I wrote the test that should have existed from the start.
+If the write fails, the function exits before clearing the modified flag. I had no test that would have caught the bug. Adding `?` without adding a test would leave me trusting the code for no reason at all, so I wrote the test that should have existed from the start.
 
 ```rust
 #[test]
@@ -104,11 +102,11 @@ fn failed_save_surfaces_error_and_keeps_modified() {
 }
 ```
 
-Then I put the bug back, ran the suite, watched this test go red, restored the fix, and watched it go green. Putting the bug back to confirm the test fails for the right reason sounds like ceremony but is not -- a regression test you have never seen fail is one you trust by faith, and the first section already showed how little a passing test is worth on its own.
+Then I put the bug back, ran the suite, watched this test go red, restored the fix, and watched it go green. Putting the bug back to confirm the test fails for the right reason sounds like ceremony but is not. A regression test you have never seen fail is one you trust by faith, and the first section already showed how little a passing test is worth on its own.
 
 ## Types and tests answer different questions
 
-This is the rule I would keep if I could keep only one. A type system is good at making certain kinds of lies impossible: a value that may be absent cannot pretend to be present, a fallible operation cannot pretend to be infallible, a closed set of cases cannot pretend one branch does not exist. That is powerful, but it is structural. Rust can make the failure visible, warn me when I accidentally ignore it, and force the code to admit that saving may fail, but it cannot encode the editor's rule that if saving fails, the document must remain dirty. That rule lives at the level of behaviour, not shape.
+A type system is good at making certain kinds of lies impossible: a value that may be absent cannot pretend to be present, a fallible operation cannot pretend to be infallible, a closed set of cases cannot pretend one branch does not exist. That is powerful, but it is structural. Rust can make the failure visible, warn me when I accidentally ignore it, and force the code to admit that saving may fail, but it cannot encode the editor's rule that if saving fails, the document must remain dirty. That rule lives at the level of behaviour, not shape.
 
 You can push more behaviour into types than that suggests. The typestate pattern[^typestate] encodes a rule into a type, so that an illegal operation does not compile instead of failing a test. The `save` bug can be narrowed this way by making the clearing of the modified flag depend on a value that only a successful write can produce:
 
@@ -121,7 +119,9 @@ fn mark_clean(&mut self, _proof: Saved) { self.modified = false; }
 
 Now `mark_clean` cannot be called without a `Saved`, and the only thing that hands one back is a `write` that returned `Ok`, so the exact bug from the first section is harder to write by accident.[^receipt] The boundary between what a type can prove and what only a test can prove is not fixed; it moves with how much you choose to encode.
 
-What stays out of reach, at least in Rust, is value-level correctness -- the relationship between specific input and output values. That needs dependent types, which Rust does not have. The type checker has no opinion on whether inserting `" world"` at index 5 of `"hello"` gives `"hello world"` or `"worldhello"`; both are valid `String`s, and which one you meant is a question only a test can answer. The instruction that falls out of this is short: do not test what the type system has already made impossible, and do test the behaviour the type system is silent about. A small example came up in the next step. A document needs to remember the file it came from, but a new, untitled buffer has not come from anywhere, so the honest type for that field is `Option<PathBuf>`, and Rust will not let you read the path without handling the case where there is none. The "I forgot to check for the missing file" bug is not caught by a test here; the program that contains it does not compile, and writing a test for it would only re-prove what the compiler has already proven.
+What stays out of reach, at least in Rust, is value-level correctness, which is the relationship between specific input and output values. That needs dependent types, which Rust does not have. The type checker has no opinion on whether inserting `" world"` at index 5 of `"hello"` gives `"hello world"` or `"worldhello"`; both are valid `String`s, and which one you meant is a question only a test can answer. 
+
+The instruction that falls out of this is short: do not test what the type system has already made impossible, and do test the behaviour the type system is silent about. A small example came up in the next step. A document needs to remember the file it came from, but a new, untitled buffer has not come from anywhere, so the honest type for that field is `Option<PathBuf>`, and Rust will not let you read the path without handling the case where there is none. The "I forgot to check for the missing file" bug is not caught by a test here; the program that contains it does not compile, and writing a test for it would only re-prove what the compiler has already proven.
 
 ## "Test everything that can fail" is too blunt
 

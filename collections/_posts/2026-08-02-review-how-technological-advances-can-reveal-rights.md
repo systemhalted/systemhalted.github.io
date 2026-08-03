@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Review: How Technological Advances Can Reveal Rights"
-date: 2026-08-07
+date: 2026-08-02 18:00 
 categories:
 - Article Review
 - AI

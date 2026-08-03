@@ -35,7 +35,7 @@ fn insert_then_delete_restores_buffer() {
 }
 ```
 
-This test passes, and it is not a bad test. But look at what it actually asserts: that inserting `" world"` at index 5 of `"hello"`, and then deleting that range, gives back `"hello"`. That is one point in a large space of possible inputs. The rule I care about is not about `"hello"` at all. It is this: for any document, inserting a string and then deleting exactly that range returns the original document. I wrote a test about one case of the rule because a single case is the only thing an example test lets me state.
+This test passes, and it is not a bad test. But look at what it actually asserts: that inserting `" world"` at index 5 of `"hello"`, and then deleting that range, gives back `"hello"`. That is one point in a large space of possible inputs. The rule I care about is not about `"hello"` at all but that for any document, inserting a string and then deleting exactly that range returns the original document. I wrote a test about one case of the rule but I can do better through property-based testing.
 
 Property-based testing lets me state the rule and let the framework choose the inputs. Instead of picking the input, I describe the range of valid inputs, state what must be true, and the framework generates many cases and tries to find one that fails. In Rust the common tool for this is the `proptest` crate[^proptest].
 

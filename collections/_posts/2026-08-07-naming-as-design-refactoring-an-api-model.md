@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Naming as Design: Refactoring an API Model'
-date: 2026-08-11 00:30:00 -0500
+date: 2026-08-07 00:30:00 -0500
 categories:
 - Software Engineering
 - Computer Science

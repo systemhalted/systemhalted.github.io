@@ -56,6 +56,21 @@ available:
       label: View source
       url: https://github.com/systemhalted/sdkman.el
 
+  - name: wordwise.el
+    status: Usable
+    status_class: usable
+    description: Kindle-style inline vocabulary hints above uncommon words in Emacs reading buffers.
+    tags:
+      - emacs
+      - reading
+      - dictionary
+    primary_cta:
+      label: Read the guide
+      url: /emacs/wordwise.el/
+    secondary_cta:
+      label: View source
+      url: https://github.com/systemhalted/wordwise.el
+
   - name: shellenv
     status: Released
     status_class: released

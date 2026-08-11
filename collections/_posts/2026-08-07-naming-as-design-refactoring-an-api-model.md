@@ -17,9 +17,9 @@ toc: true
 description: 'Taking one badly named order model -- Java record and OpenAPI schema -- through four passes: types that test values, names that reveal intention, duplication removed, and speculative fields deleted.'
 ---
 
-In an [earlier post](/2026/07/23/my-naming-philosophy/) I wrote down my naming rules: Kent Beck's four rules of simple design read as naming rules, plus Strunk's "omit needless words" and Russ Cox's advice that a name's length should not exceed its information content. Rules stated in the abstract are easy to nod along to, so this post applies them to one concrete model. I start with an order model that I would not want to inherit, and take it through four passes, one rule per pass.
+In an [earlier post](/2026/07/23/my-naming-philosophy/) I wrote down my naming rules: Kent Beck's four rules of simple design read as naming rules, plus Strunk's "omit needless words" and Russ Cox's advice that a name's length should not exceed its information content. In this post I apply them to one concrete model to show you what each of the rule does. I start with an order model that I would not want to inherit, and take it through four passes, one rule per pass.
 
-The example is invented, but nothing in it is exotic. I have reviewed models that looked like this, and I have written a few.
+The example is invented, even though is invented, but not far from the real ones. I have reviewed models that looked like this, and I have written a few. 
 
 ## The starting point
 
@@ -58,7 +58,7 @@ OrderData:
     extraAttributes:            { type: object }
 ```
 
-Nothing here is wrong in the sense that a test would catch. It compiles, it serializes, it round-trips. What is wrong is that the model makes no checkable claims: nine of its eleven fields accept any string at all, the names repeat themselves, and two fields exist for reasons nobody can state. Each pass below fixes one of those problems.
+Nothing here is wrong in the sense that a test would catch. It compiles, it serializes, it round-trips. What is wrong is that the model makes no *checkable claims*: Nine of its eleven fields accept any string, the names repeat themselves, and two fields -- `futureDiscountCode` and `extraAttributes` exist for reasons nobody can state. Each pass below fixes one of those problems.
 
 ## Pass 1 -- Runs the tests: give every value a type that can reject it
 
@@ -128,22 +128,22 @@ Every constraint added here is a test that runs on every request, in every envir
 
 ## Pass 2 -- Reveals intention: say what the field is for
 
-The types are now right and the names are still bad. The second pass renames each field to say what it is for, and Strunk's rule 13 -- omit needless words -- does most of the work. For each name, strike the words that carry no information and see what is left.
+The types are now right but the names are still bad. The second pass renames each field to say what it is for, and Strunk's rule 13 -- omit needless words -- does most of the work. For each name, strike the words that carry no information and see what is left.
 
 - `customerEmailAddressString`: `String` repeats the type (and is now false -- the type is `Email`). `Address` repeats what *email* already implies. What is left is `customerEmail`.
 - `createdDateTimestamp` and `updatedDateTimestamp`: `Date` and `Timestamp` both describe the type, which the declaration already shows. What the reader needs is the *event*: `createdAt`, `updatedAt`.
 - `orderNotesText`: `Text` describes the type. But striking it exposes a different failure: notes for whom, about what? If I cannot make a name specific, I usually have not decided what the field is for. In this system the field holds the customer's instructions to the courier, so the honest name is `deliveryInstructions`.
 - `isOrderActiveFlag`: `Flag` repeats the type. But after striking it, I still cannot say what *active* means here -- not cancelled? not delivered? recently touched? A field whose meaning I cannot state is a problem for a later pass; renaming it now would not fix it.
 
-An intention-revealing name matters more in the schema than in the Java, because a consumer of the API cannot read the implementation. They have the field name, the type, and the description string, but the name is the one part most consumers actually read.
+An intention-revealing name matters more in the schema than in the Java code, because a consumer of the API cannot read the implementation. They have the field name, the type, and the description string, but the name is the one part most consumers actually read.
 
 ## Pass 3 -- No duplication: stop repeating the context
 
 Every remaining name still says *order*, inside a type that already says it. `order.orderId` says order twice; so does `OrderData.orderStatusValue` -- three times, if you count `Value` restating the type. Once a field lives inside `Order`, the context carries that word, and repeating it adds length without adding information. The `Data` suffix on the record name is the same duplication one level up: it describes what every record is. In [Vibe Coding and the Baby Genius Problem](/2025/12/15/vibe-coding-and-baby-genius/) I made the same case against `Request` and `Response` suffixes on API models.
 
-This is Russ Cox's `getParametersAsNamedValuePairArray` point at the field level -- the only interesting word in that name is *parameters*, and the only interesting words in `orderStatusValue` are *status*.
+This is Russ Cox's `getParametersAsNamedValuePairArray` point at the field level -- the only interesting word in that name is *parameters*, and the only interesting word in `orderStatusValue` is *status*.
 
-The pass also catches duplication that is not in the names. `isOrderActiveFlag` turned out to mean "status is neither cancelled nor delivered" -- it restates `status`, as data. Two fields carrying the same fact will eventually disagree. Since the value is derivable from `status`, I delete the field rather than rename it; if the convenience matters, an `isActive()` method on the record can compute it.
+The pass also catches duplication that is not in the names. `isOrderActiveFlag` turned out to mean "status is neither cancelled nor delivered" -- it restates `status`, as data. Since the value is derivable from `status`, I delete the field rather than rename it; if the convenience matters, an `isActive()` method on the record can compute it.
 
 ```java
 public record Order(
@@ -218,7 +218,7 @@ The refactor above is presented as if it were free. It is not, and it helps to k
 
 **Some strings are honestly strings.** `deliveryInstructions` stayed a `String` because free text is genuinely a string: there is no constraint a `DeliveryInstructions` type could test beyond a length cap, and the schema's `maxLength` already covers that. Wrapping it would add a type without adding a check. The test I use: if the constructor would be empty, the wrapper adds nothing.
 
-**Renaming a published field is a breaking change.** Everything in this post is cheap at design time and expensive after the first consumer integrates. Once `orderIdString` is in production traffic, fixing it means versioning the API or carrying both names through a deprecation cycle. This is the strongest argument for doing the naming work before v1 ships rather than after.
+**Renaming a published field is a breaking change.** Everything in this post is cheap at design time and expensive after the first consumer integrates. Once `orderIdString` is in production and has seen traffic, fixing it means versioning the API or carrying both names through a deprecation cycle. This is the strongest argument for doing the naming work before v1 ships rather than after.
 
 **Short names depend on their context surviving.** `id` is right inside the schema and wrong in a CSV export. If a name will be read where its enclosing context is stripped away, it has to carry the context itself. Cox's rule decides both cases; it just gives different answers.
 

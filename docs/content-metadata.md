@@ -112,6 +112,13 @@ description: One-line summary for listings.
 ---
 ```
 
+### Where things live
+
+- **systemhalted.in** — canonical home of all essays and posts. Everything publishes here first.
+- **Kartavya Path on LinkedIn** — syndication target for selected professional-audience posts (see workflow below). Not a source of original content.
+- **Substack (palakmathur.substack.com)** — native home for creative writing (short stories, poetry, narrative essays). Not mirrored on the blog.
+- **palakmathur.in** — the identity hub (`about-me` repo). Links to all of the above; changes only when a platform is added or retired.
+
 ### Publishing workflow (blog-only, LinkedIn syndication)
 
 Everything publishes as a regular blog post in `collections/_posts/`; there is no separate on-site newsletter track anymore. `collections/_newsletter/` is a frozen archive — no new issues go there. The Kit (ConvertKit) email list is retired; the on-site CTA and footer point to the LinkedIn newsletter (`newsletter_cta.linkedin_url` in `_config.yml`) and RSS instead.

@@ -13,6 +13,7 @@ tags:
 - opinion
 comments: true
 description: A short opinion piece on free will, intentionality, and why narrow AI agents should not be treated as self-determined actors.
+linkedin_url: https://www.linkedin.com/pulse/free-ai-limits-intentionality-palak-mathur-nelpc/
 ---
 
 Free will is usually discussed as if it is only a question of freedom from external control. That is part of it, but not the whole thing. I explored this in an [earlier post](/2020/04/05/free-will/), which I wrote as part of my OMSCS coursework

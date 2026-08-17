@@ -97,10 +97,10 @@ featured_image_caption: Optional caption for the post header.
 ---
 ```
 
-Newsletter example:
+Newsletter example (archive only — see "Publishing workflow" below; no new issues):
 ```
 ---
-layout: page
+layout: newsletter
 title: Example Newsletter
 date: 2024-06-30
 category:
@@ -112,16 +112,19 @@ description: One-line summary for listings.
 ---
 ```
 
-### Newsletter publishing workflow
+### Publishing workflow (blog-only, LinkedIn syndication)
 
-The blog is the source of truth for Kartavya Path; LinkedIn is a syndication destination.
+Everything publishes as a regular blog post in `collections/_posts/`; there is no separate on-site newsletter track anymore. `collections/_newsletter/` is a frozen archive — no new issues go there. The Kit (ConvertKit) email list is retired; the on-site CTA and footer point to the LinkedIn newsletter (`newsletter_cta.linkedin_url` in `_config.yml`) and RSS instead.
 
-1. Write the issue in `collections/_newsletter/YYYY-MM-DD-slug.md` with `layout: newsletter`, `title`, `date`, optional `description`.
-2. **Publish on the blog first** — commit, push, let Pages build, confirm the public URL renders.
-3. **Cross-post to LinkedIn** after the blog URL is live. Prefix the LinkedIn version with "Originally published at <blog URL>" and link the title to the canonical blog post.
-4. **Capture the LinkedIn URL** in front matter as `linkedin_url: https://www.linkedin.com/...`. This activates the "Join the discussion on LinkedIn →" link at the end of the blog issue. If `linkedin_url` is absent, the link doesn't render — fine for issues you don't cross-post.
+Selected posts (ones that fit a professional audience) are cross-posted to the Kartavya Path newsletter on LinkedIn:
+
+1. **Publish on the blog first** — commit, push, let Pages build, confirm the public URL renders.
+2. **Cross-post the full text to LinkedIn** after the blog URL is live. Prefix the LinkedIn version with "Originally published at <blog URL>" and link the title to the canonical blog post.
+3. **Capture the LinkedIn URL** in front matter as `linkedin_url: https://www.linkedin.com/...`. `_layouts/post.html` then renders the "Join the discussion on LinkedIn →" link at the end of the post. Posts without `linkedin_url` are unaffected.
 
 `jekyll-seo-tag` already emits `<link rel="canonical">` pointing to the blog URL, so search engines treat the blog post as canonical even after the LinkedIn cross-post — no extra config needed.
+
+All LinkedIn touchpoints on the site are plain HTML links — no LinkedIn script embeds or plugins — which keeps the site outside LinkedIn's Plugin Terms of Use.
 
 ## Emacs notes
 

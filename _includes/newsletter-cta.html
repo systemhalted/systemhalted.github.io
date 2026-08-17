@@ -5,13 +5,10 @@
 <aside class="newsletter-cta newsletter-cta--{{ ctx }}" id="newsletter-cta">
   <h2 class="newsletter-cta-title">{{ nl_title }}</h2>
   <p class="newsletter-cta-lede">{{ nl_lede }}</p>
-  {% if site.newsletter_cta.kit_uid and site.newsletter_cta.kit_url %}
-  <script async data-uid="{{ site.newsletter_cta.kit_uid }}" src="{{ site.newsletter_cta.kit_url }}/{{ site.newsletter_cta.kit_uid }}/index.js"></script>
-  <noscript>
-    <a class="newsletter-cta-fallback" href="{{ site.newsletter_cta.kit_url }}/{{ site.newsletter_cta.kit_uid }}" rel="noopener" target="_blank">
-      Subscribe →
-    </a>
-  </noscript>
+  {% if site.newsletter_cta.linkedin_url %}
+  <a class="newsletter-cta-fallback" href="{{ site.newsletter_cta.linkedin_url }}" rel="noopener" target="_blank">
+    Subscribe on LinkedIn →
+  </a>
   {% endif %}
   <p class="newsletter-cta-alt">
     Prefer a reader? <a href="{{ nl_feed | relative_url }}">Subscribe by RSS</a>.

@@ -110,9 +110,8 @@ newsletter_cta:
   lede:        "A note on leadership, management, and the long road. Free, occasional, no spam."
   path:        /kartavya-path/
   feed_path:   /feed/newsletter.xml
-  footer_blurb: "Get Kartavya Path — short essays on leadership and management — by email, or follow the blog by RSS."
-  kit_uid:     b1d6fc350a
-  kit_url:     https://kartavya-path-by-palak-mathur.kit.com
+  footer_blurb: "Follow Kartavya Path — short essays on leadership and management — on LinkedIn, or follow the blog by RSS."
+  linkedin_url: https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7211363300905738240
 
 giscus:
   repo:        systemhalted/systemhalted.github.io

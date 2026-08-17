@@ -36,7 +36,7 @@
       <div class="footer-heading">Subscribe</div>
       <p class="footer-description">{% if site.newsletter_cta.footer_blurb %}{{ site.newsletter_cta.footer_blurb }}{% else %}Get {{ nl_title }} by email, or follow the blog by RSS.{% endif %}</p>
       <div class="footer-cta">
-        <a class="footer-button" href="{{ site.newsletter_cta.path | default: '/' | relative_url }}#newsletter-cta">Subscribe to {{ nl_title }} →</a>
+        <a class="footer-button" href="{{ site.newsletter_cta.path | default: '/' | relative_url }}#newsletter-cta">Follow {{ nl_title }} →</a>
         <a class="footer-button ghost" href="{{ '/feed.xml' | relative_url }}">RSS Feed</a>
         {% if site.author.email %}<a class="footer-button ghost" href="mailto:{{ site.author.email }}">Say hello</a>{% endif %}
       </div>

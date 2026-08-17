@@ -53,6 +53,13 @@ layout: default
     {% endif %}
     {{ content | inject_anchors }}
   </div>
+
+  {% if page.linkedin_url %}
+  <p class="linkedin-discuss-prelude">This post was published here first.</p>
+  <p class="linkedin-discuss">
+    <a href="{{ page.linkedin_url }}" rel="noopener" target="_blank">Join the discussion on LinkedIn →</a>
+  </p>
+  {% endif %}
 </div>
 
 <div class="post-categories">

@@ -18,5 +18,7 @@ This is my personal blog. All views expressed here, in my articles, and on any o
 I also publish [Kartavya Path](/kartavya-path/), a newsletter on leadership and management. New issues land here first; I cross-post them to LinkedIn.
 
 I also publish short stories, poetry, etc. at [palakmathur.substack.com](https://palakmathur.substack.com).
+
+Everything I do — this blog, the Kartavya Path newsletter, stories, podcasts, code, and reading logs — is indexed at [palakmathur.in](https://palakmathur.in).
   
  

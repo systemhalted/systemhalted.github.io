@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "Resource Integrity Belongs to the Resource, Not the API"
 date: 2026-08-25
 categories:

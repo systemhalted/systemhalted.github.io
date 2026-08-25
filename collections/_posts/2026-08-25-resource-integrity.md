@@ -10,6 +10,7 @@ tags:
   - Platform Engineering
   - Domain-Driven Design
   - Operational Tooling
+comments: true 
 description: "An operational tool may bypass a REST endpoint, but it must not bypass the resource contract."
 ---
 

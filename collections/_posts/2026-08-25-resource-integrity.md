@@ -12,9 +12,6 @@ tags:
 description: "An operational tool may bypass a REST endpoint, but it must not bypass the resource contract."
 ---
 
-Note: I was having a discussion with a friend when the discussion went toward ops tool needed for mitigation tasks. So, this is based on that conversation. 
----
-
 A platform exposes a REST API for creating and managing resources. Over time, the platform team also builds administrative scripts, migration utilities, recovery procedures, scheduled jobs, and internal operational tools.
 
 These tools may not call the REST API. Sometimes that is reasonable. A recovery utility may need to work when the API is unavailable. A migration may require capabilities intentionally excluded from the public interface. An operator may need to repair partially provisioned infrastructure.

@@ -11,10 +11,10 @@ tags:
   - Distributed Systems
   - Disaster Recovery
   - Event Streaming
+  - AI-assisted
 description: "A recent MySQL replication change made me reconsider a question from Kafka disaster recovery: does a checkpoint identify what was processed, or merely where processing should resume?"
 comments: true
 ---
-
 A recent MySQL change caught my attention because it intersects with a problem I have been thinking about while working through disaster recovery for an Event Streaming Platform built on Kafka.
 
 MySQL 26.7.0 was released on July 28, 2026. Among its replication changes, MySQL introduced the Change Stream Applier, or CSA, a new implementation of the replica SQL applier for multithreaded replication. CSA is currently opt in, but some of its requirements are interesting: it does not support file position replication channels, requires `GTID_MODE=ON`, and requires `GTID_ONLY=1`.[^mysql-csa]
@@ -367,6 +367,10 @@ Which leaves me with the question that the MySQL change originally triggered:
 
 > Does this checkpoint identify the state I processed, or merely where I should resume looking for it?
 
+---
+NOTE: From this post onward, I am going to tag the post where I used AI assitance for anything - review, dedupe, etc. I am honestly not waiting for humans to review and then publish. ChatGPT essentially has removed the review barrier and I am getting much better reviews than before. 
+
+When I asked ChatGPT to score my intitial draft, it scored it 6/10 and suggested improvements. After improvements it says it is 8/10. I will take it. :)
 ---
 
 [^mysql-csa]: Oracle, "Changes in MySQL 26.7.0 (2026-07-28)," *MySQL 26.7 Release Notes*. The release introduces the Change Stream Applier and lists file-position replication channels, GTID modes other than `ON`, and `GTID_ONLY=0` among unsupported configurations. <https://dev.mysql.com/doc/relnotes/mysql/26.7/en/news-26-7-0.html>

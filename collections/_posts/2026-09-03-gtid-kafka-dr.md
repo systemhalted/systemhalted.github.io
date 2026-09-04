@@ -368,9 +368,7 @@ Which leaves me with the question that the MySQL change originally triggered:
 > Does this checkpoint identify the state I processed, or merely where I should resume looking for it?
 
 ---
-NOTE: From this post onward, I am going to tag the post where I used AI assitance for anything - review, dedupe, etc. I am honestly not waiting for humans to review and then publish. ChatGPT essentially has removed the review barrier and I am getting much better reviews than before. 
-
-When I asked ChatGPT to score my intitial draft, it scored it 6/10 and suggested improvements. After improvements it says it is 8/10. I will take it. :)
+NOTE: From this post onward, I am going to tag the post where I used AI assitance for anything - review, dedupe, etc. I am honestly not waiting for humans to review and then publish. ChatGPT essentially has removed the review barrier and I am getting much better reviews than before. When I asked ChatGPT to score my intitial draft, it scored it 6/10 and suggested improvements. After improvements it says it is 8/10. I will take it. :)
 ---
 
 [^mysql-csa]: Oracle, "Changes in MySQL 26.7.0 (2026-07-28)," *MySQL 26.7 Release Notes*. The release introduces the Change Stream Applier and lists file-position replication channels, GTID modes other than `ON`, and `GTID_ONLY=0` among unsupported configurations. <https://dev.mysql.com/doc/relnotes/mysql/26.7/en/news-26-7-0.html>

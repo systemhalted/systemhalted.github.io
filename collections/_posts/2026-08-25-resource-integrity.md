@@ -14,7 +14,7 @@ comments: true
 description: "An operational tool may bypass a REST endpoint, but it must not bypass the resource contract."
 ---
 
-A platform exposes a REST API for creating and managing resources. Over time, the platform team also builds administrative scripts, migration utilities, recovery procedures, scheduled jobs, and internal operational tools.
+Let's assume that a platform exposes a REST API for creating and managing resources. Over time, the platform team also builds administrative scripts, migration utilities, recovery procedures, scheduled jobs, and internal operational tools.
 
 These tools may not call the REST API. Sometimes that is reasonable. A recovery utility may need to work when the API is unavailable. A migration may require capabilities intentionally excluded from the public interface. An operator may need to repair partially provisioned infrastructure.
 
@@ -30,7 +30,7 @@ Every mechanism that creates, changes, or deletes a platform-owned resource must
 
 REST stands for **Representational State Transfer**. Its uniform-interface constraints include identifying resources and manipulating them through representations.[^1] A resource has an identity, commonly exposed through a URI, and a client exchanges representations of its state.[^2]
 
-Consider a topic managed by an event-streaming platform:
+Consider a Kafka topic managed by an event-streaming platform:
 
 ```text
 /topics/customer-events
@@ -49,7 +49,9 @@ The topic is the resource. The following JSON is one representation of its curre
 
 Changing `retentionHours` does not necessarily create a new resource. The resource retains its identity while its state changes.
 
-The REST endpoint is not the resource. It is the one of the representation of the resource. In other words, it is one interfaces through which clients interact with the resource. The database row is not necessarily the resource either. Nor is the corresponding Kafka or Amazon MSK topic by itself. The platform resource may be a logical entity composed of metadata, provisioned infrastructure, policies, audit history, and lifecycle state.
+I know many architects and engineers think of the REST endpoint as the resource unto itself, and at one point I was one of them. My reasoning was simple, the resource should have one identity, and anything that needs to interact with the resource should interact through that single identity. I once treated the API path as the resource’s canonical identity and concluded that every mutation had to pass through it. That conflated the resource with one interface used to reach it.
+
+Of late, I have come to realize that the REST endpoint is not the resource. Nor is it a representation of the resource. The URI identifies the target resource, while the request and response payloads carry representations of its current or intended state. The API is the interaction boundary through which clients act upon that resource. The database row is not necessarily the resource either. Nor is the corresponding Kafka topic by itself. Within the platform’s control-plane model, the managed-topic resource is not necessarily identical to the physical Kafka topic. It may be a higher-level entity encompassing desired configuration, ownership, policies, provisioned infrastructure, lifecycle state, and audit history.
 
 If the API disappears temporarily, the resource does not stop existing. If a tool avoids the API, it does not gain the right to redefine what constitutes a valid resource.
 
@@ -74,7 +76,7 @@ That is the danger of treating the API implementation as the only place where in
 
 ## State Changes; Invariants Must Hold
 
-The resource’s state must remain pristine in the sense that it's **integrity** remains valid.
+The resource’s state must remain pristine in the sense that its **integrity** remains valid.
 
 State is expected to change. A topic can move from `PROVISIONING` to `ACTIVE`, its retention period can be updated, and it may eventually move to `DELETING` and `DELETED`. The requirement is not to keep the original state untouched. The requirement is to ensure that every transition leaves the resource in a valid and internally consistent condition.
 
@@ -89,7 +91,7 @@ For a platform-managed topic, the invariants might include:
 - Material changes are authorized and auditable.
 - Required events are published exactly as promised by the platform contract.
 
-These invariants apply to all mutation paths. The origin of a command does not alter the definition of a valid topic. In domain-driven terms, invariants belong inside the model boundary that controls valid state transitions, not exclusively inside one delivery mechanism.[^4]
+These invariants apply to all mutation paths. The origin of a command does not alter the definition of a valid topic. In domain-driven terms, invariants belong inside the model boundary that controls valid state transitions, not exclusively inside one delivery mechanism.[^4] Every mutation path must preserve the resource’s identity and domain invariants while honoring the applicable transition guards, audit requirements, side-effect obligations, and recovery guarantees.
 
 ## The API Should Be an Adapter, Not the Domain
 
@@ -113,7 +115,7 @@ Those differences should be explicit parts of the operational contract, not acci
 
 There will be situations where neither the API nor the normal application command path is usable. Direct database or infrastructure changes may then be necessary.
 
-Such changes should be treated as break-glass operations rather than ordinary administration. The need for authorized changes, configuration-change control, and audit-record generation is also reflected in NIST's security-control catalog.[^6] At minimum, the procedure should define:
+Such changes should be treated as break-glass operations rather than ordinary administration. The need for authorized changes, configuration-change control, and audit-record generation is also reflected in NIST's security-control catalog [^6]. At minimum, the procedure should define:
 
 - Who may authorize and execute the change.
 - Which invariants may be temporarily violated.
@@ -139,7 +141,7 @@ This framing also clarifies ownership. If a team owns the platform resource, it 
 
 ## The Principle
 
-A REST API is a representation and interaction boundary. It is not the sole guardian of the underlying resource.
+A REST API is an interaction boundary through which representations are exchanged. It is not the sole guardian of the underlying resource.
 
 Operational tools may legitimately use a different interface. They may require elevated capabilities, alternate workflows, or direct access during exceptional circumstances. But a different mutation path does not create a different definition of the resource.
 
@@ -160,4 +162,4 @@ When this rule is applied consistently, administrative tools stop being dangerou
 
 [^5]: Alistair Cockburn, ["Hexagonal Architecture: The Original 2005 Article"](https://alistair.cockburn.us/hexagonal-architecture), 2005. Cockburn describes application ports driven by users, HTTP interfaces, batch scripts, automated tests, or other programs through different adapters.
 
-[^6]: NIST, [*Security and Privacy Controls for Information Systems and Organizations*, SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final), 2020, particularly CM-3 (Configuration Change Control), CM-5 (Access Restrictions for Change), and AU-12 (Audit Record Generation). For incident procedures and recovery, see NIST, [*Computer Security Incident Handling Guide*, SP 800-61 Rev. 2](https://doi.org/10.6028/NIST.SP.800-61r2), 2012.
+[^6]: NIST, [*Security and Privacy Controls for Information Systems and Organizations*, SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final), 2020, particularly CM-3 (Configuration Change Control), CM-5 (Access Restrictions for Change), and AU-12 (Audit Record Generation).

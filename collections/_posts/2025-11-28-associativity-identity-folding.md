@@ -31,19 +31,17 @@ Other times it feels cursed.
 int weird = nums.parallelStream().reduce(0, (a, b) -> a - b);
 {% endhighlight %}
 
-Same method, very different behavior.
-
 Underneath these differences are three simple ideas:
 
-1. Associativity  
-2. Identity  
+1. Associativity
+2. Identity
 3. Folding (reducing a collection into one value)
 
 You do not need category theory to use them. You just need to recognize when your operation behaves like `+` (associative) and when it behaves like `-` (non-associative).
 
 This post walks through concrete Java examples you are likely to hit in normal work and uses them to build intuition for those three words.
 
-It also gives you an understanding of when using parallelStreams is probably safe. 
+It also gives you an understanding of when using parallelStreams is probably safe.
 
 ---
 
@@ -51,15 +49,15 @@ It also gives you an understanding of when using parallelStreams is probably saf
 
 A fold or reduce is just this:
 
-Start with some value.  
-Combine it with each element in a collection.  
+Start with some value.
+Combine it with each element in a collection.
 End up with a single result.
 
 For example, summing numbers by hand:
 
-1. Start with `0`  
-2. Add the first number  
-3. Add the second number  
+1. Start with `0`
+2. Add the first number
+3. Add the second number
 4. Keep going until you have one, final, number left
 
 In Java Streams:
@@ -71,7 +69,7 @@ int sum = nums.stream()
 
 `reduce` needs two things from you.
 
-1. An initial value, sometimes called the identity.  
+1. An initial value, sometimes called the identity.
 2. A function that combines the accumulator and the next element.
 
 Everything else in this post is about choosing those two well.
@@ -103,7 +101,7 @@ Why does this behave?
 
 The short version:
 
-1. Addition is associative.  
+1. Addition is associative.
 2. Zero is the identity for addition.
 
 Let us unpack that.
@@ -125,8 +123,8 @@ x + 0 == x;
 
 When both of these are true, the stream framework is free to:
 
-1. Split the list into chunks.  
-2. Sum each chunk separately.  
+1. Split the list into chunks.
+2. Sum each chunk separately.
 3. Add the partial sums in any grouping it likes.
 
 Sequential or parallel, left grouped or right grouped, the result is always the same.
@@ -209,7 +207,7 @@ In parallel, the identity can be applied to every chunk, so the effect is even s
 The identity should be a ==do nothing== value for the operation:
 
 ```
-combine(identity, x) == x  
+combine(identity, x) == x
 combine(x, identity) == x
 ```
 
@@ -265,8 +263,8 @@ Streams will respect encounter order unless you explicitly undo that. So in prac
 
 The message here:
 
-1. Associativity protects you from grouping changes.  
-2. Commutativity protects you from ordering changes.  
+1. Associativity protects you from grouping changes.
+2. Commutativity protects you from ordering changes.
 3. Most real world operations are not commutative, so do not assume order is irrelevant unless you are sure.
 
 ---
@@ -296,7 +294,7 @@ When you add a very large number and a very small number, the small number can g
 
 Practically you see things like:
 
-1. Slightly different sums when you use parallel streams.  
+1. Slightly different sums when you use parallel streams.
 2. Results like `999.9999999997` instead of `1000.0`.
 
 For many applications this does not matter. For financial calculations it absolutely does, which is one reason developers reach for `BigDecimal` or integer cents rather than `double`.
@@ -359,10 +357,10 @@ System.out.println(result.counts());
 
 Why this works well:
 
-1. `combine` is associative.  
-   Combining `(A combine B) combine C` gives the same counts as `A combine (B combine C)`.  
+1. `combine` is associative.
+   Combining `(A combine B) combine C` gives the same counts as `A combine (B combine C)`.
 
-2. `Counts.empty()` is an identity.  
+2. `Counts.empty()` is an identity.
    Combining `empty` with any `Counts` yields that `Counts` back.
 
 That is exactly what a framework like `reduce` wants: an associative operation with an identity element.
@@ -381,17 +379,17 @@ X result = stream.reduce(identity, (a, b) -> combine(a, b));
 
 you can run a short mental checklist.
 
-1. If I ignore floating point quirks, is `combine` associative?  
+1. If I ignore floating point quirks, is `combine` associative?
 
    combine(combine(a, b), c) == combine(a, combine(b, c))
 
-2. Did I choose a true identity value?  
+2. Did I choose a true identity value?
    Does `combine(identity, x)` give `x` and does `combine(x, identity)` give `x`?
 
-3. Do I care about order?  
+3. Do I care about order?
    If I do, am I doing anything that changes encounter order?
 
-If the answer to 1 and 2 is yes, `reduce` is usually safe, even in parallel.  
+If the answer to 1 and 2 is yes, `reduce` is usually safe, even in parallel.
 If 1 or 2 fails, you either accept the weirdness, or you avoid `parallelStream` and regrouping.
 
 ---
@@ -400,10 +398,10 @@ Every `reduce` you write is a small promise.
 
 You are telling the runtime:
 
-1. Here is how to combine two partial results.  
+1. Here is how to combine two partial results.
 2. Here is the neutral element that represents "no information yet".
 
-If that promise matches reality, you get predictable, parallel friendly code.  
+If that promise matches reality, you get predictable, parallel friendly code.
 If it does not, you get ghosts: bugs that only appear under load, only with parallel streams, only with certain sizes of input.
 
 Thinking in terms of associativity and identity is not about being fancy. It is just a way to make that promise explicit in your own head, instead of leaving it as "whatever this lambda does".

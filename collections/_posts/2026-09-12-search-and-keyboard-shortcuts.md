@@ -63,4 +63,4 @@ A few behaviour notes:
 
 The redesign moved search into a quieter corner, which worried me for a moment. A feature that is not advertised is one people may not discover. But there is a difference between not advertising something and hiding it. The search button is still in the header on every page, the shortcuts are one keypress away from being listed, and this post is an attempt at the documentation side of that decision.
 
-So: everything that used to be loud is still there. It just waits for you to ask for it.
+So, everything that used to be loud is still there. It just waits for you to ask for it.

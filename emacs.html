@@ -2,16 +2,12 @@
 title: Emacs
 layout: page
 permalink: /emacs/
-hide_page_title: true
+quiet_title: true
 ---
 
-<section class="newsletter-hero">
-  <p class="newsletter-kicker">Notes & references</p>
-  <h1 class="newsletter-headline">Emacs</h1>
-  <p class="newsletter-lede">
-    A small wiki of Emacs notes, configs, and packages I keep coming back to.
-  </p>
-</section>
+<p class="archive-intro">A small wiki of Emacs notes, configurations, and packages I keep coming back to.</p>
+
+{% include archive-gateways.html %}
 
 <ul class="post-feed">
   {% assign notes = site.emacs | sort: 'title' %}

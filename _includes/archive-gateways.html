@@ -4,5 +4,5 @@
   <a href="{{ '/categories/' | relative_url }}"{% if page.url == '/categories/' %} aria-current="page"{% endif %}>Categories</a>
   <a href="{{ '/tags/' | relative_url }}"{% if page.url == '/tags/' %} aria-current="page"{% endif %}>Tags</a>
   <a href="{{ '/categories/' | relative_url }}#series">Series</a>
-  <a href="{{ '/emacs/' | relative_url }}">Emacs</a>
+  <a href="{{ '/emacs/' | relative_url }}"{% if page.url == '/emacs/' %} aria-current="page"{% endif %}>Emacs</a>
 </nav>

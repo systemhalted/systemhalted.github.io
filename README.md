@@ -61,7 +61,7 @@ New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
 ## Collections
 - Define new collections in `_config.yml` under `collections:`.
 - Add docs under `collections/_<name>/` with standard front matter.
-- For landing pages, the redesign uses an inline **hero + `.post-feed`** pattern instead of the older `layout: collections`. Look at `emacs.html`, `jsgames/index.html`, and `kartavya-path.html` for examples: each one is `layout: page` + `hide_page_title: true`, then renders a `.newsletter-hero` (or `.featured-hero`) block followed by a `<ul class="post-feed">` of items via a per-collection include in `_includes/`.
+- Collection landing pages use the standard page hierarchy followed by a `.post-feed`; `emacs.html` is the simplest example. Promotional pages such as `kartavya-path.html` may opt into a restrained inline hero with `hide_page_title: true`.
 - Individual emacs notes use `_layouts/emacs.html` (kicker + title + content + tag chips, no date/comments/prev-next).
 - Kartavya Path essays use the ordinary post layout and are also collected at `/kartavya-path/`.
 

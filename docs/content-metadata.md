@@ -162,16 +162,16 @@ description: which-key surfaces all candidate keybindings after a prefix key, re
 
 ## Hero landing pages — `hide_page_title`
 
-Landing pages that provide their own `<h1>` via a hero block (e.g. `.newsletter-hero` on `/kartavya-path/` and `/emacs/`, `.featured-hero` on `/featured/`) should set `hide_page_title: true` in front matter. This suppresses the `<h2 class="page-title">` that `_layouts/page.html` would otherwise inject — preventing a duplicate, off-width heading above the hero.
+Landing pages that provide their own `<h1>` via a hero block (e.g. `.newsletter-hero` on `/kartavya-path/` or `.featured-hero` on `/featured/`) should set `hide_page_title: true` in front matter. This suppresses the standard `.page-title` that `_layouts/page.html` would otherwise inject, preventing a duplicate heading above the hero.
 
 Example:
 ```
 ---
-title: Emacs
+title: Kartavya Path
 layout: page
-permalink: /emacs/
+permalink: /kartavya-path/
 hide_page_title: true
 ---
 ```
 
-Pages without a hero block (`about.md`, `archives.html`, `categories.html`, `tags.html`) should *not* set this flag — they rely on the auto-injected `.page-title` as their only heading. See `docs/css-updates.md` for the full list.
+Pages without a hero block (`about.md`, `archives.html`, `categories.html`, `tags.html`, `emacs.html`) should *not* set this flag — they rely on the auto-injected `.page-title` as their only heading. Use `quiet_title: true` when the title should match the restrained About/Archive hierarchy. See `docs/css-updates.md` for the full list.

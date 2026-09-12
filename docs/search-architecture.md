@@ -39,11 +39,13 @@ During the build, the script loops over `site.collections` and builds `siteDocs`
   - `id`: sequential integer.
   - `title`: `doc.title`.
   - `layout`: `doc.layout`.
+  - `categories`: space-separated post categories.
+  - `tags`: space-separated post tags.
   - `content`: `doc.content | strip_html`.
   - `link`: `doc.url | relative_url`.
   - `snippet`: `doc.content | strip_html | truncate: 140`.
 
-It then builds an elasticlunr index with fields `title`, `layout`, and `content` and saves it to `window.siteIndex`.
+It then builds an elasticlunr index with fields `title`, `layout`, `categories`, `tags`, and `content` and saves it to `window.siteIndex`.
 
 ## Runtime search overlay (site UI)
 Markup lives in `_layouts/default.html`:
@@ -56,7 +58,7 @@ Logic lives in `assets/js/script.js`:
   `assets/js/webcmd.js`. Reopening search reuses the loaded index.
 - On input, `renderResults()` searches the index with `expand: true`.
 - If `window.siteIndex` is missing, it builds a new index from `window.siteDocs`.
-- If elasticlunr returns zero results, it falls back to a substring scan across `title` and `content`.
+- If elasticlunr returns zero results, it falls back to a substring scan across `title`, `categories`, `tags`, and `content`.
 - Results are capped at 12 and show title, layout, and snippet.
 - Escape closes the overlay; "/" opens it (unless focused in an input/textarea).
 
@@ -84,7 +86,7 @@ Key behavior in `assets/js/webcmd.js`:
 
 ## Extension points
 - Include pages: update `assets/js/webcmd.js` to also add `site.pages`.
-- Add fields: include `categories`, `tags`, or `description` in `siteDocs` and index them in elasticlunr.
+- Add fields: include fields such as `description` in `siteDocs` and index them in elasticlunr.
 - Adjust snippets: change the `truncate` length or use `description` when present.
 - UI tweaks: update the overlay styles in `assets/css/nord.css` under the search section.
 

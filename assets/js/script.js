@@ -216,7 +216,7 @@
     var lowered = query.toLowerCase();
     indexData.store.forEach(function(doc) {
       if (!doc) return;
-      var haystack = ((doc.title || '') + ' ' + (doc.content || '')).toLowerCase();
+      var haystack = ((doc.title || '') + ' ' + (doc.categories || '') + ' ' + (doc.tags || '') + ' ' + (doc.content || '')).toLowerCase();
       if (haystack.indexOf(lowered) !== -1) matches.push({ ref: doc.id });
     });
     return matches;

@@ -12,6 +12,8 @@ siteDocs.push({
   id: {{ doc_id }},
   title: {{ doc.title | jsonify }},
   layout: {{ doc.layout | jsonify }},
+  categories: {{ doc.categories | join: " " | jsonify }},
+  tags: {{ doc.tags | join: " " | jsonify }},
   content: {{ doc.content | strip_html | jsonify }},
   link: {{ doc.url | relative_url | jsonify }},
   snippet: {{ doc.content | strip_html | truncate: 140 | jsonify }}
@@ -28,6 +30,8 @@ if(typeof elasticlunr !== "undefined"){
   var preloadIndex = elasticlunr(function () {
     this.addField('title');
     this.addField('layout');
+    this.addField('categories');
+    this.addField('tags');
     this.addField('content');
     this.setRef('id');
   });
@@ -36,6 +40,8 @@ if(typeof elasticlunr !== "undefined"){
     preloadIndex.addDoc({
       title: doc.title,
       layout: doc.layout,
+      categories: doc.categories || "",
+      tags: doc.tags || "",
       content: doc.content,
       id: doc.id
     });
@@ -132,6 +138,8 @@ function ensureSiteIndex()
     var idx = elasticlunr(function () {
 	this.addField('title');
 	this.addField('layout');
+	this.addField('categories');
+	this.addField('tags');
 	this.addField('content');
 	this.setRef('id');
     });
@@ -140,6 +148,8 @@ function ensureSiteIndex()
 	idx.addDoc({
 	    title: doc.title,
 	    layout: doc.layout,
+	    categories: doc.categories || "",
+	    tags: doc.tags || "",
 	    content: doc.content,
 	    id: doc.id
 	});
@@ -172,7 +182,7 @@ function cmd_find(cmd, arg, args)
 	var q = arg.toLowerCase();
 	for(var j = 0; j < siteStore.length; j++){
 	    var d = siteStore[j];
-	    var hay = (d.title + " " + d.content).toLowerCase();
+	    var hay = (d.title + " " + (d.categories || "") + " " + (d.tags || "") + " " + d.content).toLowerCase();
 	    if(hay.indexOf(q) !== -1){
 		results.push({ ref: j });
 	    }

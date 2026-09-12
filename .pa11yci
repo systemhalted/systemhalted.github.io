@@ -19,9 +19,12 @@
     "http://127.0.0.1:4002/archives/",
     "http://127.0.0.1:4002/categories/",
     "http://127.0.0.1:4002/tags/",
+    "http://127.0.0.1:4002/projects/",
     "http://127.0.0.1:4002/kartavya-path/",
     "http://127.0.0.1:4002/emacs/",
     "http://127.0.0.1:4002/emacs/sdkman.el/",
-    "http://127.0.0.1:4002/webcmd/"
+    "http://127.0.0.1:4002/webcmd/",
+    "http://127.0.0.1:4002/2026/09/11/omarchy/",
+    "http://127.0.0.1:4002/2026/07/23/my-naming-philosophy/"
   ]
 }

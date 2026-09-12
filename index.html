@@ -3,104 +3,64 @@ layout: default
 image: /assets/images/avatar.jpeg
 ---
 
-{% if paginator.page == 1 %}<h1 class="sr-only">SystemHalted — Palak Mathur on software engineering, leadership, and Emacs</h1>{% endif %}
-
 {% if paginator.page == 1 %}
-<div class="home-grid">
-  <aside class="home-rail">
-    {% if site.data.start_here %}
-    <section class="start-here">
-      <h2 class="start-here-title">Start here</h2>
-      {% if site.data.start_here.lede %}<p class="start-here-lede">{{ site.data.start_here.lede }}</p>{% endif %}
-      <ul class="start-here-compact">
-        {% for slug in site.data.start_here.posts %}
-          {% assign p = site.posts | where: "url", slug | first %}
-          {% if p %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{% endif %}
-        {% endfor %}
-      </ul>
-    </section>
-    {% endif %}
-    {% assign latest_issue = site.newsletter | sort: 'date' | reverse | first %}
-    {% if latest_issue %}
-    <section class="home-newsletter-promo">
-      <p class="newsletter-kicker">Latest from Kartavya Path</p>
-      <h3 class="home-newsletter-title"><a href="{{ latest_issue.url | relative_url }}">{{ latest_issue.title }}</a></h3>
-      <p class="home-newsletter-meta">
-        <time datetime="{{ latest_issue.date | date_to_xmlschema }}">{{ latest_issue.date | date: "%b %-d, %Y" }}</time>
-        · <a href="{{ '/kartavya-path/' | relative_url }}">all issues →</a>
-      </p>
-    </section>
-    {% endif %}
-  </aside>
-  <div class="home-main">
-    <h2 class="recent-title">Recent posts</h2>
+<header class="home-intro">
+  <h1><a href="https://palakmathur.in" rel="me">{{ site.author.name }}</a></h1>
+  <p>Software engineering, computing systems, leadership, and things I am trying to understand.</p>
+</header>
+
+<section class="home-section" aria-labelledby="recent-writing">
+  <h2 id="recent-writing">Recent writing</h2>
+  <ol class="writing-list">
+    {% for post in paginator.posts %}
+    <li class="writing-row">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d" }}</time>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+  <p class="section-link"><a href="{{ '/archives/' | relative_url }}">All writing →</a></p>
+</section>
+
+{% if site.data.start_here %}
+<section class="home-section" aria-labelledby="selected-writing">
+  <h2 id="selected-writing">Selected writing</h2>
+  {% if site.data.start_here.lede %}<p class="section-lede">{{ site.data.start_here.lede }}</p>{% endif %}
+  <ul class="selected-list">
+    {% for slug in site.data.start_here.posts limit: 3 %}
+      {% assign selected_post = site.posts | where: "url", slug | first %}
+      {% if selected_post %}<li><a href="{{ selected_post.url | relative_url }}">{{ selected_post.title }}</a></li>{% endif %}
+    {% endfor %}
+  </ul>
+  <p class="section-link"><a href="{{ '/featured/' | relative_url }}">More selected writing →</a></p>
+</section>
 {% endif %}
 
-<ul class="post-feed">
-  {% for post in paginator.posts %}{% include post-list-item.html post=post %}{% endfor %}
-</ul>
+<section class="home-section home-kartavya" aria-labelledby="kartavya-path">
+  <h2 id="kartavya-path">Kartavya Path</h2>
+  <p><a href="{{ site.newsletter_cta.linkedin_url }}" target="_blank" rel="noopener noreferrer">Short essays on engineering leadership and management. ↗</a></p>
+</section>
+{% else %}
+<header class="page-header">
+  <h1>Older writing</h1>
+  <p>Page {{ paginator.page }} of {{ paginator.total_pages }}.</p>
+</header>
+
+<ol class="writing-list writing-list-paged">
+  {% for post in paginator.posts %}
+  <li class="writing-row">
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  </li>
+  {% endfor %}
+</ol>
 
 <nav class="pager" aria-label="Pagination">
-  {% assign total_pages = paginator.total_pages %}
-  {% assign current = paginator.page %}
-  {% assign paginate_path = site.paginate_path | default: '/page:num' %}
-
-  {% assign window = 2 %}
-  {% assign start_page = current | minus: window %}
-  {% if start_page < 2 %}{% assign start_page = 2 %}{% endif %}
-  {% assign end_page = current | plus: window %}
-  {% assign last_inner = total_pages | minus: 1 %}
-  {% if end_page > last_inner %}{% assign end_page = last_inner %}{% endif %}
-
-  {% if current > 1 %}
-    <a class="page-btn" href="{{ '/' | relative_url }}">First</a>
-    <a class="page-btn" href="{{ paginator.previous_page_path | relative_url }}">‹ Back</a>
-  {% else %}
-    <button type="button" class="page-btn disabled" disabled aria-disabled="true">First</button>
-    <button type="button" class="page-btn disabled" disabled aria-disabled="true">‹ Back</button>
-  {% endif %}
-
-  {% if current == 1 %}
-    <span class="page-btn active">1</span>
-  {% else %}
-    <a class="page-btn" href="{{ '/' | relative_url }}">1</a>
-  {% endif %}
-
-  {% if start_page > 2 %}
-    <span class="page-ellipsis">…</span>
-  {% endif %}
-
-  {% for page_num in (start_page..end_page) %}
-    {% assign page_link = paginate_path | replace: ':num', page_num %}
-    {% if page_num == current %}
-      <span class="page-btn active">{{ page_num }}</span>
-    {% else %}
-      <a class="page-btn" href="{{ page_link | relative_url }}">{{ page_num }}</a>
-    {% endif %}
-  {% endfor %}
-
-  {% if end_page < last_inner %}
-    <span class="page-ellipsis">…</span>
-  {% endif %}
-
-  {% if total_pages > 1 %}
-    {% if current == total_pages %}
-      <span class="page-btn active">{{ total_pages }}</span>
-    {% else %}
-      <a class="page-btn" href="{{ paginate_path | replace: ':num', total_pages | relative_url }}">{{ total_pages }}</a>
-    {% endif %}
-  {% endif %}
-
+  {% if paginator.previous_page %}
+  <a rel="prev" href="{{ paginator.previous_page_path | relative_url }}">← Newer writing</a>
+  {% else %}<span></span>{% endif %}
   {% if paginator.next_page %}
-    <a class="page-btn" href="{{ paginator.next_page_path | relative_url }}">Next ›</a>
-    <a class="page-btn" href="{{ paginate_path | replace: ':num', total_pages | relative_url }}">Last</a>
-  {% else %}
-    <button type="button" class="page-btn disabled" disabled aria-disabled="true">Next ›</button>
-    <button type="button" class="page-btn disabled" disabled aria-disabled="true">Last</button>
+  <a rel="next" href="{{ paginator.next_page_path | relative_url }}">Older writing →</a>
   {% endif %}
 </nav>
-
-{% if paginator.page == 1 %}
-  </div>
-</div>
 {% endif %}

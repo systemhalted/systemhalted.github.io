@@ -10,10 +10,10 @@ layout: default
 
   <div class="post-content">
     {% if page.toc %}
-    <nav class="post-toc" aria-label="Table of contents">
-      <p class="post-toc-title">On this page</p>
-      {{ content | toc_only }}
-    </nav>
+    <details class="post-toc">
+      <summary>Contents</summary>
+      <nav aria-label="Table of contents">{{ content | toc_only }}</nav>
+    </details>
     {% endif %}
     {{ content | inject_anchors }}
   </div>

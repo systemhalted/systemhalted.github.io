@@ -1,112 +1,66 @@
 ---
 layout: page
 title: Categories
-description: "An archive of posts sorted by categories."
+quiet_title: true
+description: "An archive of posts sorted by category."
 permalink: /categories/
 ---
 
+<p class="archive-intro">Browse the archive through the recurring subjects and series in the writing.</p>
+
+{% include archive-gateways.html %}
+
 {% assign themes = site.data.taxonomy.themes %}
+{% assign taxonomy_categories = "" | split: "," %}
 
 {% for theme in themes %}
-  {%- comment -%}
-    Compute how many posts exist across all categories in this theme
-  {%- endcomment -%}
   {% assign total_posts = 0 %}
-  {% for cat in theme.categories %}
-    {% assign posts = site.categories[cat.name] %}
-    {% if posts %}
-      {% assign post_count = posts | size %}
-      {% assign total_posts = total_posts | plus: post_count %}
-    {% endif %}
+  {% assign theme_category_names = theme.categories | map: "name" %}
+  {% assign taxonomy_categories = taxonomy_categories | concat: theme_category_names %}
+  {% for category in theme.categories %}
+    {% assign category_posts = site.categories[category.name] %}
+    {% if category_posts %}{% assign total_posts = total_posts | plus: category_posts.size %}{% endif %}
   {% endfor %}
 
   {% if total_posts > 0 %}
+  <section class="taxonomy-section" aria-labelledby="{{ theme.id }}">
     <h2 id="{{ theme.id }}">{{ theme.title }}</h2>
-
-    {% if theme.description %}
-      <p>{{ theme.description }}</p>
-    {% endif %}
-
-    {% for cat in theme.categories %}
-      {% assign posts = site.categories[cat.name] %}
-      {% if posts %}
-        {% assign posts = posts | sort: "date" | reverse %}
-      {% endif %}
-      {% if posts and posts.size > 0 %}
-        <details id="cat-{{ cat.name | slugify }}" class="archive-year">
-          <summary class="archive-year-summary">
-            <span class="archive-year-title">{{ cat.name }}</span>
-            <span class="archive-year-count">({{ posts.size }})</span>
-          </summary>
-          {% if cat.description %}
-            <p class="archive-category-description">{{ cat.description }}</p>
-          {% endif %}
-          <ul class="archive-posts">
-            {% for post in posts %}
-              {% assign post_summary = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 40 %}
-              <li class="archive-post">
-                <details class="archive-post-details">
-                  <summary class="archive-post-summary">
-                    <span class="archive-post-meta">
-                      <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-                      <a class="archive-post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    </span>
-                  </summary>
-                  {% if post_summary and post_summary != "" %}
-                    <p class="archive-post-description">{{ post_summary }}</p>
-                  {% endif %}
-                </details>
-              </li>
-            {% endfor %}
-          </ul>
-        </details>
+    {% for category in theme.categories %}
+      {% assign category_posts = site.categories[category.name] | sort: "date" | reverse %}
+      {% if category_posts and category_posts.size > 0 %}
+      <details id="cat-{{ category.name | slugify }}" class="archive-year taxonomy-group">
+        <summary class="archive-year-summary">
+          <span class="archive-year-title">{{ category.name }}</span>
+          <span class="archive-year-count">{{ category_posts.size }} articles</span>
+        </summary>
+        {% include archive-post-list.html posts=category_posts %}
+      </details>
       {% endif %}
     {% endfor %}
+  </section>
   {% endif %}
 {% endfor %}
 
-<h2>Other categories</h2>
-
-{% assign taxonomy_cats = "" | split: "," %}
-{% for theme in themes %}
-  {% assign theme_cat_names = theme.categories | map: "name" %}
-  {% assign taxonomy_cats = taxonomy_cats | concat: theme_cat_names %}
+{% assign has_other_categories = false %}
+{% for category in site.categories %}
+  {% unless taxonomy_categories contains category[0] %}{% assign has_other_categories = true %}{% endunless %}
 {% endfor %}
 
-{% for cat in site.categories %}
-  {% assign cat_name = cat[0] %}
-  {% assign posts = cat[1] | sort: "date" | reverse %}
-  {% assign in_taxonomy = false %}
-
-  {% if taxonomy_cats contains cat_name %}
-    {% assign in_taxonomy = true %}
-  {% endif %}
-
-  {% unless in_taxonomy %}
-    <details id="cat-{{ cat_name | slugify }}" class="archive-year">
-      <summary class="archive-year-summary">
-        <span class="archive-year-title">{{ cat_name }}</span>
-        <span class="archive-year-count">({{ posts.size }})</span>
-      </summary>
-
-      <ul class="archive-posts">
-        {% for post in posts %}
-          {% assign post_summary = post.description | default: post.excerpt | strip_html | strip_newlines | truncatewords: 40 %}
-          <li class="archive-post">
-            <details class="archive-post-details">
-              <summary class="archive-post-summary">
-                <span class="archive-post-meta">
-                  <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time>
-                  <a class="archive-post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                </span>
-              </summary>
-              {% if post_summary and post_summary != "" %}
-                <p class="archive-post-description">{{ post_summary }}</p>
-              {% endif %}
-            </details>
-          </li>
-        {% endfor %}
-      </ul>
-    </details>
-  {% endunless %}
-{% endfor %}
+{% if has_other_categories %}
+<section class="taxonomy-section" aria-labelledby="other-categories">
+  <h2 id="other-categories">Other categories</h2>
+  {% for category in site.categories %}
+    {% assign category_name = category[0] %}
+    {% unless taxonomy_categories contains category_name %}
+      {% assign category_posts = category[1] | sort: "date" | reverse %}
+      <details id="cat-{{ category_name | slugify }}" class="archive-year taxonomy-group">
+        <summary class="archive-year-summary">
+          <span class="archive-year-title">{{ category_name }}</span>
+          <span class="archive-year-count">{{ category_posts.size }} articles</span>
+        </summary>
+        {% include archive-post-list.html posts=category_posts %}
+      </details>
+    {% endunless %}
+  {% endfor %}
+</section>
+{% endif %}

@@ -25,7 +25,7 @@ Guidelines:
 - If a new tag is needed, add it to `_data/taxonomy.yml` so the canonical list stays current.
 
 ## Featured images
-Featured images power the home page card thumbnails and the post hero image in `_layouts/post.html`.
+Featured images appear as optional closing visuals after the article prose in `_layouts/post.html`. The text-first homepage does not use thumbnails.
 
 Fields:
 - `featured_image`: Path relative to site root, e.g., `assets/images/2025-12-hero.jpg`.
@@ -34,10 +34,9 @@ Fields:
 
 Guidelines:
 - Store images in `assets/images/` with short, kebab-case names (date-prefix recommended).
-- Use a landscape image; the home card uses a ~16:10 aspect ratio (`padding-top: 62%`).
-- Keep the focal subject away from edges so it crops well on cards.
+- Prefer an image that rewards finishing the article rather than acting as introductory decoration.
 
-## Start here / featured
+## Selected writing
 Highlighted posts are curated in one place — `_data/start_here.yml` — not via per-post front matter. The file is a short, hand-ordered list of post URLs:
 
 ```yaml
@@ -48,14 +47,14 @@ posts:
 ```
 
 The same list drives both surfaces:
-- The **"Start here"** section at the top of the home page (page 1 only, rendered by `index.html`).
-- The **`/featured/`** page (`featured.html`), linked in the sidebar nav.
+- The first three entries in **Selected writing** on the home page (page 1 only, rendered by `index.html`).
+- The full **`/featured/`** page (`featured.html`), linked beneath the homepage selection.
 
 Guidelines:
 - Use exact post URLs with a trailing slash, in the order you want them displayed.
-- Keep it to ~5-6 entries. This is the only knob; there is no `featured: true` flag on posts.
-- Deleting the file hides the home "Start here" section entirely.
-- Don't confuse this with `featured_image` (the per-post hero image, above) — unrelated.
+- Keep the larger collection deliberately short. The homepage displays at most three; there is no `featured: true` flag on posts.
+- Deleting the file hides the homepage Selected writing section entirely.
+- Do not confuse this with `featured_image`; the two features are unrelated.
 
 ## Front matter
 Front matter drives listing pages, archives, tags, and related posts.
@@ -68,11 +67,11 @@ Required (posts):
 - `tags`
 
 Common optional keys:
-- `description`: One-line summary used on the home grid and archives.
+- `description`: One-line summary used for metadata and selected listing pages.
 - `comments: true`: Enables the Disqus include for that post.
 - `featured_image`, `featured_image_alt`, `featured_image_caption`
 
-There is no per-post `featured` flag. To highlight a post, add its URL to `_data/start_here.yml` (see "Start here / featured" below).
+There is no per-post `featured` flag. To highlight a post, add its URL to `_data/start_here.yml` (see “Selected writing” above).
 
 Notes:
 - Both `category` and `categories` are supported by Jekyll; prefer `categories` for new posts.

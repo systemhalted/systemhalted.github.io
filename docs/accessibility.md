@@ -5,8 +5,8 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 ## Current accessibility features
 - Skip link to main content (`_layouts/default.html` + styles in `assets/css/nord.css`).
 - `<main>` landmark around the page content (`_layouts/default.html`).
-- Sidebar toggle is keyboard operable and exposes `aria-expanded` (`_layouts/default.html`, `assets/js/script.js`).
-- Sidebar is a roving-tabindex ARIA menu: opening it moves focus to the first item; ArrowUp/Down/Home/End walk items; Escape closes and restores focus to the toggle (`_includes/sidebar.html`, `assets/js/script.js`).
+- The compact primary navigation is a native `<nav>` containing ordinary links (`_layouts/default.html`).
+- The single theme button has an accessible label that states the theme it will activate (`assets/js/script.js`).
 - Search overlay has focus trapping and returns focus on close (`assets/js/script.js`).
 - Keyboard shortcuts + in-app help dialog launched with `?` (see [Keyboard shortcuts](#keyboard-shortcuts) below).
 - Webcmd help uses semantic lists and headings (`assets/js/webcmd.js`).
@@ -27,19 +27,19 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 - If you add a modal/overlay, trap focus inside and return it to the trigger on close.
 
 ## Color contrast
-- Maintain WCAG AA contrast for text and UI states in both Nord themes.
+- Maintain WCAG AA contrast for text and UI states in Nord Light and Nord Dark.
 - If you introduce new tokens, verify contrast against `--bg`, `--surface`, and `--surface-strong`.
 - For warm accent text, use `--accent-warm-text` (AA-compliant), not `--accent-warm` (used for backgrounds/borders only).
 - For dark code blocks, use `--code-block-bg` and `--code-block-text` (designed for Nord syntax tokens). Inline `<code>` uses `--code-bg`/`--code-text`.
 
 ## Where to update
 - Layout landmarks and skip link: `_layouts/default.html`.
-- Sidebar interactions and theme/search behavior: `assets/js/script.js`.
+- Theme, search, archive-sort, and shortcut behavior: `assets/js/script.js`.
 - Global styles and focus styles: `assets/css/nord.css`.
 - Webcmd UI and help output: `assets/js/webcmd.js` and `webcmd/index.html`.
 
 ## Quick checks before shipping
-- Keyboard-only pass: tab through the page, open/close the sidebar and search overlay.
+- Keyboard-only pass: tab through the header, open/close search, toggle the theme, and expand a long article's contents disclosure.
 - Screen reader spot-check: search overlay labels, help text in webcmd, and headings.
 - Image alt audit for any new posts or pages.
 
@@ -48,23 +48,16 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 Bound globally in `assets/js/script.js`. None fire while focus is in a form field (`<input>`, `<textarea>`, contenteditable), and none fire while a modifier (Cmd/Ctrl/Alt) is held.
 
 **Go to** (chord, second key within 1.2s):
-- `g h` — Home
-- `g f` — Featured
-- `g k` — Kartavya Path
-- `g e` — Emacs
-- `g a` — About
+- `g w` — Writing
+- `g p` — Projects
+- `g a` — Archive
+- `g i` — About
 
 **Actions:**
 - `/` or `s` — open search
 - `t` — toggle light / dark
-- `m` — toggle the sidebar menu
 - `?` — open this help dialog
 - `Esc` — close any open overlay
-
-**In the sidebar menu** (once focus is inside it):
-- `ArrowDown` / `ArrowUp` — walk items
-- `Home` / `End` — first / last
-- `Enter` — open the focused item
 
 The `?` help dialog (`#shortcuts-overlay` in `_layouts/default.html`) is the canonical in-app reference; keep it in sync if you add or change a shortcut.
 
@@ -87,7 +80,7 @@ Config lives in `.pa11yci`; URLs to audit are in the `urls` array. Add a URL whe
 
 ## Browser-level caveats
 
-- **macOS Safari**: the "Press Tab to highlight each item on a webpage" preference is OFF by default. With it off, Safari only Tabs between form fields — `<a>` links and elements with `tabindex="0"` are skipped. The site can't override this from CSS/JS. Users who want full Tab navigation in Safari should enable it in Safari → Settings → Advanced → "Press Tab to highlight each item on a webpage". This is why we layer arrow-key navigation onto the sidebar menu — it works regardless of Safari's preference, because we move focus programmatically.
+- **macOS Safari**: the "Press Tab to highlight each item on a webpage" preference is OFF by default. With it off, Safari only Tabs between form fields and may skip links. The site cannot override this preference. Users who want full Tab navigation should enable it in Safari → Settings → Advanced.
 
 ## Known limitations
 - Many legacy posts include inline HTML with empty or missing `alt` text. Fix as you touch those posts.

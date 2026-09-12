@@ -2,6 +2,7 @@
 layout: page
 permalink: /about/index.html
 title: About
+quiet_title: true
 tags: [Palak Mathur, Palak, Mathur]
 description: About Palak Mathur and SystemHalted (The System Halted) — a personal blog on software engineering, leadership, management, and Emacs.
 image: /assets/images/avatar.jpeg

@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SystemHalted writing-first wireframes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro&amp;family=UnifrakturMaguntia&amp;display=swap">
+
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Nord light */
+      --background: #eceff4;
+      --surface: #e5e9f0;
+      --line: #c5ccd8;
+      --text: #4c566a;
+      --muted: #5d687d;
+      --link: #3a5879;
+      --accent: #5e81ac;
+      --focus: #5e81ac;
+
+      --code-background: #2e3440;
+      --code-text: #eceff4;
+
+      --sans: "Rubik", sans-serif;
+      --serif: "Newsreader", Georgia, serif;
+      --mono: "Source Code Pro", monospace;
+      --wordmark: "UnifrakturMaguntia", Georgia, serif;
+    }
+
+    body[data-theme="dark"] {
+      color-scheme: dark;
+
+      /* Nord dark */
+      --background: #2e3440;
+      --surface: #3b4252;
+      --line: #434c5e;
+      --text: #d8dee9;
+      --muted: #b6bfce;
+      --link: #88c0d0;
+      --accent: #81a1c1;
+      --focus: #8fbcbb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1.125rem;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    select:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 4px;
+    }
+
+    button,
+    select {
+      color: inherit;
+      font: inherit;
+    }
+
+    .shell {
+      width: min(100% - 2rem, 820px);
+      margin-inline: auto;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      padding-block: 2.1rem 1.2rem;
+    }
+
+    .brand {
+      margin-right: auto;
+      color: var(--text);
+      font-family: var(--wordmark);
+      font-size: 1.65rem;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .primary-nav,
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    .primary-nav a {
+      color: var(--text);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    .primary-nav a:hover {
+      color: var(--link);
+    }
+
+    .icon-action {
+      min-width: 2.5rem;
+      min-height: 2.5rem;
+      padding: 0.35rem;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    main {
+      padding-block: 3.5rem 5rem;
+    }
+
+    h1,
+    h2 {
+      color: var(--text);
+      line-height: 1.15;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 6vw, 3.25rem);
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 0 0 1.15rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .introduction {
+      max-width: 680px;
+      margin-bottom: 4.5rem;
+    }
+
+    .introduction h1 {
+      margin-bottom: 0.65rem;
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .introduction h1 a {
+      color: inherit;
+      text-decoration-color: transparent;
+    }
+
+    .introduction h1 a:hover,
+    .introduction h1 a:focus-visible {
+      color: var(--link);
+      text-decoration-color: currentColor;
+    }
+
+    #archive .page-title,
+    #projects .page-title {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      line-height: 1.3;
+    }
+
+    .introduction p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      line-height: 1.5;
+    }
+
+    .home-section {
+      margin-top: 4rem;
+    }
+
+    .writing-list,
+    .selected-list,
+    .archive-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .writing-row {
+      display: grid;
+      grid-template-columns: 5.7rem minmax(0, 1fr);
+      gap: 1rem;
+      padding-block: 0.42rem;
+    }
+
+    .writing-row time,
+    .archive-row time,
+    .post-meta {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .writing-row a,
+    .selected-list a,
+    .archive-row a {
+      color: var(--text);
+      font-family: var(--serif);
+      text-decoration: none;
+    }
+
+    .writing-row a:hover,
+    .selected-list a:hover,
+    .archive-row a:hover {
+      color: var(--link);
+      text-decoration: underline;
+    }
+
+    .section-link {
+      display: block;
+      margin-top: 1.1rem;
+      text-align: right;
+      font-size: 0.9rem;
+    }
+
+    .selected-list li {
+      padding-block: 0.38rem;
+    }
+
+    .kartavya {
+      max-width: 620px;
+      margin-top: 4.5rem;
+    }
+
+    .kartavya p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .article {
+      width: min(100%, 700px);
+      margin-inline: auto;
+      font-family: var(--serif);
+    }
+
+    .article h1 {
+      margin-bottom: 0.75rem;
+    }
+
+    .post-meta {
+      margin-bottom: 1.5rem;
+      font-family: var(--sans);
+    }
+
+    .lead-image {
+      display: grid;
+      min-height: 13rem;
+      margin: 1.75rem 0 2rem;
+      place-items: center;
+      background: var(--surface);
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 0.8rem;
+    }
+
+    .contents {
+      margin: 1.5rem 0;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+    }
+
+    .contents summary {
+      width: fit-content;
+      color: var(--link);
+      cursor: pointer;
+    }
+
+    .contents ul {
+      margin: 0.75rem 0 0;
+    }
+
+    .article p {
+      margin-block: 1.25em;
+    }
+
+    .article h2 {
+      margin: 3rem 0 1rem;
+      font-family: var(--serif);
+      font-size: 1.65rem;
+    }
+
+    pre {
+      margin: 1.75rem -2rem;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      background: var(--code-background);
+      color: var(--code-text);
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .post-end {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+    }
+
+    .post-end p {
+      margin: 0.55rem 0;
+    }
+
+    .post-end details {
+      margin-top: 0.9rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .post-end summary {
+      width: fit-content;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .projects-intro {
+      max-width: 670px;
+      color: var(--muted);
+    }
+
+    .projects-heading {
+      margin-top: 2.5rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .project-card {
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .project-card h2 {
+      margin-bottom: 0.5rem;
+      font-family: var(--serif);
+    }
+
+    .project-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .archive-intro {
+      max-width: 640px;
+      color: var(--muted);
+    }
+
+    .archive-gateways {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.25rem;
+      margin: 2rem 0 3.5rem;
+      font-size: 0.9rem;
+    }
+
+    .archive-sort {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .archive-sort select {
+      padding: 0.35rem;
+      border: 1px solid var(--line);
+      background: var(--background);
+    }
+
+    .archive-year {
+      border-top: 1px solid var(--line);
+    }
+
+    .archive-year summary {
+      padding-block: 1.15rem;
+      color: var(--text);
+      cursor: pointer;
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      font-weight: 600;
+    }
+
+    .archive-count {
+      margin-left: 0.35rem;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+    }
+
+    .archive-list {
+      padding-bottom: 2rem;
+    }
+
+    .archive-row {
+      display: grid;
+      grid-template-columns: 8.5rem minmax(0, 1fr);
+      gap: 1rem;
+      padding-block: 0.38rem;
+    }
+
+    .site-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.25rem;
+      padding-block: 1.5rem 2rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .site-footer span {
+      margin-right: auto;
+    }
+
+    .prototype-tools {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      display: flex;
+      gap: 0.3rem;
+      padding: 0.4rem;
+      border: 1px dashed var(--muted);
+      background: var(--background);
+      font-size: 0.7rem;
+    }
+
+    .prototype-tools button {
+      padding: 0.3rem 0.55rem;
+      border: 0;
+      background: var(--surface);
+      cursor: pointer;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 1.0625rem;
+      }
+
+      .site-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding-top: 1.4rem;
+      }
+
+      .brand {
+        margin: 0;
+      }
+
+      .header-actions {
+        justify-self: end;
+      }
+
+      .primary-nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        gap: 1.35rem;
+      }
+
+      main {
+        padding-block: 2.5rem 4rem;
+      }
+
+      .introduction {
+        margin-bottom: 3.5rem;
+      }
+
+      .introduction p {
+        font-size: 1.2rem;
+      }
+
+      .home-section,
+      .kartavya {
+        margin-top: 3.5rem;
+      }
+
+      .writing-row {
+        grid-template-columns: 4.3rem minmax(0, 1fr);
+        gap: 0.65rem;
+      }
+
+      .archive-row {
+        grid-template-columns: 6.3rem minmax(0, 1fr);
+        gap: 0.65rem;
+      }
+
+      pre {
+        margin-inline: -1rem;
+        border-radius: 0;
+      }
+
+      .prototype-tools {
+        right: 0.5rem;
+        bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header shell">
+    <a class="brand" href="#" data-show="home">SystemHalted</a>
+
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a href="#" data-show="home">Writing</a>
+      <a href="#" data-show="projects">Projects</a>
+      <a href="#" data-show="archive">Archive</a>
+      <a href="#">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-action" type="button" aria-label="Search">⌕</button>
+      <button class="icon-action" id="theme-toggle" type="button"
+              aria-label="Switch to Nord dark theme">☾</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <!-- Homepage -->
+    <section id="home" class="screen">
+      <header class="introduction">
+        <h1><a href="https://palakmathur.in" rel="me">Palak Mathur</a></h1>
+        <p>
+          Software engineering, computing systems, leadership,
+          and things I am trying to understand.
+        </p>
+      </header>
+
+      <section class="home-section">
+        <h2>Recent writing</h2>
+
+        <ol class="writing-list">
+          <li class="writing-row">
+            <time datetime="2026-09-11">Sep 11</time>
+            <a href="#" data-show="article">Why I Love Omarchy</a>
+          </li>
+          <li class="writing-row">
+            <time datetime="2026-09-03">Sep 03</time>
+            <a href="#" data-show="article">GTIDs, Kafka Consumer Offsets, and Recovery Checkpoints</a>
+          </li>
+          <li class="writing-row">
+            <time datetime="2026-08-25">Aug 25</time>
+            <a href="#" data-show="article">Resource Integrity Belongs to the Resource, Not the API</a>
+          </li>
+          <li class="writing-row">
+            <time datetime="2026-08-21">Aug 21</time>
+            <a href="#" data-show="article">AI Governance Needs Accountability, Not Just Principles</a>
+          </li>
+          <li class="writing-row">
+            <time datetime="2026-08-18">Aug 18</time>
+            <a href="#" data-show="article">AI in People Management</a>
+          </li>
+        </ol>
+
+        <a class="section-link" href="#" data-show="archive">All writing →</a>
+      </section>
+
+      <section class="home-section">
+        <h2>Selected writing</h2>
+
+        <ul class="selected-list">
+          <li><a href="#" data-show="article">My Naming Philosophy</a></li>
+          <li><a href="#" data-show="article">State, Immutability and Microservices</a></li>
+          <li><a href="#" data-show="article">Vibe Coding and the Baby Genius Problem</a></li>
+        </ul>
+
+        <a class="section-link" href="#">More selected writing →</a>
+      </section>
+
+      <section class="kartavya">
+        <h2>Kartavya Path</h2>
+        <p>
+          Short essays on engineering leadership and management.
+          <a href="https://www.linkedin.com/newsletters/kartavya-path-path-of-duty-7211363300905738240" target="_blank" rel="noopener noreferrer">Read Kartavya Path ↗</a>
+        </p>
+      </section>
+    </section>
+
+    <!-- Article -->
+    <article id="article" class="screen article" hidden>
+      <header>
+        <h1>Resource Integrity Belongs to the Resource, Not the API</h1>
+        <p class="post-meta">
+          <time datetime="2026-08-25">25 August 2026</time>
+          · 9 min read
+        </p>
+      </header>
+
+      <details class="contents">
+        <summary>Contents</summary>
+        <ul>
+          <li><a href="#resource">REST does not own the resource</a></li>
+          <li><a href="#invariants">State changes; invariants must hold</a></li>
+          <li><a href="#operations">Operational paths</a></li>
+        </ul>
+      </details>
+
+      <p>
+        An operational tool may bypass a REST endpoint, but it must not bypass
+        the resource contract.
+      </p>
+
+      <p>
+        A migration may require capabilities intentionally excluded from the
+        public interface. An operator may need to repair partially provisioned
+        infrastructure. The governing principle is simple: resource integrity
+        belongs to the resource, not to the API.
+      </p>
+
+      <h2 id="resource">REST does not own the resource</h2>
+
+      <p>
+        The API is one interaction boundary through which clients act upon a
+        resource. It is not the resource itself.
+      </p>
+
+      <pre><code>resource
+  ├── identity
+  ├── lifecycle rules
+  ├── domain invariants
+  └── required side effects</code></pre>
+
+      <p>
+        If an API disappears temporarily, the resource does not stop existing.
+        An administrative path must preserve the same contract.
+      </p>
+
+      <figure class="lead-image">
+        Optional closing image, when the article provides one
+      </figure>
+
+      <footer class="post-end">
+        <p>
+          Filed under
+          <a href="#">Software Engineering</a>
+          and <a href="#">Computing Systems</a>.
+        </p>
+        <details>
+          <summary>More from SystemHalted</summary>
+          <ul>
+            <li><a href="#">Types Check Shape, Tests Check Behaviour</a></li>
+            <li><a href="#">Naming as Design</a></li>
+            <li><a href="#">Discipline First</a></li>
+          </ul>
+        </details>
+        <details>
+          <summary>Comments</summary>
+        </details>
+      </footer>
+    </article>
+
+    <!-- Projects -->
+    <section id="projects" class="screen" hidden>
+      <h1 class="page-title">Projects</h1>
+      <p class="projects-intro">Things you can use today, plus a look at what I am building next. Every project has an honest maturity label so you know what to expect.</p>
+
+      <h2 class="projects-heading">Available now</h2>
+      <ul class="project-grid">
+        <li class="project-card">
+          <h2>Pinstack</h2>
+          <p>A web-based RSS and Atom reader for following your favorite sources in one place.</p>
+        </li>
+        <li class="project-card">
+          <h2>torg</h2>
+          <p>An Org-mode-flavored terminal editor with structural editing for Org and Markdown.</p>
+        </li>
+        <li class="project-card">
+          <h2>ScribeDay</h2>
+          <p>A local-first desktop journal organized around a calendar, search, moods, and backups.</p>
+        </li>
+        <li class="project-card">
+          <h2>sdkman.el</h2>
+          <p>Apply each project's SDKMAN toolchain to Emacs buffers and Java language servers.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Archive -->
+    <section id="archive" class="screen" hidden>
+      <h1 class="page-title">Archive</h1>
+
+      <p class="archive-intro">
+        386 articles written since 2001. Browse chronologically,
+        by subject, or search the full collection.
+      </p>
+
+      <nav class="archive-gateways" aria-label="Archive tools">
+        <a href="#" data-show="archive" aria-current="page">Archive</a>
+        <a href="#">Search</a>
+        <a href="#">Categories</a>
+        <a href="#">Tags</a>
+        <a href="#">Series</a>
+      </nav>
+
+      <div class="archive-sort">
+        <label for="sort">Sort</label>
+        <select id="sort">
+          <option>Newest first</option>
+          <option>Oldest first</option>
+          <option>Most writing</option>
+        </select>
+      </div>
+
+      <details class="archive-year" open>
+        <summary>
+          2026 <span class="archive-count">41 articles</span>
+        </summary>
+
+        <ol class="archive-list">
+          <li class="archive-row">
+            <time datetime="2026-09-11">Sep 11</time>
+            <a href="#" data-show="article">Why I Love Omarchy</a>
+          </li>
+          <li class="archive-row">
+            <time datetime="2026-09-03">Sep 03</time>
+            <a href="#" data-show="article">GTIDs, Kafka Consumer Offsets, and Recovery Checkpoints</a>
+          </li>
+          <li class="archive-row">
+            <time datetime="2026-08-25">Aug 25</time>
+            <a href="#" data-show="article">Resource Integrity Belongs to the Resource, Not the API</a>
+          </li>
+          <li class="archive-row">
+            <time datetime="2026-08-21">Aug 21</time>
+            <a href="#" data-show="article">AI Governance Needs Accountability, Not Just Principles</a>
+          </li>
+        </ol>
+      </details>
+
+      <details class="archive-year">
+        <summary>
+          2025 <span class="archive-count">20 articles</span>
+        </summary>
+      </details>
+
+      <details class="archive-year">
+        <summary>
+          2023 <span class="archive-count">8 articles</span>
+        </summary>
+      </details>
+
+      <details class="archive-year">
+        <summary>
+          2022 <span class="archive-count">35 articles</span>
+        </summary>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>© 2026 Palak Mathur</span>
+    <a href="https://palakmathur.in" rel="me">palakmathur.in</a>
+    <a href="#">RSS</a>
+    <a href="#">LinkedIn</a>
+    <a href="mailto:insanethoughts@live.com">Email</a>
+  </footer>
+
+  <!-- Prototype-only controls; not part of the finished site. -->
+  <nav class="prototype-tools" aria-label="Wireframe screens">
+    <button type="button" data-show="home">Home</button>
+    <button type="button" data-show="article">Article</button>
+    <button type="button" data-show="projects">Projects</button>
+    <button type="button" data-show="archive">Archive</button>
+  </nav>
+
+  <script>
+    const screens = document.querySelectorAll(".screen");
+
+    document.querySelectorAll("[data-show]").forEach((control) => {
+      control.addEventListener("click", (event) => {
+        event.preventDefault();
+        const target = control.dataset.show;
+
+        screens.forEach((screen) => {
+          screen.hidden = screen.id !== target;
+        });
+
+        window.scrollTo({ top: 0, behavior: "instant" });
+      });
+    });
+
+    const themeToggle = document.querySelector("#theme-toggle");
+
+    themeToggle.addEventListener("click", () => {
+      const dark = document.body.dataset.theme === "dark";
+
+      document.body.dataset.theme = dark ? "" : "dark";
+      themeToggle.textContent = dark ? "☾" : "☀";
+      themeToggle.setAttribute(
+        "aria-label",
+        dark
+          ? "Switch to Nord dark theme"
+          : "Switch to Nord light theme"
+      );
+    });
+  </script>
+</body>
+</html>

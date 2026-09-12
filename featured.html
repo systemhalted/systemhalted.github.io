@@ -1,20 +1,20 @@
 ---
 layout: page
 permalink: /featured/
-title: Featured Posts
-description: "An archive of posts sorted by date."
-hide_page_title: true
+title: Selected writing
+description: "A curated introduction to SystemHalted."
 ---
 
-<section class="featured-hero">
-  <p class="featured-kicker">Editor's picks</p>
-  <h1 class="featured-headline">Featured posts</h1>
-  <p class="featured-lede">A small set of posts I keep coming back to.</p>
-</section>
+<p class="archive-intro">A small collection that captures what this site is about.</p>
 
-<ul class="post-feed">
+<ol class="writing-list writing-list-paged">
   {% for slug in site.data.start_here.posts %}
-    {% assign p = site.posts | where: "url", slug | first %}
-    {% if p %}{% include post-list-item.html post=p %}{% endif %}
+    {% assign selected_post = site.posts | where: "url", slug | first %}
+    {% if selected_post %}
+    <li class="writing-row">
+      <time datetime="{{ selected_post.date | date_to_xmlschema }}">{{ selected_post.date | date: "%b %d, %Y" }}</time>
+      <a href="{{ selected_post.url | relative_url }}">{{ selected_post.title }}</a>
+    </li>
+    {% endif %}
   {% endfor %}
-</ul>
+</ol>

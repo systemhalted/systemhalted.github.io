@@ -11,6 +11,7 @@ GEM
     em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
+    erb (6.0.7)
     eventmachine (1.2.7)
     execjs (2.10.1)
     faraday (2.14.3)
@@ -134,6 +135,7 @@ PLATFORMS
   x86_64-linux-gnu
 
 DEPENDENCIES
+  erb
   faraday-retry
   jekyll (~> 4.3)
   jekyll-feed

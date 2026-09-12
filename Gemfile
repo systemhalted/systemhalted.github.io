@@ -10,3 +10,5 @@ gem 'jekyll-seo-tag'
 gem 'jekyll-toc'
 gem 'kramdown-math-katex'
 gem 'faraday-retry'
+# ERB is a bundled gem in Ruby 3.4 rather than part of the default load path.
+gem 'erb'

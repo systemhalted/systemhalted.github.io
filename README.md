@@ -16,11 +16,11 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - For production parity, run `JEKYLL_ENV=production bundle exec jekyll serve`.
 
 ## Project structure
-- `_config.yml`: site metadata, collections, pagination, sidebar nav, plugins.
+- `_config.yml`: site metadata, collections, pagination, search suggestions, and plugins.
 - `collections/_posts/`, `collections/_drafts/`, `collections/_newsletter/`, `collections/_emacs/`: authored content.
 - `org/`: Org Mode post sources and the `ox-jekyll.el` exporter (excluded from the Jekyll build; posts are exported to `collections/_posts/`).
 - `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`, `newsletter.html`, `emacs.html`).
-- `_includes/`: shared UI fragments (head, sidebar, footer, share buttons, comments, list-item partials for emacs and jsgames).
+- `_includes/`: shared UI fragments (head, footer, comments, archive rows, and list-item partials for emacs and jsgames).
 - `_data/taxonomy.yml`: category themes + tag groups used by `categories.html` and related-post logic.
 - `_data/jsgames.yml`: hand-curated list of standalone JS games shown on `/jsgames/`.
 - `assets/`: images, site-level CSS/JS, and favicons (main bundle is `assets/css/nord.css`; main behavior is `assets/js/script.js`).
@@ -66,24 +66,24 @@ New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
 - Newsletter issues use `_layouts/newsletter.html`.
 
 ## Key pages
-- `index.html`: paginated home grid.
+- `index.html`: five recent date/title rows, three selected posts, and quiet editorial links; subsequent pagination pages remain at `/pageN`.
 - `archives.html`: year-grouped archive with client-side sorting.
 - `categories.html`: category taxonomy grouped by theme.
 - `tags.html`: tag archive.
-- `featured.html`: a curated set of posts, listed by URL in `_data/start_here.yml`. The same file also drives the home page's "Start here" section, so it is the single source of truth for highlighted posts (keep it to ~5-6). There is no per-post `featured` front matter.
+- `featured.html`: the full “Selected writing” collection, listed by URL in `_data/start_here.yml`. The first three also appear on the home page. There is no per-post `featured` front matter.
 - `about.md`, `404.md`: static pages.
 
 ## Search and webcmd
 - Search index is built at build time in `assets/js/webcmd.js` using all output docs.
-- The search overlay in `assets/js/script.js` consumes the same index.
+- The search overlay in `assets/js/script.js` loads Elasticlunr and that shared index only when search is first opened.
 - `webcmd/index.html` exposes the command-line UI; `find <query>` performs a site search.
+- `palakmathur.in` also consumes the published `assets/js/webcmd.js`; preserve its URL and the public `ensureSiteIndex`, `siteIndex`, and `siteStore`/`siteDocs` globals.
 
 ## Keyboard shortcuts
 Globally bound in `assets/js/script.js`; in-app reference opens with `?`. See `docs/accessibility.md` for the full list. Highlights:
-- `g h` / `g f` / `g k` / `g e` / `g a` — go to Home / Featured / Kartavya Path / Emacs / About
-- `/` or `s` — open search; `t` — toggle theme; `m` — toggle the sidebar menu
+- `g w` / `g p` / `g a` / `g i` — go to Writing / Projects / Archive / About
+- `/` or `s` — open search; `t` — toggle Nord Light / Nord Dark
 - `?` — open the shortcuts help dialog; `Esc` — close any overlay
-- Inside the sidebar: ArrowUp / ArrowDown / Home / End walk menu items; the sidebar auto-closes when focus moves away.
 
 ## Accessibility audits
 Node-based [pa11y-ci](https://github.com/pa11y/pa11y-ci) is wired as a dev dependency. Run against a curated URL list (the full sitemap would drown signal):

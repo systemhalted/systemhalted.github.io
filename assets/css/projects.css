@@ -1,9 +1,14 @@
 /* Project catalog */
-.projects-hero,
 .projects-section {
   max-width: 58rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.projects-intro {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--muted);
 }
 
 .projects-section {

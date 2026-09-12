@@ -4,7 +4,7 @@ layout: default
 
 <div class="page">
   {% unless page.hide_page_title %}
-  <h2 class="page-title">{{ page.title }}</h2>
+  <h1 class="page-title{% if page.quiet_title %} page-title-quiet{% endif %}">{{ page.title }}</h1>
   {% endunless %}
   {{ content }}
 </div>

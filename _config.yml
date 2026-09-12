@@ -9,7 +9,7 @@ baseurl:             ''
 # assets/css/nord.css, assets/js). Back-ported to the jekyll-theme-nord-newsletter
 # gem only when a change is worth sharing.
 
-paginate:            8
+paginate:            5
 paginate_path:       "/page:num"
 permalink:           pretty
 
@@ -78,32 +78,6 @@ collections:
   newsletter:
     output: true
 
-
-sidebar:
-  items:
-    - title: "Home"
-      url: "/"
-    - title: "About"
-      url: "/about/"
-    - title: "Kartavya Path - Newsletter"
-      url: "/kartavya-path"
-    - title: "Featured Posts"
-      url: "/featured/"
-    - title: "Archives"
-      url: "/archives/"
-    - title: "Categories"
-      url: "/categories/"
-    - title: "Emacs"
-      url: "/emacs/"
-    - title: "Projects"
-      url: "/projects/"
-    - title: "Javascript Games"
-      url: "/jsgames/"
-    - title: In the beginning...
-      url: /webcmd/
-
-    # add / remove / reorder as you like
-
 # Theme (nord-newsletter) content config
 newsletter_cta:
   title:       "Kartavya Path"
@@ -111,7 +85,7 @@ newsletter_cta:
   path:        /kartavya-path/
   feed_path:   /feed/newsletter.xml
   footer_blurb: "Follow Kartavya Path — short essays on leadership and management — on LinkedIn, or follow the blog by RSS."
-  linkedin_url: https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7211363300905738240
+  linkedin_url: https://www.linkedin.com/newsletters/kartavya-path-path-of-duty-7211363300905738240
 
 giscus:
   repo:        systemhalted/systemhalted.github.io

@@ -11,6 +11,7 @@ tags:
 - accessibility
 - ux
 - maintenance
+- meta
 featured_image: assets/images/featured/2026-01-03-quiet-rebuild-assets-webcmd-accessibility.jpg
 featured_image_alt: Translucent UI panels with code, layered cards, and checkmark lists in a cool blue palette.
 featured_image_caption: 'Site maintenance: assets, webcmd, accessibility.'

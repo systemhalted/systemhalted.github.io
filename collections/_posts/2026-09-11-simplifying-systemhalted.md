@@ -4,6 +4,7 @@ title: "Simplifying SystemHalted.in"
 date: 2026-09-11
 categories:
   - Personal Essays
+  - Technology
 tags:
   - redesign
   - blogging

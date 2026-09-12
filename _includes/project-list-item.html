@@ -1,0 +1,11 @@
+{% assign project = include.project %}
+<li class="project-item">
+  <h3 class="project-name">
+    {% if project.primary_cta %}<a href="{{ project.primary_cta.url }}">{{ project.name }}</a>{% else %}{{ project.name }}{% endif %}
+  </h3>
+  <p class="project-description">{{ project.description }}</p>
+  <p class="project-meta">
+    <span>{{ project.status }}</span>
+    {% if project.secondary_cta %}<span aria-hidden="true"> · </span><a href="{{ project.secondary_cta.url }}">{{ project.secondary_cta.label }}</a>{% endif %}
+  </p>
+</li>

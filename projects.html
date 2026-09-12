@@ -6,29 +6,22 @@ permalink: /projects/
 quiet_title: true
 ---
 
-<p class="projects-intro">Things you can use today, plus a look at what I am building next. Every project has an honest maturity label so you know what to expect.</p>
+<p class="projects-intro">Software, tools, and experiments I build.</p>
 
 <section class="projects-section" aria-labelledby="available-projects">
-  <div class="projects-section-header">
-    <h2 id="available-projects">Available now</h2>
-    <p>Released work, public betas, and resources ready to explore.</p>
-  </div>
-  <ul class="project-grid">
+  <h2 id="available-projects">Available now</h2>
+  <ul class="project-list">
     {% for project in site.data.projects.available %}
-      {% include project-card.html project=project %}
+      {% include project-list-item.html project=project %}
     {% endfor %}
   </ul>
 </section>
 
-<section class="projects-section projects-workshop" aria-labelledby="workshop-projects">
-  <div class="projects-section-header">
-    <p class="projects-section-kicker">The workshop</p>
-    <h2 id="workshop-projects">In development</h2>
-    <p>Promising ideas and early builds. Follow along, but expect rough edges and changing interfaces.</p>
-  </div>
-  <ul class="project-grid project-grid-compact">
+<section class="projects-section" aria-labelledby="workshop-projects">
+  <h2 id="workshop-projects">In development</h2>
+  <ul class="project-list">
     {% for project in site.data.projects.workshop %}
-      {% include project-card.html project=project compact=true %}
+      {% include project-list-item.html project=project %}
     {% endfor %}
   </ul>
 </section>

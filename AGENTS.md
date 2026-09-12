@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 - Jekyll site configuration lives in `_config.yml`; avoid manual edits to `_site/` because it is generated output.
-- Content is authored in `collections/_posts/` (published), `collections/_drafts/` (unpublished), and `collections/_newsletter/`; use `YYYY-MM-DD-title.md` for post filenames.
+- Content is authored in `collections/_posts/` (published), `collections/_drafts/` (unpublished), and `collections/_emacs/` (evergreen notes); use `YYYY-MM-DD-title.md` for post filenames.
 - Layouts sit in `_layouts/`, shared snippets in `_includes/`, and data files in `_data/` for repeatable metadata.
 - Static assets belong in `assets/` (images, JS, CSS). Experimental games are in `jsgames/` and should keep their own assets nearby.
 

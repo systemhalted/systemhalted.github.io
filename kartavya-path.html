@@ -14,8 +14,7 @@ hide_page_title: true
     harder right thing over the easier wrong one, and the long arc of building anything
     that lasts. These essays now publish on the blog, and selected ones are
     cross-posted to the LinkedIn newsletter — subscribe there, or follow the blog by
-    RSS. The issues below are the archive from when Kartavya Path ran as a separate
-    section.
+    RSS. The issues below remain part of the main writing archive.
   </p>
 </section>
 
@@ -23,6 +22,6 @@ hide_page_title: true
 
 <h2 class="recent-title">Past issues</h2>
 <ul class="post-feed">
-  {% assign issues = site.newsletter | sort: 'date' | reverse %}
+  {% assign issues = site.posts | where: 'kartavya_path', true | sort: 'date' | reverse %}
   {% for issue in issues %}{% include newsletter-list-item.html issue=issue %}{% endfor %}
 </ul>

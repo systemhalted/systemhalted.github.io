@@ -58,10 +58,6 @@ google_site_verification: 1v5ZSlWxFB06EQ-VB5U4n3226XFqq3ki9qusVH2m0K8
 
 feed:
   posts_limit: 50
-  collections:
-    newsletter:
-      path: "/feed/newsletter.xml"
-      title: "Kartavya Path"
 
 # Org-mode sources (exported to collections/_posts by org/ox-jekyll.el);
 # never publish them as static files.
@@ -75,15 +71,12 @@ collections:
     output: false
   emacs: 
     output: true 
-  newsletter:
-    output: true
 
 # Theme (nord-newsletter) content config
 newsletter_cta:
   title:       "Kartavya Path"
   lede:        "A note on leadership, management, and the long road. Free, occasional, no spam."
   path:        /kartavya-path/
-  feed_path:   /feed/newsletter.xml
   footer_blurb: "Follow Kartavya Path — short essays on leadership and management — on LinkedIn, or follow the blog by RSS."
   linkedin_url: https://www.linkedin.com/newsletters/kartavya-path-path-of-duty-7211363300905738240
 

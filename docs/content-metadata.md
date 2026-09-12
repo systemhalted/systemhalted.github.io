@@ -1,8 +1,8 @@
 # Content Metadata Guide
 
-This guide covers taxonomy, tag hygiene, featured images, and front matter conventions for posts, newsletters, and emacs notes.
+This guide covers taxonomy, tag hygiene, featured images, and front matter conventions for posts, Kartavya Path essays, and Emacs notes.
 - Posts live in `collections/_posts/`.
-- Newsletters live in `collections/_newsletter/`.
+- Kartavya Path essays are posts marked with `kartavya_path: true`.
 - Emacs notes live in `collections/_emacs/` (rendered with `_layouts/emacs.html`).
 
 ## Taxonomy and categories
@@ -96,20 +96,23 @@ featured_image_caption: Optional caption for the post header.
 ---
 ```
 
-Newsletter example (archive only — see "Publishing workflow" below; no new issues):
+Kartavya Path post example:
 ```
 ---
-layout: newsletter
-title: Example Newsletter
-date: 2024-06-30
+layout: post
+title: Example Kartavya Path Essay
+date: 2026-06-30
 category:
   - Newsletter
 tags:
   - newsletter
   - leadership
 description: One-line summary for listings.
+kartavya_path: true
 ---
 ```
+
+The nine migrated issues also have explicit `/newsletter/YYYY-MM-DD-title/` permalinks so their established URLs do not change. New essays can use the standard dated post URL.
 
 ### Where things live
 
@@ -120,7 +123,7 @@ description: One-line summary for listings.
 
 ### Publishing workflow (blog-only, LinkedIn syndication)
 
-Everything publishes as a regular blog post in `collections/_posts/`; there is no separate on-site newsletter track anymore. `collections/_newsletter/` is a frozen archive — no new issues go there. The Kit (ConvertKit) email list is retired; the on-site CTA and footer point to the LinkedIn newsletter (`newsletter_cta.linkedin_url` in `_config.yml`) and RSS instead.
+Everything publishes as a regular blog post in `collections/_posts/`; there is no separate newsletter collection. Legacy issues were moved into the main post archive and marked with `kartavya_path: true`. The Kit (ConvertKit) email list is retired; the on-site CTA and footer point to the LinkedIn newsletter (`newsletter_cta.linkedin_url` in `_config.yml`) and RSS instead.
 
 Selected posts (ones that fit a professional audience) are cross-posted to the Kartavya Path newsletter on LinkedIn:
 

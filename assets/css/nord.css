@@ -601,27 +601,23 @@ pre code {
 /* Articles */
 
 .post,
-.newsletter-issue,
 .emacs-note {
   max-width: 43.75rem;
   margin-inline: auto;
 }
 
 .post-header,
-.newsletter-issue-header,
 .emacs-note-header {
   margin-bottom: 1.5rem;
 }
 
-.post-title,
-.newsletter-title {
+.post-title {
   margin: 0 0 0.75rem;
   font-size: clamp(2.1rem, 7vw, 2.4rem);
   line-height: 1.12;
 }
 
-.post-meta,
-.newsletter-meta {
+.post-meta {
   margin: 0;
   color: var(--muted);
   font-size: 0.84rem;

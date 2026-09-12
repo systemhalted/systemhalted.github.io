@@ -1,7 +1,6 @@
 {% assign ctx = include.context | default: 'inline' %}
 {% assign nl_title = site.newsletter_cta.title | default: 'Subscribe to the newsletter' %}
 {% assign nl_lede = site.newsletter_cta.lede | default: 'Occasional essays by email. Free, no spam.' %}
-{% assign nl_feed = site.newsletter_cta.feed_path | default: '/feed.xml' %}
 <aside class="newsletter-cta newsletter-cta--{{ ctx }}" id="newsletter-cta">
   <h2 class="newsletter-cta-title">{{ nl_title }}</h2>
   <p class="newsletter-cta-lede">{{ nl_lede }}</p>
@@ -11,6 +10,6 @@
   </a>
   {% endif %}
   <p class="newsletter-cta-alt">
-    Prefer a reader? <a href="{{ nl_feed | relative_url }}">Subscribe by RSS</a>.
+    Prefer a reader? <a href="{{ '/feed.xml' | relative_url }}">Follow all writing by RSS</a>.
   </p>
 </aside>

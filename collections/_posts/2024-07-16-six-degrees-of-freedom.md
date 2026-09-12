@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-07-16
+permalink: /newsletter/2024-07-16-six-degrees-of-freedom/
+kartavya_path: true
 title: "6 Degrees of Freedom: Exploring Personal Autonomy in a Modern World"
 tags:
 - newsletter

@@ -76,8 +76,6 @@ layout: default
 
     {% assign prev_post = page.previous %}
     {% assign next_post = page.next %}
-    {% if prev_post and prev_post.collection == 'newsletter' %}{% assign prev_post = nil %}{% endif %}
-    {% if next_post and next_post.collection == 'newsletter' %}{% assign next_post = nil %}{% endif %}
     {% if related_posts.size >= 1 or prev_post or next_post %}
     <details class="post-more">
       <summary>More from SystemHalted</summary>

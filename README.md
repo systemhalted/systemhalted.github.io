@@ -11,15 +11,15 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 ## Development workflow
 - Drafts live in `collections/_drafts/`; preview them with `bundle exec jekyll serve --livereload --drafts`.
 - Publish by moving drafts to `collections/_posts/` and renaming to `YYYY-MM-DD-title.md`.
-- Newsletters live in `collections/_newsletter/`; preview the listing at `/kartavya-path`.
+- Kartavya Path essays are regular posts marked with `kartavya_path: true`; preview their listing at `/kartavya-path/`.
 - JSGames are standalone in `jsgames/`; open `jsgames/<game>/index.html` directly or via the Jekyll server and keep assets nearby.
 - For production parity, run `JEKYLL_ENV=production bundle exec jekyll serve`.
 
 ## Project structure
 - `_config.yml`: site metadata, collections, pagination, search suggestions, and plugins.
-- `collections/_posts/`, `collections/_drafts/`, `collections/_newsletter/`, `collections/_emacs/`: authored content.
+- `collections/_posts/`, `collections/_drafts/`, `collections/_emacs/`: authored content.
 - `org/`: Org Mode post sources and the `ox-jekyll.el` exporter (excluded from the Jekyll build; posts are exported to `collections/_posts/`).
-- `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`, `newsletter.html`, `emacs.html`).
+- `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`, `emacs.html`).
 - `_includes/`: shared UI fragments (head, footer, comments, archive rows, and list-item partials for emacs and jsgames).
 - `_data/taxonomy.yml`: category themes + tag groups used by `categories.html` and related-post logic.
 - `_data/jsgames.yml`: hand-curated list of standalone JS games shown on `/jsgames/`.
@@ -63,7 +63,7 @@ New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
 - Add docs under `collections/_<name>/` with standard front matter.
 - For landing pages, the redesign uses an inline **hero + `.post-feed`** pattern instead of the older `layout: collections`. Look at `emacs.html`, `jsgames/index.html`, and `kartavya-path.html` for examples: each one is `layout: page` + `hide_page_title: true`, then renders a `.newsletter-hero` (or `.featured-hero`) block followed by a `<ul class="post-feed">` of items via a per-collection include in `_includes/`.
 - Individual emacs notes use `_layouts/emacs.html` (kicker + title + content + tag chips, no date/comments/prev-next).
-- Newsletter issues use `_layouts/newsletter.html`.
+- Kartavya Path essays use the ordinary post layout and are also collected at `/kartavya-path/`.
 
 ## Key pages
 - `index.html`: five recent date/title rows, three selected posts, and quiet editorial links; subsequent pagination pages remain at `/pageN`.

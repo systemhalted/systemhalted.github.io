@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-09-03
+permalink: /newsletter/2024-09-03-eliminating-inequality/
+kartavya_path: true
 title: "Eliminating Inequality"
 tags:
 - newsletter

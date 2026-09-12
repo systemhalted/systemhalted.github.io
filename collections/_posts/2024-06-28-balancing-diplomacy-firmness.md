@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-06-28
+permalink: /newsletter/2024-06-28-balancing-diplomacy-firmness/
+kartavya_path: true
 title: Balancing Diplomacy and Firmness - Insights from Ancient Wisdom
 tags:
 - newsletter

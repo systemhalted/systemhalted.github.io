@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-12-28
+permalink: /newsletter/2024-12-28-consumption-backlog-for-mindful-knowledge/
+kartavya_path: true
 title: "Consumption Backlog for Mindful Knowledge"
 tags:
 - newsletter

@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-07-01
+permalink: /newsletter/2024-07-01-hidden-cost-of-ineffective-product-evaluation/
+kartavya_path: true
 title: The Hidden Cost of Ineffective Product Evaluation in Software Engineering
 tags:
 - newsletter

@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2025-12-05
+permalink: /newsletter/2025-12-05-equality-idea-conditioning-inheritance/
+kartavya_path: true
 title: "Equality is an idea. Conditioning is an inheritance."
 tags:
 - newsletter

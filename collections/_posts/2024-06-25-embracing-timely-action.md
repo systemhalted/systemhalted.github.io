@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-06-25
+permalink: /newsletter/2024-06-25-embracing-timely-action/
+kartavya_path: true
 title: Lessons from Ancient Indian Text - Embracing Timely Action in Leadership and Management
 tags:
 - newsletter

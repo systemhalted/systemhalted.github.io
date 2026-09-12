@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-07-14
+permalink: /newsletter/2024-07-14-the-state-of-gurgaon/
+kartavya_path: true
 title: "The State of Gurgaon: A City of Promises and Pitfalls"
 tags:
 - newsletter

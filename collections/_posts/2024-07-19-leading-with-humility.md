@@ -1,5 +1,8 @@
 ---
-layout: newsletter
+layout: post
+date: 2024-07-19
+permalink: /newsletter/2024-07-19-leading-with-humility/
+kartavya_path: true
 title: "Leading with Humility: Management Lessons from Mahabharata's Udyoga Parva"
 tags:
 - newsletter

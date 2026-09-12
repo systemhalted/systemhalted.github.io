@@ -16,12 +16,12 @@ tags:
 - AI-assisted
 comments: true
 toc: true
-description: "I built a Java rule engine around one idea: author decision tables in a human-friendly format, then compile them into a runtime-friendly one. This post walks through the tradeoffs behind every major design decision."
+description: "I built a Java rule engine around one idea: author decision tables in an agent-friendly format, then compile them into a runtime-friendly one. This post walks through the tradeoffs behind every major design decision."
 ---
 
-I have been building Kisoku, a Java rule engine that evaluates large decision tables. It is anchored to a single idea: decision tables should be authored in a format people can read and review, then compiled into a format the runtime can execute efficiently.[^repo]
+I have been building Kisoku, a Java rule engine that evaluates large decision tables. It is anchored to a single idea: decision tables should be authored in a format ~people~ AI agents can read and review, then compiled into a format the runtime can execute efficiently.[^repo]
 
-That separation sounds simple, but it drives almost every design decision in the codebase. This post explains those decisions, the tradeoffs behind them, and what is implemented now versus what is still planned. It is a design post in the strict sense: each choice is stated with the constraint that motivated it, and the alternative I rejected.
+This post explains those decisions, the tradeoffs behind them, and what is implemented now versus what is still planned. It is a design post in the strict sense: each choice is stated with the constraint that motivated it, and the alternative I rejected.
 
 ## The Constraints I Designed For
 
@@ -32,7 +32,7 @@ The whole design is anchored to hard product constraints in the project spec:[^p
 - Bounded per-evaluation memory, with JVM heap under 1 GB for typical workloads.
 - Explicit lifecycle phases: validate, compile, load, and evaluate.
 
-Those numbers ruled out the naive approach very early. "Parse the CSV and scan every row on every request" fails the latency, heap, and determinism requirements.
+So the naive approach of "parse the CSV and scan every row on every request" fails the latency, heap, and determinism requirements.
 
 ## Decision 1: Lifecycle-First Architecture
 
@@ -51,7 +51,7 @@ This shows up in the module boundaries: the validator and compiler sit in one mo
 
 The library is split into `kisoku-api`, holding public contracts and data types, and `kisoku-runtime`, holding the implementation. The runtime is discovered via `ServiceLoader`, which makes this a plugin-style architecture rather than packaging convenience.
 
-Why this decision: encoders, decoders, and indexes stay out of the public contract. A future runtime could replace the implementation without user code changing, and application code depends only on stable interfaces.
+The encoders, decoders, and indexes stay out of the public contract. A future runtime could replace the implementation without user code changing, and application code depends only on stable interfaces.
 
 ## Decision 3: CSV Is an Authoring Format, Not an Execution Format
 
@@ -77,7 +77,7 @@ C1,18,5000,APPROVE
 
 Columns with a `SET` operator are outputs; everything else is an input condition. A blank cell means "no condition."
 
-Why this decision: non-engineers can author and review tables directly, the operator row removes ambiguity about what each column means, and it maps cleanly to the columnar encoding in Decision 4. There is no per-cell operator parsing at runtime.
+The non-engineers can author and review tables directly, the operator row removes ambiguity about what each column means, and it maps cleanly to the columnar encoding in Decision 4. There is no per-cell operator parsing at runtime.
 
 Two details in the parser are worth calling out. Cells like `(A,B,C)` (used for `IN`/`NOT_IN` and `BETWEEN_*`) require a streaming parser that tracks parentheses depth, because values can themselves contain the separator. And operators are normalized from aliases to canonical forms (`>=` becomes `GTE`, `BETWEEN` becomes `BETWEEN_INCLUSIVE`) so authors can write either and the runtime sees one thing.[^csv-adrs]
 
@@ -93,7 +93,7 @@ At runtime, Kisoku evaluates compiled bytes, not CSV text. The artifact has a fi
 
 Strings are dictionary-encoded to integer IDs, so the same literal that appears in a million rows is stored once. Scalar, range, and set operators use different encoded layouts, and the artifact kind is explicit: `PRODUCTION` or `TEST_INCLUSIVE`.[^artifact]
 
-Why this decision: compact storage, predictable decoding, and better cache locality for column-wise filtering. A single persisted format can be compiled once and loaded repeatedly — this is what later makes `load(Path)` mmap friendly (Decision 8).
+This decision helps with compact storage, predictable decoding, and better cache locality for column-wise filtering. A single persisted format can be compiled once and loaded repeatedly — this is what later makes `load(Path)` mmap friendly (Decision 8).
 
 ## Decision 5: Keep Test Columns in Artifacts, Exclude at Evaluation
 
@@ -140,7 +140,7 @@ Bulk evaluation follows the same philosophy. `evaluateBulk(base, variants)` merg
 
 The default path memory-maps the artifact file directly via `FileChannel.map()`, so the bytes stay off-heap and decoders read column data lazily through the mapped buffer rather than copying sections eagerly.
 
-Why this decision: different workloads want different startup-versus-memory tradeoffs, and those choices belong in user code rather than being hard-coded into the runtime. A single compiled artifact can be written once and loaded identically across processes or pods, which is what makes the compiled format from Decision 4 pay off operationally.[^mmap]
+I made this decision as different workloads want different startup-versus-memory tradeoffs, and those choices belong in user code rather than being hard-coded into the runtime. A single compiled artifact can be written once and loaded identically across processes or pods, which is what makes the compiled format from Decision 4 pay off operationally.[^mmap]
 
 ## Decision 9: Two Execution Paths, One Immutable Ruleset
 
@@ -149,7 +149,7 @@ Single-eval and high-volume scoring pull in opposite directions. A REST request 
 - Single-eval (latency): the existing `evaluate(DecisionInput)` path, unchanged — indexed, immutable, thread-safe, sub-millisecond of compute.
 - Vectorized bulk (throughput): a columnar kernel that takes pre-coerced `int` codes (no `Map`, no boxing per input), prunes through the most selective indexed columns into a reusable per-thread candidate bitmap with early exit, then verifies the few survivors in priority order. The "pre-coerced" part matters: dictionary codes are resolved once before the kernel runs, so string inputs never pay a per-evaluation lookup. Parallelism is caller-owned through a supplied `Executor`; the engine never spins up its own pool.
 
-Why this decision: the row-at-a-time `Map`-based call is structurally too costly for millions of evaluations per second, regardless of threading. Columnar input plus selectivity pruning cut the per-evaluation cost, and parallelism multiplies it. Both paths reuse the same indexes and the same off-heap decoders, so correctness is shared between them.
+The the row-at-a-time `Map`-based call is structurally too costly for millions of evaluations per second, regardless of threading. Columnar input plus selectivity pruning cut the per-evaluation cost, and parallelism multiplies it. Both paths reuse the same indexes and the same off-heap decoders, so correctness is shared between them.
 
 Current status: the scalar bulk kernel is implemented internally with no public API yet. It is proven by a parity oracle — bulk results must equal single-eval results across operators, priority, indexing on and off, and parallelism. SIMD acceleration of the bitmap `AND` is the planned second step once the scalar kernel is public.[^dual]
 
@@ -177,9 +177,9 @@ Three compromises stand out, each chosen consciously:
 
 ## Closing
 
-The short version of the design philosophy is: pay lifecycle costs once, keep runtime behavior predictable, and preserve enough abstraction to evolve runtime internals without breaking API consumers.
+When I started, I had planned to not use AI Agents. But AI-agents are here to stay and make my life easier. Without an AI-agent, it will take me weeks and months to reason and implement much of the rule engine. But with AI agents, I can brainstorm and implement (or have AI-agent implement) faster.
 
-The architecture was not chosen for elegance. Every decision traces back to a constraint — table size, determinism, memory ceiling, or lifecycle discipline. When a codebase is structured this way, the design document stops being an afterthought and becomes the shortest path to understanding why the code looks the way it does.
+As I develop Kisoku further, I plan to write more of my learnings with both Kisoku and using AI Agents. Subscribe to the RSS feed.
 
 ---
 

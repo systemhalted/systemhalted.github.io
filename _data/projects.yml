@@ -20,10 +20,10 @@ available:
       - terminal
       - editor
     primary_cta:
-      label: Install torg
+      label: Install
       url: https://github.com/systemhalted/torg/releases
     secondary_cta:
-      label: View source
+      label: Source
       url: https://github.com/systemhalted/torg
 
   - name: ScribeDay
@@ -35,10 +35,10 @@ available:
       - desktop
       - local-first
     primary_cta:
-      label: Download ScribeDay
+      label: Download
       url: https://github.com/systemhalted/scribeday/releases
     secondary_cta:
-      label: View source
+      label: Source
       url: https://github.com/systemhalted/scribeday
 
   - name: sdkman.el
@@ -50,10 +50,10 @@ available:
       - sdkman
       - java
     primary_cta:
-      label: Read the guide
+      label: Guide
       url: /emacs/sdkman.el/
     secondary_cta:
-      label: View source
+      label: Source
       url: https://github.com/systemhalted/sdkman.el
 
   - name: wordwise.el
@@ -65,10 +65,10 @@ available:
       - reading
       - dictionary
     primary_cta:
-      label: Read the guide
+      label: Guide
       url: /emacs/wordwise.el/
     secondary_cta:
-      label: View source
+      label: Source
       url: https://github.com/systemhalted/wordwise.el
 
   - name: shellenv
@@ -80,10 +80,10 @@ available:
       - cli
       - testing
     primary_cta:
-      label: Download shellenv
+      label: Download
       url: https://github.com/systemhalted/shellenv/releases
     secondary_cta:
-      label: View source
+      label: Source
       url: https://github.com/systemhalted/shellenv
 
   - name: teeup.sh
@@ -144,7 +144,7 @@ workshop:
       - knowledge tools
       - local-first
     primary_cta:
-      label: Follow development
+      label: Source
       url: https://github.com/systemhalted/notive
 
   - name: UniVani
@@ -156,7 +156,7 @@ workshop:
       - translation
       - accessibility
     primary_cta:
-      label: Follow development
+      label: Source
       url: https://github.com/systemhalted/univani
 
   - name: Kisoku
@@ -168,7 +168,7 @@ workshop:
       - rules engine
       - decision tables
     primary_cta:
-      label: Follow development
+      label: Source
       url: https://github.com/systemhalted/kisoku
 
   - name: Osmosis
@@ -189,5 +189,5 @@ workshop:
       - editor
       - learning project
     primary_cta:
-      label: Follow development
+      label: Source
       url: https://github.com/systemhalted/textr

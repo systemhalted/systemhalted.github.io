@@ -1,11 +1,15 @@
 {% assign project = include.project %}
 <li class="project-item">
-  <h3 class="project-name">
-    {% if project.primary_cta %}<a href="{{ project.primary_cta.url }}">{{ project.name }}</a>{% else %}{{ project.name }}{% endif %}
-  </h3>
+  <h3 class="project-name">{{ project.name }}</h3>
   <p class="project-description">{{ project.description }}</p>
+  {% assign show_status = false %}
+  {% if project.status_class == "beta" %}{% assign show_status = true %}{% endif %}
+  {% if show_status or project.primary_cta or project.secondary_cta %}
   <p class="project-meta">
-    <span>{{ project.status }}</span>
-    {% if project.secondary_cta %}<span aria-hidden="true"> · </span><a href="{{ project.secondary_cta.url }}">{{ project.secondary_cta.label }}</a>{% endif %}
+    {% assign has_meta = false %}
+    {% if show_status %}<span>{{ project.status }}</span>{% assign has_meta = true %}{% endif %}
+    {% if project.primary_cta %}{% if has_meta %}<span aria-hidden="true"> · </span>{% endif %}<a href="{{ project.primary_cta.url }}">{{ project.primary_cta.label }}</a>{% assign has_meta = true %}{% endif %}
+    {% if project.secondary_cta %}{% if has_meta %}<span aria-hidden="true"> · </span>{% endif %}<a href="{{ project.secondary_cta.url }}">{{ project.secondary_cta.label }}</a>{% elsif project.primary_cta %}<span aria-hidden="true"> →</span>{% endif %}
   </p>
+  {% endif %}
 </li>

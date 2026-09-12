@@ -18,7 +18,7 @@
   --accent-warm-text: #9b4f3b;
   --selection: #d8dee9;
   --overlay: rgba(46, 52, 64, 0.48);
-  --code-bg: #2e3440;
+  --code-bg: #242933;
   --code-text: #eceff4;
   --code-border: #434c5e;
   --shadow: 0 1px 2px rgba(46, 52, 64, 0.08);
@@ -1273,6 +1273,14 @@ figcaption,
   border-radius: 6px;
   background: var(--code-bg);
   color: var(--code-text);
+}
+
+.webcmd-terminal .webcmd-hint {
+  color: #d8dee9;
+}
+
+.webcmd-terminal .webcmd-command {
+  color: #ebcb8b;
 }
 
 .webcmd-input {

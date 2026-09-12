@@ -3,10 +3,11 @@
   "private": true,
   "description": "Dev-only Node deps for accessibility auditing. The site itself is Jekyll/Ruby; nothing here is shipped to readers.",
   "scripts": {
-    "a11y": "pa11y-ci",
-    "a11y:json": "pa11y-ci --json"
+    "a11y": "node scripts/a11y.js",
+    "a11y:json": "node scripts/a11y.js --json"
   },
   "devDependencies": {
-    "pa11y-ci": "^4.1.1"
+    "@axe-core/playwright": "^4.13.0",
+    "playwright-core": "^1.63.0"
   }
 }

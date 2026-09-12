@@ -38,6 +38,7 @@ nbproject
 # grunt-html-validation
 validation-status.json
 validation-report.json
+a11y-results.json
 
 # Folders to ignore
 node_modules

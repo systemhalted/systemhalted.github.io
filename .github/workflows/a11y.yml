@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  pa11y:
-    name: pa11y-ci
+  axe:
+    name: axe accessibility audit
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,7 +30,7 @@ jobs:
           cache: 'npm'
 
       - name: Install npm dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Build Jekyll site
         run: bundle exec jekyll build
@@ -38,16 +38,20 @@ jobs:
       - name: Serve Jekyll site
         run: |
           bundle exec jekyll serve --skip-initial-build --no-watch --port 4002 --detach
-          npx --yes wait-on http://127.0.0.1:4002 --timeout 60000
+          for attempt in {1..60}; do
+            curl --fail --silent http://127.0.0.1:4002/ > /dev/null && exit 0
+            sleep 1
+          done
+          exit 1
 
-      - name: Run pa11y-ci
-        run: npm run a11y
+      - name: Run Axe audit
+        run: npm run a11y:json
 
-      - name: Upload pa11y output
+      - name: Upload Axe output
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: pa11y-output
+          name: axe-output
           path: |
-            pa11y-results.json
+            a11y-results.json
           if-no-files-found: ignore

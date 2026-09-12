@@ -1,17 +1,17 @@
 {
-  "defaults": {
-    "standard": "WCAG2AA",
-    "timeout": 30000,
-    "wait": 500,
-    "chromeLaunchConfig": {
-      "args": ["--no-sandbox"]
-    },
-    "viewport": {
-      "width": 1280,
-      "height": 800
-    },
-    "ignore": []
+  "timeout": 30000,
+  "wait": 500,
+  "viewport": {
+    "width": 1280,
+    "height": 800
   },
+  "tags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa",
+    "wcag22aa"
+  ],
   "urls": [
     "http://127.0.0.1:4002/",
     "http://127.0.0.1:4002/about/",

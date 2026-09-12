@@ -63,7 +63,7 @@ The `?` help dialog (`#shortcuts-overlay` in `_layouts/default.html`) is the can
 
 ## Running automated audits
 
-[pa11y-ci](https://github.com/pa11y/pa11y-ci) is wired up as a dev dependency. It runs against a curated URL list (NOT the full sitemap — the sitemap has hundreds of legacy posts and would drown the signal).
+The accessibility script uses [Axe](https://github.com/dequelabs/axe-core) through `playwright-core`. It launches the existing system Chrome/Chromium installation, avoiding browser-download dependencies, and audits a curated URL list (NOT the full sitemap — the sitemap has hundreds of legacy posts and would drown the signal).
 
 ```bash
 # One-time
@@ -74,9 +74,9 @@ bundle exec jekyll serve   # in one terminal
 npm run a11y               # in another
 ```
 
-Config lives in `.pa11yci`; URLs to audit are in the `urls` array. Add a URL when you ship a new page family (e.g. a new collection landing). The `jsgames/` directory is explicitly excluded — it's a different problem with different constraints.
+Config lives in `a11y.config.json`; URLs to audit are in the `urls` array. Add a URL when you ship a new page family (e.g. a new collection landing). The runner checks `CHROME_PATH`, `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`, and `PUPPETEER_EXECUTABLE_PATH` before common Linux Chrome paths. The `jsgames/` directory is explicitly excluded — it's a different problem with different constraints.
 
-`.github/workflows/a11y.yml` runs the same audit on every PR and push to `master`. The job fails on any violation — fix locally before pushing.
+`.github/workflows/a11y.yml` runs the same audit on every PR and push to `main`. The job fails on any violation — fix locally before pushing.
 
 ## Browser-level caveats
 
@@ -84,6 +84,6 @@ Config lives in `.pa11yci`; URLs to audit are in the `urls` array. Add a URL whe
 
 ## Known limitations
 - Many legacy posts include inline HTML with empty or missing `alt` text. Fix as you touch those posts.
-- pa11y-ci audits a curated cross-section, not every URL.
+- The Axe runner audits a curated cross-section, not every URL.
 - Third-party embeds (Kit newsletter, Giscus comments, reCAPTCHA) inject elements without proper labels. A `MutationObserver` in `script.js` stamps iframes and reCAPTCHA textareas with fallback labels; if a future embed introduces new offending elements, extend `labelIframe`/`labelRecaptchaTextarea`.
 - Tags page (`/tags/`) merges duplicate-slug tag names (e.g. `India` and `india`) under per-instance unique IDs; the first occurrence keeps the canonical slug for stable anchors.

@@ -86,15 +86,15 @@ Globally bound in `assets/js/script.js`; in-app reference opens with `?`. See `d
 - `?` — open the shortcuts help dialog; `Esc` — close any overlay
 
 ## Accessibility audits
-Node-based [pa11y-ci](https://github.com/pa11y/pa11y-ci) is wired as a dev dependency. Run against a curated URL list (the full sitemap would drown signal):
+The Node-based Axe runner audits a curated URL list through the system Chrome/Chromium installation (the full sitemap would drown signal):
 ```
 npm install            # one-time
 bundle exec jekyll serve   # in one terminal
 npm run a11y               # in another
 ```
-Config lives in `.pa11yci`. `/jsgames/*` is excluded by design — different constraints. See `docs/accessibility.md` for the full a11y inventory and Safari/Tab-preference caveats.
+Config lives in `a11y.config.json`. `/jsgames/*` is excluded by design — different constraints. See `docs/accessibility.md` for the full a11y inventory and Safari/Tab-preference caveats.
 
-`.github/workflows/a11y.yml` runs the same audit on every PR and push to `master` and fails the check on any violation, so fix locally before pushing.
+`.github/workflows/a11y.yml` runs the same audit on every PR and push to `main` and fails the check on any violation, so fix locally before pushing.
 
 ## Docs
 - CSS updates guide: `docs/css-updates.md`

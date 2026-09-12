@@ -676,20 +676,6 @@ figcaption,
   overflow-wrap: anywhere;
 }
 
-.post-content .heading-anchor {
-  margin-left: 0.35rem;
-  color: var(--border);
-  font-family: var(--font-sans);
-  font-size: 0.72em;
-  text-decoration: none;
-}
-
-.post-content h2:hover .heading-anchor,
-.post-content h3:hover .heading-anchor,
-.heading-anchor:focus-visible {
-  color: var(--link);
-}
-
 .post-toc {
   margin: 0.5rem 0 2rem;
   padding-block: 0.65rem;

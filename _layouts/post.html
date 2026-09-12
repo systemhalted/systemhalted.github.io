@@ -23,7 +23,7 @@ layout: default
       <nav aria-label="Table of contents">{{ content | toc_only }}</nav>
     </details>
     {% endif %}
-    {{ content | inject_anchors }}
+    {{ content }}
   </div>
 
   {% if page.featured_image %}

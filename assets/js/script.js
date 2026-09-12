@@ -114,10 +114,7 @@
   var triggers = Array.prototype.slice.call(document.querySelectorAll('.search-toggle, .search-open-trigger'));
   if (!overlay || !closeButton || !input || !results || !triggers.length) return;
 
-  var elasticlunrUrl = overlay.getAttribute('data-elasticlunr-url');
-  var indexUrl = overlay.getAttribute('data-index-url');
-  var webcmdUrl = overlay.getAttribute('data-webcmd-url') || '/webcmd/';
-  var emptyStateHTML = results.innerHTML;
+  var emptyStateTemplate = results.firstElementChild ? results.firstElementChild.cloneNode(true) : null;
   var lastFocusedElement = null;
   var searchPromise = null;
   var latestQuery = '';
@@ -126,6 +123,10 @@
     if (!target) return false;
     var tag = target.tagName ? target.tagName.toLowerCase() : '';
     return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable;
+  }
+
+  function clearNode(node) {
+    while (node.firstChild) node.removeChild(node.firstChild);
   }
 
   function loadScript(src) {
@@ -158,13 +159,11 @@
     searchPromise = Promise.resolve()
       .then(function() {
         if (window.elasticlunr) return null;
-        if (!elasticlunrUrl) throw new Error('Search library URL is missing.');
-        return loadScript(elasticlunrUrl);
+        return loadScript('/assets/js/elasticlunr.min.js');
       })
       .then(function() {
         if (window.siteDocs && window.siteDocs.length) return null;
-        if (!indexUrl) throw new Error('Search index URL is missing.');
-        return loadScript(indexUrl);
+        return loadScript('/assets/js/webcmd.js');
       })
       .then(function() {
         if (typeof window.ensureSiteIndex === 'function') window.ensureSiteIndex();
@@ -190,19 +189,20 @@
 
   function showSearchError() {
     if (!status) return;
-    status.innerHTML = '';
+    clearNode(status);
     status.classList.remove('is-hidden', 'is-loading');
     status.classList.add('is-error');
     status.appendChild(document.createTextNode('Search could not load. Try the '));
     var fallback = document.createElement('a');
-    fallback.href = webcmdUrl;
+    fallback.href = '/webcmd/';
     fallback.textContent = 'command-line search';
     status.appendChild(fallback);
     status.appendChild(document.createTextNode('.'));
   }
 
   function resetResults() {
-    results.innerHTML = emptyStateHTML;
+    clearNode(results);
+    if (emptyStateTemplate) results.appendChild(emptyStateTemplate.cloneNode(true));
   }
 
   function resolveDoc(ref, indexData) {
@@ -226,7 +226,7 @@
     if (query !== latestQuery) return;
     var matches = findMatches(query, indexData);
     var maxResults = 12;
-    results.innerHTML = '';
+    clearNode(results);
     setStatus('');
 
     var count = document.createElement('p');
@@ -286,7 +286,7 @@
       .then(function(indexData) { renderMatches(trimmed, indexData); })
       .catch(function() {
         if (trimmed === latestQuery) {
-          results.innerHTML = '';
+          clearNode(results);
           showSearchError();
         }
       });

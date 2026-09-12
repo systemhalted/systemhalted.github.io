@@ -51,11 +51,12 @@ It then builds an elasticlunr index with fields `title`, `layout`, `categories`,
 Markup lives in `_layouts/default.html`:
 - `.search-toggle` opens the overlay.
 - `#search-overlay` contains `#search-input`, `#search-results`, and `#search-status`.
-- `data-webcmd-url` points to `/webcmd/` for fallbacks.
 
 Logic lives in `assets/js/script.js`:
 - Opening search first loads `assets/js/elasticlunr.min.js`, then the generated
   `assets/js/webcmd.js`. Reopening search reuses the loaded index.
+- Lazy-loaded scripts and the `/webcmd/` fallback use fixed same-origin paths; do not
+  source executable or navigation URLs from DOM attributes.
 - On input, `renderResults()` searches the index with `expand: true`.
 - If `window.siteIndex` is missing, it builds a new index from `window.siteDocs`.
 - If elasticlunr returns zero results, it falls back to a substring scan across `title`, `categories`, `tags`, and `content`.

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Search and Keyboard Shortcuts on This Blog"
-date: 2026-09-11
+date: 2026-09-12
 categories:
   - Personal Essays
   - Technology

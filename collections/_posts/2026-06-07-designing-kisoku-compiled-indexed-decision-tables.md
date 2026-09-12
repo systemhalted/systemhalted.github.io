@@ -19,7 +19,7 @@ toc: true
 description: "I built a Java rule engine around one idea: author decision tables in an agent-friendly format, then compile them into a runtime-friendly one. This post walks through the tradeoffs behind every major design decision."
 ---
 
-I have been building Kisoku, a Java rule engine that evaluates large decision tables. It is anchored to a single idea: decision tables should be authored in a format ~people~ AI agents can read and review, then compiled into a format the runtime can execute efficiently.[^repo]
+I have been building Kisoku, a Java rule engine that evaluates large decision tables. It is anchored to a single idea: decision tables should be authored in a format ~~people~~ AI agents can read and review, then compiled into a format the runtime can execute efficiently.[^repo]
 
 This post explains those decisions, the tradeoffs behind them, and what is implemented now versus what is still planned. It is a design post in the strict sense: each choice is stated with the constraint that motivated it, and the alternative I rejected.
 

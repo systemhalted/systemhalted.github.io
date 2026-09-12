@@ -5,12 +5,12 @@ date: 2026-09-11
 categories:
   - Personal Essays
 tags:
-  - rewrite
   - redesign
-  - meta
+  - blogging
   - jekyll
   - ux
-description: "Why I decided to rewrite the code behind my blog"
+  - meta
+description: "Why I simplified SystemHalted and made the writing the center of the site"
 comments: true
 ---
 SystemHalted has been around for a long time. Over the years, I kept adding things to it.
@@ -23,7 +23,7 @@ So I decided to simplify it.
 
 SystemHalted has hundreds of posts covering software engineering, computing systems, leadership, AI, and other subjects. I do not want to reduce that. The archive is one of the things I value most about the site.
 
-The problem was not the amount of content. The problem was the interface around it. Too many things were asking for attention at the same time. A reader opening an article should mostly see the article. A reader opening the homepage should mostly see what I have written recently. That sounds obvious, but websites have a habit of slowly moving away from simple ideas.
+The problem was not the amount of content. The problem was the interface around it. Too many things were asking for attention at the same time. A reader opening an article should mostly see the article. A reader opening the homepage should mostly see what I have written recently.
 
 One feature on the old site was Focus Mode. The idea was to remove distractions and make an article easier to read. But that raised another question. Why should a reader need to enable Focus Mode? If Focus Mode is the better reading experience, perhaps that should simply be the normal experience. That became one of the main ideas behind the redesign.
 
@@ -41,8 +41,6 @@ Writing is the main purpose of the site. Projects have a place because I also us
 
 Search and theme switching still exist, but they do not need the same visual importance as the main navigation.
 
-The homepage has also become much simpler.
-
 Recent posts are now mostly a date and a title.
 
 ```text
@@ -51,19 +49,11 @@ Sep 03   GTIDs, Kafka Consumer Offsets, and Recovery Checkpoints
 Aug 25   Resource Integrity Belongs to the Resource, Not the API
 ```
 
-No cards.
-
-No thumbnails.
-
-No category badges.
-
-No description under every article.
-
 If the title is interesting, you can open it.
 
-There is also a small Selected Writing section for a few articles I want new readers to find, and a quiet link to Kartavya Path for writing about engineering leadership and management (it lives on LinkedIn).
+There is also a small Selected Writing section for a few articles I want new readers to find, along with a link to Kartavya Path, my writing on engineering leadership and management on LinkedIn.
 
-The homepage does not need to expose the full structure of the site. That is what the archive is for. With hundreds of posts, SystemHalted still needs good ways to explore older writing. I am not removing categories, tags, series, search, or chronological browsing. I am moving that complexity to the place where it belongs. The homepage is for discovering what is new. The archive is for discovering what already exists. They do not need to solve the same problem. The same idea applies to individual posts.
+The homepage does not need to expose the full structure of the site. That is what the archive is for. Categories, tags, series, search, and chronological browsing still exist, but that complexity now lives where someone expects to find it. The homepage is for what is new. The archive is for what is already there.
 
 An article page should get to the article quickly.
 
@@ -83,7 +73,7 @@ Related writing can also stay out of the way until the reader reaches the end. T
 
 The visual design is changing too. The old design relied more on boxes, panels, badges, borders, and different interface components. The new design relies more on typography and spacing.
 
-SystemHalted still has a visual identity. It still uses Nord-inspired colors. The wordmark still has its own character. But color is now an accent instead of something every component needs. The hierarchy comes mostly from type size, typeface, spacing, alignment, and content order. That makes the page quieter without making it plain.
+SystemHalted still has its visual identity: Nord-inspired colors, a distinctive wordmark, and its own typography. But color is now an accent rather than something every component needs. The hierarchy comes mostly from type size, typeface, spacing, alignment, and content order.
 
 Projects are slightly different from articles. An article is something you read from beginning to end. A project is something you scan, compare, and perhaps visit. So the Projects page can have a little more structure than the Writing page.
 

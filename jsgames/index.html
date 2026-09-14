@@ -1,17 +1,12 @@
 ---
 layout: page
 title: JavaScript Games
+description: Small browser games and interactive experiments built with vanilla JavaScript.
 permalink: /jsgames/
-hide_page_title: true
+quiet_title: true
 ---
 
-<section class="newsletter-hero">
-  <p class="newsletter-kicker">Side projects</p>
-  <h1 class="newsletter-headline">JavaScript Games</h1>
-  <p class="newsletter-lede">
-    Small games I built while learning vanilla JavaScript. Each one runs in the browser, no build step.
-  </p>
-</section>
+<p class="archive-intro">Small browser games and interactive experiments built with vanilla JavaScript.</p>
 
 <ul class="post-feed">
   {% for game in site.data.jsgames %}{% include jsgame-list-item.html game=game %}{% endfor %}

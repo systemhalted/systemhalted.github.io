@@ -134,6 +134,18 @@ available:
       label: Browse themes
       url: /themes/
 
+  - name: JavaScript Games
+    status: Playable
+    status_class: usable
+    description: A small collection of browser games and interactive experiments built with vanilla JavaScript.
+    tags:
+      - javascript
+      - browser games
+      - experiments
+    primary_cta:
+      label: Browse games
+      url: /jsgames/
+
 workshop:
   - name: Notive
     status: In development

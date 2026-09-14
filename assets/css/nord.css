@@ -946,6 +946,10 @@ figcaption,
   font-size: 1.25rem;
 }
 
+.jsgame-list .post-feed-title {
+  font-size: 1.12rem;
+}
+
 .post-feed-title a {
   color: var(--text-strong);
   text-decoration-color: transparent;

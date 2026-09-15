@@ -7,8 +7,6 @@ categories:
 tags:
   - Austin
   - Dallas
-  - travel
-  - travel log
   - journey
   - diary
 description: "A Sunday drive from Dallas to Austin, with family time, an unexpectedly pleasant journey, and a predictably sleepless night"

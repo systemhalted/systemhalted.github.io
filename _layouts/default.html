@@ -7,7 +7,7 @@
 
     <header class="site-header">
       <div class="container site-header-inner">
-        <a class="site-wordmark" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <a class="site-wordmark" href="{{ '/' | relative_url }}">{{ site.brand_title | default: site.title }}</a>
 
         <nav class="primary-nav" aria-label="Primary navigation">
           <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Writing</a>

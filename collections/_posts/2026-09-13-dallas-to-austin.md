@@ -15,7 +15,7 @@ description: "A Sunday drive from Dallas to Austin, with family time, an unexpec
 comments: true
 ---
 
-I woke up a little late in the morning and asked kids what they wanted for breakfast.They said Jam + Toast, and so that is where we went. 
+I woke up a little late in the morning and asked kids what they wanted for breakfast. They said Jam + Toast, and so that is where we went. 
 
 My wife was returning from Vegas this afternoon. She had left on Friday and arrived back at around 3pm. Gaurav picked her up from the airport, and Amol brought her home from Gaurav and Mansi’s house. When she arrived, she was excited and eager to tell us about everything she had experienced in Vegas. I wanted to hear more, but I had to get ready and leave for Austin, where I was attending a recruitment event.
 

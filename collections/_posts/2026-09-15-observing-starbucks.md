@@ -17,7 +17,7 @@ We had to checkout of Moxy at 11am, and our next event does not start until 5:30
 
 Right now, we are sitting at Starbucks, observing the world unfold around us. This post will probably be a collection of random observations. I will try to make it coherent later (or will not).
 
-A couple just came in and took the circular table across from the sofa where I am sitting. Both are leaning forward, their gazez fixed on their phones, shoulders slightly rounded. One of them has a leg tucked beneath them on the chair while the other rested normally on the floor. They are sitting together, yet for the moment each seems occupied by a separate world on a screen. 
+A couple just came in and took the circular table across from the sofa where I am sitting. Both are leaning forward, their gazes fixed on their phones, shoulders slightly rounded. One of them has a leg tucked beneath them on the chair while the other rested normally on the floor. They are sitting together, yet for the moment each seems occupied by a separate world on a screen. 
 
 There is another women in the corner by the window. Her countenance is quiet and absorbed, her eyes fixed on the MacBook Screen in front of her with airpods in her ears. Every so often, her expression shifts from concentration to faint amusement, as though something on the screen has briefly interrupted whatever she is working on. 
 

@@ -13,7 +13,7 @@ description: "Observing the world move at Starbucks"
 comments: true
 ---
 
-We had to checkout of Moxy at 11am, and our next event does not start until 5:30pm. With several hours to fill, my colleague and I came to the Starbucks at the Domain, about fifteen or twenty minutes from the University. I had visisted this area in our previous two visits to Austin and I liked it, so it seemed like a familiar place to spend the afternoon. 
+We had to checkout of Moxy at 11am, and our next event does not start until 5:30pm. With several hours to fill, my colleague and I came to the Starbucks at the Domain, about fifteen or twenty minutes from the University. I had visisted this area in my previous two visits to Austin and I liked it, so it seemed like a familiar place to spend the afternoon. 
 
 Right now, we are sitting at Starbucks, observing the world unfold around us. This post will be probably be a collection of random observations. I will try to make it coherent later.
 

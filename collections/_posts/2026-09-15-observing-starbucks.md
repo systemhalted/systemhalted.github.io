@@ -15,7 +15,7 @@ comments: true
 
 We had to checkout of Moxy at 11am, and our next event does not start until 5:30pm. With several hours to fill, my colleague and I came to the Starbucks at the Domain, about fifteen or twenty minutes from the University. I had visisted this area in my previous two visits to Austin and I liked it, so it seemed like a familiar place to spend the afternoon. 
 
-Right now, we are sitting at Starbucks, observing the world unfold around us. This post will be probably be a collection of random observations. I will try to make it coherent later.
+Right now, we are sitting at Starbucks, observing the world unfold around us. This post will probably be a collection of random observations. I will try to make it coherent later (or will not).
 
 A couple just came in and took the circular table across from the sofa where I am sitting. Both are leaning forward, their gazez fixed on their phones, shoulders slightly rounded. One of them has a leg tucked beneath them on the chair while the other rested normally on the floor. They are sitting together, yet for the moment each seems occupied by a separate world on a screen. 
 

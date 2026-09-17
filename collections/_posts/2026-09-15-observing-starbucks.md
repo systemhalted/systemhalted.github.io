@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Obsering the world unfold at Starbucks"
+title: "Observing the world unfold at Starbucks"
 date: 2026-09-15
 categories:
   - Personal Essays

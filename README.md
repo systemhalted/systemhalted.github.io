@@ -9,6 +9,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 - `bundle exec jekyll doctor` (sanity checks)
 
 ## Development workflow
+- Working notes live in `collections/_notes/` and publish under `/notes/<slug>/`.
 - Drafts live in `collections/_drafts/`; preview them with `bundle exec jekyll serve --livereload --drafts`.
 - Publish by moving drafts to `collections/_posts/` and renaming to `YYYY-MM-DD-title.md`.
 - Kartavya Path essays are regular posts marked with `kartavya_path: true`; preview their listing at `/kartavya-path/`.
@@ -17,7 +18,7 @@ Jekyll source for systemhalted.in. The build output goes to `_site/` (generated)
 
 ## Project structure
 - `_config.yml`: site metadata, collections, pagination, search suggestions, and plugins.
-- `collections/_posts/`, `collections/_drafts/`, `collections/_emacs/`: authored content.
+- `collections/_posts/`, `collections/_notes/`, `collections/_drafts/`, `collections/_emacs/`: authored content.
 - `org/`: Org Mode post sources and the `ox-jekyll.el` exporter (excluded from the Jekyll build; posts are exported to `collections/_posts/`).
 - `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`, `emacs.html`).
 - `_includes/`: shared UI fragments (head, footer, comments, archive rows, and list-item partials for emacs and jsgames).
@@ -62,11 +63,13 @@ New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
 - Define new collections in `_config.yml` under `collections:`.
 - Add docs under `collections/_<name>/` with standard front matter.
 - Collection landing pages use the standard page hierarchy followed by a `.post-feed`; `emacs.html` is the simplest example. Promotional pages such as `kartavya-path.html` may opt into a restrained inline hero with `hide_page_title: true`.
+- Working notes are chronological, use the ordinary post layout, and are listed at `/notes/`.
 - Individual emacs notes use `_layouts/emacs.html` (kicker + title + content + tag chips, no date/comments/prev-next).
 - Kartavya Path essays use the ordinary post layout and are also collected at `/kartavya-path/`.
 
 ## Key pages
 - `index.html`: five recent date/title rows, three selected posts, and quiet editorial links; subsequent pagination pages remain at `/pageN`.
+- `notes.html`: chronological Working Notes index.
 - `archives.html`: year-grouped archive with client-side sorting.
 - `categories.html`: category taxonomy grouped by theme.
 - `tags.html`: tag archive.
@@ -81,7 +84,7 @@ New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
 
 ## Keyboard shortcuts
 Globally bound in `assets/js/script.js`; in-app reference opens with `?`. See `docs/accessibility.md` for the full list. Highlights:
-- `g w` / `g p` / `g a` / `g i` — go to Writing / Projects / Archive / About
+- `g w` / `g n` / `g p` / `g a` / `g i` — go to Writing / Notes / Projects / Archive / About
 - `/` or `s` — open search; `t` — toggle Nord Light / Nord Dark
 - `?` — open the shortcuts help dialog; `Esc` — close any overlay
 

@@ -49,6 +49,7 @@ Bound globally in `assets/js/script.js`. None fire while focus is in a form fiel
 
 **Go to** (chord, second key within 1.2s):
 - `g w` — Writing
+- `g n` — Notes
 - `g p` — Projects
 - `g a` — Archive
 - `g i` — About

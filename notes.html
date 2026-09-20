@@ -1,0 +1,21 @@
+---
+layout: page
+title: Working Notes
+quiet_title: true
+permalink: /notes/
+---
+
+<header class="page-header">
+  <h1>Working Notes</h1>
+  <p>Observations, experiments, technical discoveries, and ideas I am still working through. Some may eventually become longer articles; others are complete as notes.</p>
+</header>
+
+<ol class="writing-list writing-list-paged">
+  {% assign notes = site.notes | sort: 'date' | reverse %}
+  {% for note in notes %}
+  <li class="writing-row">
+    <time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%b %d, %Y" }}</time>
+    <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+  </li>
+  {% endfor %}
+</ol>

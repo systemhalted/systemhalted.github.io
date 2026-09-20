@@ -34,11 +34,11 @@ Instead of adding another reading mode, I started removing the things that made 
 
 The main navigation is now deliberately small:
 
-**Writing · Projects · Archive · About**
+**Writing · Notes · Projects · Archive · About**
 
 These are the four main things I expect someone to look for.
 
-Writing is the main purpose of the site. Projects have a place because I also use SystemHalted to document and share things I build. Archive provides access to older work. About explains who is behind the site.
+Writing is the main purpose of the site. Notes hold observations, experiments, and ideas I am still working through. Projects have a place because I also use SystemHalted to document and share things I build. Archive provides access to older work. About explains who is behind the site.
 
 Search and theme switching still exist, but they do not need the same visual importance as the main navigation.
 

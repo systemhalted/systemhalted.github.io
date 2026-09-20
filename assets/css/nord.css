@@ -486,18 +486,12 @@ pre code {
   margin: 0 0 1.5rem;
 }
 
-.section-lede,
 .archive-intro,
 .page-header p {
   color: var(--muted);
 }
 
-.section-lede {
-  margin-top: -0.9rem;
-}
-
 .writing-list,
-.selected-list,
 .post-feed,
 .related-posts,
 .archive-list,
@@ -529,8 +523,7 @@ pre code {
 }
 
 .writing-row a,
-.archive-row a,
-.selected-list a {
+.archive-row a {
   color: var(--text-strong);
   font-family: var(--font-serif);
   font-size: 1.12rem;
@@ -539,14 +532,18 @@ pre code {
 }
 
 .writing-row a:hover,
-.archive-row a:hover,
-.selected-list a:hover {
+.archive-row a:hover {
   color: var(--link);
   text-decoration-color: currentColor;
 }
 
-.selected-list li + li {
-  margin-top: 0.65rem;
+.writing-row-desc {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  line-height: 1.4;
 }
 
 .section-link {

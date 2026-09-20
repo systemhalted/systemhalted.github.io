@@ -66,11 +66,10 @@ New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
 - Kartavya Path essays use the ordinary post layout and are also collected at `/kartavya-path/`.
 
 ## Key pages
-- `index.html`: five recent date/title rows, three selected posts, and quiet editorial links; subsequent pagination pages remain at `/pageN`.
+- `index.html`: five recent date/title rows and quiet editorial links; subsequent pagination pages remain at `/pageN`.
 - `archives.html`: year-grouped archive with client-side sorting.
 - `categories.html`: category taxonomy grouped by theme.
 - `tags.html`: tag archive.
-- `featured.html`: the full “Selected writing” collection, listed by URL in `_data/start_here.yml`. The first three also appear on the home page. There is no per-post `featured` front matter.
 - `about.md`, `404.md`: static pages.
 
 ## Search and webcmd

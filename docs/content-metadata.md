@@ -36,26 +36,6 @@ Guidelines:
 - Store images in `assets/images/` with short, kebab-case names (date-prefix recommended).
 - Prefer an image that rewards finishing the article rather than acting as introductory decoration.
 
-## Selected writing
-Highlighted posts are curated in one place — `_data/start_here.yml` — not via per-post front matter. The file is a short, hand-ordered list of post URLs:
-
-```yaml
-lede: "A few posts that capture what this site is about."
-posts:
-  - /2026/01/11/kahan-summation-java-streams/
-  - /2025/12/31/discipline-first-trust-pipeline-for-ai-assisted-coding/
-```
-
-The same list drives both surfaces:
-- The first three entries in **Selected writing** on the home page (page 1 only, rendered by `index.html`).
-- The full **`/featured/`** page (`featured.html`), linked beneath the homepage selection.
-
-Guidelines:
-- Use exact post URLs with a trailing slash, in the order you want them displayed.
-- Keep the larger collection deliberately short. The homepage displays at most three; there is no `featured: true` flag on posts.
-- Deleting the file hides the homepage Selected writing section entirely.
-- Do not confuse this with `featured_image`; the two features are unrelated.
-
 ## Front matter
 Front matter drives listing pages, archives, tags, and related posts.
 
@@ -71,7 +51,7 @@ Common optional keys:
 - `comments: true`: Enables the Disqus include for that post.
 - `featured_image`, `featured_image_alt`, `featured_image_caption`
 
-There is no per-post `featured` flag. To highlight a post, add its URL to `_data/start_here.yml` (see “Selected writing” above).
+There is no per-post `featured` flag; `featured_image` is an image, not a highlight marker.
 
 Notes:
 - Both `category` and `categories` are supported by Jekyll; prefer `categories` for new posts.
@@ -162,7 +142,7 @@ description: which-key surfaces all candidate keybindings after a prefix key, re
 
 ## Hero landing pages — `hide_page_title`
 
-Landing pages that provide their own `<h1>` via a hero block (e.g. `.newsletter-hero` on `/kartavya-path/` or `.featured-hero` on `/featured/`) should set `hide_page_title: true` in front matter. This suppresses the standard `.page-title` that `_layouts/page.html` would otherwise inject, preventing a duplicate heading above the hero.
+Landing pages that provide their own `<h1>` via a hero block (e.g. `.newsletter-hero` on `/kartavya-path/`) should set `hide_page_title: true` in front matter. This suppresses the standard `.page-title` that `_layouts/page.html` would otherwise inject, preventing a duplicate heading above the hero.
 
 Example:
 ```

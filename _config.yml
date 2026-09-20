@@ -9,7 +9,7 @@ baseurl:             ''
 # assets/css/nord.css, assets/js). Back-ported to the jekyll-theme-nord-newsletter
 # gem only when a change is worth sharing.
 
-paginate:            5
+paginate:            10
 paginate_path:       "/page:num"
 permalink:           pretty
 

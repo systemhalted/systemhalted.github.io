@@ -52,7 +52,7 @@ Aug 25   Resource Integrity Belongs to the Resource, Not the API
 
 If the title is interesting, you can open it.
 
-There is also a small Selected Writing section for a few articles I want new readers to find, along with a link to Kartavya Path, my writing on engineering leadership and management on LinkedIn.
+There is also a link to Kartavya Path, my writing on engineering leadership and management on LinkedIn.
 
 The homepage does not need to expose the full structure of the site. That is what the archive is for. Categories, tags, series, search, and chronological browsing still exist, but that complexity now lives where someone expects to find it. The homepage is for what is new. The archive is for what is already there.
 

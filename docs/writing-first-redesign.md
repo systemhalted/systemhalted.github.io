@@ -43,9 +43,6 @@ The following describes the interface as it existed when the redesign began.
   math/diagram enhancements, SEO, and analytics. Nord Light and Nord Dark form
   the two palettes. The obsolete glazed preference
   is no longer applied. The hidden CRT mode remains available to `/webcmd/`.
-- `_data/start_here.yml` is the curated source for the homepage and
-  `/featured/`; only its presentation and public label change to “Selected
-  writing.”
 - `_config.yml` provides pagination, collections, taxonomy, RSS, search
   suggestions, comments, and Kartavya Path settings. URLs, collections, feeds,
   and content settings remain stable; the now-unused sidebar configuration can
@@ -56,8 +53,8 @@ The following describes the interface as it existed when the redesign began.
 - Replace the sidebar with a compact semantic header: SystemHalted, Writing,
   About, Archive, Projects, Search, and one theme toggle. The existing
   `/projects/` showcase remains intact as a primary destination.
-- Make page one a writer introduction followed by five recent date/title rows,
-  three selected entries, and one quiet Kartavya Path line. Keep `/pageN` URLs
+- Make page one a writer introduction followed by five recent date/title rows
+  and one quiet Kartavya Path line. Keep `/pageN` URLs
   as compact older-writing lists.
 - Make article prose the default focus state. Remove visible focus mode,
   font-size controls, share buttons, category badges, and the glazed theme.

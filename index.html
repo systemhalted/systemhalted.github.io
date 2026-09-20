@@ -15,26 +15,15 @@ image: /assets/images/avatar.jpeg
     {% for post in paginator.posts %}
     <li class="writing-row">
       <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d" }}</time>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <div class="writing-row-body">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        {% if post.description %}<span class="writing-row-desc">{{ post.description }}</span>{% endif %}
+      </div>
     </li>
     {% endfor %}
   </ol>
   <p class="section-link"><a href="{{ '/archives/' | relative_url }}">All writing →</a></p>
 </section>
-
-{% if site.data.start_here %}
-<section class="home-section" aria-labelledby="selected-writing">
-  <h2 id="selected-writing">Selected writing</h2>
-  {% if site.data.start_here.lede %}<p class="section-lede">{{ site.data.start_here.lede }}</p>{% endif %}
-  <ul class="selected-list">
-    {% for slug in site.data.start_here.posts limit: 3 %}
-      {% assign selected_post = site.posts | where: "url", slug | first %}
-      {% if selected_post %}<li><a href="{{ selected_post.url | relative_url }}">{{ selected_post.title }}</a></li>{% endif %}
-    {% endfor %}
-  </ul>
-  <p class="section-link"><a href="{{ '/featured/' | relative_url }}">More selected writing →</a></p>
-</section>
-{% endif %}
 
 <section class="home-section home-kartavya" aria-labelledby="kartavya-path">
   <h2 id="kartavya-path">Kartavya Path</h2>

@@ -11,6 +11,7 @@
 
         <nav class="primary-nav" aria-label="Primary navigation">
           <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Writing</a>
+          <a href="{{ '/notes/' | relative_url }}"{% if page.url == '/notes/' %} aria-current="page"{% endif %}>Notes</a>
           <a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' %} aria-current="page"{% endif %}>Projects</a>
           <a href="{{ '/archives/' | relative_url }}"{% if page.url == '/archives/' %} aria-current="page"{% endif %}>Archive</a>
           <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
@@ -81,6 +82,7 @@
             <dt><kbd>/</kbd></dt><dd>Search</dd>
             <dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd>
             <dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd>
+            <dt><kbd>g</kbd> <kbd>n</kbd></dt><dd>Notes</dd>
             <dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd>
             <dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd>
             <dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd>
@@ -100,6 +102,7 @@
     <script>
       window.SYSTEMHALTED_ROUTES = {
         w: {{ '/' | relative_url | jsonify }},
+        n: {{ '/notes/' | relative_url | jsonify }},
         a: {{ '/archives/' | relative_url | jsonify }},
         p: {{ '/projects/' | relative_url | jsonify }},
         i: {{ '/about/' | relative_url | jsonify }}

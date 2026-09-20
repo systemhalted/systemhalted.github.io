@@ -17,6 +17,8 @@
     "http://127.0.0.1:4002/about/",
     "http://127.0.0.1:4002/featured/",
     "http://127.0.0.1:4002/archives/",
+    "http://127.0.0.1:4002/notes/",
+    "http://127.0.0.1:4002/notes/austin-vibe/",
     "http://127.0.0.1:4002/categories/",
     "http://127.0.0.1:4002/tags/",
     "http://127.0.0.1:4002/projects/",

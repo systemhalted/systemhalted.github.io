@@ -788,7 +788,6 @@ figcaption,
   border-top: 1px solid var(--border);
 }
 
-.post-more summary,
 .comments summary {
   width: fit-content;
   color: var(--muted);
@@ -796,9 +795,46 @@ figcaption,
   font-weight: 500;
 }
 
-.post-more-content,
 .comments-body {
   padding-top: 0.25rem;
+}
+
+.post-more-heading {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+}
+
+.related-post {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: baseline;
+}
+
+.related-post-date {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.related-post-title {
+  color: var(--text-strong);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.35;
+  text-decoration-color: transparent;
+}
+
+.related-post-title:hover {
+  color: var(--link);
+  text-decoration-color: currentColor;
+}
+
+.related-post-reason {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 /* Archive and taxonomy */

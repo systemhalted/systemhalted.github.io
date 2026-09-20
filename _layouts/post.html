@@ -49,66 +49,117 @@ layout: default
     {% endif %}
 
     {%- comment -%}
-      Related posts come from taxonomy themes that contain this post's categories.
+      Related posts, ranked by relevance: +3 per shared category, +2 per shared
+      tag, +1 per same-theme sibling, with the newest post winning ties. Keys are
+      zero-padded (score | epoch | url) so a plain lexicographic sort orders them
+      from best to worst.
     {%- endcomment -%}
+    {% assign page_categories = page.categories | default: "" %}
+    {% assign page_tags = page.tags | default: "" %}
     {% assign themes = site.data.taxonomy.themes %}
-    {% assign page_categories = page.categories | default: empty %}
+
     {% assign matched_theme_ids = "" | split: "," %}
     {% for theme in themes %}
-      {% assign has_match = false %}
-      {% for category in theme.categories %}
-        {% if page_categories contains category.name %}{% assign has_match = true %}{% endif %}
+      {% assign theme_hit = false %}
+      {% for theme_category in theme.categories %}
+        {% if page_categories contains theme_category.name %}{% assign theme_hit = true %}{% endif %}
       {% endfor %}
-      {% if has_match %}{% assign matched_theme_ids = matched_theme_ids | push: theme.id %}{% endif %}
+      {% if theme_hit %}{% assign matched_theme_ids = matched_theme_ids | push: theme.id %}{% endif %}
     {% endfor %}
 
-    {% assign theme_posts = "" | split: "," %}
-    {% for theme in themes %}
-      {% if matched_theme_ids contains theme.id %}
-        {% for category in theme.categories %}
-          {% assign category_posts = site.categories[category.name] %}
-          {% if category_posts %}{% assign theme_posts = theme_posts | concat: category_posts %}{% endif %}
+    {% assign related_keys = "" | split: "," %}
+    {% for post in site.posts %}
+      {% if post.url == page.url %}{% continue %}{% endif %}
+
+      {% assign cat_matches = 0 %}
+      {% for category in page_categories %}
+        {% if post.categories contains category %}{% assign cat_matches = cat_matches | plus: 1 %}{% endif %}
+      {% endfor %}
+      {% assign tag_matches = 0 %}
+      {% for tag in page_tags %}
+        {% if post.tags contains tag %}{% assign tag_matches = tag_matches | plus: 1 %}{% endif %}
+      {% endfor %}
+
+      {% assign score = cat_matches | times: 3 %}
+      {% assign tag_points = tag_matches | times: 2 %}
+      {% assign score = score | plus: tag_points %}
+
+      {% if cat_matches == 0 and tag_matches == 0 %}
+        {% for theme in themes %}
+          {% if matched_theme_ids contains theme.id %}
+            {% for theme_category in theme.categories %}
+              {% if post.categories contains theme_category.name %}{% assign score = score | plus: 1 %}{% endif %}
+            {% endfor %}
+          {% endif %}
         {% endfor %}
       {% endif %}
+
+      {% if score > 0 %}
+        {% assign score_padded = "000" | append: score | slice: -3, 3 %}
+        {% assign epoch = post.date | date: "%s" %}
+        {% assign epoch_padded = "0000000000" | append: epoch | slice: -10, 10 %}
+        {% assign related_key = score_padded | append: epoch_padded | append: post.url %}
+        {% assign related_keys = related_keys | push: related_key %}
+      {% endif %}
     {% endfor %}
-    {% assign related_posts = theme_posts | uniq | sort: "date" | reverse %}
-    {% assign related_posts = related_posts | where_exp: "related_post", "related_post.url != page.url" %}
+    {% assign related_keys_sorted = related_keys | sort | reverse %}
+    {% assign top_related_keys = related_keys_sorted | slice: 0, 3 %}
 
     {% assign prev_post = page.previous %}
     {% assign next_post = page.next %}
-    {% if related_posts.size >= 1 or prev_post or next_post %}
-    <details class="post-more">
-      <summary>More from SystemHalted</summary>
-      <div class="post-more-content">
-        {% if related_posts.size >= 1 %}
-        <section class="related" aria-labelledby="related-writing">
-          <h2 id="related-writing">Related writing</h2>
-          <ul class="related-posts">
-            {% for related in related_posts limit: 3 %}
-            <li><a href="{{ related.url | relative_url }}">{{ related.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </section>
-        {% endif %}
+    {% if top_related_keys.size >= 1 or prev_post or next_post %}
+    <section class="post-more" aria-labelledby="more-writing-heading">
+      <h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2>
 
-        {% if prev_post or next_post %}
-        <nav class="post-nav" aria-label="More writing">
-          {% if next_post %}
-          <a class="post-nav-prev" href="{{ next_post.url | relative_url }}">
-            <span class="post-nav-label">← Newer</span>
-            <span class="post-nav-title">{{ next_post.title }}</span>
-          </a>
-          {% else %}<span></span>{% endif %}
-          {% if prev_post %}
-          <a class="post-nav-next" href="{{ prev_post.url | relative_url }}">
-            <span class="post-nav-label">Older →</span>
-            <span class="post-nav-title">{{ prev_post.title }}</span>
-          </a>
+      {% if top_related_keys.size >= 1 %}
+      <ul class="related-posts">
+        {% for related_key in top_related_keys %}
+          {% assign related_url = related_key | slice: 13, 200 %}
+          {% assign related_post = nil %}
+          {% for post in site.posts %}{% if post.url == related_url %}{% assign related_post = post %}{% endif %}{% endfor %}
+          {% if related_post %}
+          <li class="related-post">
+            <time class="related-post-date" datetime="{{ related_post.date | date_to_xmlschema }}">{{ related_post.date | date: "%b %d, %Y" }}</time>
+            <a class="related-post-title" href="{{ related_post.url | relative_url }}">{{ related_post.title }}</a>
+            {% assign reason = nil %}
+            {% assign rarest_count = 99999 %}
+            {% for category in page_categories %}
+              {% if related_post.categories contains category %}
+                {% assign category_count = site.categories[category].size %}
+                {% if category_count < rarest_count %}
+                  {% assign rarest_count = category_count %}
+                  {% assign reason = "More from " | append: category %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% unless reason %}
+            {% for tag in page_tags %}{% if related_post.tags contains tag %}{% assign reason = "Also about " | append: tag %}{% endif %}{% endfor %}
+            {% endunless %}
+            {% unless reason %}{% assign reason = "Related reading" %}{% endunless %}
+            <span class="related-post-reason">{{ reason }}</span>
+          </li>
           {% endif %}
-        </nav>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if prev_post or next_post %}
+      <nav class="post-nav" aria-label="Newer and older posts">
+        {% if next_post %}
+        <a class="post-nav-prev" href="{{ next_post.url | relative_url }}">
+          <span class="post-nav-label">← Newer</span>
+          <span class="post-nav-title">{{ next_post.title }}</span>
+        </a>
+        {% else %}<span></span>{% endif %}
+        {% if prev_post %}
+        <a class="post-nav-next" href="{{ prev_post.url | relative_url }}">
+          <span class="post-nav-label">Older →</span>
+          <span class="post-nav-title">{{ prev_post.title }}</span>
+        </a>
         {% endif %}
-      </div>
-    </details>
+      </nav>
+      {% endif %}
+    </section>
     {% endif %}
 
     {% if page.comments == true %}

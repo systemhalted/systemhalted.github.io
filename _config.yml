@@ -71,6 +71,9 @@ collections:
     output: false
   emacs: 
     output: true 
+  notes:
+    output: true
+    permalink: /notes/:name/
 
 # Theme (nord-newsletter) content config
 newsletter_cta:

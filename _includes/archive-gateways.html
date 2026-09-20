@@ -1,5 +1,6 @@
 <nav class="archive-gateways" aria-label="Browse the archive">
   <a href="{{ '/archives/' | relative_url }}"{% if page.url == '/archives/' %} aria-current="page"{% endif %}>Archive</a>
+  <a href="{{ '/notes/' | relative_url }}"{% if page.url == '/notes/' %} aria-current="page"{% endif %}>Notes</a>
   <button class="text-button search-open-trigger" type="button">Search</button>
   <a href="{{ '/categories/' | relative_url }}"{% if page.url == '/categories/' %} aria-current="page"{% endif %}>Categories</a>
   <a href="{{ '/tags/' | relative_url }}"{% if page.url == '/tags/' %} aria-current="page"{% endif %}>Tags</a>

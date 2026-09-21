@@ -4,7 +4,8 @@
   "description": "Dev-only Node deps for accessibility auditing. The site itself is Jekyll/Ruby; nothing here is shipped to readers.",
   "scripts": {
     "a11y": "node scripts/a11y.js",
-    "a11y:json": "node scripts/a11y.js --json"
+    "a11y:json": "node scripts/a11y.js --json",
+    "smoke": "node scripts/browser-smoke.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

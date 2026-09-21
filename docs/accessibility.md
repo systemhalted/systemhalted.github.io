@@ -74,6 +74,7 @@ npm install
 
 # Each run: build + serve, then audit
 bundle exec jekyll serve   # in one terminal
+npm run smoke              # in another
 npm run a11y               # in another
 ```
 

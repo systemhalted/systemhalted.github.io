@@ -35,6 +35,14 @@ jobs:
       - name: Build Jekyll site
         run: bundle exec jekyll build
 
+      - name: Install Emacs
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes emacs-nox
+
+      - name: Check EWW rendering
+        run: emacs -Q --batch --script scripts/test-eww-rendering.el _site/index.html
+
       - name: Serve Jekyll site
         run: |
           bundle exec jekyll serve --skip-initial-build --no-watch --port 4002 --detach
@@ -43,6 +51,9 @@ jobs:
             sleep 1
           done
           exit 1
+
+      - name: Run browser interaction smoke checks
+        run: npm run smoke
 
       - name: Run Axe audit
         run: npm run a11y:json

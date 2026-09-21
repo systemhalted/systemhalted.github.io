@@ -39,57 +39,68 @@
       </div>
     </header>
 
-    <div id="search-overlay" class="search-overlay" aria-hidden="true">
-      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
-        <div class="search-header">
-          <h2 id="search-title" class="sr-only">Search all writing</h2>
-          <label class="sr-only" for="search-input">Search all writing</label>
-          <input id="search-input" class="search-input" type="search"
-                 placeholder="Search all writing…" autocomplete="off">
-          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 5l14 14M19 5 5 19"></path>
-            </svg>
-          </button>
-        </div>
-        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
-        {% assign suggestions = site.search.suggestions %}
-        {% unless suggestions %}{% assign suggestions = "engineering,leadership,emacs" | split: "," %}{% endunless %}
-        <div id="search-results" class="search-results" data-suggestions="{{ suggestions | join: ',' }}">
-          <div class="search-empty-state">
-            <p class="search-empty">Type to search, or try:</p>
-            <ul class="search-suggestions">
-              {% for suggestion in suggestions %}
-              <li><button type="button" data-suggest="{{ suggestion }}">{{ suggestion }}</button></li>
-              {% endfor %}
-            </ul>
+    <template id="interactive-overlays">
+      <div id="search-overlay" class="search-overlay" aria-hidden="true">
+        <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+          <div class="search-header">
+            <h2 id="search-title" class="sr-only">Search all writing</h2>
+            <label class="sr-only" for="search-input">Search all writing</label>
+            <input id="search-input" class="search-input" type="search"
+                   placeholder="Search all writing…" autocomplete="off">
+            <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 5l14 14M19 5 5 19"></path>
+              </svg>
+            </button>
+          </div>
+          <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+          {% assign suggestions = site.search.suggestions %}
+          {% unless suggestions %}{% assign suggestions = "engineering,leadership,emacs" | split: "," %}{% endunless %}
+          <div id="search-results" class="search-results" data-suggestions="{{ suggestions | join: ',' }}">
+            <div class="search-empty-state">
+              <p class="search-empty">Type to search, or try:</p>
+              <ul class="search-suggestions">
+                {% for suggestion in suggestions %}
+                <li><button type="button" data-suggest="{{ suggestion }}">{{ suggestion }}</button></li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
-      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
-        <div class="search-header">
-          <h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2>
-          <button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg>
-          </button>
-        </div>
-        <div class="shortcuts-body">
-          <dl class="shortcuts-list">
-            <dt><kbd>/</kbd></dt><dd>Search</dd>
-            <dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd>
-            <dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd>
-            <dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd>
-            <dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd>
-            <dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd>
-            <dt><kbd>?</kbd></dt><dd>Show this help</dd>
-            <dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd>
-          </dl>
+      <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+        <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+          <div class="search-header">
+            <h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2>
+            <button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg>
+            </button>
+          </div>
+          <div class="shortcuts-body">
+            <dl class="shortcuts-list">
+              <dt><kbd>/</kbd></dt><dd>Search</dd>
+              <dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd>
+              <dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd>
+              <dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd>
+              <dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd>
+              <dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd>
+              <dt><kbd>?</kbd></dt><dd>Show this help</dd>
+              <dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd>
+            </dl>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
+
+    <script>
+      (function() {
+        var template = document.getElementById('interactive-overlays');
+        if (!template || !template.content) return;
+        template.parentNode.insertBefore(template.content, template);
+        template.parentNode.removeChild(template);
+      })();
+    </script>
 
     <main id="main-content" class="container content" tabindex="-1">
       {{ content }}

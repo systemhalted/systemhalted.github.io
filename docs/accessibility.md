@@ -10,6 +10,9 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 - Search overlay has focus trapping and returns focus on close (`assets/js/script.js`).
 - Keyboard shortcuts + in-app help dialog launched with `?` (see [Keyboard shortcuts](#keyboard-shortcuts) below).
 - Webcmd help uses semantic lists and headings (`assets/js/webcmd.js`).
+- Search and shortcut dialogs are materialized from an HTML template when
+  JavaScript runs. Keep the primary navigation and reading content outside that
+  template so non-JavaScript readers, including Emacs EWW, receive a clean page.
 
 ## Content guidelines
 - Always provide meaningful `alt` text for images that convey information.
@@ -72,6 +75,12 @@ npm install
 # Each run: build + serve, then audit
 bundle exec jekyll serve   # in one terminal
 npm run a11y               # in another
+```
+
+After building the site, check the homepage with the same renderer EWW uses:
+
+```bash
+emacs -Q --batch --script scripts/test-eww-rendering.el _site/index.html
 ```
 
 Config lives in `a11y.config.json`; URLs to audit are in the `urls` array. Add a URL when you ship a new page family (e.g. a new collection landing). The runner checks `CHROME_PATH`, `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`, and `PUPPETEER_EXECUTABLE_PATH` before common Linux Chrome paths. The `jsgames/` directory is explicitly excluded — it's a different problem with different constraints.

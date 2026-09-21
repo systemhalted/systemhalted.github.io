@@ -51,6 +51,10 @@ It then builds an elasticlunr index with fields `title`, `layout`, `categories`,
 Markup lives in `_layouts/default.html`:
 - `.search-toggle` opens the overlay.
 - `#search-overlay` contains `#search-input`, `#search-results`, and `#search-status`.
+- The search and shortcut dialogs live inside `#interactive-overlays`, an HTML
+  template. A small inline bootstrap inserts them into the document before
+  `assets/js/script.js` runs. Text renderers such as Emacs EWW skip the
+  JavaScript-only dialogs and retain the ordinary navigation and page content.
 
 Logic lives in `assets/js/script.js`:
 - Opening search first loads `assets/js/elasticlunr.min.js`, then the generated

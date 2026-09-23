@@ -153,9 +153,6 @@ Value objects are one of the most consequential shifts to Java’s object model 
 
 If this feature lands well, it opens the door to a more expressive and more efficient Java. Developers get to model dates, coordinates, money, measurements, wrappers, and other simple values as full-fledged classes without paying the traditional "every object is a unique heap thing" tax. The JVM gets more freedom to optimize. And Java code gets closer to the way people already reason about immutable data.
 
-That is a rare combination: a feature that improves the mental model and the runtime model at the same time.
-
-
 -----
 
 ## References and Notes

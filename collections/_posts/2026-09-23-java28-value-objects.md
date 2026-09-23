@@ -120,8 +120,6 @@ One of the more interesting parts of the proposal is not visible in everyday cod
 
 Because a value object has no identity, it must never be observed in a partially initialized state. To guarantee that, constructor code for value classes runs under safe construction constraints that prevent early leakage of `this`. That protects invariants and ensures recursive `==` comparisons cannot run into cycles created during construction.
 
-This is the kind of language/runtime plumbing that most developers will not think about often, but it is essential to making the feature sound.
-
 ## How to try it in JDK 28
 
 Value objects are a **preview feature** in JDK 28, so they are disabled by default.

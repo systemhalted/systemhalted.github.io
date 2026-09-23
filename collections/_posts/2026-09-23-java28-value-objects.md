@@ -3,8 +3,8 @@ layout: post
 title: "Java 28 Preview: Value Objects Bring Identity-Free Data to Java"
 categories: [Software Engineering, Computer Science]
 tags: [language design, jep, java, value objects, immutability, objects, oop, java runtime]
-toc:true
-comments:true
+toc: true
+comments: true
 description: This post explores the Java 28 value objects JEP
 ---
 

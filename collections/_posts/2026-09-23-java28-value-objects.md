@@ -1,30 +1,24 @@
 ---
 layout: post
-title: "Java 28 Preview: Value Objects Bring Identity-Free Data to Java"
+title: Java 28 Preview: Value Objects Bring Identity-Free Data to Java
 categories: [Software Engineering, Computer Science]
-tags: [language design, jep, java, value objects, immutability, objects, oop, java runtime]
+tags: [language design, jep, java, value objects, immutability, objects, oop, java runtime, AI-assisted]
 toc: true
 comments: true
-description: This post explores the Java 28 value objects JEP
+description: How Java 28’s value objects bring identity-free data to Java, changing equality semantics and opening new JVM optimizations.
 ---
 
-Java has always treated every object as a distinct thing with its own identity. That is the right model for mutable entities, but it has always been awkward for immutable data. A `LocalDate` for `1996-01-23` and another `LocalDate` for `1996-01-23` behave like the same value, yet the language has historically treated them as two different objects. JDK 28’s preview of value objects changes that. JEP 401[^1] introduces `value` classes: classes whose instances are immutable, interchangeable, and eligible for much more efficient runtime layouts.
-
-This is a bigger shift than it first appears. Value objects are not just "small immutable classes with nicer syntax." They change what `==` means for a specific kind of object, they let the JVM stop treating every immutable value as a separately allocated heap object, and they bring Java closer to the way developers already think about dates, numbers, money, optionals, and other simple data.
+Java has always treated every object as a distinct thing with its own identity. That is the right model for mutable entities, but it has always been awkward for immutable data. A `LocalDate` for `1996-01-23` and another `LocalDate` for `1996-01-23` behave like the same value, yet the language has historically treated them as two different objects. The  JDK 28’s preview of value objects[^1] changes that. JEP 401[^2] introduces `value` classes: classes whose instances are immutable, interchangeable, and eligible for much more efficient runtime layouts.
 
 ## Why Java needed this
 
-Java’s object model has carried a long-standing mismatch: every object has identity, even when identity adds no business value. There are two issues with this approach. First, it is confusing. Developers learn early that `equals()` compares content while `==` compares identity. That makes sense for mutable objects, but it feels unnatural for immutable values. If two `LocalDate` instances represent the same date, most people instinctively think of them as the same thing.
+There are two issues with the current Java object model. The first is semantic. Developers learn that `==` tests object identity, while classes such as `LocalDate` define `equals()` in terms of their logical value. That distinction is useful when identity matters, but less natural for values. If two `LocalDate` instances represent the same date, we usually think of them as the same value.
 
-Second, it is expensive. If every immutable value must still be a separately identifiable object, the JVM has to preserve that identity. That typically means heap allocation, object headers, pointer chasing, and more work for the garbage collector. Arrays of `LocalDate` references, for example, are much heavier than arrays of primitive values, even though a date is really just a small bundle of data.
-
-Value objects address both problems by letting class authors opt out of identity when identity is not needed.
+The second problem is the runtime cost. Even when identity has no semantic value, the JVM must preserve it. Collections of small immutable objects can therefore require substantially more allocation and indirection than equivalent primitive data..
 
 ## What Java 28 adds
 
-Java 28 introduces **value classes**, declared with the `value` modifier. Instances of those classes are **value objects**. Classes without the modifier remain ordinary identity classes.
-
-The core idea of value classes is that *a value object is defined by the values of its fields, not by a unique identity in memory*.
+Java 28 introduces **value classes**, declared with the `value` modifier. Instances of those classes are **value objects**, defined by the values of its fields, not by a unique identity. Classes without the modifier remain ordinary identity classes.
 
 That affects the language in a few important ways:
 
@@ -51,7 +45,7 @@ var d2 = d1.plusYears(30).minusYears(30);
 System.out.println(d1 == d2); // true with preview-enabled value objects
 ```
 
-That is a meaningful shift, but it is also carefully scoped. `==` still works exactly as it always has for identity objects. `String`, for example, remains an identity class.
+The `==` still works exactly as it always has for identity objects. `String`, for example, remains an identity class.
 
 ## What a value class looks like
 
@@ -71,38 +65,24 @@ System.out.println(p1 == p2);                // true
 System.out.println(Objects.hasIdentity(p1)); // false
 ```
 
-But value classes are not limited to transparent record-style data. You can still hide representation details behind methods, which is important for domain types like money, ranges, measurements, or compressed encodings.
-
-That means value objects are not "Java structs." They keep the abstraction benefits of classes while letting the runtime treat immutable data more like raw values when it can.
+But value classes are not limited to transparent record-style data. They can hide their representation details behind methods, preserving the abstraction of ordinary classes while allowing the JVM to treat their immutable data more like a raw value. They are therefore not simply "Java structs". 
 
 ## `==` is changing, but `equals()` still matters
 
-One easy mistake would be to read this feature as "Java is replacing `equals()` with `==`." It is not.
-
-For many value classes, `==` and `equals()` will often produce the same answer. But not always.
-
-A value class may have an internal representation that differs even when the logical value is the same. The proposal uses examples like substring wrappers and NaN payloads to show that two value objects can be logically equal without being indistinguishable field-by-field. In other words, `equals()` still represents your semantic notion of value equality, while `==` answers a narrower question: are these two value objects indistinguishable under the language rules?
-
-That means the usual advice still stands: use `equals()` for most logical comparisons in application code. Value objects make `==` less surprising in some cases, but they do not eliminate the need for good equality design.
+`==` and `equals()` may often agree for value classes, but they differ in what they answer. A value class may have an internal representation that differs even when the logical value is the same. The proposal uses examples like substring wrappers and NaN payloads to show that two value objects can be logically equal without being indistinguishable field-by-field. `equals()` expresses semantic equality, while `==` asks whether two value objects are indistinguishable under the language rules.
 
 ## Why this matters for performance
-
-The runtime story here is just as important as the language story.
 
 Once a program can no longer observe identity for a value object, the JVM gains freedom in how it stores and moves that data. The proposal highlights two key optimizations:
 
 - **Reference flattening**: a field or array element can directly encode the data of a value object instead of storing a pointer to a heap object.
 - **Reference scalarization**: a local variable or method parameter can be broken into individual field values rather than carried around as a heap reference.
 
-In practical terms, this means arrays of immutable values can become much denser and more cache-friendly. An array of `LocalDate` values may no longer need to be an array of pointers to separately allocated objects. The JVM may be able to store the date fields inline, reducing memory footprint and improving locality.
-
-This is why value objects matter beyond syntax. They create room for the JVM to deliver primitive-like efficiency for many domain types without forcing developers to give up encapsulation and type safety.
+In practical terms, an array of `LocalDate` values may no longer require pointers to separately allocated objects. The JVM may instead store their data inline, reducing memory use and improving locality. More broadly, value objects give the JVM opportunities for primitive-like efficiency without sacrificing encapsulation or type safety.
 
 ## There are real behavioral changes to understand
 
-Value objects are a powerful feature, but they are not a drop-in replacement for every immutable class.
-
-A few of the important caveats:
+Value objects are not a drop-in replacement for every immutable class. A few of the important caveats:
 
 - You cannot synchronize on a value object. Identity-sensitive operations such as locking, `wait()`, and `notify()` do not make sense without identity.
 - Migrating an existing class to a value class can break code that relied on object identity, public constructors, or `==` for uniqueness checks.
@@ -112,17 +92,12 @@ A few of the important caveats:
 
 There is also a subtle security and performance angle: because `==` now works recursively over fields for value objects, comparisons can expose more about object state than identity used to, and deep comparisons may be more expensive than developers expect.
 
-In short, value objects are a great fit for immutable, interchangeable data. They are a bad fit for anything whose behavior depends on uniqueness, locking, lifecycle hooks, or identity-based caches.
+The dividing line is identity. If uniqueness, synchronization, or identity-based behavior is part of the abstraction, it should remain an identity class.
 
-## Safer construction is part of the model
-
-One of the more interesting parts of the proposal is not visible in everyday code: value objects come with stricter construction rules.
-
-Because a value object has no identity, it must never be observed in a partially initialized state. To guarantee that, constructor code for value classes runs under safe construction constraints that prevent early leakage of `this`. That protects invariants and ensures recursive `==` comparisons cannot run into cycles created during construction.
 
 ## How to try it in JDK 28
 
-Value objects are a **preview feature** in JDK 28, so they are disabled by default.
+Value objects are currently a preview feature in JDK 28 early-access builds, so they must be explicitly enabled.
 
 To try them:
 
@@ -143,16 +118,17 @@ And for JShell:
 jshell --enable-preview
 ```
 
-One subtle detail is especially important: some platform classes only become value classes when preview is enabled. If you compile without preview, classes such as `LocalDate` behave the way they did before. If you compile with preview enabled, you are compiling against the new value-object version and must also run with preview enabled.
+Some platform classes become value classes only when preview features are enabled. Code compiled against those preview definitions must therefore also run with `--enable-preview`.
 
 ## Why this preview matters
 
-Value objects are one of the most consequential shifts to Java’s object model in a long time. They acknowledge something developers have known for years: not every object needs identity, and forcing identity on immutable data has both semantic and performance costs.
+VValue objects change a foundational assumption in Java: objects no longer necessarily imply identity. That lets developers model dates, coordinates, money, measurements, and similar values as classes while giving the JVM more freedom to optimize their representation.  
 
-If this feature lands well, it opens the door to a more expressive and more efficient Java. Developers get to model dates, coordinates, money, measurements, wrappers, and other simple values as full-fledged classes without paying the traditional "every object is a unique heap thing" tax. The JVM gets more freedom to optimize. And Java code gets closer to the way people already reason about immutable data.
+
 
 -----
 
 ## References and Notes
 
-[^1]:  JEP 401: Value Objects (Preview), [jep401](https://openjdk.org/jeps/401)
+[^1]: Java 28 binaries are available as early release. So, you won't find them on `mise` or `sdkman`.
+[^2]:  JEP 401: Value Objects (Preview), [jep401](https://openjdk.org/jeps/401). 

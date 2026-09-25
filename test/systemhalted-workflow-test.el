@@ -103,7 +103,14 @@
           (with-temp-file (expand-file-name "index.html" output)
             (insert "<!doctype html><title>Preview works</title>"))
           (let ((systemhalted-output-directory output))
-            (let ((port (systemhalted-start-preview-server)))
+            (let ((port
+                   (condition-case error-data
+                       (systemhalted-start-preview-server)
+                     (file-error
+                      (if (string-match-p "Operation not permitted"
+                                          (error-message-string error-data))
+                          (ert-skip "Sandbox does not permit a loopback server")
+                        (signal (car error-data) (cdr error-data)))))))
               (setq response
                     (url-retrieve-synchronously
                      (format "http://127.0.0.1:%d/" port) t t 3))))

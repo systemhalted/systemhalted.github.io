@@ -3,7 +3,7 @@
 #+DATE: 2011-04-24 20:55:59 -0500
 #+CATEGORIES: Books & Reading
 #+TAGS: book-review
-#+PERMALINK: /2011/04/24/book-review-more-salt-than-pepper/
+#+PERMALINK: /2011/04/25/book-review-more-salt-than-pepper/
 #+FEATURED_IMAGE: /assets/2011/04/8329909.jpg
 #+FEATURED_IMAGE_ALT: Book cover: More Salt Than Pepper by Karan Thapar
 

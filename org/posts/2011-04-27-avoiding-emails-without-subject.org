@@ -3,7 +3,7 @@
 #+DATE: 2011-04-27 22:14:30 -0500
 #+CATEGORIES: Technology
 #+TAGS: technology
-#+PERMALINK: /2011/04/27/avoiding-emails-without-subject/
+#+PERMALINK: /2011/04/28/avoiding-emails-without-subject/
 
 More often than not I used to compile a fantastic mail to send to my colleagues (even managers) in office and just after clicking *Send*, it used to strike me that I had missed mentioning the subject. So, I requested a few friends on [[http://www.infosys.com/][Infosys]] internal blogs to send me the script for Outlook. Nikhil Kurien mailed me the requested piece of code back in 2007. I was just cleaning up my mails and thought it would be better if I keep it on my blog, as it would make it easy for me to access it whenever I wish rather than searching for the mail.
 

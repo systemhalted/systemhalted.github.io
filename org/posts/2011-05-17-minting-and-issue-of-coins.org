@@ -3,7 +3,7 @@
 #+DATE: 2011-05-17 19:48:32 -0500
 #+CATEGORIES: Society & Economy
 #+TAGS: society, economy, india, mumbai
-#+PERMALINK: /2011/05/17/minting-and-issue-of-coins/
+#+PERMALINK: /2011/05/18/minting-and-issue-of-coins/
 
 - [[http://commons.wikipedia.org/wiki/File:Trussel_and_minting.jpg][[[/assets/2011/05/300px-Trussel_and_minting.jpg]]]] :: Hammered Coins (Image by Wikipedia)
 

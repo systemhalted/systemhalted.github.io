@@ -3,7 +3,7 @@
 #+DATE: 2011-04-27 21:56:11 -0500
 #+CATEGORIES: Technology
 #+TAGS: technology
-#+PERMALINK: /2011/04/27/average-ping-response-time/
+#+PERMALINK: /2011/04/28/average-ping-response-time/
 
 A colleague asked me what is the average ping response time for internet browsing. I surprisingly asked why did he ask me to which he replied that he saw my profile and found that I have worked as Technical Support Engineer with VCustomer and therefore thought that I will be able to answer him and help him with the slow speed that he is receiving while browsing.
 

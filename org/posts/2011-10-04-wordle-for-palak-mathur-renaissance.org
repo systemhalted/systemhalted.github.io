@@ -3,7 +3,7 @@
 #+DATE: 2011-10-04 19:58:36 -0500
 #+CATEGORIES: Personal Essays
 #+TAGS: personal, opinion, india
-#+PERMALINK: /2011/10/04/wordle-for-palak-mathur-renaissance/
+#+PERMALINK: /2011/10/05/wordle-for-palak-mathur-renaissance/
 
 ** I am obsessed with India!!
 :PROPERTIES:

@@ -47,6 +47,31 @@
     (should (equal (systemhalted-record-route record)
                    "/2026/09/25/derived-route/"))))
 
+(ert-deftest systemhalted-read-record-computes-route-and-date-in-utc ()
+  "A DATE with an explicit offset that crosses midnight UTC must shift the
+default route to the UTC day and expose the precise UTC instant, matching
+Jekyll's behavior on GitHub's UTC build runners."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: UTC Shift\n#+DESCRIPTION: UTC shift fixture.\n"
+              "#+DATE: 2026-09-25 23:30:00 -0500\n#+CATEGORIES: Tests\n#+TAGS: org\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (date (systemhalted-record-date record)))
+      (should (string-prefix-p "/2026/09/26/" (systemhalted-record-route record)))
+      (should (equal (format-time-string "%Y-%m-%dT%H:%M:%S%:z" date t)
+                     "2026-09-26T04:30:00+00:00")))))
+
+(ert-deftest systemhalted-read-record-treats-naive-datetime-as-utc ()
+  "A DATE with a time but no offset must be treated as already UTC, the way
+Jekyll's UTC build runners interpret an unzoned timestamp."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Naive Datetime\n#+DESCRIPTION: Naive datetime fixture.\n"
+              "#+DATE: 2026-09-25 21:45\n#+CATEGORIES: Tests\n#+TAGS: org\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (date (systemhalted-record-date record)))
+      (should (string-prefix-p "/2026/09/25/" (systemhalted-record-route record)))
+      (should (equal (format-time-string "%Y-%m-%dT%H:%M:%S%:z" date t)
+                     "2026-09-25T21:45:00+00:00")))))
+
 (ert-deftest systemhalted-read-record-preserves-explicit-permalink ()
   "Ignoring PERMALINK would move an article from its established URL."
   (let ((record (systemhalted-read-record
@@ -251,6 +276,9 @@
     (should (string-match-p
              "<link rel=\"canonical\" href=\"https://systemhalted.in/2026/09/24/rich-content/\">"
              html))
+    (should (string-match-p
+             "<time datetime=\"2026-09-24T00:00:00\\+00:00\">"
+             html))
     (should (string-match-p "class=\"post-toc\"" html))
     (should (string-match-p "src=\"/assets/images/avatar.jpeg\"" html))
     (should (string-match-p "data-repo=\"systemhalted/systemhalted.github.io\"" html))
@@ -360,8 +388,26 @@
                    "class=\"archive-year\" data-year=\"2026\" data-count=\"4\" open"))
           (should (string-match-p (regexp-quote fragment) html)))
         (should (string-match-p
-                 "<time datetime=\"2026-09-24T00:00:00[-+][0-9:]+\">Sep 24</time>"
+                 "<time datetime=\"2026-09-24T00:00:00\\+00:00\">Sep 24</time>"
                  html))))))
+
+(ert-deftest systemhalted-build-site-emits-utc-iso-datetime-in-home-and-related-lists ()
+  "Home list and related-post rows must carry full UTC ISO datetime attributes,
+matching live output, instead of a bare date with no time or offset."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "index.html" output))
+      (should (string-match-p
+               "<time datetime=\"[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}T[0-9]\\{2\\}:[0-9]\\{2\\}:[0-9]\\{2\\}\\+00:00\">"
+               (buffer-string))))
+    (with-temp-buffer
+      (insert-file-contents
+       (expand-file-name "2026/09/24/rich-content/index.html" output))
+      (should (string-match-p
+               (concat "<time class=\"related-post-date\" "
+                       "datetime=\"[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
+                       "T[0-9]\\{2\\}:[0-9]\\{2\\}:[0-9]\\{2\\}\\+00:00\">")
+               (buffer-string))))))
 
 (ert-deftest systemhalted-build-site-generates-parseable-feed-and-sitemap ()
   "Malformed XML would make readers and crawlers reject the generated site."
@@ -496,6 +542,32 @@
                   (unless (string-empty-p route) (push route expected)))
                 (forward-line 1)))
             (should (equal actual (sort expected #'string-lessp)))))
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-production-build-contains-every-live-route ()
+  "Every route the live site publishes must exist in a production build.
+`test/baseline/live-routes.tsv' omits `/pageN/' (out of scope; nobody links to
+paginated pages and the local page count intentionally differs), and the
+`/jsgames/<game>/' and wireframes routes (covered by a later sitemap task)."
+  (let ((output (make-temp-file "systemhalted-live-routes-" t)))
+    (unwind-protect
+        (progn
+          (systemhalted-build-site :root systemhalted-test-root :output output)
+          (let (expected)
+            (with-temp-buffer
+              (insert-file-contents
+               (expand-file-name "test/baseline/live-routes.tsv" systemhalted-test-root))
+              (goto-char (point-min))
+              (forward-line 1)
+              (while (not (eobp))
+                (let ((route (string-trim
+                              (buffer-substring (line-beginning-position)
+                                                (line-end-position)))))
+                  (unless (string-empty-p route) (push route expected)))
+                (forward-line 1)))
+            (dolist (route expected)
+              (should (file-exists-p
+                       (systemhalted--local-target-file output route))))))
       (delete-directory output t))))
 
 (provide 'systemhalted-publish-test)

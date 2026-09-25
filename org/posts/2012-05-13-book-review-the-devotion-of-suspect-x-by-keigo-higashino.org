@@ -3,7 +3,7 @@
 #+DATE: 2012-05-13 19:33:03 -0500
 #+CATEGORIES: Books & Reading
 #+TAGS: book-review, india
-#+PERMALINK: /2012/05/13/book-review-the-devotion-of-suspect-x-by-keigo-higashino/
+#+PERMALINK: /2012/05/14/book-review-the-devotion-of-suspect-x-by-keigo-higashino/
 #+FEATURED_IMAGE: /assets/2012/05/devotionofsuspect.jpg?w=300
 #+FEATURED_IMAGE_ALT: Book cover: The Devotion of Suspect X by Keigo Higashino
 

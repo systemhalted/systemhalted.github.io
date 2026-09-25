@@ -3,7 +3,7 @@
 #+DATE: 2009-03-26 21:13:30 -0500
 #+CATEGORIES: Politics & Governance
 #+TAGS: politics, mumbai
-#+PERMALINK: /2009/03/26/earth-hour-lets-make-the-difference/
+#+PERMALINK: /2009/03/27/earth-hour-lets-make-the-difference/
 #+FEATURED_IMAGE: /assets/2009/03/3272818761_463433b001.jpg
 #+FEATURED_IMAGE_ALT: Earth Hour 2009 promotional poster
 

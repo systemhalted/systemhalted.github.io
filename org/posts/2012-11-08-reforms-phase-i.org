@@ -3,7 +3,7 @@
 #+DATE: 2012-11-08 22:06:54 -0600
 #+CATEGORIES: Society & Economy, Personal Essays
 #+TAGS: society, economy, personal, opinion, sports, india
-#+PERMALINK: /2012/11/08/reforms-phase-i/
+#+PERMALINK: /2012/11/09/reforms-phase-i/
 #+FEATURED_IMAGE: /assets/2012/11/121064692_fc0383aece_m.jpg
 #+FEATURED_IMAGE_ALT: politics - Clint
 

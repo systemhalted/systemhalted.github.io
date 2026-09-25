@@ -3,7 +3,7 @@
 #+DATE: 2010-08-15 23:14:52 -0500
 #+CATEGORIES: Technology
 #+TAGS: technology
-#+PERMALINK: /2010/08/15/black-day-for-java/
+#+PERMALINK: /2010/08/16/black-day-for-java/
 
 - [[http://www.crunchbase.com/company/google][[[/assets/2010/08/29578v7-max-450x450.jpg]]]] :: Image via CrunchBase
 

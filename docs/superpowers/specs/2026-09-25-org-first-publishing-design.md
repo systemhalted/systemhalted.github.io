@@ -29,8 +29,9 @@ preserve legacy times and exceptional routes. Optional keywords cover comments,
 table of contents, last modification, and featured-image metadata.
 
 Drafts are separate sources and never appear in production. Preview builds may
-include drafts and future-dated posts. Date-only values use `US/Central`; dates
-with explicit times and offsets keep those values.
+include drafts and future-dated posts. Date-only values use UTC, matching
+Jekyll on GitHub's UTC runners; dates with explicit times and offsets convert
+to the equivalent UTC instant.
 
 The former Kartavya Path essays are ordinary posts. Their existing
 `/newsletter/.../` permalinks remain, while newsletter flags, promotion,

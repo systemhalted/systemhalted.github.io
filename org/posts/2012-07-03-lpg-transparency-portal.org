@@ -3,7 +3,7 @@
 #+DATE: 2012-07-03 22:31:24 -0500
 #+CATEGORIES: Politics & Governance, Technology, Society & Economy
 #+TAGS: politics, technology, society, economy, india
-#+PERMALINK: /2012/07/03/lpg-transparency-portal/
+#+PERMALINK: /2012/07/04/lpg-transparency-portal/
 
 [[http://en.wikipedia.org/wiki/Ministry_of_Petroleum_and_Natural_Gas_%28India%29][Ministry of Petroleum and Natural Gas]] has launched the [[http://www.bharatpetroleum.com/Transparency_portal/LPG_portal.html][LPG Transparency Portal]] under [[http://en.wikipedia.org/wiki/Government-to-citizen][Government to Citizen]] (G2C) service category.Click on the above link or paste the following url in your browser:-
 

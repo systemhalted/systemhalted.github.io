@@ -3,7 +3,7 @@
 #+DATE: 2007-04-22 20:41:00 -0500
 #+CATEGORIES: Personal Essays
 #+TAGS: personal, opinion
-#+PERMALINK: /2007/04/22/fog-index/
+#+PERMALINK: /2007/04/23/fog-index/
 
 // Disclaimer:: Fog Index is not developed by me. I am just presenting it in my words. :)
 

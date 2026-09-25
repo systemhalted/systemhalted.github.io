@@ -3,7 +3,7 @@
 #+DATE: 2007-10-09 20:40:00 -0500
 #+CATEGORIES: Politics & Governance
 #+TAGS: politics, india
-#+PERMALINK: /2007/10/09/future-of-engineers/
+#+PERMALINK: /2007/10/10/future-of-engineers/
 
 Read this [[http://mohitontherocks.wordpress.com/2007/10/03/the-great-indian-software-engineer][article]] on Wordpress. Agree with most of the things said. It is true that all engineers out of college look forward to get a Software job in companies like Infosys, TCS, Wipro, Cognizant and all not because they are crazy about software programming or want to make thousands of money each month, but because the opportunity for engineers in their core branch is negligible. Except for IITs, all other colleges have negligible or no placements in core branches.
 

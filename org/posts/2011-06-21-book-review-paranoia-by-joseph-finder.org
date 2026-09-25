@@ -3,7 +3,7 @@
 #+DATE: 2011-06-21 21:00:32 -0500
 #+CATEGORIES: Books & Reading
 #+TAGS: book-review
-#+PERMALINK: /2011/06/21/book-review-paranoia-by-joseph-finder/
+#+PERMALINK: /2011/06/22/book-review-paranoia-by-joseph-finder/
 
 - *Author:* [[http://www.josephfinder.com][Joseph Finder]]
 

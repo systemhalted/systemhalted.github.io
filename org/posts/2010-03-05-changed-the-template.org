@@ -3,7 +3,7 @@
 #+DATE: 2010-03-05 18:18:05 -0600
 #+CATEGORIES: Personal Essays
 #+TAGS: personal, opinion
-#+PERMALINK: /2010/03/05/changed-the-template/
+#+PERMALINK: /2010/03/06/changed-the-template/
 
 Finally today I changed the template for three of  my blogs on blogger, viz. [[http://palakmathur.blogspot.com][Renaissance]], [[http://aatmiyata.blogspot.com][Aatmiyata]] and [[http://techfoci.blogspot.com][Tech Foci]] . Was getting bore while doing deployment. Actually, I have been deployments for past few weeks and now I am not interested in doing so. So, was just thinking about the days back in Infosys. You will have to believe that whenever I think about Infosys, first thing that clicks my mind is about InfyBlogs - how I used to change the templates of the blog. More than writing, for few months I was interested in only making new templates for my blog. It used to satisfy my creative thirst.
 

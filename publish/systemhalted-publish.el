@@ -82,20 +82,22 @@
       (list nil base))))
 
 (defun systemhalted--parse-date (file value)
-  "Parse date VALUE for FILE into an Emacs time value."
+  "Parse date VALUE for FILE into a UTC-anchored Emacs time value.
+A bare date means midnight UTC. A date and time with no explicit offset is
+treated as already being in UTC, matching Jekyll's UTC build runners. A date
+and time with an explicit offset converts to the equivalent UTC instant,
+which is how the live site's dated URLs and timestamps were derived."
   (unless value
     (systemhalted--source-error file "missing DATE and no date in filename"))
-  (let ((clean (string-trim value "[<[]" "[]>]")))
-    (condition-case nil
-        (if (string-match
-             "\\`\\([0-9]\\{4\\}\\)-\\([0-9]\\{2\\}\\)-\\([0-9]\\{2\\}\\)\\'"
-             clean)
-            (encode-time 0 0 12
-                         (string-to-number (match-string 3 clean))
-                         (string-to-number (match-string 2 clean))
-                         (string-to-number (match-string 1 clean)))
-          (date-to-time clean))
-      (error (systemhalted--source-error file "invalid DATE %S" value)))))
+  (let* ((clean (string-trim value "[<[]" "[]>]"))
+         (parsed (condition-case nil (parse-time-string clean) (error nil)))
+         (day (nth 3 parsed))
+         (month (nth 4 parsed))
+         (year (nth 5 parsed)))
+    (unless (and day month year)
+      (systemhalted--source-error file "invalid DATE %S" value))
+    (encode-time (or (nth 0 parsed) 0) (or (nth 1 parsed) 0) (or (nth 2 parsed) 0)
+                 day month year (or (nth 8 parsed) t))))
 
 (defun systemhalted--normalize-route (file route)
   "Validate and normalize ROUTE claimed by FILE."
@@ -111,12 +113,16 @@
       route
     (concat route "/")))
 
+(defun systemhalted--iso-datetime (date)
+  "Return DATE formatted as a UTC ISO 8601 datetime, e.g. 2026-09-25T00:00:00+00:00."
+  (format-time-string "%Y-%m-%dT%H:%M:%S%:z" date t))
+
 (defun systemhalted--default-route (file kind date slug)
   "Derive a route for FILE of KIND using DATE and SLUG."
   (pcase kind
     ((or 'post 'draft)
      (format "/%s/%s/"
-             (format-time-string "%Y/%m/%d" date)
+             (format-time-string "%Y/%m/%d" date t)
              slug))
     ('emacs (format "/emacs/%s/" slug))
     ('page (if (equal slug "index") "/" (format "/%s/" slug)))
@@ -453,8 +459,8 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
           (format (concat "<li class=\"related-post\"><time class=\"related-post-date\" "
                           "datetime=\"%s\">%s</time><a class=\"related-post-title\" "
                           "href=\"%s\">%s</a><span class=\"related-post-reason\">Related reading</span></li>")
-                  (format-time-string "%Y-%m-%d" (systemhalted-record-date item))
-                  (format-time-string "%b %d, %Y" (systemhalted-record-date item))
+                  (systemhalted--iso-datetime (systemhalted-record-date item))
+                  (format-time-string "%b %d, %Y" (systemhalted-record-date item) t)
                   (systemhalted--escape-html (systemhalted-record-route item) t)
                   (systemhalted--escape-html (systemhalted-record-title item))))
         related "")
@@ -533,8 +539,8 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
     (systemhalted--template
      "post.html"
      `((?t . ,(systemhalted--escape-html (systemhalted-record-title record)))
-       (?i . ,(format-time-string "%Y-%m-%dT%H:%M:%S%z" date))
-       (?d . ,(format-time-string "%-d %B %Y" date))
+       (?i . ,(systemhalted--iso-datetime date))
+       (?d . ,(format-time-string "%-d %B %Y" date t))
        (?m . ,(format "<span aria-hidden=\"true\">·</span> %d min read" minutes))
        (?T . ,(or (and (systemhalted-record-toc record)
                        (systemhalted--toc body)) ""))
@@ -658,9 +664,9 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
     (lambda (post)
       (format (concat "<li class=\"writing-row\"><time datetime=\"%s\">%s</time>"
                       "<div class=\"writing-row-body\"><a href=\"%s\">%s</a>%s</div></li>")
-              (format-time-string "%Y-%m-%d" (systemhalted-record-date post))
+              (systemhalted--iso-datetime (systemhalted-record-date post))
               (format-time-string (if descriptions "%b %d" "%b %d, %Y")
-                                  (systemhalted-record-date post))
+                                  (systemhalted-record-date post) t)
               (systemhalted-record-route post)
               (systemhalted--escape-html (systemhalted-record-title post))
               (if descriptions
@@ -721,9 +727,8 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
    (mapconcat
     (lambda (post)
       (format "<li class=\"archive-row\"><time datetime=\"%s\">%s</time><a href=\"%s\">%s</a></li>"
-              (format-time-string "%Y-%m-%dT00:00:00%:z"
-                                  (systemhalted-record-date post))
-              (format-time-string "%b %d" (systemhalted-record-date post))
+              (systemhalted--iso-datetime (systemhalted-record-date post))
+              (format-time-string "%b %d" (systemhalted-record-date post) t)
               (systemhalted-record-route post)
               (systemhalted--escape-html (systemhalted-record-title post))))
     posts "")
@@ -740,7 +745,7 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
   "Generate chronological archive below ROOT from POSTS."
   (let ((groups (make-hash-table :test #'equal)))
     (dolist (post posts)
-      (push post (gethash (format-time-string "%Y" (systemhalted-record-date post)) groups)))
+      (push post (gethash (format-time-string "%Y" (systemhalted-record-date post) t) groups)))
     (let ((years (sort (hash-table-keys groups) #'string>)))
       (systemhalted--write-route
        root "/archives/"
@@ -749,7 +754,7 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
         (concat
          (format "<p class=\"archive-intro\">%d articles written since %s. Browse chronologically or by subject.</p>"
                  (length posts) (if posts
-                                    (format-time-string "%Y" (systemhalted-record-date (car (last posts))))
+                                    (format-time-string "%Y" (systemhalted-record-date (car (last posts))) t)
                                   ""))
          systemhalted--archive-gateways
          "<div class=\"archive-controls\"><label for=\"archive-sort\">Sort</label>"
@@ -877,7 +882,7 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
                systemhalted-site-url (systemhalted-record-route post)
                systemhalted-site-url (systemhalted-record-route post)
                (format-time-string "%a, %d %b %Y %H:%M:%S %z"
-                                   (systemhalted-record-date post))
+                                   (systemhalted-record-date post) t)
                (systemhalted--xml-escape (systemhalted-record-description post))))
      (seq-take posts 50) "")
     "</channel></rss>")))

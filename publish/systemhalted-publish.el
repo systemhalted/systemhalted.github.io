@@ -292,26 +292,36 @@ comparison clock and KIND overrides inferred content kind."
         (default-directory
          (file-name-directory (systemhalted-record-source record)))
         ;; The temporary buffer impersonates the source file for Org parsing.
-        ;; User kill-buffer hooks may ask before killing it, once per record.
+        ;; User mode hooks may install prompts on every temporary Org buffer.
+        (org-mode-hook nil)
         (kill-buffer-query-functions nil))
     (with-temp-buffer
-      (insert-file-contents (systemhalted-record-source record))
-      (setq buffer-file-name (systemhalted-record-source record))
-      (org-mode)
-      (cl-letf (((symbol-function 'org-export-new-reference)
-                 #'systemhalted--export-new-reference))
-        (org-export-as
-         'systemhalted-html nil nil t
-         '(:with-title nil
-           :with-author nil
-           :with-date nil
-           :with-toc nil
-           :section-numbers nil
-           :html-toplevel-hlevel 2
-           :html-preamble nil
-           :html-postamble nil
-           :html-html5-fancy t
-           :html-doctype "html5"))))))
+      (unwind-protect
+          (progn
+            (insert-file-contents (systemhalted-record-source record))
+            (setq buffer-file-name (systemhalted-record-source record))
+            (org-mode)
+            ;; Org's parser copies this buffer, including `buffer-file-name'.
+            ;; Keep the real path in `systemhalted--export-source' instead, so
+            ;; private export copies cannot trigger file-associated save/kill
+            ;; prompts in the user's Emacs.
+            (setq buffer-file-name nil)
+            (cl-letf (((symbol-function 'org-export-new-reference)
+                       #'systemhalted--export-new-reference))
+              (org-export-as
+               'systemhalted-html nil nil t
+               '(:with-title nil
+                 :with-author nil
+                 :with-date nil
+                 :with-toc nil
+                 :section-numbers nil
+                 :html-toplevel-hlevel 2
+                 :html-preamble nil
+                 :html-postamble nil
+                 :html-html5-fancy t
+                 :html-doctype "html5"))))
+        (setq buffer-file-name nil)
+        (set-buffer-modified-p nil)))))
 
 ;;; Templates and post relationships
 
@@ -526,6 +536,9 @@ comparison clock and KIND overrides inferred content kind."
            (t (systemhalted--template
                "page.html"
                `((?t . ,(systemhalted--escape-html (systemhalted-record-title record)))
+                 (?q . ,(if (member (systemhalted-record-route record)
+                                    '("/projects/" "/archives/"))
+                            " page-title-quiet" ""))
                  (?c . ,body))))))
          (route (systemhalted-record-route record))
          (title (if (equal route "/") "SystemHalted.in"
@@ -658,17 +671,20 @@ comparison clock and KIND overrides inferred content kind."
    (mapconcat
     (lambda (post)
       (format "<li class=\"archive-row\"><time datetime=\"%s\">%s</time><a href=\"%s\">%s</a></li>"
-              (format-time-string "%Y-%m-%d" (systemhalted-record-date post))
-              (format-time-string "%b %d, %Y" (systemhalted-record-date post))
+              (format-time-string "%Y-%m-%dT00:00:00%:z"
+                                  (systemhalted-record-date post))
+              (format-time-string "%b %d" (systemhalted-record-date post))
               (systemhalted-record-route post)
               (systemhalted--escape-html (systemhalted-record-title post))))
     posts "")
    "</ol>"))
 
 (defconst systemhalted--archive-gateways
-  (concat "<nav class=\"archive-gateways\" aria-label=\"Browse writing\">"
-          "<a href=\"/archives/\">Archive</a><a href=\"/categories/\">Categories</a>"
-          "<a href=\"/tags/\">Tags</a><a href=\"/emacs/\">Emacs</a></nav>"))
+  (concat "<nav class=\"archive-gateways\" aria-label=\"Browse the archive\">"
+          "<a href=\"/archives/\" aria-current=\"page\">Archive</a>"
+          "<button class=\"text-button search-open-trigger\" type=\"button\">Search</button>"
+          "<a href=\"/categories/\">Categories</a><a href=\"/tags/\">Tags</a>"
+          "<a href=\"/categories/#series\">Series</a><a href=\"/emacs/\">Emacs</a></nav>"))
 
 (defun systemhalted--generate-archive (root posts)
   "Generate chronological archive below ROOT from POSTS."
@@ -686,14 +702,21 @@ comparison clock and KIND overrides inferred content kind."
                                     (format-time-string "%Y" (systemhalted-record-date (car (last posts))))
                                   ""))
          systemhalted--archive-gateways
+         "<div class=\"archive-controls\"><label for=\"archive-sort\">Sort</label>"
+         "<select id=\"archive-sort\" class=\"archive-sort\">"
+         "<option value=\"year-desc\" selected>Newest first</option>"
+         "<option value=\"year-asc\">Oldest first</option>"
+         "<option value=\"count-desc\">Most writing</option>"
+         "<option value=\"count-asc\">Least writing</option></select></div>"
          "<div id=\"archive-years\">"
          (mapconcat
           (lambda (year)
             (let ((items (nreverse (gethash year groups))))
-              (format (concat "<details class=\"archive-year\" data-year=\"%s\" data-count=\"%d\">"
+              (format (concat "<details class=\"archive-year\" data-year=\"%s\" data-count=\"%d\"%s>"
                               "<summary class=\"archive-year-summary\"><span class=\"archive-year-title\">%s</span>"
                               "<span class=\"archive-year-count\">%d articles</span></summary>%s</details>")
-                      year (length items) year (length items)
+                      year (length items) (if (equal year (car years)) " open" "")
+                      year (length items)
                       (systemhalted--archive-list items))))
           years "")
          "</div>"))))))

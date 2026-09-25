@@ -1,83 +1,33 @@
 #+TITLE: Project data
 
-* Available now
-** Pinstack — Beta
-A web-based RSS and Atom reader for following your favorite sources in one place.
-Tags: =rss=, =web=, =reader=
-[[https://pinstack.in][Try the beta]]
+#+begin_export html
+<p class="projects-intro">Software, tools, and experiments I build.</p>
 
-** torg — Released
-An Org-mode-flavored terminal editor with structural editing for Org and Markdown files.
-Tags: =rust=, =terminal=, =editor=
-[[https://github.com/systemhalted/torg/releases][Install]] · [[https://github.com/systemhalted/torg][Source]]
+<section class="projects-section" aria-labelledby="available-projects">
+  <h2 id="available-projects">Available now</h2>
+  <ul class="project-list">
+    <li class="project-item"><h3 class="project-name">Pinstack</h3><p class="project-description">A web-based RSS and Atom reader for following your favorite sources in one place.</p><p class="project-meta"><span>Beta</span><span aria-hidden="true"> · </span><a href="https://pinstack.in">Try the beta</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">torg</h3><p class="project-description">An Org-mode-flavored terminal editor with structural editing for Org and Markdown files.</p><p class="project-meta"><a href="https://github.com/systemhalted/torg/releases">Install</a><span aria-hidden="true"> · </span><a href="https://github.com/systemhalted/torg">Source</a></p></li>
+    <li class="project-item"><h3 class="project-name">ScribeDay</h3><p class="project-description">A local-first desktop journal organized around a calendar, with search, moods, and backups.</p><p class="project-meta"><a href="https://github.com/systemhalted/scribeday/releases">Download</a><span aria-hidden="true"> · </span><a href="https://github.com/systemhalted/scribeday">Source</a></p></li>
+    <li class="project-item"><h3 class="project-name">sdkman.el</h3><p class="project-description">Apply each project's SDKMAN toolchain to Emacs buffers, subprocesses, and Java language servers.</p><p class="project-meta"><a href="/emacs/sdkman.el/">Guide</a><span aria-hidden="true"> · </span><a href="https://github.com/systemhalted/sdkman.el">Source</a></p></li>
+    <li class="project-item"><h3 class="project-name">wordwise.el</h3><p class="project-description">Kindle-style inline vocabulary hints above uncommon words in Emacs reading buffers.</p><p class="project-meta"><a href="/emacs/wordwise.el/">Guide</a><span aria-hidden="true"> · </span><a href="https://github.com/systemhalted/wordwise.el">Source</a></p></li>
+    <li class="project-item"><h3 class="project-name">shellenv</h3><p class="project-description">Per-project shell sandboxes for testing scripts across shells without polluting your setup.</p><p class="project-meta"><a href="https://github.com/systemhalted/shellenv/releases">Download</a><span aria-hidden="true"> · </span><a href="https://github.com/systemhalted/shellenv">Source</a></p></li>
+    <li class="project-item"><h3 class="project-name">teeup.sh</h3><p class="project-description">An idempotent developer-machine setup script for macOS and Linux, with guided and dry-run modes.</p><p class="project-meta"><a href="https://github.com/systemhalted/teeup.sh">Set up a machine</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">Discipline First</h3><p class="project-description">A copy-in operating standard and trust pipeline for disciplined AI-assisted software delivery.</p><p class="project-meta"><a href="https://github.com/systemhalted/DisciplineFirst">Get the starter pack</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">Applied AI</h3><p class="project-description">A free, self-paced curriculum for building a rigorous, hands-on foundation in AI engineering.</p><p class="project-meta"><a href="https://github.com/systemhalted/applied-ai">Start the curriculum</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">Jekyll Themes</h3><p class="project-description">Three open-source Jekyll themes published as Ruby gems, each with a live demo.</p><p class="project-meta"><a href="/themes/">Browse themes</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">JavaScript Games</h3><p class="project-description">A small collection of browser games and interactive experiments built with vanilla JavaScript.</p><p class="project-meta"><a href="/jsgames/">Browse games</a><span aria-hidden="true"> →</span></p></li>
+  </ul>
+</section>
 
-** ScribeDay — Released
-A local-first desktop journal organized around a calendar, with search, moods, and backups.
-Tags: =java=, =desktop=, =local-first=
-[[https://github.com/systemhalted/scribeday/releases][Download]] · [[https://github.com/systemhalted/scribeday][Source]]
-
-** sdkman.el — Usable
-Apply each project's SDKMAN toolchain to Emacs buffers, subprocesses, and Java language servers.
-Tags: =emacs=, =sdkman=, =java=
-[[/emacs/sdkman.el/][Guide]] · [[https://github.com/systemhalted/sdkman.el][Source]]
-
-** wordwise.el — Usable
-Kindle-style inline vocabulary hints above uncommon words in Emacs reading buffers.
-Tags: =emacs=, =reading=, =dictionary=
-[[/emacs/wordwise.el/][Guide]] · [[https://github.com/systemhalted/wordwise.el][Source]]
-
-** shellenv — Released
-Per-project shell sandboxes for testing scripts across shells without polluting your setup.
-Tags: =go=, =cli=, =testing=
-[[https://github.com/systemhalted/shellenv/releases][Download]] · [[https://github.com/systemhalted/shellenv][Source]]
-
-** teeup.sh — Released
-An idempotent developer-machine setup script for macOS and Linux, with guided and dry-run modes.
-Tags: =shell=, =developer tooling=, =macOS and Linux=
-[[https://github.com/systemhalted/teeup.sh][Set up a machine]]
-
-** Discipline First — Ready to use
-A copy-in operating standard and trust pipeline for disciplined AI-assisted software delivery.
-Tags: =ai-assisted coding=, =engineering=, =starter kit=
-[[https://github.com/systemhalted/DisciplineFirst][Get the starter pack]]
-
-** Applied AI — Published
-A free, self-paced curriculum for building a rigorous, hands-on foundation in AI engineering.
-Tags: =ai=, =curriculum=, =open learning=
-[[https://github.com/systemhalted/applied-ai][Start the curriculum]]
-
-** Jekyll Themes — Published
-Three open-source Jekyll themes published as Ruby gems, each with a live demo.
-Tags: =jekyll=, =ruby=, =open-source=
-[[/themes/][Browse themes]]
-
-** JavaScript Games — Playable
-A small collection of browser games and interactive experiments built with vanilla JavaScript.
-Tags: =javascript=, =browser games=, =experiments=
-[[/jsgames/][Browse games]]
-
-* In development
-** Notive — In development
-A local-first knowledge workspace combining notes, tasks, wiki links, graphs, and search.
-Tags: =tauri=, =knowledge tools=, =local-first=
-[[https://github.com/systemhalted/notive][Source]]
-
-** UniVani — In development
-A real-time voice translation platform designed around ten Indian languages.
-Tags: =voice=, =translation=, =accessibility=
-[[https://github.com/systemhalted/univani][Source]]
-
-** Kisoku — In development
-A Java decision-table engine for compiling and evaluating large rule sets deterministically.
-Tags: =java=, =rules engine=, =decision tables=
-[[https://github.com/systemhalted/kisoku][Source]]
-
-** Osmosis — In development
-A privacy-safe inference layer for turning live event traffic into a durable data dictionary.
-Tags: =event streaming=, =data modeling=, =privacy=
-
-
-** textr — In development
-A from-scratch Rust exploration of a headless editor core inspired by gedit's architecture.
-Tags: =rust=, =editor=, =learning project=
-[[https://github.com/systemhalted/textr][Source]]
+<section class="projects-section" aria-labelledby="workshop-projects">
+  <h2 id="workshop-projects">In development</h2>
+  <ul class="project-list">
+    <li class="project-item"><h3 class="project-name">Notive</h3><p class="project-description">A local-first knowledge workspace combining notes, tasks, wiki links, graphs, and search.</p><p class="project-meta"><a href="https://github.com/systemhalted/notive">Source</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">UniVani</h3><p class="project-description">A real-time voice translation platform designed around ten Indian languages.</p><p class="project-meta"><a href="https://github.com/systemhalted/univani">Source</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">Kisoku</h3><p class="project-description">A Java decision-table engine for compiling and evaluating large rule sets deterministically.</p><p class="project-meta"><a href="https://github.com/systemhalted/kisoku">Source</a><span aria-hidden="true"> →</span></p></li>
+    <li class="project-item"><h3 class="project-name">Osmosis</h3><p class="project-description">A privacy-safe inference layer for turning live event traffic into a durable data dictionary.</p></li>
+    <li class="project-item"><h3 class="project-name">textr</h3><p class="project-description">A from-scratch Rust exploration of a headless editor core inspired by gedit's architecture.</p><p class="project-meta"><a href="https://github.com/systemhalted/textr">Source</a><span aria-hidden="true"> →</span></p></li>
+  </ul>
+</section>
+#+end_export

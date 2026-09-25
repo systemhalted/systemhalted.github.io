@@ -137,15 +137,26 @@
 (ert-deftest systemhalted-export-body-skips-kill-prompts-for-its-temp-buffer ()
   "Publishing must not run user kill-buffer prompts for its private export buffer."
   (let* ((queried nil)
-         (kill-buffer-query-functions
-          (list (lambda () (setq queried t) t)))
+         (source (systemhalted-test-fixture "2026-09-24-rich-content.org"))
+         (buffer-states-at-kill nil)
+         (org-mode-hook
+          (list (lambda ()
+                  (add-hook 'kill-buffer-query-functions
+                            (lambda () (setq queried t) t) nil t))))
+         (kill-buffer-hook
+          (list (lambda ()
+                  (when (eq major-mode 'org-mode)
+                    (push (list (buffer-name) buffer-file-name (buffer-modified-p))
+                          buffer-states-at-kill)))))
          (record (systemhalted-read-record
-                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
-                  'post))
+                  source 'post))
          (records (systemhalted-load-records
                    systemhalted-test-fixtures :include-drafts t :include-future t)))
     (systemhalted-export-body record records)
-    (should-not queried)))
+    (should-not queried)
+    (should buffer-states-at-kill)
+    (should (seq-every-p (lambda (state) (equal (cdr state) '(nil nil)))
+                          buffer-states-at-kill))))
 
 (ert-deftest systemhalted-render-page-includes-post-shell-and-metadata ()
   "Losing shell fragments would break discovery, navigation, and comments."
@@ -229,6 +240,48 @@
     (with-temp-buffer
       (insert-file-contents (expand-file-name "tags/index.html" output))
       (should (search-forward "publishing" nil t)))))
+
+(ert-deftest systemhalted-projects-page-preserves-main-structure ()
+  "Org project entries must retain the semantic structure and hooks used by the live page."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/projects.org" systemhalted-test-root)
+                  'page))
+         (html (systemhalted-render-page record)))
+    (dolist (fragment
+             '("class=\"page-title page-title-quiet\""
+               "class=\"projects-intro\""
+               "class=\"projects-section\" aria-labelledby=\"available-projects\""
+               "class=\"project-list\""
+               "class=\"project-item\""
+               "class=\"project-name\""
+               "class=\"project-description\""
+               "class=\"project-meta\""
+               "<span>Beta</span><span aria-hidden=\"true\"> · </span><a href=\"https://pinstack.in\">Try the beta</a><span aria-hidden=\"true\"> →</span>"
+               "<a href=\"https://github.com/systemhalted/torg/releases\">Install</a><span aria-hidden=\"true\"> · </span><a href=\"https://github.com/systemhalted/torg\">Source</a>"
+               "aria-labelledby=\"workshop-projects\""))
+      (should (string-match-p (regexp-quote fragment) html)))
+    (with-temp-buffer
+      (insert html)
+      (should (= (how-many "class=\"project-item\"" (point-min) (point-max)) 16)))
+    (should-not (string-match-p "file:///" html))))
+
+(ert-deftest systemhalted-archive-preserves-main-controls-and-first-open-year ()
+  "Generated archive must retain the controls, gateways, and initial state of the live page."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "archives/index.html" output))
+      (let ((html (buffer-string)))
+        (dolist (fragment
+                 '("class=\"page-title page-title-quiet\""
+                   "id=\"archive-sort\""
+                   "option value=\"year-desc\" selected"
+                   "search-open-trigger"
+                   "#series"
+                   "class=\"archive-year\" data-year=\"2026\" data-count=\"4\" open"))
+          (should (string-match-p (regexp-quote fragment) html)))
+        (should (string-match-p
+                 "<time datetime=\"2026-09-24T00:00:00[-+][0-9:]+\">Sep 24</time>"
+                 html))))))
 
 (ert-deftest systemhalted-build-site-generates-parseable-feed-and-sitemap ()
   "Malformed XML would make readers and crawlers reject the generated site."

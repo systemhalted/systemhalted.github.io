@@ -1,0 +1,7 @@
+#+TITLE: ज़िंदगी
+#+DESCRIPTION: A fixture with a percent-encoded legacy slug.
+#+CATEGORIES: Hindi
+#+TAGS: poetry
+#+PERMALINK: /2007/10/05/%e0%a4%9c%e0%a4%bf%e0%a4%82%e0%a4%a6%e0%a4%97%e0%a5%80/
+
+हिंदी सामग्री।

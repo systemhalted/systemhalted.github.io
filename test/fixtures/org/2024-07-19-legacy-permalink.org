@@ -1,0 +1,8 @@
+#+TITLE: Legacy Permalink
+#+DESCRIPTION: A former newsletter essay with its existing public route.
+#+CATEGORIES: Leadership
+#+TAGS: management
+#+PERMALINK: /newsletter/2024-07-19-legacy-permalink/
+
+Legacy body.
+

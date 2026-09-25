@@ -1,6 +1,7 @@
 # Ignore docs files
 _gh_pages
 _site
+.worktrees/
 .ruby-version
 .sass-cache
 .jekyll-metadata

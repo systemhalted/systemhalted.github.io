@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#B48EAD"/>
+    </marker>
+  </defs>
+
+  <rect x="10" y="10" width="760" height="280" rx="14" fill="#ECEFF4" stroke="#D8DEE9"/>
+  <text x="390" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#3B4252">One caret, two coordinate systems</text>
+
+  <!-- headings -->
+  <text x="173" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#5E81AC">2D: (line, column)</text>
+  <text x="535" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#5E81AC">1D: flat char index</text>
+
+  <!-- ===== 2D grid: "ab\ncd" ===== -->
+  <!-- column headers -->
+  <text x="131" y="90" text-anchor="middle" font-size="12" fill="#4C566A">col 0</text>
+  <text x="173" y="90" text-anchor="middle" font-size="12" fill="#4C566A">1</text>
+  <!-- row 0: a b -->
+  <rect x="110" y="96" width="42" height="42" fill="#FFFFFF" stroke="#4C566A"/>
+  <rect x="152" y="96" width="42" height="42" fill="#FFFFFF" stroke="#4C566A"/>
+  <text x="131" y="123" text-anchor="middle" font-size="18" fill="#2E3440">a</text>
+  <text x="173" y="123" text-anchor="middle" font-size="18" fill="#2E3440">b</text>
+  <!-- row 1: c d (d highlighted) -->
+  <rect x="110" y="138" width="42" height="42" fill="#FFFFFF" stroke="#4C566A"/>
+  <rect x="152" y="138" width="42" height="42" fill="#A3BE8C" stroke="#2E3440" stroke-width="2"/>
+  <text x="131" y="165" text-anchor="middle" font-size="18" fill="#2E3440">c</text>
+  <text x="173" y="165" text-anchor="middle" font-size="18" font-weight="700" fill="#2E3440">d</text>
+  <!-- row labels -->
+  <text x="98" y="123" text-anchor="end" font-size="12" fill="#4C566A">line 0</text>
+  <text x="98" y="165" text-anchor="end" font-size="12" fill="#4C566A">1</text>
+  <text x="173" y="200" text-anchor="middle" font-size="12" fill="#BF616A">caret at (1, 1)</text>
+
+  <!-- ===== 1D strip: a b \n c d ===== -->
+  <!-- index labels -->
+  <text x="451" y="96" text-anchor="middle" font-size="12" fill="#4C566A">0</text>
+  <text x="493" y="96" text-anchor="middle" font-size="12" fill="#4C566A">1</text>
+  <text x="535" y="96" text-anchor="middle" font-size="12" fill="#4C566A">2</text>
+  <text x="577" y="96" text-anchor="middle" font-size="12" fill="#4C566A">3</text>
+  <text x="619" y="96" text-anchor="middle" font-size="12" fill="#4C566A">4</text>
+  <!-- cells -->
+  <rect x="430" y="104" width="42" height="42" fill="#FFFFFF" stroke="#4C566A"/>
+  <rect x="472" y="104" width="42" height="42" fill="#FFFFFF" stroke="#4C566A"/>
+  <rect x="514" y="104" width="42" height="42" fill="#E5E9F0" stroke="#4C566A"/>
+  <rect x="556" y="104" width="42" height="42" fill="#FFFFFF" stroke="#4C566A"/>
+  <rect x="598" y="104" width="42" height="42" fill="#A3BE8C" stroke="#2E3440" stroke-width="2"/>
+  <text x="451" y="131" text-anchor="middle" font-size="18" fill="#2E3440">a</text>
+  <text x="493" y="131" text-anchor="middle" font-size="18" fill="#2E3440">b</text>
+  <text x="535" y="130" text-anchor="middle" font-size="12" fill="#4C566A">\n</text>
+  <text x="577" y="131" text-anchor="middle" font-size="18" fill="#2E3440">c</text>
+  <text x="619" y="131" text-anchor="middle" font-size="18" font-weight="700" fill="#2E3440">d</text>
+  <text x="619" y="166" text-anchor="middle" font-size="12" fill="#BF616A">index 4</text>
+
+  <!-- mapping arrow -->
+  <path d="M188,150 C 340,116 470,108 606,120" fill="none" stroke="#B48EAD" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- formula -->
+  <text x="390" y="244" text-anchor="middle" font-size="15" fill="#3B4252">line_to_char(1) + column  =  3 + 1  =  <tspan font-weight="700" fill="#BF616A">4</tspan></text>
+  <text x="390" y="272" text-anchor="middle" font-size="12" font-style="italic" fill="#4C566A">column is where you are on the line; the flat index is where you are in the file.</text>
+</svg>

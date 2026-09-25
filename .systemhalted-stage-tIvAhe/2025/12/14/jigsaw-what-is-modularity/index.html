@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Project Jigsaw (JPMS) - Part 1 - What is Modularity? · SystemHalted.in</title>
+  <meta name="description" content="A practical definition of modularity in Java, why Jigsaw existed even though we already had packages and JARs, and what the module system actually enforces.">
+  <link rel="canonical" href="https://systemhalted.in/2025/12/14/jigsaw-what-is-modularity/">
+  <meta property="og:title" content="Project Jigsaw (JPMS) - Part 1 - What is Modularity? · SystemHalted.in">
+  <meta property="og:description" content="A practical definition of modularity in Java, why Jigsaw existed even though we already had packages and JARs, and what the module system actually enforces.">
+  <meta property="og:url" content="https://systemhalted.in/2025/12/14/jigsaw-what-is-modularity/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Project Jigsaw (JPMS) - Part 1 - What is Modularity?","description":"A practical definition of modularity in Java, why Jigsaw existed even though we already had packages and JARs, and what the module system actually enforces.","url":"https://systemhalted.in/2025/12/14/jigsaw-what-is-modularity/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Project Jigsaw (JPMS) - Part 1 - What is Modularity?</h1>
+    <p class="post-meta"><time datetime="2025-12-14T12:00:00-0600">14 December 2025</time><span aria-hidden="true">·</span> 8 min read</p>
+  </header>
+  <div class="post-content"><details class="post-toc"><summary>Contents</summary><nav aria-label="Table of contents"><ul><li><a href="#a-note-from-the-future">A note from the future</a></li><li><a href="#java-already-had-modules-right">Java already had “modules”&hellip; right?</a></li><li><a href="#what-is-a-module">What is a module?</a></li><li><a href="#encapsulation-a-hidden-interior">1. Encapsulation (a hidden interior)</a></li><li><a href="#a-public-surface-an-intentional-api">2. A public surface (an intentional API)</a></li><li><a href="#why-packages-and-jars-were-not-enough">Why packages and JARs were not enough?</a></li><li><a href="#the-classpath-is-a-soup">1. The classpath is a soup</a></li><li><a href="#jar-hell-is-real-and-it-has-receipts">2. JAR hell is real, and it has receipts</a></li><li><a href="#encapsulation-at-runtime-was-historically-negotiable">3. Encapsulation at runtime was historically negotiable</a></li><li><a href="#split-packages-and-duplicate-worlds">4. Split packages and duplicate worlds</a></li><li><a href="#what-jigsaw-actually-adds">What Jigsaw actually adds</a></li><li><a href="#packages-vs-modules-a-clean-mental-model">Packages vs modules, a clean mental model</a></li><li><a href="#enforce-how-exactly">“Enforce” how, exactly?</a></li><li><a href="#reliable-configuration-dependency-truth">1. Reliable configuration (dependency truth)</a></li><li><a href="#strong-encapsulation-real-boundaries">2. Strong encapsulation (real boundaries)</a></li><li><a href="#a-quick-tour-of-module-descriptor-concepts">A quick tour of module descriptor concepts</a></li><li><a href="#requires"><code>requires</code></a></li><li><a href="#exports"><code>exports</code></a></li><li><a href="#opens"><code>opens</code></a></li><li><a href="#services-uses-and-provides">Services: <code>uses</code> and <code>provides</code></a></li><li><a href="#but-what-about-my-existing-non-modular-jars">But what about my existing non-modular JARs?</a></li><li><a href="#the-unnamed-module">The unnamed module</a></li><li><a href="#automatic-modules">Automatic modules</a></li><li><a href="#the-jdk-itself-became-modular">The JDK itself became modular</a></li><li><a href="#so-why-project-jigsaw">So why Project Jigsaw?</a></li><li><a href="#what-is-next">What is next</a></li></ul></nav></details><div id="outline-container-a-note-from-the-future" class="outline-2">
+<h2 id="a-note-from-the-future">A note from the future</h2>
+<div class="outline-text-2" id="text-a-note-from-the-future">
+<p>
+I began this post in 2016, when Java 9 was still unreleased and Project Jigsaw felt like an approaching weather system. Java 9 eventually shipped, and the module system became real, imperfect, and unexpectedly enlightening.
+</p>
+
+<p>
+This post keeps the original question intact: what is modularity and why did Java need the platform itself to care?
+</p>
+</div>
+</div>
+<div id="outline-container-java-already-had-modules-right" class="outline-2">
+<h2 id="java-already-had-modules-right">Java already had “modules”&hellip; right?</h2>
+<div class="outline-text-2" id="text-java-already-had-modules-right">
+<p>
+For the past few years, Java has evolved quickly, mostly for the better. JDK 8 changed everyday Java with lambdas and streams, making a more functional style feel native instead of like cosplay.
+</p>
+
+<p>
+Then came JDK 9 and Project Jigsaw, the Java Platform Module System (JPMS). The obvious objection was, and still is:
+</p>
+
+<p>
+Java already has JARs. Enterprise Java has WARs and EARs. Source code has packages and access modifiers. So why add “modules” at all?
+</p>
+
+<p>
+To answer that, we need to be annoyingly precise about what a module is.
+</p>
+</div>
+</div>
+<div id="outline-container-what-is-a-module" class="outline-2">
+<h2 id="what-is-a-module">What is a module?</h2>
+<div class="outline-text-2" id="text-what-is-a-module">
+<p>
+A module is not just “a bunch of related code.” That definition is so generous it would make my <code>Downloads/</code> folder a module, and it absolutely should not be trusted with responsibility.
+</p>
+
+<p>
+A better definition:
+</p>
+
+<p>
+A module is a unit with an enforceable boundary.
+</p>
+
+<p>
+In practice, a module needs at least these traits.
+</p>
+</div>
+<div id="outline-container-encapsulation-a-hidden-interior" class="outline-3">
+<h3 id="encapsulation-a-hidden-interior">1. Encapsulation (a hidden interior)</h3>
+<div class="outline-text-3" id="text-encapsulation-a-hidden-interior">
+<p>
+Encapsulation is the right to say: “this part is implementation detail; do not touch.”
+</p>
+
+<p>
+Java supports encapsulation via access modifiers (<code>private</code>, package-private, <code>protected</code>, <code>public</code>) and via packages. In the POJO world, we keep fields private and expose behavior through methods so nobody can accidentally mutate internal state and then act surprised when physics happens.
+</p>
+
+<p>
+But here is the catch:
+</p>
+
+<p>
+Packages are excellent organizing units, but by themselves they are not deployment boundaries.
+</p>
+
+<p>
+Once code is on the classpath, it tends to behave like a single sprawling neighborhood where everyone can wander into everyone else's backyard, sometimes through reflection, sometimes through “it was convenient,” sometimes through sheer dependency gravity.
+</p>
+</div>
+</div>
+<div id="outline-container-a-public-surface-an-intentional-api" class="outline-3">
+<h3 id="a-public-surface-an-intentional-api">2. A public surface (an intentional API)</h3>
+<div class="outline-text-3" id="text-a-public-surface-an-intentional-api">
+<p>
+A module must have a public surface: a set of types meant to be used by outsiders.
+</p>
+
+<p>
+This matters because modularity is not just hiding. It is also communicating on purpose.
+</p>
+
+<p>
+When modules interact, they should do so through the exported API, not through accidental knowledge of internals. This is how systems remain refactorable without becoming brittle.
+</p>
+
+<p>
+So far, this sounds like “write disciplined code,” which is true, and still not the full story.
+</p>
+
+<p>
+The painful question is: can the platform help enforce that discipline?
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-why-packages-and-jars-were-not-enough" class="outline-2">
+<h2 id="why-packages-and-jars-were-not-enough">Why packages and JARs were not enough?</h2>
+<div class="outline-text-2" id="text-why-packages-and-jars-were-not-enough">
+<p>
+Packages and JARs let us aspire to be modular. They do not consistently let us enforce it.
+</p>
+
+<p>
+Here are the classic failure modes that show up as systems grow.
+</p>
+</div>
+<div id="outline-container-the-classpath-is-a-soup" class="outline-3">
+<h3 id="the-classpath-is-a-soup">1. The classpath is a soup</h3>
+<div class="outline-text-3" id="text-the-classpath-is-a-soup">
+<p>
+The classpath is wonderfully simple and brutally permissive. Put things on it, and they exist.
+</p>
+
+<p>
+Common outcomes:
+</p>
+
+<ul class="org-ul">
+<li>Accidental dependencies form silently.</li>
+<li>Internals become “public” by habit. “Just import it.”</li>
+<li>Debugging becomes archaeology. “Who pulled in this version, and why does it only fail on Jenkins?”</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-jar-hell-is-real-and-it-has-receipts" class="outline-3">
+<h3 id="jar-hell-is-real-and-it-has-receipts">2. JAR hell is real, and it has receipts</h3>
+<div class="outline-text-3" id="text-jar-hell-is-real-and-it-has-receipts">
+<p>
+When multiple JARs provide overlapping classes, or when classloading order changes, you can get failures that only appear at runtime and only on certain machines.
+</p>
+
+<p>
+Even when your build tool is trying to help, the model is still basically: assemble a pile of bytecode and hope it behaves.
+</p>
+</div>
+</div>
+<div id="outline-container-encapsulation-at-runtime-was-historically-negotiable" class="outline-3">
+<h3 id="encapsulation-at-runtime-was-historically-negotiable">3. Encapsulation at runtime was historically negotiable</h3>
+<div class="outline-text-3" id="text-encapsulation-at-runtime-was-historically-negotiable">
+<p>
+Before JPMS, it was common for libraries to reach into non-public areas, either:
+</p>
+
+<ul class="org-ul">
+<li>Using reflection to access private members.</li>
+<li>Using internal JDK APIs because they existed and were “handy.”</li>
+</ul>
+
+<p>
+This worked until it did not. And the “did not” usually arrived as a production upgrade - not an upgrade by choice but force.
+</p>
+</div>
+</div>
+<div id="outline-container-split-packages-and-duplicate-worlds" class="outline-3">
+<h3 id="split-packages-and-duplicate-worlds">4. Split packages and duplicate worlds</h3>
+<div class="outline-text-3" id="text-split-packages-and-duplicate-worlds">
+<p>
+On the classpath you can end up with the same package name spread across multiple JARs. Tools can limp along, humans can suffer quietly, and then one day something breaks in a way that makes you question reality.
+</p>
+
+<p>
+A modular system has to be stricter about identity, or it cannot reason about the graph.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-what-jigsaw-actually-adds" class="outline-2">
+<h2 id="what-jigsaw-actually-adds">What Jigsaw actually adds</h2>
+<div class="outline-text-2" id="text-what-jigsaw-actually-adds">
+<p>
+Project Jigsaw turns modularity into something the compiler and runtime can understand.
+</p>
+
+<p>
+A Java module has:
+</p>
+
+<ul class="org-ul">
+<li>A name (a stronger identity than “whatever the filename is”).</li>
+<li>Declared dependencies (what it requires).</li>
+<li>Declared exports (what it makes available to other modules).</li>
+<li>Strong encapsulation by default (if you do not export it, it is not part of your public world).</li>
+</ul>
+
+<p>
+This is expressed with a module descriptor: <code>module-info.java</code>.
+</p>
+
+<p>
+A minimal example:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.billing {
+    requires java.sql;
+    exports com.example.billing.api;
+}
+</code></pre></div></div>
+
+<p>
+The point is not ceremony. The point is boundaries that can be checked.
+</p>
+</div>
+</div>
+<div id="outline-container-packages-vs-modules-a-clean-mental-model" class="outline-2">
+<h2 id="packages-vs-modules-a-clean-mental-model">Packages vs modules, a clean mental model</h2>
+<div class="outline-text-2" id="text-packages-vs-modules-a-clean-mental-model">
+<p>
+Think of it like this:
+</p>
+
+<ul class="org-ul">
+<li>A package groups related types and helps structure code.</li>
+<li>A module groups packages and declares which packages are visible to the outside world.</li>
+</ul>
+
+<p>
+Packages help you organize. Modules help you enforce.
+</p>
+</div>
+</div>
+<div id="outline-container-enforce-how-exactly" class="outline-2">
+<h2 id="enforce-how-exactly">“Enforce” how, exactly?</h2>
+<div class="outline-text-2" id="text-enforce-how-exactly">
+<p>
+JPMS enforces things in two major places: compilation and runtime.
+</p>
+</div>
+<div id="outline-container-reliable-configuration-dependency-truth" class="outline-3">
+<h3 id="reliable-configuration-dependency-truth">1. Reliable configuration (dependency truth)</h3>
+<div class="outline-text-3" id="text-reliable-configuration-dependency-truth">
+<p>
+With modules, dependencies are not an emergent property of “whatever happens to be on the classpath today.”
+</p>
+
+<p>
+Instead, the runtime resolves a module graph:
+</p>
+
+<ul class="org-ul">
+<li>Each module declares what it requires.</li>
+<li>The system checks that required modules exist.</li>
+<li>The system checks for conflicts that would make the graph incoherent.</li>
+</ul>
+
+<p>
+This catches certain categories of surprise runtime failure earlier, because the platform can actually see your dependency structure.
+</p>
+</div>
+</div>
+<div id="outline-container-strong-encapsulation-real-boundaries" class="outline-3">
+<h3 id="strong-encapsulation-real-boundaries">2. Strong encapsulation (real boundaries)</h3>
+<div class="outline-text-3" id="text-strong-encapsulation-real-boundaries">
+<p>
+With modules, code in a non-exported package is not accessible to other modules at compile time, and at runtime access is strongly controlled.
+</p>
+
+<p>
+This is the key philosophical shift:
+</p>
+
+<blockquote>
+<p>
+You are not just suggesting which parts are internal. You are declaring it, and the platform can enforce it.
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="outline-container-a-quick-tour-of-module-descriptor-concepts" class="outline-2">
+<h2 id="a-quick-tour-of-module-descriptor-concepts">A quick tour of module descriptor concepts</h2>
+<div class="outline-text-2" id="text-a-quick-tour-of-module-descriptor-concepts">
+<p>
+The <code>module-info.java</code> file is small, but it has teeth. Here are the ideas you will see in real projects.
+</p>
+</div>
+<div id="outline-container-requires" class="outline-3">
+<h3 id="requires"><code>requires</code></h3>
+<div class="outline-text-3" id="text-requires">
+<p>
+A module can state that it depends on another module.
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.app {
+    requires com.example.billing;
+}
+</code></pre></div></div>
+</div>
+</div>
+<div id="outline-container-exports" class="outline-3">
+<h3 id="exports"><code>exports</code></h3>
+<div class="outline-text-3" id="text-exports">
+<p>
+A module can export a package to make it part of its public API.
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.billing {
+    exports com.example.billing.api;
+}
+</code></pre></div></div>
+
+<p>
+Everything else stays internal by default.
+</p>
+
+<p>
+There is also qualified export, where you export only to specific friend modules:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.billing {
+    exports com.example.billing.internal to com.example.app;
+}
+</code></pre></div></div>
+
+<p>
+That is useful for tightly coupled modules, though it should be used sparingly because it creates special relationships that age poorly.
+</p>
+</div>
+</div>
+<div id="outline-container-opens" class="outline-3">
+<h3 id="opens"><code>opens</code></h3>
+<div class="outline-text-3" id="text-opens">
+<p>
+Exporting is about normal access. Opening is about reflection.
+</p>
+
+<p>
+Frameworks use reflection for dependency injection, serialization, proxies, and other wizardry. JPMS makes you be explicit about that:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.model {
+    opens com.example.model.entities;
+}
+</code></pre></div></div>
+
+<p>
+You can also open to specific modules only:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.model {
+    opens com.example.model.entities to com.fasterxml.jackson.databind;
+}
+</code></pre></div></div>
+</div>
+</div>
+</div>
+<div id="outline-container-services-uses-and-provides" class="outline-2">
+<h2 id="services-uses-and-provides">Services: <code>uses</code> and <code>provides</code></h2>
+<div class="outline-text-2" id="text-services-uses-and-provides">
+<p>
+The service mechanism is the module-friendly way to do plugin architecture.
+</p>
+
+<p>
+Consumer:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.app {
+    uses com.example.spi.PaymentProvider;
+}
+</code></pre></div></div>
+
+<p>
+Provider:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">module com.example.stripe {
+    provides com.example.spi.PaymentProvider
+        with com.example.stripe.StripePaymentProvider;
+}
+</code></pre></div></div>
+</div>
+</div>
+<div id="outline-container-but-what-about-my-existing-non-modular-jars" class="outline-2">
+<h2 id="but-what-about-my-existing-non-modular-jars">But what about my existing non-modular JARs?</h2>
+<div class="outline-text-2" id="text-but-what-about-my-existing-non-modular-jars">
+<p>
+JPMS did not pretend the world would instantly become modular. It introduced a migration story, and it is worth understanding because it explains a lot of real-world behavior.
+</p>
+</div>
+<div id="outline-container-the-unnamed-module" class="outline-3">
+<h3 id="the-unnamed-module">The unnamed module</h3>
+<div class="outline-text-3" id="text-the-unnamed-module">
+<p>
+If you put JARs on the classpath instead of the module path, they effectively live in the unnamed module. This unnamed module can read everything, and everything can read it, which is intentionally permissive to keep legacy code running.
+</p>
+
+<p>
+It is the compatibility bridge. It is also where modular purity goes to take a nap.
+</p>
+</div>
+</div>
+<div id="outline-container-automatic-modules" class="outline-3">
+<h3 id="automatic-modules">Automatic modules</h3>
+<div class="outline-text-3" id="text-automatic-modules">
+<p>
+If you put a regular JAR on the module path, the system can treat it as an automatic module with a derived name and permissive readability rules.
+</p>
+
+<p>
+This is a practical stepping stone, not a perfect end state.
+</p>
+
+<p>
+A common migration path looks like:
+</p>
+
+<ul class="org-ul">
+<li>Run as classpath, accept the unnamed module.</li>
+<li>Move some things to module path, tolerate automatic modules.</li>
+<li>Modularize the important libraries and applications over time.</li>
+</ul>
+
+<p>
+Not glamorous, but it works, and it respects the fact that software is mostly sedimentary rock.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-the-jdk-itself-became-modular" class="outline-2">
+<h2 id="the-jdk-itself-became-modular">The JDK itself became modular</h2>
+<div class="outline-text-2" id="text-the-jdk-itself-became-modular">
+<p>
+One of the most concrete outcomes of Jigsaw is that the JDK stopped being a monolith. It became a set of modules.
+</p>
+
+<p>
+This matters because:
+</p>
+
+<ul class="org-ul">
+<li>The platform itself has clearer internal boundaries.</li>
+<li>The JDK can strongly encapsulate internal APIs, reducing accidental dependencies on JDK internals.</li>
+<li>Tools can assemble smaller runtimes for specific applications.</li>
+</ul>
+
+<p>
+That last point is where tools like <code>jlink</code> enter the story, but it is better saved for a later post, once the basics are anchored.
+</p>
+</div>
+</div>
+<div id="outline-container-so-why-project-jigsaw" class="outline-2">
+<h2 id="so-why-project-jigsaw">So why Project Jigsaw?</h2>
+<div class="outline-text-2" id="text-so-why-project-jigsaw">
+<p>
+Now we can answer the original “why” without hand-waving.
+</p>
+
+<p>
+Java had packaging and namespacing. It did not have platform-enforced boundaries.
+</p>
+
+<p>
+Project Jigsaw exists to make modularity:
+</p>
+
+<ul class="org-ul">
+<li>Declarative, so the platform can see your intent.</li>
+<li>Verifiable, so tools can reason about your dependency graph.</li>
+<li>Enforceable, so “internal” actually means internal.</li>
+</ul>
+
+<p>
+It turns modularity from a cultural norm into a constraint you can build against.
+</p>
+
+<p>
+That is the difference between “please do not touch” and “the door is locked.”
+</p>
+</div>
+</div>
+<div id="outline-container-what-is-next" class="outline-2">
+<h2 id="what-is-next">What is next</h2>
+<div class="outline-text-2" id="text-what-is-next">
+<p>
+This was Part 1: the definition, the motivation, and the shape of the solution.
+</p>
+
+<p>
+In Part 2, we will go concrete:
+</p>
+
+<ul class="org-ul">
+<li>A tiny multi-module project you can compile and run.</li>
+<li>The first “why can I not access this package anymore?” moment, explained.</li>
+<li>Practical patterns: what to export, what to keep internal, and how to avoid designing a module system that only you understand.</li>
+</ul>
+
+<p>
+Because nothing teaches architecture faster than a compiler error that is technically correct and emotionally rude.
+</p>
+</div>
+</div>
+</div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-technology">Technology</a>, <a href="/categories/#cat-software-engineering">Software Engineering</a>, <a href="/categories/#cat-series-3-project-jigsaw-jpms">Series 3 - Project Jigsaw (JPMS)</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-02-05">Feb 05, 2026</time><a class="related-post-title" href="/2026/02/05/rounding-modes-why-half-up-isnt-always-the-answer/">Part 8: Big Decimal Rounding Modes - Why HALF_UP Isn't Always the Answer</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-01-11">Jan 11, 2026</time><a class="related-post-title" href="/2026/01/11/kahan-summation-java-streams/">Part 7: Kahan Summation - A Better sum() for Java Streams</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-01-05">Jan 05, 2026</time><a class="related-post-title" href="/2026/01/05/defending-against-nan-without-defensive-programming-hell/">Part 6: Defending Against NaN Without Defensive Programming Hell</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2025/12/15/is-logo-a-lisp/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Logo Looks Nothing Like Lisp and Yet It Is</span></a><a class="post-nav-next" href="/2025/12/13/testing-perfect-software/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Testing and the Perfect Software</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

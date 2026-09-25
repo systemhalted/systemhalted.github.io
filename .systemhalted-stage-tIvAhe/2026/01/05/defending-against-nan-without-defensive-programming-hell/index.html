@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Part 6: Defending Against NaN Without Defensive Programming Hell · SystemHalted.in</title>
+  <meta name="description" content="Learn how to handle NaN and Infinity in Java without scattering if (isNaN) checks everywhere. Five practical patterns: boundary validation with Double.isFinite(), result types, domain types, centralized sanitization, and detecting NaN at its source. Avoid Checkpoint Syndrome and keep your computation code clean.">
+  <link rel="canonical" href="https://systemhalted.in/2026/01/05/defending-against-nan-without-defensive-programming-hell/">
+  <meta property="og:title" content="Part 6: Defending Against NaN Without Defensive Programming Hell · SystemHalted.in">
+  <meta property="og:description" content="Learn how to handle NaN and Infinity in Java without scattering if (isNaN) checks everywhere. Five practical patterns: boundary validation with Double.isFinite(), result types, domain types, centralized sanitization, and detecting NaN at its source. Avoid Checkpoint Syndrome and keep your computation code clean.">
+  <meta property="og:url" content="https://systemhalted.in/2026/01/05/defending-against-nan-without-defensive-programming-hell/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Part 6: Defending Against NaN Without Defensive Programming Hell","description":"Learn how to handle NaN and Infinity in Java without scattering if (isNaN) checks everywhere. Five practical patterns: boundary validation with Double.isFinite(), result types, domain types, centralized sanitization, and detecting NaN at its source. Avoid Checkpoint Syndrome and keep your computation code clean.","url":"https://systemhalted.in/2026/01/05/defending-against-nan-without-defensive-programming-hell/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Part 6: Defending Against NaN Without Defensive Programming Hell</h1>
+    <p class="post-meta"><time datetime="2026-01-05T12:00:00-0600">5 January 2026</time><span aria-hidden="true">·</span> 15 min read</p>
+  </header>
+  <div class="post-content"><details class="post-toc"><summary>Contents</summary><nav aria-label="Table of contents"><ul><li><a href="#the-shape-of-the-beast">The shape of the beast</a></li><li><a href="#defensive-programming-hell-or-what-i-call-checkpoint-syndrome">Defensive programming hell, or what I call “Checkpoint Syndrome”</a></li><li><a href="#the-core-principle-validate-at-the-edges-compute-in-the-middle">The core principle: validate at the edges, compute in the middle</a></li><li><a href="#pattern-1-finite-by-default-as-a-guardrail">Pattern 1: “Finite by default” as a guardrail</a></li><li><a href="#pattern-2-separate-invalid-from-zero-with-a-result-type">Pattern 2: Separate “invalid” from “zero” with a result type</a></li><li><a href="#pattern-3-domain-types-that-make-nan-impossible">Pattern 3: Domain types that make NaN impossible</a></li><li><a href="#pattern-4-decide-where-infinity-is-acceptable">Pattern 4: Decide where Infinity is acceptable</a></li><li><a href="#pattern-5-centralize-sanitization-but-do-not-lie">Pattern 5: Centralize sanitization, but do not lie</a></li><li><a href="#third-party-libraries-when-nan-arrives-by-mail">Third-party libraries: when NaN arrives by mail</a></li><li><a href="#finding-the-first-nan-not-the-last-one">Finding the first NaN, not the last one</a></li><li><a href="#add-tripwire-assertions-in-debug-builds">Add “tripwire assertions” in debug builds</a></li><li><a href="#log-with-context-once-not-everywhere">Log with context once, not everywhere</a></li><li><a href="#a-small-nan-hygiene-checklist">A small NaN hygiene checklist</a></li></ul></nav></details><p>
+<i>This post is part of my <a href="https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears">Floating Point Without Tears</a> series on how Java numbers misbehave and how to live with them.</i>
+</p>
+
+<p>
+When IEEE 754 arithmetic encounters an operation for which there is no real-number answer &mdash; dividing zero by zero, taking the square root of a negative number, and so on &mdash; it does not throw an exception. Instead, it produces a special value called NaN, short for “Not a Number,” and the program continues running as if nothing in particular had happened. This is, as a piece of language design, both a strength and a quiet curse: it allows numerical code to keep flowing in the presence of locally invalid operations, but it also means that NaN tends to slip downstream silently and only surface much later, in log files, in metrics, and on dashboards, long after the operation that actually produced it has scrolled out of view.
+</p>
+
+<p>
+The temptation, on first encountering this behaviour, is to start sprinkling <code>if (isNaN)</code> checks throughout the codebase as a defence. This post is, in a sense, about doing the opposite of that &mdash; about defending against NaN structurally, using a small number of checks placed deliberately at the right boundaries, rather than scattering a defensive layer through every function in the system.
+</p>
+<div id="outline-container-the-shape-of-the-beast" class="outline-2">
+<h2 id="the-shape-of-the-beast">The shape of the beast</h2>
+<div class="outline-text-2" id="text-the-shape-of-the-beast">
+<p>
+NaN, as the name suggests, is what IEEE 754 hands back from operations that have no meaningful real-number answer. The canonical examples are familiar enough &mdash; dividing <code>0.0</code> by <code>0.0</code>, taking the square root of a negative number, taking the logarithm of a negative number &mdash; but there is a fourth source that is, in practice, more important than any individual mathematical case: any operation that already involves a NaN will itself produce a NaN. NaN is contagious, in both the best and the worst senses of the word, and that contagion is the mechanism by which a single invalid operation upstream can quietly poison everything that flows from it.
+</p>
+
+<p>
+Some of the operations that produce NaN are:
+</p>
+
+<pre class="example"><code>1.  0.0 / 0.0  
+2.  Math.sqrt(-1.0)  
+3.  Math.log(-1.0)  
+4.  Any operation that already contains NaN, because NaN is contagious in the best and worst ways  
+</code></pre>
+
+<p>
+Java follows IEEE 754 in all of this. The JVM does not, for the most part, throw an exception when a floating-point operation is invalid; it produces NaN or Infinity and lets the program continue, which is another way of saying that what you are looking at is a silent error.
+</p>
+
+<p>
+There is one further property of NaN that catches almost everyone the first time they encounter it. NaN is not equal to anything, not even to itself.
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">double x = Double.NaN;
+
+System.out.println(x == x);              // false
+System.out.println(Double.isNaN(x));     // true
+System.out.println(x &lt; 0);              // false
+System.out.println(x &gt; 0);              // false
+System.out.println(x == 0);             // false
+</code></pre></div></div>
+
+<p>
+NaN, in other words, does not really behave like a value in the ordinary sense; it is more accurately understood as a signal that has, by the design of the floating-point system, been forced to masquerade as a value. The fact that it wears that disguise convincingly is the source of most of the practical trouble that NaN goes on to cause in production systems.
+</p>
+</div>
+</div>
+<div id="outline-container-defensive-programming-hell-or-what-i-call-checkpoint-syndrome" class="outline-2">
+<h2 id="defensive-programming-hell-or-what-i-call-checkpoint-syndrome">Defensive programming hell, or what I call “Checkpoint Syndrome”</h2>
+<div class="outline-text-2" id="text-defensive-programming-hell-or-what-i-call-checkpoint-syndrome">
+<p>
+The instinctive reaction to discovering NaN in production is, I think, entirely understandable. You find a NaN in a log, trace it back to a particular code path, add an <code>isNaN</code> check there, deploy the fix, and move on. The trouble is that, almost without exception, the next NaN that shows up will not be in the same place &mdash; it will be in some other path that touches the same data &mdash; and so another check goes in. Repeat this process for a few months and you end up with a codebase in which essentially every function is doing its own defensive validation of every input it receives, often with slightly different responses to the same underlying condition.
+</p>
+
+<p>
+The result tends to look something like this:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">double price = computePrice(input);
+if (Double.isNaN(price) || Double.isInfinite(price)) {
+    // shrug, return 0?
+}
+</code></pre></div></div>
+
+<p>
+This is what I have come to think of as Checkpoint Syndrome, and the problem with it goes well beyond the visual noise. It is something closer to a small architectural disaster: the checks have a way of spreading everywhere, and yet, despite their ubiquity, they almost never point at the real cause of the bug, because by the time NaN reaches the function being checked, the operation that originally produced it is several layers upstream and is no longer visible at the call site. Each defensive site is also forced to make its own decision about what to do when the check fails, and those decisions tend to drift apart over time, so a single class of upstream bug ends up being silently handled in a dozen inconsistent ways throughout the codebase.
+</p>
+
+<p>
+Worst of all &mdash; and this is where Checkpoint Syndrome most reliably produces actual financial bugs &mdash; the easiest “fix” at any individual site is to convert the invalid value to zero. That has the convenient property of making the immediate symptom go away, while quietly turning “we do not know” into “definitely zero” in every downstream calculation that follows.
+</p>
+
+<p>
+The antidote to all of this is not, as it might first appear, to add more checks. The antidote is to place fewer checks but to place them where they actually matter &mdash; at the boundaries where invalid values either enter the system or are first produced, once, deliberately, and with a documented response.
+</p>
+</div>
+</div>
+<div id="outline-container-the-core-principle-validate-at-the-edges-compute-in-the-middle" class="outline-2">
+<h2 id="the-core-principle-validate-at-the-edges-compute-in-the-middle">The core principle: validate at the edges, compute in the middle</h2>
+<div class="outline-text-2" id="text-the-core-principle-validate-at-the-edges-compute-in-the-middle">
+
+<figure id="org0000000">
+<img src="file:///assets/images/2026-01-05-core-principles.png" alt="2026-01-05-core-principles.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>Diagram showing validation at boundaries and a clean computation core.</figcaption>
+</figure>
+
+<p>
+Most NaN outbreaks begin at boundaries:
+</p>
+
+<pre class="example"><code>1.  Parsing and deserialization (CSV, JSON, user input, partner payloads)  
+2.  Sensor-style data (telemetry, percentages, rates)  
+3.  Divide by something that might be zero or missing  
+4.  "This should never happen" conversions (and then it happens)  
+</code></pre>
+
+<p>
+The most useful thing you can do in response to this, in my experience, is to establish a single simple contract that the rest of the system can rely on: inside the computation core, all doubles are finite unless explicitly documented otherwise. The computation core is the part of the system that should be allowed to be blissfully boring &mdash; the pure math, the algorithms, the business logic that operates on already-validated inputs &mdash; and it is the place where you most want to be able to reason about correctness without simultaneously doing border control.
+</p>
+
+<p>
+The practical consequence of that contract is that NaN handling becomes concentrated in a small number of choke points, rather than spread thinly across the codebase.
+</p>
+</div>
+</div>
+<div id="outline-container-pattern-1-finite-by-default-as-a-guardrail" class="outline-2">
+<h2 id="pattern-1-finite-by-default-as-a-guardrail">Pattern 1: “Finite by default” as a guardrail</h2>
+<div class="outline-text-2" id="text-pattern-1-finite-by-default-as-a-guardrail">
+<p>
+The simplest expression of this discipline is a small helper that asserts finiteness explicitly:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">static double requireFinite(double x, String name) {
+    if (!Double.isFinite(x)) {
+        throw new IllegalArgumentException(name + " must be finite, got " + x);
+    }
+    return x;
+}
+</code></pre></div></div>
+
+<p>
+<code>Double.isFinite()</code> is, for this purpose, the only check you actually need. It returns <code>true</code> only when its argument is neither NaN nor Infinity, which is exactly what “a normal, usable number” means in most contexts. There is rarely any value in writing two separate checks for <code>isNaN</code> and <code>isInfinite</code> when a single call to <code>isFinite</code> captures both conditions.
+</p>
+
+<p>
+The pattern, then, is to use <code>requireFinite</code> at public boundaries and at layer transitions, rather than inside every private method:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">public double monthlyPayment(double principal, double annualRate, int months) {
+    requireFinite(principal, "principal");
+    requireFinite(annualRate, "annualRate");
+    if (months &lt;= 0) throw new IllegalArgumentException("months must be positive");
+
+    double r = annualRate / 12.0;
+
+    // Standard annuity formula:
+    //   P = L * [r(1+r)^n] / [(1+r)^n - 1]
+    // Rewritten with a negative exponent:
+    //   P = L * r / (1 - (1+r)^(-n))
+    // Same math, often friendlier numerically for large n.
+    return principal * r / (1.0 - Math.pow(1.0 + r, -months));
+}
+</code></pre></div></div>
+
+<p>
+What you get from this approach is, I think, three things worth having at the same time. The failure becomes loud and early, rather than silent and downstream. The body of the computation stays free of validation noise. And when the exception does fire, it points at a real contract violation &mdash; a specific named argument coming in non-finite &mdash; rather than at some mysterious symptom many layers later in the call stack.
+</p>
+</div>
+</div>
+<div id="outline-container-pattern-2-separate-invalid-from-zero-with-a-result-type" class="outline-2">
+<h2 id="pattern-2-separate-invalid-from-zero-with-a-result-type">Pattern 2: Separate “invalid” from “zero” with a result type</h2>
+<div class="outline-text-2" id="text-pattern-2-separate-invalid-from-zero-with-a-result-type">
+<p>
+There are situations in which you cannot reasonably throw &mdash; typically because the caller is processing a stream of inputs and needs to continue regardless of whether any individual one is valid, while still being able to tell which ones were not. In those situations, the right move is usually to represent the distinction explicitly in the return type, rather than overloading a numeric value to mean both “result” and “no result.”
+</p>
+
+<p>
+In Java, you can use a sealed interface to construct a true disjunctive type, of which I have written a <a href="https://systemhalted.in/2025/11/25/disjuntive-types/">longer post</a> for the full story:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">sealed interface CalcResult permits CalcResult.Valid, CalcResult.Invalid {
+
+    record Valid(double value) implements CalcResult {
+        public Valid {
+            // Enforce finite values in Valid variant
+            if (!Double.isFinite(value)) {
+                throw new IllegalArgumentException("Valid result must be finite");
+            }
+        }
+    }
+
+    record Invalid(String reason) implements CalcResult {}
+
+    // Convenience factory methods
+    static Valid ok(double value) {
+        return new Valid(value);
+    }
+
+    static Invalid failed(String reason) {
+        return new Invalid(reason);
+    }
+}
+</code></pre></div></div>
+
+<p>
+With a type of this shape in place, NaN is no longer a stealth signal hiding inside a numeric channel. An invalid result is a first-class outcome of its own, the <code>Valid</code> variant cannot be constructed with a non-finite value, and the compiler can be made to enforce exhaustive handling at every consumption site.
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">CalcResult safeDivide(double a, double b) {
+    if (!Double.isFinite(a) || !Double.isFinite(b)) {
+        return CalcResult.failed("non-finite input");
+    }
+    if (b == 0.0) {
+        return CalcResult.failed("division by zero");
+    }
+    return CalcResult.ok(a / b);
+}
+
+// Pattern matching is exhaustive - compiler forces you to handle both cases
+CalcResult result = safeDivide(10.0, 2.0);
+switch (result) {
+    case CalcResult.Valid(double v) -&gt; 
+        System.out.println("Result: " + v);
+    case CalcResult.Invalid(String reason) -&gt; 
+        System.err.println("Failed: " + reason);
+    // No default needed - this is exhaustive
+}
+</code></pre></div></div>
+
+<p>
+The exact shape of the type is, in the end, less important than the discipline it expresses. What matters is that “invalid” is treated as a first-class outcome that the type system insists be handled, rather than as a special value that callers can quietly forget to check for.
+</p>
+</div>
+</div>
+<div id="outline-container-pattern-3-domain-types-that-make-nan-impossible" class="outline-2">
+<h2 id="pattern-3-domain-types-that-make-nan-impossible">Pattern 3: Domain types that make NaN impossible</h2>
+<div class="outline-text-2" id="text-pattern-3-domain-types-that-make-nan-impossible">
+<p>
+It is also worth observing that many of the doubles in business systems are not really “real numbers in the wild.” They are money, rates, counts, durations, and percentages &mdash; values which have far more structure than <code>double</code> is capable of representing, and which therefore tend to make poor candidates for raw <code>double</code> storage in the first place.
+</p>
+
+<p>
+A few examples of the better choice in each case:
+</p>
+
+<pre class="example"><code>1.  Money: store cents as long, or use BigDecimal where precision matters  
+2.  Counts: long or int  
+3.  Percentages: maybe basis points as int (one basis point = 0.01%, so 550 bps = 5.50%)  
+4.  Durations: java.time.Duration  
+</code></pre>
+
+<p>
+Tightening the types in this way reduces the surface area on which NaN can even appear in the first place. This is, in the end, the most reliable form of NaN defence available, and it has the additional virtue of being entirely structural: it is enforced by the compiler, rather than by the discipline of the next person to touch the code. A <code>long</code>, after all, simply cannot hold NaN &mdash; the language will not allow it.
+</p>
+</div>
+</div>
+<div id="outline-container-pattern-4-decide-where-infinity-is-acceptable" class="outline-2">
+<h2 id="pattern-4-decide-where-infinity-is-acceptable">Pattern 4: Decide where Infinity is acceptable</h2>
+<div class="outline-text-2" id="text-pattern-4-decide-where-infinity-is-acceptable">
+<p>
+Part 5 of this series covered Infinity and signed zero in some detail. The practical question, at this stage, is what to do about Infinity in everyday code, and the answer turns mostly on whether your domain has any legitimate use for it.
+</p>
+
+<p>
+Infinity is sometimes a meaningful signal:
+</p>
+
+<pre class="example"><code>1.  "Unlimited" limit  
+2.  "Unbounded" score  
+3.  A mathematical asymptote that you intentionally model  
+</code></pre>
+
+<p>
+If your domain does not explicitly accept Infinity as a meaningful value, however, the right thing to do is to treat it exactly as you would treat NaN &mdash; reject it at the boundary, using <code>Double.isFinite()</code>. This is precisely why the <code>requireFinite</code> helper above checks for finiteness rather than for <code>isNaN</code> alone: it enforces the rule “no NaN, no Infinity, full stop” in a single line. In the rare cases in which you genuinely need to distinguish between NaN and Infinity, you can still do so by checking each separately, but for the great majority of code, the only useful distinction is finite versus not-finite.
+</p>
+
+<p>
+The bug pattern to be alert to is the case where Infinity is tolerated accidentally &mdash; quietly admitted into the computation core because no one thought to reject it &mdash; and is then multiplied or scaled into a very large number that happens to look plausible at a glance. That is, in effect, how nonsense becomes confident-looking nonsense, and it is harder to catch downstream than NaN, because at least NaN propagates obviously.
+</p>
+</div>
+</div>
+<div id="outline-container-pattern-5-centralize-sanitization-but-do-not-lie" class="outline-2">
+<h2 id="pattern-5-centralize-sanitization-but-do-not-lie">Pattern 5: Centralize sanitization, but do not lie</h2>
+<div class="outline-text-2" id="text-pattern-5-centralize-sanitization-but-do-not-lie">
+<p>
+There are also situations in which sanitization is genuinely required, particularly when dealing with messy external data over which you have no control. The two principles I would offer, having been bitten by both, are: do the sanitization once, in a centralised place, and be honest about what you actually did.
+</p>
+
+<p>
+The dangerous form of sanitization is the one that looks reasonable at first glance:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">double safe = Double.isFinite(x) ? x : 0.0;
+</code></pre></div></div>
+
+<p>
+The problem with this pattern is that it converts “we do not know” into “definitely zero”, and zero is rarely a neutral value in any system that does arithmetic on it. A safer set of options is to either drop the offending datapoint outright (and to count it, so the volume of dropped values is observable), to mark the result as invalid using one of the result types described above, or to fall back to a documented default that has actual meaning in the domain &mdash; and, in any case, to log what happened so that the upstream cause can eventually be addressed.
+</p>
+
+<p>
+A common example in aggregation is something like this:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">double averageFinite(double[] xs) {
+    double sum = 0.0;
+    int n = 0;
+
+    for (double x : xs) {
+        if (Double.isFinite(x)) {
+            sum += x;
+            n++;
+        }
+    }
+
+    // Honest answer: no valid data means undefined result.
+    if (n == 0) return Double.NaN;
+
+    return sum / n;
+}
+</code></pre></div></div>
+
+<p>
+The honesty of the function consists in the last detail: when there is no valid data to average, the function returns NaN rather than zero. NaN is, in this case, the right answer &mdash; it is exactly what “undefined” means &mdash; and silently substituting zero would, once again, be a way of pretending to know something the function actually does not.
+</p>
+</div>
+</div>
+<div id="outline-container-third-party-libraries-when-nan-arrives-by-mail" class="outline-2">
+<h2 id="third-party-libraries-when-nan-arrives-by-mail">Third-party libraries: when NaN arrives by mail</h2>
+<div class="outline-text-2" id="text-third-party-libraries-when-nan-arrives-by-mail">
+<p>
+Not every NaN is born in your own code. Some of them are delivered.
+</p>
+
+<p>
+The most common cause of imported NaN is calling a math function that can legitimately return NaN for part of its domain &mdash; <code>Math.sqrt</code>, <code>Math.log</code>, and so on &mdash; and then forgetting that the moment you call out to such a function you have, in effect, crossed a boundary again, and the same boundary discipline applies. The fix is to validate the result immediately, at the point of crossing, while you still have full context about what was being computed:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">double result = Math.sqrt(userInput);
+
+// JDK math functions and third-party libs can return NaN.
+// Validate the output right away, at the point of crossing.
+requireFinite(result, "sqrt result");
+</code></pre></div></div>
+
+<p>
+The pattern generalises beyond JDK math: any time you call out to code you do not control &mdash; libraries, services, model inference endpoints, partner data feeds &mdash; the return value is best treated as a fresh boundary, with the same kind of validation you would apply to any other external input. The principle being preserved here is simply that the computation core gets to assume validated inputs, and any time something crosses into the core from elsewhere, the responsibility for validation falls on the crossing point.
+</p>
+</div>
+</div>
+<div id="outline-container-finding-the-first-nan-not-the-last-one" class="outline-2">
+<h2 id="finding-the-first-nan-not-the-last-one">Finding the first NaN, not the last one</h2>
+<div class="outline-text-2" id="text-finding-the-first-nan-not-the-last-one">
+<p>
+There is a particular tragedy that tends to play out in long-lived systems, in which NaN is only detected at the very end of a long chain of transformations &mdash; in a report, on a dashboard, or in a downstream consumer &mdash; and the team then has to work backwards through ten transformations to find the operation that originally produced it. By that point, the NaN you are looking at is the smoke; the fire was several layers upstream, and the hard part of the bug is reconstructing how the smoke got to where it is now.
+</p>
+
+<p>
+Two practical habits help with this:
+</p>
+</div>
+<div id="outline-container-add-tripwire-assertions-in-debug-builds" class="outline-3">
+<h3 id="add-tripwire-assertions-in-debug-builds">Add “tripwire assertions” in debug builds</h3>
+<div class="outline-text-3" id="text-add-tripwire-assertions-in-debug-builds">
+<p>
+In places where NaN should never legitimately exist, it is worth asserting that fact explicitly during development and in tests, so that the first appearance of NaN fails loudly rather than silently propagating:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">static void assertFinite(double x, String name) {
+    if (!Double.isFinite(x)) {
+        throw new AssertionError(name + " became non-finite: " + x);
+    }
+}
+</code></pre></div></div>
+
+<p>
+This is particularly worthwhile after major computation steps in numerically sensitive algorithms, where the cost of the assertion is negligible and the benefit of catching the first bad value early is considerable.
+</p>
+</div>
+</div>
+<div id="outline-container-log-with-context-once-not-everywhere" class="outline-3">
+<h3 id="log-with-context-once-not-everywhere">Log with context once, not everywhere</h3>
+<div class="outline-text-3" id="text-log-with-context-once-not-everywhere">
+<p>
+If the system needs observability into NaN-related rejections &mdash; and most production systems eventually do &mdash; the right place for that observability is at the boundary where the rejection happens, because that is where the original context still exists. An input adapter is a good example:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">double parseRate(String raw) {
+    double x = Double.parseDouble(raw);
+    if (!Double.isFinite(x)) {
+        // log raw payload id, customer id, partner id, etc.
+        throw new IllegalArgumentException("rate must be finite");
+    }
+    return x;
+}
+</code></pre></div></div>
+
+<p>
+This is the point at which you still have access to the raw payload, the source identity, and any correlating identifiers; once the value has flowed through several layers of the application, all of that context tends to be lost. Logging at the boundary, rather than at the point of eventual symptom, is therefore both cheaper and more useful.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-a-small-nan-hygiene-checklist" class="outline-2">
+<h2 id="a-small-nan-hygiene-checklist">A small NaN hygiene checklist</h2>
+<div class="outline-text-2" id="text-a-small-nan-hygiene-checklist">
+<p>
+By way of summary, the practices that have served me well in dealing with NaN in long-running systems are roughly these:
+</p>
+
+<pre class="example"><code>1.  Use Double.isFinite at boundaries where values enter your system or cross layers
+2.  Keep computation code clean; assume finite inputs inside the core
+3.  Do not convert invalid to zero unless the domain definition says it is correct
+4.  Prefer domain types over raw doubles when the value is not truly "a real number"
+5.  When you must degrade gracefully, return an explicit invalid result, not a silent sentinel
+6.  Instrument the boundary where you reject or drop invalids, so you can find the upstream cause
+</code></pre>
+
+<p>
+NaN, taken on its own terms, is not really an enemy. It is the floating-point system's way of telling you that something invalid happened upstream and that the math, in good faith, could not produce a real-number answer. The defensive task is therefore not to suppress that signal everywhere it appears, but to listen to it where it first appears, deal with it deliberately at the boundary, and let the rest of the system rely on the contract that the boundary enforces. Validate at the edges, keep the core clean, and resist, as steadily as you can, the temptation to silently turn unknown into zero.
+</p>
+</div>
+</div>
+</div>
+  <figure class="post-featured"><img src="assets/images/featured/2026-01-05-defending-against-nan-without-defensive-programming-hell.svg" alt="Part 6 hero image: Bold warning against Checkpoint Syndrome, the anti-pattern of scattering NaN checks throughout code. Central danger symbol with radiating lines represents validation chaos. Contrasts bad pattern (red if-isNaN checks) with good pattern (green requireFinite at boundaries)."><figcaption>NaN spreads like wildfire when you scatter if (isNaN) checks everywhere. The cure? Validate once at your system's boundaries, then let your computation core stay blissfully clean.</figcaption></figure>
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-computer-science">Computer Science</a>, <a href="/categories/#cat-software-engineering">Software Engineering</a>, <a href="/categories/#cat-technology">Technology</a>, <a href="/categories/#cat-series-4-floating-point-without-tears">Series 4 - Floating Point Without Tears</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-01-11">Jan 11, 2026</time><a class="related-post-title" href="/2026/01/11/kahan-summation-java-streams/">Part 7: Kahan Summation - A Better sum() for Java Streams</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2025-12-25">Dec 25, 2025</time><a class="related-post-title" href="/2025/12/25/nan-infinity-weird-math-rules/">Part 5: NaN, Infinity and the Rules of Weird Math</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2025-12-23">Dec 23, 2025</time><a class="related-post-title" href="/2025/12/23/machine-epsilon-double-precision-grid/">Part 4: Machine Epsilon - The Smallest Change a Double Can See</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/01/10/stereotypes-are-lazy-maps/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Stereotypes Are Lazy Maps</span></a><a class="post-nav-next" href="/2026/01/03/revisiting-post-harvest-supply-chain-2011-2026/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Revisiting India's Post-Harvest Supply Chain (2011 → 2026)</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

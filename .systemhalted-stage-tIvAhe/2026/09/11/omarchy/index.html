@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Why I love Omarchy · SystemHalted.in</title>
+  <meta name="description" content="Recent move to Omarchy and why it feels great">
+  <link rel="canonical" href="https://systemhalted.in/2026/09/11/omarchy/">
+  <meta property="og:title" content="Why I love Omarchy · SystemHalted.in">
+  <meta property="og:description" content="Recent move to Omarchy and why it feels great">
+  <meta property="og:url" content="https://systemhalted.in/2026/09/11/omarchy/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Why I love Omarchy","description":"Recent move to Omarchy and why it feels great","url":"https://systemhalted.in/2026/09/11/omarchy/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Why I love Omarchy</h1>
+    <p class="post-meta"><time datetime="2026-09-11T12:00:00-0500">11 September 2026</time><span aria-hidden="true">·</span> 4 min read</p>
+  </header>
+  <div class="post-content"><p>
+Just to give you the context on the reason for switch. I have a 13-inch MacBook Pro Retina from Early 2015 and a T430 with Intel(R) Core(TM) i5-3320M (4) @ 3.30 GHz. Both are old machines, as is evident, and make it difficult to run modern applications.
+</p>
+
+<p>
+Apple has stopped releasing updates for my MacBook and <code>brew</code> does not support it either. So, I had to switch to MacPort.
+</p>
+
+<p>
+On my ThinkPad, I use Ubuntu. I, for most of my life, have used Fedora and for past one year have been using Ubuntu. I used to love Fedora because I could tweak it. However, now I want something to just work out of the box and Ubuntu provided that. I used GNOME on both. But I was already bored of it and wanted to try something new.
+</p>
+
+<p>
+Since both my machines were in need of upgrade and not wanting to spend money on a new MacBook or non-Mac machine, I was looking for options.
+</p>
+
+<p>
+Google app one day recommended an article on Omarchy. A few things excited me about it. The strongest draw was that it works on old Intel MacBooks and that most hardware works out of the box. However, in order to not ruin my MacBook Pro (Omarchy doesn't allow dual-boot on MacBook), I decided to switch from Ubuntu to Omarchy on my ThinkPad.
+</p>
+
+<p>
+But there is more that Omarchy does which make it a delight to work on. Here are why I like it:
+</p>
+
+<ol class="org-ol">
+<li>It never goes stale. Rolling releases mean no “your machine is too old, we stop supporting you.” This in itself is a boon for my machines, specially ThinkPad, whose hardware is held together using electrical tape. That is also the exact betrayal (too dramatic?) Apple served my MacBook.</li>
+
+<li>It's an Ubuntu-calm Arch. “Omakase” is one command richer than a zero-config GNOME. Omarchy gives me Ubuntu's out-of-the-box calm with Arch underneath for when I want to tinker. Setup was easy. It took 3 minutes for installation to complete. The record is 27s.</li>
+
+<li>It revives old machinery. Lean Arch base + Hyprland/Wayland compositing gives the “slow laptop” more life.</li>
+
+<li>Everything is keyboard-first. Just like Emacs, Omarchy makes everything accessible through Keyboard. Tiling WM, <code>Super + Enter</code> for terminal, <code>Super + K</code> for keybindings - everything is within a reachable distance of your keyboard.</li>
+
+<li>Theming is whole-system, not piecemeal. If you know me, I switch Emacs theme using C-c T on my Emacs. Omarchy takes it a notch further. Pick a theme and the bar, terminal, editor, and lock screen all change together. Feels polished in a way GNOME never did.</li>
+
+<li>Controlling it is one command. A single <code>omarchy</code> CLI does updates, themes, reminders, screenshots, screen recording, night light, package installs, etc. No hunting through eight config files.</li>
+
+<li>It's safe to experiment on. <code>btrfs</code> snapshots + LUKS encryption is enabled by default. I can tinker freely and rollback instead of reinstalling.</li>
+
+<li>Opinionated but not locked down. Omarchy comes with <i>strong</i> defaults that can be overridden. The tool choices are coherent (except that Emacs is not the default editor but is available). So, you are not configuring and fighting, you are just configuring.</li>
+
+<li>AI First. We are living in 2026. Even a year ago most of the companies had not started using AI Agentic coding and AI Agents were not that popular. But now AI Agents are everywhere. Omarchy makes these AI Agents available out of the box. Claude Code, Codex, OpenCode, etc. are installed when you first use them. And all are a keystroke away.</li>
+
+<li>Tiling is Perfection. Omarchy uses Hyprland.</li>
+</ol>
+
+<p>
+A year ago my ThinkPad was a machine I tolerated - held together with tape, waiting for the day I'd have money for a replacement. Today it's the machine I reach for. Omarchy didn't make an old laptop usable again; it made using it enjoyable, which is more than Apple or Ubuntu ever did for it. If it keeps earning its keep on this ThinkPad, my MacBook might be next in line.
+</p>
+</div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-technology">Technology</a>, <a href="/categories/#cat-personal-essays">Personal Essays</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-09-12">Sep 12, 2026</time><a class="related-post-title" href="/2026/09/12/search-and-keyboard-shortcuts/">Search and Keyboard Shortcuts on This Blog</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-09-11">Sep 11, 2026</time><a class="related-post-title" href="/2026/09/11/simplifying-systemhalted/">Simplifying SystemHalted.in</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-05-08">May 08, 2026</time><a class="related-post-title" href="/2026/05/08/saving-private-notes/">Saving Private Notes</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/09/11/simplifying-systemhalted/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Simplifying SystemHalted.in</span></a><a class="post-nav-next" href="/2026/09/03/gtid-kafka-dr/"><span class="post-nav-label">Older →</span><span class="post-nav-title">GTIDs, Kafka Consumer Offsets, and What a Recovery Checkpoint Really Means</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

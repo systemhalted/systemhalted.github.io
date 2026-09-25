@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Review: Software Malpractice in the Age of AI · SystemHalted.in</title>
+  <meta name="description" content="A review of Danny Tobey&#39;s argument that AI makes software malpractice harder to avoid, and why responsibility in software cannot be modeled exactly like medical malpractice.">
+  <link rel="canonical" href="https://systemhalted.in/2026/07/21/review-software-malpractice-in-the-age-of-ai/">
+  <meta property="og:title" content="Review: Software Malpractice in the Age of AI · SystemHalted.in">
+  <meta property="og:description" content="A review of Danny Tobey&#39;s argument that AI makes software malpractice harder to avoid, and why responsibility in software cannot be modeled exactly like medical malpractice.">
+  <meta property="og:url" content="https://systemhalted.in/2026/07/21/review-software-malpractice-in-the-age-of-ai/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Review: Software Malpractice in the Age of AI","description":"A review of Danny Tobey's argument that AI makes software malpractice harder to avoid, and why responsibility in software cannot be modeled exactly like medical malpractice.","url":"https://systemhalted.in/2026/07/21/review-software-malpractice-in-the-age-of-ai/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Review: Software Malpractice in the Age of AI</h1>
+    <p class="post-meta"><time datetime="2026-07-21T12:00:00-0500">21 July 2026</time><span aria-hidden="true">·</span> 4 min read</p>
+  </header>
+  <div class="post-content"><p>
+Danny Tobey's “Software Malpractice in the Age of AI” makes a useful and uncomfortable argument: as software becomes more consequential, the software industry cannot keep pretending that professional responsibility belongs only to older professions such as medicine, law, accounting, and nursing.
+</p>
+
+<p>
+The paper surveys legal precedent around software, especially in medicine, and argues that the rise of AI weakens one of the assumptions that has historically protected software vendors from malpractice-style liability. That assumption is that human professionals remain the real decision makers, while software merely assists them.
+</p>
+
+<p>
+For ordinary clinical decision-support systems, that line may seem plausible. A doctor reviews the output, applies professional judgment, and accepts or rejects the recommendation. But with narrow AI systems that develop deep expertise in a domain, the relationship becomes less clean. If a system produces a recommendation that a human reviewer cannot meaningfully audit, then “human oversight” can become more procedural than real.
+</p>
+
+<p>
+That is the paper's strongest point. AI makes it harder to rely on the fiction that a human independently reviewed the basis for a software recommendation.
+</p>
+<div id="outline-container-where-i-agree" class="outline-2">
+<h2 id="where-i-agree">Where I agree</h2>
+<div class="outline-text-2" id="text-where-i-agree">
+<p>
+I agree with the paper's central concern. Technology companies and software professionals should not be immune from responsibility simply because the harm is mediated through code.
+</p>
+
+<p>
+Software now helps decide medical treatment, credit access, hiring, public benefits, fraud detection, insurance pricing, and many other areas where mistakes can alter a person's life. When systems operate at that level of consequence, the industry needs a more serious account of duty, care, review, and accountability.
+</p>
+
+<p>
+The paper is also right to look at professional malpractice as a useful comparison. Older professions have already built ideas around competence, fiduciary responsibility, licensing, insurance, standards of care, and disciplinary consequences. Software does not need to copy that structure blindly, but it should learn from it.
+</p>
+</div>
+</div>
+<div id="outline-container-where-the-analogy-weakens" class="outline-2">
+<h2 id="where-the-analogy-weakens">Where the analogy weakens</h2>
+<div class="outline-text-2" id="text-where-the-analogy-weakens">
+<p>
+The main weakness is that the doctor-software-engineer analogy does not map cleanly.
+</p>
+
+<p>
+A doctor usually owns the professional act of diagnosis or treatment. Even when the doctor consults peers, the final professional decision is attributable to that doctor. Software is rarely produced that way.
+</p>
+
+<p>
+A deployed AI product is usually the result of many decisions:
+</p>
+
+<ul class="org-ul">
+<li>Product defines the user problem and desired behavior.</li>
+<li>Data teams choose or prepare datasets.</li>
+<li>Engineers implement the system.</li>
+<li>Model teams tune behavior.</li>
+<li>Designers shape how users interpret the output.</li>
+<li>Legal and compliance teams approve risk language.</li>
+<li>Executives decide whether the product ships.</li>
+</ul>
+
+<p>
+If harm occurs, it may be impossible or unfair to assign responsibility only to the individual engineer who wrote part of the implementation. The engineer may have seen the risk but lacked authority to block release. Or the risk may have emerged from a product decision, data limitation, or business constraint outside the engineer's control.
+</p>
+
+<p>
+That does not mean nobody is responsible. It means software responsibility has to be organizational, not merely individual.
+</p>
+</div>
+</div>
+<div id="outline-container-what-the-paper-leaves-open" class="outline-2">
+<h2 id="what-the-paper-leaves-open">What the paper leaves open</h2>
+<div class="outline-text-2" id="text-what-the-paper-leaves-open">
+<p>
+The paper is valuable as a survey and warning, but it does less to explain how responsibility should actually be assigned inside software organizations.
+</p>
+
+<p>
+Several questions need more work:
+</p>
+
+<ul class="org-ul">
+<li>What would a software “standard of care” look like for AI systems?</li>
+<li>Which duties should belong to engineers, product leaders, data scientists, executives, and companies?</li>
+<li>Should licensing apply to all software engineers, or only to those working in high-risk domains?</li>
+<li>How should certifications, professional societies, or bodies such as IEEE shape enforceable practice?</li>
+<li>How do existing frameworks such as GDPR or human-rights declarations become operational inside product development?</li>
+</ul>
+
+<p>
+The strongest version of this argument would move from analogy to mechanism. It would define what competent AI development requires, what evidence must be produced before deployment, and who is accountable when that evidence is ignored.
+</p>
+</div>
+</div>
+<div id="outline-container-bottom-line" class="outline-2">
+<h2 id="bottom-line">Bottom line</h2>
+<div class="outline-text-2" id="text-bottom-line">
+<p>
+“Software Malpractice in the Age of AI” is worth reading because it names a real gap: AI systems are becoming professionally consequential without the professional accountability structure that older high-stakes domains developed over time.
+</p>
+
+<p>
+But the solution cannot simply be “treat software engineers like doctors.” Software is too collaborative, too organizational, and too entangled with product and business incentives for that analogy to carry the whole burden.
+</p>
+
+<p>
+AI malpractice, if the term is to mean anything useful, has to attach responsibility to the system of production. That includes the engineer, but it also includes the company that creates the incentives, approves the risks, and profits from the deployment.
+</p>
+</div>
+</div>
+<div id="outline-container-reference" class="outline-2">
+<h2 id="reference">Reference</h2>
+<div class="outline-text-2" id="text-reference">
+<p>
+Danny Tobey, “Software Malpractice in the Age of AI: A Guide for the Wary Tech Company”, AIES 2018.
+</p>
+</div>
+</div>
+</div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-article-review">Article Review</a>, <a href="/categories/#cat-ai">AI</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-08-02">Aug 02, 2026</time><a class="related-post-title" href="/2026/08/02/review-how-technological-advances-can-reveal-rights/">Review: How Technological Advances Can Reveal Rights</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-07-31">Jul 31, 2026</time><a class="related-post-title" href="/2026/07/31/review-agile-ethical-legal-model-ai-robotics-governance/">Review: An Agile Ethical/Legal Model for AI and Robotics Governance</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-08-09">Aug 09, 2026</time><a class="related-post-title" href="/2026/08/09/review-studying-wisdom-of-crowds-at-scale/">Review: Studying the Wisdom of Crowds at Scale</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/07/22/wezterm-setup/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Switching to WezTerm</span></a><a class="post-nav-next" href="/2026/07/20/book-review-miner-town-awakening-by-ankit-saxena/"><span class="post-nav-label">Older →</span><span class="post-nav-title">[Book Review] Miner Town: Awakening (Miner Town, #1) by Ankit Saxena</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

@@ -17,11 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Set up Emacs 31.1
+        uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
         with:
-          ruby-version: '3.4.9'
-          bundler-cache: true
+          version: '31.1'
 
       - name: Set up Node
         uses: actions/setup-node@v6
@@ -32,20 +31,26 @@ jobs:
       - name: Install npm dependencies
         run: npm ci --ignore-scripts
 
-      - name: Build Jekyll site
-        run: bundle exec jekyll build
+      - name: Check clean CI publishing contract
+        run: test/ci-contract.sh
 
-      - name: Install Emacs
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes emacs-nox
+      - name: Build and validate Org site
+        run: >-
+          emacs -Q --batch -L publish
+          -l publish/systemhalted-workflow.el
+          -f systemhalted-batch-build
 
       - name: Check EWW rendering
         run: emacs -Q --batch --script scripts/test-eww-rendering.el _site/index.html
 
-      - name: Serve Jekyll site
+      - name: Serve generated site
         run: |
-          bundle exec jekyll serve --skip-initial-build --no-watch --port 4002 --detach
+          emacs -Q --batch -L publish -l publish/systemhalted-workflow.el \
+            --eval '(setq systemhalted-output-directory (expand-file-name "_site"))' \
+            --eval '(setq systemhalted-preview-port 4002)' \
+            --eval '(systemhalted-start-preview-server)' \
+            --eval '(while t (accept-process-output nil 1))' \
+            > /tmp/systemhalted-preview.log 2>&1 &
           for attempt in {1..60}; do
             curl --fail --silent http://127.0.0.1:4002/ > /dev/null && exit 0
             sleep 1

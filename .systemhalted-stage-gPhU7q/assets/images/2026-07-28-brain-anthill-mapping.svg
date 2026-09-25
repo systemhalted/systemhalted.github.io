@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 384" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <marker id="arrowR" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#B48EAD"/>
+    </marker>
+    <marker id="arrowL" markerWidth="9" markerHeight="9" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M7,0 L0,3 L7,6 Z" fill="#B48EAD"/>
+    </marker>
+  </defs>
+
+  <rect x="10" y="10" width="760" height="364" rx="14" fill="#ECEFF4" stroke="#D8DEE9"/>
+  <text x="390" y="40" text-anchor="middle" font-size="19" font-weight="700" fill="#3B4252">The same pattern, in two systems</text>
+  <text x="390" y="59" text-anchor="middle" font-size="12" fill="#4C566A">each part on the left has a counterpart on the right</text>
+
+  <!-- column headers -->
+  <text x="155" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#5E81AC">Brain</text>
+  <text x="625" y="86" text-anchor="middle" font-size="14" font-weight="700" fill="#A3BE8C">Anthill</text>
+
+  <!-- Row 1 -->
+  <rect x="40" y="98" width="230" height="44" rx="8" fill="#FFFFFF" stroke="#5E81AC" stroke-width="1.5"/>
+  <text x="155" y="125" text-anchor="middle" font-size="14" fill="#2E3440">Neuron</text>
+  <rect x="510" y="98" width="230" height="44" rx="8" fill="#FFFFFF" stroke="#A3BE8C" stroke-width="1.5"/>
+  <text x="625" y="125" text-anchor="middle" font-size="14" fill="#2E3440">Individual ant</text>
+  <line x1="276" y1="120" x2="504" y2="120" stroke="#B48EAD" stroke-width="1.5" marker-start="url(#arrowL)" marker-end="url(#arrowR)"/>
+
+  <!-- Row 2 -->
+  <rect x="40" y="156" width="230" height="44" rx="8" fill="#FFFFFF" stroke="#5E81AC" stroke-width="1.5"/>
+  <text x="155" y="183" text-anchor="middle" font-size="14" fill="#2E3440">Whole brain</text>
+  <rect x="510" y="156" width="230" height="44" rx="8" fill="#FFFFFF" stroke="#A3BE8C" stroke-width="1.5"/>
+  <text x="625" y="183" text-anchor="middle" font-size="14" fill="#2E3440">Ant colony</text>
+  <line x1="276" y1="178" x2="504" y2="178" stroke="#B48EAD" stroke-width="1.5" marker-start="url(#arrowL)" marker-end="url(#arrowR)"/>
+
+  <!-- Row 3 -->
+  <rect x="40" y="214" width="230" height="44" rx="8" fill="#FFFFFF" stroke="#5E81AC" stroke-width="1.5"/>
+  <text x="155" y="232" text-anchor="middle" font-size="12.5" fill="#2E3440">Neurotransmitters</text>
+  <text x="155" y="248" text-anchor="middle" font-size="12.5" fill="#2E3440">&amp; dendrites</text>
+  <rect x="510" y="214" width="230" height="44" rx="8" fill="#FFFFFF" stroke="#A3BE8C" stroke-width="1.5"/>
+  <text x="625" y="232" text-anchor="middle" font-size="12.5" fill="#2E3440">Antennae, scent,</text>
+  <text x="625" y="248" text-anchor="middle" font-size="12.5" fill="#2E3440">movement</text>
+  <line x1="276" y1="236" x2="504" y2="236" stroke="#B48EAD" stroke-width="1.5" marker-start="url(#arrowL)" marker-end="url(#arrowR)"/>
+
+  <!-- Row 4 -->
+  <rect x="40" y="272" width="230" height="44" rx="8" fill="#E5E9F0" stroke="#5E81AC" stroke-width="1.5"/>
+  <text x="155" y="299" text-anchor="middle" font-size="14" font-weight="700" fill="#2E3440">Cognition</text>
+  <rect x="510" y="272" width="230" height="44" rx="8" fill="#E5E9F0" stroke="#A3BE8C" stroke-width="1.5"/>
+  <text x="625" y="292" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2E3440">Coordinated</text>
+  <text x="625" y="308" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2E3440">colony behavior</text>
+  <line x1="276" y1="294" x2="504" y2="294" stroke="#B48EAD" stroke-width="1.5" marker-start="url(#arrowL)" marker-end="url(#arrowR)"/>
+
+  <text x="390" y="352" text-anchor="middle" font-size="12" font-style="italic" fill="#4C566A">A neuron does not think and an ant does not plan; the behavior that matters appears in the whole system.</text>
+</svg>

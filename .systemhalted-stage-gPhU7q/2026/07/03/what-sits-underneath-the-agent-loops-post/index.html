@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>What Sits Underneath the Agent Loops Post · SystemHalted.in</title>
+  <meta name="description" content="Anthropic&#39;s Claude Code team described four kinds of agent loops. Notes on where the check on the work lives in each, and on the artifacts a team has to make durable underneath them.">
+  <link rel="canonical" href="https://systemhalted.in/2026/07/03/what-sits-underneath-the-agent-loops-post/">
+  <meta property="og:title" content="What Sits Underneath the Agent Loops Post · SystemHalted.in">
+  <meta property="og:description" content="Anthropic&#39;s Claude Code team described four kinds of agent loops. Notes on where the check on the work lives in each, and on the artifacts a team has to make durable underneath them.">
+  <meta property="og:url" content="https://systemhalted.in/2026/07/03/what-sits-underneath-the-agent-loops-post/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What Sits Underneath the Agent Loops Post","description":"Anthropic's Claude Code team described four kinds of agent loops. Notes on where the check on the work lives in each, and on the artifacts a team has to make durable underneath them.","url":"https://systemhalted.in/2026/07/03/what-sits-underneath-the-agent-loops-post/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">What Sits Underneath the Agent Loops Post</h1>
+    <p class="post-meta"><time datetime="2026-07-03T12:00:00-0500">3 July 2026</time><span aria-hidden="true">·</span> 4 min read</p>
+  </header>
+  <div class="post-content"><p>
+Anthropic's Claude Code team put out a short piece last week describing four kinds of agent loops: turn-based, goal-based, time-based, and proactive. Each type comes with a trigger, a stop condition, and typical use cases. The taxonomy describes surface. It says how the agent runs, how it stops, and what starts it. Underneath it sits a different question: where does the check on the work actually live? Each loop type puts that check in a different place, and the place that holds it is the place a team has to make durable before the next loop up is safe to build.
+</p>
+
+<p>
+In a turn-based loop, the check lives in your judgement. The agent gathers context, does the work, checks itself, and hands back a result. You decide whether to accept it, redirect, or discard. Your judgement does not scale past a certain volume of work. What helps is writing the check down as something the agent can run before it comes back to you. Start the dev server, exercise the changed control, take screenshots before and after, run the affected tests. A skill file that encodes these steps moves the check from one person's head to a file the whole team can read and improve. Every loop above this one assumes that file exists.
+</p>
+
+<p>
+A goal-based loop moves the check into the exit criterion. You state what done looks like, and an evaluator model tests the condition each time the agent tries to stop. A measurable criterion, such as a Lighthouse score or a latency threshold on a specific endpoint, stops the loop on something you can defend after the fact. A vague criterion stops the loop early, because the agent convinces itself it is done, or lets it run long, because there is no way to be sure. Most teams do not have exit criteria for their own work written in language a person could act on, let alone an agent. The first attempt at a goal-based loop usually exposes that gap.
+</p>
+
+<p>
+With a time-based loop, the trigger carries the check. The same prompt runs every N minutes against the current state of the world: summarising a channel, sweeping a queue, checking a pull request for review comments. What usually breaks here is the interval, not the prompt. A short interval against a slow-moving source wastes tokens, and a long interval against a fast-moving source misses changes that need a response. When the source system can emit an event, such as a webhook or a queue depth alert, an event trigger ties each run to a change that actually happened. A time-based loop works better as a stage on the way to an event-driven one than as a destination.
+</p>
+
+<p>
+A proactive loop spreads the check across the whole system around the agent. A routine watches a stream of bug reports, alerts, or tickets, and runs a goal-based loop for each item until someone turns it off. This is a queue consumer whose judgement comes from a model, so it needs the same properties as any production consumer: idempotency, rate limits, spend caps, observability, a shutoff, and an owner. The Anthropic post covers token budgeting and routing routine subtasks to smaller models, which matter for cost. The harder question is ownership. A routine without a clear owner will eventually do the wrong thing with nobody responsible for noticing.
+</p>
+
+<p>
+Three of these places build on each other directly. The check written down at the turn-based level is what the goal-based loop evaluates, and the criterion defined at the goal-based level is what the proactive routine applies to each item on the stream. The trigger sits beside this chain rather than inside it: a schedule or an event source decides when the runs happen, not whether their results can be trusted. A proactive routine built on unverified goals does not automate anything useful. It repeats whatever was already broken, at a cost that grows with how often it runs.
+</p>
+
+<p>
+So the loops are the visible layer, and the durable artifacts sit underneath them: the skill file, the exit criterion, the trigger, and the observability around the routine. A team can locate its missing artifact by looking at what it still does by hand. If UI changes are verified manually at the end of every session, the skill file has not been written. Case-by-case judgement on whether a fix is done usually means there is no measurable exit criterion. A script that someone remembers to start every morning is a schedule that has not been written down, and after that an event trigger. Hand triage of a steady stream of reports is a routine that has not been built yet. These artifacts outlive the specific prompt, the specific model, and the specific team. Writing them down is the work the loops post points to.
+</p>
+</div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-technology">Technology</a>, <a href="/categories/#cat-software-engineering">Software Engineering</a>, <a href="/categories/#cat-ai">AI</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-07-17">Jul 17, 2026</time><a class="related-post-title" href="/2026/07/17/agent-loops-as-a-team-diagnostic/">Agent Loops as a Team Diagnostic</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-07-10">Jul 10, 2026</time><a class="related-post-title" href="/2026/07/10/adopting-agent-loops-in-order/">Adopting Agent Loops in Order</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-02-06">Feb 06, 2026</time><a class="related-post-title" href="/2026/02/06/insight-agents-end-of-dashboards/">Insight Agents and the End of Dashboard-Driven Analytics</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/07/10/adopting-agent-loops-in-order/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Adopting Agent Loops in Order</span></a><a class="post-nav-next" href="/2026/07/02/property-based-testing/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Property-Based Testing: Testing Rules Instead of Examples</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

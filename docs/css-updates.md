@@ -7,8 +7,8 @@ ordinary changes.
 ## Theme and tokens
 
 The root `<html>` element receives either `theme-nord-light` or
-`theme-nord-dark`. `_includes/head.html` applies the saved or system preference
-before paint and `assets/js/script.js` toggles and persists it.
+`theme-nord-dark`. `publish/templates/base.html` applies the saved or system
+preference before paint and `assets/js/script.js` toggles and persists it.
 
 Component rules should use semantic variables such as `--background`,
 `--surface`, `--text`, `--muted`, `--border`, `--accent`, and the `--code-*`
@@ -34,7 +34,7 @@ and whitespace rather than card surfaces.
 
 ## JavaScript-coupled selectors
 
-Coordinate renames with `_layouts/default.html` and `assets/js/script.js`:
+Coordinate renames with `publish/templates/base.html` and `assets/js/script.js`:
 
 - Theme: `theme-nord-light`, `theme-nord-dark`, `#theme-toggle`.
 - Search: `.search-toggle`, `#search-overlay`, `#search-input`,
@@ -53,4 +53,4 @@ Horizontal scrolling belongs on code and table wrappers, not on the page.
 
 Before shipping a visual change, inspect the homepage, a short post, a long
 post with its collapsed contents disclosure, Archive, Projects, search, mobile
-width, and both themes. Then run the Jekyll build and `npm run a11y`.
+width, and both themes. Then run `M-x systemhalted-build` and `npm run a11y`.

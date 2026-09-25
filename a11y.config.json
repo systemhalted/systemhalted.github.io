@@ -19,7 +19,7 @@
     "http://127.0.0.1:4002/categories/",
     "http://127.0.0.1:4002/tags/",
     "http://127.0.0.1:4002/projects/",
-    "http://127.0.0.1:4002/kartavya-path/",
+    "http://127.0.0.1:4002/themes/",
     "http://127.0.0.1:4002/emacs/",
     "http://127.0.0.1:4002/emacs/sdkman.el/",
     "http://127.0.0.1:4002/webcmd/",

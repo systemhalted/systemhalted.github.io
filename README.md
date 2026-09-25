@@ -12,6 +12,11 @@ Load the repository workflow from your Emacs configuration:
 (load "/path/to/systemhalted.github.io/publish/systemhalted-workflow.el")
 ```
 
+To try it in a running Emacs first, evaluate the same form with `M-:` (or use
+`M-x load-file` and select this file). The `systemhalted-*` commands appear
+after the workflow file has loaded. Keep the `load` form in your init file to
+make them available after each Emacs restart.
+
 The publisher uses the Org and HTML libraries bundled with Emacs 31.1. It does
 not install packages or execute Babel blocks.
 

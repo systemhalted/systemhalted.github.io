@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Saving Private Notes · SystemHalted.in</title>
+  <meta name="description" content="How I cleaned up a thousand Apple Notes by being honest about what I actually use notes for, building a small folder structure to match, and drawing a hard line between notes and tasks.">
+  <link rel="canonical" href="https://systemhalted.in/2026/05/08/saving-private-notes/">
+  <meta property="og:title" content="Saving Private Notes · SystemHalted.in">
+  <meta property="og:description" content="How I cleaned up a thousand Apple Notes by being honest about what I actually use notes for, building a small folder structure to match, and drawing a hard line between notes and tasks.">
+  <meta property="og:url" content="https://systemhalted.in/2026/05/08/saving-private-notes/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Saving Private Notes","description":"How I cleaned up a thousand Apple Notes by being honest about what I actually use notes for, building a small folder structure to match, and drawing a hard line between notes and tasks.","url":"https://systemhalted.in/2026/05/08/saving-private-notes/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Saving Private Notes</h1>
+    <p class="post-meta"><time datetime="2026-05-08T12:00:00-0500">8 May 2026</time><span aria-hidden="true">·</span> 4 min read</p>
+  </header>
+  <div class="post-content"><p>
+I had over 1000 notes in Apple Notes when I finally decided to clean them up. Most were in a folder called “Misc” or sitting loose in the root. Some were years old. A few I did not recognise as mine.
+</p>
+
+<p>
+The structure, if you can call it that, was two systems running side by side and neither of them working. I had read about Zettelkasten somewhere, read a book about it, watched some videos, and set up the standard folders &mdash; Inbox, Input, Output, Zettel &mdash; without ever using them. Alongside that I had an older hierarchy of Work, Personal, and Writing, where I was actually saving things, more or less at random. Whichever folder I thought of first got the note. I had been telling myself this was fine because the notes were captured, and search would do the rest. Search did not do the rest. Most of the time I did not know what to search for.
+</p>
+<div id="outline-container-why-i-finally-bothered" class="outline-2">
+<h2 id="why-i-finally-bothered">Why I finally bothered</h2>
+<div class="outline-text-2" id="text-why-i-finally-bothered">
+<p>
+I am an engineering manager. In a normal week I need notes from team 1:1s, architecture decisions, books I am reading, an AI/ML study plan I run at weekends, ideas for writing, astrophotography logs, and guitar stuff. None of that is unusual. What forced the cleanup was that several times in a couple of months, I needed a specific note before a meeting and could not find it in time.
+</p>
+
+<p>
+The problem was not that I had too many notes. It was that I had never decided what the system was supposed to do.
+</p>
+</div>
+</div>
+<div id="outline-container-simplification" class="outline-2">
+<h2 id="simplification">Simplification</h2>
+<div class="outline-text-2" id="text-simplification">
+<p>
+One Saturday I sat down and wrote out what I actually use notes for: work, personal life, things I am learning, writing I am working on, a daily journal, random ideas, and an archive for things I am done with. That came out as eight buckets, which I numbered so they would sort in the order I wanted:
+</p>
+
+<pre class="example"><code>00 Inbox
+10 Work
+20 Personal
+30 Learning
+40 Writing
+50 Journal
+60 Ideas
+99 Archive
+</code></pre>
+
+<p>
+Each has a few subfolders. Work has Team Management, Meetings, Architecture, and Decisions. Learning has Books, Articles, Videos, Courses, and a Subjects folder where I keep my own synthesis on topics I am studying over time. Writing splits into Ideas, Drafts, Articles, Poetry, Stories, Books, and Published. The old Zettelkasten folders went into Archive. I was not using them, and pretending I would was part of why the system was a mess.
+</p>
+
+<p>
+I learned later that what I had built was close to a combination of two methods I had not heard of when I started. PARA (Projects, Areas, Resources, Archives) organises by how actionable something is, not by topic. Johnny Decimal is a numbering scheme that gives every folder a permanent ID. People combine the two, and what I had was a rough version of that combination. It was nice to know but did not change anything. The structure worked because it matched how I think, not because it had a name.
+</p>
+</div>
+</div>
+<div id="outline-container-the-rule-that-fixed-the-overlap" class="outline-2">
+<h2 id="the-rule-that-fixed-the-overlap">The rule that fixed the overlap</h2>
+<div class="outline-text-2" id="text-the-rule-that-fixed-the-overlap">
+<p>
+The other thing I had been doing wrong, which the cleanup made obvious, was mixing notes and tasks. Things that belonged in Reminders were living in Apple Notes, and the other way around, and I was sometimes updating both for the same thing without realising it.
+</p>
+
+<p>
+The rule I went with is simple. If it has a “done” state, it goes in Reminders. If it does not, it goes in Notes. Tasks, follow-ups, and things to keep an eye on go to Reminders; knowledge, drafts, and references go to Notes. It sounds obvious written down, but I had not been doing it. Once I started, the overlap was gone, and so was most of the duplication that came with it.
+</p>
+</div>
+</div>
+<div id="outline-container-what-id-actually-tell-someone" class="outline-2">
+<h2 id="what-id-actually-tell-someone">What I'd actually tell someone</h2>
+<div class="outline-text-2" id="text-what-id-actually-tell-someone">
+<p>
+The cleanup itself was not the hard part. The hard part was admitting that the Zettelkasten folders I had set up years earlier were aspirational, not active. I was impressed by how useful it was for Niklas Luhmann and thought it would be useful for me as well in the same way it was for him. However, these folders had been sitting there making the system look organised while making the actual mess worse.
+</p>
+
+<p>
+Most of the work was being honest about what I really do with notes &mdash; capture things, look them up later, occasionally write something longer &mdash; and building the smallest structure that supported those three things. No folders that existed only because some method I had read about said they should.
+</p>
+
+<p>
+If you are sitting on your own version of a thousand unfiled notes, do not go looking for a method to copy. Write down what you actually use notes for, build the folders that match, and leave room to fix it later. The other thing &mdash; and I am saying this because I ignored my own advice for years &mdash; is that half an hour once or twice a week spent clearing out the Inbox goes a long way. The cleanup itself is a one-time event. Keeping it clean is not.
+</p>
+</div>
+</div>
+</div>
+  <figure class="post-featured"><img src="assets/images/featured/2026-05-08-saving-private-notes.png" alt="Illustration of a person at a desk working on a MacBook with Apple Notes open. Above them, a thought bubble shows a chaotic mass of more than a thousand colourful sticky notes. Two arrows lead from the bubble: one to a tidy set of folders labelled Ideas, Clients, Knowledge, and Ref; the other to a separate Tasks list with checkbox items like Schedule meeting, Email presentation, and Buy groceries. A bookshelf in the background includes Digital Minimalism and Getting Things Done."><figcaption>From a thousand unfiled notes to a small folder structure on one side and a tasks list on the other.</figcaption></figure>
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-personal-essays">Personal Essays</a>, <a href="/categories/#cat-technology">Technology</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-09-12">Sep 12, 2026</time><a class="related-post-title" href="/2026/09/12/search-and-keyboard-shortcuts/">Search and Keyboard Shortcuts on This Blog</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-09-11">Sep 11, 2026</time><a class="related-post-title" href="/2026/09/11/omarchy/">Why I love Omarchy</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-09-11">Sep 11, 2026</time><a class="related-post-title" href="/2026/09/11/simplifying-systemhalted/">Simplifying SystemHalted.in</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/05/30/renaming-a-linux-user-without-losing-your-setup/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Renaming a Linux User Without Losing Your Setup</span></a><a class="post-nav-next" href="/2026/02/06/insight-agents-end-of-dashboards/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Insight Agents and the End of Dashboard-Driven Analytics</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

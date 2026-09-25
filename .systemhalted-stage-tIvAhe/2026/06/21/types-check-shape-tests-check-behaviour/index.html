@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Types Check Shape, Tests Check Behaviour · SystemHalted.in</title>
+  <meta name="description" content="Notes from building a small text editor in Rust, and what a green-but-wrong save() function taught me about the line between what a type system can prove and what only a test can.">
+  <link rel="canonical" href="https://systemhalted.in/2026/06/21/types-check-shape-tests-check-behaviour/">
+  <meta property="og:title" content="Types Check Shape, Tests Check Behaviour · SystemHalted.in">
+  <meta property="og:description" content="Notes from building a small text editor in Rust, and what a green-but-wrong save() function taught me about the line between what a type system can prove and what only a test can.">
+  <meta property="og:url" content="https://systemhalted.in/2026/06/21/types-check-shape-tests-check-behaviour/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Types Check Shape, Tests Check Behaviour","description":"Notes from building a small text editor in Rust, and what a green-but-wrong save() function taught me about the line between what a type system can prove and what only a test can.","url":"https://systemhalted.in/2026/06/21/types-check-shape-tests-check-behaviour/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Types Check Shape, Tests Check Behaviour</h1>
+    <p class="post-meta"><time datetime="2026-06-21T12:00:00-0500">21 June 2026</time><span aria-hidden="true">·</span> 10 min read</p>
+  </header>
+  <div class="post-content"><details class="post-toc"><summary>Contents</summary><nav aria-label="Table of contents"><ul><li><a href="#a-green-test-is-not-a-correct-program">A green test is not a correct program</a></li><li><a href="#the-compiler-reviews-shape-not-intent">The compiler reviews shape, not intent</a></li><li><a href="#a-regression-test-only-counts-once-you-have-seen-it-fail">A regression test only counts once you have seen it fail</a></li><li><a href="#types-and-tests-answer-different-questions">Types and tests answer different questions</a></li><li><a href="#test-everything-that-can-fail-is-too-blunt">“Test everything that can fail” is too blunt</a></li><li><a href="#the-point">The point</a></li><li><a href="#references-and-notes">References and Notes</a></li></ul></nav></details><p>
+I am writing a small text editor in Rust to learn the language. The editor has a document model, you can open a file, save a file, etc. While building the <code>save</code> function I hit a bug that made me reconsider what tests are for and where the compiler takes over.
+</p>
+
+<p>
+These are some of the notes.
+</p>
+<div id="outline-container-a-green-test-is-not-a-correct-program" class="outline-2">
+<h2 id="a-green-test-is-not-a-correct-program">A green test is not a correct program</h2>
+<div class="outline-text-2" id="text-a-green-test-is-not-a-correct-program">
+<p>
+The function performed following tasks - write the buffer to a path, then mark the document as having no unsaved changes.
+</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">pub fn save(&amp;mut self, path: &amp;Path) -&gt; io::Result&lt;()&gt; {
+    std::fs::write(path, self.text());   // the Result here is silently dropped
+    self.modified = false;
+    Ok(())
+}
+</code></pre></div></div>
+
+<p>
+and I had also written the following test:
+</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">#[test]
+fn save_writes_contents_and_clears_modified() {
+    let path = std::env::temp_dir().join("save_test.txt");
+    let mut doc = Document::from_str("abc");
+    doc.insert(3, "def"); // buffer is now "abcdef", with unsaved changes
+
+    doc.save(&amp;path).unwrap();
+
+    assert_eq!(std::fs::read_to_string(&amp;path).unwrap(), "abcdef");
+    assert!(!doc.is_modified()); // a successful save clears the dirty flag
+
+    let _ = std::fs::remove_file(&amp;path);
+}
+</code></pre></div></div>
+
+<p>
+It built a document, made a change, saved it to a temporary file, read the file back, checked that the contents matched, and confirmed the document no longer reported unsaved changes. The test passed, which would normally be the end of it, except that the implementation had a bug on the first line.
+</p>
+
+<p>
+<code>std::fs::write</code> returns a <code>Result</code>, because writing to disk can fail in any of the ordinary ways: the disk fills up, the directory does not exist, the process lacks permission. The function ignored that return value, so a failed write would still fall through to <code>self.modified = false</code> and then <code>Ok(())</code>. The editor would report the file as saved, clear the unsaved-changes marker, and lose the user's work, which is the one bug a text editor cannot ship. The test stayed green the whole time because it only ran the happy path, and a passing happy-path test says nothing about the behaviour on the failure paths it never visits.
+</p>
+</div>
+</div>
+<div id="outline-container-the-compiler-reviews-shape-not-intent" class="outline-2">
+<h2 id="the-compiler-reviews-shape-not-intent">The compiler reviews shape, not intent</h2>
+<div class="outline-text-2" id="text-the-compiler-reviews-shape-not-intent">
+<p>
+I missed the bug, but the compiler flagged it:
+</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-text" data-lang="text">warning: unused `Result` that must be used
+</code></pre></div></div>
+
+<p>
+Rust marks <code>Result</code> as <code>#[must_use]</code><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, so the lint fires when a fallible call's return is dropped. The warning is real help, but it is still only a warning. I could have written this instead and quieted it:
+</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">let _ = std::fs::write(path, self.text());   // explicitly discard it
+self.modified = false;
+Ok(())
+</code></pre></div></div>
+
+<p>
+That compiles cleanly. The type checker is satisfied: the signature returns a <code>Result</code>, a <code>Result</code> is returned, the borrow rules<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> hold, the shape of the program is right. What the compiler has no way of checking is what I meant by it &ndash; that a failed write must not clear the modified flag, that it must not be reported as success.
+</p>
+
+<p>
+This is where the work of compiler stops. It checks that the types line up, that fallibility is visible in signatures, that a <code>Result</code> is not accidentally ignored, that the borrows are valid; it does not check that the program does the right thing with any of those things once it has them.
+</p>
+</div>
+</div>
+<div id="outline-container-a-regression-test-only-counts-once-you-have-seen-it-fail" class="outline-2">
+<h2 id="a-regression-test-only-counts-once-you-have-seen-it-fail">A regression test only counts once you have seen it fail</h2>
+<div class="outline-text-2" id="text-a-regression-test-only-counts-once-you-have-seen-it-fail">
+<p>
+The fix is one character, the <code>?</code> operator, which turns the dropped result into a propagated one:
+</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">std::fs::write(path, self.text())?;
+self.modified = false;
+Ok(())
+</code></pre></div></div>
+
+<p>
+If the write fails, the function exits before clearing the modified flag. I had no test that would have caught the bug. Adding <code>?</code> without adding a test would leave me trusting the code for no reason at all, so I wrote the test that should have existed from the start.
+</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">#[test]
+fn failed_save_surfaces_error_and_keeps_modified() {
+    let mut doc = Document::from_str("important data");
+    doc.insert(0, "!"); // the document now has unsaved changes
+
+    // a directory that does not exist, so the OS write is forced to fail
+    let bad_path = std::env::temp_dir().join("no_such_dir").join("file.txt");
+    let result = doc.save(&amp;bad_path);
+
+    assert!(result.is_err());     // the failure must reach the caller
+    assert!(doc.is_modified());   // and the buffer must still be dirty
+}
+</code></pre></div></div>
+
+<p>
+Then I put the bug back, ran the suite, watched this test go red, restored the fix, and watched it go green. Putting the bug back to confirm the test fails for the right reason sounds like ceremony but is not. A regression test you have never seen fail is one you trust by faith, and the first section already showed how little a passing test is worth on its own.
+</p>
+</div>
+</div>
+<div id="outline-container-types-and-tests-answer-different-questions" class="outline-2">
+<h2 id="types-and-tests-answer-different-questions">Types and tests answer different questions</h2>
+<div class="outline-text-2" id="text-types-and-tests-answer-different-questions">
+<p>
+A type system is good at making certain kinds of lies impossible: a value that may be absent cannot pretend to be present, a fallible operation cannot pretend to be infallible, a closed set of cases cannot pretend one branch does not exist. That is powerful, but it is structural. Rust can make the failure visible, warn me when I accidentally ignore it, and force the code to admit that saving may fail, but it cannot encode the editor's rule that if saving fails, the document must remain dirty. That rule lives at the level of behaviour, not shape.
+</p>
+
+<p>
+You can push more behaviour into types than that suggests. The typestate pattern<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup> encodes a rule into a type, so that an illegal operation does not compile instead of failing a test. The <code>save</code> bug can be narrowed this way by making the clearing of the modified flag depend on a value that only a successful write can produce:
+</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">struct Saved;   // nothing outside this module can construct one
+
+fn write(&amp;self, path: &amp;Path) -&gt; io::Result&lt;Saved&gt; { /* ... */ }
+fn mark_clean(&amp;mut self, _proof: Saved) { self.modified = false; }
+</code></pre></div></div>
+
+<p>
+Now <code>mark_clean</code> cannot be called without a <code>Saved</code>, and the only thing that hands one back is a <code>write</code> that returned <code>Ok</code>, so the exact bug from the first section is harder to write by accident.<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup> The boundary between what a type can prove and what only a test can prove is not fixed; it moves with how much you choose to encode.
+</p>
+
+<p>
+What stays out of reach, at least in Rust, is value-level correctness, which is the relationship between specific input and output values. That needs dependent types, which Rust does not have. The type checker has no opinion on whether inserting <code>" world"</code> at index 5 of <code>"hello"</code> gives <code>"hello world"</code> or <code>"worldhello"</code>; both are valid =String=s, and which one you meant is a question only a test can answer.
+</p>
+
+<p>
+The instruction that falls out of this is short: do not test what the type system has already made impossible, and do test the behaviour the type system is silent about. A small example came up in the next step. A document needs to remember the file it came from, but a new, untitled buffer has not come from anywhere, so the honest type for that field is <code>Option&lt;PathBuf&gt;</code>, and Rust will not let you read the path without handling the case where there is none. The “I forgot to check for the missing file” bug is not caught by a test here; the program that contains it does not compile, and writing a test for it would only re-prove what the compiler has already proven.
+</p>
+</div>
+</div>
+<div id="outline-container-test-everything-that-can-fail-is-too-blunt" class="outline-2">
+<h2 id="test-everything-that-can-fail-is-too-blunt">“Test everything that can fail” is too blunt</h2>
+<div class="outline-text-2" id="text-test-everything-that-can-fail-is-too-blunt">
+<p>
+I used to carry a simple rule: every operation that can fail gets a failure test. It made sense in the Java world I grew up in, and after the save bug I wrote one for <code>open</code> too &ndash; a test asserting that opening a missing file returns an error. Then I deleted it.
+</p>
+
+<p>
+The save failure test is worth keeping, but not because saving can fail. It is worth keeping because <code>save</code> changes state on the way to succeeding: it clears the modified flag. The assertion in that test that actually matters is not <code>assert!(result.is_err())</code> but <code>assert!(doc.is_modified())</code>, which guards the state that a failed save could otherwise leave wrong. <code>open</code> is different; it builds a value and returns it, changing nothing and leaving nothing wrong when it fails. The only thing a failure test there could check is whether I propagated the error instead of swallowing it, which is thin, with no state behind it to protect.
+</p>
+
+<p>
+So the rule sharpened into something narrower: a failure test earns its place in proportion to the state a failure could leave wrong, and where failure only propagates cleanly there is little for it to guard. That is not an argument for testing less out of laziness, but for putting tests where things can actually break instead of spreading them evenly out of habit.
+</p>
+</div>
+</div>
+<div id="outline-container-the-point" class="outline-2">
+<h2 id="the-point">The point</h2>
+<div class="outline-text-2" id="text-the-point">
+<p>
+This is not an argument against tests or against types, but for knowing which of the two you are leaning on at any given moment. Lean only on tests and you will keep writing assertions to re-establish guarantees a good type system would give you for free, at compile time, for every input. Lean only on types and you will ship code that is well-formed and quietly wrong: green in every structural sense, still losing files. The healthier division is to let the type system carry what it can &ndash; null-safety, exhaustiveness, fallibility made visible, and as much of your state machine as you are willing to encode &ndash; and to spend your tests on the behaviour that is left over.
+</p>
+
+<p>
+That line moves. Typestate carries more than people expect, and dependent types would carry more again, but wherever you draw it for a given program the rule is the same: do not ask a type to prove what only a test can, or a test to re-prove what the type already guarantees. How far the line can move also depends on the language. Rust leans on two guarantees that Java's type system holds you to less strictly. The first is that absence has a single shape: Rust has no <code>null</code>, so a value that might not be there is an <code>Option</code> and the compiler will not let me touch it without handling the empty case, whereas Java's <code>Optional</code><sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup> sits beside <code>null</code> rather than replacing it and leaves <code>.get()</code> available to learn my mistake at runtime. The second is move semantics: Java can make a proof-of-save <i>exist</i> through a private constructor and a factory, but it cannot make it <i>spent</i>, so nothing would stop me clearing the flag with the same token twice; Rust takes the value away when it is used, and that is the part Java has no equivalent for. In both cases the work does not vanish &ndash; it moves from the compiler to my tests and my discipline. The reason to reach for Rust here is not that the editor is otherwise impossible, which it plainly is not, but that a more expressive type system settles more of the program's correctness before a single test runs.
+</p>
+</div>
+</div>
+<div id="outline-container-references-and-notes" class="outline-2">
+<h2 id="references-and-notes">References and Notes</h2>
+<div class="outline-text-2" id="text-references-and-notes">
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Rust's <code>#[must_use]</code> attribute and the lint behind the warning: <a href="https://doc.rust-lang.org/reference/attributes/diagnostics.html#the-must_use-attribute">https://doc.rust-lang.org/reference/attributes/diagnostics.html#the-must_use-attribute</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+References and borrowing in Rust, including the rules the borrow checker enforces: <a href="https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html">https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Cliff L. Biffle, “The Typestate Pattern in Rust,” a thorough walk through encoding state into types: <a href="https://cliffle.com/blog/rust-typestate/">https://cliffle.com/blog/rust-typestate/</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+This sketch is illustrative, not airtight. The <code>Saved</code> token is not bound to a particular document or path, so within the module that defines these methods you could still write to one file and clear a different document's flag. A rigorous version would tie the proof to the instance; the point here is only that the rule can be pushed into the type at all.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5" role="doc-backlink">5</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Kotlin, on the same JVM, enforces null-safety in its type system, distinguishing <code>String</code> from <code>String?</code> and checking it at compile time, which closes the first gap. Java's sealed types with a pattern-matching <code>switch</code> give compile-time exhaustiveness over a closed set of cases &ndash; the same “every case is handled” guarantee Rust's enums provide &ndash; and it can even encode method-presence typestate, so it carries more behaviour than the body alone might suggest. What stays particular to Rust is linearity: a value that is consumed when it is used. The broader point, that the type system's power sets how far the line can move, is what holds.
+</p></div></div>
+
+
+</div>
+</div></div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-software-engineering">Software Engineering</a>, <a href="/categories/#cat-computer-science">Computer Science</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-07-02">Jul 02, 2026</time><a class="related-post-title" href="/2026/07/02/property-based-testing/">Property-Based Testing: Testing Rules Instead of Examples</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-08-07">Aug 07, 2026</time><a class="related-post-title" href="/2026/08/07/naming-as-design-refactoring-an-api-model/">Naming as Design: Refactoring an API Model</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-07-23">Jul 23, 2026</time><a class="related-post-title" href="/2026/07/23/my-naming-philosophy/">My Naming Philosophy</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/06/25/git-worktree/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Git Worktree and the Myth of a Single Working Directory</span></a><a class="post-nav-next" href="/2026/06/07/designing-kisoku-compiled-indexed-decision-tables/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Designing Kisoku: Compiled, Indexed Decision Tables in Java</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

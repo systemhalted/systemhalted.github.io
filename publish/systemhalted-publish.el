@@ -290,7 +290,10 @@ comparison clock and KIND overrides inferred content kind."
   (let ((systemhalted--export-records (or records (list record)))
         (systemhalted--export-source (systemhalted-record-source record))
         (default-directory
-         (file-name-directory (systemhalted-record-source record))))
+         (file-name-directory (systemhalted-record-source record)))
+        ;; The temporary buffer impersonates the source file for Org parsing.
+        ;; User kill-buffer hooks may ask before killing it, once per record.
+        (kill-buffer-query-functions nil))
     (with-temp-buffer
       (insert-file-contents (systemhalted-record-source record))
       (setq buffer-file-name (systemhalted-record-source record))
@@ -515,7 +518,7 @@ comparison clock and KIND overrides inferred content kind."
            ((memq kind '(post draft)) (systemhalted--render-post record records body))
            ((eq kind 'emacs)
             (format (concat "<article class=\"emacs-note\"><header class=\"emacs-note-header\">"
-                            "<p class=\"newsletter-kicker\">Emacs note</p><h1 class=\"newsletter-title\">%s</h1>"
+                            "<p class=\"note-kicker\">Emacs note</p><h1 class=\"emacs-note-title\">%s</h1>"
                             "</header><div class=\"post-content\">%s%s</div></article>")
                     (systemhalted--escape-html (systemhalted-record-title record))
                     (or (and (systemhalted-record-toc record)
@@ -836,8 +839,41 @@ comparison clock and KIND overrides inferred content kind."
     "[[:space:]]+" " "
     (replace-regexp-in-string "<[^>]+>" " " html))))
 
-(defun systemhalted--generate-search (root records)
-  "Generate compatible browser-search data below ROOT from RECORDS."
+(defun systemhalted--read-os-history (source-root)
+  "Read fortunes and timeline rows from SOURCE-ROOT's Org data."
+  (let ((file (expand-file-name "org/data/os-history.org" source-root))
+        section fortunes timeline)
+    (when (file-exists-p file)
+      (with-temp-buffer
+        (insert-file-contents file)
+        (goto-char (point-min))
+        (while (not (eobp))
+          (let ((line (buffer-substring-no-properties
+                       (line-beginning-position) (line-end-position))))
+            (cond
+             ((equal line "* Fortunes") (setq section 'fortunes))
+             ((equal line "* Timeline") (setq section 'timeline))
+             ((and (eq section 'fortunes) (string-prefix-p "- " line))
+              (push (string-remove-prefix "- " line) fortunes))
+             ((and (eq section 'timeline)
+                   (string-match
+                    "^|[ \\t]*\\([0-9]+\\)[ \\t]*|\\([^|]+\\)|[ \\t]*$"
+                    line))
+              (push `((year . ,(string-to-number (match-string 1 line)))
+                      (event . ,(string-trim (match-string 2 line))))
+                    timeline))))
+          (forward-line 1))))
+    (list (nreverse fortunes) (nreverse timeline))))
+
+(defun systemhalted--read-file (file)
+  "Return FILE contents as a string."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (buffer-string)))
+
+(defun systemhalted--generate-search (root records source-root)
+  "Generate browser search and webcmd data below ROOT from RECORDS.
+SOURCE-ROOT supplies the maintained command runtime and OS-history data."
   (let ((documents nil) (id 0))
     (dolist (record records)
       (when (memq (systemhalted-record-kind record) '(post emacs))
@@ -854,18 +890,25 @@ comparison clock and KIND overrides inferred content kind."
                   (snippet . ,snippet))
                 documents)
           (setq id (1+ id)))))
-    (systemhalted--write-route
-     root "/assets/js/webcmd.js"
-     (concat
-      "/* Generated search data and index compatibility layer. */\n"
-      "var siteDocs=" (json-serialize (vconcat (nreverse documents))) ";\n"
-      "window.siteDocs=siteDocs;window.siteStore=siteDocs;\n"
-      "function ensureSiteIndex(){if(typeof elasticlunr==='undefined')return false;"
-      "if(window.siteIndex)return true;var idx=elasticlunr(function(){this.addField('title');"
-      "this.addField('layout');this.addField('categories');this.addField('tags');"
-      "this.addField('content');this.setRef('id');});for(var i=0;i<siteDocs.length;i++)"
-      "idx.addDoc(siteDocs[i]);window.siteIndex=idx;return true;}\n"
-      "ensureSiteIndex();\n"))))
+    (pcase-let ((`(,fortunes ,timeline)
+                 (systemhalted--read-os-history source-root)))
+      (systemhalted--write-route
+       root "/assets/js/webcmd.js"
+       (concat
+        "/* Generated search data and index compatibility layer. */\n"
+        "var siteDocs=" (json-serialize (vconcat (nreverse documents))) ";\n"
+        "window.siteDocs=siteDocs;window.siteStore=siteDocs;\n"
+        "function ensureSiteIndex(){if(typeof elasticlunr==='undefined')return false;"
+        "if(window.siteIndex)return true;var idx=elasticlunr(function(){this.addField('title');"
+        "this.addField('layout');this.addField('categories');this.addField('tags');"
+        "this.addField('content');this.setRef('id');});for(var i=0;i<siteDocs.length;i++)"
+        "idx.addDoc(siteDocs[i]);window.siteIndex=idx;return true;}\n"
+        "ensureSiteIndex();\n"
+        "var osFortunes=" (json-serialize (vconcat fortunes)) ";\n"
+        "var osTimeline=" (json-serialize (vconcat timeline)) ";\n"
+        (systemhalted--read-file
+         (expand-file-name "templates/webcmd-runtime.js"
+                           systemhalted-publish-directory)))))))
 
 (defun systemhalted--copy-static (source-root output-root)
   "Copy configured static inputs from SOURCE-ROOT to OUTPUT-ROOT."
@@ -973,7 +1016,7 @@ comparison clock and KIND overrides inferred content kind."
     (systemhalted--generate-emacs-index output-root records)
     (systemhalted--generate-default-pages output-root records)
     (systemhalted--generate-feed output-root posts)
-    (systemhalted--generate-search output-root records)
+    (systemhalted--generate-search output-root records source-root)
     (unless (systemhalted--record-route-present-p "/jsgames/" records)
       (systemhalted--generate-jsgames-index output-root))
     (dolist (redirect systemhalted-legacy-redirects)

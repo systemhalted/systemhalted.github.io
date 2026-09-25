@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Devanagari in Unicode · SystemHalted.in</title>
+  <meta name="description" content="This post looks at how Devanagari actually works in Unicode">
+  <link rel="canonical" href="https://systemhalted.in/2026/07/25/unicode-devanagari/">
+  <meta property="og:title" content="Devanagari in Unicode · SystemHalted.in">
+  <meta property="og:description" content="This post looks at how Devanagari actually works in Unicode">
+  <meta property="og:url" content="https://systemhalted.in/2026/07/25/unicode-devanagari/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Devanagari in Unicode","description":"This post looks at how Devanagari actually works in Unicode","url":"https://systemhalted.in/2026/07/25/unicode-devanagari/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Devanagari in Unicode</h1>
+    <p class="post-meta"><time datetime="2026-07-25T12:00:00-0500">25 July 2026</time><span aria-hidden="true">·</span> 17 min read</p>
+  </header>
+  <div class="post-content"><p>
+Why did we need Unicode<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>? The answer usually is that ASCII<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> was too small. It could represent English but not the thousands of characters used by other writing systems. Unicode fixed this by assigning every character a unique number called a code point<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>.
+</p>
+
+<pre class="example"><code>A    U+0041
+a    U+0061
+अ    U+0905
+क    U+0915
+</code></pre>
+
+<p>
+The explanation is correct to an extent; however it is not precise. It suggests that Unicode is a very large ASCII table: ASCII has a number for <code>A</code>, so Unicode has a number for <code>अ</code>; ASCII has a number for <code>B</code>, so Unicode has a number for <code>क</code>. From there it is a short step to assuming that every Hindi character on the screen has its own Unicode number. It does not and looking at how Devanagari<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup> actually works in Unicode gives us a way to look into the workings of Unicode.
+</p>
+<div id="outline-container-start-with-क" class="outline-2">
+<h2 id="start-with-क">Start with क</h2>
+<div class="outline-text-2" id="text-start-with-क">
+<p>
+The Devanagari letter क has the code point:
+</p>
+
+<pre class="example"><code>U+0915    DEVANAGARI LETTER KA
+</code></pre>
+
+<p>
+So far the ASCII model holds. One letter, one number.
+</p>
+
+<p>
+Now consider कि.
+</p>
+
+<p>
+A Hindi reader sees this as a single syllabic unit, and the vowel sign ि<sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup> appears visually to the <i>left</i> of the consonant. It would be reasonable to assume the computer stores it in that order. It does not. The stored sequence is:
+</p>
+
+<pre class="example"><code>क    U+0915    DEVANAGARI LETTER KA
+ि    U+093F    DEVANAGARI VOWEL SIGN I
+</code></pre>
+
+<p>
+That is, <code>U+0915 U+093F</code> &ndash; consonant first, vowel sign second. If you have ever typed in Hindi on your iPhone, that is the order you type as well.
+</p>
+
+<p>
+Something happened between the sequence in memory and the pixels on the display. That something is text shaping<sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup>.
+</p>
+</div>
+</div>
+<div id="outline-container-unicode-describes-logical-text-not-pixels" class="outline-2">
+<h2 id="unicode-describes-logical-text-not-pixels">Unicode describes logical text, not pixels</h2>
+<div class="outline-text-2" id="text-unicode-describes-logical-text-not-pixels">
+<p>
+Unicode encodes characters and their logical order. It does not specify the shapes that end up on screen. The path from one to the other runs roughly like this:
+</p>
+
+<pre class="example"><code>code points → encoded bytes → shaping engine → glyph selection → pixels
+</code></pre>
+
+<p>
+For Latin text most of this machinery is easy to overlook. <code>cat</code> is stored as <code>c</code>, <code>a</code>, <code>t</code> and displayed as <code>c a t</code>. Stored characters and displayed glyphs<sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup> look one-to-one.
+</p>
+
+<p>
+Devanagari breaks that assumption immediately.
+</p>
+</div>
+</div>
+<div id="outline-container-कष" class="outline-2">
+<h2 id="कष">क्ष</h2>
+<div class="outline-text-2" id="text-कष">
+<p>
+The conjunct<sup><a id="fnr.8" class="footref" href="#fn.8" role="doc-backlink">8</a></sup> क्ष looks like one character. Unicode does not encode it as one. It is:
+</p>
+
+<pre class="example"><code>क    U+0915    DEVANAGARI LETTER KA
+्    U+094D    DEVANAGARI SIGN VIRAMA
+ष    U+0937    DEVANAGARI LETTER SSA
+</code></pre>
+
+<p>
+The virama<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup> is the key element. It suppresses the inherent <code>a</code> vowel<sup><a id="fnr.10" class="footref" href="#fn.10" role="doc-backlink">10</a></sup> that a Devanagari consonant letter carries by default, which is what allows two consonants to join. When the shaping engine sees <code>consonant + virama + consonant</code>, it applies the font's conjunct rules and may produce a single ligature glyph, or a half-form<sup><a id="fnr.11" class="footref" href="#fn.11" role="doc-backlink">11</a></sup> of the first consonant followed by the full second consonant, depending on the font. Both are correct renderings of the same three code points.
+</p>
+
+<p>
+So one thing on screen, three code points underneath.
+</p>
+</div>
+</div>
+<div id="outline-container-five-terms-that-are-not-synonyms" class="outline-2">
+<h2 id="five-terms-that-are-not-synonyms">Five terms that are not synonyms</h2>
+<div class="outline-text-2" id="text-five-terms-that-are-not-synonyms">
+<p>
+Once you accept that, the vocabulary has to get more precise. Five terms get used interchangeably and should not be:
+</p>
+
+<p>
+<b>Code point.</b> A number in the Unicode code space, from <code>U+0000</code> to <code>U+10FFFF</code>. <code>U+0915</code> is a code point.
+</p>
+
+<p>
+<b>Character.</b> An abstract textual element. क is a character, represented by the code point <code>U+0915</code>. Unicode itself uses “character” loosely, which is part of the problem.
+</p>
+
+<p>
+<b>Code unit.</b> The unit of the encoding form you chose. UTF-8<sup><a id="fnr.12" class="footref" href="#fn.12" role="doc-backlink">12</a></sup> has 8-bit code units; a Devanagari code point takes three of them. UTF-16 has 16-bit code units, and nearly<sup><a id="fnr.13" class="footref" href="#fn.13" role="doc-backlink">13</a></sup> every Devanagari code point fits in one, because the main block sits in the Basic Multilingual Plane<sup><a id="fnr.14" class="footref" href="#fn.14" role="doc-backlink">14</a></sup>. UTF-32 has 32-bit code units, one per code point.
+</p>
+
+<p>
+<b>Grapheme cluster.</b> A user-perceived character, defined by the segmentation rules in UAX #29<sup><a id="fnr.15" class="footref" href="#fn.15" role="doc-backlink">15</a></sup>. This is the closest thing to what a reader would call “one character.”
+</p>
+
+<p>
+<b>Glyph.</b> A shape in a font. Glyphs are what a font actually contains, and the mapping from characters to glyphs is many-to-many.
+</p>
+
+<p>
+Almost every bug in this area comes from a program using one of these when it meant another.
+</p>
+</div>
+</div>
+<div id="outline-container-counting-the-same-string-five-ways" class="outline-2">
+<h2 id="counting-the-same-string-five-ways">Counting the same string five ways</h2>
+<div class="outline-text-2" id="text-counting-the-same-string-five-ways">
+<p>
+Here are the three examples measured against each definition. All Devanagari code points encode as three bytes in UTF-8 and one code unit in UTF-16.
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">String</th>
+<th scope="col" class="org-right">UTF-8 bytes</th>
+<th scope="col" class="org-right">UTF-16 units</th>
+<th scope="col" class="org-right">Code points</th>
+<th scope="col" class="org-right">Clusters (pre-15.1)</th>
+<th scope="col" class="org-right">Clusters (15.1+)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">कि</td>
+<td class="org-right">6</td>
+<td class="org-right">2</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">क्ष</td>
+<td class="org-right">9</td>
+<td class="org-right">3</td>
+<td class="org-right">3</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">श्री</td>
+<td class="org-right">12</td>
+<td class="org-right">4</td>
+<td class="org-right">4</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">हिन्दी</td>
+<td class="org-right">18</td>
+<td class="org-right">6</td>
+<td class="org-right">6</td>
+<td class="org-right">3</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">नमस्ते</td>
+<td class="org-right">18</td>
+<td class="org-right">6</td>
+<td class="org-right">6</td>
+<td class="org-right">4</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-left">स्त्र्य</td>
+<td class="org-right">21</td>
+<td class="org-right">7</td>
+<td class="org-right">7</td>
+<td class="org-right">4</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">क्षत्रिय</td>
+<td class="org-right">24</td>
+<td class="org-right">8</td>
+<td class="org-right">8</td>
+<td class="org-right">5</td>
+<td class="org-right">3</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+नमस्ते decomposes as:
+</p>
+
+<pre class="example"><code>न    U+0928    DEVANAGARI LETTER NA
+म    U+092E    DEVANAGARI LETTER MA
+स    U+0938    DEVANAGARI LETTER SA
+्    U+094D    DEVANAGARI SIGN VIRAMA
+त    U+0924    DEVANAGARI LETTER TA
+े    U+0947    DEVANAGARI VOWEL SIGN E
+</code></pre>
+
+<p>
+Six code points. A Hindi reader would say three units: न, म, स्ते. Depending on your runtime, a grapheme segmenter will tell you three or four.
+</p>
+</div>
+</div>
+<div id="outline-container-the-cluster-count-depends-on-your-runtime-not-your-code" class="outline-2">
+<h2 id="the-cluster-count-depends-on-your-runtime-not-your-code">The cluster count depends on your runtime, not your code</h2>
+<div class="outline-text-2" id="text-the-cluster-count-depends-on-your-runtime-not-your-code">
+<p>
+Before Unicode 15.1, the extended grapheme cluster rules broke <i>after</i> a virama. क्ष counted as two clusters, नमस्ते as four. Unicode 15.1 added rule GB9c<sup><a id="fnr.16" class="footref" href="#fn.16" role="doc-backlink">16</a></sup>, which uses the new <code>Indic_Conjunct_Break</code><sup><a id="fnr.17" class="footref" href="#fn.17" role="doc-backlink">17</a></sup> property to hold <code>consonant + linker + consonant</code> together. Devanagari virama has <code>InCB=Linker</code>, so under 15.1 क्ष is one cluster.
+</p>
+
+<p>
+This is not hypothetical. Here is <code>java.text.BreakIterator</code><sup><a id="fnr.18" class="footref" href="#fn.18" role="doc-backlink">18</a></sup> on JDK 21:
+</p>
+
+<pre class="example"><code>हिन्दी     [हि][न्][दी]              3 clusters
+क्षत्रिय   [क्][ष][त्][रि][य]        5 clusters
+नमस्ते     [न][म][स्][ते]            4 clusters
+कि         [कि]                      1 cluster
+क्ष        [क्][ष]                   2 clusters
+</code></pre>
+
+<p>
+Every one of those is the pre-15.1 answer. The conjuncts split at the virama.
+</p>
+
+<p>
+There are two things going on here. First, JDK 21 ships Unicode 15.0 character data, not 15.1 &ndash; you can confirm this without documentation by probing a marker code point:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">Character.isDefined(0x11B00)   // true  -- Devanagari Extended-A, Unicode 15.0
+Character.isDefined(0x2EBF0)   // false -- CJK Ext-I, Unicode 15.1
+</code></pre></div></div>
+
+<p>
+Second, and more important, <code>java.text.BreakIterator</code> carries its own segmentation rule data that is largely independent of the character tables. Upgrading the JDK does not reliably get you GB9c. For 15.1 behaviour in Java you need ICU4J's<sup><a id="fnr.19" class="footref" href="#fn.19" role="doc-backlink">19</a></sup> <code>com.ibm.icu.text.BreakIterator</code>.
+</p>
+
+<p>
+So the pre-15.1 column above is measured. The 15.1+ column is what the current rules specify. Which one your program produces is a property of the library you happened to link.
+</p>
+</div>
+</div>
+<div id="outline-container-what-length-actually-returns" class="outline-2">
+<h2 id="what-length-actually-returns">What <code>length</code> actually returns</h2>
+<div class="outline-text-2" id="text-what-length-actually-returns">
+<p>
+The draft note on this post suggested that Java, JavaScript and Python disagree about the length of Hindi text. They mostly do not, and the reason is worth understanding.
+</p>
+
+<p>
+For नमस्ते:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">"नमस्ते".length()                      // 6   UTF-16 code units
+"नमस्ते".codePointCount(0, 6)          // 6   code points
+"नमस्ते".getBytes(UTF_8).length        // 18  bytes
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-javascript" data-lang="javascript">"नमस्ते".length                        // 6   UTF-16 code units
+[..."नमस्ते"].length                   // 6   code points
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-python" data-lang="python">len("नमस्ते")                          # 6   code points
+len("नमस्ते".encode())                 # 18  bytes
+</code></pre></div></div>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-go" data-lang="go">len("नमस्ते")                          // 18  bytes
+utf8.RuneCountInString("नमस्ते")       // 6   code points
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">"नमस्ते".len()                         // 18  bytes
+"नमस्ते".chars().count()               // 6   code points
+</code></pre></div></div>
+
+<p>
+Java and JavaScript store strings as UTF-16 and report code units. Python stores code points and reports code points. Go and Rust store UTF-8 and report bytes. For Devanagari, the first three agree at 6, because every Devanagari code point is a single UTF-16 code unit.
+</p>
+
+<p>
+The divergence between Java/JavaScript and Python shows up outside the BMP. For the single emoji <code>😀</code> (<code>U+1F600</code>), Java and JavaScript report 2, because it needs a surrogate pair; Python reports 1; Go and Rust report 4 bytes.
+</p>
+
+<p>
+The more useful observation is that <i>none</i> of these numbers is 3, which is the number a Hindi reader would give for नमस्ते. Getting closer requires explicit grapheme segmentation:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">BreakIterator.getCharacterInstance()   // 4 on JDK 21 -- see above
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-javascript" data-lang="javascript">new Intl.Segmenter("hi", { granularity: "grapheme" })
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-python" data-lang="python">import regex
+regex.findall(r"\X", "नमस्ते")
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-rust" data-lang="rust">// unicode-segmentation crate
+"नमस्ते".graphemes(true).count()
+</code></pre></div></div>
+
+<p>
+Even these depend on the ICU or Unicode data version, per the GB9c caveat above.
+</p>
+</div>
+</div>
+<div id="outline-container-normalization-two-ways-to-write-the-same-letter" class="outline-2">
+<h2 id="normalization-two-ways-to-write-the-same-letter">Normalization: two ways to write the same letter</h2>
+<div class="outline-text-2" id="text-normalization-two-ways-to-write-the-same-letter">
+<p>
+Devanagari also has a normalization problem. The letter क़ (<code>qa</code>) can be written two ways:
+</p>
+
+<pre class="example"><code>U+0958                    DEVANAGARI LETTER QA
+U+0915 U+093C             KA + DEVANAGARI SIGN NUKTA
+</code></pre>
+
+<p>
+These are canonically equivalent<sup><a id="fnr.20" class="footref" href="#fn.20" role="doc-backlink">20</a></sup>. They must be treated as the same text by any conforming process, and they usually render identically. But they are different byte sequences, so <code>equals</code>, <code>==</code>, hash lookups, and database unique constraints will treat them as different unless the text is normalized first.
+</p>
+
+<p>
+There is a trap here. <code>U+0958</code> through <code>U+095F</code> are on the Unicode composition exclusion list<sup><a id="fnr.21" class="footref" href="#fn.21" role="doc-backlink">21</a></sup>. NFC<sup><a id="fnr.22" class="footref" href="#fn.22" role="doc-backlink">22</a></sup> does not recompose them. Normalizing either form to NFC gives you <code>U+0915 U+093C</code>, the decomposed one. If you assumed NFC always produces the shortest sequence, this is a counterexample.
+</p>
+
+<p>
+Normalization also reorders combining marks by canonical combining class<sup><a id="fnr.23" class="footref" href="#fn.23" role="doc-backlink">23</a></sup>. Nukta<sup><a id="fnr.24" class="footref" href="#fn.24" role="doc-backlink">24</a></sup> has <code>ccc=7</code>, virama has <code>ccc=9</code>, so a nukta typed after a virama gets reordered ahead of it:
+</p>
+
+<pre class="example"><code>as typed : U+0915 U+094D U+093C     क + virama + nukta
+NFC      : U+0915 U+093C U+094D     क + nukta + virama
+</code></pre>
+
+<p>
+Two sequences that differ only in the order the user typed them collapse to one form.
+</p>
+
+<p>
+The practical rule: normalize at your system boundaries &ndash; on input, before storage, before comparison &ndash; and pick one form, usually NFC.
+</p>
+</div>
+</div>
+<div id="outline-container-sorting-is-a-separate-problem" class="outline-2">
+<h2 id="sorting-is-a-separate-problem">Sorting is a separate problem</h2>
+<div class="outline-text-2" id="text-sorting-is-a-separate-problem">
+<p>
+Normalization fixes equality. It does not fix order, and binary comparison<sup><a id="fnr.25" class="footref" href="#fn.25" role="doc-backlink">25</a></sup> gets Devanagari order wrong in a way that is easy to miss.
+</p>
+
+<p>
+The reason is where the nukta letters sit in the block. क is <code>U+0915</code>, ख is <code>U+0916</code>, ह is <code>U+0939</code>. But क़ has its own precomposed code point at <code>U+0958</code>, past the end of the consonant range. Sort by code point and क़ lands after every basic consonant, including ह.
+</p>
+
+<pre class="example"><code>                              compareTo   Collator(hi)
+क  vs ख                              -1            -1
+क  vs का                             -1            -1
+का vs कि                             -1            -1
+क़  vs ख                              +1            -1
+क़  vs क+़                            +1             0
+ड़  vs ढ                              +1            -1
+</code></pre>
+
+<p>
+The first three pairs agree, which is why this bug survives casual testing. Compare a few basic letters and binary order looks fine. The nukta letters are where it breaks, and the last row is worse than wrong order: two canonically equivalent spellings of the same letter compare as unequal.
+</p>
+
+<p>
+Sorting a word list makes it concrete. The same word क़लम, written once with <code>U+0958</code> and once with <code>U+0915 U+093C</code>:
+</p>
+
+<pre class="example"><code>String.compareTo        Collator(hi)
+  कमल                     कमल
+  कल                      कल
+  क़लम   (U+0915…)         क़लम   (U+0958…)
+  खत                      क़लम   (U+0915…)
+  गाना                      खत
+  क़लम   (U+0958…)         गाना
+</code></pre>
+
+<p>
+Binary order scatters the two spellings to positions three and six with unrelated words between them. The collator files them adjacent, both immediately after क.
+</p>
+
+<p>
+One trap inside the fix. <code>Collator.getInstance(...).getDecomposition()</code> returns <code>NO_DECOMPOSITION</code> by default. The Hindi collator handles <code>U+0958</code> anyway, because the JDK ships real <code>hi</code> rules &ndash; <code>Collator.getInstance(Locale.ROOT)</code> returns <code>+1</code> for that pair rather than <code>0</code>. Do not rely on the default. Set <code>CANONICAL_DECOMPOSITION</code> explicitly, and pick the locale deliberately.
+</p>
+</div>
+</div>
+<div id="outline-container-what-the-shaping-engine-does" class="outline-2">
+<h2 id="what-the-shaping-engine-does">What the shaping engine does</h2>
+<div class="outline-text-2" id="text-what-the-shaping-engine-does">
+<p>
+Between code points and glyphs sits a shaper: HarfBuzz<sup><a id="fnr.26" class="footref" href="#fn.26" role="doc-backlink">26</a></sup> on most Linux and web stacks, DirectWrite/Uniscribe on Windows, CoreText on Apple platforms. For Devanagari it runs a script-specific model that, roughly:
+</p>
+
+<ol class="org-ol">
+<li>Splits the run into syllable clusters.</li>
+<li>Identifies the base consonant of each cluster.</li>
+<li>Applies OpenType<sup><a id="fnr.27" class="footref" href="#fn.27" role="doc-backlink">27</a></sup> features from the font &ndash; <code>nukt</code>, <code>akhn</code>, <code>rphf</code>, <code>blwf</code>, <code>half</code>, <code>pstf</code>, <code>vatu</code>, <code>cjct</code> &ndash; to form half-forms, conjuncts and below-base forms.</li>
+<li>Reorders pre-base matras such as ि so they sit to the left of the base glyph.</li>
+<li>Applies positioning features and produces final glyph IDs with offsets.</li>
+</ol>
+
+<p>
+Step 4 is the answer to the कि puzzle from the start of the post. The reordering is a rendering operation, performed by the shaper, using rules that depend on the font. It never touches the stored text.
+</p>
+
+<p>
+This separation is also why Unicode does not encode every conjunct. Devanagari can form a very large number of consonant combinations. Encoding each visible shape separately would merge two different questions &ndash; <i>what text is this</i> and <i>how should this text look</i> &ndash; into one, and would make the encoding dependent on typographic fashion. Unicode answers the first question. Fonts and shapers answer the second.
+</p>
+</div>
+</div>
+<div id="outline-container-where-this-actually-bites" class="outline-2">
+<h2 id="where-this-actually-bites">Where this actually bites</h2>
+<div class="outline-text-2" id="text-where-this-actually-bites">
+<p>
+The consequences are ordinary and frequent.
+</p>
+
+<p>
+<b>Truncation.</b> Cutting a string at a fixed byte or code-unit offset can split a UTF-8 sequence, or split a cluster and leave a dangling virama or matra. Truncate on grapheme cluster boundaries, or at minimum on code point boundaries.
+</p>
+
+<p>
+<b>Cursor movement and deletion.</b> Pressing backspace after typing क्ष should not leave क् behind. Editors need cluster-aware navigation. Note that for Indic scripts, the caret positions users expect are sometimes finer than grapheme cluster boundaries, which UAX #29 acknowledges as a legitimate tailoring.
+</p>
+
+<p>
+<b>Length validation.</b> “Maximum 20 characters” needs a definition. Take the sentence भारत एक महान देश है। &ndash; that is 52 UTF-8 bytes, 20 UTF-16 code units, 20 code points, 16 grapheme clusters, and five words. Five plausible answers, and a <code>varchar(20)</code> column accepts or rejects it depending on which one the database counts. PostgreSQL <code>varchar(n)</code> counts code points, MySQL <code>utf8mb4</code> counts characters, Oracle <code>VARCHAR2</code> counts bytes or characters depending on how the column was declared.
+</p>
+
+<p>
+<b>Comparison and search.</b> Without normalization, canonically equivalent strings fail to match. Without a collator, sort order is wrong for the nukta letters. Substring search on code point offsets can match across a cluster boundary.
+</p>
+
+<p>
+<b>Word segmentation.</b> <code>BreakIterator.getWordInstance</code> does not treat the danda <code>U+0964</code><sup><a id="fnr.28" class="footref" href="#fn.28" role="doc-backlink">28</a></sup> as a word boundary, so the last token of a Hindi sentence comes back as <code>है।</code> with the punctuation attached. Sentence-ending punctuation that is not a full stop needs handling you would not write for English.
+</p>
+
+<p>
+<b>Reversal.</b> Reversing a string by code point turns नमस्ते into a sequence that no longer renders as valid text. Reverse by grapheme cluster or not at all.
+</p>
+
+<p>
+<b>Regular expressions.</b> <code>.</code> matches a code point in most engines, not a cluster. Character classes written for Latin text do not carry over.
+</p>
+</div>
+</div>
+<div id="outline-container-the-point" class="outline-2">
+<h2 id="the-point">The point</h2>
+<div class="outline-text-2" id="text-the-point">
+<p>
+When we look at क्ष our eyes report one thing. The computer is handling three code points and nine bytes, and reports either one cluster or two depending on which segmentation library got linked. When we look at कि we see the vowel first, but it is stored second.
+</p>
+
+<p>
+Neither representation is wrong. They are different layers of the same writing system. Unicode encodes the logical text, an encoding form turns it into bytes, a shaper interprets it, a font supplies the glyphs, and the renderer produces pixels. What appears on the screen is the end of that pipeline, not a picture of what is in memory.
+</p>
+
+<hr>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A character encoding standard maintained by the Unicode Consortium, covering the writing systems of the world. Version 1.0 shipped in 1991; releases are now roughly annual. It defines both a repertoire of characters and a large set of per-character properties.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+American Standard Code for Information Interchange, 1963. Seven bits, 128 positions, of which 95 are printable. Enough for unaccented English and effectively nothing else.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The written form is <code>U+</code> followed by at least four hexadecimal digits, so <code>U+0915</code> is decimal 2325. The notation is fixed by the standard and is used regardless of how the value is stored in memory.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The script used to write Hindi, Marathi, Nepali, Sanskrit and others. It is an abugida[<sup>abugida</sup>] rather than an alphabet, which is the root of most of what follows.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5" role="doc-backlink">5</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A vowel sign, or <i>matra</i>, is a mark attached to a consonant to replace its inherent vowel[<sup>inherentvowel</sup>]. Matras attach above, below, before or after the base consonant depending on which vowel they represent. <code>ि</code> is one of the ones that attaches before.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6" role="doc-backlink">6</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Also called text layout. The stage that turns a sequence of characters into a sequence of positioned glyphs by applying the font's substitution and positioning rules. It is script-specific: Devanagari, Arabic and Latin take different code paths.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7" role="doc-backlink">7</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A font contains glyphs, not characters. One character may map to several glyphs, several characters may map to one glyph, and the same character may map to different glyphs depending on its neighbours.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.8" class="footnum" href="#fnr.8" role="doc-backlink">8</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+In Devanagari, a <i>samyuktakshar</i> &ndash; two or more consonants written as a single joined form with no vowel between them, the vowel having been suppressed by a virama[<sup>virama</sup>]. Hindi uses a few hundred in practice; the number that can be formed is far larger.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.9" class="footnum" href="#fnr.9" role="doc-backlink">9</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Called <i>halant</i> in Hindi. Written <code>्</code> and encoded at <code>U+094D</code>.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.10" class="footnum" href="#fnr.10" role="doc-backlink">10</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Every Devanagari consonant letter carries an implicit <i>a</i>. क alone reads as <i>ka</i>, not <i>k</i>. This is the defining property of an abugida[<sup>abugida</sup>], and the reason a separate mark is needed to cancel it.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.11" class="footnum" href="#fnr.11" role="doc-backlink">11</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A reduced form of a consonant used inside conjuncts[<sup>conjunct</sup>], typically the full letter with its vertical stem removed. क् as a half-form joins directly to the letter that follows.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.12" class="footnum" href="#fnr.12" role="doc-backlink">12</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+An encoding form specifies how a code point becomes bytes. UTF-8 uses one to four 8-bit units and dominates on disk and on the wire. UTF-16 uses one or two 16-bit units and is what Java, JavaScript, C# and the Windows API use in memory. UTF-32 uses one 32-bit unit per code point and is rare outside internal buffers.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.13" class="footnum" href="#fnr.13" role="doc-backlink">13</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<i>Nearly</i> is an important distinction. Unicode 15.0 added Devanagari Extended-A at <code>U+11B00</code>--<code>U+11B5F</code>, ten characters for Vedic and Sanskrit editorial marks. Those are above <code>U+FFFF</code>, so they take a surrogate pair[<sup>surrogate</sup>] in UTF-16 and four bytes in UTF-8. They are the only Devanagari characters where Java's <code>length()</code> and Python's <code>len()</code> disagree.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.14" class="footnum" href="#fnr.14" role="doc-backlink">14</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The first 65,536 code points, <code>U+0000</code> to <code>U+FFFF</code>. Unicode has 17 planes; everything above the BMP is called supplementary. The split matters only for UTF-16[<sup>utf</sup>], where supplementary characters need two code units instead of one.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.15" class="footnum" href="#fnr.15" role="doc-backlink">15</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Unicode Standard Annex #29, <i>Unicode Text Segmentation</i>. It specifies boundary rules for grapheme clusters, words and sentences, and explicitly permits implementations to tailor them per language.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.16" class="footnum" href="#fnr.16" role="doc-backlink">16</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Grapheme break rule 9c of UAX #29[<sup>uax29</sup>], added in Unicode 15.1. The rules run GB1 through GB13; 9c was inserted specifically to stop Indic conjuncts[<sup>conjunct</sup>] splitting, which they had done since the rules were first written.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.17" class="footnum" href="#fnr.17" role="doc-backlink">17</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A character property introduced alongside GB9c, with values <code>Consonant</code>, <code>Linker</code>, <code>Extend</code> and <code>None</code>. The virama[<sup>virama</sup>] of Devanagari, Bengali, Gujarati, Malayalam, Oriya and Telugu is classified as <code>Linker</code>.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.18" class="footnum" href="#fnr.18" role="doc-backlink">18</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The JDK's segmentation API, in <code>java.text</code>. It predates ICU[<sup>icu</sup>] and ships its own rule tables, which is why its behaviour tracks the JDK release rather than the Unicode version of the character data.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.19" class="footnum" href="#fnr.19" role="doc-backlink">19</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+International Components for Unicode, the reference implementation of most of the standard's algorithms, including the segmentation rules of UAX #29[<sup>uax29</sup>] and the collation algorithm[<sup>collation</sup>]. ICU4J is the Java build, ICU4C serves C and C++. Most platforms with correct Unicode behaviour have ICU somewhere underneath.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.20" class="footnum" href="#fnr.20" role="doc-backlink">20</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Two sequences are canonically equivalent when the standard declares them to represent the same abstract text, and conforming software must not distinguish them. This is a stronger claim than “they look the same” and a weaker one than “they are the same bytes.”
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.21" class="footnum" href="#fnr.21" role="doc-backlink">21</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A list in the standard of characters that have a canonical decomposition but must not be recomposed by NFC[<sup>nfc</sup>]. It exists largely for compatibility with older national standards that encoded such characters directly.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.22" class="footnum" href="#fnr.22" role="doc-backlink">22</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Unicode defines four normalization forms. NFD decomposes. NFC decomposes and then recomposes. All four map canonically equivalent[<sup>canonequiv</sup>] sequences to the same output. NFKD and NFKC additionally fold compatibility differences such as ligatures and superscripts, and are lossy. NFC is the usual choice for storage and comparison.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.23" class="footnum" href="#fnr.23" role="doc-backlink">23</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A numeric property from 0 to 254 that fixes the relative order of combining marks around a base character. Marks sharing a class keep the order they were typed in; marks with different classes are sorted into class order during normalization[<sup>nfc</sup>].
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.24" class="footnum" href="#fnr.24" role="doc-backlink">24</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A dot written below a consonant, <code>U+093C</code>, that modifies its sound. It is used mainly for consonants borrowed from Persian and Arabic. Eight nukta combinations also have precomposed code points, all of them on the composition exclusion list[<sup>compexclusion</sup>], which is the source of the trouble described here.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.25" class="footnum" href="#fnr.25" role="doc-backlink">25</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Collation is language-aware sorting. Binary comparison orders strings by numeric value, which reflects the order characters happened to be added to the standard rather than any language's alphabet. A collator also folds canonically equivalent[<sup>canonequiv</sup>] sequences together, which binary comparison cannot. The Unicode Collation Algorithm is specified separately, in UTS #10.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.26" class="footnum" href="#fnr.26" role="doc-backlink">26</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The open-source shaping[<sup>shaping</sup>] engine used by Chrome, Firefox, Android, GNOME and LibreOffice. DirectWrite and CoreText are the Microsoft and Apple equivalents.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.27" class="footnum" href="#fnr.27" role="doc-backlink">27</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The font format, and the tag-based feature system inside it. Each four-letter tag names a substitution or positioning rule the shaper may apply. <code>cjct</code> forms conjuncts[<sup>conjunct</sup>], <code>half</code> forms half-forms[<sup>halfform</sup>], <code>rphf</code> handles the reph, and so on.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.28" class="footnum" href="#fnr.28" role="doc-backlink">28</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<code>U+0964</code>, the full stop of Devanagari and several other Indic scripts. <code>U+0965</code>, the double danda, marks a larger break &ndash; historically the end of a verse.
+</p></div></div>
+
+
+</div>
+</div></div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-computer-science">Computer Science</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-07-17">Jul 17, 2026</time><a class="related-post-title" href="/2026/07/17/the-2d-1d-problem-in-text-editors/">The 2D↔1D Problem in Text Editors</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-09-23">Sep 23, 2026</time><a class="related-post-title" href="/2026/09/23/java28-value-objects/">Java 28 Preview: Value Objects Bring Identity-Free Data to Java</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-08-07">Aug 07, 2026</time><a class="related-post-title" href="/2026/08/07/naming-as-design-refactoring-an-api-model/">Naming as Design: Refactoring an API Model</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/07/26/diagrams-as-text/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Diagrams as Text</span></a><a class="post-nav-next" href="/2026/07/24/semantic-networks-as-search-spaces/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Semantic Networks as Search Spaces</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

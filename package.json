@@ -1,7 +1,7 @@
 {
   "name": "systemhalted-github-io-a11y",
   "private": true,
-  "description": "Dev-only Node deps for accessibility auditing. The site itself is Jekyll/Ruby; nothing here is shipped to readers.",
+  "description": "Development-only Node dependencies for accessibility auditing; the generated site ships none of them.",
   "scripts": {
     "a11y": "node scripts/a11y.js",
     "a11y:json": "node scripts/a11y.js --json",

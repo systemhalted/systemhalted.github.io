@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Why Doesn’t Wisdom Accumulate? · SystemHalted.in</title>
+  <meta name="description" content="We are extraordinarily good at accumulating technical knowledge and strangely bad at accumulating behavioral wisdom. What decades of psychology suggest about why every generation relearns patience, prejudice, and restraint almost from scratch.">
+  <link rel="canonical" href="https://systemhalted.in/2026/08/02/wisdom-accumulation/">
+  <meta property="og:title" content="Why Doesn’t Wisdom Accumulate? · SystemHalted.in">
+  <meta property="og:description" content="We are extraordinarily good at accumulating technical knowledge and strangely bad at accumulating behavioral wisdom. What decades of psychology suggest about why every generation relearns patience, prejudice, and restraint almost from scratch.">
+  <meta property="og:url" content="https://systemhalted.in/2026/08/02/wisdom-accumulation/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Why Doesn’t Wisdom Accumulate?","description":"We are extraordinarily good at accumulating technical knowledge and strangely bad at accumulating behavioral wisdom. What decades of psychology suggest about why every generation relearns patience, prejudice, and restraint almost from scratch.","url":"https://systemhalted.in/2026/08/02/wisdom-accumulation/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Why Doesn’t Wisdom Accumulate?</h1>
+    <p class="post-meta"><time datetime="2026-08-02T02:30:00-0500">2 August 2026</time><span aria-hidden="true">·</span> 6 min read</p>
+  </header>
+  <div class="post-content"><details class="post-toc"><summary>Contents</summary><nav aria-label="Table of contents"><ul><li><a href="#we-learn-much-less-from-failure-than-we-think">We learn much less from failure than we think</a></li><li><a href="#institutions-remember-what-people-forget">Institutions remember what people forget</a></li><li><a href="#civilization-accumulates-knowledge">Civilization accumulates knowledge</a></li><li><a href="#we-do-not-learn-equally-from-everyone">We do not learn equally from everyone</a></li><li><a href="#knowing-something-is-not-enough">Knowing something is not enough</a></li><li><a href="#we-think-everyone-else-is-the-problem">We think everyone else is the problem</a></li><li><a href="#our-brains-were-built-for-a-different-world">Our brains were built for a different world</a></li><li><a href="#so-why-does-history-repeat-itself">So why does history repeat itself?</a></li><li><a href="#the-real-problem">The real problem</a></li><li><a href="#references">References</a></li></ul></nav></details><p>
+Right from the moment we are born, we have to learn. We learn to suck, crawl, walk, speak, read, write, drive and eventually make a living. We spend decades accumulating knowledge. Every scar becomes a lesson. Every mistake is supposed to make us wiser. Learning is perhaps the defining characteristic of being human.
+</p>
+
+<p>
+And yet, collectively, we are remarkably bad at behaving.
+</p>
+
+<p>
+People still speed. People still jump red lights. People still drink and drive. We continue to fight over race, religion, nationality and ideology. We lie, cheat, steal and kill. Every generation inherits thousands of years of human history, yet somehow manages to repeat many of the same mistakes.
+</p>
+
+<p>
+Maybe learning simply takes time. Maybe every generation becomes a little wiser than the previous one. History, however, does not inspire much confidence. It is full of wars that should have convinced us not to start new ones. It is full of financial crises that should have made us more careful. It is full of genocides that should have made future genocides unthinkable. Yet here we are.
+</p>
+
+<p>
+There is an old saying that history repeats itself.
+</p>
+
+<p>
+Of course it does.
+</p>
+
+<p>
+If we struggle to learn from our own mistakes, expecting us to learn from the mistakes of people who lived centuries ago may simply be asking too much.
+</p>
+
+<p>
+The psychologists have spent decades studying this very question. I expected to find evidence that failure is our greatest teacher. Instead, I found that the reality is much less encouraging.
+</p>
+<div id="outline-container-we-learn-much-less-from-failure-than-we-think" class="outline-2">
+<h2 id="we-learn-much-less-from-failure-than-we-think">We learn much less from failure than we think</h2>
+<div class="outline-text-2" id="text-we-learn-much-less-from-failure-than-we-think">
+<p>
+<i>In Not Learning From Failure&mdash;The Greatest Failure of All</i>, Lauren Eskreis-Winkler and Ayelet Fishbach found that people often learn less from failure than from success, even when failure provides exactly the same information.<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+The researchers identify two reasons. The first is emotional. Failure hurts. Rather than examining it, people often avoid thinking about it because it threatens their self-image.
+</p>
+
+<p>
+The second is cognitive. Failure tells us what did not work, but it rarely tells us what will. Figuring out the lesson requires considerably more effort than repeating something that already succeeded.
+</p>
+
+<p>
+We like to say that failure is the best teacher. Psychology suggests that it often isn't &mdash; because we simply refuse to listen.<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+</div>
+</div>
+<div id="outline-container-institutions-remember-what-people-forget" class="outline-2">
+<h2 id="institutions-remember-what-people-forget">Institutions remember what people forget</h2>
+<div class="outline-text-2" id="text-institutions-remember-what-people-forget">
+<p>
+Research by Dahlin, Chuang and Roulet points to an interesting difference between individuals and organizations.<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>
+</p>
+
+<p>
+Individuals often fail to learn from failure.
+</p>
+
+<p>
+Organizations can do much better, but only when they deliberately preserve the lesson. Accidents become investigations. Investigations become reports. Reports become procedures. Procedures become standards.
+</p>
+
+<p>
+People forget.
+</p>
+
+<p>
+Institutions remember.
+</p>
+
+<p>
+That is one reason aviation has become safer over time. Every major accident leaves behind documentation that changes how future pilots are trained. Drivers see accidents every day, but very few permanently change how they drive because someone else crashed.<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>
+</p>
+
+<p>
+The institution learns. The individuals often do not.
+</p>
+</div>
+</div>
+<div id="outline-container-civilization-accumulates-knowledge" class="outline-2">
+<h2 id="civilization-accumulates-knowledge">Civilization accumulates knowledge</h2>
+<div class="outline-text-2" id="text-civilization-accumulates-knowledge">
+<p>
+Joseph Henrich argues that civilization advances because knowledge accumulates across generations rather than because individuals are exceptionally intelligent.<sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>
+</p>
+
+<p>
+Nobody has to rediscover calculus, electricity or germ theory. We inherit them. Every generation starts where the previous one finished.
+</p>
+
+<p>
+That is how science progresses.
+</p>
+
+<p>
+That is how engineering progresses.
+</p>
+
+<p>
+Technical knowledge accumulates because we know how to preserve it.
+</p>
+
+<p>
+Behavioral wisdom does not seem to work the same way.
+</p>
+</div>
+</div>
+<div id="outline-container-we-do-not-learn-equally-from-everyone" class="outline-2">
+<h2 id="we-do-not-learn-equally-from-everyone">We do not learn equally from everyone</h2>
+<div class="outline-text-2" id="text-we-do-not-learn-equally-from-everyone">
+<p>
+Research on cultural evolution shows that humans copy some people more readily than others. We imitate people who are successful, respected, prestigious or part of our own group.<sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup>
+</p>
+
+<p>
+Sometimes those people deserve to be copied. Sometimes they do not.
+</p>
+
+<p>
+Good behavior spreads this way. Bad behavior does too.
+</p>
+</div>
+</div>
+<div id="outline-container-knowing-something-is-not-enough" class="outline-2">
+<h2 id="knowing-something-is-not-enough">Knowing something is not enough</h2>
+<div class="outline-text-2" id="text-knowing-something-is-not-enough">
+<p>
+Psychologists have known for a long time that knowledge alone rarely changes behavior.<sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>
+</p>
+
+<p>
+Most people know smoking causes cancer.
+</p>
+
+<p>
+Most people know speeding is dangerous.
+</p>
+
+<p>
+Most people know excessive drinking impairs judgment.
+</p>
+
+<p>
+Most people know obesity increases health risks.
+</p>
+
+<p>
+Yet millions continue doing all of these things.
+</p>
+
+<p>
+Behavior is shaped not only by knowledge, but also by habits, incentives, emotions, identity and social pressure.<sup><a id="fnr.8" class="footref" href="#fn.8" role="doc-backlink">8</a></sup>
+</p>
+
+<p>
+Knowing better does not necessarily mean <i>doing</i> better.
+</p>
+</div>
+</div>
+<div id="outline-container-we-think-everyone-else-is-the-problem" class="outline-2">
+<h2 id="we-think-everyone-else-is-the-problem">We think everyone else is the problem</h2>
+<div class="outline-text-2" id="text-we-think-everyone-else-is-the-problem">
+<p>
+There is a well-known finding in psychology called the <i>Better-than-Average Effect</i>. Most drivers believe they are above-average drivers, even though that is statistically impossible.<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>
+</p>
+
+<p>
+If I already believe I am safer than everyone else, why would I change after seeing an accident? I assume the lesson is for someone else.
+</p>
+</div>
+</div>
+<div id="outline-container-our-brains-were-built-for-a-different-world" class="outline-2">
+<h2 id="our-brains-were-built-for-a-different-world">Our brains were built for a different world</h2>
+<div class="outline-text-2" id="text-our-brains-were-built-for-a-different-world">
+<p>
+Evolutionary psychologists argue that the human mind evolved in small groups where feedback was immediate and consequences were local.<sup><a id="fnr.10" class="footref" href="#fn.10" role="doc-backlink">10</a></sup>
+</p>
+
+<p>
+Today we live with highways, financial markets, nuclear weapons, social media and artificial intelligence.
+</p>
+
+<p>
+The world changed much faster than the human mind.
+</p>
+</div>
+</div>
+<div id="outline-container-so-why-does-history-repeat-itself" class="outline-2">
+<h2 id="so-why-does-history-repeat-itself">So why does history repeat itself?</h2>
+<div class="outline-text-2" id="text-so-why-does-history-repeat-itself">
+<p>
+Historians correctly point out that history <i>never</i> repeats exactly.
+</p>
+
+<p>
+The people change.
+</p>
+
+<p>
+The technologies change.
+</p>
+
+<p>
+The governments change.
+</p>
+
+<p>
+What changes much more slowly is human psychology. Every generation believes it is different. Every generation believes it is smarter than the last. Every generation believes the warnings apply to someone else. That is probably why history keeps rhyming.
+</p>
+</div>
+</div>
+<div id="outline-container-the-real-problem" class="outline-2">
+<h2 id="the-real-problem">The real problem</h2>
+<div class="outline-text-2" id="text-the-real-problem">
+<p>
+We have become exceptionally good at accumulating technical knowledge. We preserve it in books, scientific journals, engineering standards, universities and institutions. Every generation inherits that knowledge and adds a little more.
+</p>
+
+<p>
+We have never built an equally effective way to accumulate behavioral wisdom.
+</p>
+
+<p>
+Every generation still has to learn patience, prejudice, greed, empathy, cooperation and restraint almost from scratch. We continue making many of the same mistakes because the lessons never become part of a shared, reliable memory in the way scientific knowledge does.
+</p>
+
+<p>
+Perhaps that is the real difference.
+</p>
+
+<p>
+Knowledge accumulates. Behavioral wisdom barely does.
+</p>
+</div>
+</div>
+<div id="outline-container-references" class="outline-2">
+<h2 id="references">References</h2>
+<div class="outline-text-2" id="text-references">
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Eskreis-Winkler, L., &amp; Fishbach, A. (2019). Not Learning From Failure&mdash;The Greatest Failure of All. Psychological Science, 30(12), 1733&ndash;1744. <a href="https://doi.org/10.1177/0956797619881133">https://doi.org/10.1177/0956797619881133</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Eskreis-Winkler, L., &amp; Fishbach, A. (2019). Not Learning From Failure&mdash;The Greatest Failure of All. Psychological Science, 30(12), 1733&ndash;1744. <a href="https://doi.org/10.1177/0956797619881133">https://doi.org/10.1177/0956797619881133</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Dahlin, K. B., Chuang, Y. T., &amp; Roulet, T. J. (2018). Opportunity, Motivation, and Ability to Learn from Failures and Errors: Review, Synthesis, and Ways to Move Forward. Academy of Management Annals, 12(1), 252&ndash;277. <a href="https://doi.org/10.5465/annals.2016.0049">https://doi.org/10.5465/annals.2016.0049</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Dahlin, K. B., Chuang, Y. T., &amp; Roulet, T. J. (2018). Opportunity, Motivation, and Ability to Learn from Failures and Errors: Review, Synthesis, and Ways to Move Forward. Academy of Management Annals, 12(1), 252&ndash;277. <a href="https://doi.org/10.5465/annals.2016.0049">https://doi.org/10.5465/annals.2016.0049</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5" role="doc-backlink">5</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Henrich, J. (2016). The Secret of Our Success: How Culture Is Driving Human Evolution, Domesticating Our Species, and Making Us Smarter. Princeton University Press.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6" role="doc-backlink">6</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Heyes, C. (2018). Cognitive Gadgets: The Cultural Evolution of Thinking. Harvard University Press.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7" role="doc-backlink">7</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Fischhoff, B. (2013). The Sciences of Science Communication. Proceedings of the National Academy of Sciences, 110(Supplement 3), 14033&ndash;14039.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.8" class="footnum" href="#fnr.8" role="doc-backlink">8</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Fischhoff, B. (2013). The Sciences of Science Communication. Proceedings of the National Academy of Sciences, 110(Supplement 3), 14033&ndash;14039.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.9" class="footnum" href="#fnr.9" role="doc-backlink">9</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Svenson, O. (1981). Are We All Less Risky and More Skillful Than Our Fellow Drivers? Acta Psychologica, 47(2), 143&ndash;148.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.10" class="footnum" href="#fnr.10" role="doc-backlink">10</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Hoogland, M., &amp; Ploeger, A. (2022). Two Different Mismatches: Integrating the Developmental and the Evolutionary-Mismatch Hypothesis. Perspectives on Psychological Science, 17(6), 1737&ndash;1745. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9634284/">https://pmc.ncbi.nlm.nih.gov/articles/PMC9634284/</a>
+</p></div></div>
+
+
+</div>
+</div></div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-personal-essays">Personal Essays</a>, <a href="/categories/#cat-society-economy">Society &amp; Economy</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2022-12-08">Dec 08, 2022</time><a class="related-post-title" href="/2022/12/08/delivery-apps/">Problem with Delivery Apps</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2015-11-26">Nov 26, 2015</time><a class="related-post-title" href="/2015/11/26/tolerance-and-intolerance-lack-of-sense-of-justice/">Tolerance and Intolerance - Lack of Sense of Justice</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2012-11-08">Nov 08, 2012</time><a class="related-post-title" href="/2012/11/08/reforms-phase-i/">Reforms Phase I</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/08/02/wisdom-accumulation-notes/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Research Notes: Why Doesn't Wisdom Accumulate? / Do We Need a Hive Mind?</span></a><a class="post-nav-next" href="/2026/07/31/review-agile-ethical-legal-model-ai-robotics-governance/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Review: An Agile Ethical/Legal Model for AI and Robotics Governance</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

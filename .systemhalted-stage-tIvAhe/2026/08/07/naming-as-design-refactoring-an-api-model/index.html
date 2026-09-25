@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Naming as Design: Refactoring an API Model · SystemHalted.in</title>
+  <meta name="description" content="Taking one badly named order model -- Java record and OpenAPI schema -- through four passes: types that test values, names that reveal intention, duplication removed, and speculative fields deleted.">
+  <link rel="canonical" href="https://systemhalted.in/2026/08/07/naming-as-design-refactoring-an-api-model/">
+  <meta property="og:title" content="Naming as Design: Refactoring an API Model · SystemHalted.in">
+  <meta property="og:description" content="Taking one badly named order model -- Java record and OpenAPI schema -- through four passes: types that test values, names that reveal intention, duplication removed, and speculative fields deleted.">
+  <meta property="og:url" content="https://systemhalted.in/2026/08/07/naming-as-design-refactoring-an-api-model/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Naming as Design: Refactoring an API Model","description":"Taking one badly named order model -- Java record and OpenAPI schema -- through four passes: types that test values, names that reveal intention, duplication removed, and speculative fields deleted.","url":"https://systemhalted.in/2026/08/07/naming-as-design-refactoring-an-api-model/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Naming as Design: Refactoring an API Model</h1>
+    <p class="post-meta"><time datetime="2026-08-07T00:30:00-0500">7 August 2026</time><span aria-hidden="true">·</span> 9 min read</p>
+  </header>
+  <div class="post-content"><details class="post-toc"><summary>Contents</summary><nav aria-label="Table of contents"><ul><li><a href="#the-starting-point">The starting point</a></li><li><a href="#pass-1-runs-the-tests-give-every-value-a-type-that-can-reject-it">Pass 1 &ndash; Runs the tests: give every value a type that can reject it</a></li><li><a href="#pass-2-reveals-intention-say-what-the-field-is-for">Pass 2 &ndash; Reveals intention: say what the field is for</a></li><li><a href="#pass-3-no-duplication-stop-repeating-the-context">Pass 3 &ndash; No duplication: stop repeating the context</a></li><li><a href="#pass-4-fewest-elements-delete-what-has-no-reason-to-exist">Pass 4 &ndash; Fewest elements: delete what has no reason to exist</a></li><li><a href="#trade-offs">Trade-offs</a></li><li><a href="#sources">Sources</a></li></ul></nav></details><p>
+In an <a href="file:///2026/07/23/my-naming-philosophy/">earlier post</a> I wrote down my naming rules: Kent Beck's four rules of simple design read as naming rules, plus Strunk's “omit needless words” and Russ Cox's advice that a name's length should not exceed its information content. In this post I apply them to one concrete model to show you what each of the rule does. I start with an order model that I would not want to inherit, and take it through four passes, one rule per pass.
+</p>
+
+<p>
+The example is invented, even though is invented, but not far from the real ones. I have reviewed models that looked like this, and I have written a few.
+</p>
+<div id="outline-container-the-starting-point" class="outline-2">
+<h2 id="the-starting-point">The starting point</h2>
+<div class="outline-text-2" id="text-the-starting-point">
+<p>
+The model, as a Java record and as the OpenAPI schema that exposes it:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">public record OrderData(
+    String orderIdString,
+    String customerEmailAddressString,
+    String orderStatusValue,
+    String orderTotalAmountValue,
+    String orderCurrencyCodeString,
+    String createdDateTimestamp,
+    String updatedDateTimestamp,
+    String orderNotesText,
+    Boolean isOrderActiveFlag,
+    String futureDiscountCode,
+    Map&lt;String, Object&gt; extraAttributes
+) {}
+</code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-yaml" data-lang="yaml">OrderData:
+  type: object
+  properties:
+    orderIdString:              { type: string }
+    customerEmailAddressString: { type: string }
+    orderStatusValue:           { type: string }
+    orderTotalAmountValue:      { type: string }
+    orderCurrencyCodeString:    { type: string }
+    createdDateTimestamp:       { type: string }
+    updatedDateTimestamp:       { type: string }
+    orderNotesText:             { type: string }
+    isOrderActiveFlag:          { type: boolean }
+    futureDiscountCode:         { type: string }
+    extraAttributes:            { type: object }
+</code></pre></div></div>
+
+<p>
+Nothing here is wrong in the sense that a test would catch. It compiles, it serializes, it round-trips. What is wrong is that the model makes no <i>checkable claims</i>: Nine of its eleven fields accept any string, the names repeat themselves, and two fields &ndash; <code>futureDiscountCode</code> and <code>extraAttributes</code> exist for reasons nobody can state. Each pass below fixes one of those problems.
+</p>
+</div>
+</div>
+<div id="outline-container-pass-1-runs-the-tests-give-every-value-a-type-that-can-reject-it" class="outline-2">
+<h2 id="pass-1-runs-the-tests-give-every-value-a-type-that-can-reject-it">Pass 1 &ndash; Runs the tests: give every value a type that can reject it</h2>
+<div class="outline-text-2" id="text-pass-1-runs-the-tests-give-every-value-a-type-that-can-reject-it">
+<p>
+Beck's first rule is that the code passes its tests. For a model, my reading is: the type of each field should be able to test the value the field must hold. A <code>String</code> passes everything, so it tests nothing. The first pass replaces every stringly-typed field with a type that can reject a bad value.
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">public record Email(String value) {
+    public Email {
+        if (!value.matches("[^@\\s]+@[^@\\s]+\\.[^@\\s]+")) {
+            throw new IllegalArgumentException("not an email address: " + value);
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>
+(Real email validation is more involved than one regex, and if you need it to be exact you delegate to a library. The point is not the regex; it is where the check lives. Any value of type <code>Email</code> has passed it, so code that receives an <code>Email</code> never has to re-check.)
+</p>
+
+<p>
+The same treatment for the rest: an <code>OrderId</code> record that enforces the id format, an <code>OrderStatus</code> enum instead of a free-form status string, and <code>Instant</code> for the two timestamps, since the JDK already has a type that rejects malformed dates. The amount and the currency merge into one type, because a monetary amount without its currency is not a value you can do anything safe with:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">public record Money(BigDecimal amount, Currency currency) {
+    public Money {
+        if (amount.scale() &gt; currency.getDefaultFractionDigits()) {
+            throw new IllegalArgumentException("too many decimal places for " + currency);
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>
+After the first pass:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">public record OrderData(
+    OrderId orderIdString,          // types fixed; the names are the next pass
+    Email customerEmailAddressString,
+    OrderStatus orderStatusValue,
+    Money orderTotalAmountValue,
+    Instant createdDateTimestamp,
+    Instant updatedDateTimestamp,
+    String orderNotesText,
+    Boolean isOrderActiveFlag,
+    String futureDiscountCode,
+    Map&lt;String, Object&gt; extraAttributes
+) {}
+</code></pre></div></div>
+
+<p>
+The schema gets the same pass. OpenAPI cannot run a constructor, but <code>format</code>, <code>enum</code>, <code>pattern</code>, and range constraints are its way of testing values before they reach your code:
+</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-yaml" data-lang="yaml">orderIdString:
+  type: string
+  pattern: '^ord_[0-9a-z]{12}$'
+customerEmailAddressString:
+  type: string
+  format: email
+orderStatusValue:
+  type: string
+  enum: [pending, paid, shipped, delivered, cancelled]
+orderTotalAmountValue:
+  $ref: '#/components/schemas/Money'
+createdDateTimestamp:
+  type: string
+  format: date-time
+</code></pre></div></div>
+
+<p>
+Every constraint added here is a test that runs on every request, in every environment, with no test suite involved. Alexis King's <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">“Parse, don't validate”</a> makes the general argument: once a value has parsed into a narrower type, the rest of the program can rely on it instead of re-checking it. This pass also caught a design error the original model hid: the amount and currency were two independent fields that could disagree, and <code>Money</code> makes that state unrepresentable.
+</p>
+</div>
+</div>
+<div id="outline-container-pass-2-reveals-intention-say-what-the-field-is-for" class="outline-2">
+<h2 id="pass-2-reveals-intention-say-what-the-field-is-for">Pass 2 &ndash; Reveals intention: say what the field is for</h2>
+<div class="outline-text-2" id="text-pass-2-reveals-intention-say-what-the-field-is-for">
+<p>
+The types are now right but the names are still bad. The second pass renames each field to say what it is for, and Strunk's rule 13 &ndash; omit needless words &ndash; does most of the work. For each name, strike the words that carry no information and see what is left.
+</p>
+
+<ul class="org-ul">
+<li><code>customerEmailAddressString</code>: <code>String</code> repeats the type (and is now false &ndash; the type is <code>Email</code>). <code>Address</code> repeats what <i>email</i> already implies. What is left is <code>customerEmail</code>.</li>
+<li><code>createdDateTimestamp</code> and <code>updatedDateTimestamp</code>: <code>Date</code> and <code>Timestamp</code> both describe the type, which the declaration already shows. What the reader needs is the <i>event</i>: <code>createdAt</code>, <code>updatedAt</code>.</li>
+<li><code>orderNotesText</code>: <code>Text</code> describes the type. But striking it exposes a different failure: notes for whom, about what? If I cannot make a name specific, I usually have not decided what the field is for. In this system the field holds the customer's instructions to the courier, so the honest name is <code>deliveryInstructions</code>.</li>
+<li><code>isOrderActiveFlag</code>: <code>Flag</code> repeats the type. But after striking it, I still cannot say what <i>active</i> means here &ndash; not cancelled? not delivered? recently touched? A field whose meaning I cannot state is a problem for a later pass; renaming it now would not fix it.</li>
+</ul>
+
+<p>
+An intention-revealing name matters more in the schema than in the Java code, because a consumer of the API cannot read the implementation. They have the field name, the type, and the description string, but the name is the one part most consumers actually read.
+</p>
+</div>
+</div>
+<div id="outline-container-pass-3-no-duplication-stop-repeating-the-context" class="outline-2">
+<h2 id="pass-3-no-duplication-stop-repeating-the-context">Pass 3 &ndash; No duplication: stop repeating the context</h2>
+<div class="outline-text-2" id="text-pass-3-no-duplication-stop-repeating-the-context">
+<p>
+Every remaining name still says <i>order</i>, inside a type that already says it. <code>order.orderId</code> says order twice; so does <code>OrderData.orderStatusValue</code> &ndash; three times, if you count <code>Value</code> restating the type. Once a field lives inside <code>Order</code>, the context carries that word, and repeating it adds length without adding information. The <code>Data</code> suffix on the record name is the same duplication one level up: it describes what every record is. In <a href="file:///2025/12/15/vibe-coding-and-baby-genius/">Vibe Coding and the Baby Genius Problem</a> I made the same case against <code>Request</code> and <code>Response</code> suffixes on API models.
+</p>
+
+<p>
+This is Russ Cox's <code>getParametersAsNamedValuePairArray</code> point at the field level &ndash; the only interesting word in that name is <i>parameters</i>, and the only interesting word in <code>orderStatusValue</code> is <i>status</i>.
+</p>
+
+<p>
+The pass also catches duplication that is not in the names. <code>isOrderActiveFlag</code> turned out to mean “status is neither cancelled nor delivered” &ndash; it restates <code>status</code>, as data. Since the value is derivable from <code>status</code>, I delete the field rather than rename it; if the convenience matters, an <code>isActive()</code> method on the record can compute it.
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">public record Order(
+    OrderId id,
+    Email customerEmail,
+    OrderStatus status,
+    Money total,
+    Instant createdAt,
+    Instant updatedAt,
+    String deliveryInstructions,
+    String futureDiscountCode,
+    Map&lt;String, Object&gt; extraAttributes
+) {}
+</code></pre></div></div>
+</div>
+</div>
+<div id="outline-container-pass-4-fewest-elements-delete-what-has-no-reason-to-exist" class="outline-2">
+<h2 id="pass-4-fewest-elements-delete-what-has-no-reason-to-exist">Pass 4 &ndash; Fewest elements: delete what has no reason to exist</h2>
+<div class="outline-text-2" id="text-pass-4-fewest-elements-delete-what-has-no-reason-to-exist">
+<p>
+Two fields remain that no current feature reads.
+</p>
+
+<p>
+<code>futureDiscountCode</code> was added because a discounts feature is expected someday. When that feature arrives it will have real requirements, and this field &ndash; named, typed, and shaped before any of them were known &ndash; is unlikely to match. Until then it is surface area: it appears in generated clients, consumers store it, and when the real feature ships it will have to be deprecated in favour of whatever is actually needed.
+</p>
+
+<p>
+<code>extraAttributes</code> is a bigger problem, because it weakens the whole schema rather than just adding an unused field. A <code>Map&lt;String, Object&gt;</code> field says that anything may appear here, with any type, and none of it is documented. Whatever goes into that map is exactly the data that should have been a named, typed field, and once consumers start passing values through it you can never remove it. The only cheap time to delete it is while it is still empty.
+</p>
+
+<p>
+The final model:
+</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-java" data-lang="java">public record Order(
+    OrderId id,
+    Email customerEmail,
+    OrderStatus status,
+    Money total,
+    Instant createdAt,
+    Instant updatedAt,
+    String deliveryInstructions
+) {}
+</code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="language-yaml" data-lang="yaml">Order:
+  type: object
+  required: [id, customerEmail, status, total, createdAt, updatedAt]
+  properties:
+    id:
+      type: string
+      pattern: '^ord_[0-9a-z]{12}$'
+    customerEmail:
+      type: string
+      format: email
+    status:
+      type: string
+      enum: [pending, paid, shipped, delivered, cancelled]
+    total:
+      $ref: '#/components/schemas/Money'
+    createdAt:
+      type: string
+      format: date-time
+    updatedAt:
+      type: string
+      format: date-time
+    deliveryInstructions:
+      type: string
+      maxLength: 500
+</code></pre></div></div>
+
+<p>
+Seven fields instead of eleven, every one of them constrained, and every name down to the words that carry information. Cox's rule about length and scope explains why the final names can be this short: <code>id</code> is unambiguous precisely because it is read inside <code>Order</code>, where the context supplies the rest. The same field flattened into a log line or an analytics event should be <code>orderId</code> again, because there the context is gone and the name has to carry it.
+</p>
+</div>
+</div>
+<div id="outline-container-trade-offs" class="outline-2">
+<h2 id="trade-offs">Trade-offs</h2>
+<div class="outline-text-2" id="text-trade-offs">
+<p>
+The refactor above is presented as if it were free. It is not, and it helps to know the costs before applying it.
+</p>
+
+<p>
+<b>Wrapper types are ceremony, and serialization notices.</b> Every <code>Email</code>-style type needs a Jackson <code>@JsonValue</code> and <code>@JsonCreator</code> (or the equivalent in your framework) so it serializes as a plain string rather than a nested object. Records have made the class definitions nearly free, but the serialization plumbing is a real, one-time cost per type, and on a small internal tool it may not pay for itself.
+</p>
+
+<p>
+<b>Some strings are honestly strings.</b> <code>deliveryInstructions</code> stayed a <code>String</code> because free text is genuinely a string: there is no constraint a <code>DeliveryInstructions</code> type could test beyond a length cap, and the schema's <code>maxLength</code> already covers that. Wrapping it would add a type without adding a check. The test I use: if the constructor would be empty, the wrapper adds nothing.
+</p>
+
+<p>
+<b>Renaming a published field is a breaking change.</b> Everything in this post is cheap at design time and expensive after the first consumer integrates. Once <code>orderIdString</code> is in production and has seen traffic, fixing it means versioning the API or carrying both names through a deprecation cycle. This is the strongest argument for doing the naming work before v1 ships rather than after.
+</p>
+
+<p>
+<b>Short names depend on their context surviving.</b> <code>id</code> is right inside the schema and wrong in a CSV export. If a name will be read where its enclosing context is stripped away, it has to carry the context itself. Cox's rule decides both cases; it just gives different answers.
+</p>
+
+<p>
+<b>A consistent team convention beats my preference.</b> If the codebase I am in writes <code>orderId</code> on every entity, I write <code>orderId</code>. A reader who can predict every name in the system is better off than one who has to learn which files follow which philosophy.
+</p>
+</div>
+</div>
+<div id="outline-container-sources" class="outline-2">
+<h2 id="sources">Sources</h2>
+<div class="outline-text-2" id="text-sources">
+<ul class="org-ul">
+<li><a href="https://martinfowler.com/bliki/BeckDesignRules.html">Kent Beck's four rules of simple design</a>, as summarized by Martin Fowler</li>
+<li><a href="https://www.bartleby.com/lit-hub/the-elements-of-style/iii-elementary-principles-of-composition/#13">The Elements of Style, rule 13: omit needless words</a>, Strunk</li>
+<li><a href="https://research.swtch.com/names">Notes on naming</a>, Russ Cox</li>
+<li><a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">Parse, don't validate</a>, Alexis King</li>
+<li><a href="file:///2026/07/23/my-naming-philosophy/">My naming philosophy</a>, the short version of this post</li>
+<li><a href="file:///2025/12/15/vibe-coding-and-baby-genius/">Vibe Coding and the Baby Genius Problem</a>, an earlier post of mine on making naming conventions enforceable</li>
+</ul>
+</div>
+</div>
+</div>
+  
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-software-engineering">Software Engineering</a>, <a href="/categories/#cat-computer-science">Computer Science</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-07-23">Jul 23, 2026</time><a class="related-post-title" href="/2026/07/23/my-naming-philosophy/">My Naming Philosophy</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-06-07">Jun 07, 2026</time><a class="related-post-title" href="/2026/06/07/designing-kisoku-compiled-indexed-decision-tables/">Designing Kisoku: Compiled, Indexed Decision Tables in Java</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-09-23">Sep 23, 2026</time><a class="related-post-title" href="/2026/09/23/java28-value-objects/">Java 28 Preview: Value Objects Bring Identity-Free Data to Java</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2026/08/09/review-studying-wisdom-of-crowds-at-scale/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Review: Studying the Wisdom of Crowds at Scale</span></a><a class="post-nav-next" href="/2026/08/04/what-uno-teaches-about-rule-based-agents/"><span class="post-nav-label">Older →</span><span class="post-nav-title">What UNO Teaches About Rule-Based Agents</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

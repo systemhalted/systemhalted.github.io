@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en" class="theme-nord-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Reforming the Security Council Without Breaking Trust · SystemHalted.in</title>
+  <meta name="description" content="A practical case for UNSC reform that preserves stability, legitimacy, and the incentives for major powers to stay invested.">
+  <link rel="canonical" href="https://systemhalted.in/2025/12/22/reforming-unsc-without-breaking-trust/">
+  <meta property="og:title" content="Reforming the Security Council Without Breaking Trust · SystemHalted.in">
+  <meta property="og:description" content="A practical case for UNSC reform that preserves stability, legitimacy, and the incentives for major powers to stay invested.">
+  <meta property="og:url" content="https://systemhalted.in/2025/12/22/reforming-unsc-without-breaking-trust/">
+  <meta property="og:site_name" content="SystemHalted.in">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  
+  <script>
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved !== 'dark' && saved !== 'light') {
+        saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.classList.remove('theme-nord-light', 'theme-nord-dark');
+      document.documentElement.classList.add(saved === 'dark' ? 'theme-nord-dark' : 'theme-nord-light');
+      try { if (localStorage.getItem('theme-crt') === 'on') document.documentElement.classList.add('theme-crt'); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/nord.css?v=org">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Rubik:wght@400;500;600&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=UnifrakturMaguntia&amp;display=swap">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/systemhalted-terminal.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/systemhalted-terminal.svg">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://systemhalted.in/#person","name":"Palak Mathur","url":"https://systemhalted.in/about/","image":"https://systemhalted.in/assets/images/avatar.jpeg","jobTitle":"Director of Software Engineering"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Reforming the Security Council Without Breaking Trust","description":"A practical case for UNSC reform that preserves stability, legitimacy, and the incentives for major powers to stay invested.","url":"https://systemhalted.in/2025/12/22/reforming-unsc-without-breaking-trust/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="site-wordmark" href="/">SystemHalted</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="/">Writing</a>
+        <a href="/projects/">Projects</a>
+        <a href="/archives/">Archive</a>
+        <a href="/about/">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-toggle" type="button" aria-expanded="false" aria-controls="search-overlay" aria-label="Open search" title="Search (/)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Switch to Nord dark theme" title="Toggle light and dark theme (t)">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <template id="interactive-overlays">
+    <div id="search-overlay" class="search-overlay" aria-hidden="true">
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+        <div class="search-header">
+          <h2 id="search-title" class="sr-only">Search all writing</h2>
+          <label class="sr-only" for="search-input">Search all writing</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search all writing…" autocomplete="off">
+          <button id="search-close" class="icon-button search-close" type="button" aria-label="Close search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
+        </div>
+        <div id="search-status" class="search-status is-hidden" role="status" aria-live="polite"></div>
+        <div id="search-results" class="search-results" data-suggestions="emacs,leadership,javascript">
+          <div class="search-empty-state"><p class="search-empty">Type to search, or try:</p><ul class="search-suggestions"><li><button type="button" data-suggest="emacs">emacs</button></li><li><button type="button" data-suggest="leadership">leadership</button></li><li><button type="button" data-suggest="javascript">javascript</button></li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div id="shortcuts-overlay" class="search-overlay shortcuts-overlay" aria-hidden="true">
+      <div class="search-dialog shortcuts-dialog" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="search-header"><h2 id="shortcuts-title" class="shortcuts-title">Keyboard shortcuts</h2><button id="shortcuts-close" class="icon-button search-close" type="button" aria-label="Close shortcuts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"></path></svg></button></div>
+        <div class="shortcuts-body"><dl class="shortcuts-list"><dt><kbd>/</kbd></dt><dd>Search</dd><dt><kbd>t</kbd></dt><dd>Toggle light and dark theme</dd><dt><kbd>g</kbd> <kbd>w</kbd></dt><dd>Writing</dd><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>Projects</dd><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>Archive</dd><dt><kbd>g</kbd> <kbd>i</kbd></dt><dd>About</dd><dt><kbd>?</kbd></dt><dd>Show this help</dd><dt><kbd>Esc</kbd></dt><dd>Close an overlay</dd></dl></div>
+      </div>
+    </div>
+  </template>
+  <script>(function(){var template=document.getElementById('interactive-overlays');if(!template||!template.content)return;template.parentNode.insertBefore(template.content,template);template.parentNode.removeChild(template);}());</script>
+  <main id="main-content" class="container content" tabindex="-1"><article class="post">
+  <header class="post-header">
+    <h1 class="post-title">Reforming the Security Council Without Breaking Trust</h1>
+    <p class="post-meta"><time datetime="2025-12-22T12:00:00-0600">22 December 2025</time><span aria-hidden="true">·</span> 13 min read</p>
+  </header>
+  <div class="post-content"><details class="post-toc"><summary>Contents</summary><nav aria-label="Table of contents"><ul><li><a href="#make-veto-use-more-accountable-not-weaker">1. Make veto use more accountable, not weaker</a></li><li><a href="#what-happens-today">What happens today</a></li><li><a href="#what-i-propose">What I propose</a></li><li><a href="#why-it-helps-and-where-it-can-fail">Why it helps, and where it can fail</a></li><li><a href="#build-a-norm-of-restraint-for-mass-atrocities-and-make-the-norm-operational">2. Build a norm of restraint for mass atrocities, and make the norm operational</a></li><li><a href="#what-happens-today-1">What happens today</a></li><li><a href="#what-i-propose-1">What I propose</a></li><li><a href="#why-it-helps-and-what-happens-if-the-veto-still-blocks-action">Why it helps, and what happens if the veto still blocks action</a></li><li><a href="#expand-membership-with-a-specific-shape-and-admit-the-trade-offs">3. Expand membership with a specific shape, and admit the trade offs</a></li><li><a href="#what-happens-today-2">What happens today</a></li><li><a href="#what-i-propose-2">What I propose</a></li><li><a href="#who-defines-the-criteria-and-why-would-anyone-accept-them">Who defines the criteria, and why would anyone accept them?</a></li><li><a href="#trade-off-larger-councils-can-be-slower">Trade off: larger councils can be slower</a></li><li><a href="#replace-permanent-forever-with-long-term-renewable-as-a-direction-the-system-can-actually-walk">4. Replace “permanent forever” with “long term renewable,” as a direction the system can actually walk</a></li><li><a href="#what-happens-today-3">What happens today</a></li><li><a href="#what-i-propose-3">What I propose</a></li><li><a href="#why-it-helps-even-if-the-old-structure-remains">Why it helps, even if the old structure remains</a></li><li><a href="#stakeholder-buy-in-and-how-to-build-a-coalition-that-does-not-require-miracles">5. Stakeholder buy in, and how to build a coalition that does not require miracles</a></li><li><a href="#closing-thought">Closing thought</a></li><li><a href="#references">References</a></li></ul></nav></details><p>
+I have written about United Nations Security Council reforms before, and the older I get, the more I realize this is not a topic that rewards anger. It rewards clarity.
+</p>
+
+<p>
+The Security Council was designed in a specific world. The year was 1945. The problem statement was simple and terrifying: prevent another world war. The veto was not invented as a moral idea. It was a stability mechanism. If the strongest powers of that era were expected to participate in a system, they needed assurance that the system would not be used against what they consider existential interests. You may dislike that logic, but you cannot pretend it is irrational. It is the kind of logic that keeps institutions alive.
+</p>
+
+<p>
+Still, a system can be historically justified and yet feel increasingly mismatched to the world it is supposed to manage. When that mismatch grows, two things happen.
+</p>
+
+<p>
+First, decisions start looking less legitimate to those who are asked to accept them.
+</p>
+
+<p>
+Second, countries start routing around the institution when it feels slow, unpredictable, or politically costly.
+</p>
+
+<p>
+Both outcomes are bad. Legitimacy without power becomes poetry. Power without legitimacy becomes noise. The world needs less noise.
+</p>
+
+<p>
+So the best way to talk about Security Council reform is not as a fight between “the powerful” and “the rest.” The best way is to ask a practical question.
+</p>
+
+<p>
+How do we keep the Council authoritative enough that major powers remain invested in it, while making it representative enough that the wider world respects it?
+</p>
+
+<p>
+That question matters because reform that ignores incentives will not produce a better Security Council. It will produce an ignored Security Council. And an ignored Security Council is not a victory for democracy. It is a victory for chaos.
+</p>
+
+<p>
+So my goal here is not to write a fantasy about “abolishing the veto.” Charter change is hard, and the Charter is designed to be hard to change. The goal is more modest and more practical.
+</p>
+
+<p>
+Make obstruction more accountable, more legible, and harder to perform casually, without pretending we can enforce good faith.
+</p>
+
+<p>
+I will do three things for each proposal.
+</p>
+
+<ol class="org-ol">
+<li>Describe what happens today.</li>
+<li>Define a concrete additional process.</li>
+<li>Explain why it helps, including where it can still fail.</li>
+</ol>
+<div id="outline-container-make-veto-use-more-accountable-not-weaker" class="outline-2">
+<h2 id="make-veto-use-more-accountable-not-weaker">1. Make veto use more accountable, not weaker</h2>
+<div class="outline-text-2" id="text-make-veto-use-more-accountable-not-weaker">
+</div>
+<div id="outline-container-what-happens-today" class="outline-3">
+<h3 id="what-happens-today">What happens today</h3>
+<div class="outline-text-3" id="text-what-happens-today">
+<p>
+A substantive Council decision needs at least nine affirmative votes and no negative vote from any permanent member. One negative vote by a permanent member blocks the draft. That is the veto. (UN Charter, Article 27)<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+After the veto, accountability is mostly reputational.
+</p>
+
+<p>
+Yes, the veto is public. Voting records exist. Explanations may be offered in the chamber. But the content is unstructured and often optimized for politics, not clarity.
+</p>
+
+<p>
+Since 2022, there is also a formal spotlight mechanism. When a veto is cast, the General Assembly President must convene a debate within ten working days. The Assembly “invites” the Council to submit a special report on the veto at least 72 hours before the debate. (UNGA resolution 76/262)<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> The important word there is “invites.” It raises political cost, but it does not force precision, and it does not force participation. Analysts have noted that the resolution does not impose obligations on the vetoing state to even show up.<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>
+</p>
+</div>
+</div>
+<div id="outline-container-what-i-propose" class="outline-3">
+<h3 id="what-i-propose">What I propose</h3>
+<div class="outline-text-3" id="text-what-i-propose">
+<p>
+A veto should trigger a short, mandatory, structured “Veto Brief” filed as an official UN document within 48 hours.
+</p>
+
+<p>
+Not an essay. A template with hard edges.
+</p>
+
+<p>
+The brief must include:
+</p>
+
+<ol class="org-ol">
+<li>Pinpoint objection<br>
+Identify exactly which operative paragraphs are unacceptable.</li>
+
+<li>Factual predicates<br>
+List the key factual claims the veto relies on, written as testable statements.</li>
+
+<li>Principle being invoked<br>
+Cite Charter articles if needed, but state the real test in plain language. The Charter citation supports the argument. It cannot replace the argument.</li>
+
+<li>Acceptable path to “yes”<br>
+Provide at least one concrete amendment or alternative text that would remove the need for a veto.</li>
+
+<li>Review trigger<br>
+If the veto is conditional, state the conditions and a review date for reconsideration.</li>
+</ol>
+
+<p>
+Then, within seven days, the Council schedules a short “Veto Consequences” session. Ten minutes for the vetoing member to present the brief, then a time-boxed round of questions from elected members. No moral theatre required. Just structured daylight.
+</p>
+
+<p>
+Finally, add one small but sharp piece of enforcement that costs almost nothing.
+</p>
+
+<p>
+If the vetoing member does not file the brief, that non-submission is recorded in the Council's official meeting record, and it is flagged in the General Assembly debate convened under 76/262.<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup> The veto remains valid, but the refusal becomes part of the permanent archive and part of the public debate.
+</p>
+
+<p>
+To prevent a perfunctory brief that merely checks boxes, the Council President should record whether the brief is <b>responsive</b> to the template (i.e., it contains a concrete “path to yes” and specific factual predicates, not generic slogans). A non-responsive brief is treated like a non-submission for the purposes of the General Assembly debate, where <b>the adequacy of the brief becomes a formal topic</b>&ndash;members can explicitly challenge missing predicates, evasive language, or the absence of any acceptable alternative.<sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>
+</p>
+</div>
+</div>
+<div id="outline-container-why-it-helps-and-where-it-can-fail" class="outline-3">
+<h3 id="why-it-helps-and-where-it-can-fail">Why it helps, and where it can fail</h3>
+<div class="outline-text-3" id="text-why-it-helps-and-where-it-can-fail">
+<p>
+The honest criticism is correct: “What if powerful states don't care?”
+</p>
+
+<p>
+Some don't. History is not shy about that.
+</p>
+
+<p>
+But accountability is not only about changing minds. It is also about changing the friction profile of a behavior.
+</p>
+
+<p>
+This mechanism raises the cost of vetoing in three ways that do not require new UN spending.
+</p>
+
+<ol class="org-ol">
+<li>It shifts effort onto the actor choosing the veto.<br>
+The UN does not hire a new bureaucracy. The vetoing mission uses its existing staff to produce a short document.</li>
+
+<li>It removes the fog that makes performative vetoes easy.<br>
+If you must state what you would accept, you cannot veto and disappear into slogans.</li>
+
+<li>It makes patterns visible over time.<br>
+A veto is a single moment. A trail of structured briefs becomes a story.</li>
+</ol>
+
+<p>
+A concrete example shows the dysfunction today.
+</p>
+
+<p>
+On Syria, vetoes have been repeatedly used to block action on drafts concerning the conflict and humanitarian mechanisms. Security Council Report notes that since 2011, Russia cast 19 vetoes, with 14 on Syria, and that eight of nine Chinese vetoes in that period were on Syria.<sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup> The UN's own research guide lists vetoed Syria-related drafts across multiple years.<sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>
+</p>
+
+<p>
+A structured veto brief would not magically unlock consensus, but it would force two things that are often missing.
+</p>
+
+<p>
+First, explicit alternative text, on the record, each time.
+</p>
+
+<p>
+Second, explicit factual predicates, which can be challenged publicly in the General Assembly debate already mandated after a veto.<sup><a id="fnr.8" class="footref" href="#fn.8" role="doc-backlink">8</a></sup>
+</p>
+
+<p>
+Failure mode still exists. A determined vetoing member can absorb reputational costs. But even then, the system gains something it currently lacks: a clear, testable record of what was blocked and what compromise was refused.
+</p>
+
+<p>
+That clarity matters to history, to diplomacy, and to any future negotiation.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-build-a-norm-of-restraint-for-mass-atrocities-and-make-the-norm-operational" class="outline-2">
+<h2 id="build-a-norm-of-restraint-for-mass-atrocities-and-make-the-norm-operational">2. Build a norm of restraint for mass atrocities, and make the norm operational</h2>
+<div class="outline-text-2" id="text-build-a-norm-of-restraint-for-mass-atrocities-and-make-the-norm-operational">
+</div>
+<div id="outline-container-what-happens-today-1" class="outline-3">
+<h3 id="what-happens-today-1">What happens today</h3>
+<div class="outline-text-3" id="text-what-happens-today-1">
+<p>
+There is no binding rule preventing veto use in situations involving genocide, crimes against humanity, or war crimes.
+</p>
+
+<p>
+There are voluntary initiatives.
+</p>
+
+<p>
+The ACT Code of Conduct asks states to support timely and decisive action to prevent or end mass atrocity crimes, and calls on Council members not to vote against credible action aimed at stopping them.<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup> There is also the France&ndash;Mexico initiative calling for voluntary restraint on veto use in mass atrocity situations.<sup><a id="fnr.10" class="footref" href="#fn.10" role="doc-backlink">10</a></sup>
+</p>
+
+<p>
+These matter. But voluntary norms have a familiar weakness: they work best when they are not needed.
+</p>
+</div>
+</div>
+<div id="outline-container-what-i-propose-1" class="outline-3">
+<h3 id="what-i-propose-1">What I propose</h3>
+<div class="outline-text-3" id="text-what-i-propose-1">
+<p>
+Convert “restraint” from a moral appeal into a repeatable procedure.
+</p>
+
+<p>
+Create a “Mass Atrocity Track” for draft resolutions explicitly aimed at preventing or halting atrocity crimes.
+</p>
+
+<p>
+If a draft is placed on this track, then any veto triggers two additional obligations inside the veto brief.
+</p>
+
+<ol class="org-ol">
+<li>Civilian impact claim<br>
+A short statement explaining why the vetoing member believes the draft would worsen civilian protection outcomes, or violate a principle in a way that outweighs the harm of inaction.</li>
+
+<li>Alternative protection path<br>
+A concrete alternative proposal that still targets civilian protection, even if it changes the means.</li>
+</ol>
+
+<p>
+Then impose one simple process requirement.
+</p>
+
+<p>
+Within 14 days of a veto on the atrocity track, the Council must vote on at least one alternative draft addressing the same civilian protection objective, even if it is imperfect.
+</p>
+
+<p>
+This is not “forcing agreement.” It is forcing effort.
+</p>
+</div>
+</div>
+<div id="outline-container-why-it-helps-and-what-happens-if-the-veto-still-blocks-action" class="outline-3">
+<h3 id="why-it-helps-and-what-happens-if-the-veto-still-blocks-action">Why it helps, and what happens if the veto still blocks action</h3>
+<div class="outline-text-3" id="text-why-it-helps-and-what-happens-if-the-veto-still-blocks-action">
+<p>
+The nightmare scenario is real.
+</p>
+
+<p>
+What if this process exists and a veto still blocks action during an active genocide?
+</p>
+
+<p>
+Then the Council's impotence becomes more transparent.
+</p>
+
+<p>
+That sounds grim, but transparency is not nothing. Opacity is how paralysis becomes normal.
+</p>
+
+<p>
+The additional value here is that the mandated General Assembly debate after a veto (76/262) becomes better informed. Instead of debating fog, the wider membership debates a structured record that includes what alternative protection pathways were offered or not offered.<sup><a id="fnr.11" class="footref" href="#fn.11" role="doc-backlink">11</a></sup>
+</p>
+
+<p>
+And yes, powerful states can still ignore the norm. But a norm tied to a forced iteration loop changes behavior at the margin, and “at the margin” is often where real lives are saved.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-expand-membership-with-a-specific-shape-and-admit-the-trade-offs" class="outline-2">
+<h2 id="expand-membership-with-a-specific-shape-and-admit-the-trade-offs">3. Expand membership with a specific shape, and admit the trade offs</h2>
+<div class="outline-text-2" id="text-expand-membership-with-a-specific-shape-and-admit-the-trade-offs">
+</div>
+<div id="outline-container-what-happens-today-2" class="outline-3">
+<h3 id="what-happens-today-2">What happens today</h3>
+<div class="outline-text-3" id="text-what-happens-today-2">
+<p>
+The Council has 15 members: five permanent, ten elected for two-year terms. (UN Charter, Article 23)<sup><a id="fnr.12" class="footref" href="#fn.12" role="doc-backlink">12</a></sup>
+</p>
+
+<p>
+Those ten elected seats are distributed by regional groups: three for Africa, two for Asia Pacific, two for Latin America and the Caribbean, two for Western Europe and Others, and one for Eastern Europe.<sup><a id="fnr.13" class="footref" href="#fn.13" role="doc-backlink">13</a></sup>
+</p>
+
+<p>
+Two problems follow from this design.
+</p>
+
+<p>
+First, two years is short. Many elected members become effective only when their term is ending.
+</p>
+
+<p>
+Second, representation is frozen in a world that has changed.
+</p>
+</div>
+</div>
+<div id="outline-container-what-i-propose-2" class="outline-3">
+<h3 id="what-i-propose-2">What I propose</h3>
+<div class="outline-text-3" id="text-what-i-propose-2">
+<p>
+A concrete model that sits between “keep it at 15 forever” and “blow it up to 25 plus overnight” is this.
+</p>
+
+<p>
+Expand from 15 to 21 members by adding six longer-term renewable seats, without adding new vetoes.
+</p>
+
+<ol class="org-ol">
+<li>Keep the current 10 two-year elected seats and their existing regional distribution.<sup><a id="fnr.14" class="footref" href="#fn.14" role="doc-backlink">14</a></sup></li>
+<li>Add six renewable seats with four-year terms, eligible for immediate re-election once.<br>
+Four years is long enough to build genuine file expertise and relationships; short enough that renewal still means something.</li>
+<li>Allocate those six seats by region as follows: 2 Africa<br>
+2 Asia Pacific<br>
+1 Latin America and the Caribbean<br>
+1 split rotation between Eastern Europe and Small Island Developing States</li>
+</ol>
+
+<p>
+This is not the only possible distribution. The point is to stop hand waving and put a shape on the table.
+</p>
+
+<p>
+It also aligns with the core complaint that the current Council has no permanent representation for Africa or Latin America, a point repeatedly raised in reform debates.<sup><a id="fnr.15" class="footref" href="#fn.15" role="doc-backlink">15</a></sup>
+</p>
+</div>
+</div>
+<div id="outline-container-who-defines-the-criteria-and-why-would-anyone-accept-them" class="outline-3">
+<h3 id="who-defines-the-criteria-and-why-would-anyone-accept-them">Who defines the criteria, and why would anyone accept them?</h3>
+<div class="outline-text-3" id="text-who-defines-the-criteria-and-why-would-anyone-accept-them">
+<p>
+Criteria should be defined by the General Assembly through the ongoing intergovernmental negotiations process, not by the permanent members alone. The politics are difficult, but the venue is clear.<sup><a id="fnr.16" class="footref" href="#fn.16" role="doc-backlink">16</a></sup>
+</p>
+
+<p>
+A Charter amendment is still required for composition change, and Charter amendments require ratification including by all permanent members. (UN Charter, Article 108)<sup><a id="fnr.17" class="footref" href="#fn.17" role="doc-backlink">17</a></sup>
+</p>
+
+<p>
+That is the hard wall. No serious reform should pretend it is not there.
+</p>
+
+<p>
+So the real strategy is phased.
+</p>
+
+<p>
+Phase 1 is working-methods reform that does not require Charter amendment. Veto briefs, structured hearings, iteration loops.
+</p>
+
+<p>
+Phase 2 is composition reform, which requires a broader bargain.
+</p>
+</div>
+</div>
+<div id="outline-container-trade-off-larger-councils-can-be-slower" class="outline-3">
+<h3 id="trade-off-larger-councils-can-be-slower">Trade off: larger councils can be slower</h3>
+<div class="outline-text-3" id="text-trade-off-larger-councils-can-be-slower">
+<p>
+This is a real risk. Larger groups can move slower, and more seats can add friction.
+</p>
+
+<p>
+The mitigation is to keep the extra seats longer-term and renewable. Continuity reduces the constant onboarding churn that already slows the Council today.
+</p>
+
+<p>
+Another mitigation is procedural discipline: time-limited negotiations, published draft histories, and structured “what would unlock agreement” fields, so debate does not become infinite.
+</p>
+
+<p>
+And it is worth noting a counterweight to the “bigger means slower” argument: the Council already runs at high tempo. In 2024 it held 305 formal meetings (a record), which suggests there is procedural capacity for a modest increase in membership without fundamentally changing the Council's operating rhythm.<sup><a id="fnr.18" class="footref" href="#fn.18" role="doc-backlink">18</a></sup>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-replace-permanent-forever-with-long-term-renewable-as-a-direction-the-system-can-actually-walk" class="outline-2">
+<h2 id="replace-permanent-forever-with-long-term-renewable-as-a-direction-the-system-can-actually-walk">4. Replace “permanent forever” with “long term renewable,” as a direction the system can actually walk</h2>
+<div class="outline-text-2" id="text-replace-permanent-forever-with-long-term-renewable-as-a-direction-the-system-can-actually-walk">
+</div>
+<div id="outline-container-what-happens-today-3" class="outline-3">
+<h3 id="what-happens-today-3">What happens today</h3>
+<div class="outline-text-3" id="text-what-happens-today-3">
+<p>
+Permanence is embedded in the Charter. Removing it is not politically realistic in the near term.<sup><a id="fnr.19" class="footref" href="#fn.19" role="doc-backlink">19</a></sup>
+</p>
+
+<p>
+But “near term realism” is not the same as “long term surrender.”
+</p>
+</div>
+</div>
+<div id="outline-container-what-i-propose-3" class="outline-3">
+<h3 id="what-i-propose-3">What I propose</h3>
+<div class="outline-text-3" id="text-what-i-propose-3">
+<p>
+Treat renewable legitimacy as a parallel prestige track.
+</p>
+
+<p>
+Build up the longer-term renewable seats described above. Make them consequential. Make them hard to win and easy to lose if a state does not sustain contribution and responsibility.
+</p>
+
+<p>
+Over time, those seats become the institution's living legitimacy mechanism.
+</p>
+
+<p>
+There is precedent for this kind of design in regional security bodies. The African Union Peace and Security Council has 15 members, with five elected for three-year terms and ten for two-year terms, and it has no permanent members and no veto. It uses rotation and re-election to balance continuity with legitimacy.<sup><a id="fnr.20" class="footref" href="#fn.20" role="doc-backlink">20</a></sup>
+</p>
+
+<p>
+The AU PSC is not the UN, and global politics are nastier than regional politics. But the institutional idea is useful: continuity without permanence, and influence that must be renewed.
+</p>
+</div>
+</div>
+<div id="outline-container-why-it-helps-even-if-the-old-structure-remains" class="outline-3">
+<h3 id="why-it-helps-even-if-the-old-structure-remains">Why it helps, even if the old structure remains</h3>
+<div class="outline-text-3" id="text-why-it-helps-even-if-the-old-structure-remains">
+<p>
+Because it creates a pathway where legitimacy is something you keep earning, not something you inherit.
+</p>
+
+<p>
+Even if permanence stays, renewable seats can gradually shift the Council's center of gravity toward responsibility-based legitimacy.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-stakeholder-buy-in-and-how-to-build-a-coalition-that-does-not-require-miracles" class="outline-2">
+<h2 id="stakeholder-buy-in-and-how-to-build-a-coalition-that-does-not-require-miracles">5. Stakeholder buy in, and how to build a coalition that does not require miracles</h2>
+<div class="outline-text-2" id="text-stakeholder-buy-in-and-how-to-build-a-coalition-that-does-not-require-miracles">
+<p>
+This is where the earlier draft was too optimistic by omission.
+</p>
+
+<p>
+The Council does not reform because someone writes a good blog post. It reforms when enough states can see a bargain.
+</p>
+
+<p>
+There are already two building blocks.
+</p>
+
+<p>
+First, the veto initiative (76/262) was adopted by consensus, and it has already triggered repeated debates after vetoes.<sup><a id="fnr.21" class="footref" href="#fn.21" role="doc-backlink">21</a></sup> UN press reporting in November 2025 noted that multiple vetoes had triggered corresponding General Assembly debates under this mechanism.<sup><a id="fnr.22" class="footref" href="#fn.22" role="doc-backlink">22</a></sup>
+</p>
+
+<p>
+Second, there are existing coalitions around voluntary restraint and working methods, like the ACT group's Code of Conduct.<sup><a id="fnr.23" class="footref" href="#fn.23" role="doc-backlink">23</a></sup>
+</p>
+
+<p>
+A practical coalition path looks like this.
+</p>
+
+<ol class="org-ol">
+<li>Start with elected members and accountability-minded middle powers pushing working methods reforms, because working methods do not require Charter change.</li>
+<li>Use the General Assembly debate mechanism after each veto to normalize structured records and structured questions.<sup><a id="fnr.24" class="footref" href="#fn.24" role="doc-backlink">24</a></sup></li>
+<li>Build a “default expectation” that a veto without a brief is a veto without legitimacy, even if it remains legally valid.</li>
+<li>Only then push composition reform, when the system has already shifted culturally toward accountability.</li>
+</ol>
+
+<p>
+This does not guarantee success. It does something more valuable.
+</p>
+
+<p>
+It creates a ratchet. A direction. A path that can be walked.
+</p>
+</div>
+</div>
+<div id="outline-container-closing-thought" class="outline-2">
+<h2 id="closing-thought">Closing thought</h2>
+<div class="outline-text-2" id="text-closing-thought">
+<p>
+Institutional design cannot force good faith. But it can punish bad faith with friction, sunlight, and repetition.
+</p>
+
+<p>
+The veto will remain a power tool. The question is whether it remains a power tool that operates in fog, or a power tool that must operate in daylight.
+</p>
+
+<p>
+In fog, the Council becomes theatre. In daylight, it at least becomes a record. And sometimes, that record becomes the first step toward a better bargain.
+</p>
+</div>
+</div>
+<div id="outline-container-references" class="outline-2">
+<h2 id="references">References</h2>
+<div class="outline-text-2" id="text-references">
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+United Nations Charter, Article 27 (Voting): <a href="https://www.un.org/en/about-us/un-charter/chapter-5">https://www.un.org/en/about-us/un-charter/chapter-5</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN General Assembly Resolution 76/262: <a href="https://docs.un.org/en/a/res/76/262">https://docs.un.org/en/a/res/76/262</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Analysis noting 76/262 imposes no obligations to attend and mainly increases political cost: <a href="https://www.osorin.it/uploads/model_4/.files/199_item_2.pdf?v=1747211642">https://www.osorin.it/uploads/model_4/.files/199_item_2.pdf?v=1747211642</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN General Assembly Resolution 76/262: <a href="https://docs.un.org/en/a/res/76/262">https://docs.un.org/en/a/res/76/262</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5" role="doc-backlink">5</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN General Assembly Resolution 76/262: <a href="https://docs.un.org/en/a/res/76/262">https://docs.un.org/en/a/res/76/262</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6" role="doc-backlink">6</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Security Council Report, “The Veto”: <a href="https://www.securitycouncilreport.org/un-security-council-working-methods/the-veto.php">https://www.securitycouncilreport.org/un-security-council-working-methods/the-veto.php</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7" role="doc-backlink">7</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN Research Guide, Security Council veto list: <a href="https://research.un.org/en/docs/sc/quick">https://research.un.org/en/docs/sc/quick</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.8" class="footnum" href="#fnr.8" role="doc-backlink">8</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN General Assembly Resolution 76/262: <a href="https://docs.un.org/en/a/res/76/262">https://docs.un.org/en/a/res/76/262</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.9" class="footnum" href="#fnr.9" role="doc-backlink">9</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+ACT Code of Conduct (A/70/621&ndash;S/2015/978): <a href="https://docs.un.org/en/A/70/621">https://docs.un.org/en/A/70/621</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.10" class="footnum" href="#fnr.10" role="doc-backlink">10</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+France&ndash;Mexico initiative on veto restraint in mass atrocities: <a href="https://centerforunreform.org/wp-content/uploads/2015/10/French-Mexican-Proposal-English.pdf">https://centerforunreform.org/wp-content/uploads/2015/10/French-Mexican-Proposal-English.pdf</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.11" class="footnum" href="#fnr.11" role="doc-backlink">11</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN General Assembly Resolution 76/262: <a href="https://docs.un.org/en/a/res/76/262">https://docs.un.org/en/a/res/76/262</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.12" class="footnum" href="#fnr.12" role="doc-backlink">12</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+United Nations Charter, Article 23 (Composition): <a href="https://www.un.org/en/about-us/un-charter/chapter-5">https://www.un.org/en/about-us/un-charter/chapter-5</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.13" class="footnum" href="#fnr.13" role="doc-backlink">13</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Regional distribution of elected seats (summary): <a href="https://futures.issafrica.org/thematic/19-un-security-council/">https://futures.issafrica.org/thematic/19-un-security-council/</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.14" class="footnum" href="#fnr.14" role="doc-backlink">14</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Regional distribution of elected seats (summary): <a href="https://futures.issafrica.org/thematic/19-un-security-council/">https://futures.issafrica.org/thematic/19-un-security-council/</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.15" class="footnum" href="#fnr.15" role="doc-backlink">15</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Example analysis of Africa's reform position and representation arguments: <a href="https://www.csis.org/analysis/africas-design-reformed-un-security-council">https://www.csis.org/analysis/africas-design-reformed-un-security-council</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.16" class="footnum" href="#fnr.16" role="doc-backlink">16</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN GA Security Council reform process documents (element paper): <a href="https://www.un.org/en/ga/screform/78/pdf/2024-04-05-cochairs-revised-element-paper.pdf">https://www.un.org/en/ga/screform/78/pdf/2024-04-05-cochairs-revised-element-paper.pdf</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.17" class="footnum" href="#fnr.17" role="doc-backlink">17</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+United Nations Charter, Article 108 (Amendments): <a href="https://www.un.org/en/about-us/un-charter/chapter-18">https://www.un.org/en/about-us/un-charter/chapter-18</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.18" class="footnum" href="#fnr.18" role="doc-backlink">18</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN Security Council, “Highlights of Security Council Practice 2024” (meeting totals): <a href="https://main.un.org/securitycouncil/en/content/highlights-2024">https://main.un.org/securitycouncil/en/content/highlights-2024</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.19" class="footnum" href="#fnr.19" role="doc-backlink">19</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+United Nations Charter, Article 108 (Amendments): <a href="https://www.un.org/en/about-us/un-charter/chapter-18">https://www.un.org/en/about-us/un-charter/chapter-18</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.20" class="footnum" href="#fnr.20" role="doc-backlink">20</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+African Union Peace and Security Council structure and terms: <a href="https://www.peaceau.org/en/page/39-secretariat-psc">https://www.peaceau.org/en/page/39-secretariat-psc</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.21" class="footnum" href="#fnr.21" role="doc-backlink">21</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN General Assembly Resolution 76/262: <a href="https://docs.un.org/en/a/res/76/262">https://docs.un.org/en/a/res/76/262</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.22" class="footnum" href="#fnr.22" role="doc-backlink">22</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN Press, 2025 GA debate noting repeated veto initiative debates: <a href="https://press.un.org/en/2025/ga12733.doc.htm">https://press.un.org/en/2025/ga12733.doc.htm</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.23" class="footnum" href="#fnr.23" role="doc-backlink">23</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+ACT Code of Conduct (A/70/621&ndash;S/2015/978): <a href="https://docs.un.org/en/A/70/621">https://docs.un.org/en/A/70/621</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.24" class="footnum" href="#fnr.24" role="doc-backlink">24</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+UN General Assembly Resolution 76/262: <a href="https://docs.un.org/en/a/res/76/262">https://docs.un.org/en/a/res/76/262</a>
+</p></div></div>
+
+
+</div>
+</div></div>
+  <figure class="post-featured"><img src="assets/images/featured/2025-12-22-reforming-unsc-without-breaking-trust.png" alt="Composite illustration of a UN Security Council session with the UN emblem over a world map, delegates in silhouette facing the chamber, national flags in the background, and a “VETO” vote board and checklist suggesting accountability and reform."><figcaption>NaN on a calculator — the "not a number" sentinel in the real world</figcaption></figure>
+  <footer class="post-end"><p class="post-taxonomy">Filed under <a href="/categories/#cat-politics-governance">Politics &amp; Governance</a>.</p><section class="post-more" aria-labelledby="more-writing-heading"><h2 id="more-writing-heading" class="post-more-heading">More from SystemHalted</h2><ul class="related-posts"><li class="related-post"><time class="related-post-date" datetime="2026-07-31">Jul 31, 2026</time><a class="related-post-title" href="/2026/07/31/review-agile-ethical-legal-model-ai-robotics-governance/">Review: An Agile Ethical/Legal Model for AI and Robotics Governance</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-08-21">Aug 21, 2026</time><a class="related-post-title" href="/2026/08/21/ai-governance-needs-accountability-not-just-principles/">AI Governance Needs Accountability, Not Just Principles</a><span class="related-post-reason">Related reading</span></li><li class="related-post"><time class="related-post-date" datetime="2026-08-02">Aug 02, 2026</time><a class="related-post-title" href="/2026/08/02/review-how-technological-advances-can-reveal-rights/">Review: How Technological Advances Can Reveal Rights</a><span class="related-post-reason">Related reading</span></li></ul></section><nav class="post-nav" aria-label="Newer and older posts"><a class="post-nav-prev" href="/2025/12/23/machine-epsilon-double-precision-grid/"><span class="post-nav-label">← Newer</span><span class="post-nav-title">Part 4: Machine Epsilon - The Smallest Change a Double Can See</span></a><a class="post-nav-next" href="/2025/12/22/java-bigdecimal-vs-double/"><span class="post-nav-label">Older →</span><span class="post-nav-title">Part 3: BigDecimal - When Doubles Aren't Enough</span></a></nav><details class="comments" id="comments"><summary>Comments</summary><div class="comments-body"><script src="https://giscus.app/client.js" data-repo="systemhalted/systemhalted.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk0NjcwNjAxOA==" data-category="Comments" data-category-id="DIC_kwDOAsitYs4C9Yut" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><noscript>Comments require JavaScript. <a href="mailto:insanethoughts@live.com">Email me</a> instead.</noscript></div></details></footer>
+</article>
+
+</main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© 2026 Palak Mathur</span><nav class="footer-links" aria-label="Footer navigation"><a href="https://palakmathur.in" rel="me">palakmathur.in</a><a href="/feed.xml">RSS</a><a href="https://www.linkedin.com/in/systemhalted/" rel="me noopener">LinkedIn</a><a href="mailto:insanethoughts@live.com">Email</a></nav></div></footer>
+  <script>window.SYSTEMHALTED_ROUTES={w:"/",a:"/archives/",p:"/projects/",i:"/about/"};</script>
+  <script src="/assets/js/script.js?v=org"></script>
+</body>
+</html>
+

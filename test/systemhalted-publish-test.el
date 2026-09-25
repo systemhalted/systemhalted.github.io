@@ -48,7 +48,7 @@
                    "/2026/09/25/derived-route/"))))
 
 (ert-deftest systemhalted-read-record-preserves-explicit-permalink ()
-  "Ignoring PERMALINK would move legacy newsletter essays."
+  "Ignoring PERMALINK would move an article from its established URL."
   (let ((record (systemhalted-read-record
                  (systemhalted-test-fixture "2024-07-19-legacy-permalink.org")
                  'post)))
@@ -133,6 +133,19 @@
     (should (string-match-p "class=\"footref\"" html))
     (should (string-match-p
              "href=\"/newsletter/2024-07-19-legacy-permalink/\"" html))))
+
+(ert-deftest systemhalted-export-body-skips-kill-prompts-for-its-temp-buffer ()
+  "Publishing must not run user kill-buffer prompts for its private export buffer."
+  (let* ((queried nil)
+         (kill-buffer-query-functions
+          (list (lambda () (setq queried t) t)))
+         (record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (records (systemhalted-load-records
+                   systemhalted-test-fixtures :include-drafts t :include-future t)))
+    (systemhalted-export-body record records)
+    (should-not queried)))
 
 (ert-deftest systemhalted-render-page-includes-post-shell-and-metadata ()
   "Losing shell fragments would break discovery, navigation, and comments."
@@ -234,9 +247,24 @@
       (goto-char (point-min))
       (should (search-forward "function ensureSiteIndex" nil t))
       (goto-char (point-min))
-      (should (search-forward "Rich & Structured" nil t)))))
+      (should (search-forward "Rich & Structured" nil t))
+      (goto-char (point-min))
+      (should (search-forward "function runcmd" nil t))
+      (goto-char (point-min))
+      (should (search-forward "function cmd_fortune" nil t))
+      (goto-char (point-min))
+      (should (search-forward "var osTimeline" nil t))
+      (should (search-forward
+               "Commodore Amiga & Windows 1.0 both debut" nil t))
+      (should (search-forward
+               "The cloud era: the OS quietly becomes a fleet" nil t)))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "webcmd/index.html" output))
+      (should (search-forward "id=\"line\"" nil t))
+      (should (search-forward "id=\"output\"" nil t))
+      (should (search-forward "src=\"/assets/js/webcmd.js\"" nil t)))))
 
-(ert-deftest systemhalted-build-site-copies-static-assets-and-redirects-newsletter ()
+(ert-deftest systemhalted-build-site-copies-static-assets-and-retired-route ()
   "Dropping source assets or the retired landing redirect would break live URLs."
   (systemhalted-test-with-built-site
     (should (file-exists-p (expand-file-name "assets/css/nord.css" output)))

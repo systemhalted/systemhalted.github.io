@@ -6,7 +6,7 @@
 #+PERMALINK: /2026/07/23/removing-a-package-and-purging-its-traces/
 #+COMMENTS: true
 
-After [[/2026/07/22/running-ghostty-on-a-2012-gpu/][giving up on Ghostty]] on this machine, I uninstalled it. The removal itself is one command, but checking that it actually happened turned up the parts of the Debian package lifecycle that are easy to skip past: the difference between removing and purging, and the package states dpkg reports along the way. This post walks through it with the real outputs from that removal.
+After [[/2026/07/23/running-ghostty-on-a-2012-gpu/][giving up on Ghostty]] on this machine, I uninstalled it. The removal itself is one command, but checking that it actually happened turned up the parts of the Debian package lifecycle that are easy to skip past: the difference between removing and purging, and the package states dpkg reports along the way. This post walks through it with the real outputs from that removal.
 
 ** Finding out how the package was installed
 :PROPERTIES:

@@ -23,6 +23,7 @@ Two coordinate systems, describing the same text:
 - *Humans and screens think in 2D:* =(line, column)=.
 - *Files and buffers store 1D:* a single offset into a sequence.
 
+#+ATTR_HTML: :alt A caret shown in a 2D character grid on the left and mapped by an arrow to its position in a 1D flat, indexed character sequence on the right
 [[/assets/images/2026-07-17-2d-1d-grid.svg]] /Figure 1 --- The same caret, two coordinate systems. =(line 1, column 1)= on the left is flat index =4= on the right. The mapping between them is the editor's job./
 
 Bridging those two systems correctly and cheaply is one of the basic jobs of a text editor. Get it wrong and the cursor lands mid-character in a UTF-8 sequence, or an insert meant for one place writes three lines away.
@@ -79,6 +80,7 @@ The harder question is not /how/ to convert but *which representation is the sou
 
 The choice is not free-floating. It falls out of *what the buffer is made of*:
 
+#+ATTR_HTML: :alt Four buffer data structures — gap buffer, rope, B-tree, and piece table — each annotated with the operations it makes cheap and the coordinate it treats as canonical
 [[/assets/images/2026-07-17-buffer-structures.svg]] /Figure 2 --- The storage structure decides which coordinate is cheap, which in turn pushes the design toward 1D-canonical or 2D-canonical./[fn:3]
 
 Strategies 4 and 5 are not hypothetical. gedit uses both: iterators for cheap reads and marks for persistence. Emacs uses markers (strategy 5) alongside its 1D point.
@@ -103,6 +105,7 @@ The catch: *a =GtkTextIter= is transient --- invalidated the moment the buffer i
 
 For positions that must /persist/ across edits, GTK gives you [[https://docs.gtk.org/gtk4/class.TextMark.html][=GtkTextMark=]], a named position the buffer maintains automatically. gedit's cursor is a mark named ="insert"= (the selection's other end is ="selection_bound"=). To render the caret, gedit gets an iter at the ="insert"= mark and reads its line and column; to type a character, it inserts at that iter. The persistence problem (strategy 5) and the conversion problem (strategy 4) are handled by two separate abstractions.
 
+#+ATTR_HTML: :alt gedit editing the Markdown source of this post, with "Ln 5, Col 12" shown in the status bar
 [[/assets/images/2026-07-17-gedit-statusbar.png]] /Figure 3 --- gedit with this post's draft open. The status bar reads “Ln 5, Col 12”, the 2D face of the ="insert"= mark./
 
 ** How Emacs does it: point is a number, everything else is derived
@@ -126,6 +129,7 @@ Computing line numbers means scanning for newlines --- /O(distance)/ --- so Emac
 
 Emacs also separates *character positions from byte positions* ([[https://www.gnu.org/software/emacs/manual/html_node/elisp/Text-Representations.html][=position-bytes=]]) in multibyte buffers, so ordinary code can index by character and never split a multibyte sequence, the same reason textr indexes by =char=, never by byte.
 
+#+ATTR_HTML: :alt Emacs editing the same Markdown source, with (12,4) shown in the mode line
 [[/assets/images/2026-07-17-emacs-modeline.png]] /Figure 4 --- Emacs with the same file open. The mode line reads =(12,4)=, the line and column derived from point./
 
 ** How VS Code does it: a piece tree

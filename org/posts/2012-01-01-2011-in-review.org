@@ -13,7 +13,7 @@ Here's an excerpt:
 The concert hall at the Sydney Opera House holds 2,700 people. This blog was viewed about *32,000* times in 2011. If it were a concert at Sydney Opera House, it would take about 12 sold-out performances for that many people to see it.
 #+end_quote
 
-[[/2011/annual-report/][Click here to see the complete report.]]
+Click here to see the complete report.
 
 ****** Related articles
 :PROPERTIES:

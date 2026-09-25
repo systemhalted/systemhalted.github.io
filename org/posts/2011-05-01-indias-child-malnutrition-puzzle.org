@@ -7,9 +7,7 @@
 
 Was reading an [[http://articles.economictimes.indiatimes.com/2011-04-29/news/29487240_1_saharan-child-malnutrition-underweight][article]] by Neeraj Kaushal, Associate Professor of Social Work, [[http://maps.google.com/maps?ll=40.8075,-73.9619444444&spn=0.01,0.01&q=40.8075,-73.9619444444%20(Columbia%20University)&t=h][Columbia University]] by the same title in [[http://economictimes.indiatimes.com][ET]]. Was shocked to note the details. Here are excerpts:-
 
-- [[/assets/2011/05/in_malnutrition_screenshot.gif]] **
-
-  India is home to about a third of the world's [[http://en.wikipedia.org/wiki/Underweight][underweight]] and stunted children under the age of 5. A child under 5 is almost twice as likely to be chronically underweight in India as in [[http://en.wikipedia.org/wiki/Sub-Saharan_Africa][sub-Saharan Africa]].
+- India is home to about a third of the world's [[http://en.wikipedia.org/wiki/Underweight][underweight]] and stunted children under the age of 5. A child under 5 is almost twice as likely to be chronically underweight in India as in [[http://en.wikipedia.org/wiki/Sub-Saharan_Africa][sub-Saharan Africa]].
 
 - Poverty is one obvious underlying cause. But it does not explain the wide difference in [[http://en.wikipedia.org/wiki/Malnutrition][malnutrition]] between India and sub-Saharan Africa. Unicef data show that about 47% of Indian children under 5 are underweight; the corresponding figure for sub-Saharan Africa is 24%.
 

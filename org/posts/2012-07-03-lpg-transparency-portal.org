@@ -1,0 +1,52 @@
+#+TITLE: LPG Transparency Portal
+#+DESCRIPTION: Ministry of Petroleum and Natural Gas has launched the LPG Transparency Portal under Government to Citizen (G2C) service category.Click on the above link or paste the following url in your browser:-...
+#+DATE: 2012-07-03 22:31:24 -0500
+#+CATEGORIES: Politics & Governance, Technology, Society & Economy
+#+TAGS: politics, technology, society, economy, india
+#+PERMALINK: /2012/07/03/lpg-transparency-portal/
+
+[[http://en.wikipedia.org/wiki/Ministry_of_Petroleum_and_Natural_Gas_%28India%29][Ministry of Petroleum and Natural Gas]] has launched the [[http://www.bharatpetroleum.com/Transparency_portal/LPG_portal.html][LPG Transparency Portal]] under [[http://en.wikipedia.org/wiki/Government-to-citizen][Government to Citizen]] (G2C) service category.Click on the above link or paste the following url in your browser:-
+
+#+begin_quote
+http://www.bharatpetroleum.com/Transparency_portal[[/assets/2012/07/cylinder.png]]/LPG_portal.html
+#+end_quote
+
+As per [[http://www.india.gov.in/howdo/onlineservice_detail.php?service=3947][National Portal of India]],
+
+#+begin_quote
+LPG consumers can know their individual pattern of LPG usage, LPG booking status, LPG refill history or request for surrender of their connection, highest consumption consumers, subsidy availed etc. The information on the portal can also be sorted by consumer number, consumer name and by distributors' name.
+#+end_quote
+
+Actually, this portal links to three different LPG Transparency Portals belonging to different Oil and Gas Marketing Companies. The url for each of them are:-
+
+1. Indane - +http://111.118.215.211/index+  [[http://indane.co.in/transparency/index.html]]\\
+2. Bharat Gas - [[http://www.ebharatgas.com/ebgas/CC_include/Transparency_portal_new.jsp]]\\
+3. HP Gas - [[http://dcmstransparency.hpcl.co.in/TransparencyPortal/Transparency/Transparency.aspx]]
+
+Using these portals, you can do various tasks like:-
+
+- Rate your distributor
+- Register complaints
+- Find top users in an area
+- Surrender a connection
+- Find your pattern of consumption, details of refill supplies, etc.
+- Find out the amount of subsidy that you have utilized by using the subsidized LPG
+
+This is a nice initiative. This portal will empower and benefit the consumers. Hope it evolves with time and is made more user-friendly.
+
+****** Last Update: 7th August 2012 12:07 AM - changed the URL for Indane
+:PROPERTIES:
+:CUSTOM_ID: last-update-7th-august-2012-1207-am---changed-the-url-for-indane
+:END:
+****** Related articles
+:PROPERTIES:
+:CUSTOM_ID: related-articles
+:END:
+- [[http://www.thehindu.com/business/Industry/article3559164.ece][Centre launches new LPG website]] (thehindu.com)
+- [[http://www.thehindu.com/business/article3559164.ece][Now an LPG portal to curb black marketing]] (thehindu.com)
+- [[http://ibnlive.in.com/news/vips-misuse-lpg-subsidy-91-cylinders-for-maya-in-a-year/267454-3.html][VIPs misuse LPG subsidy, 91 cylinders for Maya]] (ibnlive.in.com)
+- [[http://www.ndtv.com/article/india/politicians-industrialists-among-top-lpg-consumers-in-delhi-235124][Politicians, industrialists among top LPG consumers in Delhi]] (ndtv.com)
+- [[http://www.dailymail.co.uk/indiahome/indianews/article-2163381/VIP-kitchens-high-gas-Politicians-consuming-185-cylinders-annually--common-man-allowed-just-17.html?ITO=1490][VIP kitchens high on gas: Politicians consuming up to 185 cylinders annually - while the common man is allowed just 17]] (dailymail.co.uk)
+- [[http://www.thehindu.com/news/cities/chennai/article3480751.ece][Domestic LPG cylinders pilferage continues; fraught with risk]] (thehindu.com)
+- [[http://ecopackindia.wordpress.com/2012/06/23/lpg-transparency-portal-to-empower-and-benefit-consumers-by-psu-oil-marketing-companies/][LPG Transparency Portal to Empower and benefit Consumers by PSU Oil Marketing Companies]] (ecopackindia.wordpress.com)
+- [[http://www.citizeneconomists.com/blogs/2012/07/05/transparency-in-the-lpg-subsidy/][Transparency in the LPG subsidy]] (citizeneconomists.com)

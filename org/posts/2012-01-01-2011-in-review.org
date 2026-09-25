@@ -1,0 +1,30 @@
+#+TITLE: 2011 in review
+#+DESCRIPTION: The WordPress.com stats helper monkeys prepared a 2011 annual report for this blog. Here’s an excerpt: The concert hall at the Sydney Opera House holds 2,700 people. This blog was viewed about 32,000 times in 2011. If it were a concert...
+#+DATE: 2012-01-01 15:26:15 -0600
+#+CATEGORIES: Personal Essays
+#+TAGS: personal, opinion
+#+PERMALINK: /2012/01/01/2011-in-review/
+
+The WordPress.com stats helper monkeys prepared a 2011 annual report for this blog.
+
+Here's an excerpt:
+
+#+begin_quote
+The concert hall at the Sydney Opera House holds 2,700 people. This blog was viewed about *32,000* times in 2011. If it were a concert at Sydney Opera House, it would take about 12 sold-out performances for that many people to see it.
+#+end_quote
+
+[[/2011/annual-report/][Click here to see the complete report.]]
+
+****** Related articles
+:PROPERTIES:
+:CUSTOM_ID: related-articles
+:END:
+- [[http://hurtlingtowards60.wordpress.com/2012/01/01/if-my-blog-were-the-sydney-opera-house/][If my blog were the Sydney Opera House]] (hurtlingtowards60.wordpress.com)
+- [[http://mikepillowsphoto.wordpress.com/2012/01/01/2011-in-review/][2011 in review]] (mikepillowsphoto.wordpress.com)
+- [[http://marutfans.wordpress.com/2012/01/01/2011-in-review/][2011 in review]] (marutfans.wordpress.com)
+- [[http://autumnsunshineandgabrielleangel.wordpress.com/2012/01/01/2011-in-review/][2011 in review]] (autumnsunshineandgabrielleangel.wordpress.com)
+- [[http://whataworldagain.wordpress.com/2012/01/01/2011-in-review/][2011 in review]] (whataworldagain.wordpress.com)
+- [[http://drumzofthesouth.com/2012/01/01/2011-d-o-t-s-blog-in-review/][2011 D.O.T.S blog in review...]] (drumzofthesouth.com)
+- [[http://lampidipensiero.wordpress.com/2012/01/01/2011-in-review/][2011 in review]] (lampidipensiero.wordpress.com)
+- [[http://kaldirimlar.com/2012/01/01/2011-in-review/][2011 in review]] (kaldirimlar.com)
+- [[http://flickrcomments.wordpress.com/2012/01/01/2011-in-review/][2011 in review]] (flickrcomments.wordpress.com)

@@ -55,6 +55,14 @@
     (should (equal (systemhalted-record-route record)
                    "/newsletter/2024-07-19-legacy-permalink/"))))
 
+(ert-deftest systemhalted-read-record-allows-undated-page-file-route ()
+  "Standalone files such as 404.html must not gain a trailing slash."
+  (systemhalted-test-with-org
+      "#+TITLE: Not found\n#+DESCRIPTION: Missing page.\n#+PERMALINK: /404.html\n"
+    (let ((record (systemhalted-read-record file 'page)))
+      (should-not (systemhalted-record-date record))
+      (should (equal (systemhalted-record-route record) "/404.html")))))
+
 (ert-deftest systemhalted-read-record-normalizes-list-and-boolean-fields ()
   "Failing to split metadata would break taxonomy and optional post features."
   (let ((record (systemhalted-read-record
@@ -178,7 +186,9 @@
 (defmacro systemhalted-test-with-built-site (&rest body)
   (declare (indent 0))
   `(let ((output (make-temp-file "systemhalted-site-" t))
-         (systemhalted-page-size 3))
+         (systemhalted-page-size 3)
+         (systemhalted-static-paths
+          (remove "wireframes" (copy-sequence systemhalted-static-paths))))
      (unwind-protect
          (progn
            (systemhalted-build-site
@@ -273,7 +283,9 @@
   "Changing bytes between identical builds would make deployments irreproducible."
   (let ((first (make-temp-file "systemhalted-first-" t))
         (second (make-temp-file "systemhalted-second-" t))
-        (systemhalted-page-size 3))
+        (systemhalted-page-size 3)
+        (systemhalted-static-paths
+         (remove "wireframes" (copy-sequence systemhalted-static-paths))))
     (unwind-protect
         (progn
           (dolist (output (list first second))
@@ -287,6 +299,43 @@
                          (systemhalted-directory-digest second))))
       (delete-directory first t)
       (delete-directory second t))))
+
+(ert-deftest systemhalted-audit-content-accepts-only-complete-org-corpus ()
+  "Maintained publishing inputs must be complete Org files without Liquid."
+  (should (systemhalted-audit-content systemhalted-test-root)))
+
+(ert-deftest systemhalted-production-build-preserves-baseline-routes ()
+  "Migrating content must not move or drop established HTML routes."
+  (let ((output (make-temp-file "systemhalted-production-" t)))
+    (unwind-protect
+        (progn
+          (systemhalted-build-site :root systemhalted-test-root :output output)
+          (let ((actual
+                 (sort
+                  (mapcar
+                   (lambda (file)
+                     (let ((relative (file-relative-name file output)))
+                       (cond
+                        ((equal relative "index.html") "/")
+                        ((string-suffix-p "/index.html" relative)
+                         (concat "/" (string-remove-suffix "index.html" relative)))
+                        (t (concat "/" relative)))))
+                   (directory-files-recursively output "\\.html\\'"))
+                  #'string-lessp))
+                expected)
+            (with-temp-buffer
+              (insert-file-contents
+               (expand-file-name "test/baseline/routes.tsv" systemhalted-test-root))
+              (goto-char (point-min))
+              (forward-line 1)
+              (while (not (eobp))
+                (let ((route (string-trim
+                              (buffer-substring (line-beginning-position)
+                                                (line-end-position)))))
+                  (unless (string-empty-p route) (push route expected)))
+                (forward-line 1)))
+            (should (equal actual (sort expected #'string-lessp)))))
+      (delete-directory output t))))
 
 (provide 'systemhalted-publish-test)
 ;;; systemhalted-publish-test.el ends here

@@ -105,7 +105,9 @@
             (string-match-p "[\\\\?#]" route)
             (string-match-p "//" route))
     (systemhalted--source-error file "unsafe route %S" route))
-  (if (or (equal route "/") (string-suffix-p "/" route))
+  (if (or (equal route "/")
+          (string-suffix-p "/" route)
+          (string-match-p "/[^/]+\\.[[:alnum:]]+\\'" route))
       route
     (concat route "/")))
 
@@ -286,7 +288,9 @@ comparison clock and KIND overrides inferred content kind."
 (defun systemhalted-export-body (record &optional records)
   "Export RECORD's Org body to HTML with links resolved through RECORDS."
   (let ((systemhalted--export-records (or records (list record)))
-        (systemhalted--export-source (systemhalted-record-source record)))
+        (systemhalted--export-source (systemhalted-record-source record))
+        (default-directory
+         (file-name-directory (systemhalted-record-source record))))
     (with-temp-buffer
       (insert-file-contents (systemhalted-record-source record))
       (setq buffer-file-name (systemhalted-record-source record))
@@ -926,6 +930,29 @@ comparison clock and KIND overrides inferred content kind."
         (cons (expand-file-name "org/emacs" root) 'emacs)
         (cons (expand-file-name "org/pages" root) 'page)))
 
+(defun systemhalted-audit-content (root)
+  "Validate the complete maintained Org corpus below ROOT."
+  (let* ((directories (systemhalted--default-content-directories root))
+         (missing (seq-filter (lambda (entry) (not (file-directory-p (car entry))))
+                              directories))
+         (org-root (expand-file-name "org" root)))
+    (when missing
+      (signal 'systemhalted-publish-error
+              (list (format "missing Org content directories: %s"
+                            (mapconcat #'car missing ", ")))))
+    (dolist (file (directory-files-recursively org-root "."))
+      (when (and (file-regular-p file)
+                 (not (string-suffix-p ".org" file)))
+        (systemhalted--source-error file "non-Org publishing input")))
+    (dolist (file (directory-files-recursively org-root "\\.org\\'"))
+      (with-temp-buffer
+        (insert-file-contents file)
+        (goto-char (point-min))
+        (when (re-search-forward "{[%{]" nil t)
+          (systemhalted--source-error file "untranslated Liquid construct"))))
+    (systemhalted--load-content-directories directories t t nil)
+    t))
+
 (defun systemhalted--generate-site (source-root output-root records)
   "Generate the complete site from RECORDS into OUTPUT-ROOT."
   (make-directory output-root t)
@@ -947,7 +974,8 @@ comparison clock and KIND overrides inferred content kind."
     (systemhalted--generate-default-pages output-root records)
     (systemhalted--generate-feed output-root posts)
     (systemhalted--generate-search output-root records)
-    (systemhalted--generate-jsgames-index output-root)
+    (unless (systemhalted--record-route-present-p "/jsgames/" records)
+      (systemhalted--generate-jsgames-index output-root))
     (dolist (redirect systemhalted-legacy-redirects)
       (systemhalted--write-route output-root (car redirect)
                                  (systemhalted--redirect-page (cdr redirect))))

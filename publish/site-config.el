@@ -8,7 +8,7 @@
 (defconst systemhalted-site-author "Palak Mathur")
 (defconst systemhalted-site-email "insanethoughts@live.com")
 (defconst systemhalted-static-paths
-  '("assets" "jsgames" "favicon.ico" "CNAME"
+  '("assets" "jsgames" "wireframes" "favicon.ico" "CNAME"
     "49a459d211088e5e423d87c0e7053c26.txt"))
 (defconst systemhalted-legacy-redirects
   '(("/2025/11/25/disjuntive-types/" . "/2025/11/25/disjunctive-types/")))

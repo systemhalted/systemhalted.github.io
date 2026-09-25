@@ -1,0 +1,88 @@
+#+TITLE: Site taxonomy
+
+* Series
+Multi-part series, meant to be read in order.
+** Series 1 - Language and Linguistics
+A six-part series on how language works: grammar, vocabulary, pronunciation, script, and non-verbal communication.
+
+** Series 2 - Turtle, BASIC, and the Long Road to Taste
+How early languages — Logo, BASIC, GOTO-era code — shaped programming taste.
+
+** Series 3 - Project Jigsaw (JPMS)
+The Java module system, one concept at a time.
+
+** Series 4 - Floating Point Without Tears
+IEEE 754 doubles, BigDecimal, NaN, and how to compute with them without being surprised.
+
+* Tech, Software, and Engineering
+Software, programming, tools, and engineering practice.
+** Technology
+Tools, platforms, and the tech industry: hardware, operating systems, terminals and editors, services, and how they hold up in daily use.
+
+** Software Engineering
+The practice of building software: languages, design, testing, process, and lessons from real projects.
+
+** Computer Science
+The concepts beneath the practice: language theory, data structures, distributed systems, compilers, and coursework notes.
+
+* AI, Data, and Digital Risk
+Artificial intelligence, machine learning, data, and online safety.
+** AI
+Artificial intelligence and machine learning: what the systems can do, where they fail, and what they change about work.
+
+** Data
+Data protection, privacy, and how personal data is collected and used.
+
+* Politics, Economy, and Society
+Democracy, policy, corruption, economy, and social fabric.
+** Politics & Governance
+Democracy, elections, policy, law, and the conduct of the state, mostly in India.
+
+** Society & Economy
+Social and economic life: migration, literacy, inequality, and how communities change.
+
+* Books, Reviews, and Media
+Book reviews, media reviews, and other curated content.
+** Books & Reading
+Book reviews and notes on reading, across fiction, history, and periodicals.
+
+** Movie Review
+Reviews of films.
+
+** Media Review
+Reviews of shows, apps, and other media that are not books or films.
+
+** Article Review
+Responses to essays and articles written by others.
+
+* Language, Literature, and Spirituality
+Poetry, languages, philosophy, religion, and related writing.
+** Languages & Linguistics
+How languages work: grammar, script, usage, and communication.
+
+** Poetry & Literature
+Poems, mostly in Hindi and Urdu, and writing about literature.
+
+** Spirituality & Philosophy
+Philosophy and religion: Vedanta, free will, and questions of belief.
+
+* Life, Work, and Personal Growth
+Personal essays, behaviour, growth, and people-focused writing.
+** Personal Essays
+First-person writing on life, work, memory, and opinion.
+
+** Life Events
+Milestones, years in review, and remembering people who mattered.
+
+* Hobbies, Travel, and Exploration
+Astronomy, sports, travel, and other hobbies.
+** Travel
+Trips and places, written as they happened.
+
+** Sports & Hobbies
+Cricket, football, cycling, astronomy, and other things done for their own sake.
+
+* Meta and Formats
+Guest posts, archived speeches, and content tied to talks or videos.
+** Meta & Guest
+Guest posts and archived speeches, talks, and videos by others.

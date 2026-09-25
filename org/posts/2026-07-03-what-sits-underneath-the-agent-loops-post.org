@@ -2,8 +2,9 @@
 #+DATE: 2026-07-03
 #+CATEGORIES: Technology, Software Engineering, AI
 #+TAGS: ai, agents, claude-code, engineering-management
-#+JEKYLL_COMMENTS: true
+#+COMMENTS: true
 #+DESCRIPTION: Anthropic's Claude Code team described four kinds of agent loops. Notes on where the check on the work lives in each, and on the artifacts a team has to make durable underneath them.
+#+PERMALINK: /2026/07/03/what-sits-underneath-the-agent-loops-post/
 
 Anthropic's Claude Code team put out a short piece last week describing four kinds of agent loops: turn-based, goal-based, time-based, and proactive. Each type comes with a trigger, a stop condition, and typical use cases. The taxonomy describes surface. It says how the agent runs, how it stops, and what starts it. Underneath it sits a different question: where does the check on the work actually live? Each loop type puts that check in a different place, and the place that holds it is the place a team has to make durable before the next loop up is safe to build.
 

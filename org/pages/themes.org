@@ -1,0 +1,5 @@
+#+TITLE: Themes
+#+DESCRIPTION: Open-source themes built and published by Palak Mathur.
+#+PERMALINK: /themes/
+
+#+INCLUDE: "../data/themes.org"

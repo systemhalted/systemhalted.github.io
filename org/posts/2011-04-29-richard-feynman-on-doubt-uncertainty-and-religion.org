@@ -1,0 +1,24 @@
+#+TITLE: [Video] Richard Feynman on doubt, uncertainty and religion
+#+DESCRIPTION: Richard Feynman’s views on doubt, uncertainty and religion. Have a look. [youtube http://www.youtube.com/watch?v=zeCHiUe1et0&hl=en_US&feature=player_embedded&version=3] Related Articles - How Richard Feynman Thought (freakonomics.com) -...
+#+DATE: 2011-04-29 18:10:04 -0500
+#+CATEGORIES: Personal Essays, Meta & Guest
+#+TAGS: personal, opinion
+#+PERMALINK: /2011/04/29/richard-feynman-on-doubt-uncertainty-and-religion/
+
+[[http://en.wikipedia.org/wiki/Richard_Feynman][Richard Feynman]]'s views on doubt, uncertainty and religion. Have a look.
+
+[youtube http://www.youtube.com/watch?v=zeCHiUe1et0&hl=en_US&feature=player_embedded&version=3]
+
+****** Related Articles
+:PROPERTIES:
+:CUSTOM_ID: related-articles
+:END:
+- [[http://www.freakonomics.com/2011/04/08/how-richard-feynman-thought/][How Richard Feynman Thought]] (freakonomics.com)
+- [[http://blogs.discovermagazine.com/intersection/2011/03/24/lawrence-krausss-feynman-biography-now-available/][Lawrence Krauss's Feynman Biography Now Available | The Intersection]] (blogs.discovermagazine.com)
+- [[http://blog.longnow.org/2011/03/21/danny-hillis-remembers-richard-feynman-at-tedxcaltech/][Danny Hillis remembers Richard Feynman at TEDxCaltech]] (longnow.org)
+- [[http://blogs.discovermagazine.com/intersection/2011/03/23/richard-feynman-wants-his-orange-juice/][Richard Feynman Wants His Orange Juice | The Intersection]] (blogs.discovermagazine.com)
+- [[http://www.physorg.com/news/2011-04-richard-feynman-mesmerize.html][3 Questions: Why Richard Feynman's lectures still mesmerize]] (physorg.com)
+- [[http://science.slashdot.org/story/11/04/21/162203/Microsoft-Celebrates-Feynman-50-year-Anniversary][Microsoft Celebrates Feynman 50-year Anniversary]] (science.slashdot.org)
+- [[http://visaisahero.wordpress.com/2011/02/17/value/][temporary frustration.]] (visaisahero.wordpress.com)
+- [[http://scienceblogs.com/pharyngula/2011/04/truth_isnt_reached_by_dissembl.php][Truth isn't reached by a dissembling path]] (scienceblogs.com)
+- [[http://kottke.org/11/04/science-short-and-sweet][Science, short and sweet]] (kottke.org)

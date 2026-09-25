@@ -1,0 +1,27 @@
+#+TITLE: Black Day for Java
+#+DESCRIPTION: [Image representing Google as depicted in Crunc…] Image via CrunchBase I was long awaiting such kind of act by Oracle and it happened. Oracle sued Google over Java in Android platform ( News and actual complaint).                      ...
+#+DATE: 2010-08-15 23:14:52 -0500
+#+CATEGORIES: Technology
+#+TAGS: technology
+#+PERMALINK: /2010/08/15/black-day-for-java/
+
+- [[http://www.crunchbase.com/company/google][[[/assets/2010/08/29578v7-max-450x450.jpg]]]] :: Image via CrunchBase
+
+I was [[http://www.oracle.com/us/corporate/press/018363][long]] awaiting such kind of act by [[http://www.oracle.com][Oracle]] and it happened. Oracle sued [[http://www.google.com][Google]] over [[http://www.java.com/en/][Java]] in [[http://code.google.com/android/][Android platform]] ( [[http://news.cnet.com/8301-30684_3-20013546-265.html][News]] and [[http://www.scribd.com/doc/35811761/Oracle-s-complaint-against-Google-for-Java-patent-infringement][actual complaint]]).                                               
+
+[[/assets/2010/08/300px-Sun_Oracle_logo.png]] **
+
+Is it really sad? Yes for the Java developers and users it is certainly a bad news. But isn't it true Java deserves its share of goodies. Sun created Java and after initial deals they stuck with [[http://www.google.com/finance?q=LON:IBM][IBM]], [[http://www.microsoft.com][Microsoft]], Oracle and others they were not able to monetize Java. Java was used extensively and soon become the most preferred language for enterprise solutions. It was [[http://en.wikipedia.org/wiki/Platform-independent_model][platform independent]] and could be run on any [[http://en.wikipedia.org/wiki/Computer_architecture][architecture]] all its needed was a [[http://en.wikipedia.org/wiki/Java_Virtual_Machine][JVM]]. In the end of April 2009 Oracle anounced acquisition of [[http://www.oracle.com/us/sun/index.html][Sun Microsystems]] and became a hardware company. However, the most discussed thing was [[http://www.google.co.in/search?sourceid=chrome&ie=UTF-8&q=Future+of+Java+after+acquisition+by+Oracle][future of Java]]. Father of Java, [[http://en.wikipedia.org/wiki/James_Gosling][James Gosling]] [[http://www.taranfx.com/father-of-java-resigns][resigned]] Sun Microsystems/Oracle.
+
+The things were not bad till recently. All were enjoying [[http://en.wikipedia.org/wiki/Java_Platform][Java platform]] and developments were full-on. Then [[http://www.android.com/][Android]] entered and changed the face of market. Developers started developing applications for Android and Oracle realized that this is the time that they must get the share of the success of Android and filed a patent and [[http://en.wikipedia.org/wiki/Copyright_infringement][copyright infringement]] lawsuit against Google.
+
+I am shocked and disappointed with this act. We must not forget that Sun held thousands of patents but backed [[http://en.wikipedia.org/wiki/Open_source][open-source]] sharing. It cut licensing deals for Java, but also offered free versions. This act will certainly cause anxiety in other corporations that are major users of Java. [[http://www.ibm.com][IBM]] will be the first one that will be impacted, after Google, if this happens. Also impacted will be [[http://www.apache.org/][Apache Software Foundation]], which provides support for the [[http://people.apache.org/][Apache community]] of open-source software [[http://projects.apache.org/][projects]]. There are certainly other things that should be known too like the one mentioned in [[http://nighthacks.com/roller/jag/entry/quite_the_firestorm][James Gosling's latest blog post]].
+
+What will happen to the lawsuit? What will be the [[http://www.google.co.in/search?sourceid=chrome&ie=UTF-8&q=future+of+java+after+lawsuit+against+Google][future of Java after this lawsuit]]? These questions will be answered by time. Let's wait and watch. But this is certainly a black day for Java.
+
+****** Related Articles
+:PROPERTIES:
+:CUSTOM_ID: related-articles
+:END:
+- [[http://arnoldit.com/wordpress/2011/04/07/google-secures-gosling/][Google Secures Gosling]] (arnoldit.com)
+- [[http://glenndejaeger.wordpress.com/2011/03/28/will-google-become-the-new-sun/][Will Google become the new Sun?]] (glenndejaeger.wordpress.com)

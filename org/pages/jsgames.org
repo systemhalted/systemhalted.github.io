@@ -1,0 +1,5 @@
+#+TITLE: JavaScript Games
+#+DESCRIPTION: Small browser games and experiments.
+#+PERMALINK: /jsgames/
+
+#+INCLUDE: "../data/jsgames.org"

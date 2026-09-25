@@ -1,0 +1,22 @@
+#+TITLE: हुनर की शूआ’
+#+DESCRIPTION: A new philosophical poem
+#+DATE: 2022-11-13
+#+CATEGORIES: Poetry & Literature
+#+TAGS: poetry, hindi
+#+PERMALINK: /2022/11/13/hunar-ki-shuaa/
+#+COMMENTS: true
+
+Yesterday night I wrote this poem in Hindustani. In the evening today we watched #Uunchai. I didn't know the poem will be so apt. Here presenting again
+
+#+begin_example
+Naya Savera Sang Nayi Umra Laaya,
+Nayi Adab, Naya Ehtaram laaya,
+Har jagah tere hunar ki Shuaa pahunchi,
+Jab Suraj subah ujali dhoop laaya!
+
+नया सवेरा संग नयी उम्र लाया,
+नयी अदब, नया एहतराम लाया,
+हर जगह तेरे हुनर की शूआ’ पहुँची,
+जब सूरज सुबह उजली धूप लाया॥
+~ पलक
+#+end_example

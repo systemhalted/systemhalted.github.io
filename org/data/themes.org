@@ -1,0 +1,16 @@
+#+TITLE: Theme data
+
+* System Halted v1.0.1
+Bold homepage grid with archives, tags and categories, a search overlay, theme toggle, and optional Disqus comments.
+[[https://systemhalted.in/jekyll-theme-systemhalted/][Live demo]] · [[https://github.com/systemhalted/jekyll-theme-systemhalted][GitHub]] · [[https://rubygems.org/gems/jekyll-theme-systemhalted][RubyGems]]
+Install: =gem install jekyll-theme-systemhalted=
+
+* Nord Newsletter v0.1.1
+A config-driven theme on the Nord palette with a post grid, client-side search, a keyboard command-line overlay, optional Giscus comments, and a newsletter CTA. It previously powered this site.
+[[https://systemhalted.in/jekyll-theme-nord-newsletter/][Live demo]] · [[https://github.com/systemhalted/jekyll-theme-nord-newsletter][GitHub]] · [[https://rubygems.org/gems/jekyll-theme-nord-newsletter][RubyGems]]
+Install: =gem install jekyll-theme-nord-newsletter=
+
+* Midnight Mountains v0.1.2
+A moody, card-based theme with a featured-post hero and a bold sidebar layout.
+[[https://systemhalted.in/jekyll-theme-midnight-mountains/][Live demo]] · [[https://github.com/systemhalted/jekyll-theme-midnight-mountains][GitHub]] · [[https://rubygems.org/gems/jekyll-theme-midnight-mountains][RubyGems]]
+Install: =gem install jekyll-theme-midnight-mountains=

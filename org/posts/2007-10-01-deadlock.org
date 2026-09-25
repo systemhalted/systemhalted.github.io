@@ -1,0 +1,8 @@
+#+TITLE: Deadlock
+#+DESCRIPTION: Sometimes I think that it is better to be in deadlock. Because when the transaction progresses, many old things are lost. I am talking about life. You leave many things, many moments and memories and can’t get them back.
+#+DATE: 2007-10-01 16:26:00 -0500
+#+CATEGORIES: Personal Essays
+#+TAGS: personal, opinion
+#+PERMALINK: /2007/10/01/deadlock/
+
+Sometimes I think that it is better to be in deadlock. Because when the transaction progresses, many old things are lost. I am talking about life. You leave many things, many moments and memories and can't get them back.

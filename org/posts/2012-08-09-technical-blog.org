@@ -1,0 +1,8 @@
+#+TITLE: Technical Blog
+#+DESCRIPTION: I have moved technical content to my new blog Tech Jaunt - http://techjaunt.wordpress.com
+#+DATE: 2012-08-09 23:46:20 -0500
+#+CATEGORIES: Personal Essays
+#+TAGS: personal, opinion
+#+PERMALINK: /2012/08/09/technical-blog/
+
+I have moved technical content to my new blog [[http://techjaunt.wordpress.com][Tech Jaunt]] - [[http://techjaunt.wordpress.com]]

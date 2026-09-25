@@ -1,0 +1,12 @@
+#+TITLE: Consumer Price Index (CPI) - Draft
+#+DESCRIPTION: CPI is a statistical time-series measure of a weighted average of prices of a specified set of goods and services purchased by consumers. It is a price index that tracks the prices of a specified basket of consumer goods and services,...
+#+DATE: 2011-08-24 09:51:59 -0500
+#+CATEGORIES: Society & Economy
+#+TAGS: society, economy, sports
+#+PERMALINK: /2011/08/24/consumer-price-index-cpi-draft/
+
+CPI is a statistical time-series measure of a weighted average of prices of a specified set of goods and services purchased by consumers. It is a price index that tracks the prices of a specified basket of consumer goods and services, providing a measure of inflation.
+
+CPI is a fixed quantity price index and considered by some a cost of living index. Under CPI, an index is scaled so that it is equal to 100 at a chosen point in time, so that all other values of the index are a percentage relative to this one.
+
+Greater weights are assigned to food items.

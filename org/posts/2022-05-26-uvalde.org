@@ -1,0 +1,38 @@
+#+TITLE: Prayers and Condolences (शोक है हमें इस बात का)
+#+DESCRIPTION: A new poem that I wrote after Uvalde, TX shooting
+#+DATE: 2022-05-26
+#+CATEGORIES: Poetry & Literature
+#+TAGS: poetry, hindi
+#+PERMALINK: /2022/05/26/uvalde/
+#+COMMENTS: true
+
+यह कैसे हालात, शोक मनाते लोग, परिवार भंग हो रहे, देश में फैला रोग। How we got in this mess? People strife with blue, Families are getting destroyed, Country is in a grip of flu!
+
+#+begin_example
+            नेता क्यूँ नपुंसक,
+            बैठे हाथ में डाले हाथ,
+            यह समाज कैसा,
+            जिसकी समझ नहीं आती बात।
+            Why leaders are impotent,
+            Sitting nonchalantly hand in hand,
+            What kind of culture is this,
+            Where no one seems to understand!
+
+            "शोक है हमें इस बात का",
+            कब तक यही दोहराएँगे,
+            बहुत हुआ अब बस करो,
+            क्या नया कुछ आज़माएँगे?
+            "Prayers and Condolences",
+            Till when will we spew?
+            I am tired, please stop this,
+            Will we try something new?
+
+            बहुत हुआ खून ख़राबा,
+            थोड़ी सी तो लाज करो,
+            इक्कीसवी सदी में जी रहे हम,
+            पन्द्रहवीं से इसे निजात करो।
+            Too much blood has been shed,
+            Disconcerted should we have been,
+            We are living in the twenty first century,
+            Please free it from the fifteenth!
+#+end_example

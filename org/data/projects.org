@@ -1,0 +1,83 @@
+#+TITLE: Project data
+
+* Available now
+** Pinstack — Beta
+A web-based RSS and Atom reader for following your favorite sources in one place.
+Tags: =rss=, =web=, =reader=
+[[https://pinstack.in][Try the beta]]
+
+** torg — Released
+An Org-mode-flavored terminal editor with structural editing for Org and Markdown files.
+Tags: =rust=, =terminal=, =editor=
+[[https://github.com/systemhalted/torg/releases][Install]] · [[https://github.com/systemhalted/torg][Source]]
+
+** ScribeDay — Released
+A local-first desktop journal organized around a calendar, with search, moods, and backups.
+Tags: =java=, =desktop=, =local-first=
+[[https://github.com/systemhalted/scribeday/releases][Download]] · [[https://github.com/systemhalted/scribeday][Source]]
+
+** sdkman.el — Usable
+Apply each project's SDKMAN toolchain to Emacs buffers, subprocesses, and Java language servers.
+Tags: =emacs=, =sdkman=, =java=
+[[/emacs/sdkman.el/][Guide]] · [[https://github.com/systemhalted/sdkman.el][Source]]
+
+** wordwise.el — Usable
+Kindle-style inline vocabulary hints above uncommon words in Emacs reading buffers.
+Tags: =emacs=, =reading=, =dictionary=
+[[/emacs/wordwise.el/][Guide]] · [[https://github.com/systemhalted/wordwise.el][Source]]
+
+** shellenv — Released
+Per-project shell sandboxes for testing scripts across shells without polluting your setup.
+Tags: =go=, =cli=, =testing=
+[[https://github.com/systemhalted/shellenv/releases][Download]] · [[https://github.com/systemhalted/shellenv][Source]]
+
+** teeup.sh — Released
+An idempotent developer-machine setup script for macOS and Linux, with guided and dry-run modes.
+Tags: =shell=, =developer tooling=, =macOS and Linux=
+[[https://github.com/systemhalted/teeup.sh][Set up a machine]]
+
+** Discipline First — Ready to use
+A copy-in operating standard and trust pipeline for disciplined AI-assisted software delivery.
+Tags: =ai-assisted coding=, =engineering=, =starter kit=
+[[https://github.com/systemhalted/DisciplineFirst][Get the starter pack]]
+
+** Applied AI — Published
+A free, self-paced curriculum for building a rigorous, hands-on foundation in AI engineering.
+Tags: =ai=, =curriculum=, =open learning=
+[[https://github.com/systemhalted/applied-ai][Start the curriculum]]
+
+** Jekyll Themes — Published
+Three open-source Jekyll themes published as Ruby gems, each with a live demo.
+Tags: =jekyll=, =ruby=, =open-source=
+[[/themes/][Browse themes]]
+
+** JavaScript Games — Playable
+A small collection of browser games and interactive experiments built with vanilla JavaScript.
+Tags: =javascript=, =browser games=, =experiments=
+[[/jsgames/][Browse games]]
+
+* In development
+** Notive — In development
+A local-first knowledge workspace combining notes, tasks, wiki links, graphs, and search.
+Tags: =tauri=, =knowledge tools=, =local-first=
+[[https://github.com/systemhalted/notive][Source]]
+
+** UniVani — In development
+A real-time voice translation platform designed around ten Indian languages.
+Tags: =voice=, =translation=, =accessibility=
+[[https://github.com/systemhalted/univani][Source]]
+
+** Kisoku — In development
+A Java decision-table engine for compiling and evaluating large rule sets deterministically.
+Tags: =java=, =rules engine=, =decision tables=
+[[https://github.com/systemhalted/kisoku][Source]]
+
+** Osmosis — In development
+A privacy-safe inference layer for turning live event traffic into a durable data dictionary.
+Tags: =event streaming=, =data modeling=, =privacy=
+
+
+** textr — In development
+A from-scratch Rust exploration of a headless editor core inspired by gedit's architecture.
+Tags: =rust=, =editor=, =learning project=
+[[https://github.com/systemhalted/textr][Source]]

@@ -1,0 +1,31 @@
+#+TITLE: Avoiding emails without Subject?
+#+DESCRIPTION: More often than not I used to compile a fantastic mail to send to my colleagues (even managers) in office and just after clicking Send, it used to strike me that I had missed mentioning the subject. So, I requested a few friends on...
+#+DATE: 2011-04-27 22:14:30 -0500
+#+CATEGORIES: Technology
+#+TAGS: technology
+#+PERMALINK: /2011/04/27/avoiding-emails-without-subject/
+
+More often than not I used to compile a fantastic mail to send to my colleagues (even managers) in office and just after clicking *Send*, it used to strike me that I had missed mentioning the subject. So, I requested a few friends on [[http://www.infosys.com/][Infosys]] internal blogs to send me the script for Outlook. Nikhil Kurien mailed me the requested piece of code back in 2007. I was just cleaning up my mails and thought it would be better if I keep it on my blog, as it would make it easy for me to access it whenever I wish rather than searching for the mail.
+
+So, here are the steps to set this up:
+
+1. Open your Outlook.
+2. Press =Alt+F11= (this opens the [[http://msdn.microsoft.com/en-us/vbasic/default.aspx][Visual Basic]] editor).
+3. On the left pane you will see *Microsoft Outlook Objects*, expand this. Now you can see *ThisOutLookSession*.
+4. Click on *ThisOutLookSession*.
+5. Copy and paste the following code in the right pane:
+
+#+begin_src vb
+Private Sub Application_ItemSend(ByVal Item As Object, Cancel As Boolean)
+     Dim strSubject As String
+     strSubject = Item.Subject
+       If Len(strSubject) = 0 Then
+         Prompt$ = "Subject is Empty. Are you sure you want to send the Mail?"
+         If MsgBox(Prompt$, vbYesNo + vbQuestion + vbMsgBoxSetForeground, "Check for Subject") = vbNo Then
+          Cancel = True
+         End If
+       End If
+   End Sub
+#+end_src
+
+6. [@6] Save this and now close the VB Code editor and take a breath. From now on, this macro will make sure you do not make the mistake of sending an email without subject.

@@ -1,0 +1,28 @@
+#+TITLE: What are ADR and GDR?
+#+DESCRIPTION: ****American Depositary Receipt (ADR)**** ADR is method of trading non-U.S. stocks on U.S. exchanges Suppose, Indian Co. wants to raise money from America, by issuing shares in American stock exchange. But then Indian co. will have to...
+#+DATE: 2011-04-28 11:43:47 -0500
+#+CATEGORIES: Society & Economy
+#+TAGS: society, economy, india, united-states
+#+PERMALINK: /2011/04/28/what-are-adr-and-gdr/
+
+​****[[http://en.wikipedia.org/wiki/American_Depositary_Receipt][American Depositary Receipt]] (ADR)****
+
+ADR is method of trading non-U.S. stocks on U.S. exchanges
+
+Suppose, Indian Co. wants to raise money from America, by issuing shares in American stock exchange.
+
+But then Indian co. will have to maintain accounts according to American standards.
+
+To prevent this problem, Indian company gives its shares to American bank.
+
+American bank gives that Indian company receipts (called ADR) in return of those shares. Then Indian Co. can trade those ADR receipts in American [[http://en.wikipedia.org/wiki/Stock_market][share market]], to raise money.
+
+​****[[http://en.wikipedia.org/wiki/Global_Depository_Receipt][Global Depository Receipts]] (GDR)****
+
+Serve as same function like ADR, but on Global scale, it helps the countries from third world, to raise money from the stock exchanges in developed countries.
+
+Several international banks issue GDRs, such as [[http://www.google.com/finance?q=NYSE:JPM][JPMorgan]], [[http://www.google.com/finance?q=NYSE:C][Citigroup]], [[http://www.google.com/finance?q=NYSE:DB][Deutsche Bank]], [[http://www.google.com/finance?q=NYSE:BK][Bank of New York]].
+
+Normally 1 GDR = 10 Shares, but not always.
+
+​##As described by [[http://mrunal-exam.blogspot.com/][Mrunal]]

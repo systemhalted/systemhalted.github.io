@@ -1,0 +1,9 @@
+#+TITLE: GATech - Second Course Completed
+#+DESCRIPTION: Finished Second course in GATech OMSCS program
+#+DATE: 2019-07-29
+#+CATEGORIES: Personal Essays, Computer Science
+#+TAGS: personal, opinion, computer-science
+#+PERMALINK: /2019/07/29/gatech-second-course/
+#+COMMENTS: true
+
+Second course and thus the second semester in #gatech #omscs over. It is a great experience however challenging it might be. Challenge comes from multiple vectors - course rubric, family, work and personal aspirations. It is good to overcome all these challenges semester after semester. I hope am able to finish all 10 courses required and don't drop.

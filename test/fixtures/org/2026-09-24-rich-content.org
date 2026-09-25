@@ -1,0 +1,32 @@
+#+TITLE: Rich & Structured
+#+DESCRIPTION: A "quoted" description with <markup> that must be escaped.
+#+CATEGORIES: Software Engineering, Emacs
+#+TAGS: org, publishing
+#+COMMENTS: true
+#+TOC: true
+#+FEATURED_IMAGE: /assets/images/fixture.png
+#+FEATURED_IMAGE_ALT: Diagram <fixture>
+#+FEATURED_IMAGE_CAPTION: A fixture & caption.
+
+* Heading & details
+
+Link to the [[file:2024-07-19-legacy-permalink.org][legacy essay]].[fn:note]
+
+#+begin_src emacs-lisp
+(message "<unsafe>")
+#+end_src
+
+#+begin_example
+Example text
+#+end_example
+
+| Column | Value |
+|--------+-------|
+| A      | B     |
+
+#+begin_export html
+<aside class="fixture">Raw HTML</aside>
+#+end_export
+
+[fn:note] A footnote.
+

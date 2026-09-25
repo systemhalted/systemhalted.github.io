@@ -1,0 +1,6 @@
+#+TITLE: Related Publishing Post
+#+DESCRIPTION: A related-post ranking fixture.
+#+CATEGORIES: Software Engineering
+#+TAGS: publishing
+
+Related body.

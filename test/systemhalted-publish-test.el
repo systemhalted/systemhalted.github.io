@@ -107,6 +107,73 @@
     (should-error (systemhalted-read-record file 'post)
                   :type 'user-error)))
 
+(ert-deftest systemhalted-export-body-renders-org-features ()
+  "Dropping an Org construct would remove authored content from the page."
+  (let* ((record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (html (systemhalted-export-body record records)))
+    (should (string-match-p "<h2[^>]*>Heading &amp; details</h2>" html))
+    (should (string-match-p "class=\"language-emacs-lisp\"" html))
+    (should (string-match-p "&lt;unsafe&gt;" html))
+    (should (string-match-p "Example text" html))
+    (should (string-match-p "<table" html))
+    (should (string-match-p "<aside class=\"fixture\">Raw HTML</aside>" html))
+    (should (string-match-p "class=\"footref\"" html))
+    (should (string-match-p
+             "href=\"/newsletter/2024-07-19-legacy-permalink/\"" html))))
+
+(ert-deftest systemhalted-render-page-includes-post-shell-and-metadata ()
+  "Losing shell fragments would break discovery, navigation, and comments."
+  (let* ((record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (html (systemhalted-render-page record records)))
+    (should (string-match-p "<title>Rich &amp; Structured · SystemHalted.in</title>" html))
+    (should (string-match-p
+             "<link rel=\"canonical\" href=\"https://systemhalted.in/2026/09/24/rich-content/\">"
+             html))
+    (should (string-match-p "class=\"post-toc\"" html))
+    (should (string-match-p "src=\"/assets/images/fixture.png\"" html))
+    (should (string-match-p "data-repo=\"systemhalted/systemhalted.github.io\"" html))
+    (should (string-match-p "Filed under" html))
+    (should (string-match-p "Search all writing" html))))
+
+(ert-deftest systemhalted-write-record-uses-route-output-path ()
+  "Writing to a slug-only path would break dated and legacy permalinks."
+  (let* ((record (systemhalted-read-record
+                  (systemhalted-test-fixture "2024-07-19-legacy-permalink.org")
+                  'post))
+         (records (list record))
+         (output (make-temp-file "systemhalted-output-" t)))
+    (unwind-protect
+        (let ((written (systemhalted-write-record record records output)))
+          (should (equal written
+                         (expand-file-name
+                          "newsletter/2024-07-19-legacy-permalink/index.html"
+                          output)))
+          (should (file-exists-p written)))
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-render-page-ranks-related-and-adjacent-posts ()
+  "Changing relationship or chronology rules would alter article discovery."
+  (let* ((records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (record (seq-find
+                  (lambda (item)
+                    (equal (systemhalted-record-title item) "Rich & Structured"))
+                  records))
+         (html (systemhalted-render-page record records)))
+    (should (string-match-p "Related Publishing Post" html))
+    (should (string-match-p "class=\"post-nav" html))
+    (should (string-match-p "Newer\\|Older" html))))
+
 (provide 'systemhalted-publish-test)
 ;;; systemhalted-publish-test.el ends here
-

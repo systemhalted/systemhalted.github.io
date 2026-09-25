@@ -4,7 +4,7 @@
 #+TAGS: org, publishing
 #+COMMENTS: true
 #+TOC: true
-#+FEATURED_IMAGE: /assets/images/fixture.png
+#+FEATURED_IMAGE: /assets/images/avatar.jpeg
 #+FEATURED_IMAGE_ALT: Diagram <fixture>
 #+FEATURED_IMAGE_CAPTION: A fixture & caption.
 
@@ -29,4 +29,3 @@ Example text
 #+end_export
 
 [fn:note] A footnote.
-

@@ -1,0 +1,6 @@
+#+TITLE: Disjunctive Types
+#+DESCRIPTION: A fixture that anchors a retained legacy redirect.
+#+CATEGORIES: Software Engineering
+#+TAGS: types
+
+The correctly spelled destination for the legacy route.

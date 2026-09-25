@@ -140,7 +140,7 @@
              "<link rel=\"canonical\" href=\"https://systemhalted.in/2026/09/24/rich-content/\">"
              html))
     (should (string-match-p "class=\"post-toc\"" html))
-    (should (string-match-p "src=\"/assets/images/fixture.png\"" html))
+    (should (string-match-p "src=\"/assets/images/avatar.jpeg\"" html))
     (should (string-match-p "data-repo=\"systemhalted/systemhalted.github.io\"" html))
     (should (string-match-p "Filed under" html))
     (should (string-match-p "Search all writing" html))))
@@ -174,6 +174,119 @@
     (should (string-match-p "Related Publishing Post" html))
     (should (string-match-p "class=\"post-nav" html))
     (should (string-match-p "Newer\\|Older" html))))
+
+(defmacro systemhalted-test-with-built-site (&rest body)
+  (declare (indent 0))
+  `(let ((output (make-temp-file "systemhalted-site-" t))
+         (systemhalted-page-size 3))
+     (unwind-protect
+         (progn
+           (systemhalted-build-site
+            :root systemhalted-test-root
+            :output output
+            :content-directories
+            (list (cons systemhalted-test-fixtures 'post))
+            :include-drafts t
+            :include-future t)
+           ,@body)
+       (delete-directory output t))))
+
+(ert-deftest systemhalted-build-site-generates-navigation-and-collections ()
+  "Omitting derived routes would strand content after removing Jekyll."
+  (systemhalted-test-with-built-site
+    (dolist (relative '("index.html" "page2/index.html" "archives/index.html"
+                        "categories/index.html" "tags/index.html"
+                        "themes/index.html" "projects/index.html"
+                        "emacs/index.html" "feed.xml" "sitemap.xml"
+                        "assets/js/webcmd.js" "kartavya-path/index.html"))
+      (should (file-exists-p (expand-file-name relative output))))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "categories/index.html" output))
+      (should (search-forward "Software Engineering" nil t)))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "tags/index.html" output))
+      (should (search-forward "publishing" nil t)))))
+
+(ert-deftest systemhalted-build-site-generates-parseable-feed-and-sitemap ()
+  "Malformed XML would make readers and crawlers reject the generated site."
+  (systemhalted-test-with-built-site
+    (dolist (relative '("feed.xml" "sitemap.xml"))
+      (with-temp-buffer
+        (insert-file-contents (expand-file-name relative output))
+        (should (libxml-parse-xml-region (point-min) (point-max)))))))
+
+(ert-deftest systemhalted-build-site-generates-compatible-search-data ()
+  "Losing the public search globals would break both site and webcmd search."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "assets/js/webcmd.js" output))
+      (should (search-forward "window.siteDocs" nil t))
+      (goto-char (point-min))
+      (should (search-forward "function ensureSiteIndex" nil t))
+      (goto-char (point-min))
+      (should (search-forward "Rich & Structured" nil t)))))
+
+(ert-deftest systemhalted-build-site-copies-static-assets-and-redirects-newsletter ()
+  "Dropping source assets or the retired landing redirect would break live URLs."
+  (systemhalted-test-with-built-site
+    (should (file-exists-p (expand-file-name "assets/css/nord.css" output)))
+    (should (file-exists-p (expand-file-name "jsgames/pig-game/script.js" output)))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "kartavya-path/index.html" output))
+      (should (search-forward "url=/archives/" nil t)))
+    (with-temp-buffer
+      (insert-file-contents
+       (expand-file-name "2025/11/25/disjuntive-types/index.html" output))
+      (should (search-forward "url=/2025/11/25/disjunctive-types/" nil t)))))
+
+(ert-deftest systemhalted-validate-site-rejects-broken-local-target ()
+  "A missing internal target must block publication."
+  (let ((output (make-temp-file "systemhalted-invalid-site-" t)))
+    (unwind-protect
+        (progn
+          (with-temp-file (expand-file-name "index.html" output)
+            (insert "<a href=\"/missing/\">Missing</a>"))
+          (should-error (systemhalted-validate-site output)
+                        :type 'systemhalted-publish-error))
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-build-site-preserves-last-good-output-on-failure ()
+  "A failed staged build must not erase the last successful site."
+  (let ((root (make-temp-file "systemhalted-empty-root-" t))
+        (output (make-temp-file "systemhalted-existing-output-" t)))
+    (unwind-protect
+        (progn
+          (with-temp-file (expand-file-name "sentinel" output) (insert "last good"))
+          (should-error
+           (systemhalted-build-site
+            :root root
+            :output output
+            :content-directories (list (cons systemhalted-test-fixtures 'post))
+            :include-drafts t
+            :include-future t)
+           :type 'systemhalted-publish-error)
+          (should (file-exists-p (expand-file-name "sentinel" output))))
+      (delete-directory root t)
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-build-site-is-deterministic ()
+  "Changing bytes between identical builds would make deployments irreproducible."
+  (let ((first (make-temp-file "systemhalted-first-" t))
+        (second (make-temp-file "systemhalted-second-" t))
+        (systemhalted-page-size 3))
+    (unwind-protect
+        (progn
+          (dolist (output (list first second))
+            (systemhalted-build-site
+             :root systemhalted-test-root
+             :output output
+             :content-directories (list (cons systemhalted-test-fixtures 'post))
+             :include-drafts t
+             :include-future t))
+          (should (equal (systemhalted-directory-digest first)
+                         (systemhalted-directory-digest second))))
+      (delete-directory first t)
+      (delete-directory second t))))
 
 (provide 'systemhalted-publish-test)
 ;;; systemhalted-publish-test.el ends here

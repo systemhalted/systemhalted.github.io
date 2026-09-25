@@ -17,6 +17,14 @@ To try it in a running Emacs first, evaluate the same form with `M-:` (or use
 after the workflow file has loaded. Keep the `load` form in your init file to
 make them available after each Emacs restart.
 
+After editing publisher code in a session where it is already loaded, reload
+both files in this order so Emacs does not reuse the cached publisher feature:
+
+```elisp
+(load-file "/path/to/systemhalted.github.io/publish/systemhalted-publish.el")
+(load-file "/path/to/systemhalted.github.io/publish/systemhalted-workflow.el")
+```
+
 The publisher uses the Org and HTML libraries bundled with Emacs 31.1. It does
 not install packages or execute Babel blocks.
 

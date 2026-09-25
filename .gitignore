@@ -2,6 +2,7 @@
 _gh_pages
 _site
 .worktrees/
+.systemhalted-stage-*
 .ruby-version
 .sass-cache
 .jekyll-metadata

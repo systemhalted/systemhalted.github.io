@@ -134,6 +134,86 @@
     (should (string-match-p
              "href=\"/newsletter/2024-07-19-legacy-permalink/\"" html))))
 
+(ert-deftest systemhalted-export-body-renders-root-relative-link ()
+  "A root-relative file link must export as a plain URL, never a file: URI."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Root Link\n#+DESCRIPTION: Root-relative link fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "See the [[/jsgames/pig-game/][pig game]].\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (regexp-quote "<a href=\"/jsgames/pig-game/\">pig game</a>")
+               html))
+      (should-not (string-match-p "file:" html)))))
+
+(ert-deftest systemhalted-export-body-image-without-alt-source-is-never-filename ()
+  "An image link with no description, caption, or :alt must not use the file name."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Bare Image\n#+DESCRIPTION: Bare image fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "[[/assets/images/bare-figure.svg]]\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (regexp-quote
+                "<img src=\"/assets/images/bare-figure.svg\" alt=\"\">")
+               html))
+      (should-not (string-match-p "file:" html))
+      (should-not (string-match-p "alt=\"bare-figure.svg\"" html)))))
+
+(ert-deftest systemhalted-export-body-uses-image-description-as-alt ()
+  "An image link's own description must become its alt text."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Described Image\n#+DESCRIPTION: Described image fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "[[/assets/images/cat.png][A cat sitting on a mat]]\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (regexp-quote
+                "<img src=\"/assets/images/cat.png\" alt=\"A cat sitting on a mat\">")
+               html)))))
+
+(ert-deftest systemhalted-export-body-uses-caption-as-alt-when-no-description ()
+  "A #+CAPTION must supply alt text when the image link has no description."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Captioned Image\n#+DESCRIPTION: Captioned image fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+CAPTION: Figure 1 --- a lone caption\n"
+              "[[/assets/images/figure.svg]]\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (regexp-quote
+                "<img src=\"/assets/images/figure.svg\" alt=\"Figure 1 --- a lone caption\">")
+               html)))))
+
+(ert-deftest systemhalted-export-body-uses-attr-html-alt-as-last-resort ()
+  "A #+ATTR_HTML :alt must supply alt text when nothing else is present."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Attr Image\n#+DESCRIPTION: Attr image fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+ATTR_HTML: :alt Explicit alt text\n"
+              "[[/assets/images/attr.png]]\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (regexp-quote
+                "<img src=\"/assets/images/attr.png\" alt=\"Explicit alt text\">")
+               html)))))
+
+(ert-deftest systemhalted-validate-site-rejects-file-url ()
+  "A file: URL anywhere in the output must block publication."
+  (let ((output (make-temp-file "systemhalted-file-url-site-" t)))
+    (unwind-protect
+        (progn
+          (with-temp-file (expand-file-name "index.html" output)
+            (insert "<img src=\"file:///assets/images/x.svg\" alt=\"x\">"))
+          (should-error (systemhalted-validate-site output)
+                        :type 'systemhalted-publish-error))
+      (delete-directory output t))))
+
 (ert-deftest systemhalted-export-body-skips-kill-prompts-for-its-temp-buffer ()
   "Publishing must not run user kill-buffer prompts for its private export buffer."
   (let* ((queried nil)

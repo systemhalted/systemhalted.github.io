@@ -252,25 +252,75 @@ comparison clock and KIND overrides inferred content kind."
        (equal target (file-truename (systemhalted-record-source record))))
      records)))
 
+(defun systemhalted--link-description-text (link)
+  "Return LINK's bracketed description as plain text, or nil when absent."
+  (let ((contents (org-element-contents link)))
+    (when contents
+      (org-string-nw-p (org-trim (org-element-interpret-data contents))))))
+
+(defun systemhalted--paragraph-caption-text (paragraph)
+  "Return PARAGRAPH's #+CAPTION rendered as plain text, or nil when absent."
+  (when paragraph
+    (let ((caption (org-export-get-caption paragraph)))
+      (when caption
+        (org-string-nw-p (org-trim (org-element-interpret-data caption)))))))
+
+(defun systemhalted--paragraph-attr-html-alt (paragraph)
+  "Return PARAGRAPH's #+ATTR_HTML :alt value, or nil when absent."
+  (when paragraph
+    (org-string-nw-p
+     (plist-get (org-export-read-attribute :attr_html paragraph) :alt))))
+
+(defun systemhalted--image-alt-text (link)
+  "Return alt text for image LINK.
+Prefers LINK's own description, then any enclosing paragraph's #+CAPTION
+or #+ATTR_HTML :alt. Never falls back to the bare file name."
+  (or (systemhalted--link-description-text link)
+      (let* ((container (org-element-parent link))
+             (paragraph (if (org-element-type-p container 'link)
+                            (org-element-parent container)
+                          container)))
+        (or (systemhalted--paragraph-caption-text paragraph)
+            (systemhalted--paragraph-attr-html-alt paragraph)))
+      ""))
+
+(defun systemhalted--root-relative-image-p (path info)
+  "Non-nil when PATH matches the site's inline image rules for file links."
+  (let ((rule (cdr (assoc "file" (plist-get info :html-inline-image-rules))))
+        (case-fold-search t))
+    (and rule (string-match-p rule path))))
+
 (defun systemhalted-html-link (link contents info)
   "Render Org LINK, mapping links to Org sources onto their public routes."
   (let ((type (org-element-property :type link))
         (path (org-element-property :path link)))
-    (if (and (string= type "file") (string-suffix-p ".org" path t))
-        (let* ((target (expand-file-name path
-                                         (file-name-directory systemhalted--export-source)))
-               (record (systemhalted--record-for-source
-                        target systemhalted--export-records)))
-          (unless record
-            (systemhalted--source-error
-             systemhalted--export-source "unresolved Org link %s" path))
-          (format "<a href=\"%s\">%s</a>"
+    (cond
+     ((and (string= type "file") (string-suffix-p ".org" path t))
+      (let* ((target (expand-file-name path
+                                       (file-name-directory systemhalted--export-source)))
+             (record (systemhalted--record-for-source
+                      target systemhalted--export-records)))
+        (unless record
+          (systemhalted--source-error
+           systemhalted--export-source "unresolved Org link %s" path))
+        (format "<a href=\"%s\">%s</a>"
+                (systemhalted--escape-html
+                 (systemhalted-record-route record) t)
+                (or contents
+                    (systemhalted--escape-html
+                     (systemhalted-record-title record))))))
+     ;; Root-relative file links (`[[/path/]]`, `[[/assets/x.svg]]`) must
+     ;; export as site-relative URLs, never as `file://` URIs.
+     ((and (string= type "file") (string-prefix-p "/" path))
+      (if (systemhalted--root-relative-image-p path info)
+          (format "<img src=\"%s\" alt=\"%s\">"
+                  (systemhalted--escape-html path t)
                   (systemhalted--escape-html
-                   (systemhalted-record-route record) t)
-                  (or contents
-                      (systemhalted--escape-html
-                       (systemhalted-record-title record)))))
-      (org-html-link link contents info))))
+                   (systemhalted--image-alt-text link) t))
+        (format "<a href=\"%s\">%s</a>"
+                (systemhalted--escape-html path t)
+                (or contents (systemhalted--escape-html path)))))
+     (t (org-html-link link contents info)))))
 
 (org-export-define-derived-backend 'systemhalted-html 'html
   :translate-alist
@@ -1061,17 +1111,21 @@ SOURCE-ROOT supplies the maintained command runtime and OS-history data."
      (t (expand-file-name relative root)))))
 
 (defun systemhalted--validate-internal-links (root)
-  "Signal when an HTML file below ROOT references a missing local target."
+  "Signal when an HTML file below ROOT has a `file:' URL or a missing local target."
   (dolist (file (directory-files-recursively root "\\.html\\'"))
     (with-temp-buffer
       (insert-file-contents file)
       (goto-char (point-min))
-      (while (re-search-forward "\\(?:href\\|src\\)=\"\\(/[^\"#?]*\\)" nil t)
-        (let* ((url (match-string-no-properties 1))
-               (target (systemhalted--local-target-file root url)))
-          (unless (file-exists-p target)
+      (while (re-search-forward "\\(?:href\\|src\\)=\"\\([^\"#?]*\\)" nil t)
+        (let ((url (match-string-no-properties 1)))
+          (cond
+           ((string-prefix-p "file:" url)
             (signal 'systemhalted-publish-error
-                    (list (format "%s: broken local target %s" file url)))))))))
+                    (list (format "%s: file: URL %s" file url))))
+           ((string-prefix-p "/" url)
+            (unless (file-exists-p (systemhalted--local-target-file root url))
+              (signal 'systemhalted-publish-error
+                      (list (format "%s: broken local target %s" file url)))))))))))
 
 (defun systemhalted--validate-xml (file)
   "Signal when FILE is not well-formed XML."

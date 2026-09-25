@@ -1,7 +1,7 @@
 #+TITLE: Logo Looks Nothing Like Lisp and Yet It Is
 #+DESCRIPTION: Why Logo can be called a Lisp dialect even though it does not look like one?
 #+DATE: 2025-12-15
-#+CATEGORIES: Technology, Computer Science, Series 2 - Turtle, BASIC, and the Long Road to Taste
+#+CATEGORIES: Technology, Computer Science, "Series 2 - Turtle, BASIC, and the Long Road to Taste"
 #+TAGS: logo, lisp, computer-science, education, turtle-graphics, programming-language
 #+PERMALINK: /2025/12/15/is-logo-a-lisp/
 #+COMMENTS: true

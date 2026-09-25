@@ -59,10 +59,34 @@
   (let ((value (alist-get name keywords nil nil #'string=)))
     (and value (not (string-empty-p value)) value)))
 
+(defun systemhalted--split-list-value (value)
+  "Split VALUE on commas that fall outside double-quoted spans.
+A double-quoted item may therefore contain a literal comma; the quotes
+themselves are not included in the returned pieces."
+  (let ((items nil)
+        (piece nil)
+        (in-quotes nil))
+    (dotimes (i (length value))
+      (let ((char (aref value i)))
+        (cond
+         ((eq char ?\") (setq in-quotes (not in-quotes)))
+         ((and (eq char ?,) (not in-quotes))
+          (push (concat (nreverse piece)) items)
+          (setq piece nil))
+         (t (push char piece)))))
+    (push (concat (nreverse piece)) items)
+    (nreverse items)))
+
 (defun systemhalted--list-value (value)
-  "Turn comma-separated VALUE into a trimmed list."
+  "Turn comma-separated VALUE into a trimmed list.
+An item wrapped in double quotes may contain a literal comma, for example
+a category named \"Series 2 - Turtle, BASIC, and the Long Road to Taste\"."
   (when value
-    (mapcar #'string-trim (split-string value "," t "[ \t\n]+"))))
+    (delq nil
+          (mapcar (lambda (piece)
+                    (let ((trimmed (string-trim piece)))
+                      (and (not (string-empty-p trimmed)) trimmed)))
+                  (systemhalted--split-list-value value)))))
 
 (defun systemhalted--boolean-value (value)
   "Return non-nil when VALUE is an affirmative metadata spelling."

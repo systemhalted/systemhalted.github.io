@@ -123,6 +123,22 @@ Jekyll's UTC build runners interpret an unzoned timestamp."
     (should (seq-find #'systemhalted-record-draft preview))
     (should (seq-find #'systemhalted-record-future-p preview))))
 
+(ert-deftest systemhalted-read-record-keeps-quoted-list-item-with-comma ()
+  "A double-quoted CATEGORIES/TAGS item must survive as one item even when it
+contains a literal comma, instead of being split into multiple items."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Quoted List Item\n#+DESCRIPTION: Quoted list fixture.\n"
+              "#+DATE: 2026-09-25\n"
+              "#+CATEGORIES: Technology, Computer Science, "
+              "\"Series 2 - Turtle, BASIC, and the Long Road to Taste\"\n"
+              "#+TAGS: \"comma, in, tag\", plain-tag\n")
+    (let ((record (systemhalted-read-record file 'post)))
+      (should (equal (systemhalted-record-categories record)
+                     '("Technology" "Computer Science"
+                       "Series 2 - Turtle, BASIC, and the Long Road to Taste")))
+      (should (equal (systemhalted-record-tags record)
+                     '("comma, in, tag" "plain-tag"))))))
+
 (ert-deftest systemhalted-validate-records-rejects-duplicate-routes ()
   "Two sources claiming one route must stop the build instead of overwriting."
   (let* ((first (systemhalted-read-record
@@ -542,6 +558,28 @@ matching live output, instead of a bare date with no time or offset."
                   (unless (string-empty-p route) (push route expected)))
                 (forward-line 1)))
             (should (equal actual (sort expected #'string-lessp)))))
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-production-build-excludes-drafts ()
+  "org/drafts/*.org must never reach a production build or its sitemap,
+even though `systemhalted-audit-content' validates them for preview use."
+  (let ((output (make-temp-file "systemhalted-production-drafts-" t))
+        (draft-routes '("/2006/12/01/bas-aise-hi-likh-raha-hoon-dont-read-it/"
+                        "/2011/06/19/usa-in-talks-with-taliban-a-question-mark-on-usas-intentions/"
+                        "/2026/08/02/wisdom-accumulation-notes/")))
+    (unwind-protect
+        (progn
+          (systemhalted-build-site :root systemhalted-test-root :output output)
+          (dolist (route draft-routes)
+            (should-not (file-exists-p
+                         (systemhalted--local-target-file output route))))
+          (let ((sitemap (expand-file-name "sitemap.xml" output)))
+            (should (file-exists-p sitemap))
+            (with-temp-buffer
+              (insert-file-contents sitemap)
+              (dolist (route draft-routes)
+                (should-not (string-match-p (regexp-quote route)
+                                            (buffer-string)))))))
       (delete-directory output t))))
 
 (ert-deftest systemhalted-production-build-contains-every-live-route ()

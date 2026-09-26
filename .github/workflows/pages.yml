@@ -43,6 +43,15 @@ jobs:
           -l publish/systemhalted-workflow.el
           -f systemhalted-batch-build
 
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+
+      - name: Check clean CI publishing contract
+        run: test/ci-contract.sh
+
+      - name: Check EWW rendering
+        run: emacs -Q --batch --script scripts/test-eww-rendering.el _site/index.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:

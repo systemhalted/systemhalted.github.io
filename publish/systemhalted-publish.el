@@ -1043,26 +1043,62 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
   "Escape VALUE for XML text and attributes."
   (systemhalted--escape-html value t))
 
-(defun systemhalted--generate-feed (root posts)
-  "Generate RSS feed below ROOT from POSTS."
+(defun systemhalted--cdata-escape (html)
+  "Return HTML safe to embed in an XML CDATA section, splitting any literal
+`]]>' so it cannot terminate the section early."
+  (replace-regexp-in-string "]]>" "]]]]><![CDATA[>" html))
+
+(defun systemhalted--generate-feed (root posts records)
+  "Generate RSS feed below ROOT from POSTS, resolving cross-page links in
+each post's body against RECORDS."
   (systemhalted--write-route
    root "/feed.xml"
    (concat
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\"><channel>"
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\" "
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
+    "xmlns:content=\"http://purl.org/rss/1.0/modules/content/\"><channel>"
     "<title>SystemHalted.in</title><link>https://systemhalted.in/</link><description>"
     (systemhalted--xml-escape systemhalted-site-description) "</description>"
+    "<atom:link href=\"" systemhalted-site-url
+    "/feed.xml\" rel=\"self\" type=\"application/rss+xml\" />"
     (mapconcat
      (lambda (post)
        (format (concat "<item><title>%s</title><link>%s%s</link><guid>%s%s</guid>"
-                       "<pubDate>%s</pubDate><description>%s</description></item>")
+                       "<pubDate>%s</pubDate><description>%s</description>%s"
+                       "<dc:creator>%s</dc:creator>"
+                       "<content:encoded><![CDATA[%s]]></content:encoded></item>")
                (systemhalted--xml-escape (systemhalted-record-title post))
                systemhalted-site-url (systemhalted-record-route post)
                systemhalted-site-url (systemhalted-record-route post)
                (format-time-string "%a, %d %b %Y %H:%M:%S %z"
                                    (systemhalted-record-date post) t)
-               (systemhalted--xml-escape (systemhalted-record-description post))))
+               (systemhalted--xml-escape (systemhalted-record-description post))
+               (mapconcat (lambda (category)
+                            (format "<category>%s</category>"
+                                    (systemhalted--xml-escape category)))
+                          (systemhalted-record-categories post) "")
+               (systemhalted--xml-escape systemhalted-site-author)
+               (systemhalted--cdata-escape
+                (systemhalted-export-body post records))))
      (seq-take posts 50) "")
     "</channel></rss>")))
+
+(defun systemhalted--generate-links-jsonp (root posts)
+  "Generate links.jsonp below ROOT from POSTS, matching main's `callback(...)'
+JSONP shape and reverse-chronological order."
+  (systemhalted--write-route
+   root "/links.jsonp"
+   (concat
+    "callback("
+    (json-serialize
+     (vconcat
+      (mapcar
+       (lambda (post)
+         `((text . ,(systemhalted-record-title post))
+           (href . ,(concat systemhalted-site-url (systemhalted-record-route post)))))
+       posts)))
+    ")")))
 
 (defun systemhalted--generated-routes (posts records)
   "Return generated routes for POSTS and RECORDS."
@@ -1074,18 +1110,96 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
             routes)
           (mapcar #'systemhalted-record-route records)))
 
-(defun systemhalted--generate-sitemap (root routes)
-  "Generate sitemap below ROOT for ROUTES."
+(defun systemhalted--record-lastmod (record)
+  "Return an ISO 8601 UTC lastmod string for RECORD's sitemap entry, or nil.
+Uses RECORD's own date when present, otherwise its LAST_MODIFIED keyword;
+returns nil for a plain page with neither, matching live, which omits
+`<lastmod>' for such undated pages."
+  (let ((date (systemhalted-record-date record)))
+    (cond
+     (date (systemhalted--iso-datetime date))
+     ((systemhalted-record-last-modified record)
+      (systemhalted--iso-datetime
+       (systemhalted--parse-date (systemhalted-record-source record)
+                                  (systemhalted-record-last-modified record))))
+     (t nil))))
+
+(defun systemhalted--sitemap-loc (route)
+  "Return ROUTE as an absolute sitemap URL, percent-encoding each non-ASCII
+path segment the way live's sitemap does, without escaping the `/' between
+segments."
+  (concat systemhalted-site-url
+          (mapconcat #'url-hexify-string (split-string route "/" nil) "/")))
+
+(defun systemhalted--static-sitemap-routes (output-root)
+  "Return the jsgames and wireframes static routes below OUTPUT-ROOT that
+belong in the sitemap, matching their inclusion in live's, even though they
+have no Org record of their own."
+  (append
+   (let ((games-root (expand-file-name "jsgames" output-root)))
+     (when (file-directory-p games-root)
+       (sort
+        (delq nil
+              (mapcar
+               (lambda (entry)
+                 (and (file-directory-p entry)
+                      (file-exists-p (expand-file-name "index.html" entry))
+                      (format "/jsgames/%s/" (file-name-nondirectory entry))))
+               (directory-files games-root t directory-files-no-dot-files-regexp)))
+        #'string-lessp)))
+   (let ((wireframes-root (expand-file-name "wireframes" output-root)))
+     (when (file-directory-p wireframes-root)
+       (sort
+        (mapcar (lambda (file) (concat "/wireframes/" (file-name-nondirectory file)))
+                (directory-files wireframes-root nil "\\.html\\'"))
+        #'string-lessp)))))
+
+(defun systemhalted--sitemap-entries (posts records output-root)
+  "Return (ROUTE . LASTMOD) sitemap entries for POSTS and RECORDS, excluding
+the 404 page and legacy redirect stubs, and including the static jsgames and
+wireframes routes below OUTPUT-ROOT."
+  (let ((excluded (cons "/404.html" (mapcar #'car systemhalted-legacy-redirects)))
+        (lastmod (make-hash-table :test #'equal)))
+    (dolist (record records)
+      (let ((entry (systemhalted--record-lastmod record)))
+        (when entry (puthash (systemhalted-record-route record) entry lastmod))))
+    (append
+     (mapcar (lambda (route) (cons route (gethash route lastmod)))
+             (seq-remove (lambda (route) (member route excluded))
+                         (systemhalted--generated-routes posts records)))
+     (mapcar (lambda (route) (cons route nil))
+             (systemhalted--static-sitemap-routes output-root)))))
+
+(defun systemhalted--generate-sitemap (root entries)
+  "Generate sitemap below ROOT from ENTRIES, each a (ROUTE . LASTMOD-OR-NIL)
+pair."
+  (let ((unique (make-hash-table :test #'equal)) ordered)
+    (dolist (entry entries)
+      (unless (gethash (car entry) unique)
+        (puthash (car entry) t unique)
+        (push entry ordered)))
+    (setq ordered (sort (nreverse ordered)
+                        (lambda (a b) (string-lessp (car a) (car b)))))
+    (systemhalted--write-route
+     root "/sitemap.xml"
+     (concat "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
+             (mapconcat
+              (lambda (entry)
+                (format "<url><loc>%s</loc>%s</url>"
+                        (systemhalted--sitemap-loc (car entry))
+                        (if (cdr entry)
+                            (format "<lastmod>%s</lastmod>" (cdr entry))
+                          "")))
+              ordered "")
+             "</urlset>"))))
+
+(defun systemhalted--generate-robots (root)
+  "Generate robots.txt below ROOT, matching live's file from the
+jekyll-sitemap gem."
   (systemhalted--write-route
-   root "/sitemap.xml"
-   (concat "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-           "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
-           (mapconcat
-            (lambda (route)
-              (format "<url><loc>%s%s</loc></url>"
-                      systemhalted-site-url (systemhalted--xml-escape route)))
-            (sort (delete-dups (copy-sequence routes)) #'string-lessp) "")
-           "</urlset>")))
+   root "/robots.txt"
+   (concat "Sitemap: " systemhalted-site-url "/sitemap.xml\n")))
 
 (defun systemhalted--strip-html (html)
   "Return normalized plain text from HTML."
@@ -1288,7 +1402,8 @@ so two clean builds of the same sources stay byte-identical."
      #'systemhalted-record-tags "")
     (systemhalted--generate-emacs-index output-root records)
     (systemhalted--generate-default-pages output-root records)
-    (systemhalted--generate-feed output-root posts)
+    (systemhalted--generate-feed output-root posts records)
+    (systemhalted--generate-links-jsonp output-root posts)
     (systemhalted--generate-search output-root records source-root)
     (unless (systemhalted--record-route-present-p "/jsgames/" records)
       (systemhalted--generate-jsgames-index output-root))
@@ -1298,7 +1413,8 @@ so two clean builds of the same sources stay byte-identical."
     (systemhalted--write-route output-root "/kartavya-path/"
                                (systemhalted--redirect-page "/archives/"))
     (systemhalted--generate-sitemap
-     output-root (systemhalted--generated-routes posts records))))
+     output-root (systemhalted--sitemap-entries posts records output-root))
+    (systemhalted--generate-robots output-root)))
 
 (defun systemhalted--local-target-file (root url)
   "Map local URL below ROOT to its expected output file."

@@ -404,6 +404,9 @@ route
 /emacs/emacs-which-key/
 /emacs/sdkman.el/
 /emacs/wordwise.el/
+/jsgames/guess-number/
+/jsgames/pig-game/
+/jsgames/reeti-40/
 /kartavya-path/
 /newsletter/2024-06-25-embracing-timely-action/
 /newsletter/2024-06-28-balancing-diplomacy-firmness/
@@ -418,3 +421,4 @@ route
 /tags/
 /themes/
 /webcmd/
+/wireframes/systemhalted-writing-first.html

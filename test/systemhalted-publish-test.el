@@ -1,5 +1,6 @@
 ;;; systemhalted-publish-test.el --- Tests for Org site publisher -*- lexical-binding: t; -*-
 
+(require 'cl-lib)
 (require 'ert)
 (require 'subr-x)
 
@@ -495,6 +496,137 @@ matching live output, instead of a bare date with no time or offset."
         (insert-file-contents (expand-file-name relative output))
         (should (libxml-parse-xml-region (point-min) (point-max)))))))
 
+;;; Sitemap, robots.txt, links.jsonp and feed (Task 7)
+
+(ert-deftest systemhalted-record-lastmod-prefers-date-over-last-modified ()
+  "A dated record's sitemap lastmod must be its own UTC date."
+  (let ((record (make-systemhalted-record
+                 :source "<test>" :kind 'post
+                 :date (encode-time 0 0 0 24 9 2026 t)
+                 :last-modified "2026-01-01")))
+    (should (equal (systemhalted--record-lastmod record)
+                   "2026-09-24T00:00:00+00:00"))))
+
+(ert-deftest systemhalted-record-lastmod-falls-back-to-last-modified-keyword ()
+  "An undated record (a page or Emacs note) with LAST_MODIFIED must still get
+a sitemap lastmod, matching live's per-page value for such content."
+  (let ((record (make-systemhalted-record
+                 :source "<test>" :kind 'emacs
+                 :last-modified "2026-03-05 10:00:00 +0000")))
+    (should (equal (systemhalted--record-lastmod record)
+                   "2026-03-05T10:00:00+00:00"))))
+
+(ert-deftest systemhalted-record-lastmod-is-nil-without-date-or-last-modified ()
+  "A plain page with neither a date nor LAST_MODIFIED must get no lastmod,
+matching live, which omits `<lastmod>' for such pages."
+  (let ((record (make-systemhalted-record :source "<test>" :kind 'page)))
+    (should-not (systemhalted--record-lastmod record))))
+
+(ert-deftest systemhalted-sitemap-loc-percent-encodes-non-ascii-segments ()
+  "A Devanagari route must be percent-encoded per path segment, matching
+live's sitemap, which never emits raw non-ASCII bytes in `<loc>'."
+  (should (equal (systemhalted--sitemap-loc
+                  "/2001/08/01/तमसो-मा-ज्योतिर्गमय/")
+                 (concat
+                  systemhalted-site-url
+                  "/2001/08/01/%E0%A4%A4%E0%A4%AE%E0%A4%B8%E0%A5%8B-%E0%A4%AE%E0%A4%BE-"
+                  "%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%A4%E0%A4%BF%E0%A4%B0%E0%A5%8D"
+                  "%E0%A4%97%E0%A4%AE%E0%A4%AF/"))))
+
+(ert-deftest systemhalted-sitemap-excludes-404-and-redirect-stubs ()
+  "The 404 page and legacy redirect stubs must never appear in the sitemap,
+matching live, which never lists a moved or error route."
+  (let ((output (make-temp-file "systemhalted-sitemap-exclude-" t)))
+    (unwind-protect
+        (progn
+          (systemhalted-build-site :root systemhalted-test-root :output output)
+          (with-temp-buffer
+            (insert-file-contents (expand-file-name "sitemap.xml" output))
+            (should-not (string-match-p "/404\\.html" (buffer-string)))
+            (dolist (redirect systemhalted-legacy-redirects)
+              (should-not (string-match-p (regexp-quote (car redirect))
+                                          (buffer-string))))))
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-sitemap-includes-jsgames-and-wireframes-routes ()
+  "The jsgames and wireframes static pages have no Org record of their own,
+but live's sitemap lists them, so ours must too."
+  (let ((output (make-temp-file "systemhalted-sitemap-static-" t)))
+    (unwind-protect
+        (progn
+          (systemhalted-build-site :root systemhalted-test-root :output output)
+          (with-temp-buffer
+            (insert-file-contents (expand-file-name "sitemap.xml" output))
+            (let ((xml (buffer-string)))
+              (dolist (route '("/jsgames/guess-number/" "/jsgames/pig-game/"
+                               "/jsgames/reeti-40/"
+                               "/wireframes/systemhalted-writing-first.html"))
+                (should (string-match-p
+                         (regexp-quote (concat systemhalted-site-url route))
+                         xml))))))
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-sitemap-includes-lastmod-for-dated-records ()
+  "A post's sitemap entry must carry a UTC `<lastmod>' matching its date."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "sitemap.xml" output))
+      (should (string-match-p
+               (concat "<loc>" (regexp-quote systemhalted-site-url)
+                       "/2026/09/24/rich-content/</loc>"
+                       "<lastmod>2026-09-24T00:00:00\\+00:00</lastmod>")
+               (buffer-string))))))
+
+(ert-deftest systemhalted-build-site-generates-robots-txt ()
+  "robots.txt must point crawlers at the sitemap, matching live's own file
+from the jekyll-sitemap gem."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "robots.txt" output))
+      (should (equal (buffer-string)
+                     (concat "Sitemap: " systemhalted-site-url "/sitemap.xml\n"))))))
+
+(ert-deftest systemhalted-build-site-generates-links-jsonp ()
+  "links.jsonp must expose every post as a `{text, href}' pair in
+reverse-chronological order, matching main's `links.jsonp', callable as
+JSONP via its `callback(...)' wrapper."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "links.jsonp" output))
+      (let* ((text (buffer-string)))
+        (should (string-prefix-p "callback(" text))
+        (should (string-suffix-p ")" text))
+        (let* ((json-text (substring text (length "callback(") -1))
+               (parsed (json-parse-string json-text :object-type 'alist)))
+          (should (> (length parsed) 0))
+          (should (string-match-p "future-post" (alist-get 'href (aref parsed 0))))
+          (should (cl-some
+                   (lambda (item)
+                     (and (equal (alist-get 'text item) "Rich & Structured")
+                          (equal (alist-get 'href item)
+                                 (concat systemhalted-site-url "/2026/09/24/rich-content/"))))
+                   parsed)))))))
+
+(ert-deftest systemhalted-feed-includes-self-link-categories-author-and-content ()
+  "The feed must carry an atom:link self reference, a <category> per
+category, a creator element, and each post's full HTML in
+<content:encoded>, matching Task 7's RSS 2.0 enrichment."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "feed.xml" output))
+      (let ((xml (buffer-string)))
+        (should (string-match-p
+                 (concat "<atom:link[^>]*href=\"" (regexp-quote systemhalted-site-url)
+                         "/feed\\.xml\"[^>]*rel=\"self\"")
+                 xml))
+        (should (string-match-p "<category>Software Engineering</category>" xml))
+        (should (string-match-p "<category>Emacs</category>" xml))
+        (should (or (string-match-p "<dc:creator>Palak Mathur</dc:creator>" xml)
+                    (string-match-p "<author>[^<]*Palak Mathur[^<]*</author>" xml)))
+        (should (string-match-p "<content:encoded><!\\[CDATA\\[" xml))
+        (should (string-match-p "Related body" xml))
+        (should (string-match-p "\\]\\]></content:encoded>" xml))))))
+
 (ert-deftest systemhalted-build-site-generates-compatible-search-data ()
   "Losing the public search globals would break both site and webcmd search."
   (systemhalted-test-with-built-site
@@ -647,8 +779,9 @@ even though `systemhalted-audit-content' validates them for preview use."
 (ert-deftest systemhalted-production-build-contains-every-live-route ()
   "Every route the live site publishes must exist in a production build.
 `test/baseline/live-routes.tsv' omits `/pageN/' (out of scope; nobody links to
-paginated pages and the local page count intentionally differs), and the
-`/jsgames/<game>/' and wireframes routes (covered by a later sitemap task)."
+paginated pages and the local page count intentionally differs); it does
+include the `/jsgames/<game>/' and wireframes routes, matching their static
+output files."
   (let ((output (make-temp-file "systemhalted-live-routes-" t)))
     (unwind-protect
         (progn

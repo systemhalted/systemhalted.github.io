@@ -1767,6 +1767,19 @@ those two directories) would not catch that."
       (delete-directory directory t)
       (delete-directory output t))))
 
+(ert-deftest systemhalted-render-page-footer-credits-emacs-and-org-mode ()
+  "Every page's footer must say the site is made with Emacs and Org mode."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/about.org" systemhalted-test-root)
+                  'page))
+         (html (systemhalted-render-page record (list record) "")))
+    (should (string-match-p
+             (regexp-quote
+              (concat "<span class=\"footer-made\">Proudly made with "
+                      "<a href=\"https://www.gnu.org/software/emacs/\">Emacs</a> and "
+                      "<a href=\"https://orgmode.org/\">Org mode</a></span>"))
+             html))))
+
 (ert-deftest systemhalted-render-page-search-suggestions-include-newsletter ()
   "The search overlay's suggestions must match `_config.yml's `search.suggestions',
 which restores `newsletter'."

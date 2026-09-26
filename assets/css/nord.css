@@ -1512,7 +1512,8 @@ figcaption,
   margin-left: auto;
 }
 
-.footer-links a {
+.footer-links a,
+.footer-made a {
   color: var(--muted);
 }
 

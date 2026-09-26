@@ -27,12 +27,12 @@
 
 (cl-defstruct systemhalted-record
   source kind title description date categories tags permalink route comments toc
-  last-modified featured-image featured-image-alt featured-image-caption draft
+  mermaid last-modified featured-image featured-image-alt featured-image-caption draft
   future-p)
 
 (defconst systemhalted--metadata-keys
   '("TITLE" "DESCRIPTION" "DATE" "CATEGORIES" "TAGS" "PERMALINK"
-    "COMMENTS" "TOC" "LAST_MODIFIED" "FEATURED_IMAGE"
+    "COMMENTS" "TOC" "MERMAID" "LAST_MODIFIED" "FEATURED_IMAGE"
     "FEATURED_IMAGE_ALT" "FEATURED_IMAGE_CAPTION" "DRAFT"))
 
 (defun systemhalted--source-error (file format-string &rest args)
@@ -195,6 +195,8 @@ NOW controls future-post classification and defaults to the current time."
                 (systemhalted--keyword keywords "COMMENTS"))
      :toc (systemhalted--boolean-value
            (systemhalted--keyword keywords "TOC"))
+     :mermaid (systemhalted--boolean-value
+               (systemhalted--keyword keywords "MERMAID"))
      :last-modified (systemhalted--keyword keywords "LAST_MODIFIED")
      :featured-image (systemhalted--keyword keywords "FEATURED_IMAGE")
      :featured-image-alt (systemhalted--keyword keywords "FEATURED_IMAGE_ALT")
@@ -575,6 +577,35 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
        (?n . ,(or (systemhalted--adjacent-html record records) ""))
        (?g . ,(or (systemhalted--comments-html record) ""))))))
 
+(defun systemhalted--mermaid-head-html (record)
+  "Return head markup that loads Mermaid when RECORD opts in with #+MERMAID.
+Matches main's `_includes/head.html': the same version, SRI, and the script
+that turns a kramdown+rouge `.language-mermaid' block into a `.mermaid' div
+mermaid.js can render."
+  (when (systemhalted-record-mermaid record)
+    (concat
+     "<script defer src=\"https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js\" "
+     "integrity=\"sha384-R63zfMfSwJF4xCR11wXii+QUsbiBIdiDzDbtxia72oGWfkT7WHJfmD/I/eeHPJyT\" "
+     "crossorigin=\"anonymous\"></script>"
+     "<script>"
+     "document.addEventListener('DOMContentLoaded', function () {"
+     "if (typeof mermaid === 'undefined') { return; }"
+     "document.querySelectorAll('.language-mermaid').forEach(function (el) {"
+     "var isCode = el.tagName === 'CODE';"
+     "var codeEl = isCode ? el : el.querySelector('code');"
+     "if (!codeEl) { return; }"
+     "var block = isCode ? (el.closest('pre') || el) : el;"
+     "if (!block.parentNode) { return; }"
+     "var div = document.createElement('div');"
+     "div.className = 'mermaid';"
+     "div.textContent = codeEl.textContent;"
+     "block.parentNode.replaceChild(div, block);"
+     "});"
+     "mermaid.initialize({ startOnLoad: false, theme: 'neutral' });"
+     "mermaid.run();"
+     "});"
+     "</script>")))
+
 (defun systemhalted--structured-data (record)
   "Return JSON-LD shared by pages, including article data for RECORD."
   (let ((person (json-serialize
@@ -633,6 +664,7 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
        (?s . "org")
        (?p . ,(if (equal route "/projects/")
                   "<link rel=\"stylesheet\" href=\"/assets/css/projects.css?v=org\">" ""))
+       (?M . ,(or (systemhalted--mermaid-head-html record) ""))
        (?j . ,(systemhalted--structured-data record))
        (?w . ,(if (equal route "/") current ""))
        (?P . ,(if (equal route "/projects/") current ""))

@@ -98,7 +98,17 @@ Jekyll's UTC build runners interpret an unzoned timestamp."
     (should (equal (systemhalted-record-tags record)
                    '("org" "publishing")))
     (should (systemhalted-record-comments record))
-    (should-not (systemhalted-record-toc record))))
+    (should-not (systemhalted-record-toc record))
+    (should-not (systemhalted-record-mermaid record))))
+
+(ert-deftest systemhalted-read-record-parses-mermaid-keyword ()
+  "A post must be able to opt into Mermaid support with #+MERMAID: true."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Mermaid Opt In\n#+DESCRIPTION: Mermaid keyword fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n"
+              "#+MERMAID: true\n")
+    (let ((record (systemhalted-read-record file 'post)))
+      (should (systemhalted-record-mermaid record)))))
 
 (ert-deftest systemhalted-read-record-keeps-percent-encoded-unicode-route ()
   "Decoding a legacy filename would break its existing public URL."
@@ -300,6 +310,58 @@ contains a literal comma, instead of being split into multiple items."
     (should (string-match-p "data-repo=\"systemhalted/systemhalted.github.io\"" html))
     (should (string-match-p "Filed under" html))
     (should (string-match-p "Search all writing" html))))
+
+(ert-deftest systemhalted-render-page-includes-katex-scripts ()
+  "Every page must load KaTeX so inline and display math render like main."
+  (let* ((record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (html (systemhalted-render-page record records)))
+    (should (string-match-p
+             (regexp-quote
+              "<script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js\"")
+             html))
+    (should (string-match-p
+             (regexp-quote
+              "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js")
+             html))
+    (should (string-match-p "renderMathInElement" html))
+    (should (string-match-p (regexp-quote "{ left: '\\\\(', right: '\\\\)', display: false }") html))
+    (should (string-match-p (regexp-quote "{ left: '\\\\[', right: '\\\\]', display: true }") html))))
+
+(ert-deftest systemhalted-render-page-omits-mermaid-scripts-by-default ()
+  "A page without #+MERMAID: true must not pay for loading mermaid.js."
+  (let* ((record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (html (systemhalted-render-page record records)))
+    (should-not (string-match-p "mermaid@10.9.3" html))))
+
+(ert-deftest systemhalted-render-page-includes-mermaid-scripts-when-enabled ()
+  "#+MERMAID: true must load mermaid.js and export a convertible block."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Mermaid Post\n#+DESCRIPTION: Mermaid rendering fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n"
+              "#+MERMAID: true\n\n"
+              "#+begin_src mermaid\n"
+              "flowchart LR\n"
+              "  a --> b\n"
+              "#+end_src\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-render-page record (list record))))
+      (should (string-match-p
+               (regexp-quote
+                "<script defer src=\"https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js\"")
+               html))
+      (should (string-match-p "mermaid.initialize" html))
+      (should (string-match-p "class=\"language-mermaid" html))
+      (should (string-match-p "flowchart LR" html)))))
 
 (ert-deftest systemhalted-write-record-uses-route-output-path ()
   "Writing to a slug-only path would break dated and legacy permalinks."

@@ -1,9 +1,10 @@
 #+TITLE: The Hidden Cost of Ineffective Product Evaluation in Software Engineering
 #+DESCRIPTION: Introduction In the fast-paced world of software engineering, the pressure to deliver new products and features quickly can be intense. However, failing to properly evaluate the value of a product or its features before development...
 #+DATE: 2024-07-01
-#+CATEGORIES: Software Engineering
-#+TAGS: leadership, management, software, technology, agile, product-management, design, sustainability
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership, management, software, technology, agile, product-management, design, sustainability
 #+PERMALINK: /newsletter/2024-07-01-hidden-cost-of-ineffective-product-evaluation/
+#+KARTAVYA_PATH: true
 
 * Introduction
 :PROPERTIES:

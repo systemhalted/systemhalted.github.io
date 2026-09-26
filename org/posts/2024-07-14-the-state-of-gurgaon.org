@@ -1,9 +1,10 @@
 #+TITLE: The State of Gurgaon: A City of Promises and Pitfalls
 #+DESCRIPTION: Gurgaon, also known as Gurugram, stands as a paradox in the Indian urban landscape. It’s a city that embodies modernity, boasting some of the most impressive skyscrapers, luxury apartments, and expansive malls in the country. Yet,...
 #+DATE: 2024-07-14
-#+CATEGORIES: Politics & Governance
-#+TAGS: leadership, management, india, gurgaon, urban planning
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership, management, india, gurgaon, urban planning
 #+PERMALINK: /newsletter/2024-07-14-the-state-of-gurgaon/
+#+KARTAVYA_PATH: true
 
 Gurgaon, also known as Gurugram, stands as a paradox in the Indian urban landscape. It's a city that embodies modernity, boasting some of the most impressive skyscrapers, luxury apartments, and expansive malls in the country. Yet, beneath this veneer of opulence lies a web of infrastructural deficiencies, particularly concerning the state of its roads, which starkly contrasts the city's aspirations of becoming a world-class urban center.
 

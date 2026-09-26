@@ -1,9 +1,10 @@
 #+TITLE: Leading with Humility: Management Lessons from Mahabharata's Udyoga Parva
 #+DESCRIPTION: Today, I am going to discuss one of the Shlokas from Mahabharata’s Udyoga Parva (Book 5 of 18). Udyoga Parva happens right after the end of Pandava’s exile and the book deals with theory of leadership (Vidura Niti), theory of diplomacy...
 #+DATE: 2024-07-19
-#+CATEGORIES: Personal Essays
-#+TAGS: leadership, management, india
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership, management, india
 #+PERMALINK: /newsletter/2024-07-19-leading-with-humility/
+#+KARTAVYA_PATH: true
 
 Today, I am going to discuss one of the Shlokas from Mahabharata's Udyoga Parva (Book 5 of 18). Udyoga Parva happens right after the end of Pandava's exile and the book deals with theory of leadership (Vidura Niti), theory of diplomacy and theory of just war. Here is the Shloka (34.42):
 

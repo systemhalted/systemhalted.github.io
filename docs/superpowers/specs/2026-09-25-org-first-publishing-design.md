@@ -33,10 +33,11 @@ include drafts and future-dated posts. Date-only values use UTC, matching
 Jekyll on GitHub's UTC runners; dates with explicit times and offsets convert
 to the equivalent UTC instant.
 
-The former Kartavya Path essays are ordinary posts. Their existing
-`/newsletter/.../` permalinks remain, while newsletter flags, promotion,
-templates, taxonomy, and active landing page disappear. `/kartavya-path/`
-redirects to `/archives/`.
+The former Kartavya Path essays are ordinary posts at their existing
+`/newsletter/.../` permalinks, carrying a `#+KARTAVYA_PATH: true` keyword,
+their `Newsletter` category, and their `newsletter` tag. `/kartavya-path/` is
+a real landing page (hero, newsletter CTA, and a "Past issues" feed of those
+posts), matching `main:kartavya-path.html`.
 
 ## Generated Site
 

@@ -1,9 +1,10 @@
 #+TITLE: Equality is an idea. Conditioning is an inheritance.
 #+DESCRIPTION: I recently read a reflection on modern feminism that stayed with me. In our minds we believe in equality. In our conditioning we still expect the old symbols of care. “I want to split the bill, but if he asks to split, why does it...
 #+DATE: 2025-12-05
-#+CATEGORIES: Society & Economy
-#+TAGS: leadership, management, society, personal
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership, management, society, personal
 #+PERMALINK: /newsletter/2025-12-05-equality-idea-conditioning-inheritance/
+#+KARTAVYA_PATH: true
 
 I recently read a reflection on modern feminism that stayed with me.
 

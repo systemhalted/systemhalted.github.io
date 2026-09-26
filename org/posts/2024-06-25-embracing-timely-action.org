@@ -1,9 +1,10 @@
 #+TITLE: Lessons from Ancient Indian Text - Embracing Timely Action in Leadership and Management
 #+DESCRIPTION: In the fast-paced world of business and leadership, timely action is crucial. Reflecting on a timeless lesson from the ancient Indian text, the #Panchatantra, we find profound wisdom: कार्यं का्र्तव्यं या एव विग्नान्नाऽन्यथायव तिष्ठति।...
 #+DATE: 2024-06-25
-#+CATEGORIES: Personal Essays
-#+TAGS: leadership, management, india
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership, management, india
 #+PERMALINK: /newsletter/2024-06-25-embracing-timely-action/
+#+KARTAVYA_PATH: true
 
 In the fast-paced world of business and leadership, timely action is crucial. Reflecting on a timeless lesson from the ancient Indian text, the #Panchatantra, we find profound wisdom:
 

@@ -1,9 +1,10 @@
 #+TITLE: 6 Degrees of Freedom: Exploring Personal Autonomy in a Modern World
 #+DESCRIPTION: Today the quest for personal freedom and autonomy is more relevant than ever. While traditional markers of success have often included career achievements and material possessions, many are now redefining what it means to be truly...
 #+DATE: 2024-07-16
-#+CATEGORIES: Personal Essays
-#+TAGS: leadership, management
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership, management
 #+PERMALINK: /newsletter/2024-07-16-six-degrees-of-freedom/
+#+KARTAVYA_PATH: true
 
 Today the quest for personal freedom and autonomy is more relevant than ever. While traditional markers of success have often included career achievements and material possessions, many are now redefining what it means to be truly “free.” Recently, a conversation with a colleague got me thinking about how personal freedom can be achieved - how one can move through life carefree, pursuing passions without hesitation. This led me to consider six degrees of freedom that can contribute to a life of greater flexibility and independence in terms of career choices, geographical mobility, and personal time. At the same time, it's important to recognize how the absence of these freedoms might impose constraints on these areas of life.
 

@@ -1,9 +1,10 @@
 #+TITLE: Consumption Backlog for Mindful Knowledge
 #+DESCRIPTION: In today’s fast-paced digital world, it’s all too easy to fall into the trap of infinite scrolling, driven by social media algorithms designed to keep us hooked. While these platforms can be valuable, they often lead to unintentional...
 #+DATE: 2024-12-28
-#+CATEGORIES: Personal Essays
-#+TAGS: productivity, personal
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, productivity, personal
 #+PERMALINK: /newsletter/2024-12-28-consumption-backlog-for-mindful-knowledge/
+#+KARTAVYA_PATH: true
 
 In today's fast-paced digital world, it's all too easy to fall into the trap of infinite scrolling, driven by social media algorithms designed to keep us hooked. While these platforms can be valuable, they often lead to unintentional consumption that doesn't align with our personal or professional goals. For past month or more, I have been consuming Indian High Court Videos on YouTube with no goal in sight and honestly, even though I love watching them, but deep within I am not really happy.
 

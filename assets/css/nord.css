@@ -953,7 +953,7 @@ figcaption,
   font-weight: 500;
 }
 
-/* Secondary collections */
+/* Secondary collections and newsletter */
 
 .post-feed {
   margin-top: 2rem;
@@ -998,6 +998,69 @@ figcaption,
   margin: 0.45rem 0 0;
   color: var(--muted);
   font-family: var(--font-serif);
+}
+
+.newsletter-hero {
+  max-width: 44rem;
+  margin-bottom: 3rem;
+}
+
+.newsletter-brand,
+.newsletter-headline {
+  margin: 0 0 0.65rem;
+}
+
+.newsletter-brand {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.newsletter-kicker {
+  margin: 0 0 0.4rem;
+  color: var(--accent-warm-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.newsletter-headline {
+  font-size: 2rem;
+}
+
+.newsletter-lede {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+}
+
+.newsletter-cta {
+  max-width: 44rem;
+  margin-block: 3rem;
+  padding-block: 1.5rem;
+  border-block: 1px solid var(--border);
+}
+
+.newsletter-cta-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
+}
+
+.newsletter-cta-lede,
+.newsletter-cta-alt {
+  color: var(--muted);
+}
+
+.newsletter-cta-lede {
+  margin: 0 0 0.65rem;
+}
+
+.newsletter-cta-alt {
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
 }
 
 .note-kicker {

@@ -1,0 +1,30 @@
+#+TITLE: SystemHalted
+#+DESCRIPTION: SystemHalted is the personal blog of Palak Mathur, covering software engineering, leadership, management, and Emacs, plus the Kartavya Path newsletter.
+#+PERMALINK: /
+
+#+begin_comment
+This page supplies the home page's hand-written parts: the intro header and
+the Kartavya Path blurb. `systemhalted--generate-home' exports this body and
+splices the computed "Recent writing" list in at the
+<!--RECENT_POSTS--> marker below, keeping the 10 most recent posts and the
+"All writing →" link generator-owned while the surrounding text stays
+Org-authored. The `/pageN/' archive pages do not use this file.
+#+end_comment
+
+#+begin_export html
+<header class="home-intro">
+<h1><a href="https://palakmathur.in" rel="me">Palak Mathur</a></h1>
+<p>Software engineering, computing systems, leadership, and things I am trying to understand.</p>
+</header>
+#+end_export
+
+#+begin_export html
+<!--RECENT_POSTS-->
+#+end_export
+
+#+begin_export html
+<section class="home-section home-kartavya" aria-labelledby="kartavya-path">
+<h2 id="kartavya-path">Kartavya Path</h2>
+<p><a href="https://www.linkedin.com/newsletters/kartavya-path-path-of-duty-7211363300905738240" target="_blank" rel="noopener noreferrer">Short essays on engineering leadership and management. ↗</a></p>
+</section>
+#+end_export

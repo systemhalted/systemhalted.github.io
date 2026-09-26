@@ -654,17 +654,93 @@ category, a creator element, and each post's full HTML in
       (should (search-forward "src=\"/assets/js/webcmd.js\"" nil t)))))
 
 (ert-deftest systemhalted-build-site-copies-static-assets-and-retired-route ()
-  "Dropping source assets or the retired landing redirect would break live URLs."
+  "Dropping source assets or a retired legacy redirect would break live URLs."
   (systemhalted-test-with-built-site
     (should (file-exists-p (expand-file-name "assets/css/nord.css" output)))
     (should (file-exists-p (expand-file-name "jsgames/pig-game/script.js" output)))
     (with-temp-buffer
-      (insert-file-contents (expand-file-name "kartavya-path/index.html" output))
-      (should (search-forward "url=/archives/" nil t)))
-    (with-temp-buffer
       (insert-file-contents
        (expand-file-name "2025/11/25/disjuntive-types/index.html" output))
       (should (search-forward "url=/2025/11/25/disjunctive-types/" nil t)))))
+
+(ert-deftest systemhalted-read-record-parses-kartavya-path-keyword ()
+  "`#+KARTAVYA_PATH: true' must flag a post for the Kartavya Path landing
+page's \"Past issues\" feed."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Newsletter Issue\n#+DESCRIPTION: A Kartavya Path issue fixture.\n"
+              "#+DATE: 2024-08-01\n#+CATEGORIES: Newsletter\n#+TAGS: newsletter\n"
+              "#+KARTAVYA_PATH: true\n")
+    (let ((record (systemhalted-read-record file 'post)))
+      (should (systemhalted-record-kartavya-path record))))
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Ordinary Post\n#+DESCRIPTION: Not a Kartavya Path issue.\n"
+              "#+DATE: 2024-08-01\n#+CATEGORIES: Tests\n#+TAGS: org\n")
+    (let ((record (systemhalted-read-record file 'post)))
+      (should-not (systemhalted-record-kartavya-path record)))))
+
+(ert-deftest systemhalted-generate-kartavya-path-matches-live-shape ()
+  "`/kartavya-path/' must be a real landing page, not the retired redirect to
+`/archives/': its hero, the shared newsletter CTA aside, and a \"Past
+issues\" feed of posts flagged `#+KARTAVYA_PATH: true', matching
+`main:kartavya-path.html'."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "kartavya-path/index.html" output))
+      (let ((html (buffer-string)))
+        (should-not (string-match-p "url=/archives/" html))
+        (dolist (fragment
+                 '("<section class=\"newsletter-hero\">"
+                   "<p class=\"newsletter-brand\">Kartavya Path</p>"
+                   "<p class=\"newsletter-kicker\" lang=\"hi\">"
+                   "<h1 class=\"newsletter-headline\">"
+                   "<aside class=\"newsletter-cta newsletter-cta--landing\" id=\"newsletter-cta\">"
+                   "<h2 class=\"newsletter-cta-title\">Kartavya Path</h2>"
+                   "<h2 class=\"recent-title\">Past issues</h2>"
+                   "<ul class=\"post-feed\">"
+                   "<span class=\"post-feed-cat\">Kartavya Path</span>"
+                   "<a href=\"/newsletter/2024-08-01-kartavya-fixture-issue/\">Kartavya Fixture Issue</a>"))
+          (should (string-match-p (regexp-quote fragment) html)))))))
+
+(ert-deftest systemhalted-home-page-splices-recent-posts-between-org-authored-sections ()
+  "In production, `org/pages/index.org' supplies the hand-written intro and
+Kartavya Path blurb, and the generator splices the computed recent-posts
+section between them at the marker, matching `main:index.html' page 1."
+  (let ((output (make-temp-file "systemhalted-home-splice-" t)))
+    (unwind-protect
+        (progn
+          (systemhalted-build-site :root systemhalted-test-root :output output)
+          (with-temp-buffer
+            (insert-file-contents (expand-file-name "index.html" output))
+            (let* ((html (buffer-string))
+                   (main (systemhalted-test-main-html html))
+                   (intro-pos (string-match "<header class=\"home-intro\"" main))
+                   (recent-pos (string-match "aria-labelledby=\"recent-writing\"" main))
+                   (kartavya-pos (string-match "class=\"home-section home-kartavya\"" main)))
+              (should intro-pos)
+              (should recent-pos)
+              (should kartavya-pos)
+              (should (< intro-pos recent-pos))
+              (should (< recent-pos kartavya-pos))
+              (should-not (string-match-p "<!--RECENT_POSTS-->" main)))))
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-restores-newsletter-category-and-tag-on-kartavya-posts ()
+  "The nine former Kartavya Path essays must carry the `Newsletter' category,
+the `newsletter' tag, and `#+KARTAVYA_PATH: true', matching main."
+  (dolist (relative '("org/posts/2024-06-25-embracing-timely-action.org"
+                      "org/posts/2024-06-28-balancing-diplomacy-firmness.org"
+                      "org/posts/2024-07-01-hidden-cost-of-ineffective-product-evaluation.org"
+                      "org/posts/2024-07-14-the-state-of-gurgaon.org"
+                      "org/posts/2024-07-16-six-degrees-of-freedom.org"
+                      "org/posts/2024-07-19-leading-with-humility.org"
+                      "org/posts/2024-09-03-eliminating-inequality.org"
+                      "org/posts/2024-12-28-consumption-backlog-for-mindful-knowledge.org"
+                      "org/posts/2025-12-05-equality-idea-conditioning-inheritance.org"))
+    (let ((record (systemhalted-read-record
+                   (expand-file-name relative systemhalted-test-root) 'post)))
+      (should (equal (systemhalted-record-categories record) '("Newsletter")))
+      (should (member "newsletter" (systemhalted-record-tags record)))
+      (should (systemhalted-record-kartavya-path record)))))
 
 (ert-deftest systemhalted-validate-site-rejects-broken-local-target ()
   "A missing internal target must block publication."

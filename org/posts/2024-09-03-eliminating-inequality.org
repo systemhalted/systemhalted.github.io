@@ -1,9 +1,10 @@
 #+TITLE: Eliminating Inequality
 #+DESCRIPTION: Last year, I read The Dawn of Everything by David Graeber & David Wengrow. This 704-page monster challenged the deeply entrenched narrative of human history as a linear progression from primitive, egalitarian societies to complex,...
 #+DATE: 2024-09-03
-#+CATEGORIES: Society & Economy
-#+TAGS: society, economy, politics, book-review
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, society, economy, politics, book-review
 #+PERMALINK: /newsletter/2024-09-03-eliminating-inequality/
+#+KARTAVYA_PATH: true
 
 Last year, I read /The Dawn of Everything/ by David Graeber & David Wengrow. This 704-page monster challenged the deeply entrenched narrative of human history as a linear progression from primitive, egalitarian societies to complex, hierarchical civilizations. The authors, drawing on a wealth of anthropological and archaeological evidence, contest the idea that the advent of agriculture and the rise of cities marked an irreversible slide into social inequality. Their arguments, which stand in stark contrast to the views of many contemporary historians - including my favorite, Yuval Noah Harari - have forced me to reconsider my understanding of inequality and its origins. It has challenged my understanding of civilization trap. I have always tended to simplify history and which I think was fine to be able to detect patterns that would otherwise be invisible. I realize and as both the Davids argue the problem comes when long after the discovery, people continue to simplify.
 

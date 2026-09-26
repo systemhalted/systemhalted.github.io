@@ -27,6 +27,18 @@ Used as JSON-LD `sameAs' on the Person node.")
 (defconst systemhalted-legacy-redirects
   '(("/2025/11/25/disjuntive-types/" . "/2025/11/25/disjunctive-types/")))
 (defvar systemhalted-page-size 10)
+(defconst systemhalted-newsletter-cta-title "Kartavya Path"
+  "Kartavya Path newsletter title, matching main's `_config.yml'
+`newsletter_cta.title'. Used by the `/kartavya-path/' landing page and the
+newsletter CTA aside shown there.")
+(defconst systemhalted-newsletter-cta-lede
+  "A note on leadership, management, and the long road. Free, occasional, no spam."
+  "Kartavya Path newsletter lede, matching main's `_config.yml'
+`newsletter_cta.lede'.")
+(defconst systemhalted-newsletter-cta-linkedin-url
+  "https://www.linkedin.com/newsletters/kartavya-path-path-of-duty-7211363300905738240"
+  "Kartavya Path LinkedIn newsletter URL, matching main's `_config.yml'
+`newsletter_cta.linkedin_url'.")
 
 (provide 'site-config)
 ;;; site-config.el ends here

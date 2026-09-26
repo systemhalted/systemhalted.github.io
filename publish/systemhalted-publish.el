@@ -28,13 +28,13 @@
 (cl-defstruct systemhalted-record
   source kind title description date categories tags permalink route comments toc
   mermaid last-modified featured-image featured-image-alt featured-image-caption draft
-  future-p hide-title quiet-title)
+  future-p hide-title quiet-title kartavya-path)
 
 (defconst systemhalted--metadata-keys
   '("TITLE" "DESCRIPTION" "DATE" "CATEGORIES" "TAGS" "PERMALINK"
     "COMMENTS" "TOC" "MERMAID" "LAST_MODIFIED" "FEATURED_IMAGE"
     "FEATURED_IMAGE_ALT" "FEATURED_IMAGE_CAPTION" "DRAFT"
-    "HIDE_TITLE" "QUIET_TITLE"))
+    "HIDE_TITLE" "QUIET_TITLE" "KARTAVYA_PATH"))
 
 (defvar systemhalted--asset-version "0"
   "Deterministic cache-busting token substituted for `?v=' on CSS/JS links.
@@ -220,7 +220,9 @@ NOW controls future-post classification and defaults to the current time."
      :hide-title (systemhalted--boolean-value
                   (systemhalted--keyword keywords "HIDE_TITLE"))
      :quiet-title (systemhalted--boolean-value
-                   (systemhalted--keyword keywords "QUIET_TITLE")))))
+                   (systemhalted--keyword keywords "QUIET_TITLE"))
+     :kartavya-path (systemhalted--boolean-value
+                     (systemhalted--keyword keywords "KARTAVYA_PATH")))))
 
 (cl-defun systemhalted-load-records (directory &key include-drafts include-future now kind)
   "Load validated Org records below DIRECTORY.
@@ -882,8 +884,41 @@ QUIET-TITLE and HIDE-TITLE are forwarded to `systemhalted--synthetic-page'."
       (setq items (nthcdr (min size (length items)) items)))
     (nreverse chunks)))
 
-(defun systemhalted--generate-home (root posts)
-  "Generate home pagination below ROOT for POSTS."
+(defconst systemhalted--home-recent-posts-marker "<!--RECENT_POSTS-->"
+  "Marker inside `org/pages/index.org's exported body where
+`systemhalted--home-page-body' splices in the computed \"Recent writing\"
+section. This lets the author edit the hand-written intro and Kartavya Path
+blurb in Org while the generator keeps ownership of the computed post list.")
+
+(defun systemhalted--home-page-body (records recent-section)
+  "Return the home page's page-1 body, with RECENT-SECTION as its computed
+\"Recent writing\" section.
+When RECORDS include an Org page claiming route \"/\" (`org/pages/index.org'
+in production), that page's exported body supplies the hand-written intro and
+Kartavya Path sections, and RECENT-SECTION is spliced in at its
+`systemhalted--home-recent-posts-marker'. Otherwise (e.g. a test build with no
+`org/pages' directory) a built-in intro is used and no Kartavya section is
+added."
+  (let ((home-record (systemhalted--record-route-present-p "/" records)))
+    (if home-record
+        (let* ((shell (systemhalted-export-body home-record records))
+               (pos (string-search systemhalted--home-recent-posts-marker shell)))
+          (unless pos
+            (systemhalted--source-error
+             (systemhalted-record-source home-record)
+             "missing %s marker for the computed recent-posts list"
+             systemhalted--home-recent-posts-marker))
+          (concat (substring shell 0 pos) recent-section
+                  (substring shell (+ pos (length systemhalted--home-recent-posts-marker)))))
+      (concat
+       "<header class=\"home-intro\"><h1><a href=\"https://palakmathur.in\" rel=\"me\">Palak Mathur</a></h1>"
+       "<p>Software engineering, computing systems, leadership, and things I am trying to understand.</p></header>"
+       recent-section))))
+
+(defun systemhalted--generate-home (root posts records)
+  "Generate home pagination below ROOT for POSTS.
+RECORDS locates the Org page claiming route \"/\" for page 1's hand-written
+sections; see `systemhalted--home-page-body'."
   (let* ((chunks (or (systemhalted--chunks posts systemhalted-page-size)
                      (list nil)))
          (total (length chunks))
@@ -895,12 +930,12 @@ QUIET-TITLE and HIDE-TITLE are forwarded to `systemhalted--synthetic-page'."
                            (format "Page %d of %d for %s" page total home-title)))
              (body
               (if (= page 1)
-                  (concat
-                   "<header class=\"home-intro\"><h1><a href=\"https://palakmathur.in\" rel=\"me\">Palak Mathur</a></h1>"
-                   "<p>Software engineering, computing systems, leadership, and things I am trying to understand.</p></header>"
-                   "<section class=\"home-section\" aria-labelledby=\"recent-writing\"><h2 id=\"recent-writing\">Recent writing</h2>"
-                   (systemhalted--post-list chunk t)
-                   "<p class=\"section-link\"><a href=\"/archives/\">All writing →</a></p></section>")
+                  (systemhalted--home-page-body
+                   records
+                   (concat
+                    "<section class=\"home-section\" aria-labelledby=\"recent-writing\"><h2 id=\"recent-writing\">Recent writing</h2>"
+                    (systemhalted--post-list chunk t)
+                    "<p class=\"section-link\"><a href=\"/archives/\">All writing →</a></p></section>"))
                 (concat
                  (format "<header class=\"page-header\"><h1>Older writing</h1><p>Page %d of %d.</p></header>"
                          page total)
@@ -1350,6 +1385,69 @@ SOURCE-ROOT supplies the maintained command runtime and OS-history data."
                          game (systemhalted--escape-html game)))
                games "") "</ul>")))))
 
+(defun systemhalted--newsletter-cta-html (context)
+  "Render the newsletter CTA aside for CONTEXT (e.g. \"landing\"), matching
+main's `_includes/newsletter-cta.html' with its `_config.yml' `newsletter_cta'
+text, now kept in `site-config.el'."
+  (concat
+   (format "<aside class=\"newsletter-cta newsletter-cta--%s\" id=\"newsletter-cta\">" context)
+   (format "<h2 class=\"newsletter-cta-title\">%s</h2>"
+           (systemhalted--escape-html systemhalted-newsletter-cta-title))
+   (format "<p class=\"newsletter-cta-lede\">%s</p>"
+           (systemhalted--escape-html systemhalted-newsletter-cta-lede))
+   (format (concat "<a class=\"newsletter-cta-fallback\" href=\"%s\" rel=\"noopener\" target=\"_blank\">"
+                   "Subscribe on LinkedIn →</a>")
+           (systemhalted--escape-html systemhalted-newsletter-cta-linkedin-url t))
+   "<p class=\"newsletter-cta-alt\">Prefer a reader? "
+   "<a href=\"/feed.xml\">Follow all writing by RSS</a>.</p>"
+   "</aside>"))
+
+(defun systemhalted--newsletter-list-item (post)
+  "Render POST as a `post-feed-item' entry for the Kartavya Path \"Past
+issues\" list, matching main's `_includes/newsletter-list-item.html'."
+  (format (concat "<li class=\"post-feed-item\">"
+                  "<div class=\"post-feed-meta\">"
+                  "<time class=\"post-feed-date\" datetime=\"%s\">%s</time>"
+                  "<span class=\"post-feed-sep\" aria-hidden=\"true\">·</span>"
+                  "<span class=\"post-feed-cat\">%s</span></div>"
+                  "<h2 class=\"post-feed-title\"><a href=\"%s\">%s</a></h2>"
+                  "<p class=\"post-feed-excerpt\">%s</p></li>")
+          (systemhalted--iso-datetime (systemhalted-record-date post))
+          (format-time-string "%b %-d, %Y" (systemhalted-record-date post) t)
+          (systemhalted--escape-html systemhalted-newsletter-cta-title)
+          (systemhalted-record-route post)
+          (systemhalted--escape-html (systemhalted-record-title post))
+          (systemhalted--escape-html (systemhalted-record-description post))))
+
+(defun systemhalted--generate-kartavya-path (root posts)
+  "Generate the `/kartavya-path/' landing page below ROOT, matching
+`main:kartavya-path.html': its hero section, the shared newsletter CTA aside,
+and a \"Past issues\" feed of POSTS flagged `#+KARTAVYA_PATH: true'."
+  (let ((issues (seq-filter #'systemhalted-record-kartavya-path posts)))
+    (systemhalted--write-route
+     root "/kartavya-path/"
+     (systemhalted--render-generated-page
+      "Kartavya Path" systemhalted-site-description "/kartavya-path/"
+      (concat
+       "<section class=\"newsletter-hero\">"
+       (format "<p class=\"newsletter-brand\">%s</p>"
+               (systemhalted--escape-html systemhalted-newsletter-cta-title))
+       "<p class=\"newsletter-kicker\" lang=\"hi\">कर्तव्य पथ</p>"
+       "<h1 class=\"newsletter-headline\">A note on leadership, management, and the long road</h1>"
+       "<p class=\"newsletter-lede\">"
+       "Kartavya Path means \"the path of duty\" — short essays on leading teams, doing the "
+       "harder right thing over the easier wrong one, and the long arc of building anything "
+       "that lasts. These essays now publish on the blog, and selected ones are "
+       "cross-posted to the LinkedIn newsletter — subscribe there, or follow the blog by "
+       "RSS. The issues below remain part of the main writing archive."
+       "</p></section>"
+       (systemhalted--newsletter-cta-html "landing")
+       "<h2 class=\"recent-title\">Past issues</h2>"
+       "<ul class=\"post-feed\">"
+       (mapconcat #'systemhalted--newsletter-list-item issues "")
+       "</ul>")
+      nil nil nil t))))
+
 (defun systemhalted--redirect-page (target)
   "Return a static redirect page to TARGET."
   (format (concat "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
@@ -1428,7 +1526,7 @@ so two clean builds of the same sources stay byte-identical."
             systemhalted--footer-year)))
     (dolist (record records)
       (systemhalted-write-record record records output-root))
-    (systemhalted--generate-home output-root posts)
+    (systemhalted--generate-home output-root posts records)
     (systemhalted--generate-archive output-root posts)
     (systemhalted--generate-taxonomy
      output-root posts "/categories/" "Categories"
@@ -1447,8 +1545,7 @@ so two clean builds of the same sources stay byte-identical."
     (dolist (redirect systemhalted-legacy-redirects)
       (systemhalted--write-route output-root (car redirect)
                                  (systemhalted--redirect-page (cdr redirect))))
-    (systemhalted--write-route output-root "/kartavya-path/"
-                               (systemhalted--redirect-page "/archives/"))
+    (systemhalted--generate-kartavya-path output-root posts)
     (systemhalted--generate-sitemap
      output-root (systemhalted--sitemap-entries posts records output-root))
     (systemhalted--generate-robots output-root)))

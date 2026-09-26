@@ -1,9 +1,10 @@
 #+TITLE: Balancing Diplomacy and Firmness - Insights from Ancient Wisdom
 #+DESCRIPTION: In the rapidly evolving tech industry, effective leadership and management hinge on the principles of diplomacy and strategic thinking. Tech leaders are constantly navigating through conflicts, tough situations, and sometimes dealing...
 #+DATE: 2024-06-28
-#+CATEGORIES: Personal Essays
-#+TAGS: leadership, management, technology, india
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership, management, technology, india
 #+PERMALINK: /newsletter/2024-06-28-balancing-diplomacy-firmness/
+#+KARTAVYA_PATH: true
 
 In the rapidly evolving tech industry, effective leadership and management hinge on the principles of diplomacy and strategic thinking. Tech leaders are constantly navigating through conflicts, tough situations, and sometimes dealing with downright difficult people. While contemporary management theories offer a plethora of strategies, there's a wealth of timeless wisdom to be gleaned from ancient texts. One such powerful lesson comes from the Panchatantra, an ancient Indian collection of interrelated animal fables in Sanskrit śloka (verse) and prose.
 

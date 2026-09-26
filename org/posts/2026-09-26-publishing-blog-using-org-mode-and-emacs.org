@@ -12,10 +12,16 @@ However, with availability of Claude and other AI Agents, it has become easier t
 Yesterday, I wanted to see if Claude can communicate back and forth with other Agent CLIs - Codex and OpenCode. I was looking for building something and somehow idea of moving blog to Org Mode struck me again. This time, I gave the task to Claude and asked it to use between Claude models, Codex and OpenCode's Big Pickle to complete the task. To my surprise, Claude, Codex and OpenCode communicated well and finished the work in around 19 hours. Big Pickle is slow but thorough. 
 
 ** Old Site
+:PROPERTIES:
+:CUSTOM_ID: old-site
+:END:
 
 The old site (it seems silly as I just simplified [fn:simplify] almost two week ago) was based on a Custom Nord inspired theme and focused on Writing, Projects and Archives. It had a layer of WebCmd, a JavaScript-based command line interface and also a site-wide Search and Keyboard shortcut overlay[fn:search]. It also supported Giscus comments, an RSS feed and a sitemap. 
 
 ** How the new Site works
+:PROPERTIES:
+:CUSTOM_ID: how-the-site-works
+:END:
 
 I began rewriting the site around two weeks ago. The whole site redesign architecture was to make Writing the hero of the site and I called it Writing First Architecture. The natural next step was to include Org Mode in the mix as that is where I write first. 
 
@@ -26,12 +32,12 @@ Every authored item has a =#+TITLE=, and =#+DESCRIPTION=. Posts also have a date
 Something like this
 
 #+begin_src 
-#+TITLE: Publishing Blog using Org Mode and Emacs
-#+DESCRIPTION: I recently moved from Jekyll to publishing through OrgMode. This post goes in details of why and how I did so.
-#+DATE: 2026-09-26
-#+CATEGORIES: Personal Essays, Technology
-#+TAGS: redesign, blogging, jekyll, ux, meta, OrgMode, Emacs
-#+DRAFT: true
+,#+TITLE: Publishing Blog using Org Mode and Emacs
+,#+DESCRIPTION: I recently moved from Jekyll to publishing through OrgMode. This post goes in details of why and how I did so.
+,#+DATE: 2026-09-26
+,#+CATEGORIES: Personal Essays, Technology
+,#+TAGS: redesign, blogging, jekyll, ux, meta, OrgMode, Emacs
+,#+DRAFT: true
 #+end_src
 
 
@@ -39,6 +45,9 @@ The Emacs Lisp files live under =publish/= and perform a two-pass build: it firs
 
 
 ** Emacs Workflow
+:PROPERTIES:
+:CUSTOM_ID: emacs-workflow
+:END:
 
 The Emacs Lisp files under =publish/= provide workflow functions. systemhalted-new-post creates a dated Org draft. systemhalted-preview saves and validates the current source, builds with drafts, serves _site through a small built-in-Elisp HTTP server, and opens the final URL. systemhalted-build makes a production build. systemhalted-publish runs the production checks and opens Magit, falling back to vc-dir; it never stages, commits, or pushes.
 
@@ -49,12 +58,18 @@ The build produces posts, pages, home pagination, chronological archives, catego
 I load the publish workflow as part of Emacs config. Writing a new post is now starts with =C-c b n= to create a new draft, =C-c b p= previews it, and =C-c b P= builds and open Magit. 
 
 ** Agent Performance
+:PROPERTIES:
+:CUSTOM_ID: agent-performance
+:END:
 
 It took about 26 hours from start to finish on the clock, from Friday 11:21 am to Saturday, 13:50 pm. It was around 19 hours of compute time. There was no work done overnight.
 
 Surprisingly for me Big Pickle performed really well even though it was slowest. I will do a follow up post on it a little later. 
 
 ** Hope
+:PROPERTIES:
+:CUSTOM_ID: hope
+:END:
 
 My hope is that it simplifies my publishing workflow. If not, I have a tagged the old Jekyll site. I will switch to it if I think this new flow is overwhelming. 
 
@@ -66,5 +81,5 @@ I don't prefer Agents writing and controlling my writing workflows and in this c
 :END:
 
 [fn:sdkman] sdkman.el, [[https://github.com/systemhalted/sdkman.el][Github Link]]
-[fn:simplify] Simplifying SystemHalted.in, [[2026/09/11/simplifying-systemhalted/][earlier post]]
-[fn:search] Search and Keyboard Shortcuts on This Blog, [[2026/09/12/search-and-keyboard-shortcuts/][earlier post]]
+[fn:simplify] Simplifying SystemHalted.in, [[/2026/09/11/simplifying-systemhalted/][earlier post]]
+[fn:search] Search and Keyboard Shortcuts on This Blog, [[/2026/09/12/search-and-keyboard-shortcuts/][earlier post]]

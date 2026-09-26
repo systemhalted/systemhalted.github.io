@@ -68,7 +68,18 @@ The date and route normally come from the `YYYY-MM-DD-slug.org` filename.
 `#+PERMALINK` retains an exceptional or historical URL. Optional featured-image
 keywords are `#+FEATURED_IMAGE`, `#+FEATURED_IMAGE_ALT`, and
 `#+FEATURED_IMAGE_CAPTION`. A featured image must exist under `assets/` and
-needs useful alt text unless it is decorative.
+needs useful alt text unless it is decorative. Dates are the UTC date of the
+timestamp, matching Jekyll's UTC build runners.
+
+A category or tag name containing a literal comma needs double quotes, e.g.
+`#+CATEGORIES: "Series 2 - Turtle, BASIC, and the Long Road to Taste"`.
+
+Other optional keywords: `#+MERMAID: true` loads Mermaid for a
+`#+begin_src mermaid` block; `#+KARTAVYA_PATH: true` also lists a post on the
+`/kartavya-path/` landing page's "Past issues" feed; `#+HIDE_TITLE: true` and
+`#+QUIET_TITLE: true` (pages only) omit or de-emphasize the generated page
+title. See [Content metadata](docs/content-metadata.md) for the full list and
+accepted values.
 
 Internal links may point directly at another Org source. The exporter resolves
 the target record and writes its final public URL. Site-relative links such as
@@ -88,10 +99,15 @@ the target record and writes its final public URL. Site-relative links such as
 - `test/`: ERT coverage and the checked compatibility route manifest.
 - `scripts/`: browser, accessibility, and rendering checks.
 
-Derived pages include the home pagination, archive, categories, tags, Emacs
-index, RSS feed, sitemap, and search data. The old `/kartavya-path/` landing URL
-redirects to `/archives/`; its former essays remain ordinary posts at their
-existing URLs.
+Derived pages include the home page (built from `org/pages/index.org` plus a
+generated recent-posts list), its `/pageN/` pagination, `/archives/`,
+`/categories/`, `/tags/`, the `/emacs/` index, RSS feed, sitemap, and search
+data. `/jsgames/`, `/themes/`, `/webcmd/`, and `/kartavya-path/` are also
+generated, not authored as `org/pages/*.org` files; see
+[Content metadata](docs/content-metadata.md#generated-non-org-pages) for
+where each one's content comes from. Kartavya Path essays are ordinary posts
+in `org/posts/` at their normal date-based URLs, flagged with
+`#+KARTAVYA_PATH: true` to appear on the `/kartavya-path/` landing page.
 
 ## Validation
 

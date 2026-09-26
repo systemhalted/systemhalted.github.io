@@ -38,5 +38,6 @@ Drafts and future posts appear only in preview output. Production search data is
 built from the production record set, so hidden content does not leak into the
 bundle.
 
-When changing the schema, keep the published compatibility globals stable. Run
+When changing the schema, keep the published compatibility globals stable
+because `palakmathur.in` also loads this URL. Run
 the ERT suite and the browser smoke test after any search or webcmd change.

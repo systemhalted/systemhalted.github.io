@@ -22,7 +22,7 @@ Jekyll version for rollback and comparison.
   `robots.txt`, `links.jsonp`, and `/assets/js/webcmd.js` directly.
 - `publish/templates/webcmd.html` provides the `/webcmd/` markup.
   `publish/templates/webcmd-runtime.js` implements its commands and retains
-  the public search globals.
+  the public search globals used by `palakmathur.in`.
 
 ## Design decisions
 

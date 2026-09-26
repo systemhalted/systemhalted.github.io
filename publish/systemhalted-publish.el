@@ -698,8 +698,10 @@ matching main's `_includes/structured-data.html'.")
 
 (defun systemhalted--bare-main-route-p (route)
   "Non-nil when ROUTE renders straight into base.html's <main>, with no
-page.html wrapper: the home page and its `/pageN/' siblings."
-  (or (equal route "/") (systemhalted--paginated-route-p route)))
+page.html wrapper: the home page, its `/pageN/' siblings, and `/webcmd/'
+(all `layout: default' on main, not `layout: page')."
+  (or (equal route "/") (equal route "/webcmd/")
+      (systemhalted--paginated-route-p route)))
 
 (defun systemhalted--noindex-route-p (route)
   "Non-nil when ROUTE must carry a noindex robots meta tag, matching live's
@@ -762,14 +764,18 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
            ((memq kind '(post draft)) (systemhalted--render-post record records body))
            ((eq kind 'emacs)
             (format (concat "<article class=\"emacs-note\"><header class=\"emacs-note-header\">"
-                            "<p class=\"note-kicker\">Emacs note</p><h1 class=\"emacs-note-title\">%s</h1>"
-                            "</header><div class=\"post-content\">%s%s</div></article>")
+                            "<p class=\"newsletter-kicker\">Emacs note</p><h1 class=\"newsletter-title\">%s</h1>"
+                            "</header><div class=\"post-content\">%s%s</div>%s</article>")
                     (systemhalted--escape-html (systemhalted-record-title record))
                     (or (and (systemhalted-record-toc record)
-                             (systemhalted--toc body)) "") body))
-           ;; The home page and its `/pageN/' siblings render straight into
-           ;; base.html's <main>, matching live: no page.html wrapper and no
-           ;; stray page-title h1 duplicating their own headers.
+                             (systemhalted--toc body)) "") body
+                    (or (systemhalted--emacs-note-tags-html
+                         (systemhalted-record-tags record)
+                         (systemhalted--tags-page-ids (systemhalted--post-records records)))
+                        "")))
+           ;; The home page, its `/pageN/' siblings, and `/webcmd/' render
+           ;; straight into base.html's <main>, matching live: no page.html
+           ;; wrapper and no stray page-title h1 duplicating their own headers.
            ((systemhalted--bare-main-route-p route) body)
            (t (systemhalted--template
                "page.html"
@@ -803,6 +809,11 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
        (?P . ,(if (equal route "/projects/") current ""))
        (?A . ,(if (equal route "/archives/") current ""))
        (?o . ,(if (equal route "/about/") current ""))
+       (?W . ,(if (equal route "/webcmd/")
+                  (format (concat "<script src=\"/assets/js/elasticlunr.min.js\"></script>"
+                                  "<script src=\"/assets/js/webcmd.js?v=%s\"></script>")
+                          systemhalted--asset-version)
+                ""))
        (?b . ,content)))))
 
 (defun systemhalted--route-output-file (root route)
@@ -1237,11 +1248,33 @@ contributes in the live template."
               result)))
     (nreverse result)))
 
+(defun systemhalted--tags-page-ids (posts)
+  "Return an alist of (TAG-NAME . ANCHOR-ID) for every tag `/tags/' renders
+from POSTS, matching `systemhalted--generate-tags' exactly (posts only --
+`site.tags' on main is never populated from the `emacs' collection either)."
+  (let* ((groups (systemhalted--group-records posts #'systemhalted-record-tags))
+         (names (sort (hash-table-keys groups) #'string-lessp)))
+    (systemhalted--tag-ids names)))
+
+(defun systemhalted--emacs-note-tags-html (tags ids)
+  "Render TAGS as `/tags/' anchor links using IDS (from
+`systemhalted--tags-page-ids'), matching `main:_layouts/emacs.html's
+`div.post-tags'. A tag absent from IDS (no post shares it, so `/tags/' never
+renders an anchor for it either) falls back to a plain slug -- the same dead
+anchor live's own `{{ tag | slugify }}' produces in that case."
+  (when tags
+    (format "<div class=\"post-tags\">%s</div>"
+            (mapconcat
+             (lambda (tag)
+               (format "<a href=\"/tags/#%s\">%s</a>"
+                       (or (cdr (assoc tag ids)) (systemhalted--slugify tag))
+                       (systemhalted--escape-html tag)))
+             tags "&nbsp;"))))
+
 (defun systemhalted--generate-tags (root posts)
   "Generate `/tags/' below ROOT from POSTS, matching `main:tags.html'."
   (let* ((groups (systemhalted--group-records posts #'systemhalted-record-tags))
-         (names (sort (hash-table-keys groups) #'string-lessp))
-         (ids (systemhalted--tag-ids names)))
+         (ids (systemhalted--tags-page-ids posts)))
     (systemhalted--write-route
      root "/tags/"
      (systemhalted--render-generated-page
@@ -1272,17 +1305,13 @@ contributes in the live template."
     (systemhalted--write-route
      root "/emacs/"
      (systemhalted--render-generated-page
-      "Emacs" "Emacs notes, configurations, and packages." "/emacs/"
+      ;; main's `emacs.html' sets no `description:' front matter, so
+      ;; jekyll-seo-tag falls back to the site-wide description.
+      "Emacs" systemhalted-site-description "/emacs/"
       (concat "<p class=\"archive-intro\">A small wiki of Emacs notes, configurations, and packages I keep coming back to.</p>"
               (systemhalted--archive-gateways "Emacs")
               "<ul class=\"post-feed\">"
-              (mapconcat
-               (lambda (note)
-                 (format "<li class=\"post-feed-item\"><h2 class=\"post-feed-title\"><a href=\"%s\">%s</a></h2><p class=\"post-feed-excerpt\">%s</p></li>"
-                         (systemhalted-record-route note)
-                         (systemhalted--escape-html (systemhalted-record-title note))
-                         (systemhalted--escape-html (systemhalted-record-description note))))
-               notes "")
+              (mapconcat #'systemhalted--emacs-list-item notes "")
               "</ul>")
       nil nil t))))
 
@@ -1290,26 +1319,12 @@ contributes in the live template."
   "Generate required landing pages below ROOT when RECORDS do not define them."
   (dolist (definition
            '(("/about/" "About" "About Palak Mathur." "<p>Software engineer and writer.</p>")
-             ("/projects/" "Projects" "Projects by Palak Mathur." "<p class=\"projects-intro\">Software, tools, and experiments I build.</p>")
-             ("/themes/" "Jekyll Themes" "Open-source themes by Palak Mathur." "<p>Open-source themes and design work.</p>")))
+             ("/projects/" "Projects" "Projects by Palak Mathur." "<p class=\"projects-intro\">Software, tools, and experiments I build.</p>")))
     (unless (systemhalted--record-route-present-p (car definition) records)
       (systemhalted--write-route
        root (car definition)
        (systemhalted--render-generated-page
-        (nth 1 definition) (nth 2 definition) (car definition) (nth 3 definition)))))
-  (unless (systemhalted--record-route-present-p "/webcmd/" records)
-    (systemhalted--write-route
-     root "/webcmd/"
-     (systemhalted--render-generated-page
-      "In the beginning was a command line" "A terminal-style interface to the archive."
-      "/webcmd/"
-      (concat "<section class=\"webcmd\" aria-labelledby=\"webcmd-title\"><h1 id=\"webcmd-title\">"
-              "In the beginning was a command line</h1><form id=\"webcmd-form\"><label class=\"sr-only\" "
-              "for=\"line\">Enter a command</label><input id=\"line\" name=\"cmd\" type=\"text\"></form>"
-              "<div id=\"error\" role=\"status\"></div><div id=\"output\" role=\"log\"></div>"
-              "<button id=\"webcmd-help-toggle\" type=\"button\" aria-controls=\"help\">Show commands</button>"
-              "<div id=\"help\"></div></section><script src=\"/assets/js/elasticlunr.min.js\"></script>"
-              "<script src=\"/assets/js/webcmd.js\"></script>")))))
+        (nth 1 definition) (nth 2 definition) (car definition) (nth 3 definition))))))
 
 (defun systemhalted--xml-escape (value)
   "Escape VALUE for XML text and attributes."
@@ -1374,7 +1389,7 @@ JSONP shape and reverse-chronological order."
 
 (defun systemhalted--generated-routes (posts records)
   "Return generated routes for POSTS and RECORDS."
-  (append '("/" "/archives/" "/categories/" "/tags/" "/emacs/"
+  (append '("/" "/archives/" "/categories/" "/tags/" "/emacs/" "/jsgames/"
             "/about/" "/projects/" "/themes/" "/webcmd/" "/kartavya-path/")
           (let ((pages (length (systemhalted--chunks posts systemhalted-page-size))) routes)
             (dotimes (index (max 0 (1- pages)))
@@ -1563,27 +1578,261 @@ SOURCE-ROOT supplies the maintained command runtime and OS-history data."
           (copy-file source target t t t)))))
   (with-temp-file (expand-file-name ".nojekyll" output-root)))
 
-(defun systemhalted--generate-jsgames-index (root)
-  "Replace any Liquid games index below ROOT with static links."
-  (let* ((games-root (expand-file-name "jsgames" root))
-         (games (and (file-directory-p games-root)
-                     (seq-filter
-                      (lambda (name)
-                        (and (not (member name '("." "..")))
-                             (file-directory-p (expand-file-name name games-root))
-                             (file-exists-p (expand-file-name
-                                             (concat name "/index.html") games-root))))
-                      (directory-files games-root)))))
+(defun systemhalted--read-jsgames (source-root)
+  "Parse SOURCE-ROOT's `org/data/jsgames.org' into an ordered list of plists
+(:title :url :description), mirroring `main:_data/jsgames.yml'. A level-1
+headline `* [[URL][TITLE]]' opens each entry; its first non-blank paragraph
+line is the description. Returns nil when the file is missing."
+  (let ((file (expand-file-name "org/data/jsgames.org" source-root))
+        games title url description)
+    (cl-flet ((flush ()
+                (when title
+                  (push (list :title title :url url :description description) games))
+                (setq title nil url nil description nil)))
+      (when (file-exists-p file)
+        (with-temp-buffer
+          (insert-file-contents file)
+          (goto-char (point-min))
+          (while (not (eobp))
+            (let ((line (string-trim-right
+                         (buffer-substring-no-properties
+                          (line-beginning-position) (line-end-position)))))
+              (cond
+               ((string-match "\\`\\* \\[\\[\\([^]]+\\)\\]\\[\\([^]]+\\)\\]\\]\\'" line)
+                (flush)
+                (setq url (match-string 1 line) title (match-string 2 line)))
+               ((and title (not description) (not (string-empty-p (string-trim line))))
+                (setq description (string-trim line)))))
+            (forward-line 1))
+          (flush)))
+      (nreverse games))))
+
+(defun systemhalted--generate-jsgames-page (root source-root)
+  "Generate `/jsgames/' below ROOT from SOURCE-ROOT's `org/data/jsgames.org',
+matching `main:jsgames/index.html'."
+  (let ((games (systemhalted--read-jsgames source-root))
+        (description "Small browser games and interactive experiments built with vanilla JavaScript."))
     (systemhalted--write-route
      root "/jsgames/"
      (systemhalted--render-generated-page
-      "JavaScript Games" "Small browser games and experiments." "/jsgames/"
-      (concat "<ul class=\"post-feed\">"
-              (mapconcat
-               (lambda (game)
-                 (format "<li><a href=\"/jsgames/%s/\">%s</a></li>"
-                         game (systemhalted--escape-html game)))
-               games "") "</ul>")))))
+      "JavaScript Games" description "/jsgames/"
+      (concat (format "<p class=\"archive-intro\">%s</p>" description)
+              "<ul class=\"post-feed jsgame-list\">"
+              (mapconcat #'systemhalted--jsgame-list-item games "")
+              "</ul>")
+      nil nil t))))
+
+(defun systemhalted--read-themes (source-root)
+  "Parse SOURCE-ROOT's `org/data/themes.org' into an ordered list of theme
+plists (:name :version :description :image :tags :gem :demo :repo
+:rubygems), mirroring `main:_data/themes.yml'. Returns nil when the file is
+missing."
+  (let ((file (expand-file-name "org/data/themes.org" source-root))
+        themes name version description image tags gem demo repo rubygems)
+    (cl-flet ((flush ()
+                (when name
+                  (push (list :name name :version version :description description
+                              :image image :tags tags :gem gem :demo demo :repo repo
+                              :rubygems rubygems)
+                        themes))
+                (setq name nil version nil description nil image nil
+                      tags nil gem nil demo nil repo nil rubygems nil)))
+      (when (file-exists-p file)
+        (with-temp-buffer
+          (insert-file-contents file)
+          (goto-char (point-min))
+          (while (not (eobp))
+            (let ((line (string-trim-right
+                         (buffer-substring-no-properties
+                          (line-beginning-position) (line-end-position)))))
+              (cond
+               ((string-match "\\`\\* \\(.+\\) v\\([^ ]+\\)\\'" line)
+                (flush)
+                (setq name (match-string 1 line) version (match-string 2 line)))
+               ((string-match "\\`Image: +\\(.+\\)\\'" line)
+                (setq image (string-trim (match-string 1 line))))
+               ((string-match "\\`Tags: +\\(.+\\)\\'" line)
+                (setq tags (mapcar #'string-trim
+                                   (split-string (match-string 1 line) "," t "[ \t]+"))))
+               ((string-match "\\`Install: +=gem install \\([^= \t]+\\)=\\'" line)
+                (setq gem (match-string 1 line)))
+               ((string-match "\\[\\[\\([^]]+\\)\\]\\[Live demo\\]\\]" line)
+                (setq demo (match-string 1 line))
+                (when (string-match "\\[\\[\\([^]]+\\)\\]\\[GitHub\\]\\]" line)
+                  (setq repo (match-string 1 line)))
+                (when (string-match "\\[\\[\\([^]]+\\)\\]\\[RubyGems\\]\\]" line)
+                  (setq rubygems (match-string 1 line))))
+               ((and name (not description) (not (string-empty-p (string-trim line))))
+                (setq description (string-trim line)))))
+            (forward-line 1))
+          (flush)))
+      (nreverse themes))))
+
+(defun systemhalted--theme-card-html (theme)
+  "Render THEME (a plist from `systemhalted--read-themes') as a
+`theme-card' <li>, matching `main:themes.html'."
+  (let* ((name (systemhalted--escape-html (plist-get theme :name)))
+         (name-attr (systemhalted--escape-html (plist-get theme :name) t))
+         (demo (systemhalted--escape-html (plist-get theme :demo) t))
+         (tags (plist-get theme :tags)))
+    (concat
+     "<li class=\"theme-card\">"
+     (format "<a class=\"theme-shot\" href=\"%s\">" demo)
+     (format "<img src=\"%s\" alt=\"Screenshot of the %s Jekyll theme\" loading=\"lazy\"></a>"
+             (systemhalted--escape-html (plist-get theme :image) t) name-attr)
+     "<div class=\"theme-body\">"
+     (format "<h2 class=\"theme-name\">%s <span class=\"theme-version\">v%s</span></h2>"
+             name (systemhalted--escape-html (plist-get theme :version)))
+     (format "<p class=\"theme-desc\">%s</p>"
+             (systemhalted--escape-html (plist-get theme :description)))
+     (if tags
+         (concat "<ul class=\"theme-tags\">"
+                 (mapconcat (lambda (tag) (format "<li>%s</li>" (systemhalted--escape-html tag)))
+                            tags "")
+                 "</ul>")
+       "")
+     (format "<p class=\"theme-install\"><code>gem install %s</code></p>"
+             (systemhalted--escape-html (plist-get theme :gem)))
+     "<p class=\"theme-links\">"
+     (format "<a href=\"%s\">Live demo</a>" demo)
+     (format "<a href=\"%s\">GitHub</a>" (systemhalted--escape-html (plist-get theme :repo) t))
+     (format "<a href=\"%s\">RubyGems</a>" (systemhalted--escape-html (plist-get theme :rubygems) t))
+     "</p></div></li>")))
+
+(defconst systemhalted--themes-inline-style
+  "<style>
+  .theme-gallery {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .theme-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .theme-shot {
+    display: block;
+    line-height: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .theme-shot img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .theme-body {
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .theme-name {
+    margin: 0 0 .5rem;
+    font-family: var(--font-display);
+  }
+  .theme-version {
+    font-family: var(--font-mono);
+    font-size: .7em;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .theme-desc {
+    margin: 0 0 1rem;
+    color: var(--text);
+  }
+  .theme-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .theme-tags li {
+    font-size: .75rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .15rem .65rem;
+  }
+  .theme-install {
+    margin: 0 0 1rem;
+  }
+  .theme-install code {
+    display: block;
+    background: var(--code-bg);
+    color: var(--code-text);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: .5rem .75rem;
+    font-family: var(--font-mono);
+    font-size: .85rem;
+    overflow-x: auto;
+  }
+  .theme-links {
+    margin: auto 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  .theme-links a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .theme-links a:hover {
+    color: var(--link-hover);
+  }
+</style>"
+  "The `/themes/' page's inline style block, copied verbatim from
+`main:themes.html' (theme-gallery grid and theme-card layout live only on
+this page, so they are not part of `assets/css/nord.css').")
+
+(defun systemhalted--generate-themes-page (root source-root)
+  "Generate `/themes/' below ROOT from SOURCE-ROOT's `org/data/themes.org',
+matching `main:themes.html'."
+  (let ((themes (systemhalted--read-themes source-root)))
+    (systemhalted--write-route
+     root "/themes/"
+     (systemhalted--render-generated-page
+      ;; main's `themes.html' sets no `description:' front matter, so
+      ;; jekyll-seo-tag falls back to the site-wide description.
+      "Jekyll Themes" systemhalted-site-description "/themes/"
+      (concat
+       "<section class=\"newsletter-hero\">"
+       "<p class=\"newsletter-kicker\">Open source</p>"
+       "<h1 class=\"newsletter-headline\">Jekyll Themes</h1>"
+       "<p class=\"newsletter-lede\">Themes I've built and published as Ruby gems"
+       " &mdash; including the one this site runs on. Each has a live demo and"
+       " installs in one command.</p>"
+       "</section>"
+       "<ul class=\"theme-gallery\">"
+       (mapconcat #'systemhalted--theme-card-html themes "")
+       "</ul>"
+       systemhalted--themes-inline-style)
+      nil nil nil t))))
+
+(defun systemhalted--generate-webcmd-page (root)
+  "Generate `/webcmd/' below ROOT, matching `main:webcmd/index.html'. Its
+`layout: default' front matter (not `layout: page') means it bypasses
+page.html entirely, so its route is treated as a bare-main route
+(`systemhalted--bare-main-route-p'); its page-only scripts are added by
+`systemhalted-render-page' via base.html's `%W' slot."
+  (systemhalted--write-route
+   root "/webcmd/"
+   (systemhalted--render-generated-page
+    "In the beginning was a command line"
+    ;; main's `webcmd/index.html' sets no `description:' front matter either.
+    systemhalted-site-description
+    "/webcmd/"
+    (systemhalted--template "webcmd.html" nil))))
 
 (defun systemhalted--newsletter-cta-html (context)
   "Render the newsletter CTA aside for CONTEXT (e.g. \"landing\"), matching
@@ -1602,22 +1851,51 @@ text, now kept in `site-config.el'."
    "<a href=\"/feed.xml\">Follow all writing by RSS</a>.</p>"
    "</aside>"))
 
+(defun systemhalted--post-feed-item-html (meta route title excerpt)
+  "Render a `post-feed-item' <li> shared by every `post-feed' list on the
+site: META is the rendered `post-feed-meta' block (or \"\" for none), ROUTE
+and TITLE (already HTML-safe) link the heading, and EXCERPT (already
+HTML-safe, or nil) is the optional summary paragraph. Matches the common
+shape of main's `_includes/newsletter-list-item.html', `emacs-list-item.html'
+and `jsgame-list-item.html'."
+  (format (concat "<li class=\"post-feed-item\">%s"
+                  "<h2 class=\"post-feed-title\"><a href=\"%s\">%s</a></h2>%s</li>")
+          meta route title
+          (if excerpt (format "<p class=\"post-feed-excerpt\">%s</p>" excerpt) "")))
+
 (defun systemhalted--newsletter-list-item (post)
   "Render POST as a `post-feed-item' entry for the Kartavya Path \"Past
 issues\" list, matching main's `_includes/newsletter-list-item.html'."
-  (format (concat "<li class=\"post-feed-item\">"
-                  "<div class=\"post-feed-meta\">"
-                  "<time class=\"post-feed-date\" datetime=\"%s\">%s</time>"
-                  "<span class=\"post-feed-sep\" aria-hidden=\"true\">·</span>"
-                  "<span class=\"post-feed-cat\">%s</span></div>"
-                  "<h2 class=\"post-feed-title\"><a href=\"%s\">%s</a></h2>"
-                  "<p class=\"post-feed-excerpt\">%s</p></li>")
-          (systemhalted--iso-datetime (systemhalted-record-date post))
-          (format-time-string "%b %-d, %Y" (systemhalted-record-date post) t)
-          (systemhalted--escape-html systemhalted-newsletter-cta-title)
-          (systemhalted-record-route post)
-          (systemhalted--escape-html (systemhalted-record-title post))
-          (systemhalted--escape-html (systemhalted-record-description post))))
+  (systemhalted--post-feed-item-html
+   (format (concat "<div class=\"post-feed-meta\">"
+                   "<time class=\"post-feed-date\" datetime=\"%s\">%s</time>"
+                   "<span class=\"post-feed-sep\" aria-hidden=\"true\">·</span>"
+                   "<span class=\"post-feed-cat\">%s</span></div>")
+           (systemhalted--iso-datetime (systemhalted-record-date post))
+           (format-time-string "%b %-d, %Y" (systemhalted-record-date post) t)
+           (systemhalted--escape-html systemhalted-newsletter-cta-title))
+   (systemhalted-record-route post)
+   (systemhalted--escape-html (systemhalted-record-title post))
+   (systemhalted--escape-html (systemhalted-record-description post))))
+
+(defun systemhalted--emacs-list-item (note)
+  "Render NOTE as a `post-feed-item' entry for `/emacs/', matching main's
+`_includes/emacs-list-item.html'."
+  (systemhalted--post-feed-item-html
+   "<div class=\"post-feed-meta\"><span class=\"post-feed-cat\">Emacs note</span></div>"
+   (systemhalted-record-route note)
+   (systemhalted--escape-html (systemhalted-record-title note))
+   (systemhalted--escape-html (systemhalted-record-description note))))
+
+(defun systemhalted--jsgame-list-item (game)
+  "Render GAME (a plist from `systemhalted--read-jsgames') as a
+`post-feed-item' entry for `/jsgames/', matching main's
+`_includes/jsgame-list-item.html'."
+  (systemhalted--post-feed-item-html
+   "<div class=\"post-feed-meta\"><span class=\"post-feed-cat\">JS Game</span></div>"
+   (plist-get game :url)
+   (systemhalted--escape-html (plist-get game :title))
+   (systemhalted--escape-html (plist-get game :description))))
 
 (defun systemhalted--generate-kartavya-path (root posts)
   "Generate the `/kartavya-path/' landing page below ROOT, matching
@@ -1735,8 +2013,9 @@ so two clean builds of the same sources stay byte-identical."
     (systemhalted--generate-feed output-root posts records)
     (systemhalted--generate-links-jsonp output-root posts)
     (systemhalted--generate-search output-root records source-root)
-    (unless (systemhalted--record-route-present-p "/jsgames/" records)
-      (systemhalted--generate-jsgames-index output-root))
+    (systemhalted--generate-jsgames-page output-root source-root)
+    (systemhalted--generate-themes-page output-root source-root)
+    (systemhalted--generate-webcmd-page output-root)
     (dolist (redirect systemhalted-legacy-redirects)
       (systemhalted--write-route output-root (car redirect)
                                  (systemhalted--redirect-page (cdr redirect))))

@@ -549,8 +549,9 @@ matching live, which never lists a moved or error route."
       (delete-directory output t))))
 
 (ert-deftest systemhalted-sitemap-includes-jsgames-and-wireframes-routes ()
-  "The jsgames and wireframes static pages have no Org record of their own,
-but live's sitemap lists them, so ours must too."
+  "The jsgames and wireframes static pages -- and, since Task 11, the
+generated `/jsgames/' index itself -- have no Org record of their own, but
+live's sitemap lists them, so ours must too."
   (let ((output (make-temp-file "systemhalted-sitemap-static-" t)))
     (unwind-protect
         (progn
@@ -558,11 +559,15 @@ but live's sitemap lists them, so ours must too."
           (with-temp-buffer
             (insert-file-contents (expand-file-name "sitemap.xml" output))
             (let ((xml (buffer-string)))
-              (dolist (route '("/jsgames/guess-number/" "/jsgames/pig-game/"
+              (dolist (route '("/jsgames/" "/jsgames/guess-number/" "/jsgames/pig-game/"
                                "/jsgames/reeti-40/"
                                "/wireframes/systemhalted-writing-first.html"))
+                ;; An exact `<loc>' match, not a substring: "/jsgames/" is
+                ;; itself a substring of "/jsgames/pig-game/" and would
+                ;; false-pass even if the index route were missing.
                 (should (string-match-p
-                         (regexp-quote (concat systemhalted-site-url route))
+                         (concat "<loc>" (regexp-quote (concat systemhalted-site-url route))
+                                 "</loc>")
                          xml))))))
       (delete-directory output t))))
 
@@ -651,7 +656,7 @@ category, a creator element, and each post's full HTML in
       (insert-file-contents (expand-file-name "webcmd/index.html" output))
       (should (search-forward "id=\"line\"" nil t))
       (should (search-forward "id=\"output\"" nil t))
-      (should (search-forward "src=\"/assets/js/webcmd.js\"" nil t)))))
+      (should (search-forward "src=\"/assets/js/webcmd.js?v=" nil t)))))
 
 (ert-deftest systemhalted-build-site-copies-static-assets-and-retired-route ()
   "Dropping source assets or a retired legacy redirect would break live URLs."
@@ -1170,18 +1175,16 @@ matching live."
                  "<main[^>]*><header class=\"page-header\"" html))))))
 
 (ert-deftest systemhalted-quiet-title-pages-match-live ()
-  "About, Projects, JS Games, and the archive/categories/tags/emacs gateway
-pages must all carry the quiet page title, matching live's
+  "About and Projects must carry the quiet page title, matching live's
 `page-title-quiet' class."
-  (dolist (relative '("org/pages/about.org" "org/pages/projects.org"
-                      "org/pages/jsgames.org"))
+  (dolist (relative '("org/pages/about.org" "org/pages/projects.org"))
     (let* ((record (systemhalted-read-record
                     (expand-file-name relative systemhalted-test-root) 'page))
            (html (systemhalted-render-page record)))
       (should (string-match-p "class=\"page-title page-title-quiet\"" html))))
   (systemhalted-test-with-built-site
     (dolist (relative '("archives/index.html" "categories/index.html"
-                        "tags/index.html" "emacs/index.html"))
+                        "tags/index.html" "emacs/index.html" "jsgames/index.html"))
       (with-temp-buffer
         (insert-file-contents (expand-file-name relative output))
         (should (string-match-p "class=\"page-title page-title-quiet\""
@@ -1189,13 +1192,14 @@ pages must all carry the quiet page title, matching live's
 
 (ert-deftest systemhalted-hidden-title-pages-omit-page-title ()
   "Themes and Webcmd must hide the page.html title entirely, matching live's
-`hide_page_title'."
-  (dolist (relative '("org/pages/themes.org" "org/pages/webcmd.org"))
-    (let* ((record (systemhalted-read-record
-                    (expand-file-name relative systemhalted-test-root) 'page))
-           (html (systemhalted-render-page record)))
-      (should-not (string-match-p "page-title"
-                                  (systemhalted-test-main-html html))))))
+`hide_page_title' (Themes) and `layout: default' (Webcmd, which skips
+page.html altogether)."
+  (systemhalted-test-with-built-site
+    (dolist (relative '("themes/index.html" "webcmd/index.html"))
+      (with-temp-buffer
+        (insert-file-contents (expand-file-name relative output))
+        (should-not (string-match-p "page-title"
+                                    (systemhalted-test-main-html (buffer-string))))))))
 
 (ert-deftest systemhalted-archive-gateways-mark-current-section ()
   "Each archive gateway page must mark its own link `aria-current=\"page\"',
@@ -1222,16 +1226,28 @@ home' link, with no heading duplicating the title, matching live."
     (should-not (string-match-p "<h2" main))
     (should-not (string-match-p "outline-container" main))))
 
-(ert-deftest systemhalted-webcmd-page-body-drops-stray-paragraph-and-duplicate-heading ()
-  "Webcmd's Org body must drop the stray 'Webcmd' paragraph and the heading
-that duplicates the page title; Task 11 restores the full webcmd markup."
-  (let* ((record (systemhalted-read-record
-                  (expand-file-name "org/pages/webcmd.org" systemhalted-test-root)
-                  'page))
-         (main (systemhalted-test-main-html (systemhalted-render-page record))))
-    (should-not (string-match-p "<p>[[:space:]]*Webcmd[[:space:]]*</p>" main))
-    (should-not (string-match-p "<h2" main))
-    (should (string-match-p "id=\"webcmd-form\"" main))))
+(ert-deftest systemhalted-webcmd-page-matches-live-markup ()
+  "`/webcmd/' must restore the full `section.webcmd > div.webcmd-shell'
+markup from `main:webcmd/index.html', with `elasticlunr.min.js' and a
+cache-busted `webcmd.js' loaded only on this page."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "webcmd/index.html" output))
+      (let ((html (buffer-string)))
+        (dolist (fragment '("<section class=\"webcmd\" aria-labelledby=\"webcmd-title\">"
+                            "<div class=\"webcmd-shell\">"
+                            "<p class=\"webcmd-kicker\">Webcmd</p>"
+                            "id=\"webcmd-title\" class=\"webcmd-title\""
+                            "id=\"webcmd-form\" class=\"webcmd-form\""
+                            "<div id=\"help\" class=\"webcmd-help-panel\" hidden></div>"
+                            "<footer class=\"webcmd-footer\">"
+                            "<script src=\"/assets/js/elasticlunr.min.js\"></script>"))
+          (should (string-match-p (regexp-quote fragment) html)))
+        (should (string-match-p
+                 "<script src=\"/assets/js/webcmd\\.js\\?v=[^\"]+\"></script>" html))))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "about/index.html" output))
+      (should-not (string-match-p "webcmd\\.js\\|elasticlunr" (buffer-string))))))
 
 (ert-deftest systemhalted-read-taxonomy-returns-ordered-themes-with-ids ()
   "The taxonomy reader must expose each theme's `:CUSTOM_ID:' as :id, preserve
@@ -1270,6 +1286,135 @@ exactly, including which one wins the plain id."
                  '(("API Design" . "api-design") ("Linux" . "linux") ("NaN" . "nan")
                    ("api-design" . "api-design--4") ("linux" . "linux--5")
                    ("nan" . "nan--6")))))
+
+(ert-deftest systemhalted-tags-page-ids-reuses-tag-ids-over-posts-only ()
+  "`systemhalted--tags-page-ids' must group tags the same way
+`systemhalted--generate-tags' does -- from posts only, sorted, with
+`systemhalted--tag-ids' collision suffixes -- so an Emacs note's own tag
+links can resolve to the exact anchor `/tags/' renders."
+  (let* ((make (lambda (tags)
+                 (make-systemhalted-record
+                  :source "<test>" :kind 'post :title "T" :description "d"
+                  :date (encode-time 0 0 0 1 1 2026) :tags tags :route "/t/")))
+         (posts (list (funcall make '("Zeta" "api-design"))
+                     (funcall make '("API Design")))))
+    (should (equal (systemhalted--tags-page-ids posts)
+                   '(("API Design" . "api-design") ("Zeta" . "zeta")
+                     ("api-design" . "api-design--3"))))))
+
+(ert-deftest systemhalted-emacs-note-tags-html-resolves-live-tags-anchors-and-falls-back ()
+  "An Emacs note's `div.post-tags' links must resolve to the exact `--N'
+suffixed anchor id `/tags/' renders for a tag shared with posts, and fall
+back to a plain slug -- the same dead anchor live's own `{{ tag | slugify
+}}' produces -- for a tag no post uses at all."
+  (let ((ids (systemhalted--tag-ids '("API Design" "api-design"))))
+    (should (equal (systemhalted--emacs-note-tags-html '("api-design" "Solo Tag") ids)
+                   (concat "<div class=\"post-tags\">"
+                           "<a href=\"/tags/#api-design--2\">api-design</a>&nbsp;"
+                           "<a href=\"/tags/#solo-tag\">Solo Tag</a></div>"))))
+  (should-not (systemhalted--emacs-note-tags-html nil nil)))
+
+(ert-deftest systemhalted-emacs-note-rendering-uses-newsletter-classes-and-tags ()
+  "An Emacs note must render with `p.newsletter-kicker'/`h1.newsletter-title'
+(not the retired `note-kicker'/`emacs-note-title'), and its `div.post-tags'
+must be present when it carries tags, matching `main:_layouts/emacs.html'."
+  (let* ((post (make-systemhalted-record
+                :source "<test>" :kind 'post :title "Post" :description "d"
+                :date (encode-time 0 0 0 1 1 2026) :tags '("emacs") :route "/p/"))
+         (note (make-systemhalted-record
+                :source "<test>" :kind 'emacs :title "A Note" :description "d"
+                :tags '("emacs" "solo") :route "/emacs/a-note/"))
+         (html (systemhalted-render-page note (list note post) "<p>Body</p>")))
+    (should (string-match-p "<p class=\"newsletter-kicker\">Emacs note</p>" html))
+    (should (string-match-p "<h1 class=\"newsletter-title\">A Note</h1>" html))
+    (should-not (string-match-p "note-kicker\\|emacs-note-title" html))
+    (should (string-match-p
+             (regexp-quote "<a href=\"/tags/#emacs\">emacs</a>") html))
+    (should (string-match-p
+             (regexp-quote "<a href=\"/tags/#solo\">solo</a>") html))))
+
+(ert-deftest systemhalted-jsgame-list-item-matches-live-shape ()
+  "A JS-game entry must render the same `post-feed-item' shape as
+`main:_includes/jsgame-list-item.html': a `post-feed-cat' of \"JS Game\", not
+Emacs note's or the newsletter's own category text."
+  (should (equal (systemhalted--jsgame-list-item
+                  '(:title "Pig Game" :url "/jsgames/pig-game/"
+                    :description "Roll the dice."))
+                 (concat "<li class=\"post-feed-item\">"
+                         "<div class=\"post-feed-meta\">"
+                         "<span class=\"post-feed-cat\">JS Game</span></div>"
+                         "<h2 class=\"post-feed-title\">"
+                         "<a href=\"/jsgames/pig-game/\">Pig Game</a></h2>"
+                         "<p class=\"post-feed-excerpt\">Roll the dice.</p></li>"))))
+
+(ert-deftest systemhalted-read-jsgames-parses-live-data ()
+  "`systemhalted--read-jsgames' must parse every `* [[URL][TITLE]]' entry in
+`org/data/jsgames.org' plus its description paragraph, in file order,
+mirroring `main:_data/jsgames.yml'."
+  (let ((games (systemhalted--read-jsgames systemhalted-test-root)))
+    (should (equal (mapcar (lambda (g) (plist-get g :title)) games)
+                   '("Pig Game" "Guess the Number" "Reeti @ 40")))
+    (should (equal (plist-get (car games) :url) "/jsgames/pig-game/"))
+    (should (plist-get (car games) :description))))
+
+(ert-deftest systemhalted-read-themes-parses-live-data-with-image-and-tags ()
+  "`systemhalted--read-themes' must parse each theme's name, version, image,
+and tag list from `org/data/themes.org', mirroring `main:_data/themes.yml'."
+  (let* ((themes (systemhalted--read-themes systemhalted-test-root))
+         (first (car themes)))
+    (should (equal (mapcar (lambda (t) (plist-get t :name)) themes)
+                   '("System Halted" "Nord Newsletter" "Midnight Mountains")))
+    (should (equal (plist-get first :version) "1.0.1"))
+    (should (equal (plist-get first :image) "/assets/images/themes/systemhalted.png"))
+    (should (equal (plist-get first :tags) '("blog" "search" "dark mode")))
+    (should (equal (plist-get first :gem) "jekyll-theme-systemhalted"))
+    (should (equal (plist-get first :demo)
+                   "https://systemhalted.in/jekyll-theme-systemhalted/"))))
+
+(ert-deftest systemhalted-theme-card-html-matches-live-shape ()
+  "A theme card must render every field `main:themes.html's `theme-card'
+does: shot, name, version, description, tags, install snippet, and links."
+  (let ((html (systemhalted--theme-card-html
+               '(:name "Nord" :version "0.1.0" :description "Desc."
+                 :image "/x.png" :tags ("a" "b") :gem "jekyll-theme-nord"
+                 :demo "https://d" :repo "https://r" :rubygems "https://g"))))
+    (dolist (fragment '("<li class=\"theme-card\">"
+                        "<a class=\"theme-shot\" href=\"https://d\">"
+                        "<img src=\"/x.png\" alt=\"Screenshot of the Nord Jekyll theme\""
+                        "<h2 class=\"theme-name\">Nord <span class=\"theme-version\">v0.1.0</span></h2>"
+                        "<p class=\"theme-desc\">Desc.</p>"
+                        "<ul class=\"theme-tags\"><li>a</li><li>b</li></ul>"
+                        "<code>gem install jekyll-theme-nord</code>"
+                        "<a href=\"https://r\">GitHub</a>"
+                        "<a href=\"https://g\">RubyGems</a>"))
+      (should (string-match-p (regexp-quote fragment) html)))))
+
+(ert-deftest systemhalted-generate-jsgames-and-themes-pages-match-live-shape ()
+  "`/jsgames/' and `/themes/' must be generated pages built from
+`org/data/jsgames.org'/`org/data/themes.org', matching
+`main:jsgames/index.html' and `main:themes.html': the post-feed/jsgame-list
+markup, the theme gallery with its inline style block, and the site's
+default description for `/themes/' (which sets no `description:' front
+matter on main)."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "jsgames/index.html" output))
+      (let ((html (buffer-string)))
+        (should (string-match-p "<ul class=\"post-feed jsgame-list\">" html))
+        (should (string-match-p "<span class=\"post-feed-cat\">JS Game</span>" html))
+        (should (string-match-p
+                 (regexp-quote "og:description\" content=\"Small browser games and interactive experiments built with vanilla JavaScript.")
+                 html))))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "themes/index.html" output))
+      (let ((html (buffer-string)))
+        (should (string-match-p "<section class=\"newsletter-hero\">" html))
+        (should (string-match-p "<ul class=\"theme-gallery\">" html))
+        (should (string-match-p "<li class=\"theme-card\">" html))
+        (should (string-match-p "<style>[[:space:]]*\\.theme-gallery {" html))
+        (should (string-match-p
+                 (regexp-quote (concat "og:description\" content=\"" systemhalted-site-description))
+                 html))))))
 
 (ert-deftest systemhalted-categories-page-groups-by-taxonomy-theme ()
   "`/categories/' must render one `taxonomy-section' per theme that has

@@ -627,6 +627,17 @@ publish inside `<thead>', the way the live table does."
     (should (string-match-p "<strong>Government bill</strong>" html))
     (should (string-match-p "<strong>Civil society bill</strong>" html))))
 
+(ert-deftest systemhalted-emacs-config-publishes-code-formatted-table-cells ()
+  "Task 14: emacs-config key and command table cells must retain live's code markup."
+  (let* ((file (expand-file-name "org/emacs/emacs-config.org"
+                                 systemhalted-test-root))
+         (record (systemhalted-read-record file 'emacs))
+         (html (systemhalted-export-body record (list record))))
+    (should (string-match-p
+             (regexp-quote
+              "<td class=\"org-left\"><code>M-.</code></td>")
+             html))))
+
 (ert-deftest systemhalted-render-page-includes-katex-scripts ()
   "Every page must load KaTeX so inline and display math render like main."
   (let* ((record (systemhalted-read-record

@@ -3,6 +3,7 @@
 #+DATE: 2026-09-26
 #+CATEGORIES: Personal Essays, Technology
 #+TAGS: redesign, blogging, jekyll, ux, meta, OrgMode, Emacs
+#+COMMENTS: true
 
 I love Jekyll. Jekyll is a fantastic program and out of the box supported by Github. I had been using it for last 13+ years. It makes it easier to focus on writing. However, few years ago, I started using Org Mode on my Emacs for managing notes. I always had to switch between Markdown and Org Mode and I did not mind that. I liked the whole system. Even though Org Mode is my preferred notes taking program, ease of using Jekyll and not having to write my own publishing platform using Org was a great incentive for it's continued use. I have very limited knowledge of Emacs Lisp. I just started learning it and wrote my first Emacs minor mode[fn:sdkman] and that was another barrier. 
 

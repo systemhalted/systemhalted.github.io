@@ -6,15 +6,7 @@
 #+PERMALINK: /2008/04/09/implications-of-the-ms-gill-precedent-statecraft/
 #+COMMENTS: true
 
-#+begin_html
-  <p>
-#+end_html
-
-Read an article with the same title on Hindu by Harish Khare. Here is my opinion on the issue.
-
-#+begin_html
-  </p>
-#+end_html
+Read an article with the same title on [[http://www.hindu.com/2008/04/08/stories/2008040854301000.htm][Hindu]] by Harish Khare. Here is my opinion on the issue.
 
 * Should top bureaucrats, police chiefs, and judges be allowed to enter politics?
 :PROPERTIES:

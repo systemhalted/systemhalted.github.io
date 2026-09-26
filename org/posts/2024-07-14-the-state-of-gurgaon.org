@@ -177,7 +177,7 @@ Artificial Intelligence (AI) offers innovative solutions to address many of Gurg
 
 /Simulation and Modeling/: AI can simulate the impact of new construction projects on traffic and drainage systems, helping urban planners make informed decisions. /Data-Driven Planning/: By analyzing data on population growth, traffic patterns, and environmental factors, AI can assist in creating more sustainable and efficient city plans.
 
-5. [@5] *Enhancing Traffic Rule Adherenc*e:
+5. [@5] *Enhancing Traffic Rule Adherence*:
 
 /Automated Enforcement/: AI-powered cameras can monitor traffic in real-time, identifying and recording traffic violations. This can ensure consistent enforcement of traffic rules. /Behavioral Analysis/: AI can analyze driver behavior patterns to identify high-risk behaviors and areas with frequent violations, allowing for targeted interventions. /Public Awareness and Education/: AI-driven platforms can personalize traffic safety education programs for different demographics, enhancing their effectiveness.
 

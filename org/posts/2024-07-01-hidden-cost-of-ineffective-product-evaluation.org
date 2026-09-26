@@ -68,7 +68,7 @@ One of the core tenets of Agile is the continuous delivery of valuable software.
 :PROPERTIES:
 :CUSTOM_ID: strategies-for-effective-product-evaluation
 :END:
-1. *User-Centered Design and Feedback Loop*s 👥🔄:
+1. *User-Centered Design and Feedback Loops* 👥🔄:
 
 Implementing user-centered design involves regularly engaging with users through surveys, interviews, and usability testing. These feedback loops ensure that the development team understands user needs and pain points, guiding them to create valuable products.
 
@@ -96,7 +96,7 @@ Utilizing metrics such as customer satisfaction scores, user engagement rates, a
 
 Agile teams should prioritize work that delivers the highest value. This requires ongoing evaluation and re-evaluation of product features and initiatives to ensure alignment with user needs and business goals.
 
-2. [@2] *Empowering Team*s 🧰:
+2. [@2] *Empowering Teams* 🧰:
 
 Agile emphasizes empowering teams to make decisions. Providing teams with the tools and data to evaluate product value empowers them to make informed decisions and focus on meaningful work.
 

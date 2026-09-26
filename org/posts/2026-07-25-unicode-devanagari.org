@@ -322,52 +322,56 @@ Neither representation is wrong. They are different layers of the same writing s
 
 [fn:3] The written form is =U+= followed by at least four hexadecimal digits, so =U+0915= is decimal 2325. The notation is fixed by the standard and is used regardless of how the value is stored in memory.
 
-[fn:4] The script used to write Hindi, Marathi, Nepali, Sanskrit and others. It is an abugida[^abugida] rather than an alphabet, which is the root of most of what follows.
+[fn:4] The script used to write Hindi, Marathi, Nepali, Sanskrit and others. It is an abugida[fn:29] rather than an alphabet, which is the root of most of what follows.
 
-[fn:5] A vowel sign, or /matra/, is a mark attached to a consonant to replace its inherent vowel[^inherentvowel]. Matras attach above, below, before or after the base consonant depending on which vowel they represent. =ि= is one of the ones that attaches before.
+[fn:5] A vowel sign, or /matra/, is a mark attached to a consonant to replace its inherent vowel[fn:10]. Matras attach above, below, before or after the base consonant depending on which vowel they represent. =ि= is one of the ones that attaches before.
 
 [fn:6] Also called text layout. The stage that turns a sequence of characters into a sequence of positioned glyphs by applying the font's substitution and positioning rules. It is script-specific: Devanagari, Arabic and Latin take different code paths.
 
 [fn:7] A font contains glyphs, not characters. One character may map to several glyphs, several characters may map to one glyph, and the same character may map to different glyphs depending on its neighbours.
 
-[fn:8] In Devanagari, a /samyuktakshar/ -- two or more consonants written as a single joined form with no vowel between them, the vowel having been suppressed by a virama[^virama]. Hindi uses a few hundred in practice; the number that can be formed is far larger.
+[fn:8] In Devanagari, a /samyuktakshar/ -- two or more consonants written as a single joined form with no vowel between them, the vowel having been suppressed by a virama[fn:9]. Hindi uses a few hundred in practice; the number that can be formed is far larger.
 
 [fn:9] Called /halant/ in Hindi. Written =्= and encoded at =U+094D=.
 
-[fn:10] Every Devanagari consonant letter carries an implicit /a/. क alone reads as /ka/, not /k/. This is the defining property of an abugida[^abugida], and the reason a separate mark is needed to cancel it.
+[fn:10] Every Devanagari consonant letter carries an implicit /a/. क alone reads as /ka/, not /k/. This is the defining property of an abugida[fn:29], and the reason a separate mark is needed to cancel it.
 
-[fn:11] A reduced form of a consonant used inside conjuncts[^conjunct], typically the full letter with its vertical stem removed. क् as a half-form joins directly to the letter that follows.
+[fn:11] A reduced form of a consonant used inside conjuncts[fn:8], typically the full letter with its vertical stem removed. क् as a half-form joins directly to the letter that follows.
 
 [fn:12] An encoding form specifies how a code point becomes bytes. UTF-8 uses one to four 8-bit units and dominates on disk and on the wire. UTF-16 uses one or two 16-bit units and is what Java, JavaScript, C# and the Windows API use in memory. UTF-32 uses one 32-bit unit per code point and is rare outside internal buffers.
 
-[fn:13] /Nearly/ is an important distinction. Unicode 15.0 added Devanagari Extended-A at =U+11B00=--=U+11B5F=, ten characters for Vedic and Sanskrit editorial marks. Those are above =U+FFFF=, so they take a surrogate pair[^surrogate] in UTF-16 and four bytes in UTF-8. They are the only Devanagari characters where Java's =length()= and Python's =len()= disagree.
+[fn:13] /Nearly/ is an important distinction. Unicode 15.0 added Devanagari Extended-A at =U+11B00=--=U+11B5F=, ten characters for Vedic and Sanskrit editorial marks. Those are above =U+FFFF=, so they take a surrogate pair[fn:30] in UTF-16 and four bytes in UTF-8. They are the only Devanagari characters where Java's =length()= and Python's =len()= disagree.
 
-[fn:14] The first 65,536 code points, =U+0000= to =U+FFFF=. Unicode has 17 planes; everything above the BMP is called supplementary. The split matters only for UTF-16[^utf], where supplementary characters need two code units instead of one.
+[fn:14] The first 65,536 code points, =U+0000= to =U+FFFF=. Unicode has 17 planes; everything above the BMP is called supplementary. The split matters only for UTF-16[fn:12], where supplementary characters need two code units instead of one.
 
 [fn:15] Unicode Standard Annex #29, /Unicode Text Segmentation/. It specifies boundary rules for grapheme clusters, words and sentences, and explicitly permits implementations to tailor them per language.
 
-[fn:16] Grapheme break rule 9c of UAX #29[^uax29], added in Unicode 15.1. The rules run GB1 through GB13; 9c was inserted specifically to stop Indic conjuncts[^conjunct] splitting, which they had done since the rules were first written.
+[fn:16] Grapheme break rule 9c of UAX #29[fn:15], added in Unicode 15.1. The rules run GB1 through GB13; 9c was inserted specifically to stop Indic conjuncts[fn:8] splitting, which they had done since the rules were first written.
 
-[fn:17] A character property introduced alongside GB9c, with values =Consonant=, =Linker=, =Extend= and =None=. The virama[^virama] of Devanagari, Bengali, Gujarati, Malayalam, Oriya and Telugu is classified as =Linker=.
+[fn:17] A character property introduced alongside GB9c, with values =Consonant=, =Linker=, =Extend= and =None=. The virama[fn:9] of Devanagari, Bengali, Gujarati, Malayalam, Oriya and Telugu is classified as =Linker=.
 
-[fn:18] The JDK's segmentation API, in =java.text=. It predates ICU[^icu] and ships its own rule tables, which is why its behaviour tracks the JDK release rather than the Unicode version of the character data.
+[fn:18] The JDK's segmentation API, in =java.text=. It predates ICU[fn:19] and ships its own rule tables, which is why its behaviour tracks the JDK release rather than the Unicode version of the character data.
 
-[fn:19] International Components for Unicode, the reference implementation of most of the standard's algorithms, including the segmentation rules of UAX #29[^uax29] and the collation algorithm[^collation]. ICU4J is the Java build, ICU4C serves C and C++. Most platforms with correct Unicode behaviour have ICU somewhere underneath.
+[fn:19] International Components for Unicode, the reference implementation of most of the standard's algorithms, including the segmentation rules of UAX #29[fn:15] and the collation algorithm[fn:25]. ICU4J is the Java build, ICU4C serves C and C++. Most platforms with correct Unicode behaviour have ICU somewhere underneath.
 
 [fn:20] Two sequences are canonically equivalent when the standard declares them to represent the same abstract text, and conforming software must not distinguish them. This is a stronger claim than “they look the same” and a weaker one than “they are the same bytes.”
 
-[fn:21] A list in the standard of characters that have a canonical decomposition but must not be recomposed by NFC[^nfc]. It exists largely for compatibility with older national standards that encoded such characters directly.
+[fn:21] A list in the standard of characters that have a canonical decomposition but must not be recomposed by NFC[fn:22]. It exists largely for compatibility with older national standards that encoded such characters directly.
 
-[fn:22] Unicode defines four normalization forms. NFD decomposes. NFC decomposes and then recomposes. All four map canonically equivalent[^canonequiv] sequences to the same output. NFKD and NFKC additionally fold compatibility differences such as ligatures and superscripts, and are lossy. NFC is the usual choice for storage and comparison.
+[fn:22] Unicode defines four normalization forms. NFD decomposes. NFC decomposes and then recomposes. All four map canonically equivalent[fn:20] sequences to the same output. NFKD and NFKC additionally fold compatibility differences such as ligatures and superscripts, and are lossy. NFC is the usual choice for storage and comparison.
 
-[fn:23] A numeric property from 0 to 254 that fixes the relative order of combining marks around a base character. Marks sharing a class keep the order they were typed in; marks with different classes are sorted into class order during normalization[^nfc].
+[fn:23] A numeric property from 0 to 254 that fixes the relative order of combining marks around a base character. Marks sharing a class keep the order they were typed in; marks with different classes are sorted into class order during normalization[fn:22].
 
-[fn:24] A dot written below a consonant, =U+093C=, that modifies its sound. It is used mainly for consonants borrowed from Persian and Arabic. Eight nukta combinations also have precomposed code points, all of them on the composition exclusion list[^compexclusion], which is the source of the trouble described here.
+[fn:24] A dot written below a consonant, =U+093C=, that modifies its sound. It is used mainly for consonants borrowed from Persian and Arabic. Eight nukta combinations also have precomposed code points, all of them on the composition exclusion list[fn:21], which is the source of the trouble described here.
 
-[fn:25] Collation is language-aware sorting. Binary comparison orders strings by numeric value, which reflects the order characters happened to be added to the standard rather than any language's alphabet. A collator also folds canonically equivalent[^canonequiv] sequences together, which binary comparison cannot. The Unicode Collation Algorithm is specified separately, in UTS #10.
+[fn:25] Collation is language-aware sorting. Binary comparison orders strings by numeric value, which reflects the order characters happened to be added to the standard rather than any language's alphabet. A collator also folds canonically equivalent[fn:20] sequences together, which binary comparison cannot. The Unicode Collation Algorithm is specified separately, in UTS #10.
 
-[fn:26] The open-source shaping[^shaping] engine used by Chrome, Firefox, Android, GNOME and LibreOffice. DirectWrite and CoreText are the Microsoft and Apple equivalents.
+[fn:26] The open-source shaping[fn:6] engine used by Chrome, Firefox, Android, GNOME and LibreOffice. DirectWrite and CoreText are the Microsoft and Apple equivalents.
 
-[fn:27] The font format, and the tag-based feature system inside it. Each four-letter tag names a substitution or positioning rule the shaper may apply. =cjct= forms conjuncts[^conjunct], =half= forms half-forms[^halfform], =rphf= handles the reph, and so on.
+[fn:27] The font format, and the tag-based feature system inside it. Each four-letter tag names a substitution or positioning rule the shaper may apply. =cjct= forms conjuncts[fn:8], =half= forms half-forms[fn:11], =rphf= handles the reph, and so on.
 
 [fn:28] =U+0964=, the full stop of Devanagari and several other Indic scripts. =U+0965=, the double danda, marks a larger break -- historically the end of a verse.
+
+[fn:29] A writing system in which each consonant letter carries an inherent vowel, modified or cancelled by attached marks, rather than one in which consonants and vowels are equal, independent letters. Devanagari, Bengali, Tamil, Thai and Ethiopic are abugidas. Latin, Greek and Cyrillic are alphabets.
+
+[fn:30] A pair of code units drawn from =U+D800=--=U+DBFF= and =U+DC00=--=U+DFFF=, used together by UTF-16[fn:12] to represent one supplementary code point[fn:14]. The halves are not valid characters on their own, which is why splitting a UTF-16 string at an arbitrary offset can produce something unencodable.

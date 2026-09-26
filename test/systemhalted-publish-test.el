@@ -176,15 +176,128 @@ contains a literal comma, instead of being split into multiple items."
                                               :include-drafts t
                                               :include-future t))
          (html (systemhalted-export-body record records)))
-    (should (string-match-p "<h2[^>]*>Heading &amp; details</h2>" html))
+    (should (string-match-p "<h1 id=\"heading--details\">Heading &amp; details</h1>" html))
     (should (string-match-p "class=\"language-emacs-lisp\"" html))
     (should (string-match-p "&lt;unsafe&gt;" html))
     (should (string-match-p "Example text" html))
     (should (string-match-p "<table" html))
+    (should (string-match-p "<thead>" html))
     (should (string-match-p "<aside class=\"fixture\">Raw HTML</aside>" html))
-    (should (string-match-p "class=\"footref\"" html))
+    (should (string-match-p "<sup id=\"fnref:1\">" html))
     (should (string-match-p
              "href=\"/newsletter/2024-07-19-legacy-permalink/\"" html))))
+
+(ert-deftest systemhalted-export-body-publishes-kramdown-anchor-headings ()
+  "Task 14: headline levels must publish as `<hN>' carrying kramdown-style
+anchor ids, with no Org outline wrappers, so live anchors keep resolving.
+Every id below is copied from the live page that publishes it."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Anchors\n#+DESCRIPTION: Anchor fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "* Should top bureaucrats, police chiefs, and judges be allowed to enter politics?\n"
+              "** ==== is changing, but =equals()= still matters\n"
+              "** Savehist — persist minibuffer history\n"
+              "** 1. Signed Zero: ±0.0\n"
+              "** The Weird Rule: NaN ≠ NaN\n"
+              "** 2. Infinity: +∞ and −∞\n"
+              "** Common failure modes\n"
+              "** Common failure modes\n"
+              "*** Start with क्ष\n"
+              "** LSP & DAP notes\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (regexp-quote
+                (concat "<h1 id=\"should-top-bureaucrats-police-chiefs-and-judges-be-allowed-to-enter-politics\">"
+                        "Should top bureaucrats, police chiefs, and judges be allowed to enter politics?</h1>"))
+               html))
+      (should (string-match-p
+               (concat "<h2 id=\"-is-changing-but-equals-still-matters\">"
+                       "<code>==</code> is changing, but <code>equals()</code> still matters</h2>")
+               html))
+      (should (string-match-p "<h2 id=\"savehist--persist-minibuffer-history\">" html))
+      (should (string-match-p "<h2 id=\"1-signed-zero-00\">" html))
+      (should (string-match-p "<h2 id=\"the-weird-rule-nan--nan\">" html))
+      (should (string-match-p "<h2 id=\"2-infinity--and-\">" html))
+      (should (string-match-p "<h2 id=\"common-failure-modes\">" html))
+      (should (string-match-p "<h2 id=\"common-failure-modes-1\">" html))
+      (should (string-match-p "<h3 id=\"start-with-क्ष\">" html))
+      (should (string-match-p "<h2 id=\"lsp--dap-notes\">" html))
+      (should-not (string-match-p "outline-container" html))
+      (should-not (string-match-p "outline-text" html)))))
+
+(ert-deftest systemhalted-export-body-keeps-custom-id-headings ()
+  "Task 14: an authored `:CUSTOM_ID:' stays the heading anchor, matching the
+explicit ids live publishes for `/2026/09/23/java28-value-objects/'."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Custom\n#+DESCRIPTION: Custom id fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "* References and Notes\n:PROPERTIES:\n:CUSTOM_ID: references-and-notes\n:END:\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p "<h1 id=\"references-and-notes\">" html))
+      (should-not (string-match-p "references-and-notes-1" html)))))
+
+(ert-deftest systemhalted-export-body-renders-kramdown-footnotes ()
+  "Task 14: footnote references, the notes section, and the back-links must
+carry the ids live publishes, and the Org `Footnotes:' heading must go away."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Notes\n#+DESCRIPTION: Footnote fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "Body with a note.[fn:note]\n\nAnd again.[fn:note]\n\n"
+              "[fn:note] A footnote.\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (concat "<sup id=\"fnref:1\"><a href=\"#fn:1\" class=\"footnote\""
+                       " rel=\"footnote\" role=\"doc-noteref\">1</a></sup>")
+               html))
+      (should (string-match-p
+               (concat "<sup id=\"fnref:1:1\"><a href=\"#fn:1\" class=\"footnote\""
+                       " rel=\"footnote\" role=\"doc-noteref\">1</a></sup>")
+               html))
+      (should (string-match-p "<div class=\"footnotes\" role=\"doc-endnotes\">" html))
+      (should (string-match-p "<li id=\"fn:1\">" html))
+      (should (string-match-p
+               (concat "<a href=\"#fnref:1\" class=\"reversefootnote\""
+                       " role=\"doc-backlink\">&#8617;</a>")
+               html))
+      (should (string-match-p
+               (concat "<a href=\"#fnref:1:1\" class=\"reversefootnote\""
+                       " role=\"doc-backlink\">&#8617;<sup>2</sup></a>")
+               html))
+      (should-not (string-match-p "<h2 class=\"footnotes\"" html))
+      (should-not (string-match-p "class=\"footdef\"" html))
+      (should-not (string-match-p "class=\"footref\"" html))
+      (should-not (string-match-p "footpara" html)))))
+
+(ert-deftest systemhalted-export-body-uses-strong-and-em-for-emphasis ()
+  "Task 14: emphasis must publish as `<strong>'/`<em>', the way live's
+kramdown pipeline does, rather than Org's `<b>'/`<i>'."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Emphasis\n#+DESCRIPTION: Emphasis fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "Some *bold* and /italic/ text.\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p "<strong>bold</strong>" html))
+      (should (string-match-p "<em>italic</em>" html))
+      (should-not (string-match-p "<b>" html))
+      (should-not (string-match-p "<i>" html)))))
+
+(ert-deftest systemhalted-export-body-publishes-table-header-rows-in-thead ()
+  "Task 14: a table written with a header rule must publish its header row
+inside `<thead>', matching the live `/2011/01/28/lokpal-bill/' table."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Table\n#+DESCRIPTION: Table fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "|  |  |\n|--|--|\n| *Government bill* | *Civil society bill* |\n"
+              "| One | Two |\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p "<thead>" html))
+      (should (string-match-p "<th" html))
+      (should (string-match-p "<tbody>" html)))))
 
 (ert-deftest systemhalted-export-body-highlights-java-source-blocks ()
   "Task 13: a java block must keep its Rouge wrapper and gain token spans."
@@ -448,6 +561,71 @@ token silently falls back to plain code text."
     (should (string-match-p "data-repo=\"systemhalted/systemhalted.github.io\"" html))
     (should (string-match-p "Filed under" html))
     (should (string-match-p "Search all writing" html))))
+
+(ert-deftest systemhalted-render-page-publishes-the-live-toc-markup ()
+  "Task 14: a post asking for a table of contents must publish
+`ul#toc.section-nav' with `li.toc-entry.toc-hN' entries nested by heading
+level and plain-text links, matching the live java28 and emacs pages."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Contents\n#+DESCRIPTION: Table of contents fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n#+TOC: true\n\n"
+              "* Overview\n** Clipboard\n*** Move text\n** Build-in defaults\n"
+              "* ==== is changing, but =equals()= still matters\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-render-page record (list record))))
+      (should (string-match-p
+               (concat "<details class=\"post-toc\"><summary>Contents</summary>"
+                       "<nav aria-label=\"Table of contents\">"
+                       "<ul id=\"toc\" class=\"section-nav\">")
+               html))
+      (should (string-match-p
+               (concat "<li class=\"toc-entry toc-h1\">"
+                       "<a href=\"#overview\">Overview</a>\n<ul>\n"
+                       "<li class=\"toc-entry toc-h2\">"
+                       "<a href=\"#clipboard\">Clipboard</a>\n<ul>\n"
+                       "<li class=\"toc-entry toc-h3\">"
+                       "<a href=\"#move-text\">Move text</a></li>\n</ul>\n</li>\n"
+                       "<li class=\"toc-entry toc-h2\">"
+                       "<a href=\"#build-in-defaults\">Build-in defaults</a></li>\n"
+                       "</ul>\n</li>")
+               html))
+      (should (string-match-p
+               (concat "<li class=\"toc-entry toc-h1\">"
+                       "<a href=\"#-is-changing-but-equals-still-matters\">"
+                       "== is changing, but equals() still matters</a></li>")
+               html))
+      (should-not (string-match-p "<a href=\"#overview\"><code>" html)))))
+
+(ert-deftest systemhalted-gill-post-drops-its-stray-paragraph-markup ()
+  "Task 14: the `/2008/04/09/' post wrapped its opening line in literal
+`#+begin_html' paragraphs, which Org exports as an escaped `div.html'. The
+page must publish the plain paragraph and the live `Hindu' link instead."
+  (let* ((file (expand-file-name
+                "org/posts/2008-04-09-implications-of-the-ms-gill-precedent-statecraft.org"
+                systemhalted-test-root))
+         (record (systemhalted-read-record file 'post))
+         (html (systemhalted-export-body record (list record))))
+    (should (string-match-p
+             (regexp-quote
+              (concat "Read an article with the same title on "
+                      "<a href=\"http://www.hindu.com/2008/04/08/stories/2008040854301000.htm\">"
+                      "Hindu</a> by Harish Khare. Here is my opinion on the issue."))
+             html))
+    (should-not (string-match-p "class=\"html\"" html))
+    (should-not (string-match-p "&lt;p&gt;" html))
+    (should-not (string-match-p "&lt;/p&gt;" html))))
+
+(ert-deftest systemhalted-lokpal-post-publishes-a-table-header-row ()
+  "Task 14: the `/2011/01/28/' table needs a header rule so the bill columns
+publish inside `<thead>', the way the live table does."
+  (let* ((file (expand-file-name "org/posts/2011-01-28-lokpal-bill.org"
+                                 systemhalted-test-root))
+         (record (systemhalted-read-record file 'post))
+         (html (systemhalted-export-body record (list record))))
+    (should (string-match-p "<thead>" html))
+    (should (string-match-p "<th" html))
+    (should (string-match-p "<strong>Government bill</strong>" html))
+    (should (string-match-p "<strong>Civil society bill</strong>" html))))
 
 (ert-deftest systemhalted-render-page-includes-katex-scripts ()
   "Every page must load KaTeX so inline and display math render like main."

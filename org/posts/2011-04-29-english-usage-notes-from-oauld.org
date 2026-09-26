@@ -11,10 +11,6 @@
 :END:
 I was going through OAULD and found this which comes very handy so keeping it here for ready reference. I had copied it on FB but it is difficult to find it there so thought to archive it here on my Wordpress blog.
 
-** 
-:PROPERTIES:
-:CUSTOM_ID: section
-:END:
 ** *Animals*
 :PROPERTIES:
 :CUSTOM_ID: animals
@@ -51,7 +47,7 @@ an egg/a chick/a [[http://en.wikipedia.org/wiki/Larva][larva]]  *hatches*
 
 *mark/enter/defend*  (a) territory
 
-*stalk/hunt/capture/catch/kil*l  prey
+*stalk/hunt/capture/catch/kill*  prey
 
 ** *Plants and fungi*
 :PROPERTIES:

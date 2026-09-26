@@ -423,11 +423,180 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
                 (or contents (systemhalted--escape-html path)))))
      (t (org-html-link link contents info)))))
 
+(defconst systemhalted--heading-anchor-drops "[^[:alnum:]_ -]"
+  "Characters live drops from a heading when deriving its anchor id.")
+
+(defconst systemhalted--no-break-space "\u00A0"
+  "The non-breaking space kramdown puts around footnote back-links.")
+
+(defvar systemhalted--export-anchor-ids nil
+  "Anchor ids already handed out during the current Org export.")
+
+(defvar systemhalted--export-footnote-ids nil
+  "Footnote number to its reference id and back-link label pairs.")
+
+(defconst systemhalted--html-entities
+  '(("&amp;" . "&") ("&lt;" . "<") ("&gt;" . ">") ("&quot;" . "\"")
+    ("&apos;" . "'") ("&#39;" . "'") ("&nbsp;" . " ") ("&mdash;" . "—")
+    ("&ndash;" . "–") ("&hellip;" . "…") ("&times;" . "×"))
+  "The HTML entities Org emits in body text, paired with their characters.")
+
+(defun systemhalted--decode-html (text)
+  "Return TEXT with the entities Org emits replaced by their characters."
+  (let ((decoded text))
+    (dolist (entity systemhalted--html-entities)
+      (setq decoded (replace-regexp-in-string
+                     (car entity) (lambda (_match) (cdr entity)) decoded)))
+    (replace-regexp-in-string
+     "&#\\([0-9]+\\);"
+     (lambda (match)
+       (let ((code (string-to-number (match-string 1 match))))
+         (if (> code 0) (char-to-string code) " ")))
+     decoded)))
+
+(defun systemhalted--plain-text (html)
+  "Return the text a reader sees in HTML, without entities or markup."
+  (systemhalted--strip-html (systemhalted--decode-html html)))
+
+(defun systemhalted--heading-anchor-id (text &optional custom-id)
+  "Return the anchor id live publishes for heading TEXT.
+
+Live derives ids the way kramdown does: downcase, drop everything
+outside `[[:alnum:]_ -]', join the remaining words with hyphens, then
+append `-1', `-2', ... for repeated headings in one document. An
+authored CUSTOM-ID replaces the derived id entirely."
+  (let* ((base (or custom-id
+                   (replace-regexp-in-string
+                    " " "-"
+                    (replace-regexp-in-string
+                     systemhalted--heading-anchor-drops ""
+                     (downcase text)))))
+         (candidate base)
+         (repeat 0))
+    (while (member candidate systemhalted--export-anchor-ids)
+      (setq repeat (1+ repeat))
+      (setq candidate (format "%s-%d" base repeat)))
+    (push candidate systemhalted--export-anchor-ids)
+    candidate))
+
+(defun systemhalted--footnote-ids ()
+  "Return the reference id table for the export in progress."
+  (or systemhalted--export-footnote-ids
+      (setq systemhalted--export-footnote-ids (make-hash-table))))
+
+(defun systemhalted--footnote-reference (reference info)
+  "Record REFERENCE's live ids and return them as a cons cell.
+
+The car is the `fnref:' anchor the reference publishes and the cdr is
+the back-link label the notes section shows for that same reference."
+  (let* ((number (org-export-get-footnote-number reference info))
+         (table (systemhalted--footnote-ids))
+         (seen (length (gethash number table)))
+         (id (if (> seen 0)
+                 (format "fnref:%d:%d" number seen)
+               (format "fnref:%d" number)))
+         (label (if (> seen 0)
+                    (format "&#8617;<sup>%d</sup>" (1+ seen))
+                  "&#8617;")))
+    (puthash number (append (gethash number table) (list (cons id label)))
+             table)
+    (cons id label)))
+
+(defun systemhalted-html-footnote-reference (reference _contents info)
+  "Export footnote REFERENCE as the `<sup><a>' pair live publishes."
+  (let* ((number (org-export-get-footnote-number reference info))
+         (id (car (systemhalted--footnote-reference reference info))))
+    (format (concat "<sup id=\"%s\"><a href=\"#fn:%d\" class=\"footnote\""
+                    " rel=\"footnote\" role=\"doc-noteref\">%d</a></sup>")
+            id number number)))
+
+(defun systemhalted--html-inline (element info)
+  "Return the inline HTML of the children of paragraph ELEMENT."
+  (mapconcat (lambda (object) (org-export-data object info))
+             (org-element-contents element)
+             ""))
+
+(defun systemhalted--html-footnote-definition (definition backlinks info)
+  "Return DEFINITION as a live `<p>' block ending in BACKLINKS."
+  (let ((elements (org-element-contents definition)))
+    (if (and (= 1 (length elements))
+             (eq (org-element-type (car elements)) 'paragraph))
+        (format "<p>%s%s%s</p>\n"
+                (systemhalted--html-inline (car elements) info)
+                systemhalted--no-break-space backlinks)
+      (concat (org-export-data elements info)
+              (format "\n<p>%s</p>\n" backlinks)))))
+
+(defun systemhalted--html-backlinks (number)
+  "Return the back-links live publishes for every reference to NUMBER."
+  (mapconcat
+   (lambda (pair)
+     (format (concat "<a href=\"#%s\" class=\"reversefootnote\""
+                     " role=\"doc-backlink\">%s</a>")
+             (car pair) (cdr pair)))
+   (gethash number (systemhalted--footnote-ids))
+   systemhalted--no-break-space))
+
+(defun systemhalted--html-footnotes-section (info)
+  "Return the live `<div class=\"footnotes\">' block for INFO's document."
+  (let ((definitions (org-export-collect-footnote-definitions info)))
+    (when definitions
+      (concat "\n<div class=\"footnotes\" role=\"doc-endnotes\">\n  <ol>\n"
+              (mapconcat
+               (lambda (entry)
+                 (format "    <li id=\"fn:%d\">\n      %s    </li>\n"
+                         (car entry)
+                         (systemhalted--html-footnote-definition
+                          (nth 2 entry)
+                          (systemhalted--html-backlinks (car entry))
+                          info)))
+               definitions)
+              "  </ol>\n</div>\n"))))
+
+(defun systemhalted-html-inner-template (body info)
+  "Return BODY followed by the notes section, the way live publishes them."
+  (concat body (systemhalted--html-footnotes-section info)))
+
+(defun systemhalted-html-headline (headline contents info)
+  "Export HEADLINE as the bare `<hN id=...>' section live publishes.
+
+Live anchors every heading, numbers it by its own Org level, and wraps
+its body in nothing at all, so in-page links and the table of contents
+keep resolving."
+  (let* ((level (min 6 (org-element-property :level headline)))
+         (title (org-export-data (org-element-property :title headline) info))
+         (id (systemhalted--heading-anchor-id
+              (systemhalted--plain-text title)
+              (org-element-property :custom-id headline))))
+    (concat (format "<h%d id=\"%s\">%s</h%d>\n\n" level id title level)
+            contents)))
+
+(defun systemhalted-html-section (_section contents _info)
+  "Export SECTION as bare CONTENT, the way live publishes section bodies.
+
+Org wraps every headline body in a `outline-text' div. Live publishes
+the same body with no wrapper at all."
+  contents)
+
+(defun systemhalted-html-bold (_bold contents _info)
+  "Export the bold object as `<strong>', the emphasis element live publishes."
+  (format "<strong>%s</strong>" contents))
+
+(defun systemhalted-html-italic (_italic contents _info)
+  "Export the italic object as `<em>', the emphasis element live publishes."
+  (format "<em>%s</em>" contents))
+
 (org-export-define-derived-backend 'systemhalted-html 'html
   :translate-alist
   '((src-block . systemhalted-html-src-block)
     (example-block . systemhalted-html-example-block)
-    (link . systemhalted-html-link)))
+    (link . systemhalted-html-link)
+    (headline . systemhalted-html-headline)
+    (section . systemhalted-html-section)
+    (bold . systemhalted-html-bold)
+    (italic . systemhalted-html-italic)
+    (footnote-reference . systemhalted-html-footnote-reference)
+    (inner-template . systemhalted-html-inner-template)))
 
 (defun systemhalted--export-new-reference (references)
   "Return the first unused deterministic reference in REFERENCES."
@@ -438,7 +607,9 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
 
 (defun systemhalted-export-body (record &optional records)
   "Export RECORD's Org body to HTML with links resolved through RECORDS."
-  (let ((systemhalted--export-records (or records (list record)))
+  (let ((systemhalted--export-anchor-ids nil)
+        (systemhalted--export-footnote-ids nil)
+        (systemhalted--export-records (or records (list record)))
         (systemhalted--export-source (systemhalted-record-source record))
         (default-directory
          (file-name-directory (systemhalted-record-source record)))
@@ -489,20 +660,65 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
     (setq slug (replace-regexp-in-string "[^[:alnum:]]+" "-" slug))
     (string-trim slug "-+" "-+")))
 
-(defun systemhalted--toc (body)
-  "Build a compact table of contents from headings in BODY."
-  (let ((start 0) items)
+(defun systemhalted--body-headings (body)
+  "Return the headings in BODY as a list of (LEVEL ID TEXT) lists."
+  (let ((headings nil) (start 0))
     (while (string-match
-            "<h\\([2-6]\\)[^>]*id=\"\\([^\"]+\\)\"[^>]*>\\(.*?\\)</h[2-6]>"
+            "<h\\([1-6]\\)[^>]*id=\"\\([^\"]+\\)\"[^>]*>\\(.*?\\)</h[1-6]>"
             body start)
-      (push (format "<li><a href=\"#%s\">%s</a></li>"
-                    (match-string 2 body) (match-string 3 body))
-            items)
-      (setq start (match-end 0)))
-    (when items
+      ;; Read the match data before anything else can reuse it.
+      (let ((level (string-to-number (match-string 1 body)))
+            (id (match-string 2 body))
+            (title (match-string 3 body))
+            (end (match-end 0)))
+        (push (list level id (systemhalted--escape-html
+                                (systemhalted--plain-text title)))
+              headings)
+        (setq start end)))
+    (nreverse headings)))
+
+(defun systemhalted--toc-skip (headings level)
+  "Return HEADINGS after dropping every heading deeper than LEVEL."
+  (while (and headings (> (car (car headings)) level))
+    (setq headings (cdr headings)))
+  headings)
+
+(defun systemhalted--toc-nest (headings level)
+  "Return the HEADINGS at LEVEL or deeper as a tree of nested lists.
+
+Each entry is a (LEVEL ID TEXT CHILDREN) list, so a heading owns every
+deeper heading that follows it, the way jekyll-toc nests `ul' elements."
+  (let (items)
+    (while (and headings (>= (car (car headings)) level))
+      (let* ((heading (car headings))
+             (rest (cdr headings))
+             (children (systemhalted--toc-nest rest (1+ (car heading)))))
+        (push (append heading (list children)) items)
+        (setq headings (systemhalted--toc-skip rest (car heading)))))
+    (nreverse items)))
+
+(defun systemhalted--toc-item (item)
+  "Return the live `li' markup for nested table of contents entry ITEM."
+  (format (if (nth 3 item)
+              (concat "<li class=\"toc-entry toc-h%s\">"
+                      "<a href=\"#%s\">%s</a>\n<ul>\n%s</ul>\n</li>\n")
+            "<li class=\"toc-entry toc-h%s\"><a href=\"#%s\">%s</a></li>\n")
+          (nth 0 item) (nth 1 item) (nth 2 item)
+          (systemhalted--toc-items (nth 3 item))))
+
+(defun systemhalted--toc-items (items)
+  "Return the table of contents markup for nested ITEMS."
+  (mapconcat #'systemhalted--toc-item items ""))
+
+(defun systemhalted--toc (body)
+  "Build the live table of contents from the headings in BODY."
+  (let ((headings (systemhalted--body-headings body)))
+    (when headings
       (format (concat "<details class=\"post-toc\"><summary>Contents</summary>"
-                      "<nav aria-label=\"Table of contents\"><ul>%s</ul></nav></details>")
-              (string-join (nreverse items) "")))))
+                      "<nav aria-label=\"Table of contents\">"
+                      "<ul id=\"toc\" class=\"section-nav\">%s</ul></nav></details>")
+              (systemhalted--toc-items
+               (systemhalted--toc-nest headings (car (car headings))))))))
 
 (defun systemhalted--post-records (records)
   "Return published post-like RECORDS in reverse chronological order."

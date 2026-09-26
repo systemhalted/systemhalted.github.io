@@ -77,8 +77,11 @@ Interactively, prompt for both required values. Return the visiting buffer."
       buffer)))
 
 (defun systemhalted-build ()
-  "Build and validate the production site, excluding drafts and future posts."
+  "Build and validate the production site, excluding drafts and future posts.
+Re-reads `site-config.el' first, so a session that already loaded the
+publisher still picks up an edited setting without restarting Emacs."
   (interactive)
+  (systemhalted-reload-site-config)
   (let ((result (systemhalted-build-site
                  :root systemhalted-root-directory
                  :output systemhalted-output-directory)))
@@ -201,8 +204,11 @@ Interactively, prompt for both required values. Return the visiting buffer."
         systemhalted-preview-active-port nil))
 
 (defun systemhalted-preview ()
-  "Save the current source, build a preview, serve it, and open its URL."
+  "Save the current source, build a preview, serve it, and open its URL.
+Re-reads `site-config.el' first, so a session that already loaded the
+publisher still picks up an edited setting without restarting Emacs."
   (interactive)
+  (systemhalted-reload-site-config)
   (when (and (buffer-file-name) (buffer-modified-p))
     (save-buffer))
   (let ((route (systemhalted--preview-route)))

@@ -1264,6 +1264,47 @@ the `newsletter' tag, and `#+KARTAVYA_PATH: true', matching main."
       (delete-directory root t)
       (delete-directory output t))))
 
+(ert-deftest systemhalted-build-site-removes-staging-directory-on-failure ()
+  "A build that fails must not leave a `.systemhalted-stage-*' directory beside
+the output directory, so a broken source cannot litter the repository root."
+  (let* ((parent (make-temp-file "systemhalted-stage-parent-" t))
+         (sources (expand-file-name "sources" parent))
+         (output (expand-file-name "site" parent)))
+    (unwind-protect
+        (progn
+          (make-directory sources t)
+          (with-temp-file (expand-file-name "2026-09-25-broken.org" sources)
+            (insert "#+DESCRIPTION: Missing a title.\n#+DATE: 2026-09-25\n"))
+          (should-error
+           (systemhalted-build-site
+            :root parent
+            :output output
+            :content-directories (list (cons sources 'draft))
+            :include-drafts t
+            :include-future t)
+           :type 'systemhalted-publish-error)
+          (should (equal (directory-files parent nil "\\.systemhalted-stage-") nil))
+          (should-not (file-exists-p output)))
+      (delete-directory parent t))))
+
+(ert-deftest systemhalted-reload-site-config-picks-up-edited-values ()
+  "A long-running Emacs session must see an edited `site-config.el' after a
+reload, instead of the values cached when the publisher was first required."
+  (let ((config (make-temp-file "systemhalted-site-config-" nil ".el"))
+        (original systemhalted-site-title))
+    (unwind-protect
+        (progn
+          (with-temp-file config
+            (insert ";;; -*- lexical-binding: t; -*-\n")
+            (insert "(defconst systemhalted-site-title \"Edited Site Title\")\n")
+            (insert "(provide 'site-config)\n"))
+          (let ((systemhalted-site-config-file config))
+            (should (systemhalted-reload-site-config)))
+          (should (equal systemhalted-site-title "Edited Site Title"))
+          (systemhalted-reload-site-config)
+          (should (equal systemhalted-site-title original)))
+      (delete-file config))))
+
 (ert-deftest systemhalted-build-site-is-deterministic ()
   "Changing bytes between identical builds would make deployments irreproducible."
   (let ((first (make-temp-file "systemhalted-first-" t))

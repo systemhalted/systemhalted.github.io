@@ -48,6 +48,25 @@
             (should-not (plist-get captured :include-future))))
       (delete-directory root t))))
 
+(ert-deftest systemhalted-build-reloads-site-config ()
+  "`M-x systemhalted-build' must re-read `site-config.el' before building, so
+a session that already loaded the publisher picks up an edited setting (the
+`google-analytics-id' bug hit after Task 6) without restarting Emacs.
+`systemhalted-build-site' itself does not reload: unit tests build directly
+and routinely override individual settings with a dynamic `let', which a
+reload would clobber for the rest of that build."
+  (let ((root (make-temp-file "systemhalted-build-root-" t))
+        reloaded)
+    (unwind-protect
+        (let ((systemhalted-root-directory root)
+              (systemhalted-output-directory (expand-file-name "public" root)))
+          (cl-letf (((symbol-function 'systemhalted-build-site) (lambda (&rest _) "built"))
+                    ((symbol-function 'systemhalted-reload-site-config)
+                     (lambda () (setq reloaded t))))
+            (systemhalted-build)
+            (should reloaded)))
+      (delete-directory root t))))
+
 (ert-deftest systemhalted-preview-saves-builds-and-opens-source-route ()
   "Preview should save the source, include hidden content, and open its route."
   (let* ((root (make-temp-file "systemhalted-preview-root-" t))
@@ -77,6 +96,33 @@
           (should (plist-get captured :include-drafts))
           (should (plist-get captured :include-future))
           (should (equal opened "http://127.0.0.1:4567/2026/09/25/preview-me/")))
+      (when (buffer-live-p buffer) (kill-buffer buffer))
+      (delete-directory root t))))
+
+(ert-deftest systemhalted-preview-reloads-site-config ()
+  "`M-x systemhalted-preview' must re-read `site-config.el' before building
+the preview, for the same reason `systemhalted-build' does."
+  (let* ((root (make-temp-file "systemhalted-preview-reload-root-" t))
+         (draft-dir (expand-file-name "org/drafts" root))
+         (file (expand-file-name "2026-09-25-preview-reload.org" draft-dir))
+         reloaded buffer)
+    (unwind-protect
+        (progn
+          (make-directory draft-dir t)
+          (with-temp-file file
+            (insert "#+TITLE: Preview reload\n#+DESCRIPTION: Preview route.\n"
+                    "#+DATE: 2026-09-25\n#+DRAFT: true\n\nBody.\n"))
+          (setq buffer (find-file-noselect file))
+          (with-current-buffer buffer
+            (let ((systemhalted-root-directory root)
+                  (systemhalted-output-directory (expand-file-name "public" root)))
+              (cl-letf (((symbol-function 'systemhalted-build-site) (lambda (&rest _) nil))
+                        ((symbol-function 'systemhalted-start-preview-server) (lambda () 4567))
+                        ((symbol-function 'browse-url) #'ignore)
+                        ((symbol-function 'systemhalted-reload-site-config)
+                         (lambda () (setq reloaded t))))
+                (systemhalted-preview))))
+          (should reloaded))
       (when (buffer-live-p buffer) (kill-buffer buffer))
       (delete-directory root t))))
 

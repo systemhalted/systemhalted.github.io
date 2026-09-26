@@ -23,6 +23,19 @@
 
 (require 'site-config (expand-file-name "site-config" systemhalted-publish-directory))
 
+(defvar systemhalted-site-config-file
+  (expand-file-name "site-config.el" systemhalted-publish-directory)
+  "Site settings file re-read by `systemhalted-reload-site-config'.")
+
+(defun systemhalted-reload-site-config ()
+  "Re-read `systemhalted-site-config-file' and return t.
+`require' only loads a feature the first time, so an Emacs session that
+already loaded the publisher would otherwise keep the settings from that
+first load. Loading the file again re-evaluates its `defconst' forms, so an
+edited value takes effect on the next run without restarting Emacs."
+  (load systemhalted-site-config-file nil t)
+  t)
+
 ;; Vendored under `publish/' (a `vendor/' directory is gitignored) and loaded by
 ;; path, so code blocks always fontify through this copy rather than whichever
 ;; htmlize a reader happens to have on their `load-path'.
@@ -2429,36 +2442,50 @@ so two clean builds of the same sources stay byte-identical."
 
 (cl-defun systemhalted-build-site (&key root output content-directories
                                         include-drafts include-future now)
-  "Build the site from ROOT into OUTPUT using an atomic staged install."
+  "Build the site from ROOT into OUTPUT using an atomic staged install.
+The staging directory beside OUTPUT is removed on every path that does not
+install it, so a failed build leaves no `.systemhalted-stage-*' directory
+behind. This is the pure build core: it uses whatever site settings are
+already loaded and does not reload `site-config.el' itself (callers that
+build directly, such as the ERT suite, routinely override individual
+settings with a dynamic `let', which a reload would clobber for the
+remainder of the build). `systemhalted-build', `systemhalted-preview', and
+`systemhalted-publish' in `systemhalted-workflow.el' call
+`systemhalted-reload-site-config' before reaching this function, so the
+interactive and batch entry points still see an edited `site-config.el' on
+every run."
   (let* ((root (file-name-as-directory (expand-file-name root)))
          (output (directory-file-name (expand-file-name output)))
          (parent (file-name-directory output))
          (stage (make-temp-file (expand-file-name ".systemhalted-stage-" parent) t))
-         (backup (concat output ".previous"))
-         (directories (or content-directories
-                          (systemhalted--default-content-directories root)))
-         (records (systemhalted--load-content-directories
-                   directories include-drafts include-future now)))
-    (condition-case err
-        (progn
-          (systemhalted--generate-site root stage records)
-          (systemhalted-validate-site stage)
-          (when (file-exists-p backup) (delete-directory backup t))
-          (when (file-exists-p output) (rename-file output backup))
-          (condition-case install-error
-              (rename-file stage output)
+         (backup (concat output ".previous")))
+    (unwind-protect
+        (let* ((directories (or content-directories
+                                 (systemhalted--default-content-directories root)))
+               (records (systemhalted--load-content-directories
+                         directories include-drafts include-future now)))
+          (condition-case err
+              (progn
+                (systemhalted--generate-site root stage records)
+                (systemhalted-validate-site stage)
+                (when (file-exists-p backup) (delete-directory backup t))
+                (when (file-exists-p output) (rename-file output backup))
+                (condition-case install-error
+                    (rename-file stage output)
+                  (error
+                   (when (and (file-exists-p backup) (not (file-exists-p output)))
+                     (rename-file backup output))
+                   (signal (car install-error) (cdr install-error))))
+                (when (file-exists-p backup) (delete-directory backup t))
+                output)
             (error
-             (when (and (file-exists-p backup) (not (file-exists-p output)))
-               (rename-file backup output))
-             (signal (car install-error) (cdr install-error))))
-          (when (file-exists-p backup) (delete-directory backup t))
-          output)
-      (error
-       (when (file-exists-p stage) (delete-directory stage t))
-       (if (eq (car err) 'systemhalted-publish-error)
-           (signal (car err) (cdr err))
-         (signal 'systemhalted-publish-error
-                 (list (error-message-string err))))))))
+             (if (eq (car err) 'systemhalted-publish-error)
+                 (signal (car err) (cdr err))
+               (signal 'systemhalted-publish-error
+                       (list (error-message-string err)))))))
+      ;; A successful install renamed STAGE onto OUTPUT, so this only removes
+      ;; the staging directory left behind by a build that failed or was quit.
+      (when (file-exists-p stage) (delete-directory stage t)))))
 
 (provide 'systemhalted-publish)
 ;;; systemhalted-publish.el ends here

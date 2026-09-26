@@ -56,6 +56,24 @@ sibling-theme scoring bonus (`systemhalted--related-records'). Bound by
 `systemhalted-render-page' outside a full build (such as tests exercising a
 single record) get this fallback constant instead.")
 
+(defvar systemhalted--taxonomy-themes nil
+  "Cache of `systemhalted--read-taxonomy''s :THEMES for the whole build, so
+every post's related-posts sibling-theme bonus (`systemhalted--related-records'
+via `systemhalted--render-post') reads `org/data/taxonomy.org' once instead of
+once per post. Bound by `systemhalted--generate-site'. nil outside a full
+build, in which case `systemhalted--render-post' reads the taxonomy directly
+from `systemhalted--source-root' instead.")
+
+(defvar systemhalted--category-count-table nil
+  "Cache of `systemhalted--category-counts' for the whole build's posts, so
+every post's related-post \"More from <category>\" reason
+(`systemhalted--related-html') tallies categories once instead of once per
+post. Bound by `systemhalted--generate-site' from the same RECORDS every
+rendered post already shares, so the cached table is identical to what each
+call would have computed on its own. nil outside a full build, in which case
+`systemhalted--related-html' computes it from its own RECORDS argument
+instead.")
+
 (defun systemhalted--source-error (file format-string &rest args)
   "Signal a publishing error for FILE using FORMAT-STRING and ARGS."
   (signal 'systemhalted-publish-error
@@ -552,7 +570,8 @@ sibling-category scoring bonus."
   (let ((related (systemhalted--related-records record records themes)))
     (when related
       (let ((category-counts
-             (systemhalted--category-counts (systemhalted--post-records records))))
+             (or systemhalted--category-count-table
+                 (systemhalted--category-counts (systemhalted--post-records records)))))
         (concat
          "<ul class=\"related-posts\">"
          (mapconcat
@@ -668,8 +687,9 @@ matching `main:_layouts/post.html''s single guard around both."
        (?x . ,(or (systemhalted--taxonomy-html record) ""))
        (?r . ,(or (systemhalted--post-more-html
                    record records
-                   (plist-get (systemhalted--read-taxonomy systemhalted--source-root)
-                              :themes))
+                   (or systemhalted--taxonomy-themes
+                       (plist-get (systemhalted--read-taxonomy systemhalted--source-root)
+                                  :themes)))
                   ""))
        (?g . ,(or (systemhalted--comments-html record) ""))))))
 
@@ -2076,6 +2096,10 @@ so two clean builds of the same sources stay byte-identical."
                 (seq-remove #'systemhalted-record-draft records)))
          (systemhalted--asset-version (systemhalted--compute-asset-version source-root))
          (systemhalted--source-root source-root)
+         (systemhalted--taxonomy-themes
+          (plist-get (systemhalted--read-taxonomy source-root) :themes))
+         (systemhalted--category-count-table
+          (systemhalted--category-counts (systemhalted--post-records records)))
          (systemhalted--footer-year
           (if posts
               (format-time-string "%Y" (systemhalted-record-date (car posts)) t)

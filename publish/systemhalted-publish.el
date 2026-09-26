@@ -35,6 +35,18 @@
     "COMMENTS" "TOC" "MERMAID" "LAST_MODIFIED" "FEATURED_IMAGE"
     "FEATURED_IMAGE_ALT" "FEATURED_IMAGE_CAPTION" "DRAFT"))
 
+(defvar systemhalted--asset-version "0"
+  "Deterministic cache-busting token substituted for `?v=' on CSS/JS links.
+Bound by `systemhalted--generate-site' to a content digest of assets/css and
+assets/js, never the wall clock, so two clean builds stay byte-identical.
+Direct calls to `systemhalted-render-page' outside a full build (such as
+tests exercising a single record) get this fallback constant instead.")
+
+(defvar systemhalted--footer-year "2026"
+  "Year shown in the footer copyright line: the newest post's year.
+Bound by `systemhalted--generate-site'. Direct calls to
+`systemhalted-render-page' outside a full build get this fallback constant.")
+
 (defun systemhalted--source-error (file format-string &rest args)
   "Signal a publishing error for FILE using FORMAT-STRING and ARGS."
   (signal 'systemhalted-publish-error
@@ -606,18 +618,47 @@ mermaid.js can render."
      "});"
      "</script>")))
 
+(defconst systemhalted--website-alternate-names
+  '("The System Halted" "System Halted" "The SystemHalted" "systemhalted")
+  "Brand-query variants exposed as JSON-LD `alternateName' on the home page,
+matching main's `_includes/structured-data.html'.")
+
+(defun systemhalted--page-image-url (record)
+  "Return the absolute image URL for RECORD: its featured image, or the avatar."
+  (concat systemhalted-site-url
+          (or (systemhalted-record-featured-image record)
+              "/assets/images/avatar.jpeg")))
+
 (defun systemhalted--structured-data (record)
-  "Return JSON-LD shared by pages, including article data for RECORD."
-  (let ((person (json-serialize
-                 '((@context . "https://schema.org")
-                   (@type . "Person")
-                   (@id . "https://systemhalted.in/#person")
-                   (name . "Palak Mathur")
-                   (url . "https://systemhalted.in/about/")
-                   (image . "https://systemhalted.in/assets/images/avatar.jpeg")
-                   (jobTitle . "Director of Software Engineering")))))
+  "Return JSON-LD shared by pages, including home and article data for RECORD."
+  (let* ((route (systemhalted-record-route record))
+         (person-id (concat systemhalted-site-url "/#person"))
+         (person (json-serialize
+                  `((@context . "https://schema.org")
+                    (@type . "Person")
+                    (@id . ,person-id)
+                    (name . ,systemhalted-site-author)
+                    (url . ,(concat systemhalted-site-url "/about/"))
+                    (image . "https://systemhalted.in/assets/images/avatar.jpeg")
+                    (jobTitle . "Director of Software Engineering")
+                    (sameAs . ,(vconcat systemhalted-social-links))))))
     (concat "<script type=\"application/ld+json\">" person "</script>"
-            (when (eq (systemhalted-record-kind record) 'post)
+            (when (equal route "/")
+              (concat
+               "<script type=\"application/ld+json\">"
+               (json-serialize
+                `((@context . "https://schema.org")
+                  (@type . "WebSite")
+                  (@id . ,(concat systemhalted-site-url "/#website"))
+                  (name . ,systemhalted-site-title)
+                  (alternateName . ,(vconcat systemhalted--website-alternate-names))
+                  (url . ,(concat systemhalted-site-url "/"))
+                  (description . ,systemhalted-site-description)
+                  (inLanguage . "en-US")
+                  (publisher . ((@id . ,person-id)))
+                  (author . ((@id . ,person-id)))))
+               "</script>"))
+            (when (memq (systemhalted-record-kind record) '(post draft))
               (concat
                "<script type=\"application/ld+json\">"
                (json-serialize
@@ -625,12 +666,81 @@ mermaid.js can render."
                   (@type . "BlogPosting")
                   (headline . ,(systemhalted-record-title record))
                   (description . ,(systemhalted-record-description record))
-                  (url . ,(concat "https://systemhalted.in"
-                                  (systemhalted-record-route record)))))
+                  (url . ,(concat systemhalted-site-url route))
+                  (datePublished . ,(systemhalted--iso-datetime
+                                     (systemhalted-record-date record)))
+                  (author . ((@id . ,person-id)))
+                  (image . ,(systemhalted--page-image-url record))))
                "</script>")))))
 
-(defun systemhalted-render-page (record &optional records body)
-  "Render complete HTML for RECORD, using RECORDS for cross-page relationships."
+(defun systemhalted--analytics-html ()
+  "Return the Google Analytics gtag script, matching main's `_includes/head.html'."
+  (concat
+   "<script async src=\"https://www.googletagmanager.com/gtag/js?id="
+   systemhalted-google-analytics-id "\"></script>"
+   "<script>"
+   "window.dataLayer = window.dataLayer || [];"
+   "function gtag(){dataLayer.push(arguments);}"
+   "gtag('js', new Date());"
+   "gtag('config', '" systemhalted-google-analytics-id "');"
+   "</script>"))
+
+(defun systemhalted--paginated-route-p (route)
+  "Non-nil when ROUTE is a `/pageN/' route."
+  (string-match-p "\\`/page[0-9]+/\\'" route))
+
+(defun systemhalted--noindex-route-p (route)
+  "Non-nil when ROUTE must carry a noindex robots meta tag, matching live's
+`/pageN/' pagination pages and the 404 page."
+  (or (systemhalted--paginated-route-p route) (equal route "/404.html")))
+
+(defun systemhalted--large-image-twitter-card-p (route)
+  "Non-nil when ROUTE gets `summary_large_image', matching what live emits
+for the home page, `/about/', and its `/pageN/' siblings."
+  (or (equal route "/") (equal route "/about/")
+      (systemhalted--paginated-route-p route)))
+
+(defun systemhalted--seo-meta-html (record route title bare-title is-post)
+  "Return the <title> tag and SEO meta tags for RECORD at ROUTE.
+TITLE is the full `<title>' text; BARE-TITLE is the unqualified page name used
+for `og:title'/`twitter:title', matching jekyll-seo-tag's own distinction
+between a page's title and its site-qualified title."
+  (let* ((description (systemhalted--escape-html
+                       (systemhalted-record-description record) t))
+         (canonical (concat systemhalted-site-url route))
+         (image (systemhalted--escape-html (systemhalted--page-image-url record) t))
+         (bare (systemhalted--escape-html bare-title t)))
+    (concat
+     "<title>" (systemhalted--escape-html title) "</title>"
+     "<meta name=\"generator\" content=\"" systemhalted-generator "\">"
+     "<meta property=\"og:title\" content=\"" bare "\">"
+     "<meta name=\"author\" content=\"" systemhalted-site-author "\">"
+     "<meta property=\"og:locale\" content=\"en_US\">"
+     "<meta name=\"description\" content=\"" description "\">"
+     "<meta property=\"og:description\" content=\"" description "\">"
+     "<link rel=\"canonical\" href=\"" canonical "\">"
+     "<meta property=\"og:url\" content=\"" canonical "\">"
+     "<meta property=\"og:site_name\" content=\"" systemhalted-site-title "\">"
+     "<meta property=\"og:image\" content=\"" image "\">"
+     (if is-post
+         (concat "<meta property=\"og:type\" content=\"article\">"
+                 "<meta property=\"article:published_time\" content=\""
+                 (systemhalted--iso-datetime (systemhalted-record-date record)) "\">")
+       "<meta property=\"og:type\" content=\"website\">")
+     "<meta name=\"twitter:card\" content=\""
+     (if (systemhalted--large-image-twitter-card-p route) "summary_large_image" "summary")
+     "\">"
+     "<meta property=\"twitter:image\" content=\"" image "\">"
+     "<meta property=\"twitter:title\" content=\"" bare "\">"
+     "<meta name=\"google-site-verification\" content=\""
+     systemhalted-google-site-verification "\">")))
+
+(defun systemhalted-render-page (record &optional records body full-title bare-title)
+  "Render complete HTML for RECORD, using RECORDS for cross-page relationships.
+FULL-TITLE and BARE-TITLE override the computed `<title>' text and the bare
+page name used for `og:title'/`twitter:title'. Only the home page and its
+`/pageN/' siblings need them, since their title is not simply
+\"<page title> | SystemHalted.in\"."
   (let* ((records (or records (list record)))
          (body (or body (systemhalted-export-body record records)))
          (kind (systemhalted-record-kind record))
@@ -652,19 +762,23 @@ mermaid.js can render."
                             " page-title-quiet" ""))
                  (?c . ,body))))))
          (route (systemhalted-record-route record))
-         (title (if (equal route "/") "SystemHalted.in"
-                  (format "%s · SystemHalted.in" (systemhalted-record-title record))))
+         (is-post (memq kind '(post draft)))
+         (bare-title (or bare-title (systemhalted-record-title record)))
+         (title (or full-title (format "%s | %s" bare-title systemhalted-site-title)))
          (current " aria-current=\"page\""))
     (systemhalted--template
      "base.html"
-     `((?t . ,(systemhalted--escape-html title))
-       (?d . ,(systemhalted--escape-html (systemhalted-record-description record) t))
-       (?u . ,(concat "https://systemhalted.in" route))
-       (?r . "")
-       (?s . "org")
+     `((?r . ,(if (systemhalted--noindex-route-p route)
+                  "<meta name=\"robots\" content=\"noindex,follow\">" ""))
+       (?s . ,systemhalted--asset-version)
+       (?y . ,systemhalted--footer-year)
        (?p . ,(if (equal route "/projects/")
-                  "<link rel=\"stylesheet\" href=\"/assets/css/projects.css?v=org\">" ""))
+                  (format "<link rel=\"stylesheet\" href=\"/assets/css/projects.css?v=%s\">"
+                          systemhalted--asset-version)
+                ""))
        (?M . ,(or (systemhalted--mermaid-head-html record) ""))
+       (?g . ,(systemhalted--analytics-html))
+       (?h . ,(systemhalted--seo-meta-html record route title bare-title is-post))
        (?j . ,(systemhalted--structured-data record))
        (?w . ,(if (equal route "/") current ""))
        (?P . ,(if (equal route "/projects/") current ""))
@@ -707,10 +821,13 @@ mermaid.js can render."
    :source "<generated>" :kind 'page :title title :description description
    :route route :categories nil :tags nil))
 
-(defun systemhalted--render-generated-page (title description route body)
-  "Render a generated page from TITLE, DESCRIPTION, ROUTE, and BODY."
+(defun systemhalted--render-generated-page (title description route body
+                                                   &optional full-title bare-title)
+  "Render a generated page from TITLE, DESCRIPTION, ROUTE, and BODY.
+FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
   (systemhalted-render-page
-   (systemhalted--synthetic-page title description route) nil body))
+   (systemhalted--synthetic-page title description route) nil body
+   full-title bare-title))
 
 (defun systemhalted--post-list (posts &optional descriptions)
   "Render POSTS as a dated writing list, including DESCRIPTIONS when non-nil."
@@ -746,9 +863,12 @@ mermaid.js can render."
   (let* ((chunks (or (systemhalted--chunks posts systemhalted-page-size)
                      (list nil)))
          (total (length chunks))
+         (home-title (format "%s | %s" systemhalted-site-title systemhalted-site-description))
          (page 1))
     (dolist (chunk chunks)
       (let* ((route (if (= page 1) "/" (format "/page%d/" page)))
+             (full-title (if (= page 1) home-title
+                           (format "Page %d of %d for %s" page total home-title)))
              (body
               (if (= page 1)
                   (concat
@@ -773,7 +893,8 @@ mermaid.js can render."
          root route
          (systemhalted--render-generated-page
           (if (= page 1) "Writing" "Older writing")
-          systemhalted-site-description route body)))
+          systemhalted-site-description route body
+          full-title systemhalted-site-title)))
       (setq page (1+ page)))))
 
 (defun systemhalted--archive-list (posts)
@@ -1130,14 +1251,32 @@ SOURCE-ROOT supplies the maintained command runtime and OS-history data."
     (systemhalted--load-content-directories directories t t nil)
     t))
 
+(defun systemhalted--compute-asset-version (root)
+  "Return a short deterministic cache-busting token for assets below ROOT.
+Derived from the contents of assets/css and assets/js, never the wall clock,
+so two clean builds of the same sources stay byte-identical."
+  (let ((files (sort
+                (append
+                 (directory-files (expand-file-name "assets/css" root) t "\\.css\\'")
+                 (directory-files (expand-file-name "assets/js" root) t "\\.js\\'"))
+                #'string-lessp)))
+    (substring
+     (secure-hash 'sha256 (mapconcat #'systemhalted--read-file files "\0"))
+     0 10)))
+
 (defun systemhalted--generate-site (source-root output-root records)
   "Generate the complete site from RECORDS into OUTPUT-ROOT."
   (make-directory output-root t)
   (systemhalted--copy-static source-root output-root)
-  (dolist (record records)
-    (systemhalted-write-record record records output-root))
-  (let ((posts (systemhalted--post-records
-                (seq-remove #'systemhalted-record-draft records))))
+  (let* ((posts (systemhalted--post-records
+                (seq-remove #'systemhalted-record-draft records)))
+         (systemhalted--asset-version (systemhalted--compute-asset-version source-root))
+         (systemhalted--footer-year
+          (if posts
+              (format-time-string "%Y" (systemhalted-record-date (car posts)) t)
+            systemhalted--footer-year)))
+    (dolist (record records)
+      (systemhalted-write-record record records output-root))
     (systemhalted--generate-home output-root posts)
     (systemhalted--generate-archive output-root posts)
     (systemhalted--generate-taxonomy

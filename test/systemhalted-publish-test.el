@@ -298,7 +298,7 @@ contains a literal comma, instead of being split into multiple items."
                                               :include-drafts t
                                               :include-future t))
          (html (systemhalted-render-page record records)))
-    (should (string-match-p "<title>Rich &amp; Structured · SystemHalted.in</title>" html))
+    (should (string-match-p "<title>Rich &amp; Structured \\| SystemHalted.in</title>" html))
     (should (string-match-p
              "<link rel=\"canonical\" href=\"https://systemhalted.in/2026/09/24/rich-content/\">"
              html))
@@ -669,6 +669,233 @@ paginated pages and the local page count intentionally differs), and the
               (should (file-exists-p
                        (systemhalted--local-target-file output route))))))
       (delete-directory output t))))
+
+;;; Head metadata and SEO (Task 6)
+
+(ert-deftest systemhalted-render-page-title-formats-match-live ()
+  "A bare page title must read \"<title> | SystemHalted.in\", matching live's
+jekyll-seo-tag separator, not the old middle-dot."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/about.org" systemhalted-test-root)
+                  'page))
+         (html (systemhalted-render-page record)))
+    (should (string-match-p "<title>About \\| SystemHalted.in</title>" html))
+    (should (string-match-p
+             "<meta property=\"og:title\" content=\"About\">" html))
+    (should (string-match-p
+             "<meta property=\"twitter:title\" content=\"About\">" html))))
+
+(ert-deftest systemhalted-render-page-home-title-uses-site-description ()
+  "Home's <title> has no page title of its own, so it must read
+\"SystemHalted.in | <description>\", matching live, and its bare og/twitter
+title must be just the site title."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "index.html" output))
+      (let ((html (buffer-string)))
+        (should (string-match-p
+                 (regexp-quote
+                  (format "<title>%s | %s</title>"
+                          systemhalted-site-title systemhalted-site-description))
+                 html))
+        (should (string-match-p
+                 (format "<meta property=\"og:title\" content=\"%s\">"
+                         (regexp-quote systemhalted-site-title))
+                 html))
+        (should-not (string-match-p "meta name=\"robots\"" html))))))
+
+(ert-deftest systemhalted-render-page-page2-title-and-robots-match-live ()
+  "A /pageN/ page must carry a noindex robots tag and a
+\"Page N of M for SystemHalted.in | <description>\" title, matching live's
+`/page2/'."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "page2/index.html" output))
+      (let ((html (buffer-string)))
+        (should (string-match-p
+                 "<meta name=\"robots\" content=\"noindex,follow\">" html))
+        (should (string-match-p
+                 (regexp-quote
+                  (format "<title>Page 2 of 3 for %s | %s</title>"
+                          systemhalted-site-title systemhalted-site-description))
+                 html))
+        (should (string-match-p
+                 "<link rel=\"canonical\" href=\"https://systemhalted.in/page2/\">"
+                 html))))))
+
+(ert-deftest systemhalted-render-page-404-carries-noindex-robots ()
+  "The 404 page must carry a noindex robots tag, matching live."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/404.org" systemhalted-test-root)
+                  'page))
+         (html (systemhalted-render-page record)))
+    (should (string-match-p
+             "<meta name=\"robots\" content=\"noindex,follow\">" html))
+    (should (string-match-p "<title>404: Page not found \\| SystemHalted.in</title>" html))))
+
+(ert-deftest systemhalted-render-page-post-gets-article-type-and-published-time ()
+  "A post must emit `og:type=article' plus `article:published_time', matching
+live; other kinds must stay `website'."
+  (let* ((record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (html (systemhalted-render-page record records))
+         (page-record (systemhalted-read-record
+                       (expand-file-name "org/pages/about.org" systemhalted-test-root)
+                       'page))
+         (page-html (systemhalted-render-page page-record)))
+    (should (string-match-p "<meta property=\"og:type\" content=\"article\">" html))
+    (should (string-match-p
+             "<meta property=\"article:published_time\" content=\"2026-09-24T00:00:00\\+00:00\">"
+             html))
+    (should (string-match-p "<meta property=\"og:type\" content=\"website\">" page-html))
+    (should-not (string-match-p "article:published_time" page-html))))
+
+(ert-deftest systemhalted-render-page-image-falls-back-to-avatar ()
+  "A page without a featured image must use the avatar as its og/twitter image;
+a post with one must use it instead."
+  (let* ((records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (featured-record (systemhalted-read-record
+                           (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                           'post))
+         (featured-html (systemhalted-render-page featured-record records))
+         (plain-record (systemhalted-read-record
+                        (expand-file-name "org/pages/about.org" systemhalted-test-root)
+                        'page))
+         (plain-html (systemhalted-render-page plain-record)))
+    (should (string-match-p
+             "<meta property=\"og:image\" content=\"https://systemhalted.in/assets/images/avatar.jpeg\">"
+             featured-html))
+    (should (string-match-p
+             "<meta property=\"twitter:image\" content=\"https://systemhalted.in/assets/images/avatar.jpeg\">"
+             featured-html))
+    (should (string-match-p
+             "<meta property=\"og:image\" content=\"https://systemhalted.in/assets/images/avatar.jpeg\">"
+             plain-html))))
+
+(ert-deftest systemhalted-render-page-twitter-card-matches-live-per-page-type ()
+  "Home, /about/, and /pageN/ get `summary_large_image'; everything else, and
+every post, gets `summary', matching what live emits for each page type."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "index.html" output))
+      (should (string-match-p
+               "<meta name=\"twitter:card\" content=\"summary_large_image\">"
+               (buffer-string))))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "about/index.html" output))
+      (should (string-match-p
+               "<meta name=\"twitter:card\" content=\"summary_large_image\">"
+               (buffer-string))))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "archives/index.html" output))
+      (should (string-match-p
+               "<meta name=\"twitter:card\" content=\"summary\">"
+               (buffer-string))))))
+
+(ert-deftest systemhalted-render-page-includes-locale-author-generator-and-verification ()
+  "og:locale, author, generator, and the Search Console verification tag must
+be present, matching live's `_includes/head.html' output."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/about.org" systemhalted-test-root)
+                  'page))
+         (html (systemhalted-render-page record)))
+    (should (string-match-p "<meta property=\"og:locale\" content=\"en_US\">" html))
+    (should (string-match-p "<meta name=\"author\" content=\"Palak Mathur\">" html))
+    (should (string-match-p
+             (format "<meta name=\"generator\" content=\"%s\">"
+                     (regexp-quote systemhalted-generator))
+             html))
+    (should (string-match-p
+             "<meta name=\"google-site-verification\" content=\"1v5ZSlWxFB06EQ-VB5U4n3226XFqq3ki9qusVH2m0K8\">"
+             html))
+    (should (string-match-p
+             "googletagmanager.com/gtag/js\\?id=UA-36868278-1" html))
+    (should (string-match-p "gtag('config', 'UA-36868278-1')" html))
+    (should (string-match-p
+             "<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/assets/systemhalted-terminal-32.png\">"
+             html))))
+
+(ert-deftest systemhalted-render-page-structured-data-matches-live-shape ()
+  "The Person node must carry `sameAs'; the WebSite node must appear only on
+`/', with `alternateName' and `inLanguage'; a post's BlogPosting must carry
+`datePublished', an author `@id' reference, and an image."
+  (let* ((records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (html (systemhalted-render-page record records))
+         (home-record (systemhalted--synthetic-page "Writing" "desc" "/"))
+         (home-html (systemhalted-render-page home-record nil "<p>home</p>")))
+    (should (string-match-p "\"sameAs\":\\[\"https://github.com/systemhalted\"" html))
+    (should (string-match-p "\"@type\":\"BlogPosting\"" html))
+    (should (string-match-p "\"datePublished\":\"2026-09-24T00:00:00\\+00:00\"" html))
+    (should (string-match-p
+             "\"author\":{\"@id\":\"https://systemhalted.in/#person\"}" html))
+    (should (string-match-p "\"image\":\"https://systemhalted.in/assets/images/avatar.jpeg\"" html))
+    (should (string-match-p "\"@type\":\"WebSite\"" home-html))
+    (should (string-match-p
+             "\"alternateName\":\\[\"The System Halted\",\"System Halted\",\"The SystemHalted\",\"systemhalted\"\\]"
+             home-html))
+    (should (string-match-p "\"inLanguage\":\"en-US\"" home-html))
+    (should-not (string-match-p "\"@type\":\"WebSite\"" html))))
+
+(ert-deftest systemhalted-build-site-cache-busts-with-a-deterministic-token ()
+  "CSS/JS links must carry a real cache-busting value, not the literal `org'
+placeholder or anything wall-clock derived; two clean builds must agree."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "index.html" output))
+      (let ((html (buffer-string)))
+        (should-not (string-match-p (regexp-quote "?v=org") html))
+        (should (string-match-p "nord\\.css\\?v=[0-9a-f]+" html))
+        (should (string-match-p "script\\.js\\?v=[0-9a-f]+" html))))))
+
+(ert-deftest systemhalted-build-site-footer-year-tracks-newest-post ()
+  "The footer year must be the newest post's year, not a hard-coded value."
+  (let ((directory (make-temp-file "systemhalted-footeryear-" t))
+        (output (make-temp-file "systemhalted-footeryear-out-" t))
+        (systemhalted-static-paths
+         (remove "wireframes" (copy-sequence systemhalted-static-paths))))
+    (unwind-protect
+        (progn
+          (with-temp-file (expand-file-name "2020-01-01-old-post.org" directory)
+            (insert "#+TITLE: Old Post\n#+DESCRIPTION: An old post.\n"
+                    "#+DATE: 2020-01-01\n#+CATEGORIES: Tests\n#+TAGS: org\n"))
+          (with-temp-file (expand-file-name "2031-06-01-newest-post.org" directory)
+            (insert "#+TITLE: Newest Post\n#+DESCRIPTION: The newest post.\n"
+                    "#+DATE: 2031-06-01\n#+CATEGORIES: Tests\n#+TAGS: org\n"))
+          (systemhalted-build-site
+           :root systemhalted-test-root
+           :output output
+           :content-directories (list (cons systemhalted-test-fixtures 'post)
+                                       (cons directory 'post))
+           :include-drafts t
+           :include-future t)
+          (with-temp-buffer
+            (insert-file-contents (expand-file-name "index.html" output))
+            (should (string-match-p "©[ ]?2031 Palak Mathur" (buffer-string)))
+            (should-not (string-match-p "© 2026 Palak Mathur" (buffer-string)))))
+      (delete-directory directory t)
+      (delete-directory output t))))
+
+(ert-deftest systemhalted-render-page-search-suggestions-include-newsletter ()
+  "The search overlay's suggestions must match `_config.yml's `search.suggestions',
+which restores `newsletter'."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/about.org" systemhalted-test-root)
+                  'page))
+         (html (systemhalted-render-page record)))
+    (should (string-match-p
+             "data-suggestions=\"emacs,leadership,newsletter,javascript\"" html))
+    (should (string-match-p "data-suggest=\"newsletter\">newsletter<" html))))
 
 (provide 'systemhalted-publish-test)
 ;;; systemhalted-publish-test.el ends here

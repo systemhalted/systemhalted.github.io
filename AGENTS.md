@@ -14,10 +14,12 @@
 
 - `emacs -Q --batch -L publish -l publish/systemhalted-workflow.el -f systemhalted-batch-build`
   builds and validates the production site.
-- `emacs -Q --batch -L publish -l test/systemhalted-publish-test.el -l test/systemhalted-workflow-test.el -f ert-run-tests-batch-and-exit`
-  runs the publisher and workflow suites.
-- `test/ci-contract.sh` checks the clean batch entry point, CI configuration,
+- `for t in test/*-test.el; do emacs -Q --batch -L publish -L test -l "$t" -f ert-run-tests-batch-and-exit; done`
+  runs every ERT suite in its own clean Emacs process.
+- `bash test/ci-contract.sh` checks the clean batch entry point, CI configuration,
   retired inputs, and public route manifest.
+- `scripts/parity-check.sh` compares the built site with the live site. Build
+  `_site/` before running it.
 - Run `M-x systemhalted-preview` in Emacs for a draft-inclusive local preview.
 - With the preview running on port 4002, `npm run smoke` and `npm run a11y`
   exercise browser behavior and accessibility.
@@ -36,7 +38,8 @@
 
 ## Verification and reviews
 
-- Treat the batch build and ERT suites as the primary gate.
+- Treat the batch build, ERT suites, CI contract, and parity check as the
+  primary verification commands.
 - Test scripts and browser games in a modern browser when changing their code.
 - Include screenshots in pull requests for visible layout changes when useful.
 - Keep commit messages short and imperative, and group related edits.

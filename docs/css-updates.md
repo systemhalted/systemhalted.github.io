@@ -1,8 +1,8 @@
 # CSS updates
 
-The site uses one hand-written stylesheet, `assets/css/nord.css`. Keep it
-direct and small; do not add a framework or a layer of override rules for
-ordinary changes.
+The site uses `assets/css/nord.css` for global styles and
+`assets/css/projects.css` for the Projects page. Keep both direct and small;
+do not add a framework or a layer of override rules for ordinary changes.
 
 ## Theme and tokens
 
@@ -16,6 +16,24 @@ tokens. Add a token to both theme blocks when a component genuinely needs a
 new role. Syntax-highlighted block code keeps its dark Nord canvas in both
 themes.
 
+## Syntax highlighting
+
+`publish/systemhalted-publish.el` loads the vendored `publish/htmlize.el` by
+path. Source blocks retain the `language-*`, `highlighter-rouge`, and
+`highlight` wrappers used by the older site. Htmlize adds token spans with
+`org-*` classes, and the matching colours are defined in this stylesheet.
+
+The clean batch build highlights a language only when Emacs has a built-in
+major mode that can fontify it. Major-mode remapping is disabled so an
+interactive Emacs and a batch build produce the same markup. Languages that
+depend on unavailable modes or tree-sitter grammars remain escaped plain text
+inside the normal code-block wrapper. Go, Rust, JSON, and YAML currently take
+that path.
+
+When a supported mode emits a new htmlize face, add its `.highlight .org-*`
+rule beside the existing syntax tokens. The ERT suite checks that every face
+emitted by its language fixture has a colour rule.
+
 ## Layout map
 
 - `.container`, `.content`: shared 820px page shell.
@@ -26,7 +44,8 @@ themes.
 - `.search-overlay`, `.search-dialog`, `.search-results`: search and the hidden
   shortcuts dialog.
 - `.site-footer`: compact footer links.
-- `.webcmd-*`, `.project-*`, and collection selectors: specialist pages.
+- `.webcmd-*` and collection selectors: specialist pages in `nord.css`.
+- `.project-*`: the Projects page in `projects.css`.
 
 Article prose is capped near 700px and uses Newsreader; navigation and metadata
 use the sans-serif stack. Homepage and archive rows use typography, alignment,

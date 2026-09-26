@@ -21,6 +21,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # A push that only changes Org sources under org/ skips the publisher
+      # tests and the CI contract. The build and validation below still run.
+      - name: Detect content-only changes
+        id: changes
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == push ]] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            git diff --name-only "$BEFORE" "$GITHUB_SHA" \
+              | scripts/ci-needs-publisher-tests.sh >> "$GITHUB_OUTPUT"
+          else
+            echo "publisher-tests=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Set up Emacs 31.1
         uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
@@ -31,6 +47,7 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Test publisher
+        if: steps.changes.outputs.publisher-tests == 'true'
         run: >-
           emacs -Q --batch -L publish
           -l test/systemhalted-publish-test.el
@@ -44,9 +61,11 @@ jobs:
           -f systemhalted-batch-build
 
       - name: Install ripgrep
+        if: steps.changes.outputs.publisher-tests == 'true'
         run: sudo apt-get update && sudo apt-get install -y ripgrep
 
       - name: Check clean CI publishing contract
+        if: steps.changes.outputs.publisher-tests == 'true'
         run: test/ci-contract.sh
 
       - name: Check EWW rendering

@@ -111,17 +111,22 @@ instead.")
           (list (format "%s: %s" file (apply #'format format-string args)))))
 
 (defun systemhalted--read-keywords (file)
-  "Read supported Org keywords from FILE into an alist."
+  "Read supported Org keywords from FILE's header into an alist.
+The header ends at the first line that is not a keyword, a comment, or
+blank, so keyword lines in the body (for example, inside a source block)
+never count as metadata."
   (with-temp-buffer
     (insert-file-contents file)
     (goto-char (point-min))
     (let (keywords)
-      (while (re-search-forward
-              "^#\\+\\([[:alnum:]_]+\\):[ \t]*\\(.*\\)$" nil t)
-        (let ((key (upcase (match-string-no-properties 1)))
-              (value (string-trim (match-string-no-properties 2))))
-          (when (member key systemhalted--metadata-keys)
-            (setf (alist-get key keywords nil nil #'string=) value))))
+      (while (and (not (eobp))
+                  (looking-at-p "#\\+\\|# \\|#$\\|[ \t]*$"))
+        (when (looking-at "#\\+\\([[:alnum:]_]+\\):[ \t]*\\(.*\\)$")
+          (let ((key (upcase (match-string-no-properties 1)))
+                (value (string-trim (match-string-no-properties 2))))
+            (when (member key systemhalted--metadata-keys)
+              (setf (alist-get key keywords nil nil #'string=) value))))
+        (forward-line 1))
       keywords)))
 
 (defun systemhalted--keyword (keywords name)

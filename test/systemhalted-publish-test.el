@@ -111,6 +111,30 @@ Jekyll's UTC build runners interpret an unzoned timestamp."
     (let ((record (systemhalted-read-record file 'post)))
       (should (systemhalted-record-mermaid record)))))
 
+(ert-deftest systemhalted-read-record-ignores-keywords-below-the-header ()
+  "Keyword lines in the body, such as a front-matter example inside a source
+block, must not override the header or silently turn a post into a draft."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Real Title\n#+DESCRIPTION: Real description.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "An example header:\n\n#+begin_src org\n"
+              "#+TITLE: Example Title\n#+DATE: 2020-01-01\n#+DRAFT: true\n"
+              "#+end_src\n")
+    (let ((record (systemhalted-read-record file 'post)))
+      (should (equal (systemhalted-record-title record) "Real Title"))
+      (should (string-prefix-p "/2026/09/25/" (systemhalted-record-route record)))
+      (should-not (systemhalted-record-draft record)))))
+
+(ert-deftest systemhalted-read-record-reads-keywords-after-header-comments ()
+  "Blank lines and Org comments inside the header must not end it early."
+  (systemhalted-test-with-org
+      (concat "# -*- mode: org -*-\n#+TITLE: Commented Header\n\n"
+              "#+DESCRIPTION: Header with a comment and a blank line.\n"
+              "#+DATE: 2026-09-25\n#+DRAFT: true\n\nBody text.\n")
+    (let ((record (systemhalted-read-record file 'post)))
+      (should (equal (systemhalted-record-title record) "Commented Header"))
+      (should (systemhalted-record-draft record)))))
+
 (ert-deftest systemhalted-read-record-keeps-percent-encoded-unicode-route ()
   "Decoding a legacy filename would break its existing public URL."
   (let ((record (systemhalted-read-record
@@ -1387,7 +1411,9 @@ value)."
                                                 (line-end-position)))))
                   (unless (string-empty-p route) (push route expected)))
                 (forward-line 1)))
-            (should (equal actual (sort expected #'string-lessp)))))
+            ;; New posts add routes; only a missing baseline route is a failure.
+            (should (equal (cl-set-difference expected actual :test #'string=)
+                           nil))))
       (delete-directory output t))))
 
 (ert-deftest systemhalted-production-build-excludes-drafts ()

@@ -15,6 +15,14 @@ if rg -q 'jekyll|bundle exec|setup-ruby' "$pages_workflow" "$a11y_workflow"; the
   exit 1
 fi
 
+rg -q 'publisher-tests == .true.' "$pages_workflow"
+needs_tests() { printf '%s\n' "$@" | scripts/ci-needs-publisher-tests.sh; }
+[[ $(needs_tests org/posts/a.org org/pages/b.org) == publisher-tests=false ]]
+[[ $(needs_tests org/posts/a.org publish/systemhalted-publish.el) == publisher-tests=true ]]
+[[ $(needs_tests .github/workflows/pages.yml) == publisher-tests=true ]]
+[[ $(needs_tests org/data/taxonomy.yml) == publisher-tests=true ]]
+[[ $(needs_tests) == publisher-tests=true ]]
+
 for retired in _config.yml Gemfile Gemfile.lock _layouts _includes collections; do
   if [[ -e "$retired" ]]; then
     echo "Retired publishing input remains: $retired" >&2
@@ -40,9 +48,15 @@ while IFS= read -r file; do
     */index.html) printf '/%s\n' "${relative%index.html}" ;;
     *) printf '/%s\n' "$relative" ;;
   esac
-done < <(find "$output" -type f -name '*.html' | sort) | sort > "$actual"
+done < <(find "$output" -type f -name '*.html' | sort) | LC_ALL=C sort > "$actual"
 
-tail -n +2 test/baseline/routes.tsv | sort > "$expected"
-diff -u "$expected" "$actual"
+tail -n +2 test/baseline/routes.tsv | LC_ALL=C sort > "$expected"
+# New posts add routes; only a baseline route missing from the build fails.
+missing=$(LC_ALL=C comm -23 "$expected" "$actual")
+if [[ -n "$missing" ]]; then
+  echo "Baseline routes missing from the build:" >&2
+  printf '%s\n' "$missing" >&2
+  exit 1
+fi
 
 echo "CI contract passed"

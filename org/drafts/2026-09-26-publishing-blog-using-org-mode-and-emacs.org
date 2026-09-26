@@ -1,0 +1,6 @@
+#+TITLE: Publishing Blog using Org Mode and Emacs
+#+DESCRIPTION: I recently moved from Jekyll to publishing through OrgMode. This post goes in details of why and how I did so.
+#+DATE: 2026-09-26
+#+CATEGORIES:
+#+TAGS:
+#+DRAFT: true

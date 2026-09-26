@@ -48,6 +48,14 @@ tests exercising a single record) get this fallback constant instead.")
 Bound by `systemhalted--generate-site'. Direct calls to
 `systemhalted-render-page' outside a full build get this fallback constant.")
 
+(defvar systemhalted--source-root
+  (file-name-directory (directory-file-name systemhalted-publish-directory))
+  "Project root used to resolve `org/data/taxonomy.org' for the related-posts
+sibling-theme scoring bonus (`systemhalted--related-records'). Bound by
+`systemhalted--generate-site' to the real source root. Direct calls to
+`systemhalted-render-page' outside a full build (such as tests exercising a
+single record) get this fallback constant instead.")
+
 (defun systemhalted--source-error (file format-string &rest args)
   "Signal a publishing error for FILE using FORMAT-STRING and ARGS."
   (signal 'systemhalted-publish-error
@@ -467,18 +475,33 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
   "Count values shared by string lists LEFT and RIGHT."
   (seq-count (lambda (item) (member item right)) left))
 
-(defun systemhalted--related-records (record records)
-  "Return up to three related RECORDS for RECORD using current scoring rules."
-  (let (scored)
+(defun systemhalted--related-records (record records themes)
+  "Return up to three RECORDS related to RECORD using current scoring rules.
+Score is +3 per shared category and +2 per shared tag. When a candidate
+shares neither, it still earns +1 per sibling category it shares with
+RECORD in the same THEMES entry (`systemhalted--read-taxonomy''s :THEMES),
+matching `main:_layouts/post.html'. Ties break toward the newer post."
+  (let* ((categories (systemhalted-record-categories record))
+         (siblings (delete-dups
+                    (apply #'append
+                           (mapcar (lambda (category)
+                                     (systemhalted--taxonomy-category-siblings
+                                      themes category))
+                                   categories))))
+         scored)
     (dolist (candidate (systemhalted--post-records records))
       (unless (equal (systemhalted-record-route candidate)
                      (systemhalted-record-route record))
-        (let ((score (+ (* 3 (systemhalted--intersection-count
-                              (systemhalted-record-categories record)
-                              (systemhalted-record-categories candidate)))
-                        (* 2 (systemhalted--intersection-count
-                              (systemhalted-record-tags record)
-                              (systemhalted-record-tags candidate))))))
+        (let* ((cat-matches (systemhalted--intersection-count
+                             categories
+                             (systemhalted-record-categories candidate)))
+               (tag-matches (systemhalted--intersection-count
+                             (systemhalted-record-tags record)
+                             (systemhalted-record-tags candidate)))
+               (score (+ (* 3 cat-matches) (* 2 tag-matches))))
+          (when (and (= cat-matches 0) (= tag-matches 0) siblings)
+            (setq score (systemhalted--intersection-count
+                         siblings (systemhalted-record-categories candidate))))
           (when (> score 0) (push (cons score candidate) scored)))))
     (mapcar
      #'cdr
@@ -491,25 +514,76 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
                 (> (car left) (car right)))))
       3))))
 
-(defun systemhalted--related-html (record records)
-  "Render related links for RECORD from RECORDS."
-  (let ((related (systemhalted--related-records record records)))
+(defun systemhalted--category-counts (posts)
+  "Return a hash table mapping each category name to how many POSTS carry it,
+matching Jekyll's `site.categories[category].size' used to find the
+rarest shared category for a related-post reason."
+  (let ((table (make-hash-table :test #'equal)))
+    (dolist (post posts)
+      (dolist (category (systemhalted-record-categories post))
+        (puthash category (1+ (gethash category table 0)) table)))
+    table))
+
+(defun systemhalted--related-reason (record related category-counts)
+  "Return the reason RECORD links to RELATED, matching `main:_layouts/post.html':
+1. \"More from <category>\", the category RECORD and RELATED share with the
+   fewest posts site-wide (per CATEGORY-COUNTS), ties won by whichever of
+   RECORD's own categories comes first.
+2. Otherwise \"Also about <tag>\", the last tag shared with RELATED in
+   RECORD's own #+TAGS order.
+3. Otherwise \"Related reading\"."
+  (let ((rarest-count nil) (reason nil))
+    (dolist (category (systemhalted-record-categories record))
+      (when (member category (systemhalted-record-categories related))
+        (let ((count (gethash category category-counts 0)))
+          (when (or (null rarest-count) (< count rarest-count))
+            (setq rarest-count count
+                  reason (format "More from %s" category))))))
+    (unless reason
+      (dolist (tag (systemhalted-record-tags record))
+        (when (member tag (systemhalted-record-tags related))
+          (setq reason (format "Also about %s" tag)))))
+    (or reason "Related reading")))
+
+(defun systemhalted--related-html (record records themes)
+  "Render the related-posts list for RECORD from RECORDS, or nil when there
+are none. THEMES is `systemhalted--read-taxonomy''s :THEMES, used for the
+sibling-category scoring bonus."
+  (let ((related (systemhalted--related-records record records themes)))
     (when related
+      (let ((category-counts
+             (systemhalted--category-counts (systemhalted--post-records records))))
+        (concat
+         "<ul class=\"related-posts\">"
+         (mapconcat
+          (lambda (item)
+            (format (concat "<li class=\"related-post\"><time class=\"related-post-date\" "
+                            "datetime=\"%s\">%s</time><a class=\"related-post-title\" "
+                            "href=\"%s\">%s</a><span class=\"related-post-reason\">%s</span></li>")
+                    (systemhalted--iso-datetime (systemhalted-record-date item))
+                    (format-time-string "%b %d, %Y" (systemhalted-record-date item) t)
+                    (systemhalted--escape-html (systemhalted-record-route item) t)
+                    (systemhalted--escape-html (systemhalted-record-title item))
+                    (systemhalted--escape-html
+                     (systemhalted--related-reason record item category-counts))))
+          related "")
+         "</ul>")))))
+
+(defun systemhalted--post-more-html (record records themes)
+  "Render the \"More from SystemHalted\" section for RECORD: the related-posts
+list from `systemhalted--related-html' followed by the newer/older nav from
+`systemhalted--adjacent-html', both from RECORDS. THEMES is
+`systemhalted--read-taxonomy''s :THEMES. Returns nil when there is neither,
+matching `main:_layouts/post.html''s single guard around both."
+  (let ((related (systemhalted--related-html record records themes))
+        (nav (systemhalted--adjacent-html record records)))
+    (when (or related nav)
       (concat
        "<section class=\"post-more\" aria-labelledby=\"more-writing-heading\">"
        "<h2 id=\"more-writing-heading\" class=\"post-more-heading\">More from SystemHalted</h2>"
-       "<ul class=\"related-posts\">"
-       (mapconcat
-        (lambda (item)
-          (format (concat "<li class=\"related-post\"><time class=\"related-post-date\" "
-                          "datetime=\"%s\">%s</time><a class=\"related-post-title\" "
-                          "href=\"%s\">%s</a><span class=\"related-post-reason\">Related reading</span></li>")
-                  (systemhalted--iso-datetime (systemhalted-record-date item))
-                  (format-time-string "%b %d, %Y" (systemhalted-record-date item) t)
-                  (systemhalted--escape-html (systemhalted-record-route item) t)
-                  (systemhalted--escape-html (systemhalted-record-title item))))
-        related "")
-       "</ul></section>"))))
+       (or related "")
+       (or nav "")
+       "</section>"))))
 
 (defun systemhalted--adjacent-html (record records)
   "Render newer and older navigation for RECORD within RECORDS."
@@ -592,8 +666,11 @@ or #+ATTR_HTML :alt. Never falls back to the bare file name."
        (?c . ,body)
        (?f . ,(or (systemhalted--featured-html record) ""))
        (?x . ,(or (systemhalted--taxonomy-html record) ""))
-       (?r . ,(or (systemhalted--related-html record records) ""))
-       (?n . ,(or (systemhalted--adjacent-html record records) ""))
+       (?r . ,(or (systemhalted--post-more-html
+                   record records
+                   (plist-get (systemhalted--read-taxonomy systemhalted--source-root)
+                              :themes))
+                  ""))
        (?g . ,(or (systemhalted--comments-html record) ""))))))
 
 (defun systemhalted--mermaid-head-html (record)
@@ -1998,6 +2075,7 @@ so two clean builds of the same sources stay byte-identical."
   (let* ((posts (systemhalted--post-records
                 (seq-remove #'systemhalted-record-draft records)))
          (systemhalted--asset-version (systemhalted--compute-asset-version source-root))
+         (systemhalted--source-root source-root)
          (systemhalted--footer-year
           (if posts
               (format-time-string "%Y" (systemhalted-record-date (car posts)) t)

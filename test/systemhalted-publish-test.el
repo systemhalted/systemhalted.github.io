@@ -394,6 +394,167 @@ contains a literal comma, instead of being split into multiple items."
     (should (string-match-p "class=\"post-nav" html))
     (should (string-match-p "Newer\\|Older" html))))
 
+(ert-deftest systemhalted-render-page-nests-post-nav-inside-post-more-section ()
+  "Task 12: matching `main:_layouts/post.html', `nav.post-nav' must render
+*inside* `section.post-more', after the related list, under a single
+\"More from SystemHalted\" heading, not as a sibling section."
+  (let* ((records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (record (seq-find
+                  (lambda (item)
+                    (equal (systemhalted-record-title item) "Rich & Structured"))
+                  records))
+         (html (systemhalted-render-page record records)))
+    (should (= 1 (with-temp-buffer (insert html)
+                                    (how-many "class=\"post-more\"" (point-min) (point-max)))))
+    (should (= 1 (with-temp-buffer (insert html)
+                                    (how-many "post-more-heading" (point-min) (point-max)))))
+    ;; The related list and the nav must both fall inside the single
+    ;; post-more section, in that order, before its closing tag.
+    (should (string-match-p
+             (concat "<section class=\"post-more\"[^>]*>.*?"
+                     "<h2 id=\"more-writing-heading\" class=\"post-more-heading\">"
+                     "More from SystemHalted</h2>.*?"
+                     "<ul class=\"related-posts\">.*?</ul>.*?"
+                     "<nav class=\"post-nav\"[^>]*>.*?</nav>.*?</section>")
+             html))))
+
+(ert-deftest systemhalted-render-page-post-more-section-renders-nav-only-when-no-related ()
+  "A post whose category and tags match nothing else still gets its
+post-more section (for the newer/older nav), but without a related-posts
+list, matching main's independent `top_related_keys.size >= 1 or prev_post
+or next_post' guard."
+  (let* ((records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (record (seq-find
+                  (lambda (item)
+                    (equal (systemhalted-record-title item) "Legacy Permalink"))
+                  records))
+         (html (systemhalted-render-page record records)))
+    (should (string-match-p "class=\"post-more\"" html))
+    (should (string-match-p "class=\"post-nav" html))
+    (should-not (string-match-p "class=\"related-posts\"" html))))
+
+(ert-deftest systemhalted-render-page-omits-post-more-section-with-no-related-or-nav ()
+  "A lone post with no siblings must render no post-more section at all."
+  (let* ((record (seq-find
+                  (lambda (item)
+                    (equal (systemhalted-record-title item) "Legacy Permalink"))
+                  (systemhalted-load-records systemhalted-test-fixtures
+                                             :include-drafts t
+                                             :include-future t)))
+         (html (systemhalted-render-page record (list record))))
+    (should-not (string-match-p "class=\"post-more\"" html))))
+
+(ert-deftest systemhalted-related-html-labels-more-from-rarest-shared-category ()
+  "Task 12: the related-post reason must be \"More from <category>\", using
+whichever shared category has the fewest posts site-wide, not simply the
+first category the page happens to list."
+  (let* ((records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (record (seq-find
+                  (lambda (item)
+                    (equal (systemhalted-record-title item) "Rich & Structured"))
+                  records))
+         (html (systemhalted-render-page record records)))
+    ;; "Emacs" (2 posts site-wide) is rarer than "Software Engineering"
+    ;; (4 posts site-wide), even though "Software Engineering" comes first
+    ;; in the page's own #+CATEGORIES order.
+    (should (string-match-p
+             (concat "<a class=\"related-post-title\" href=\"[^\"]*\">Derived Route</a>"
+                     "<span class=\"related-post-reason\">More from Emacs</span>")
+             html))
+    (should (string-match-p
+             (concat "<a class=\"related-post-title\" href=\"[^\"]*\">Related Publishing Post</a>"
+                     "<span class=\"related-post-reason\">More from Software Engineering</span>")
+             html))
+    (should (string-match-p
+             (concat "<a class=\"related-post-title\" href=\"[^\"]*\">Disjunctive Types</a>"
+                     "<span class=\"related-post-reason\">More from Software Engineering</span>")
+             html))))
+
+(defun systemhalted-test--make-record (title date categories tags)
+  "Build a minimal post record for related-post unit tests."
+  (make-systemhalted-record
+   :kind 'post :title title :description title :date date
+   :categories categories :tags tags
+   :route (format "/test/%s/" (systemhalted--slugify title))))
+
+(ert-deftest systemhalted-related-records-scores-sibling-theme-category-bonus ()
+  "Task 12: with no shared category or tag, a candidate in the same
+taxonomy theme must still score +1 per sibling category shared, while a
+candidate outside every matched theme must score 0 and be excluded."
+  (let* ((themes (list (list :id "theme" :title "Theme" :description ""
+                              :categories (list (list :name "Alpha" :description "")
+                                                 (list :name "Beta" :description "")
+                                                 (list :name "Gamma" :description "")))))
+         (date (encode-time 0 0 0 1 1 2026 t))
+         (record (systemhalted-test--make-record "Page" date '("Alpha") '("x")))
+         (sibling (systemhalted-test--make-record
+                   "Sibling" (encode-time 0 0 0 2 1 2026 t) '("Beta") '("y")))
+         (outsider (systemhalted-test--make-record
+                    "Outsider" (encode-time 0 0 0 3 1 2026 t) '("Zeta") '("z")))
+         (related (systemhalted--related-records record (list record sibling outsider) themes)))
+    (should (equal (mapcar #'systemhalted-record-title related) '("Sibling")))))
+
+(ert-deftest systemhalted-related-records-sibling-bonus-outranks-recency ()
+  "More matching sibling categories must outrank a single sibling match even
+when the single-match candidate is newer, proving the bonus is additive
+per matched sibling and not a flat +1."
+  (let* ((themes (list (list :id "theme" :title "Theme" :description ""
+                              :categories (list (list :name "Alpha" :description "")
+                                                 (list :name "Beta" :description "")
+                                                 (list :name "Gamma" :description "")))))
+         (record (systemhalted-test--make-record
+                  "Page" (encode-time 0 0 0 10 1 2026 t) '("Alpha") nil))
+         (two-siblings (systemhalted-test--make-record
+                        "Two Siblings" (encode-time 0 0 0 1 1 2026 t) '("Beta" "Gamma") nil))
+         (one-sibling-newer (systemhalted-test--make-record
+                             "One Sibling" (encode-time 0 0 0 9 1 2026 t) '("Beta") nil))
+         (related (systemhalted--related-records
+                   record (list record two-siblings one-sibling-newer) themes)))
+    (should (equal (mapcar #'systemhalted-record-title related)
+                   '("Two Siblings" "One Sibling")))))
+
+(ert-deftest systemhalted-related-reason-picks-rarest-shared-category ()
+  "Task 12: `systemhalted--related-reason' must pick the shared category with
+the fewest site-wide posts, even when a commoner shared category is listed
+first in the page's own #+CATEGORIES order."
+  (let ((counts (make-hash-table :test #'equal))
+        (record (systemhalted-test--make-record
+                 "Page" (encode-time 0 0 0 1 1 2026 t) '("Alpha" "Beta") nil))
+        (related (systemhalted-test--make-record
+                  "Related" (encode-time 0 0 0 2 1 2026 t) '("Alpha" "Beta") nil)))
+    (puthash "Alpha" 5 counts)
+    (puthash "Beta" 2 counts)
+    (should (equal (systemhalted--related-reason record related counts)
+                   "More from Beta"))))
+
+(ert-deftest systemhalted-related-reason-falls-back-to-last-shared-tag-in-page-order ()
+  "Task 12: with no shared category, the reason must be \"Also about <tag>\"
+using the *last* shared tag in the page's own #+TAGS order."
+  (let ((counts (make-hash-table :test #'equal))
+        (record (systemhalted-test--make-record
+                 "Page" (encode-time 0 0 0 1 1 2026 t) '("Alpha") '("t1" "t2" "t3")))
+        (related (systemhalted-test--make-record
+                  "Related" (encode-time 0 0 0 2 1 2026 t) '("Zeta") '("t1" "t3"))))
+    (should (equal (systemhalted--related-reason record related counts)
+                   "Also about t3"))))
+
+(ert-deftest systemhalted-related-reason-falls-back-to-related-reading ()
+  "Task 12: with nothing shared (a sibling-theme-only match), the reason
+must fall back to \"Related reading\"."
+  (let ((counts (make-hash-table :test #'equal))
+        (record (systemhalted-test--make-record
+                 "Page" (encode-time 0 0 0 1 1 2026 t) '("Alpha") '("t1")))
+        (related (systemhalted-test--make-record
+                  "Related" (encode-time 0 0 0 2 1 2026 t) '("Zeta") '("z9"))))
+    (should (equal (systemhalted--related-reason record related counts)
+                   "Related reading"))))
+
 (defmacro systemhalted-test-with-built-site (&rest body)
   (declare (indent 0))
   `(let ((output (make-temp-file "systemhalted-site-" t))

@@ -26,7 +26,12 @@ Used as JSON-LD `sameAs' on the Person node.")
     "49a459d211088e5e423d87c0e7053c26.txt"))
 (defconst systemhalted-legacy-redirects
   '(("/2025/11/25/disjuntive-types/" . "/2025/11/25/disjunctive-types/")))
-(defvar systemhalted-page-size 10)
+(defconst systemhalted-page-size 10
+  "A `defconst', not a `defvar': `systemhalted-reload-site-config' re-`load's
+this file to pick up edited values, and `load' only re-runs top-level
+forms; a `defvar' would leave the first-loaded value in place forever
+since `defvar' never re-sets an already-bound variable, while `defconst'
+always does.")
 (defconst systemhalted-newsletter-cta-title "Kartavya Path"
   "Kartavya Path newsletter title, matching main's `_config.yml'
 `newsletter_cta.title'. Used by the `/kartavya-path/' landing page and the

@@ -332,6 +332,25 @@ rather than being normalised to `sh'."
       (should (string-match-p "<span class=\"org-builtin\">echo</span>" html))
       (should (string-match-p "<span class=\"org-string\">\"$HOME\"</span>" html)))))
 
+(ert-deftest systemhalted-export-body-downcases-the-language-class-and-data-lang ()
+  "Final fix #3: a block written as `#+begin_src C' must publish
+`language-c'/`data-lang=\"c\"', matching live's kramdown+rouge, which
+downcases the fence language regardless of how the author wrote it; a
+block already written lowercase (`sh') must stay exactly `sh'."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: C Case\n#+DESCRIPTION: C casing fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+BEGIN_SRC C\nint x = 1;\n#+END_SRC\n\n"
+              "#+BEGIN_SRC sh\necho hi\n#+END_SRC\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record)))
+           (case-fold-search nil))
+      (should (string-match-p "class=\"language-c highlighter-rouge\"" html))
+      (should (string-match-p "class=\"language-c\" data-lang=\"c\"" html))
+      (should-not (string-match-p "language-C" html))
+      (should (string-match-p "class=\"language-sh highlighter-rouge\"" html))
+      (should (string-match-p "data-lang=\"sh\"" html)))))
+
 (ert-deftest systemhalted-export-body-escapes-source-blocks-without-a-major-mode ()
   "Task 13: a language Emacs cannot fontify must still export as escaped text
 inside the usual wrapper."
@@ -1289,20 +1308,28 @@ the output directory, so a broken source cannot litter the repository root."
 
 (ert-deftest systemhalted-reload-site-config-picks-up-edited-values ()
   "A long-running Emacs session must see an edited `site-config.el' after a
-reload, instead of the values cached when the publisher was first required."
+reload, instead of the values cached when the publisher was first required.
+Final fix #5: this must hold for `systemhalted-page-size' too, which
+`load' only re-applies if it stays a `defconst' rather than reverting to a
+`defvar' (a `defvar' form is a no-op once the variable already has a
+value)."
   (let ((config (make-temp-file "systemhalted-site-config-" nil ".el"))
-        (original systemhalted-site-title))
+        (original systemhalted-site-title)
+        (original-page-size systemhalted-page-size))
     (unwind-protect
         (progn
           (with-temp-file config
             (insert ";;; -*- lexical-binding: t; -*-\n")
             (insert "(defconst systemhalted-site-title \"Edited Site Title\")\n")
+            (insert "(defconst systemhalted-page-size 3)\n")
             (insert "(provide 'site-config)\n"))
           (let ((systemhalted-site-config-file config))
             (should (systemhalted-reload-site-config)))
           (should (equal systemhalted-site-title "Edited Site Title"))
+          (should (equal systemhalted-page-size 3))
           (systemhalted-reload-site-config)
-          (should (equal systemhalted-site-title original)))
+          (should (equal systemhalted-site-title original))
+          (should (equal systemhalted-page-size original-page-size)))
       (delete-file config))))
 
 (ert-deftest systemhalted-build-site-is-deterministic ()
@@ -1496,6 +1523,28 @@ live; other kinds must stay `website'."
     (should (string-match-p "<meta property=\"og:type\" content=\"website\">" page-html))
     (should-not (string-match-p "article:published_time" page-html))))
 
+(ert-deftest systemhalted-render-page-emacs-note-gets-article-og-type ()
+  "Final fix #2: an Emacs note must emit `og:type=article', matching live's
+`/emacs/emacs-config/' (an Emacs note is not a post or draft, but live still
+treats it as an article for `og:type'). `article:published_time' follows the
+same date-or-LAST_MODIFIED convention as the sitemap's `lastmod'
+(`systemhalted--record-lastmod'): present when a timestamp is derivable,
+omitted otherwise, since Emacs notes carry no #+DATE by design."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/emacs/emacs-config.org" systemhalted-test-root)
+                  'emacs))
+         (html (systemhalted-render-page record (list record))))
+    (should (string-match-p "<meta property=\"og:type\" content=\"article\">" html))
+    (should-not (string-match-p "article:published_time" html)))
+  (let* ((record (make-systemhalted-record
+                  :source "<test>" :kind 'emacs :title "Dated Note"
+                  :description "d" :route "/emacs/dated-note/"
+                  :last-modified "2026-05-01"))
+         (html (systemhalted-render-page record nil "<p>test</p>")))
+    (should (string-match-p
+             "<meta property=\"article:published_time\" content=\"2026-05-01T00:00:00\\+00:00\">"
+             html))))
+
 (ert-deftest systemhalted-render-page-image-falls-back-to-avatar ()
   "A page without a featured image must use the avatar as its og/twitter image;
 a post with one must use it instead."
@@ -1579,8 +1628,6 @@ be present, matching live's `_includes/head.html' output."
     (should (string-match-p "\"sameAs\":\\[\"https://github.com/systemhalted\"" html))
     (should (string-match-p "\"@type\":\"BlogPosting\"" html))
     (should (string-match-p "\"datePublished\":\"2026-09-24T00:00:00\\+00:00\"" html))
-    (should (string-match-p
-             "\"author\":{\"@id\":\"https://systemhalted.in/#person\"}" html))
     (should (string-match-p "\"image\":\"https://systemhalted.in/assets/images/avatar.jpeg\"" html))
     (should (string-match-p "\"@type\":\"WebSite\"" home-html))
     (should (string-match-p
@@ -1588,6 +1635,58 @@ be present, matching live's `_includes/head.html' output."
              home-html))
     (should (string-match-p "\"inLanguage\":\"en-US\"" home-html))
     (should-not (string-match-p "\"@type\":\"WebSite\"" html))))
+
+(ert-deftest systemhalted-render-page-adds-jekyll-seo-tag-json-ld ()
+  "Final fix #1: live pages carry jekyll-seo-tag's own JSON-LD graph in
+addition to the `structured-data.html' nodes above: a literal author
+object, a `publisher' (Organization + ImageObject logo) on every page, and
+for a post, `dateModified'/`datePublished' plus a `mainEntityOfPage'
+pointing at its own canonical URL."
+  (let* ((records (systemhalted-load-records systemhalted-test-fixtures
+                                              :include-drafts t
+                                              :include-future t))
+         (record (systemhalted-read-record
+                  (systemhalted-test-fixture "2026-09-24-rich-content.org")
+                  'post))
+         (html (systemhalted-render-page record records)))
+    (should (string-match-p
+             "\"author\":{\"@type\":\"Person\",\"name\":\"Palak Mathur\",\"url\":\"https://systemhalted.in\"}"
+             html))
+    (should (string-match-p
+             (regexp-quote
+              (concat "\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\","
+                      "\"url\":\"https://systemhalted.in/assets/images/avatar.jpeg\"},"
+                      "\"name\":\"Palak Mathur\"}"))
+             html))
+    (should (string-match-p "\"dateModified\":\"2026-09-24T00:00:00\\+00:00\"" html))
+    (should (string-match-p
+             (regexp-quote
+              (concat "\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://systemhalted.in"
+                      (systemhalted-record-route record) "\"}"))
+             html))))
+
+(ert-deftest systemhalted-render-page-jekyll-seo-tag-type-matches-live ()
+  "Final fix #1: jekyll-seo-tag's own `@type' must be `WebSite' on the home
+page and `/about/', `BlogPosting' for posts, drafts, and Emacs notes (all
+of which carry a date), and `WebPage' for every other page, matching
+main's own `Jekyll::SeoTag::Drop#type'."
+  (let* ((about-record (systemhalted-read-record
+                        (expand-file-name "org/pages/about.org" systemhalted-test-root)
+                        'page))
+         (about-html (systemhalted-render-page about-record))
+         (projects-record (systemhalted-read-record
+                           (expand-file-name "org/pages/projects.org" systemhalted-test-root)
+                           'page))
+         (projects-html (systemhalted-render-page projects-record))
+         (emacs-record (systemhalted-read-record
+                        (expand-file-name "org/emacs/emacs-config.org" systemhalted-test-root)
+                        'emacs))
+         (emacs-html (systemhalted-render-page emacs-record (list emacs-record))))
+    (should (string-match-p "\"@type\":\"WebSite\"" about-html))
+    (should (string-match-p "\"@type\":\"WebPage\"" projects-html))
+    (should-not (string-match-p "\"@type\":\"BlogPosting\"" projects-html))
+    (should (string-match-p "\"@type\":\"BlogPosting\"" emacs-html))
+    (should (string-match-p "\"mainEntityOfPage\"" emacs-html))))
 
 (ert-deftest systemhalted-build-site-cache-busts-with-a-deterministic-token ()
   "CSS/JS links must carry a real cache-busting value, not the literal `org'
@@ -1599,6 +1698,46 @@ placeholder or anything wall-clock derived; two clean builds must agree."
         (should-not (string-match-p (regexp-quote "?v=org") html))
         (should (string-match-p "nord\\.css\\?v=[0-9a-f]+" html))
         (should (string-match-p "script\\.js\\?v=[0-9a-f]+" html))))))
+
+(ert-deftest systemhalted-webcmd-asset-version-tracks-generated-search-content ()
+  "Final fix #4: the `?v=' token for `/assets/js/webcmd.js' must change when
+the generated search index changes, even though assets/css and assets/js
+on disk are unchanged; `systemhalted--asset-version' alone (hashing only
+those two directories) would not catch that."
+  (let ((first (make-temp-file "systemhalted-webcmd-first-" t))
+        (second (make-temp-file "systemhalted-webcmd-second-" t))
+        (dir-a (make-temp-file "systemhalted-webcmd-posts-a-" t))
+        (dir-b (make-temp-file "systemhalted-webcmd-posts-b-" t))
+        (systemhalted-static-paths
+         (remove "wireframes" (copy-sequence systemhalted-static-paths))))
+    (unwind-protect
+        (progn
+          (with-temp-file (expand-file-name "2026-01-01-extra.org" dir-a)
+            (insert "#+TITLE: Extra\n#+DESCRIPTION: Extra post.\n#+DATE: 2026-01-01\n"
+                    "#+CATEGORIES: Tests\n#+TAGS: org\n\nFirst body text for search indexing.\n"))
+          (with-temp-file (expand-file-name "2026-01-01-extra.org" dir-b)
+            (insert "#+TITLE: Extra\n#+DESCRIPTION: Extra post.\n#+DATE: 2026-01-01\n"
+                    "#+CATEGORIES: Tests\n#+TAGS: org\n\nA very different second body text entirely.\n"))
+          (systemhalted-build-site
+           :root systemhalted-test-root :output first
+           :content-directories (list (cons systemhalted-test-fixtures 'post) (cons dir-a 'post))
+           :include-drafts t :include-future t)
+          (systemhalted-build-site
+           :root systemhalted-test-root :output second
+           :content-directories (list (cons systemhalted-test-fixtures 'post) (cons dir-b 'post))
+           :include-drafts t :include-future t)
+          (cl-flet ((webcmd-version
+                     (root)
+                     (with-temp-buffer
+                       (insert-file-contents (expand-file-name "webcmd/index.html" root))
+                       (if (string-match "webcmd\\.js\\?v=\\([0-9a-f]+\\)" (buffer-string))
+                           (match-string 1 (buffer-string))
+                         (error "no webcmd.js?v= token found below %s" root)))))
+            (should-not (equal (webcmd-version first) (webcmd-version second)))))
+      (delete-directory first t)
+      (delete-directory second t)
+      (delete-directory dir-a t)
+      (delete-directory dir-b t))))
 
 (ert-deftest systemhalted-build-site-footer-year-tracks-newest-post ()
   "The footer year must be the newest post's year, not a hard-coded value."
@@ -1742,17 +1881,22 @@ not always Archive."
         (should (string-match-p (regexp-quote (cdr case)) (buffer-string)))))))
 
 (ert-deftest systemhalted-404-page-body-matches-live-shape ()
-  "The 404 page body must be a bare h1 plus a paragraph with a 'Head back
-home' link, with no heading duplicating the title, matching live."
+  "Final fix #9: the 404 page body must be a bare h1 plus a paragraph with a
+'Head back home' link, with no heading duplicating the title, and no
+`.page'/`.page-title' wrapper at all, matching live's `layout: default'
+404.html: main's `<h1 id=\"404-page-not-found\">' straight from kramdown,
+not page.html's own `.page' div and `.page-title' h1."
   (let* ((record (systemhalted-read-record
                   (expand-file-name "org/pages/404.org" systemhalted-test-root)
                   'page))
          (main (systemhalted-test-main-html (systemhalted-render-page record))))
     (should (string-match-p
-             "<h1 class=\"page-title\">404: Page not found</h1>" main))
+             "<h1 id=\"404-page-not-found\">404: Page not found</h1>" main))
     (should (string-match-p "Head back home" main))
     (should-not (string-match-p "<h2" main))
-    (should-not (string-match-p "outline-container" main))))
+    (should-not (string-match-p "outline-container" main))
+    (should-not (string-match-p "class=\"page\"" main))
+    (should-not (string-match-p "class=\"page-title" main))))
 
 (ert-deftest systemhalted-webcmd-page-matches-live-markup ()
   "`/webcmd/' must restore the full `section.webcmd > div.webcmd-shell'
@@ -1875,6 +2019,17 @@ Emacs note's or the newsletter's own category text."
                          "<a href=\"/jsgames/pig-game/\">Pig Game</a></h2>"
                          "<p class=\"post-feed-excerpt\">Roll the dice.</p></li>"))))
 
+(ert-deftest systemhalted-post-feed-item-html-omits-blank-excerpt ()
+  "Final fix #7: a whitespace-only excerpt must not render an empty
+`post-feed-excerpt' paragraph, the same way a nil excerpt already renders
+none."
+  (should (equal (systemhalted--post-feed-item-html "" "/x/" "Title" "   \n\t  ")
+                 (concat "<li class=\"post-feed-item\">"
+                         "<h2 class=\"post-feed-title\"><a href=\"/x/\">Title</a></h2></li>")))
+  (should (equal (systemhalted--post-feed-item-html "" "/x/" "Title" nil)
+                 (concat "<li class=\"post-feed-item\">"
+                         "<h2 class=\"post-feed-title\"><a href=\"/x/\">Title</a></h2></li>"))))
+
 (ert-deftest systemhalted-read-jsgames-parses-live-data ()
   "`systemhalted--read-jsgames' must parse every `* [[URL][TITLE]]' entry in
 `org/data/jsgames.org' plus its description paragraph, in file order,
@@ -1890,7 +2045,7 @@ mirroring `main:_data/jsgames.yml'."
 and tag list from `org/data/themes.org', mirroring `main:_data/themes.yml'."
   (let* ((themes (systemhalted--read-themes systemhalted-test-root))
          (first (car themes)))
-    (should (equal (mapcar (lambda (t) (plist-get t :name)) themes)
+    (should (equal (mapcar (lambda (theme) (plist-get theme :name)) themes)
                    '("System Halted" "Nord Newsletter" "Midnight Mountains")))
     (should (equal (plist-get first :version) "1.0.1"))
     (should (equal (plist-get first :image) "/assets/images/themes/systemhalted.png"))
@@ -1962,6 +2117,26 @@ render at all."
         (should (string-match-p "<details id=\"cat-hindi\"" html))
         (should (string-match-p "<details id=\"cat-leadership\"" html))
         (should-not (string-match-p "<h2 id=\"ai_data\"" html))))))
+
+(ert-deftest systemhalted-generate-categories-reuses-bound-taxonomy-cache ()
+  "Final fix #6: `systemhalted--generate-categories' must use
+`systemhalted--taxonomy-themes' when the whole-build cache is already
+bound, instead of re-reading `org/data/taxonomy.org' itself every time,
+matching the caching contract `systemhalted--render-post' (via
+`systemhalted--post-more-html') already follows for the same variable."
+  (let* ((output (make-temp-file "systemhalted-cat-cache-" t))
+         (post (systemhalted-read-record
+                (systemhalted-test-fixture "2026-09-24-rich-content.org") 'post))
+         (systemhalted--taxonomy-themes
+          '((:id "cache-theme" :title "Cache Theme"
+             :categories ((:name "Software Engineering"))))))
+    (unwind-protect
+        (progn
+          (systemhalted--generate-categories output (list post) systemhalted-test-root)
+          (with-temp-buffer
+            (insert-file-contents (expand-file-name "categories/index.html" output))
+            (should (string-match-p "<h2 id=\"cache-theme\">Cache Theme</h2>" (buffer-string)))))
+      (delete-directory output t))))
 
 (ert-deftest systemhalted-categories-page-has-intro-paragraph ()
   "`/categories/' must carry the archive-intro paragraph before the

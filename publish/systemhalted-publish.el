@@ -61,6 +61,19 @@ assets/js, never the wall clock, so two clean builds stay byte-identical.
 Direct calls to `systemhalted-render-page' outside a full build (such as
 tests exercising a single record) get this fallback constant instead.")
 
+(defvar systemhalted--webcmd-asset-version "0"
+  "Deterministic cache-busting token for `/assets/js/webcmd.js's own `?v='.
+`/assets/js/webcmd.js' is generated content (the search index and webcmd
+runtime data), not a static asset under assets/js, so it does not
+participate in `systemhalted--asset-version''s hash of assets/css and
+assets/js; it needs the post corpus to change its own `?v=' token, which
+`systemhalted--asset-version' would not otherwise reflect. Bound by
+`systemhalted--generate-site' to a content digest of the just-written
+`assets/js/webcmd.js', after `systemhalted--generate-search' writes it, so
+two clean builds of the same sources still stay byte-identical. Direct
+calls to `systemhalted-render-page' outside a full build get this fallback
+constant instead.")
+
 (defvar systemhalted--footer-year "2026"
   "Year shown in the footer copyright line: the newest post's year.
 Bound by `systemhalted--generate-site'. Direct calls to
@@ -340,16 +353,21 @@ A language no Emacs mode can fontify falls back to escaped plain text."
     (org-html-fontify-code source language)))
 
 (defun systemhalted-html-src-block (src-block _contents _info)
-  "Render SRC-BLOCK with stable language classes and highlighted source."
-  (let ((language (or (org-element-property :language src-block) "text"))
-        (source (org-element-property :value src-block)))
+  "Render SRC-BLOCK with stable language classes and highlighted source.
+The `language-X' class and `data-lang' are downcased, matching live's
+kramdown+rouge (`language-c', never `language-C'); LANGUAGE itself is kept
+exactly as the author wrote it (`sh' stays `sh') when looking up a major
+mode to fontify SOURCE, since mode lookup can be case-sensitive."
+  (let* ((language (or (org-element-property :language src-block) "text"))
+         (display-language (downcase language))
+         (source (org-element-property :value src-block)))
     (format (concat "<div class=\"language-%s highlighter-rouge\">"
                     "<div class=\"highlight\"><pre class=\"highlight\">"
                     "<code class=\"language-%s\" data-lang=\"%s\">%s</code>"
                     "</pre></div></div>")
-            (systemhalted--escape-html language t)
-            (systemhalted--escape-html language t)
-            (systemhalted--escape-html language t)
+            (systemhalted--escape-html display-language t)
+            (systemhalted--escape-html display-language t)
+            (systemhalted--escape-html display-language t)
             (systemhalted--fontify-code source language))))
 
 (defun systemhalted-html-example-block (example-block _contents _info)
@@ -986,8 +1004,71 @@ matching main's `_includes/structured-data.html'.")
           (or (systemhalted-record-featured-image record)
               "/assets/images/avatar.jpeg")))
 
-(defun systemhalted--structured-data (record)
-  "Return JSON-LD shared by pages, including home and article data for RECORD."
+(defun systemhalted--seo-tag-type (record route)
+  "Return the `@type' jekyll-seo-tag assigns RECORD at ROUTE.
+Mirrors jekyll-seo-tag's own `Jekyll::SeoTag::Drop#type': `WebSite' on the
+homepage or `/about/' (its `HOMEPAGE_OR_ABOUT_REGEX'), `BlogPosting' for
+any post-like record (posts, drafts, and Emacs notes are all treated as
+articles, matching `is-post' in `systemhalted--seo-meta-html'), `WebPage'
+otherwise."
+  (cond
+   ((member route '("/" "/about/")) "WebSite")
+   ((memq (systemhalted-record-kind record) '(post draft emacs)) "BlogPosting")
+   (t "WebPage")))
+
+(defun systemhalted--seo-tag-json-ld (record bare-title)
+  "Return jekyll-seo-tag's own JSON-LD script tag for RECORD.
+BARE-TITLE is jekyll-seo-tag's `page_title' (the bare page name, not the
+site-qualified title). This is a second, separate JSON-LD node from the
+Person/WebSite pair `systemhalted--structured-data' otherwise emits (that
+pair matches main's `_includes/structured-data.html', which never emits its
+own BlogPosting/WebPage node); jekyll-seo-tag emits `author' and
+`publisher' (Organization + ImageObject logo, from site-config's avatar) on
+every page, plus type-specific fields: `WebSite' (home/`/about/') adds
+`image'/`name'/`sameAs'; `BlogPosting' (posts, drafts, Emacs notes) adds
+`dateModified'/`datePublished' (when a timestamp is derivable via
+`systemhalted--record-lastmod'; omitted otherwise, the way jekyll-seo-tag
+itself drops a nil field) and `mainEntityOfPage'. Field order matches
+jekyll-seo-tag's own alphabetised `to_json'."
+  (let* ((route (systemhalted-record-route record))
+         (type (systemhalted--seo-tag-type record route))
+         (is-website (equal type "WebSite"))
+         (is-post (equal type "BlogPosting"))
+         (canonical (concat systemhalted-site-url route))
+         (avatar (concat systemhalted-site-url "/assets/images/avatar.jpeg"))
+         (published (and (systemhalted-record-date record)
+                         (systemhalted--iso-datetime (systemhalted-record-date record))))
+         (modified (or published (systemhalted--record-lastmod record)))
+         (fields
+          (append
+           `((@context . "https://schema.org")
+             (@type . ,type)
+             (author . ((@type . "Person")
+                        (name . ,systemhalted-site-author)
+                        (url . ,systemhalted-site-url))))
+           (when (and is-post modified) `((dateModified . ,modified)))
+           (when (and is-post published) `((datePublished . ,published)))
+           `((description . ,(systemhalted-record-description record))
+             (headline . ,bare-title))
+           (when is-website `((image . ,avatar)))
+           (when is-post
+             `((mainEntityOfPage . ((@type . "WebPage") (@id . ,canonical)))))
+           (when is-website `((name . ,systemhalted-site-title)))
+           `((publisher . ((@type . "Organization")
+                           (logo . ((@type . "ImageObject") (url . ,avatar)))
+                           (name . ,systemhalted-site-author))))
+           (when is-website `((sameAs . ,(vconcat systemhalted-social-links))))
+           `((url . ,canonical)))))
+    (concat "<script type=\"application/ld+json\">" (json-serialize fields) "</script>")))
+
+(defun systemhalted--structured-data (record bare-title)
+  "Return JSON-LD shared by pages for RECORD.
+BARE-TITLE is forwarded to `systemhalted--seo-tag-json-ld' for its
+`headline'. Emits, in the same order live does: jekyll-seo-tag's own graph
+node first, then the Person node (every page), then, home only, the
+WebSite node with `alternateName' and `inLanguage' — the last two matching
+main's `_includes/structured-data.html' exactly, which never emits its own
+BlogPosting/WebPage node (that is jekyll-seo-tag's job, added above)."
   (let* ((route (systemhalted-record-route record))
          (person-id (concat systemhalted-site-url "/#person"))
          (person (json-serialize
@@ -999,7 +1080,8 @@ matching main's `_includes/structured-data.html'.")
                     (image . "https://systemhalted.in/assets/images/avatar.jpeg")
                     (jobTitle . "Director of Software Engineering")
                     (sameAs . ,(vconcat systemhalted-social-links))))))
-    (concat "<script type=\"application/ld+json\">" person "</script>"
+    (concat (systemhalted--seo-tag-json-ld record bare-title)
+            "<script type=\"application/ld+json\">" person "</script>"
             (when (equal route "/")
               (concat
                "<script type=\"application/ld+json\">"
@@ -1014,20 +1096,6 @@ matching main's `_includes/structured-data.html'.")
                   (inLanguage . "en-US")
                   (publisher . ((@id . ,person-id)))
                   (author . ((@id . ,person-id)))))
-               "</script>"))
-            (when (memq (systemhalted-record-kind record) '(post draft))
-              (concat
-               "<script type=\"application/ld+json\">"
-               (json-serialize
-                `((@context . "https://schema.org")
-                  (@type . "BlogPosting")
-                  (headline . ,(systemhalted-record-title record))
-                  (description . ,(systemhalted-record-description record))
-                  (url . ,(concat systemhalted-site-url route))
-                  (datePublished . ,(systemhalted--iso-datetime
-                                     (systemhalted-record-date record)))
-                  (author . ((@id . ,person-id)))
-                  (image . ,(systemhalted--page-image-url record))))
                "</script>")))))
 
 (defun systemhalted--analytics-html ()
@@ -1068,7 +1136,11 @@ for the home page, `/about/', and its `/pageN/' siblings."
   "Return the <title> tag and SEO meta tags for RECORD at ROUTE.
 TITLE is the full `<title>' text; BARE-TITLE is the unqualified page name used
 for `og:title'/`twitter:title', matching jekyll-seo-tag's own distinction
-between a page's title and its site-qualified title."
+between a page's title and its site-qualified title. IS-POST controls
+`og:type' (`article' vs `website'); it is true for posts, drafts, and Emacs
+notes alike, matching live, which treats an Emacs note as an article too.
+`article:published_time' itself still follows `systemhalted--record-lastmod',
+so it is only emitted when a real timestamp (date or LAST_MODIFIED) exists."
   (let* ((description (systemhalted--escape-html
                        (systemhalted-record-description record) t))
          (canonical (concat systemhalted-site-url route))
@@ -1088,8 +1160,11 @@ between a page's title and its site-qualified title."
      "<meta property=\"og:image\" content=\"" image "\">"
      (if is-post
          (concat "<meta property=\"og:type\" content=\"article\">"
-                 "<meta property=\"article:published_time\" content=\""
-                 (systemhalted--iso-datetime (systemhalted-record-date record)) "\">")
+                 (let ((published (systemhalted--record-lastmod record)))
+                   (if published
+                       (concat "<meta property=\"article:published_time\" content=\""
+                               published "\">")
+                     "")))
        "<meta property=\"og:type\" content=\"website\">")
      "<meta name=\"twitter:card\" content=\""
      (if (systemhalted--large-image-twitter-card-p route) "summary_large_image" "summary")
@@ -1123,6 +1198,17 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
                          (systemhalted-record-tags record)
                          (systemhalted--tags-page-ids (systemhalted--post-records records)))
                         "")))
+           ;; `/404.html' is `layout: default' on main too, so it renders
+           ;; straight into base.html's <main> like the bare-main routes
+           ;; below, but its own bare `<h1>' (no `.page'/`.page-title'
+           ;; wrapper) has to come from here since its Org body is just the
+           ;; "sorry" paragraph, matching live's kramdown-rendered 404.md.
+           ((equal route "/404.html")
+            (let ((systemhalted--export-anchor-ids nil))
+              (format "<h1 id=\"%s\">%s</h1>\n%s"
+                      (systemhalted--heading-anchor-id (systemhalted-record-title record))
+                      (systemhalted--escape-html (systemhalted-record-title record))
+                      body)))
            ;; The home page, its `/pageN/' siblings, and `/webcmd/' render
            ;; straight into base.html's <main>, matching live: no page.html
            ;; wrapper and no stray page-title h1 duplicating their own headers.
@@ -1137,7 +1223,7 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
                                   (systemhalted--escape-html
                                    (systemhalted-record-title record)))))
                  (?c . ,body))))))
-         (is-post (memq kind '(post draft)))
+         (is-post (memq kind '(post draft emacs)))
          (bare-title (or bare-title (systemhalted-record-title record)))
          (title (or full-title (format "%s | %s" bare-title systemhalted-site-title)))
          (current " aria-current=\"page\""))
@@ -1154,7 +1240,7 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
        (?M . ,(or (systemhalted--mermaid-head-html record) ""))
        (?g . ,(systemhalted--analytics-html))
        (?h . ,(systemhalted--seo-meta-html record route title bare-title is-post))
-       (?j . ,(systemhalted--structured-data record))
+       (?j . ,(systemhalted--structured-data record bare-title))
        (?w . ,(if (equal route "/") current ""))
        (?P . ,(if (equal route "/projects/") current ""))
        (?A . ,(if (equal route "/archives/") current ""))
@@ -1162,7 +1248,7 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
        (?W . ,(if (equal route "/webcmd/")
                   (format (concat "<script src=\"/assets/js/elasticlunr.min.js\"></script>"
                                   "<script src=\"/assets/js/webcmd.js?v=%s\"></script>")
-                          systemhalted--asset-version)
+                          systemhalted--webcmd-asset-version)
                 ""))
        (?b . ,content)))))
 
@@ -1544,7 +1630,8 @@ categories have posts, and a category with posts that names no theme is
 listed under \"Other categories\", sorted by name for determinism (main's
 own order there follows Ruby hash-iteration order, which is not a
 guarantee this build can reproduce byte-for-byte)."
-  (let* ((themes (plist-get (systemhalted--read-taxonomy source-root) :themes))
+  (let* ((themes (or systemhalted--taxonomy-themes
+                     (plist-get (systemhalted--read-taxonomy source-root) :themes)))
          (groups (systemhalted--group-records posts #'systemhalted-record-categories))
          (theme-category-names
           (delete-dups
@@ -2205,13 +2292,16 @@ text, now kept in `site-config.el'."
   "Render a `post-feed-item' <li> shared by every `post-feed' list on the
 site: META is the rendered `post-feed-meta' block (or \"\" for none), ROUTE
 and TITLE (already HTML-safe) link the heading, and EXCERPT (already
-HTML-safe, or nil) is the optional summary paragraph. Matches the common
-shape of main's `_includes/newsletter-list-item.html', `emacs-list-item.html'
-and `jsgame-list-item.html'."
+HTML-safe, or nil) is the optional summary paragraph, omitted (like a nil
+EXCERPT) when it is blank or whitespace-only. Matches the common shape of
+main's `_includes/newsletter-list-item.html', `emacs-list-item.html' and
+`jsgame-list-item.html'."
   (format (concat "<li class=\"post-feed-item\">%s"
                   "<h2 class=\"post-feed-title\"><a href=\"%s\">%s</a></h2>%s</li>")
           meta route title
-          (if excerpt (format "<p class=\"post-feed-excerpt\">%s</p>" excerpt) "")))
+          (if (org-string-nw-p excerpt)
+              (format "<p class=\"post-feed-excerpt\">%s</p>" excerpt)
+            "")))
 
 (defun systemhalted--newsletter-list-item (post)
   "Render POST as a `post-feed-item' entry for the Kartavya Path \"Past
@@ -2341,6 +2431,13 @@ so two clean builds of the same sources stay byte-identical."
      (secure-hash 'sha256 (mapconcat #'systemhalted--read-file files "\0"))
      0 10)))
 
+(defun systemhalted--compute-content-version (file)
+  "Return a short deterministic cache-busting token from FILE's contents.
+Same hashing scheme as `systemhalted--compute-asset-version', but for a
+single generated file (`/assets/js/webcmd.js') rather than a directory of
+static assets."
+  (substring (secure-hash 'sha256 (systemhalted--read-file file)) 0 10))
+
 (defun systemhalted--generate-site (source-root output-root records)
   "Generate the complete site from RECORDS into OUTPUT-ROOT."
   (make-directory output-root t)
@@ -2368,9 +2465,12 @@ so two clean builds of the same sources stay byte-identical."
     (systemhalted--generate-feed output-root posts records)
     (systemhalted--generate-links-jsonp output-root posts)
     (systemhalted--generate-search output-root records source-root)
-    (systemhalted--generate-jsgames-page output-root source-root)
-    (systemhalted--generate-themes-page output-root source-root)
-    (systemhalted--generate-webcmd-page output-root)
+    (let ((systemhalted--webcmd-asset-version
+           (systemhalted--compute-content-version
+            (expand-file-name "assets/js/webcmd.js" output-root))))
+      (systemhalted--generate-jsgames-page output-root source-root)
+      (systemhalted--generate-themes-page output-root source-root)
+      (systemhalted--generate-webcmd-page output-root))
     (dolist (redirect systemhalted-legacy-redirects)
       (systemhalted--write-route output-root (car redirect)
                                  (systemhalted--redirect-page (cdr redirect))))

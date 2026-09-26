@@ -1,0 +1,11 @@
+#+TITLE: Star Wars - Mandalorian
+#+DESCRIPTION: Mandalorian - an extension of Star Wars Universe. Not really, it is `part` of Star Wars Universe.
+#+DATE: 2020-07-18
+#+CATEGORIES: Society & Economy, Media Review
+#+TAGS: society, economy, movie-review
+#+PERMALINK: /2020/07/18/starwars-themandalorian/
+#+COMMENTS: true
+
+Just finished watching The Mandalorian[fn:1] Season 1 on Disney+. Amazing show. Keeps the Star Wars theme alive and at the same time introduces something new. Makes you realize the genius of George Lucas, who made it possible to have infinite possibilities for people to tell their stories in this wonderful Star Wars universe. Makes you respect the art of making movies and telling and sharing your stories.
+
+[fn:1] [[https://disneyplusoriginals.disney.com/show/the-mandalorian]]

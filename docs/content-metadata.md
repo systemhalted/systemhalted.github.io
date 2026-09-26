@@ -1,157 +1,140 @@
-# Content Metadata Guide
+# Content metadata
 
-This guide covers taxonomy, tag hygiene, featured images, and front matter conventions for posts, Kartavya Path essays, and Emacs notes.
-- Posts live in `collections/_posts/`.
-- Kartavya Path essays are posts marked with `kartavya_path: true`.
-- Emacs notes live in `collections/_emacs/` (rendered with `_layouts/emacs.html`).
+Posts are maintained in `org/posts/`, drafts in `org/drafts/`, evergreen Emacs
+notes in `org/emacs/`, and standalone pages in `org/pages/`. The publisher reads
+Org keywords before exporting the document body.
 
-## Taxonomy and categories
-Category themes live in `_data/taxonomy.yml` under `themes`. They are used by:
-- `categories.html` to group posts by theme.
-- `_layouts/post.html` to compute related posts based on overlapping categories.
+## Posts
 
-Guidelines:
-- Use the exact category strings defined in `_data/taxonomy.yml` (case and spacing matter).
-- Prefer 1-2 categories per post to keep related posts meaningful.
-- When introducing a new category, add it to the appropriate theme in `_data/taxonomy.yml` so it appears under the correct heading.
+Required keywords for new posts:
 
-## Tag hygiene
-Tags are listed in `_data/taxonomy.yml` under `tags` as a reference list.
-
-Guidelines:
-- Use lower-case, kebab-case tags (e.g., `machine-learning`, `computer-science`).
-- Avoid duplicates and near-duplicates (`ai` vs `AI`, `book-review` vs `books`).
-- Keep tag counts small (3-6 is typical) and only add tags that aid discovery.
-- If a new tag is needed, add it to `_data/taxonomy.yml` so the canonical list stays current.
-
-## Featured images
-Featured images appear as optional closing visuals after the article prose in `_layouts/post.html`. The text-first homepage does not use thumbnails.
-
-Fields:
-- `featured_image`: Path relative to site root, e.g., `assets/images/2025-12-hero.jpg`.
-- `featured_image_alt`: Required when `featured_image` is set.
-- `featured_image_caption`: Optional text shown below the image in posts.
-
-Guidelines:
-- Store images in `assets/images/` with short, kebab-case names (date-prefix recommended).
-- Prefer an image that rewards finishing the article rather than acting as introductory decoration.
-
-## Front matter
-Front matter drives listing pages, archives, tags, and related posts.
-
-Required (posts):
-- `layout: post`
-- `title: ...`
-- `date: YYYY-MM-DD`
-- `categories` or `category`
-- `tags`
-
-Common optional keys:
-- `description`: One-line summary used for metadata and selected listing pages.
-- `comments: true`: Enables the Disqus include for that post.
-- `featured_image`, `featured_image_alt`, `featured_image_caption`
-
-There is no per-post `featured` flag; `featured_image` is an image, not a highlight marker.
-
-Notes:
-- Both `category` and `categories` are supported by Jekyll; prefer `categories` for new posts.
-- Keep keys lower-case and avoid introducing new naming styles unless required by existing templates.
-
-Post example:
-```
----
-layout: post
-title: Example Post
-date: 2025-01-01
-categories:
-  - Technology
-tags:
-  - ai
-  - software-engineering
-description: One-line summary used in listings.
-comments: true
-featured_image: assets/images/2025-01-hero.jpg
-featured_image_alt: Short, descriptive alt text.
-featured_image_caption: Optional caption for the post header.
----
+```org
+#+TITLE: Example Post
+#+DESCRIPTION: One-line summary for listings and metadata.
+#+DATE: 2026-09-25
+#+CATEGORIES: Software Engineering
+#+TAGS: emacs, org, publishing
 ```
 
-Kartavya Path post example:
-```
----
-layout: post
-title: Example Kartavya Path Essay
-date: 2026-06-30
-category:
-  - Newsletter
-tags:
-  - newsletter
-  - leadership
-description: One-line summary for listings.
-kartavya_path: true
----
-```
+Use category names from `org/data/taxonomy.org`. One or two categories usually
+produce useful related-post matches. Tags should be lower-case kebab-case and
+limited to terms that help discovery.
 
-The nine migrated issues also have explicit `/newsletter/YYYY-MM-DD-title/` permalinks so their established URLs do not change. New essays can use the standard dated post URL.
+The filename supplies the normal date and route. Add `#+PERMALINK` only when an
+established route must be retained. Former Kartavya Path essays are regular
+posts whose historical `/newsletter/.../` URLs remain unchanged; the site does
+not have an active newsletter section.
 
-### Where things live
+Optional post keywords:
 
-- **systemhalted.in** — canonical home of all essays and posts. Everything publishes here first.
-- **Kartavya Path on LinkedIn** — syndication target for selected professional-audience posts (see workflow below). Not a source of original content.
-- **Substack (palakmathur.substack.com)** — native home for creative writing (short stories, poetry, narrative essays). Not mirrored on the blog.
-- **palakmathur.in** — the identity hub (`about-me` repo). Links to all of the above; changes only when a platform is added or retired.
+- `#+COMMENTS: true` enables Giscus.
+- `#+TOC: true` adds a generated table of contents.
+- `#+MERMAID: true` loads Mermaid and turns a `#+begin_src mermaid` block into
+  a diagram in the browser, matching main's `_includes/head.html`.
+- `#+LAST_MODIFIED` records a later revision date.
+- `#+FEATURED_IMAGE` names a site-relative image.
+- `#+FEATURED_IMAGE_ALT` describes that image; use an empty value only for a
+  decorative image.
+- `#+FEATURED_IMAGE_CAPTION` supplies optional credit or context.
+- `#+KARTAVYA_PATH: true` lists the post on the `/kartavya-path/` landing
+  page's "Past issues" feed. It is still an ordinary post in `org/posts/`
+  at its normal date-based route; the keyword only adds it to that feed.
 
-### Publishing workflow (blog-only, LinkedIn syndication)
+Store featured images under `assets/images/`. The production validator rejects
+missing local files.
 
-Everything publishes as a regular blog post in `collections/_posts/`; there is no separate newsletter collection. Legacy issues were moved into the main post archive and marked with `kartavya_path: true`. The Kit (ConvertKit) email list is retired; the on-site CTA and footer point to the LinkedIn newsletter (`newsletter_cta.linkedin_url` in `_config.yml`) and RSS instead.
+Boolean keywords (`#+COMMENTS`, `#+TOC`, `#+MERMAID`, `#+KARTAVYA_PATH`,
+`#+HIDE_TITLE`, `#+QUIET_TITLE`, `#+DRAFT`) accept `true`, `yes`, `t`, or `1`;
+anything else, including an empty value, is treated as absent.
 
-Selected posts (ones that fit a professional audience) are cross-posted to the Kartavya Path newsletter on LinkedIn:
+### Categories and tags with commas
 
-1. **Publish on the blog first** — commit, push, let Pages build, confirm the public URL renders.
-2. **Cross-post the full text to LinkedIn** after the blog URL is live. Prefix the LinkedIn version with "Originally published at <blog URL>" and link the title to the canonical blog post.
-3. **Capture the LinkedIn URL** in front matter as `linkedin_url: https://www.linkedin.com/...`. `_layouts/post.html` then renders the "Join the discussion on LinkedIn →" link at the end of the post. Posts without `linkedin_url` are unaffected.
+`#+CATEGORIES` and `#+TAGS` are normally comma-separated. Wrap an item in
+double quotes to keep a literal comma inside it, for example a category named
+`Series 2 - Turtle, BASIC, and the Long Road to Taste`:
 
-`jekyll-seo-tag` already emits `<link rel="canonical">` pointing to the blog URL, so search engines treat the blog post as canonical even after the LinkedIn cross-post — no extra config needed.
-
-All LinkedIn touchpoints on the site are plain HTML links — no LinkedIn script embeds or plugins — which keeps the site outside LinkedIn's Plugin Terms of Use.
-
-## Emacs notes
-
-Notes live in `collections/_emacs/` and are surfaced on `/emacs/` via `_includes/emacs-list-item.html`. They render through `_layouts/emacs.html` (kicker + title + content + tag chips — no date, comments, or prev/next, since they're evergreen reference material, not dated posts).
-
-Required:
-- `layout: emacs`
-- `title`
-
-Optional:
-- `tags`, `category` — same conventions as posts.
-- `toc: true` — render a Table of Contents at the top of the body (uses `jekyll-toc`).
-- `description` — short summary used as the excerpt on `/emacs/`. **Strongly recommended** for any note whose first paragraph isn't a natural one-liner; without it, the include falls back to `note.excerpt`, which can be visually noisy or (in pathological cases) malformed HTML.
-
-Emacs note example:
-```
----
-layout: emacs
-title: which-key - A Helpful Emacs Package
-tags: [emacs, gnu emacs, which-key]
-category: [emacs]
-toc: true
-description: which-key surfaces all candidate keybindings after a prefix key, removing the need to memorize chord trees.
----
+```org
+#+CATEGORIES: "Series 2 - Turtle, BASIC, and the Long Road to Taste", Emacs
 ```
 
-## Hero landing pages — `hide_page_title`
+The quotes are stripped; only a comma outside quotes splits items.
 
-Landing pages that provide their own `<h1>` via a hero block (e.g. `.newsletter-hero` on `/kartavya-path/`) should set `hide_page_title: true` in front matter. This suppresses the standard `.page-title` that `_layouts/page.html` would otherwise inject, preventing a duplicate heading above the hero.
+## Drafts
 
-Example:
+`M-x systemhalted-new-post` creates a dated source in `org/drafts/` with
+`#+DRAFT: true`. Preview builds include drafts and future dates. Production
+builds exclude both. Move a finished draft into `org/posts/` and remove the
+draft keyword before publishing.
+
+## Emacs notes and pages
+
+Emacs notes require `#+TITLE` and `#+DESCRIPTION`; tags and a table of contents
+are optional. Pages also require a title and description and normally set an
+explicit route:
+
+```org
+#+TITLE: About
+#+DESCRIPTION: About Palak Mathur and SystemHalted.
+#+PERMALINK: /about/
 ```
----
-title: Kartavya Path
-layout: page
-permalink: /kartavya-path/
-hide_page_title: true
----
+
+A page may also set:
+
+- `#+HIDE_TITLE: true` omits the generated `<h1 class="page-title">` entirely
+  (the page body supplies its own heading, e.g. a hero section).
+- `#+QUIET_TITLE: true` keeps the `<h1>` but adds a `page-title-quiet` class
+  that de-emphasizes it visually.
+
+Both only affect the plain `page.html` wrapper; posts, drafts, and Emacs notes
+render their own headers and ignore these two keywords.
+
+### The home page
+
+`org/pages/index.org` (route `/`) supplies the home page's hand-written parts
+— the intro header and the Kartavya Path blurb. The generator exports its
+body and splices the computed "Recent writing" list (the 10 most recent
+posts, plus an "All writing →" link) in at the `<!--RECENT_POSTS-->` marker
+in that file. Edit the surrounding Org-authored text there; the recent-posts
+list itself is generator-owned.
+
+### Generated (non-Org) pages
+
+These routes have no corresponding file under `org/pages/`; the publisher
+builds them from data files and post records instead:
+
+- `/categories/`, `/tags/`, `/archives/`, `/emacs/` — derived from every post
+  and Emacs note's own metadata (`#+CATEGORIES`, `#+TAGS`, dates). `/categories/`
+  additionally groups categories by theme using `org/data/taxonomy.org`.
+- `/jsgames/` — listed from `org/data/jsgames.org`; the games themselves live
+  under `jsgames/`.
+- `/themes/` — listed from `org/data/themes.org`.
+- `/webcmd/` — static markup from `publish/templates/webcmd.html`. Its
+  interactive behavior is `publish/templates/webcmd-runtime.js`, appended
+  into the generated `/assets/js/webcmd.js` bundle alongside the search index
+  and `org/data/os-history.org` fortunes/timeline data. There is no Org
+  source file for this page itself.
+- `/kartavya-path/` — a landing page with fixed hero copy in the generator
+  and `site-config.el` (the `systemhalted-newsletter-cta-*` values), plus a
+  "Past issues" feed of every post whose `#+KARTAVYA_PATH: true` keyword
+  is set. The posts themselves stay ordinary Org posts in `org/posts/`.
+
+### Dates are UTC
+
+A post's displayed date and its date-based URL segment are both the UTC date
+of its `#+DATE` timestamp (or filename date), matching Jekyll's behavior on
+GitHub's UTC build runners. A bare date (no time) is midnight UTC.
+
+## Links and raw HTML
+
+Use normal Org links for external and site-relative targets. A link to another
+`.org` file is resolved through its content record, so the generated HTML uses
+the target's final route. Raw HTML belongs in an Org export block:
+
+```org
+#+begin_export html
+<aside class="example">HTML needed by this page.</aside>
+#+end_export
 ```
 
-Pages without a hero block (`about.md`, `archives.html`, `categories.html`, `tags.html`, `emacs.html`) should *not* set this flag — they rely on the auto-injected `.page-title` as their only heading. Use `quiet_title: true` when the title should match the restrained About/Archive hierarchy. See `docs/css-updates.md` for the full list.
+The content audit rejects Liquid constructs and non-Org files in the maintained
+content directories.

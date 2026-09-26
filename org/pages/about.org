@@ -1,0 +1,17 @@
+#+TITLE: About
+#+DESCRIPTION: About Palak Mathur and SystemHalted (The System Halted) — a personal blog on software engineering, leadership, management, and Emacs.
+#+TAGS: Palak Mathur, Palak, Mathur
+#+PERMALINK: /about/
+#+QUIET_TITLE: true
+
+SystemHalted (also written The System Halted) is my personal blog. I am Palak Mathur, and I have written here for years about software engineering, leadership and management, Emacs, and whatever else I am thinking through.
+
+I am currently a Director of Software Engineering at Toyota Financial Services, working on large scale platforms and systems in financial services.
+
+I am also a podcaster and host two shows, Nukkad Shukkad and Indian Dad American Kid.
+
+This is my personal blog. All views expressed here, in my articles, and on any of my linked blogs or podcasts are entirely my own and do not represent the views of my current or past employers.
+
+I also publish short stories, poetry, etc. at [[https://palakmathur.substack.com][palakmathur.substack.com]].
+
+Everything I do --- this blog, stories, podcasts, code, and reading logs --- is indexed at [[https://palakmathur.in][palakmathur.in]].

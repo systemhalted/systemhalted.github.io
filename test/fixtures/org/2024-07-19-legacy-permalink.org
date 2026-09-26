@@ -1,0 +1,7 @@
+#+TITLE: Legacy Permalink
+#+DESCRIPTION: An article with an established public route.
+#+CATEGORIES: Leadership
+#+TAGS: management
+#+PERMALINK: /newsletter/2024-07-19-legacy-permalink/
+
+Legacy body.

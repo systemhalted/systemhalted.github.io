@@ -1,0 +1,11 @@
+#+TITLE: Derived Route
+#+DESCRIPTION: A fixture whose date and route come from its filename.
+#+CATEGORIES: Software Engineering, Emacs
+#+TAGS: org, publishing
+#+COMMENTS: true
+#+TOC: false
+
+* Fixture body
+
+This is a fixture.
+

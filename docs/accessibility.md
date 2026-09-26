@@ -3,21 +3,21 @@
 This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This doc summarizes current accessibility hooks, where they live, and what to watch when adding new content or UI.
 
 ## Current accessibility features
-- Skip link to main content (`_layouts/default.html` + styles in `assets/css/nord.css`).
-- `<main>` landmark around the page content (`_layouts/default.html`).
-- The compact primary navigation is a native `<nav>` containing ordinary links (`_layouts/default.html`).
+- Skip link to main content (`publish/templates/base.html` + styles in `assets/css/nord.css`).
+- `<main>` landmark around the page content (`publish/templates/base.html`).
+- The compact primary navigation is a native `<nav>` containing ordinary links (`publish/templates/base.html`).
 - The single theme button has an accessible label that states the theme it will activate (`assets/js/script.js`).
 - Search overlay has focus trapping and returns focus on close (`assets/js/script.js`).
 - Keyboard shortcuts + in-app help dialog launched with `?` (see [Keyboard shortcuts](#keyboard-shortcuts) below).
-- Webcmd help uses semantic lists and headings (`assets/js/webcmd.js`).
+- Webcmd help uses semantic lists and headings (`publish/templates/webcmd-runtime.js`).
 - Search and shortcut dialogs are materialized from an HTML template when
   JavaScript runs. Keep the primary navigation and reading content outside that
   template so non-JavaScript readers, including Emacs EWW, receive a clean page.
 
 ## Content guidelines
 - Always provide meaningful `alt` text for images that convey information.
-  - For posts: use `featured_image_alt` in front matter.
-  - For inline images in Markdown/HTML, keep `alt` descriptive or empty (`alt=""`) if decorative.
+  - For posts: use `#+FEATURED_IMAGE_ALT` in the Org metadata.
+  - For inline Org or HTML images, keep `alt` descriptive or empty (`alt=""`) if decorative.
 - Keep headings hierarchical (`h1` once per page, then `h2`, `h3`, etc.).
 - Use lists, tables, and blockquotes semantically instead of manual spacing.
 - Avoid inline `onclick` handlers on non-interactive elements; use buttons or links with JS bindings.
@@ -36,10 +36,10 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 - For dark code blocks, use `--code-block-bg` and `--code-block-text` (designed for Nord syntax tokens). Inline `<code>` uses `--code-bg`/`--code-text`.
 
 ## Where to update
-- Layout landmarks and skip link: `_layouts/default.html`.
+- Layout landmarks and skip link: `publish/templates/base.html`.
 - Theme, search, archive-sort, and shortcut behavior: `assets/js/script.js`.
 - Global styles and focus styles: `assets/css/nord.css`.
-- Webcmd UI and help output: `assets/js/webcmd.js` and `webcmd/index.html`.
+- Webcmd UI and help output: `publish/templates/webcmd-runtime.js` and `org/pages/webcmd.org`.
 
 ## Quick checks before shipping
 - Keyboard-only pass: tab through the header, open/close search, toggle the theme, and expand a long article's contents disclosure.
@@ -62,7 +62,7 @@ Bound globally in `assets/js/script.js`. None fire while focus is in a form fiel
 - `?` — open this help dialog
 - `Esc` — close any open overlay
 
-The `?` help dialog (`#shortcuts-overlay` in `_layouts/default.html`) is the canonical in-app reference; keep it in sync if you add or change a shortcut.
+The `?` help dialog (`#shortcuts-overlay` in `publish/templates/base.html`) is the canonical in-app reference; keep it in sync if you add or change a shortcut.
 
 ## Running automated audits
 
@@ -72,8 +72,7 @@ The accessibility script uses [Axe](https://github.com/dequelabs/axe-core) throu
 # One-time
 npm install
 
-# Each run: build + serve, then audit
-bundle exec jekyll serve   # in one terminal
+# Each run: build + serve with M-x systemhalted-preview, then audit
 npm run smoke              # in another
 npm run a11y               # in another
 ```
@@ -95,5 +94,5 @@ Config lives in `a11y.config.json`; URLs to audit are in the `urls` array. Add a
 ## Known limitations
 - Many legacy posts include inline HTML with empty or missing `alt` text. Fix as you touch those posts.
 - The Axe runner audits a curated cross-section, not every URL.
-- Third-party embeds (Kit newsletter, Giscus comments, reCAPTCHA) inject elements without proper labels. A `MutationObserver` in `script.js` stamps iframes and reCAPTCHA textareas with fallback labels; if a future embed introduces new offending elements, extend `labelIframe`/`labelRecaptchaTextarea`.
+- Third-party embeds such as Giscus comments may inject elements without proper labels. A `MutationObserver` in `script.js` stamps iframes and reCAPTCHA textareas with fallback labels; if a future embed introduces new offending elements, extend `labelIframe`/`labelRecaptchaTextarea`.
 - Tags page (`/tags/`) merges duplicate-slug tag names (e.g. `India` and `india`) under per-instance unique IDs; the first occurrence keeps the canonical slug for stable anchors.

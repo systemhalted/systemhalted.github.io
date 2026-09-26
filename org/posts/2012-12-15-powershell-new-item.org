@@ -1,0 +1,56 @@
+#+TITLE: As Touch is to UNIX, New-Item is to Windows PowerShell
+#+DESCRIPTION: As Touch is to UNIX, New-Item is to Windows PowerShell
+#+DATE: 2012-12-15 21:45
+#+CATEGORIES: Technology
+#+TAGS: technology
+#+PERMALINK: /2012/12/15/powershell-new-item/
+#+COMMENTS: true
+
+Unix has a command called Touch that creates an empty file
+
+#+begin_example
+$ touch touch_test.txt  
+touch_test.txt 
+#+end_example
+
+This command is not available in Windows PowerShell. However, there is a command in Powershell which also does the same - =New-Item=
+
+#+begin_example
+PS C:\Documents and Settings\Administrator\Workspace>New-item new_file.txt 
+#+end_example
+
+This will ask you to enter a =Type=
+
+#+begin_example
+Type: file 
+#+end_example
+
+The output will look something like this:
+
+#+begin_example
+Directory: C:\Documents and Settings\Administrator\Workspace
+
+Mode                LastWriteTime            Length   Name
+----                -------------            ------   ----
+-a---             12/15/2012   9:32 PM          0     new_file.txt
+#+end_example
+
+Try to use =Directory= as Type. Check it yourself what it does.
+
+You can also specify the type inline with the command
+
+#+begin_example
+PS C:\Documents and Settings\Administrator\Workspace>New-item palakmathur.txt -type file 
+#+end_example
+
+The output will look something like this:
+
+#+begin_example
+ Directory: C:\Documents and Settings\Administrator\Workspace
+
+ Mode                LastWriteTime            Length   Name 
+ ----                -------------            ------   ---- 
+ -a---             12/15/2012   9:32 PM          0     palakmathur.txt
+#+end_example
+
+Try this command and I will be soon back with another command. Till then enjoy PowerShell.

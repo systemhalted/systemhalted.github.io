@@ -1,0 +1,37 @@
+#+TITLE: Operating system history data
+
+* Fortunes
+- Unix is simple. It just takes a genius to understand its simplicity. — Dennis Ritchie
+- Those who don't understand Unix are condemned to reinvent it, poorly. — Henry Spencer
+- MS-DOS isn't dead, it just smells funny. — Henry Spencer
+- Real programmers don't comment their code. It was hard to write; it should be hard to read.
+- 640K ought to be enough for anybody. — misattributed to Bill Gates (he denies it)
+- The Amiga: a computer years ahead of its time, and a company years behind on payroll.
+- Guru Meditation: the Amiga's blinking red way of saying it had given up.
+- On a clear disk you can seek forever.
+- A kernel panic is just the machine's most honest moment.
+- Linux: because rebooting is for adding hardware.
+- BeOS booted in seconds and broke everyone's heart by losing anyway.
+- CP/M walked so DOS could run — and then DOS forgot to say thank you.
+- There are two ways to write error-free programs; only the third one works.
+- It is not enough for the OS to halt — it must do so with style: SYSTEM HALTED.
+- Multics aimed for the stars; Unix shipped, and that made all the difference.
+
+* Timeline
+| Year | Event |
+|-
+| 1964 | Multics project begins — the ambitious ancestor of Unix |
+| 1969 | Unix is born at Bell Labs (Thompson & Ritchie) |
+| 1973 | Unix rewritten in C — portability changes everything |
+| 1974 | CP/M arrives — the OS that ruled early microcomputers |
+| 1981 | MS-DOS 1.0 ships with the IBM PC |
+| 1984 | Apple Macintosh brings the GUI to the masses |
+| 1985 | Commodore Amiga & Windows 1.0 both debut |
+| 1987 | OS/2 — IBM and Microsoft's brief alliance |
+| 1991 | Linus posts 'just a hobby, won't be big' — Linux begins |
+| 1993 | Windows NT and FreeBSD/NetBSD set the modern stage |
+| 1995 | Windows 95 — Start me up |
+| 2000 | BeOS open-sourced as Haiku; Windows 2000 lands |
+| 2001 | Mac OS X (NeXT lineage) and Windows XP arrive |
+| 2007 | iPhone OS & Android — the OS goes mobile-first |
+| 2008 | The cloud era: the OS quietly becomes a fleet |

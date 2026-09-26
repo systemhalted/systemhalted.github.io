@@ -75,6 +75,20 @@ async function run() {
     const updatedClass = await page.locator('html').getAttribute('class');
     assert(originalClass !== updatedClass, 'Theme shortcut did not change the active theme.');
 
+    const webcmdUrl = new URL('/webcmd/', siteUrl).toString();
+    await page.goto(webcmdUrl, { waitUntil: 'domcontentloaded' });
+    assert(await page.locator('#line').count() === 1,
+      'Webcmd command input is missing.');
+    assert(await page.evaluate(() => typeof window.runcmd === 'function'),
+      'Webcmd runtime was not loaded.');
+    assert(await page.evaluate(() => Array.isArray(window.siteDocs) && window.siteDocs.length > 0),
+      'Webcmd search documents were not generated.');
+
+    await page.locator('#line').fill('uname');
+    await page.locator('#line').press('Enter');
+    assert((await page.locator('#output').textContent()).includes('SystemHalted'),
+      'Webcmd did not execute the uname command.');
+
     console.log('Browser interaction smoke checks passed');
   } finally {
     await context.close();

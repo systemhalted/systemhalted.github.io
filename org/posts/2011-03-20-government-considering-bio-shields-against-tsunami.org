@@ -1,0 +1,23 @@
+#+TITLE: Government considering bio-shields against tsunami
+#+DESCRIPTION: I was going through this news sometime back  so thought it is worth sharing. Here are the excerpts: - The Environment Ministry is considering the idea of developing bioshields comprising mangrove and non-mangrove species in coastal...
+#+DATE: 2011-03-20 02:35:20 -0500
+#+CATEGORIES: Society & Economy, Politics & Governance
+#+TAGS: society, economy, politics
+#+PERMALINK: /2011/03/20/government-considering-bio-shields-against-tsunami/
+
+I was going through this news sometime back  so thought it is worth sharing. Here are the excerpts:
+
+- The Environment Ministry is considering the idea of developing bioshields comprising mangrove and non-mangrove species in coastal areas adjoining critical infrastructure projects such as [[http://en.wikipedia.org/wiki/Power_station][power plants]] and oil storage depots.
+
+- The idea of promoting [[http://en.wikipedia.org/wiki/Mangrove][mangroves]] and other biological shields to provide a ‘speed breaker' was suggested by [[http://en.wikipedia.org/wiki/Agricultural_science][agricultural scientist]] and [[http://rajyasabha.nic.in][Rajya Sabha]] (Council of States) MP [[http://www.msswaminathan.com/][MS Swaminathan]]. The suggestion is being followed up by the expert group appointed by Environment Minister [[http://www.jairamramesh.in/profile/profile.html#][Jairam Ramesh]] to evaluate additional safeguards against the risk of tsunami.
+
+- Swaminathan has also suggested that the coastal areas adjoining the [[http://en.wikipedia.org/wiki/Nuclear_power][nuclear plants]] could be declared as critically vulnerable coastline. The senior agricultural scientist said that the idea of using mangroves as line of defence against coastal storms and [[http://en.wikipedia.org/wiki/Tsunami][tsunamis]] came following a discussion with older generation of Japanese scientists in 1989.
+
+****** Related Articles
+:PROPERTIES:
+:CUSTOM_ID: related-articles
+:END:
+- [[http://news.bioscholar.com/2011/04/declare-coastal-nuclear-sites-critically-vulnerable-swaminathan.html][Declare coastal nuclear sites ‘critically vulnerable’: Swaminathan]] (news.bioscholar.com)
+- [[http://www.treehugger.com/files/2011/03/half-of-mangroves-destroyed-video.php?campaign=th_rss][Half of All Mangroves Destroyed, But Why Does It Matter? (Video)]] (treehugger.com)
+- [[http://www.baliblog.com/travel-tips/bali-travel/attractions/the-mangrove-information-center-in-kuta-bali-part-iii.html][The Mangrove Information Center in Kuta Bali-part III]] (baliblog.com)
+- [[http://www.reuters.com/article/2011/03/28/us-japan-tsunami-expert-interview-idUSTRE72R0EO20110328][Japan needs better tsunami infrastructure: expert]] (reuters.com)

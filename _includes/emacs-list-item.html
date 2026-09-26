@@ -1,9 +1,0 @@
-{% assign note = include.note %}
-{% assign summary = note.description | default: note.excerpt | strip_html | normalize_whitespace | truncate: 220 %}
-<li class="post-feed-item">
-  <div class="post-feed-meta">
-    <span class="post-feed-cat">Emacs note</span>
-  </div>
-  <h2 class="post-feed-title"><a href="{{ note.url | relative_url }}">{{ note.title }}</a></h2>
-  {% if summary %}<p class="post-feed-excerpt">{{ summary }}</p>{% endif %}
-</li>

@@ -1,0 +1,9 @@
+#+TITLE: Draft Post
+#+DESCRIPTION: A draft fixture.
+#+DATE: 2026-09-20
+#+CATEGORIES: Tests
+#+TAGS: draft
+#+DRAFT: true
+
+Draft body.
+

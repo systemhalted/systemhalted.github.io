@@ -1,0 +1,325 @@
+#+TITLE: Search and Keyboard Shortcuts on This Blog
+#+DESCRIPTION: A short guide to the search overlay and the keyboard shortcuts on SystemHalted.
+#+DATE: 2026-09-12
+#+CATEGORIES: Personal Essays, Technology
+#+TAGS: search, keyboard, ux
+#+PERMALINK: /2026/09/12/search-and-keyboard-shortcuts/
+#+COMMENTS: true
+#+TOC: true
+
+During the recent redesign I moved search and theme switching out of the visual foreground, but I did not remove them. Two small features that used to announce themselves loudly now sit quietly in the corner of the header: a search button, and a set of keyboard shortcuts. This post is a quick reference for people who want to use them.
+
+** Search
+:PROPERTIES:
+:CUSTOM_ID: search
+:END:
+Search on this site is a client-side overlay. It runs entirely in your browser against an index built from every post and newsletter item, so there are no server round-trips once the page has loaded.
+
+To open it:
+
+- Click the magnifying glass in the header, or
+- Press / or s anywhere on the site.
+
+Start typing and results appear as you go. Each entry shows the article title and a short snippet, with a count at the top. Search covers both the title and the full body text of every post, and it tolerates partial or slightly-off matches. The index is particularly good at prefix matches, and if it comes up empty it falls back to plain substring matching, so most of what you remember about an article in fragments will still find it.
+
+Up to twelve results are shown. If there are more, the count line tells you how many were left out.
+
+The overlay opens empty with a few suggested searches --- currently =emacs=, =leadership=, =newsletter=, and =javascript= --- so you can click a starting point instead of typing. Press Esc or click outside the dialog to close it; focus returns to wherever you were before.
+
+One note: if the search index fails to load, the overlay points you to the command-line search on the [[/webcmd/][webcmd page]], which is a terminal-style interface to the site with a =find= command of its own. You should not normally need it, but on a flaky connection it is a useful fallback.
+
+** Keyboard shortcuts
+:PROPERTIES:
+:CUSTOM_ID: keyboard-shortcuts
+:END:
+The site has a small set of keyboard shortcuts. They are deliberately few, and every one of them is something you could do with the mouse instead. They exist to save the small effort of the pointer when your hands are already on the home row.
+
+#+begin_html
+  <table>
+#+end_html
+
+#+begin_html
+  <thead>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <th>
+#+end_html
+
+Keys
+
+#+begin_html
+  </th>
+#+end_html
+
+#+begin_html
+  <th>
+#+end_html
+
+Action
+
+#+begin_html
+  </th>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  </thead>
+#+end_html
+
+#+begin_html
+  <tbody>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+/ or s
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Open search
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+t
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Toggle light and dark theme
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+g w
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Go to Writing
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+g p
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Go to Projects
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+g a
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Go to Archive
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+g i
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Go to About
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+?
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Show this list of shortcuts
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  <tr>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Esc
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  <td>
+#+end_html
+
+Close an open overlay
+
+#+begin_html
+  </td>
+#+end_html
+
+#+begin_html
+  </tr>
+#+end_html
+
+#+begin_html
+  </tbody>
+#+end_html
+
+#+begin_html
+  </table>
+#+end_html
+
+A few behaviour notes:
+
+- The g shortcuts are two-key sequences. Press g and then the destination key within about a second. They are modelled on the =gx= navigation you may know from Vim-style interfaces.
+- Shortcuts are ignored while you are typing in a search box, a comment form, or any other text field, and when you hold a modifier key like Ctrl or ⌘. So no surprise behaviour while you are mid-sentence.
+- Press ? at any point to bring up the reference overlay with the full list. This is the same list shown above, and on a small screen it is easier than trying to remember it.
+
+** Why mention this at all
+:PROPERTIES:
+:CUSTOM_ID: why-mention-this-at-all
+:END:
+The redesign moved search into a quieter corner, which worried me for a moment. A feature that is not advertised is one people may not discover. But there is a difference between not advertising something and hiding it. The search button is still in the header on every page, the shortcuts are one keypress away from being listed, and this post is an attempt at the documentation side of that decision.
+
+So, everything that used to be loud is still there. It just waits for you to ask for it.

@@ -2,9 +2,10 @@
 #+DATE: 2026-07-02
 #+CATEGORIES: Software Engineering, Computer Science
 #+TAGS: rust, testing, property-based-testing, tdd, software
-#+JEKYLL_COMMENTS: true
-#+JEKYLL_TOC: true
+#+COMMENTS: true
+#+TOC: true
 #+DESCRIPTION: An example test checks the inputs you happened to choose. A property-based test states a rule and lets the framework generate inputs that try to break it. Notes from continuing a small text editor in Rust.
+#+PERMALINK: /2026/07/02/property-based-testing/
 
 In an [[/2026/06/21/types-check-shape-tests-check-behaviour/][earlier post]] I wrote about a small text editor I am building in Rust, and a ~save~ function that passed its test while being wrong. The test built a document, changed it, saved it, read the file back, and checked that the contents matched. It was green. The implementation dropped the ~Result~ from the disk write, so a failed save would still report success and clear the unsaved-changes flag. The test and the bug lived together without any conflict, because the test only ever ran the happy path.
 

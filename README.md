@@ -1,108 +1,147 @@
 # systemhalted.github.io
 
-Jekyll source for systemhalted.in. The build output goes to `_site/` (generated), so edit sources only.
+Org-first source for [systemhalted.in](https://systemhalted.in). Emacs exports
+the complete static site into `_site/`. Jekyll, Ruby, and generated Markdown
+are not part of the publishing path.
 
-## Quickstart
-- `bundle install`
-- `bundle exec jekyll serve --livereload`
-- `bundle exec jekyll build` (pre-push check)
-- `bundle exec jekyll doctor` (sanity checks)
+## Emacs setup
 
-## Development workflow
-- Drafts live in `collections/_drafts/`; preview them with `bundle exec jekyll serve --livereload --drafts`.
-- Publish by moving drafts to `collections/_posts/` and renaming to `YYYY-MM-DD-title.md`.
-- Kartavya Path essays are regular posts marked with `kartavya_path: true`; preview their listing at `/kartavya-path/`.
-- JSGames are standalone in `jsgames/`; open `jsgames/<game>/index.html` directly or via the Jekyll server and keep assets nearby.
-- For production parity, run `JEKYLL_ENV=production bundle exec jekyll serve`.
+Load the repository workflow from your Emacs configuration:
 
-## Project structure
-- `_config.yml`: site metadata, collections, pagination, search suggestions, and plugins.
-- `collections/_posts/`, `collections/_drafts/`, `collections/_emacs/`: authored content.
-- `org/`: Org Mode post sources and the `ox-jekyll.el` exporter (excluded from the Jekyll build; posts are exported to `collections/_posts/`).
-- `_layouts/`: page shells and rendering logic (`default.html`, `post.html`, `page.html`, `category.html`, `collections.html`, `emacs.html`).
-- `_includes/`: shared UI fragments (head, footer, comments, archive rows, and list-item partials for emacs and jsgames).
-- `_data/taxonomy.yml`: category themes + tag groups used by `categories.html` and related-post logic.
-- `_data/jsgames.yml`: hand-curated list of standalone JS games shown on `/jsgames/`.
-- `assets/`: images, site-level CSS/JS, and favicons (main bundle is `assets/css/nord.css`; main behavior is `assets/js/script.js`).
-- `jsgames/`: standalone JS games with local assets.
-- `webcmd/`: terminal-style UI entry page.
-- `scripts/posts`: helper to list or search posts from the CLI.
-
-## Authoring posts (Org Mode)
-New posts are written in Emacs Org Mode; the Markdown archive stays as-is.
-- Create `org/posts/YYYY-MM-DD-title.org` (drafts go in `org/drafts/`, exporting to `collections/_drafts/`).
-- Keywords map to front matter: `#+TITLE`, `#+DATE`, `#+DESCRIPTION`, `#+CATEGORIES:` and `#+TAGS:` (comma-separated), `#+JEKYLL_COMMENTS` (defaults to true), `#+JEKYLL_TOC`, `#+JEKYLL_LAYOUT` (defaults to post).
-- Export with `M-x org-jekyll-export` (after `(load "<repo>/org/ox-jekyll.el")`), or from the shell:
-  ```
-  emacs --batch -l org/ox-jekyll.el -f org-jekyll-export-file org/posts/YYYY-MM-DD-title.org
-  ```
-- Enable `org-jekyll-auto-export-mode` in the buffer to re-export on every save.
-- Commit **both** the `.org` source and the generated `.md` — CI builds the Markdown and never needs Emacs. The generated file carries `org_source:` in its front matter; edit the `.org`, not the `.md`.
-
-## Authoring posts (Markdown, legacy)
-- Create `collections/_posts/YYYY-MM-DD-title.md` (kebab-case title).
-- Front matter example:
-  ```
-  ---
-  layout: post
-  title: Sample Post
-  date: 2025-12-31
-  categories: [Tech]
-  tags: [jekyll, notes]
-  comments: true
-  featured_image: assets/images/2025-12-hero.jpg
-  featured_image_alt: Brief alt text for the image  # required when featured_image is set; empty if decorative
-  featured_image_caption: Photo credit or context
-  description: One-line summary for previews.
-  ---
-  ```
-- Write Markdown below the front matter; use relative asset paths like `assets/images/2025-12-hero.jpg`.
-
-## Collections
-- Define new collections in `_config.yml` under `collections:`.
-- Add docs under `collections/_<name>/` with standard front matter.
-- Collection landing pages use the standard page hierarchy followed by a `.post-feed`; `emacs.html` is the simplest example. Promotional pages such as `kartavya-path.html` may opt into a restrained inline hero with `hide_page_title: true`.
-- Individual emacs notes use `_layouts/emacs.html` (kicker + title + content + tag chips, no date/comments/prev-next).
-- Kartavya Path essays use the ordinary post layout and are also collected at `/kartavya-path/`.
-
-## Key pages
-- `index.html`: five recent date/title rows and quiet editorial links; subsequent pagination pages remain at `/pageN`.
-- `archives.html`: year-grouped archive with client-side sorting.
-- `categories.html`: category taxonomy grouped by theme.
-- `tags.html`: tag archive.
-- `about.md`, `404.md`: static pages.
-
-## Search and webcmd
-- Search index is built at build time in `assets/js/webcmd.js` using all output docs.
-- The search overlay in `assets/js/script.js` loads Elasticlunr and that shared index only when search is first opened.
-- `webcmd/index.html` exposes the command-line UI; `find <query>` performs a site search.
-- `palakmathur.in` also consumes the published `assets/js/webcmd.js`; preserve its URL and the public `ensureSiteIndex`, `siteIndex`, and `siteStore`/`siteDocs` globals.
-
-## Keyboard shortcuts
-Globally bound in `assets/js/script.js`; in-app reference opens with `?`. See `docs/accessibility.md` for the full list. Highlights:
-- `g w` / `g p` / `g a` / `g i` — go to Writing / Projects / Archive / About
-- `/` or `s` — open search; `t` — toggle Nord Light / Nord Dark
-- `?` — open the shortcuts help dialog; `Esc` — close any overlay
-
-## Accessibility audits
-The Node-based Axe runner audits a curated URL list through the system Chrome/Chromium installation (the full sitemap would drown signal):
+```elisp
+(load "/path/to/systemhalted.github.io/publish/systemhalted-workflow.el")
 ```
-npm install            # one-time
-bundle exec jekyll serve   # in one terminal
-npm run a11y               # in another
+
+To try it in a running Emacs first, evaluate the same form with `M-:` (or use
+`M-x load-file` and select this file). The `systemhalted-*` commands appear
+after the workflow file has loaded. Keep the `load` form in your init file to
+make them available after each Emacs restart.
+
+After editing publisher code in a session where it is already loaded, reload
+both files in this order so Emacs does not reuse the cached publisher feature:
+
+```elisp
+(load-file "/path/to/systemhalted.github.io/publish/systemhalted-publish.el")
+(load-file "/path/to/systemhalted.github.io/publish/systemhalted-workflow.el")
 ```
-Config lives in `a11y.config.json`. `/jsgames/*` is excluded by design — different constraints. See `docs/accessibility.md` for the full a11y inventory and Safari/Tab-preference caveats.
 
-`.github/workflows/a11y.yml` runs the same audit on every PR and push to `main` and fails the check on any violation, so fix locally before pushing.
+The publisher uses the Org and HTML libraries bundled with Emacs 31.1. It does
+not install packages or execute Babel blocks.
 
-## Docs
-- CSS updates guide: `docs/css-updates.md`
-- CSS example snippets: see "Examples" in `docs/css-updates.md`
-- Search architecture: `docs/search-architecture.md`
-- Webcmd guide: `docs/webcmd.md`
-- Accessibility guide: `docs/accessibility.md`
-- Content metadata guide: `docs/content-metadata.md`
+## Authoring and publishing
 
-## Notes
-- Avoid editing `_site/` directly.
-- Keep filenames kebab-case and asset names short.
+- `M-x systemhalted-new-post` creates `org/drafts/YYYY-MM-DD-title.org` and
+  prompts for the required title and description.
+- Fill in `#+CATEGORIES` and `#+TAGS`, then write the article in Org syntax.
+- `M-x systemhalted-preview` saves the current source, builds drafts and future
+  posts, starts a local server, and opens the page at its public route.
+- `M-x systemhalted-stop-preview-server` stops the local server.
+- To publish a draft, move it from `org/drafts/` to `org/posts/` and remove
+  `#+DRAFT: true`.
+- `M-x systemhalted-build` creates and validates the production `_site/`.
+- `M-x systemhalted-publish` runs the production build and opens Magit when it
+  is loaded, otherwise `vc-dir`. It does not stage, commit, or push.
+
+The equivalent clean batch build is:
+
+```sh
+emacs -Q --batch -L publish \
+  -l publish/systemhalted-workflow.el \
+  -f systemhalted-batch-build
+```
+
+## Org metadata
+
+A normal post starts with:
+
+```org
+#+TITLE: Sample Post
+#+DESCRIPTION: One-line summary used in listings and metadata.
+#+DATE: 2026-09-25
+#+CATEGORIES: Software Engineering
+#+TAGS: emacs, org, publishing
+#+COMMENTS: true
+#+TOC: true
+```
+
+The date and route normally come from the `YYYY-MM-DD-slug.org` filename.
+`#+PERMALINK` retains an exceptional or historical URL. Optional featured-image
+keywords are `#+FEATURED_IMAGE`, `#+FEATURED_IMAGE_ALT`, and
+`#+FEATURED_IMAGE_CAPTION`. A featured image must exist under `assets/` and
+needs useful alt text unless it is decorative. Dates are the UTC date of the
+timestamp, matching Jekyll's UTC build runners.
+
+A category or tag name containing a literal comma needs double quotes, e.g.
+`#+CATEGORIES: "Series 2 - Turtle, BASIC, and the Long Road to Taste"`.
+
+Other optional keywords: `#+MERMAID: true` loads Mermaid for a
+`#+begin_src mermaid` block; `#+KARTAVYA_PATH: true` also lists a post on the
+`/kartavya-path/` landing page's "Past issues" feed; `#+HIDE_TITLE: true` and
+`#+QUIET_TITLE: true` (pages only) omit or de-emphasize the generated page
+title. See [Content metadata](docs/content-metadata.md) for the full list and
+accepted values.
+
+Internal links may point directly at another Org source. The exporter resolves
+the target record and writes its final public URL. Site-relative links such as
+`[[/archives/][archive]]` also work.
+
+## Repository structure
+
+- `org/posts/`: published articles.
+- `org/drafts/`: unpublished and in-progress articles.
+- `org/emacs/`: evergreen Emacs notes.
+- `org/pages/`: authored standalone pages.
+- `org/data/`: editable project, theme, game, taxonomy, and webcmd data.
+- `publish/`: the built-in-Emacs generator, HTML templates, site settings, and
+  interactive workflow.
+- `assets/`: images, CSS, JavaScript, icons, and the web manifest.
+- `jsgames/`: standalone browser games with their local assets.
+- `test/`: ERT coverage and the checked compatibility route manifest.
+- `scripts/`: browser, accessibility, and rendering checks.
+
+Derived pages include the home page (built from `org/pages/index.org` plus a
+generated recent-posts list), its `/pageN/` pagination, `/archives/`,
+`/categories/`, `/tags/`, the `/emacs/` index, RSS feed, sitemap, and search
+data. `/jsgames/`, `/themes/`, `/webcmd/`, and `/kartavya-path/` are also
+generated, not authored as `org/pages/*.org` files; see
+[Content metadata](docs/content-metadata.md#generated-non-org-pages) for
+where each one's content comes from. Kartavya Path essays are ordinary posts
+in `org/posts/` at their normal date-based URLs, flagged with
+`#+KARTAVYA_PATH: true` to appear on the `/kartavya-path/` landing page.
+
+## Validation
+
+Run the publisher and workflow suites with:
+
+```sh
+emacs -Q --batch -L publish \
+  -l test/systemhalted-publish-test.el \
+  -f ert-run-tests-batch-and-exit
+
+emacs -Q --batch -L publish \
+  -l test/systemhalted-workflow-test.el \
+  -f ert-run-tests-batch-and-exit
+```
+
+The production build rejects invalid metadata, duplicate or unsafe routes,
+untranslated Liquid, broken local links, missing assets, and malformed XML. It
+builds in a temporary directory and replaces `_site/` only after validation.
+
+For browser accessibility checks, keep an Emacs preview running and use:
+
+```sh
+npm install
+npm run a11y
+```
+
+The generated search bundle remains at `/assets/js/webcmd.js` for consumers of
+the public `ensureSiteIndex`, `siteIndex`, `siteStore`, and `siteDocs` globals.
+
+## Supporting documentation
+
+- [Accessibility](docs/accessibility.md)
+- [Content metadata](docs/content-metadata.md)
+- [Search architecture](docs/search-architecture.md)
+- [Webcmd](docs/webcmd.md)
+
+Do not edit `_site/`; every file there is generated.

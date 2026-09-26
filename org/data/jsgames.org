@@ -1,0 +1,10 @@
+#+TITLE: JavaScript game data
+
+* [[/jsgames/pig-game/][Pig Game]]
+Classic dice game for two players. First to 100 wins, but roll a 1 and you lose your turn's score.
+
+* [[/jsgames/guess-number/][Guess the Number]]
+Pick a number between 1 and 20. Get hints until you find it.
+
+* [[/jsgames/reeti-40/][Reeti @ 40]]
+A host-driven 1986 trivia show for my sister's 40th — 12 trivia questions across three rounds, rapid-fire, and the population gag.

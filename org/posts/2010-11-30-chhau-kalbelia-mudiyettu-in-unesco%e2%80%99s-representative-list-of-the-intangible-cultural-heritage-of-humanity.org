@@ -1,0 +1,38 @@
+#+TITLE: Chhau, Kalbelia, Mudiyettu in UNESCO’s Representative List of the Intangible Cultural Heritage of Humanity
+#+DESCRIPTION: [Baul singers at Vasantotsav, Shantiniketan] Image via Wikipedia UNESCO announced this month that three Indian elements were among the 46 inscribed on the Representative List of the Intangible Cultural Heritage of Humanity. But why...
+#+DATE: 2010-11-30 17:27:05 -0600
+#+CATEGORIES: Politics & Governance
+#+TAGS: politics, india
+#+PERMALINK: /2010/11/30/chhau-kalbelia-mudiyettu-in-unesco’s-representative-list-of-the-intangible-cultural-heritage-of-humanity/
+
+- [[http://commons.wikipedia.org/wiki/File:394_baul-singers-sml.jpg][[[/assets/2010/11/300px-394_baul-singers-sml.jpg]]]] :: Image via Wikipedia
+
+[[http://en.wikipedia.org/wiki/UNESCO][UNESCO]] announced this month that three Indian elements were among the 46 inscribed on the [[http://www.unesco.org/culture/ich/index.php?lg=EN][Representative List of the Intangible Cultural Heritage of Humanity]]. But why didn't it make any noise? Why did no one notice it?
+
+Anyway,  three Indian [[http://en.wikipedia.org/wiki/Performing_arts][performing-art]] forms that have been inscribed are the Mudiyettu, a ritual theatre of [[http://maps.google.com/maps?ll=14.8,74.1166666667&spn=1.0,1.0&q=14.8,74.1166666667%20(Kerala)&t=h][Kerala]]; the [[http://en.wikipedia.org/wiki/Chhau_dance][Chhau dance]], a tradition from [[http://en.wikipedia.org/wiki/East_India][eastern India]]; and the [[http://en.wikipedia.org/wiki/Kalbelia][Kalbelia]] [[http://en.wikipedia.org/wiki/Folk_music][folk songs]] and dances of [[http://en.wikipedia.org/wiki/Rajasthan][Rajasthan]].
+
+#+begin_html
+  <!--more-->
+#+end_html
+
+UNESCO's [[http://en.wikipedia.org/wiki/Intangible_cultural_heritage][Intangible Cultural Heritage]] list goes beyond monuments and collections of objects. It includes traditions or living expressions inherited from our ancestors and passed on to our descendants, such as oral traditions, performing arts, social practices, rituals, festive events, knowledge and practices concerning nature and the universe or the knowledge and skills to produce traditional crafts.
+
+Intangible [[http://en.wikipedia.org/wiki/Cultural_heritage][cultural heritage]], says UNESCO, is an important factor in maintaining cultural diversity in the face of growing globalisation. An understanding of the intangible cultural heritage of different communities helps with intercultural dialogue, and encourages mutual respect for other ways of life.
+
+None of these art forms are endangered as yet. That's why they are on the Representative List as of now. But they might make it to the other one, called the List of Intangible Cultural Heritage in Need of Urgent Safeguarding, if steps are not taken.
+
+Chhau is an integral part of the culture of communities in the [[http://en.wikipedia.org/wiki/Saraikela][Seraikella]], Purulia and Mayurbhanj regions. It binds together people from different social strata and ethnic background with diverse social practices, beliefs, professions and languages. But it might disappear sooner than later. Increasing industrialisation, economic pressures and new media are leading to a decrease in collective participation with communities becoming disconnected from their roots, says UNESCO. As are the Kalbelia songs and dances and the Mudiyettu ritual theatre and dance drama.
+
+The list now has following elements from India:-
+
+| *Member state*                                | *Element*                                                                                                                                  | *Year Proclaimed* | *Year Inscribed* |
+| [[http://en.wikipedia.org/wiki/India][India]] | [[http://en.wikipedia.org/wiki/Kutiyattam][Kutiyattam]], [[http://en.wikipedia.org/wiki/Sanskrit_drama][Sanskrit Theatre]]                 | 2001              | 2008             |
+| India                                         | The Tradition of [[http://en.wikipedia.org/wiki/Vedic_chanting][Vedic Chanting]]                                                           | 2003              | 2008             |
+| India                                         | [[http://en.wikipedia.org/wiki/Ramlila][Ramlila]] - the Traditional Performance of the [[http://en.wikipedia.org/wiki/Ramayana][Ramayana]] | 2005              | 2008             |
+| India                                         | [[http://en.wikipedia.org/wiki/Ramman][Ramman]]: religious festival and ritual theatre of the Garhwal Himalayas                            | 2009              | 2009             |
+| India                                         | [[http://en.wikipedia.org/w/index.php?title=Mudiyettu&action=edit&redlink=1][Mudiyettu]]: a ritual theatre of Kerala                       |                   | 2010             |
+| India                                         | [[http://en.wikipedia.org/wiki/Kalbelia][Kalbelia]]: folk songs and dances of Rajasthan                                                    |                   | 2010             |
+| India                                         | [[http://en.wikipedia.org/w/index.php?title=Chhau_Dance&action=edit&redlink=1][Chhau Dance]]: a tradition from easternIndia                |                   | 2010             |
+| India*                                        | Nowrūz                                                                                                                                     | 2009              | 2009             |
+
+​*Along with [[http://en.wikipedia.org/wiki/Azerbaijan][Azerbaijan]], [[http://en.wikipedia.org/wiki/Iran][Iran]], [[http://en.wikipedia.org/wiki/Kyrgyzstan][Kyrgyzstan]], [[http://en.wikipedia.org/wiki/Uzbekistan][Uzbekistan]], [[http://en.wikipedia.org/wiki/Pakistan][Pakistan]], [[http://en.wikipedia.org/wiki/Turkey][Turkey]]

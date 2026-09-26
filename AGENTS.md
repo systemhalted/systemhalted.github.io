@@ -1,30 +1,43 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
-- Jekyll site configuration lives in `_config.yml`; avoid manual edits to `_site/` because it is generated output.
-- Content is authored in `collections/_posts/` (published), `collections/_drafts/` (unpublished), and `collections/_emacs/` (evergreen notes); use `YYYY-MM-DD-title.md` for post filenames.
-- Layouts sit in `_layouts/`, shared snippets in `_includes/`, and data files in `_data/` for repeatable metadata.
-- Static assets belong in `assets/` (images, JS, CSS). Experimental games are in `jsgames/` and should keep their own assets nearby.
+## Project structure
 
-## Build, Test, and Development Commands
-- `bundle install` — install Ruby gems from the `Gemfile` (run on first setup or when dependencies change).
-- `bundle exec jekyll serve --livereload` — run the site locally at `http://localhost:4000` with live reload for drafts and posts.
-- `bundle exec jekyll build` — produce the production site into `_site/`; CI/CD and GitHub Pages expect this to succeed without warnings.
-- `bundle exec jekyll doctor` — sanity-check configuration for common issues before opening a PR.
+- Authored content lives in `org/posts/`, `org/drafts/`, `org/emacs/`, and
+  `org/pages/`. Use `YYYY-MM-DD-title.org` for posts and drafts.
+- Editable site data lives in `org/data/`.
+- The built-in-Emacs publisher, templates, settings, and interactive workflow
+  live in `publish/`.
+- Static files live in `assets/`; standalone games remain in `jsgames/`.
+- `_site/` is generated output and must not be edited or committed.
 
-## Coding Style & Naming Conventions
-- Prefer 2-space indentation for YAML, HTML/Liquid, and Markdown code blocks to match existing files.
-- Front matter should include `layout`, `title`, `date`, `categories` or `tags`, and any page-specific flags; keep keys lower-case and kebab-cased.
-- Use kebab-case for filenames and URL slugs; keep asset names short and descriptive (e.g., `assets/images/2025-05-hero.jpg`).
-- Keep Markdown concise; use Liquid includes for repeated UI fragments instead of duplicating HTML.
+## Build and test commands
 
-## Testing Guidelines
-- There is no automated test suite; treat `bundle exec jekyll build` as the gate to catch Liquid or front matter errors.
-- When adding scripts or interactive pages (e.g., under `jsgames/`), test locally in modern browsers and avoid breaking the main layout.
-- Consider running `bundle exec jekyll serve` with `JEKYLL_ENV=production` to mirror production behavior before merging.
+- `emacs -Q --batch -L publish -l publish/systemhalted-workflow.el -f systemhalted-batch-build`
+  builds and validates the production site.
+- `emacs -Q --batch -L publish -l test/systemhalted-publish-test.el -l test/systemhalted-workflow-test.el -f ert-run-tests-batch-and-exit`
+  runs the publisher and workflow suites.
+- `test/ci-contract.sh` checks the clean batch entry point, CI configuration,
+  retired inputs, and public route manifest.
+- Run `M-x systemhalted-preview` in Emacs for a draft-inclusive local preview.
+- With the preview running on port 4002, `npm run smoke` and `npm run a11y`
+  exercise browser behavior and accessibility.
 
-## Commit & Pull Request Guidelines
-- Recent history favors short, imperative messages (e.g., “Fix layout”); follow that style and group related edits per commit.
-- PRs should state intent, list notable pages touched (paths), and include screenshots for visual changes when feasible.
-- Link relevant issues or TODOs in the description; call out any build or doctor warnings that remain.
-- Avoid committing generated `_site/` contents; rely on the build to regenerate them.
+## Style and content conventions
+
+- Use 2-space indentation for YAML, HTML, CSS, and JavaScript.
+- New posts need `#+TITLE`, `#+DESCRIPTION`, `#+DATE`, `#+CATEGORIES`, and
+  `#+TAGS` keywords.
+- Use kebab-case for filenames and URL slugs. Preserve established routes with
+  `#+PERMALINK`.
+- Reuse publisher templates for shared markup. Do not introduce Liquid or
+  Markdown publishing inputs.
+- Keep asset names short and descriptive. Featured images need alt text unless
+  they are decorative.
+
+## Verification and reviews
+
+- Treat the batch build and ERT suites as the primary gate.
+- Test scripts and browser games in a modern browser when changing their code.
+- Include screenshots in pull requests for visible layout changes when useful.
+- Keep commit messages short and imperative, and group related edits.
+- Do not add generated `_site/` files or attribution trailers to commits.

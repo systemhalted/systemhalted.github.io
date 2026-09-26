@@ -1,0 +1,9 @@
+#+TITLE: Static Blog Generators
+#+DESCRIPTION: I was eager to learn what static blog really means. I came across few open source softwares like Pelican, Jekyll, etc. and thought I will give a try to hosted Pelican in the form of Calepin. Will update this post with details about various options available
+#+DATE: 2012-11-26
+#+CATEGORIES: Technology
+#+TAGS: technology
+#+PERMALINK: /2012/11/26/static-blog-generating-applications/
+#+COMMENTS: true
+
+I was eager to learn what static blog really means. I came across few open source softwares like Pelican, Jekyll, Hyde, etc. and thought to give a try to hosted Pelican in the form of Calepin. Till now have not been able to post a single thing except the sample post that got created when I created my Calepin account. Trying to figure that out.

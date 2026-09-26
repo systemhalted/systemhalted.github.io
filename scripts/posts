@@ -2,7 +2,7 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-posts_dir="$root/collections/_posts"
+posts_dir="$root/org/posts"
 
 usage() {
   cat <<'EOF'
@@ -20,15 +20,15 @@ list_files() {
 
   if command -v rg >/dev/null 2>&1; then
     if [[ -n "$year" ]]; then
-      rg --files -g "${year}-*.md" -g "${year}-*.html" "$posts_dir"
+      rg --files -g "${year}-*.org" "$posts_dir"
     else
-      rg --files -g "*.md" -g "*.html" "$posts_dir"
+      rg --files -g "*.org" "$posts_dir"
     fi
   else
     if [[ -n "$year" ]]; then
-      find "$posts_dir" -type f \( -name "${year}-*.md" -o -name "${year}-*.html" \)
+      find "$posts_dir" -type f -name "${year}-*.org"
     else
-      find "$posts_dir" -type f \( -name "*.md" -o -name "*.html" \)
+      find "$posts_dir" -type f -name "*.org"
     fi
   fi | LC_ALL=C sort -r
 }
@@ -116,7 +116,7 @@ search_posts() {
 
   if command -v rg >/dev/null 2>&1; then
     mapfile -t matches < <(
-      rg --files-with-matches -g "*.md" -g "*.html" -- "$query" "$posts_dir" || true
+      rg --files-with-matches -g "*.org" -- "$query" "$posts_dir" || true
     )
   else
     mapfile -t matches < <(grep -rl -- "$query" "$posts_dir" || true)

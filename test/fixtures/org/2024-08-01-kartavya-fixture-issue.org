@@ -1,0 +1,9 @@
+#+TITLE: Kartavya Fixture Issue
+#+DESCRIPTION: A Kartavya Path issue fixture for feed and landing-page tests.
+#+DATE: 2024-08-01
+#+CATEGORIES: Newsletter
+#+TAGS: newsletter, leadership
+#+PERMALINK: /newsletter/2024-08-01-kartavya-fixture-issue/
+#+KARTAVYA_PATH: true
+
+Kartavya fixture body.

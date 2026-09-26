@@ -1,0 +1,7 @@
+#+TITLE: Future Post
+#+DESCRIPTION: A fixture published after the test clock.
+#+CATEGORIES: Tests
+#+TAGS: future
+
+Future body.
+

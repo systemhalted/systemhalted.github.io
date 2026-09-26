@@ -1775,7 +1775,7 @@ those two directories) would not catch that."
          (html (systemhalted-render-page record (list record) "")))
     (should (string-match-p
              (regexp-quote
-              (concat "<span class=\"footer-made\">Proudly made with "
+              (concat "<span class=\"footer-made\"><span aria-hidden=\"true\">❤️</span> Proudly made with "
                       "<a href=\"https://www.gnu.org/software/emacs/\">Emacs</a> and "
                       "<a href=\"https://orgmode.org/\">Org mode</a></span>"))
              html))))

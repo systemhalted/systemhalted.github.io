@@ -1,8 +1,8 @@
 # Webcmd
 
 `/webcmd/` is a terminal-style interface to the site archive. Its page source
-is `org/pages/webcmd.org`; its maintained command engine is
-`publish/templates/webcmd-runtime.js`.
+is `publish/templates/webcmd.html`; its maintained command engine is
+`publish/templates/webcmd-runtime.js`. The route has no `org/pages/` source.
 
 During a build, Emacs prepends three generated values to that runtime:
 
@@ -11,7 +11,10 @@ During a build, Emacs prepends three generated values to that runtime:
 - `osTimeline`, read from the same Org data file.
 
 The resulting browser asset is `/assets/js/webcmd.js`. Do not edit that file in
-`_site/`.
+`_site/`. The generated `/webcmd/` page loads it with a deterministic token
+derived from the first 10 hexadecimal characters of the file's SHA-256 hash.
+Changes to the search documents, OS-history data, or runtime change the URL;
+identical generated content keeps the same URL.
 
 ## Commands and shortcuts
 
@@ -33,8 +36,8 @@ Use `output()` for normal results, `error()` for failures, and
 text escaped with `osEscape()` before inserting it as HTML.
 
 The runtime expects `#webcmd-form`, `#line`, `#output`, `#error`, `#help`, and
-`#webcmd-help-toggle` in the authored page. Update the runtime and page together
-if one of those hooks changes.
+`#webcmd-help-toggle` in `publish/templates/webcmd.html`. Update the runtime and
+template together if one of those hooks changes.
 
 Run the publisher ERT suite and browser smoke checks after changing the runtime
 or its generated data.

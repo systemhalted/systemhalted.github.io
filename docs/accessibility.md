@@ -9,7 +9,8 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 - The single theme button has an accessible label that states the theme it will activate (`assets/js/script.js`).
 - Search overlay has focus trapping and returns focus on close (`assets/js/script.js`).
 - Keyboard shortcuts + in-app help dialog launched with `?` (see [Keyboard shortcuts](#keyboard-shortcuts) below).
-- Webcmd help uses semantic lists and headings (`publish/templates/webcmd-runtime.js`).
+- Webcmd help uses a semantic list and a labelled toggle
+  (`publish/templates/webcmd-runtime.js` and `publish/templates/webcmd.html`).
 - Search and shortcut dialogs are materialized from an HTML template when
   JavaScript runs. Keep the primary navigation and reading content outside that
   template so non-JavaScript readers, including Emacs EWW, receive a clean page.
@@ -31,15 +32,18 @@ This project targets WCAG 2.1 AA for the site UI (excluding `jsgames/`). This do
 
 ## Color contrast
 - Maintain WCAG AA contrast for text and UI states in Nord Light and Nord Dark.
-- If you introduce new tokens, verify contrast against `--bg`, `--surface`, and `--surface-strong`.
+- If you introduce new tokens, verify contrast against `--background`,
+  `--surface`, and `--surface-quiet`.
 - For warm accent text, use `--accent-warm-text` (AA-compliant), not `--accent-warm` (used for backgrounds/borders only).
-- For dark code blocks, use `--code-block-bg` and `--code-block-text` (designed for Nord syntax tokens). Inline `<code>` uses `--code-bg`/`--code-text`.
+- Code blocks use `--code-bg`, `--code-text`, and `--code-border`. Inline
+  `<code>` uses `--surface`, `--text`, and `--border`.
 
 ## Where to update
 - Layout landmarks and skip link: `publish/templates/base.html`.
 - Theme, search, archive-sort, and shortcut behavior: `assets/js/script.js`.
 - Global styles and focus styles: `assets/css/nord.css`.
-- Webcmd UI and help output: `publish/templates/webcmd-runtime.js` and `org/pages/webcmd.org`.
+- Webcmd page markup and help output: `publish/templates/webcmd.html` and
+  `publish/templates/webcmd-runtime.js`.
 
 ## Quick checks before shipping
 - Keyboard-only pass: tab through the header, open/close search, toggle the theme, and expand a long article's contents disclosure.
@@ -72,10 +76,14 @@ The accessibility script uses [Axe](https://github.com/dequelabs/axe-core) throu
 # One-time
 npm install
 
-# Each run: build + serve with M-x systemhalted-preview, then audit
+# Each run: serve a preview on port 4002, then audit
 npm run smoke              # in another
 npm run a11y               # in another
 ```
+
+The Node checks use port 4002. The interactive preview defaults to port 4000,
+so set `systemhalted-preview-port` to 4002 before running
+`M-x systemhalted-preview` for these checks.
 
 After building the site, check the homepage with the same renderer EWW uses:
 
@@ -85,7 +93,9 @@ emacs -Q --batch --script scripts/test-eww-rendering.el _site/index.html
 
 Config lives in `a11y.config.json`; URLs to audit are in the `urls` array. Add a URL when you ship a new page family (e.g. a new collection landing). The runner checks `CHROME_PATH`, `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`, and `PUPPETEER_EXECUTABLE_PATH` before common Linux Chrome paths. The `jsgames/` directory is explicitly excluded — it's a different problem with different constraints.
 
-`.github/workflows/a11y.yml` runs the same audit on every PR and push to `main`. The job fails on any violation — fix locally before pushing.
+`.github/workflows/a11y.yml` runs the CI contract, production build, EWW
+rendering check, browser smoke test, and Axe audit on every PR and push to
+`main`. The job fails on any Axe violation.
 
 ## Browser-level caveats
 

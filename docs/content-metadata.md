@@ -30,7 +30,7 @@ Optional post keywords:
 - `#+COMMENTS: true` enables Giscus.
 - `#+TOC: true` adds a generated table of contents.
 - `#+MERMAID: true` loads Mermaid and turns a `#+begin_src mermaid` block into
-  a diagram in the browser, matching main's `_includes/head.html`.
+  a diagram in the browser.
 - `#+LAST_MODIFIED` records a later revision date.
 - `#+FEATURED_IMAGE` names a site-relative image.
 - `#+FEATURED_IMAGE_ALT` describes that image; use an empty value only for a
@@ -102,9 +102,13 @@ list itself is generator-owned.
 These routes have no corresponding file under `org/pages/`; the publisher
 builds them from data files and post records instead:
 
-- `/categories/`, `/tags/`, `/archives/`, `/emacs/` — derived from every post
-  and Emacs note's own metadata (`#+CATEGORIES`, `#+TAGS`, dates). `/categories/`
-  additionally groups categories by theme using `org/data/taxonomy.org`.
+- `/pageN/` — older home-page chunks, with 10 posts per page. Page 1 is `/`
+  and uses `org/pages/index.org`; later pages are fully generated.
+- `/categories/`, `/tags/`, and `/archives/` — derived from post metadata
+  (`#+CATEGORIES`, `#+TAGS`, and dates). `/categories/` additionally groups
+  categories by theme using `org/data/taxonomy.org`.
+- `/emacs/` — derived from the title and description of each source in
+  `org/emacs/`.
 - `/jsgames/` — listed from `org/data/jsgames.org`; the games themselves live
   under `jsgames/`.
 - `/themes/` — listed from `org/data/themes.org`.
@@ -117,6 +121,40 @@ builds them from data files and post records instead:
   and `site-config.el` (the `systemhalted-newsletter-cta-*` values), plus a
   "Past issues" feed of every post whose `#+KARTAVYA_PATH: true` keyword
   is set. The posts themselves stay ordinary Org posts in `org/posts/`.
+
+The other authored pages are `/404.html`, `/about/`, and `/projects/`, from
+`org/pages/404.org`, `org/pages/about.org`, and `org/pages/projects.org`.
+The Projects page includes the entries in `org/data/projects.org`.
+
+### Generated non-page files
+
+The same build writes these root and asset files:
+
+- `/sitemap.xml` contains the public route inventory. Non-ASCII path segments
+  are percent-encoded. `<lastmod>` uses a record's UTC date when it has one,
+  then falls back to `#+LAST_MODIFIED` for an undated record.
+- `/robots.txt` contains the absolute sitemap URL.
+- `/links.jsonp` is a `callback(...)` array of post titles and absolute URLs
+  in reverse chronological order.
+- `/feed.xml` is RSS 2.0. It includes up to 50 posts, Atom self-link metadata,
+  categories, `dc:creator`, and the full exported body in `content:encoded`.
+- `/assets/js/webcmd.js` contains the post and Emacs-note search documents,
+  Elasticlunr index setup, OS-history data from `org/data/os-history.org`, and
+  `publish/templates/webcmd-runtime.js`. The `/webcmd/` page references it with
+  a deterministic content-hash cache-busting token.
+
+## Exported HTML compatibility
+
+Heading IDs follow kramdown's shape: lower-case text, unsupported punctuation
+removed, spaces replaced with hyphens, and numeric suffixes for duplicates.
+An Org `CUSTOM_ID` overrides the derived ID.
+
+Footnotes use `fnref:N` references, `fn:N` list entries, and reverse-footnote
+backlinks. Repeated references receive numbered reference IDs and backlinks.
+
+`#+TOC: true` creates a nested disclosure with
+`<details class="post-toc">`, a “Contents” summary, a navigation landmark, and
+`<ul id="toc" class="section-nav">` entries linked to the heading IDs.
 
 ### Dates are UTC
 

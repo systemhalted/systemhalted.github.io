@@ -186,6 +186,143 @@ contains a literal comma, instead of being split into multiple items."
     (should (string-match-p
              "href=\"/newsletter/2024-07-19-legacy-permalink/\"" html))))
 
+(ert-deftest systemhalted-export-body-highlights-java-source-blocks ()
+  "Task 13: a java block must keep its Rouge wrapper and gain token spans."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Java\n#+DESCRIPTION: Java highlight fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+BEGIN_SRC java\n"
+              "if (name == null) {\n    throw new IllegalArgumentException(\"name\");\n}\n"
+              "#+END_SRC\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p
+               (regexp-quote
+                (concat "<div class=\"language-java highlighter-rouge\">"
+                        "<div class=\"highlight\"><pre class=\"highlight\">"
+                        "<code class=\"language-java\" data-lang=\"java\">"))
+               html))
+      (should (string-match-p "<span class=\"org-keyword\">if</span>" html))
+      (should (string-match-p "<span class=\"org-string\">\"name\"</span>" html)))))
+
+(ert-deftest systemhalted-export-body-keeps-the-bash-language-class ()
+  "Task 13: a block written as `#+begin_src bash' must keep `language-bash'
+rather than being normalised to `sh'."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Bash\n#+DESCRIPTION: Bash highlight fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+BEGIN_SRC bash\necho \"$HOME\" # a note\n#+END_SRC\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p "class=\"language-bash highlighter-rouge\"" html))
+      (should (string-match-p "data-lang=\"bash\"" html))
+      (should (string-match-p "<span class=\"org-builtin\">echo</span>" html))
+      (should (string-match-p "<span class=\"org-string\">\"$HOME\"</span>" html)))))
+
+(ert-deftest systemhalted-export-body-escapes-source-blocks-without-a-major-mode ()
+  "Task 13: a language Emacs cannot fontify must still export as escaped text
+inside the usual wrapper."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Logo\n#+DESCRIPTION: Logo highlight fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+BEGIN_SRC logo\nTO foo 90\n<unsafe>\n#+END_SRC\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record))))
+      (should (string-match-p "class=\"language-logo highlighter-rouge\"" html))
+      (should (string-match-p "TO foo 90" html))
+      (should (string-match-p "&lt;unsafe&gt;" html))
+      (should-not (string-match-p "<span" html)))))
+
+(ert-deftest systemhalted-export-body-highlights-regardless-of-mode-remapping ()
+  "Task 13: a reader's `major-mode-remap-defaults' must not change the
+published HTML, so a batch build and a preview agree token for token."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Remap\n#+DESCRIPTION: Mode remapping fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+BEGIN_SRC java\nint a = 1;\n#+END_SRC\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (published (systemhalted-export-body record (list record)))
+           (remapped
+            (let ((major-mode-remap-defaults '((java-mode . fundamental-mode))))
+              (systemhalted-export-body record (list record)))))
+      (should (string-match-p "<span class=\"org-type\">int</span>" published))
+      (should (equal published remapped)))))
+
+(defun systemhalted-test-css-rules ()
+  "Return an alist mapping every selector in nord.css to its declarations."
+  (with-temp-buffer
+    (insert-file-contents (expand-file-name "assets/css/nord.css"
+                                            systemhalted-test-root))
+    ;; Drop comments first, or the rule that follows one would be read as
+    ;; having the comment text as part of its selector.  A comment can span
+    ;; lines, and a bare `.` stops at a newline in an Emacs regexp.
+    (let ((without-comments
+           (replace-regexp-in-string "/[*]\\(.\\|\n\\)*?[*]/" "" (buffer-string))))
+      (erase-buffer)
+      (insert without-comments))
+    (goto-char (point-min))
+    (let (rules)
+      (while (re-search-forward "\\([^{}]+\\){[ \t\n]*\\([^{}]*\\)}" nil t)
+        ;; Keep the declarations before splitting the selector list, because
+        ;; splitting matches inside the rule and so loses them.
+        (let ((declarations (match-string 2))
+              (selectors (split-string (match-string 1) "," t)))
+          (dolist (selector selectors)
+            (push (cons (string-trim selector) declarations) rules))))
+      (nreverse rules))))
+
+(defun systemhalted-test-css-declarations (declarations)
+  "Return DECLARATIONS with its whitespace and trailing semicolons normalised,
+so two rules that mean the same compare equal."
+  (string-trim (replace-regexp-in-string "[ \t\n\r]+" " " declarations) " \t\n\r;"))
+
+(ert-deftest systemhalted-nord-css-colours-htmlize-faces-like-rouge-tokens ()
+  "Task 13: every htmlize face class must carry exactly the declaration the
+Rouge token class with the same meaning already has."
+  (let ((rules (systemhalted-test-css-rules)))
+    (dolist (pair '((org-keyword . k) (org-type . kt) (org-preprocessor . kp)
+                    (org-constant . mi) (org-doc . s) (org-string . s)
+                    (org-comment . c) (org-comment-delimiter . c)
+                    (org-builtin . nb) (org-function-name . nf)
+                    (org-variable-name . nv) (org-operator . o)
+                    (org-negation-char . o)))
+      (let ((htmlize (cdr (assoc (format ".highlight .%s" (car pair)) rules)))
+            (rouge (cdr (assoc (format ".highlight .%s" (cdr pair)) rules))))
+        (should (stringp htmlize))
+        (should (stringp rouge))
+        (should (equal (systemhalted-test-css-declarations htmlize)
+                       (systemhalted-test-css-declarations rouge)))))))
+
+(ert-deftest systemhalted-nord-css-covers-every-htmlize-face-a-block-emits ()
+  "Task 13: nord.css must colour every class a highlighted block emits, or the
+token silently falls back to plain code text."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Languages\n#+DESCRIPTION: Language coverage fixture.\n"
+              "#+DATE: 2026-09-25\n#+CATEGORIES: Tests\n#+TAGS: org\n\n"
+              "#+BEGIN_SRC java\n// note\n/** @param x doc */\nif (a == null) { return \"s\"; }\n#+END_SRC\n\n"
+              "#+BEGIN_SRC emacs-lisp\n;; note\n(defvar re \"[^\\\\n]\\\\(?:\")\n\n(defun f (x) \"doc\" (+ x 1))\n#+END_SRC\n\n"
+              "#+BEGIN_SRC sh\n# note\nsudo mv f \\\n  /var/tmp\n#+END_SRC\n\n"
+              "#+BEGIN_SRC python\n# note\ndef f(x):\n    return x + 1\n#+END_SRC\n\n"
+              "#+BEGIN_SRC sql\n-- note\nSELECT 1 FROM t WHERE a != 2;\n#+END_SRC\n\n"
+              "#+BEGIN_SRC c\n/* note */\n#include <stdio.h>\nint main(void) { return 0; }\n#+END_SRC\n\n"
+              "#+BEGIN_SRC javascript\n// note\nconst x = 1;\n#+END_SRC\n\n"
+              "#+BEGIN_SRC lua\n-- note\nlocal x = 1\n#+END_SRC\n\n"
+              "#+BEGIN_SRC fortran\n! note\nprogram p\nend program\n#+END_SRC\n\n"
+              "#+BEGIN_SRC toml\n# note\ntitle = \"x\"\n#+END_SRC\n\n"
+              "#+BEGIN_SRC xml\n<!-- note -->\n<a href=\"x\">y</a>\n#+END_SRC\n\n")
+    (let* ((record (systemhalted-read-record file 'post))
+           (html (systemhalted-export-body record (list record)))
+           (rules (systemhalted-test-css-rules))
+           classes)
+      (with-temp-buffer
+        (insert html)
+        (goto-char (point-min))
+        (while (re-search-forward "<span class=\"\\([^\"]+\\)\"" nil t)
+          (push (match-string 1) classes)))
+      (should classes)
+      (dolist (class (delete-dups classes))
+        (should (assoc (format ".highlight .%s" class) rules))))))
+
 (ert-deftest systemhalted-export-body-renders-root-relative-link ()
   "A root-relative file link must export as a plain URL, never a file: URI."
   (systemhalted-test-with-org

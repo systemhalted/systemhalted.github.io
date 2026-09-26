@@ -342,6 +342,40 @@ pre code {
 .highlight .gi { color: #a3be8c; }
 .highlight .err { color: #eceff4; background: #bf616a; }
 
+/* Org source blocks are highlighted by htmlize instead of Rouge, so their
+   token classes arrive as org-<font-lock face>. Each role below takes the
+   colour the matching Rouge class above already has. */
+
+.highlight .org-comment,
+.highlight .org-comment-delimiter { color: #8f9caf; font-style: italic; }
+.highlight .org-keyword,
+.highlight .org-type,
+.highlight .org-preprocessor { color: #b48ead; font-weight: 600; }
+.highlight .org-string,
+.highlight .org-doc { color: #a3be8c; }
+.highlight .org-constant { color: #b48ead; }
+.highlight .org-builtin,
+.highlight .org-function-name,
+.highlight .org-variable-name { color: #88c0d0; }
+.highlight .org-operator,
+.highlight .org-negation-char { color: #d8dee9; }
+/* Rouge paints errors as a filled badge, which would swallow the whole token
+   here, so a font-lock warning keeps the same red as the foreground. */
+.highlight .org-warning { color: #bf616a; }
+/* Markup and declaration tags, where Rouge reaches for the name colours. */
+.highlight .org-nxml-element-local-name,
+.highlight .org-nxml-attribute-local-name,
+.highlight .org-c-annotation,
+.highlight .org-doc-markup { color: #88c0d0; }
+/* Angle brackets, slashes, and the punctuation of a regular expression. */
+.highlight .org-nxml-tag-delimiter,
+.highlight .org-nxml-tag-slash,
+.highlight .org-regexp-grouping-construct,
+.highlight .org-regexp-grouping-backslash,
+.highlight .org-sh-escaped-newline { color: #d8dee9; }
+/* Text between XML tags is prose, and Rouge leaves it uncoloured. */
+.highlight .org-nxml-text { color: #d8dee9; }
+
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;

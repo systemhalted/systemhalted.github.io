@@ -23,6 +23,11 @@
 
 (require 'site-config (expand-file-name "site-config" systemhalted-publish-directory))
 
+;; Vendored under `publish/' (a `vendor/' directory is gitignored) and loaded by
+;; path, so code blocks always fontify through this copy rather than whichever
+;; htmlize a reader happens to have on their `load-path'.
+(require 'htmlize (expand-file-name "htmlize" systemhalted-publish-directory))
+
 (define-error 'systemhalted-publish-error "SystemHalted publishing error" 'user-error)
 
 (cl-defstruct systemhalted-record
@@ -302,8 +307,27 @@ comparison clock and KIND overrides inferred content kind."
                                   (replace-regexp-in-string "\"" "&quot;" escaped))
       escaped)))
 
+(defun systemhalted--fontify-code (source language)
+  "Return SOURCE written in LANGUAGE as HTML, with htmlize token spans.
+A language no Emacs mode can fontify falls back to escaped plain text."
+  (let ((org-html-htmlize-output-type 'css)
+        (org-html-htmlize-font-prefix "org-")
+        ;; Keep non-ASCII code as authored instead of rewriting it as numeric
+        ;; character references, the way the published site reads today.
+        (htmlize-convert-nonascii-to-entities nil)
+        ;; A reader's tree-sitter remapping must not decide what the published
+        ;; site shows: a batch build and a preview have to agree token for
+        ;; token, so mode remapping is off here.
+        (major-mode-remap-defaults nil)
+        ;; Entering a major mode, font-locking the code, and htmlize each report
+        ;; their progress with `message', four lines a block, which would bury
+        ;; the build log. Anything they warn about is still recorded in
+        ;; `*Warnings*'.
+        (inhibit-message t))
+    (org-html-fontify-code source language)))
+
 (defun systemhalted-html-src-block (src-block _contents _info)
-  "Render SRC-BLOCK with stable language classes and escaped source."
+  "Render SRC-BLOCK with stable language classes and highlighted source."
   (let ((language (or (org-element-property :language src-block) "text"))
         (source (org-element-property :value src-block)))
     (format (concat "<div class=\"language-%s highlighter-rouge\">"
@@ -313,7 +337,7 @@ comparison clock and KIND overrides inferred content kind."
             (systemhalted--escape-html language t)
             (systemhalted--escape-html language t)
             (systemhalted--escape-html language t)
-            (systemhalted--escape-html source))))
+            (systemhalted--fontify-code source language))))
 
 (defun systemhalted-html-example-block (example-block _contents _info)
   "Render EXAMPLE-BLOCK as escaped plain text."

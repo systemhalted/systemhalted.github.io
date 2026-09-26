@@ -1,6 +1,69 @@
 #+TITLE: Publishing Blog using Org Mode and Emacs
 #+DESCRIPTION: I recently moved from Jekyll to publishing through OrgMode. This post goes in details of why and how I did so.
 #+DATE: 2026-09-26
-#+CATEGORIES:
-#+TAGS:
+#+CATEGORIES: Personal Essays, Technology
+#+TAGS: redesign, blogging, jekyll, ux, meta, OrgMode, Emacs
+
+I love Jekyll. Jekyll is a fantastic program and out of the box supported by Github. I had been using it for last 13+ years. It makes it easier to focus on writing. However, few years ago, I started using Org Mode on my Emacs for managing notes. I always had to switch between Markdown and Org Mode and I did not mind that. I liked the whole system. Even though Org Mode is my preferred notes taking program, ease of using Jekyll and not having to write my own publishing platform using Org was a great incentive for it's continued use. I have very limited knowledge of Emacs Lisp. I just started learning it and wrote my first Emacs minor mode[fn:sdkman] and that was another barrier. 
+
+However, with availability of Claude and other AI Agents, it has become easier to create something in a language you do not know. Hence, I started this as an experiment. For past two years, I had been contemplating a move to Org Mode based publishing. I tried switching in July without using Claude and wrote a Org Export backend that converted Org files to Markdown. This was done so I could continue using Jekyll as my static site generator. But soon gave up as my script was not perfect. Later, I even asked Claude to fix it but finally never used that workflow. 
+
+Yesterday, I wanted to see if Claude can communicate back and forth with other Agent CLIs - Codex and OpenCode. I was looking for building something and somehow idea of moving blog to Org Mode struck me again. This time, I gave the task to Claude and asked it to use between Claude models, Codex and OpenCode's Big Pickle to complete the task. To my surprise, Claude, Codex and OpenCode communicated well and finished the work in around 19 hours. Big Pickle is slow but thorough. 
+
+** Old Site
+
+The old site (it seems silly as I just simplified [fn:simplify] almost two week ago) was based on a Custom Nord inspired theme and focused on Writing, Projects and Archives. It had a layer of WebCmd, a JavaScript-based command line interface and also a site-wide Search and Keyboard shortcut overlay[fn:search]. It also supported Giscus comments, an RSS feed and a sitemap. 
+
+** How the new Site works
+
+I began rewriting the site around two weeks ago. The whole site redesign architecture was to make Writing the hero of the site and I called it Writing First Architecture. The natural next step was to include Org Mode in the mix as that is where I write first. 
+
+Contents now moved from =collections/= to =org/= folder and live in one file per item under =org/posts/= where live posts live, =org/drafts/= for drafts, =org/pages/= for all the pages like home page, about, archive, etc, and =org/emacs= holds Emacs Wiki.
+
+Every authored item has a =#+TITLE=, and =#+DESCRIPTION=. Posts also have a date, categories, and tags. Normal post filenames use YYYY-MM-DD-slug.org. The filename supplies the default date and permalink. #+DATE and #+PERMALINK preserve legacy times and exceptional routes. Optional keywords cover comments, table of contents, last modification, and featured-image metadata. Drafts are separate sources and never appear in production. Preview builds may include drafts and future-dated posts. Date-only values use UTC, matching Jekyll on GitHub's UTC runners; dates with explicit times and offsets convert to the equivalent UTC instant. 
+
+Something like this
+
+#+begin_src 
+#+TITLE: Publishing Blog using Org Mode and Emacs
+#+DESCRIPTION: I recently moved from Jekyll to publishing through OrgMode. This post goes in details of why and how I did so.
+#+DATE: 2026-09-26
+#+CATEGORIES: Personal Essays, Technology
+#+TAGS: redesign, blogging, jekyll, ux, meta, OrgMode, Emacs
 #+DRAFT: true
+#+end_src
+
+
+The Emacs Lisp files live under =publish/= and perform a two-pass build: it first parses and validates every source into a normalized record, then exports Org bodies and renders pages derived from the complete record set. Static assets remain source assets and are copied unchanged.
+
+
+** Emacs Workflow
+
+The Emacs Lisp files under =publish/= provide workflow functions. systemhalted-new-post creates a dated Org draft. systemhalted-preview saves and validates the current source, builds with drafts, serves _site through a small built-in-Elisp HTTP server, and opens the final URL. systemhalted-build makes a production build. systemhalted-publish runs the production checks and opens Magit, falling back to vc-dir; it never stages, commits, or pushes.
+
+The publisher uses only libraries bundled with Emacs 31.1. A derived =ox-html= backend owns body behavior such as heading levels, code blocks, footnotes, tables, raw HTML, and links between Org sources. Repository HTML templates replace Liquid. The generated =_site= directory stays ignored. It is generated as part of Github Actions. Pushing main runs the same batch functions under Emacs 31.1 in GitHub Actions, then runs the existing EWW, browser, and Axe checks and deploys the _site artifact to GitHub Pages. The generator has no package or CLI dependency beyond Emacs; Node remains a QA dependency. 
+
+The build produces posts, pages, home pagination, chronological archives, categories, tags, themes/series, projects, games, Emacs notes, related and adjacent article links, RSS, sitemap, browser-search data, metadata, structured data, Giscus comments, and redirects. Existing CSS, JavaScript, images, games, icons, CNAME, and intentional standalone files continue to ship. 
+
+I load the publish workflow as part of Emacs config. Writing a new post is now starts with =C-c b n= to create a new draft, =C-c b p= previews it, and =C-c b P= builds and open Magit. 
+
+** Agent Performance
+
+It took about 26 hours from start to finish on the clock, from Friday 11:21 am to Saturday, 13:50 pm. It was around 19 hours of compute time. There was no work done overnight.
+
+Surprisingly for me Big Pickle performed really well even though it was slowest. I will do a follow up post on it a little later. 
+
+** Hope
+
+My hope is that it simplifies my publishing workflow. If not, I have a tagged the old Jekyll site. I will switch to it if I think this new flow is overwhelming. 
+
+I don't prefer Agents writing and controlling my writing workflows and in this case entire workflow is written by Agents. So, let's see how it goes. 
+
+** References and Notes
+:PROPERTIES:
+:CUSTOM_ID: references-and-notes
+:END:
+
+[fn:sdkman] sdkman.el, [[https://github.com/systemhalted/sdkman.el][Github Link]]
+[fn:simplify] Simplifying SystemHalted.in, [[2026/09/11/simplifying-systemhalted/][earlier post]]
+[fn:search] Search and Keyboard Shortcuts on This Blog, [[2026/09/12/search-and-keyboard-shortcuts/][earlier post]]

@@ -8,7 +8,7 @@
 
 I love Jekyll. Jekyll is a fantastic program and out of the box supported by Github. I had been using it for last 13+ years. It makes it easier to focus on writing. However, few years ago, I started using Org Mode on my Emacs for managing notes. I always had to switch between Markdown and Org Mode and I did not mind that. I liked the whole system. Even though Org Mode is my preferred notes taking program, ease of using Jekyll and not having to write my own publishing platform using Org was a great incentive for it's continued use. I have very limited knowledge of Emacs Lisp and that was a huge barrier. I just started learning it and wrote my first Emacs minor mode[fn:sdkman]. But writing an entire publishing system which maps the current site design and architecture in Emacs Lisp is still not my cup of tea.
 
-However, with availability of Claude and other AI Agents, it has become easier to create something in a language you do not know. Hence, I started this as an experiment. For past two years, I had been contemplating a move to Org Mode based publishing. I tried switching in July without using Claude and wrote a Org Export backend that converted Org files to Markdown. This was done so I could continue using Jekyll as my static site generator. But soon gave up as my script was not perfect. Later, I even asked Claude to fix it but finally never used that workflow. 
+However, with availability of Claude and other AI Agents, it has become easier to create something in a language you do not know. Hence, I started this as an experiment. For past two years, I had been contemplating a move to Org Mode based publishing. I tried switching in July without using Claude and wrote an Org Export backend that converted Org files to Markdown. This was done so I could continue using Jekyll as my static site generator. But soon gave up as my script was not perfect. Later, I even asked Claude to fix it but finally never used that workflow. 
 
 Yesterday, I wanted to see if Claude can communicate back and forth with other Agent CLIs - Codex and OpenCode. I was looking for building something and somehow idea of moving blog to Org Mode struck me again. This time, I gave the task to Claude and asked it to use between Claude models, Codex and OpenCode's Big Pickle to complete the task. To my surprise, Claude, Codex and OpenCode communicated well and finished the work in around 19 hours. Big Pickle is slow but thorough. 
 
@@ -28,7 +28,7 @@ I began rewriting the site around two weeks ago. The whole site redesign archite
 
 Contents now moved from =collections/= to =org/= folder and live in one file per item under =org/posts/= where live posts live, =org/drafts/= for drafts, =org/pages/= for all the pages like home page, about, archive, etc, and =org/emacs= holds Emacs Wiki.
 
-Every authored item has a =#+TITLE=, and =#+DESCRIPTION=. Posts also have a date, categories, and tags. Normal post filenames use YYYY-MM-DD-slug.org. The filename supplies the default date and permalink. #+DATE and #+PERMALINK preserve legacy times and exceptional routes. Optional keywords cover comments, table of contents, last modification, and featured-image metadata. Drafts are separate sources and never appear in production. Preview builds may include drafts and future-dated posts. Date-only values use UTC, matching Jekyll on GitHub's UTC runners; dates with explicit times and offsets convert to the equivalent UTC instant. 
+Every authored item has a =#+TITLE=, and =#+DESCRIPTION=. Posts also have a date, categories, and tags. Normal post filenames use =YYYY-MM-DD-slug.org=. The filename supplies the default date and permalink. =#+DATE= and =#+PERMALINK= preserve legacy times and exceptional routes. Optional keywords cover comments, table of contents, last modification, and featured-image metadata. Drafts are separate sources and never appear in production. Preview builds may include drafts and future-dated posts. Date-only values use UTC, matching Jekyll on GitHub's UTC runners; dates with explicit times and offsets convert to the equivalent UTC instant. 
 
 Something like this
 
@@ -50,7 +50,7 @@ The Emacs Lisp files live under =publish/= and perform a two-pass build: it firs
 :CUSTOM_ID: emacs-workflow
 :END:
 
-The Emacs Lisp files under =publish/= provide workflow functions. systemhalted-new-post creates a dated Org draft. systemhalted-preview saves and validates the current source, builds with drafts, serves _site through a small built-in-Elisp HTTP server, and opens the final URL. systemhalted-build makes a production build. systemhalted-publish runs the production checks and opens Magit, falling back to vc-dir; it never stages, commits, or pushes.
+The Emacs Lisp files under =publish/= provide workflow functions. =systemhalted-new-post= creates a dated Org draft. =systemhalted-preview= saves and validates the current source, builds with drafts, serves _site through a small built-in-Elisp HTTP server, and opens the final URL. =systemhalted-build= makes a production build. =systemhalted-publish= runs the production checks and opens Magit, falling back to =vc-dir=; it never stages, commits, or pushes.
 
 The publisher uses only libraries bundled with Emacs 31.1. A derived =ox-html= backend owns body behavior such as heading levels, code blocks, footnotes, tables, raw HTML, and links between Org sources. Repository HTML templates replace Liquid. The generated =_site= directory stays ignored. It is generated as part of Github Actions. Pushing main runs the same batch functions under Emacs 31.1 in GitHub Actions, then runs the existing EWW, browser, and Axe checks and deploys the _site artifact to GitHub Pages. The generator has no package or CLI dependency beyond Emacs; Node remains a QA dependency. 
 
@@ -72,7 +72,7 @@ Surprisingly for me Big Pickle performed really well even though it was slowest.
 :CUSTOM_ID: hope
 :END:
 
-My hope is that it simplifies my publishing workflow. If not, I have a tagged the old Jekyll site. I will switch to it if I think this new flow is overwhelming. 
+My hope is that it simplifies my publishing workflow. If not, I have tagged the old Jekyll site. I will switch to it if I think this new flow is overwhelming. 
 
 I don't prefer Agents writing and controlling my writing workflows and in this case entire workflow is written by Agents. So, let's see how it goes. 
 

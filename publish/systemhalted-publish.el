@@ -1031,31 +1031,231 @@ section's own link `aria-current=\"page\"' instead of always Archive."
         (push record (gethash value groups))))
     groups))
 
-(defun systemhalted--generate-taxonomy (root posts route title description accessor id-prefix)
-  "Generate taxonomy TITLE at ROUTE by grouping POSTS with ACCESSOR."
-  (let* ((groups (systemhalted--group-records posts accessor))
-         (names (sort (hash-table-keys groups) #'string-lessp))
-         (body
-          (concat (systemhalted--archive-gateways title)
-                  "<div class=\"tag-groups\">"
-                  (mapconcat
-                   (lambda (name)
-                     (let ((items (sort (gethash name groups)
-                                        (lambda (left right)
-                                          (time-less-p
-                                           (systemhalted-record-date right)
-                                           (systemhalted-record-date left))))))
-                       (format (concat "<details id=\"%s%s\" class=\"archive-year taxonomy-group\">"
-                                       "<summary class=\"archive-year-summary\"><span class=\"archive-year-title\">%s</span>"
-                                       "<span class=\"archive-year-count\">%d articles</span></summary>%s</details>")
-                               id-prefix (systemhalted--slugify name)
-                               (systemhalted--escape-html name) (length items)
-                               (systemhalted--archive-list items))))
-                   names "")
-                  "</div>")))
+(defun systemhalted--read-taxonomy (source-root)
+  "Read SOURCE-ROOT's `org/data/taxonomy.org', mirroring
+`main:_data/taxonomy.yml'. Returns a plist:
+- :THEMES -- an ordered list of theme plists, one per that file's `themes:'
+  entry, each a plist of :ID, :TITLE, :DESCRIPTION, and :CATEGORIES (itself
+  an ordered list of (:NAME :DESCRIPTION) category plists, in taxonomy
+  order). A theme's :ID comes from a `:CUSTOM_ID:' property on its level-1
+  headline, matching the live `h2 id=' anchors on `/categories/'.
+- :TAGS -- an ordered list of (GROUP-TITLE . TAG-NAMES) pairs mirroring
+  that file's `tags:' reference list. This is a canonical list for content
+  authors, exactly as on main: no generator reads it back, since `/tags/'
+  is built directly from posts' own tags.
+Returns nil when the file is missing.
+
+`systemhalted--taxonomy-category-siblings' is the entry point for looking
+up a category's theme-mates from the :THEMES list this returns."
+  (let ((file (expand-file-name "org/data/taxonomy.org" source-root))
+        (section 'themes)
+        in-drawer
+        themes theme-id theme-title theme-description categories
+        category-name category-description
+        tag-groups tag-group-title tag-group-tags)
+    (cl-flet* ((flush-category
+                ()
+                (when category-name
+                  (push (list :name category-name :description category-description)
+                        categories))
+                (setq category-name nil category-description nil))
+               (flush-theme
+                ()
+                (flush-category)
+                (when theme-title
+                  (push (list :id theme-id :title theme-title
+                              :description theme-description
+                              :categories (nreverse categories))
+                        themes))
+                (setq theme-id nil theme-title nil theme-description nil categories nil))
+               (flush-tag-group
+                ()
+                (when tag-group-title
+                  (push (cons tag-group-title tag-group-tags) tag-groups))
+                (setq tag-group-title nil tag-group-tags nil)))
+      (when (file-exists-p file)
+        (with-temp-buffer
+          (insert-file-contents file)
+          (goto-char (point-min))
+          (while (not (eobp))
+            (let ((line (string-trim-right
+                         (buffer-substring-no-properties
+                          (line-beginning-position) (line-end-position)))))
+              (cond
+               ((equal line "* Tags") (flush-theme) (setq section 'tags))
+               ((and (eq section 'themes) (string-match "\\`\\* \\(.+\\)\\'" line))
+                (flush-theme)
+                (setq theme-title (match-string 1 line)))
+               ((and (eq section 'themes) (string-match "\\`\\*\\* \\(.+\\)\\'" line))
+                (flush-category)
+                (setq category-name (match-string 1 line)))
+               ((equal line ":PROPERTIES:") (setq in-drawer t))
+               ((equal line ":END:") (setq in-drawer nil))
+               ((and in-drawer (string-match "\\`:CUSTOM_ID: +\\(.+\\)\\'" line))
+                (setq theme-id (match-string 1 line)))
+               ((and (eq section 'tags) (string-match "\\`\\*\\* \\(.+\\)\\'" line))
+                (flush-tag-group)
+                (setq tag-group-title (match-string 1 line)))
+               ((and (eq section 'tags) tag-group-title (not tag-group-tags)
+                     (not (string-empty-p (string-trim line))))
+                (setq tag-group-tags
+                      (mapcar #'string-trim (split-string line "," t "[ \t]+"))))
+               ((and (eq section 'themes) (not in-drawer)
+                     (not (string-empty-p (string-trim line))))
+                (if category-name
+                    (unless category-description
+                      (setq category-description (string-trim line)))
+                  (when theme-title
+                    (unless theme-description
+                      (setq theme-description (string-trim line))))))))
+            (forward-line 1))
+          (flush-theme)
+          (flush-tag-group))))
+    (list :themes (nreverse themes) :tags (nreverse tag-groups))))
+
+(defun systemhalted--taxonomy-category-theme (themes category-name)
+  "Return the theme plist in THEMES (as returned under :THEMES by
+`systemhalted--read-taxonomy') that lists CATEGORY-NAME among its
+:CATEGORIES, or nil when no theme claims it."
+  (seq-find (lambda (theme)
+              (seq-find (lambda (category)
+                          (equal (plist-get category :name) category-name))
+                        (plist-get theme :categories)))
+            themes))
+
+(defun systemhalted--taxonomy-category-siblings (themes category-name)
+  "Return the names of every category sharing a theme with CATEGORY-NAME in
+THEMES (as returned under :THEMES by `systemhalted--read-taxonomy'),
+CATEGORY-NAME included, in taxonomy order. Return nil when CATEGORY-NAME
+belongs to no theme."
+  (let ((theme (systemhalted--taxonomy-category-theme themes category-name)))
+    (when theme
+      (mapcar (lambda (category) (plist-get category :name))
+              (plist-get theme :categories)))))
+
+(defun systemhalted--taxonomy-category-html (name groups)
+  "Render an `archive-year' details block for category NAME, or nil when
+GROUPS (as built by `systemhalted--group-records') has no posts for it."
+  (let ((items (gethash name groups)))
+    (when items
+      (let ((sorted (sort (copy-sequence items)
+                           (lambda (left right)
+                             (time-less-p (systemhalted-record-date right)
+                                          (systemhalted-record-date left))))))
+        (format (concat "<details id=\"cat-%s\" class=\"archive-year taxonomy-group\">"
+                        "<summary class=\"archive-year-summary\"><span class=\"archive-year-title\">%s</span>"
+                        "<span class=\"archive-year-count\">%d articles</span></summary>%s</details>")
+                (systemhalted--slugify name) (systemhalted--escape-html name)
+                (length sorted) (systemhalted--archive-list sorted))))))
+
+(defun systemhalted--taxonomy-theme-section-html (theme groups)
+  "Render a `taxonomy-section' for THEME (a plist as found under :THEMES in
+`systemhalted--read-taxonomy''s result), or nil when none of its categories
+have posts in GROUPS, matching `main:categories.html''s
+`{% if total_posts > 0 %}' guard."
+  (let ((category-html
+         (delq nil (mapcar (lambda (category)
+                             (systemhalted--taxonomy-category-html
+                              (plist-get category :name) groups))
+                           (plist-get theme :categories)))))
+    (when category-html
+      (format (concat "<section class=\"taxonomy-section\" aria-labelledby=\"%s\">"
+                      "<h2 id=\"%s\">%s</h2>%s</section>")
+              (plist-get theme :id) (plist-get theme :id)
+              (systemhalted--escape-html (plist-get theme :title))
+              (mapconcat #'identity category-html "")))))
+
+(defun systemhalted--generate-categories (root posts source-root)
+  "Generate `/categories/' below ROOT from POSTS, matching
+`main:categories.html'. Categories are grouped by SOURCE-ROOT's
+`org/data/taxonomy.org' themes (`systemhalted--read-taxonomy'), in theme
+and category order; a theme section is omitted when none of its
+categories have posts, and a category with posts that names no theme is
+listed under \"Other categories\", sorted by name for determinism (main's
+own order there follows Ruby hash-iteration order, which is not a
+guarantee this build can reproduce byte-for-byte)."
+  (let* ((themes (plist-get (systemhalted--read-taxonomy source-root) :themes))
+         (groups (systemhalted--group-records posts #'systemhalted-record-categories))
+         (theme-category-names
+          (delete-dups
+           (apply #'append
+                  (mapcar (lambda (theme)
+                            (mapcar (lambda (category) (plist-get category :name))
+                                    (plist-get theme :categories)))
+                          themes))))
+         (theme-sections
+          (delq nil (mapcar (lambda (theme)
+                             (systemhalted--taxonomy-theme-section-html theme groups))
+                            themes)))
+         (other-names (sort (seq-remove (lambda (name) (member name theme-category-names))
+                                        (hash-table-keys groups))
+                            #'string-lessp))
+         (other-section
+          (when other-names
+            (format (concat "<section class=\"taxonomy-section\" aria-labelledby=\"other-categories\">"
+                            "<h2 id=\"other-categories\">Other categories</h2>%s</section>")
+                    (mapconcat (lambda (name)
+                                (systemhalted--taxonomy-category-html name groups))
+                               other-names "")))))
     (systemhalted--write-route
-     root route (systemhalted--render-generated-page
-                 title description route body nil nil t))))
+     root "/categories/"
+     (systemhalted--render-generated-page
+      "Categories" "An archive of posts sorted by category." "/categories/"
+      (concat "<p class=\"archive-intro\">Browse the archive through the recurring subjects and series in the writing.</p>"
+              (systemhalted--archive-gateways "Categories")
+              (mapconcat #'identity theme-sections "")
+              (or other-section ""))
+      nil nil t))))
+
+(defun systemhalted--tag-ids (names)
+  "Return NAMES (already sorted the way `site.tags | sort' would sort them)
+paired with their `/tags/' anchor ids. Matches `main:tags.html': ids are
+`slugify'd tag names, and when two different tags in NAMES slugify to the
+same value, every id after the first gets a `--N' suffix, where N is that
+tag's 1-based position in NAMES -- exactly what Liquid's `forloop.index'
+contributes in the live template."
+  (let ((seen (make-hash-table :test #'equal))
+        (index 0)
+        result)
+    (dolist (name names)
+      (setq index (1+ index))
+      (let ((slug (systemhalted--slugify name)))
+        (push (cons name
+                    (if (gethash slug seen)
+                        (format "%s--%d" slug index)
+                      (puthash slug t seen)
+                      slug))
+              result)))
+    (nreverse result)))
+
+(defun systemhalted--generate-tags (root posts)
+  "Generate `/tags/' below ROOT from POSTS, matching `main:tags.html'."
+  (let* ((groups (systemhalted--group-records posts #'systemhalted-record-tags))
+         (names (sort (hash-table-keys groups) #'string-lessp))
+         (ids (systemhalted--tag-ids names)))
+    (systemhalted--write-route
+     root "/tags/"
+     (systemhalted--render-generated-page
+      "Tags" "An archive of posts sorted by tag." "/tags/"
+      (concat "<p class=\"archive-intro\">A more granular index of topics across the archive.</p>"
+              (systemhalted--archive-gateways "Tags")
+              "<div class=\"tag-groups\">"
+              (mapconcat
+               (lambda (pair)
+                 (let* ((name (car pair))
+                        (id (cdr pair))
+                        (items (sort (copy-sequence (gethash name groups))
+                                    (lambda (left right)
+                                      (time-less-p (systemhalted-record-date right)
+                                                   (systemhalted-record-date left))))))
+                   (format (concat "<details id=\"%s\" class=\"archive-year taxonomy-group\">"
+                                   "<summary class=\"archive-year-summary\"><span class=\"archive-year-title\">%s</span>"
+                                   "<span class=\"archive-year-count\">%d articles</span></summary>%s</details>")
+                           id (systemhalted--escape-html name) (length items)
+                           (systemhalted--archive-list items))))
+               ids "")
+              "</div>")
+      nil nil t))))
 
 (defun systemhalted--record-route-present-p (route records)
   "Return non-nil when ROUTE is claimed by RECORDS."
@@ -1528,13 +1728,8 @@ so two clean builds of the same sources stay byte-identical."
       (systemhalted-write-record record records output-root))
     (systemhalted--generate-home output-root posts records)
     (systemhalted--generate-archive output-root posts)
-    (systemhalted--generate-taxonomy
-     output-root posts "/categories/" "Categories"
-     "An archive of posts sorted by category."
-     #'systemhalted-record-categories "cat-")
-    (systemhalted--generate-taxonomy
-     output-root posts "/tags/" "Tags" "An archive of posts sorted by tag."
-     #'systemhalted-record-tags "")
+    (systemhalted--generate-categories output-root posts source-root)
+    (systemhalted--generate-tags output-root posts)
     (systemhalted--generate-emacs-index output-root records)
     (systemhalted--generate-default-pages output-root records)
     (systemhalted--generate-feed output-root posts records)

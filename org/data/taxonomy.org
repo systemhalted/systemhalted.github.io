@@ -1,6 +1,9 @@
 #+TITLE: Site taxonomy
 
 * Series
+:PROPERTIES:
+:CUSTOM_ID: series
+:END:
 Multi-part series, meant to be read in order.
 ** Series 1 - Language and Linguistics
 A six-part series on how language works: grammar, vocabulary, pronunciation, script, and non-verbal communication.
@@ -15,6 +18,9 @@ The Java module system, one concept at a time.
 IEEE 754 doubles, BigDecimal, NaN, and how to compute with them without being surprised.
 
 * Tech, Software, and Engineering
+:PROPERTIES:
+:CUSTOM_ID: tech_engineering
+:END:
 Software, programming, tools, and engineering practice.
 ** Technology
 Tools, platforms, and the tech industry: hardware, operating systems, terminals and editors, services, and how they hold up in daily use.
@@ -26,6 +32,9 @@ The practice of building software: languages, design, testing, process, and less
 The concepts beneath the practice: language theory, data structures, distributed systems, compilers, and coursework notes.
 
 * AI, Data, and Digital Risk
+:PROPERTIES:
+:CUSTOM_ID: ai_data
+:END:
 Artificial intelligence, machine learning, data, and online safety.
 ** AI
 Artificial intelligence and machine learning: what the systems can do, where they fail, and what they change about work.
@@ -34,6 +43,9 @@ Artificial intelligence and machine learning: what the systems can do, where the
 Data protection, privacy, and how personal data is collected and used.
 
 * Politics, Economy, and Society
+:PROPERTIES:
+:CUSTOM_ID: politics_society
+:END:
 Democracy, policy, corruption, economy, and social fabric.
 ** Politics & Governance
 Democracy, elections, policy, law, and the conduct of the state, mostly in India.
@@ -42,6 +54,9 @@ Democracy, elections, policy, law, and the conduct of the state, mostly in India
 Social and economic life: migration, literacy, inequality, and how communities change.
 
 * Books, Reviews, and Media
+:PROPERTIES:
+:CUSTOM_ID: books_media
+:END:
 Book reviews, media reviews, and other curated content.
 ** Books & Reading
 Book reviews and notes on reading, across fiction, history, and periodicals.
@@ -56,6 +71,9 @@ Reviews of shows, apps, and other media that are not books or films.
 Responses to essays and articles written by others.
 
 * Language, Literature, and Spirituality
+:PROPERTIES:
+:CUSTOM_ID: language_lit_spirit
+:END:
 Poetry, languages, philosophy, religion, and related writing.
 ** Languages & Linguistics
 How languages work: grammar, script, usage, and communication.
@@ -67,6 +85,9 @@ Poems, mostly in Hindi and Urdu, and writing about literature.
 Philosophy and religion: Vedanta, free will, and questions of belief.
 
 * Life, Work, and Personal Growth
+:PROPERTIES:
+:CUSTOM_ID: life_personal
+:END:
 Personal essays, behaviour, growth, and people-focused writing.
 ** Personal Essays
 First-person writing on life, work, memory, and opinion.
@@ -75,6 +96,9 @@ First-person writing on life, work, memory, and opinion.
 Milestones, years in review, and remembering people who mattered.
 
 * Hobbies, Travel, and Exploration
+:PROPERTIES:
+:CUSTOM_ID: hobbies_travel
+:END:
 Astronomy, sports, travel, and other hobbies.
 ** Travel
 Trips and places, written as they happened.
@@ -83,6 +107,32 @@ Trips and places, written as they happened.
 Cricket, football, cycling, astronomy, and other things done for their own sake.
 
 * Meta and Formats
+:PROPERTIES:
+:CUSTOM_ID: meta_format
+:END:
 Guest posts, archived speeches, and content tied to talks or videos.
 ** Meta & Guest
 Guest posts and archived speeches, talks, and videos by others.
+
+* Newsletters
+:PROPERTIES:
+:CUSTOM_ID: newsletter
+:END:
+Issues of the newsletter, on leadership, society, and working life.
+** Newsletter
+Issues of the newsletter.
+
+* Tags
+Canonical reference list of tags for content authors, mirroring
+`_data/taxonomy.yml''s ~tags:~ list on main. No generator reads this back:
+=/tags/= is built directly from posts' own =#+TAGS=.
+** People and places
+india, united-states, agra, pune, mumbai
+** Topics
+politics, economy, society, law, education, technology, software, computer-science, linux, ubuntu, sysadmin, ai, data, security, management, leadership, productivity, agile, design, product-management, sustainability, programming-language, java
+** Culture
+poetry, hindi, urdu, literature
+** Formats
+book-review, movie-review, newsletter
+** Misc
+personal, opinion, travel, sports, astronomy

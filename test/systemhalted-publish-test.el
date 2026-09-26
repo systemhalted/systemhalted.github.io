@@ -1233,5 +1233,89 @@ that duplicates the page title; Task 11 restores the full webcmd markup."
     (should-not (string-match-p "<h2" main))
     (should (string-match-p "id=\"webcmd-form\"" main))))
 
+(ert-deftest systemhalted-read-taxonomy-returns-ordered-themes-with-ids ()
+  "The taxonomy reader must expose each theme's `:CUSTOM_ID:' as :id, preserve
+theme and category order, and thread through descriptions, matching
+`main:_data/taxonomy.yml'. Losing the id or the order would break both the
+live-matching `h2' anchors on `/categories/' and Task 12's sibling lookup."
+  (let* ((themes (plist-get (systemhalted--read-taxonomy systemhalted-test-root) :themes))
+         (series (car themes)))
+    (should (equal (plist-get series :id) "series"))
+    (should (equal (plist-get series :title) "Series"))
+    (should (plist-get series :description))
+    (should (equal (mapcar (lambda (category) (plist-get category :name))
+                           (plist-get series :categories))
+                   '("Series 1 - Language and Linguistics"
+                     "Series 2 - Turtle, BASIC, and the Long Road to Taste"
+                     "Series 3 - Project Jigsaw (JPMS)"
+                     "Series 4 - Floating Point Without Tears")))
+    (should (equal (plist-get (car (last themes)) :id) "newsletter"))))
+
+(ert-deftest systemhalted-taxonomy-category-siblings-finds-theme-mates ()
+  "Task 12 needs a category's theme-mates to build cross-links from
+`systemhalted--taxonomy-category-siblings'; a category outside every theme
+must come back nil rather than error."
+  (let ((themes (plist-get (systemhalted--read-taxonomy systemhalted-test-root) :themes)))
+    (should (equal (systemhalted--taxonomy-category-siblings themes "Technology")
+                   '("Technology" "Software Engineering" "Computer Science")))
+    (should-not (systemhalted--taxonomy-category-siblings themes "Not A Real Category"))))
+
+(ert-deftest systemhalted-tag-ids-append-forloop-index-suffix-on-collision ()
+  "Two tags that slugify to the same id must keep only the first plain id;
+every later collision gets a `--N' suffix where N is that tag's 1-based
+position in NAMES, matching main's `tags.html' Liquid loop (`forloop.index')
+exactly, including which one wins the plain id."
+  (should (equal (systemhalted--tag-ids
+                  '("API Design" "Linux" "NaN" "api-design" "linux" "nan"))
+                 '(("API Design" . "api-design") ("Linux" . "linux") ("NaN" . "nan")
+                   ("api-design" . "api-design--4") ("linux" . "linux--5")
+                   ("nan" . "nan--6")))))
+
+(ert-deftest systemhalted-categories-page-groups-by-taxonomy-theme ()
+  "`/categories/' must render one `taxonomy-section' per theme that has
+posts, in theme and category order, and route categories claimed by no
+theme to \"Other categories\"; a theme with no posted categories must not
+render at all."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "categories/index.html" output))
+      (let ((html (buffer-string)))
+        (should (string-match-p
+                 "<h2 id=\"tech_engineering\">Tech, Software, and Engineering</h2>" html))
+        (should (string-match-p "<details id=\"cat-software-engineering\"" html))
+        (should (string-match-p "<h2 id=\"newsletter\">Newsletters</h2>" html))
+        (should (string-match-p "<details id=\"cat-newsletter\"" html))
+        (should (string-match-p "<h2 id=\"other-categories\">Other categories</h2>" html))
+        (should (string-match-p "<details id=\"cat-hindi\"" html))
+        (should (string-match-p "<details id=\"cat-leadership\"" html))
+        (should-not (string-match-p "<h2 id=\"ai_data\"" html))))))
+
+(ert-deftest systemhalted-categories-page-has-intro-paragraph ()
+  "`/categories/' must carry the archive-intro paragraph before the
+gateways, matching `main:categories.html'; the earlier shared taxonomy
+generator omitted it entirely."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "categories/index.html" output))
+      (should (string-match-p
+               (regexp-quote
+                "<p class=\"archive-intro\">Browse the archive through the recurring subjects and series in the writing.</p>")
+               (buffer-string))))))
+
+(ert-deftest systemhalted-tags-page-has-intro-and-tag-groups ()
+  "`/tags/' must carry the archive-intro paragraph before the gateways and
+group every tag inside a single `tag-groups' div, matching
+`main:tags.html'; the earlier shared taxonomy generator omitted the intro."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "tags/index.html" output))
+      (let ((html (buffer-string)))
+        (should (string-match-p
+                 (regexp-quote
+                  "<p class=\"archive-intro\">A more granular index of topics across the archive.</p>")
+                 html))
+        (should (string-match-p "<div class=\"tag-groups\">" html))
+        (should (string-match-p "<details id=\"publishing\"" html))))))
+
 (provide 'systemhalted-publish-test)
 ;;; systemhalted-publish-test.el ends here

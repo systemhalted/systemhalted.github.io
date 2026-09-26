@@ -1,5 +1,6 @@
 #+TITLE: Projects
 #+DESCRIPTION: Projects by Palak Mathur, including released work, public betas, and selected work in progress.
 #+PERMALINK: /projects/
+#+QUIET_TITLE: true
 
 #+INCLUDE: "../data/projects.org"

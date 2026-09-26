@@ -1,14 +1,8 @@
 #+TITLE: In the beginning was a command line
 #+DESCRIPTION: A terminal-style interface to the SystemHalted archive.
 #+PERMALINK: /webcmd/
+#+HIDE_TITLE: true
 
-Webcmd
-
-* In the beginning was a command line
-:PROPERTIES:
-:CUSTOM_ID: webcmd-title
-:CLASS: webcmd-title
-:END:
 A terminal-style interface to the archive. Type ph to jump to the full site.
 
 #+begin_export html

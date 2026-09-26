@@ -2,8 +2,4 @@
 #+DESCRIPTION: 404: Page not found Sorry, we’ve misplaced that URL or it’s pointing to something that doesn’t exist. Head back home to try finding it again.
 #+PERMALINK: /404.html
 
-* 404: Page not found
-:PROPERTIES:
-:CUSTOM_ID: page-not-found
-:END:
 Sorry, we've misplaced that URL or it's pointing to something that doesn't exist. [[https://systemhalted.in][Head back home]] to try finding it again.

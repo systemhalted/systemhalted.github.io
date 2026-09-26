@@ -1030,5 +1030,132 @@ which restores `newsletter'."
              "data-suggestions=\"emacs,leadership,newsletter,javascript\"" html))
     (should (string-match-p "data-suggest=\"newsletter\">newsletter<" html))))
 
+;;; Page titles and the page skeleton (Task 8)
+
+(defun systemhalted-test-main-html (html)
+  "Return the contents between <main ...> and </main> in HTML.
+Used to scope title/heading assertions to the page body, since base.html's
+head and header always contain their own h2 elements (the search and
+shortcuts overlays)."
+  (if (string-match "<main[^>]*>\\([^z-a]*?\\)</main>" html)
+      (match-string 1 html)
+    (error "systemhalted-test-main-html: no <main> element found")))
+
+(ert-deftest systemhalted-read-record-parses-hide-and-quiet-title-keywords ()
+  "HIDE_TITLE and QUIET_TITLE must parse into the record's title-display flags,
+each independent of the other."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Hidden\n#+DESCRIPTION: Hidden title fixture.\n"
+              "#+HIDE_TITLE: true\n")
+    (let ((record (systemhalted-read-record file 'page)))
+      (should (systemhalted-record-hide-title record))
+      (should-not (systemhalted-record-quiet-title record))))
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Quiet\n#+DESCRIPTION: Quiet title fixture.\n"
+              "#+QUIET_TITLE: true\n")
+    (let ((record (systemhalted-read-record file 'page)))
+      (should (systemhalted-record-quiet-title record))
+      (should-not (systemhalted-record-hide-title record)))))
+
+(ert-deftest systemhalted-render-page-respects-hide-and-quiet-title-flags ()
+  "`systemhalted-render-page' must honor a record's hide-title/quiet-title
+flags when rendering a page through page.html: a quiet flag adds
+`page-title-quiet' to the h1, and a hide flag drops the h1 entirely."
+  (let* ((quiet (make-systemhalted-record :source "<test>" :kind 'page
+                                          :title "Quiet Page" :description "d"
+                                          :route "/quiet-test/" :quiet-title t))
+         (hidden (make-systemhalted-record :source "<test>" :kind 'page
+                                           :title "Hidden Page" :description "d"
+                                           :route "/hidden-test/" :hide-title t))
+         (quiet-html (systemhalted-render-page quiet nil "<p>x</p>"))
+         (hidden-html (systemhalted-render-page hidden nil "<p>x</p>")))
+    (should (string-match-p
+             "<h1 class=\"page-title page-title-quiet\">Quiet Page</h1>" quiet-html))
+    (should-not (string-match-p "page-title" hidden-html))))
+
+(ert-deftest systemhalted-render-page-home-and-pagen-skip-page-wrapper ()
+  "The home page and its `/pageN/' siblings must render straight into
+base.html's <main>, with no page.html wrapper and no stray page-title h1,
+matching live."
+  (systemhalted-test-with-built-site
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "index.html" output))
+      (let ((html (buffer-string)))
+        (should-not (string-match-p "class=\"page\"" html))
+        (should-not (string-match-p "page-title" html))
+        (should (string-match-p
+                 "<main[^>]*><header class=\"home-intro\"" html))))
+    (with-temp-buffer
+      (insert-file-contents (expand-file-name "page2/index.html" output))
+      (let ((html (buffer-string)))
+        (should-not (string-match-p "class=\"page\"" html))
+        (should-not (string-match-p "page-title" html))
+        (should (string-match-p
+                 "<main[^>]*><header class=\"page-header\"" html))))))
+
+(ert-deftest systemhalted-quiet-title-pages-match-live ()
+  "About, Projects, JS Games, and the archive/categories/tags/emacs gateway
+pages must all carry the quiet page title, matching live's
+`page-title-quiet' class."
+  (dolist (relative '("org/pages/about.org" "org/pages/projects.org"
+                      "org/pages/jsgames.org"))
+    (let* ((record (systemhalted-read-record
+                    (expand-file-name relative systemhalted-test-root) 'page))
+           (html (systemhalted-render-page record)))
+      (should (string-match-p "class=\"page-title page-title-quiet\"" html))))
+  (systemhalted-test-with-built-site
+    (dolist (relative '("archives/index.html" "categories/index.html"
+                        "tags/index.html" "emacs/index.html"))
+      (with-temp-buffer
+        (insert-file-contents (expand-file-name relative output))
+        (should (string-match-p "class=\"page-title page-title-quiet\""
+                                (buffer-string)))))))
+
+(ert-deftest systemhalted-hidden-title-pages-omit-page-title ()
+  "Themes and Webcmd must hide the page.html title entirely, matching live's
+`hide_page_title'."
+  (dolist (relative '("org/pages/themes.org" "org/pages/webcmd.org"))
+    (let* ((record (systemhalted-read-record
+                    (expand-file-name relative systemhalted-test-root) 'page))
+           (html (systemhalted-render-page record)))
+      (should-not (string-match-p "page-title"
+                                  (systemhalted-test-main-html html))))))
+
+(ert-deftest systemhalted-archive-gateways-mark-current-section ()
+  "Each archive gateway page must mark its own link `aria-current=\"page\"',
+not always Archive."
+  (systemhalted-test-with-built-site
+    (dolist (case '(("archives/index.html" . "<a href=\"/archives/\" aria-current=\"page\">Archive</a>")
+                    ("categories/index.html" . "<a href=\"/categories/\" aria-current=\"page\">Categories</a>")
+                    ("tags/index.html" . "<a href=\"/tags/\" aria-current=\"page\">Tags</a>")
+                    ("emacs/index.html" . "<a href=\"/emacs/\" aria-current=\"page\">Emacs</a>")))
+      (with-temp-buffer
+        (insert-file-contents (expand-file-name (car case) output))
+        (should (string-match-p (regexp-quote (cdr case)) (buffer-string)))))))
+
+(ert-deftest systemhalted-404-page-body-matches-live-shape ()
+  "The 404 page body must be a bare h1 plus a paragraph with a 'Head back
+home' link, with no heading duplicating the title, matching live."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/404.org" systemhalted-test-root)
+                  'page))
+         (main (systemhalted-test-main-html (systemhalted-render-page record))))
+    (should (string-match-p
+             "<h1 class=\"page-title\">404: Page not found</h1>" main))
+    (should (string-match-p "Head back home" main))
+    (should-not (string-match-p "<h2" main))
+    (should-not (string-match-p "outline-container" main))))
+
+(ert-deftest systemhalted-webcmd-page-body-drops-stray-paragraph-and-duplicate-heading ()
+  "Webcmd's Org body must drop the stray 'Webcmd' paragraph and the heading
+that duplicates the page title; Task 11 restores the full webcmd markup."
+  (let* ((record (systemhalted-read-record
+                  (expand-file-name "org/pages/webcmd.org" systemhalted-test-root)
+                  'page))
+         (main (systemhalted-test-main-html (systemhalted-render-page record))))
+    (should-not (string-match-p "<p>[[:space:]]*Webcmd[[:space:]]*</p>" main))
+    (should-not (string-match-p "<h2" main))
+    (should (string-match-p "id=\"webcmd-form\"" main))))
+
 (provide 'systemhalted-publish-test)
 ;;; systemhalted-publish-test.el ends here

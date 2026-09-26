@@ -28,12 +28,13 @@
 (cl-defstruct systemhalted-record
   source kind title description date categories tags permalink route comments toc
   mermaid last-modified featured-image featured-image-alt featured-image-caption draft
-  future-p)
+  future-p hide-title quiet-title)
 
 (defconst systemhalted--metadata-keys
   '("TITLE" "DESCRIPTION" "DATE" "CATEGORIES" "TAGS" "PERMALINK"
     "COMMENTS" "TOC" "MERMAID" "LAST_MODIFIED" "FEATURED_IMAGE"
-    "FEATURED_IMAGE_ALT" "FEATURED_IMAGE_CAPTION" "DRAFT"))
+    "FEATURED_IMAGE_ALT" "FEATURED_IMAGE_CAPTION" "DRAFT"
+    "HIDE_TITLE" "QUIET_TITLE"))
 
 (defvar systemhalted--asset-version "0"
   "Deterministic cache-busting token substituted for `?v=' on CSS/JS links.
@@ -215,7 +216,11 @@ NOW controls future-post classification and defaults to the current time."
      :featured-image-caption
      (systemhalted--keyword keywords "FEATURED_IMAGE_CAPTION")
      :draft draft
-     :future-p (and date (time-less-p now date)))))
+     :future-p (and date (time-less-p now date))
+     :hide-title (systemhalted--boolean-value
+                  (systemhalted--keyword keywords "HIDE_TITLE"))
+     :quiet-title (systemhalted--boolean-value
+                   (systemhalted--keyword keywords "QUIET_TITLE")))))
 
 (cl-defun systemhalted-load-records (directory &key include-drafts include-future now kind)
   "Load validated Org records below DIRECTORY.
@@ -689,6 +694,11 @@ matching main's `_includes/structured-data.html'.")
   "Non-nil when ROUTE is a `/pageN/' route."
   (string-match-p "\\`/page[0-9]+/\\'" route))
 
+(defun systemhalted--bare-main-route-p (route)
+  "Non-nil when ROUTE renders straight into base.html's <main>, with no
+page.html wrapper: the home page and its `/pageN/' siblings."
+  (or (equal route "/") (systemhalted--paginated-route-p route)))
+
 (defun systemhalted--noindex-route-p (route)
   "Non-nil when ROUTE must carry a noindex robots meta tag, matching live's
 `/pageN/' pagination pages and the 404 page."
@@ -744,6 +754,7 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
   (let* ((records (or records (list record)))
          (body (or body (systemhalted-export-body record records)))
          (kind (systemhalted-record-kind record))
+         (route (systemhalted-record-route record))
          (content
           (cond
            ((memq kind '(post draft)) (systemhalted--render-post record records body))
@@ -754,14 +765,20 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
                     (systemhalted--escape-html (systemhalted-record-title record))
                     (or (and (systemhalted-record-toc record)
                              (systemhalted--toc body)) "") body))
+           ;; The home page and its `/pageN/' siblings render straight into
+           ;; base.html's <main>, matching live: no page.html wrapper and no
+           ;; stray page-title h1 duplicating their own headers.
+           ((systemhalted--bare-main-route-p route) body)
            (t (systemhalted--template
                "page.html"
-               `((?t . ,(systemhalted--escape-html (systemhalted-record-title record)))
-                 (?q . ,(if (member (systemhalted-record-route record)
-                                    '("/projects/" "/archives/"))
-                            " page-title-quiet" ""))
+               `((?h . ,(if (systemhalted-record-hide-title record)
+                            ""
+                          (format "<h1 class=\"page-title%s\">%s</h1>"
+                                  (if (systemhalted-record-quiet-title record)
+                                      " page-title-quiet" "")
+                                  (systemhalted--escape-html
+                                   (systemhalted-record-title record)))))
                  (?c . ,body))))))
-         (route (systemhalted-record-route record))
          (is-post (memq kind '(post draft)))
          (bare-title (or bare-title (systemhalted-record-title record)))
          (title (or full-title (format "%s | %s" bare-title systemhalted-site-title)))
@@ -815,19 +832,26 @@ page name used for `og:title'/`twitter:title'. Only the home page and its
         (insert contents)))
     target))
 
-(defun systemhalted--synthetic-page (title description route)
-  "Create a generated page record with TITLE, DESCRIPTION, and ROUTE."
+(defun systemhalted--synthetic-page (title description route
+                                            &optional quiet-title hide-title)
+  "Create a generated page record with TITLE, DESCRIPTION, and ROUTE.
+QUIET-TITLE and HIDE-TITLE set the page's title display, the code-side
+equivalent of the `#+QUIET_TITLE'/`#+HIDE_TITLE' keywords used by
+Org-authored pages."
   (make-systemhalted-record
    :source "<generated>" :kind 'page :title title :description description
-   :route route :categories nil :tags nil))
+   :route route :categories nil :tags nil
+   :quiet-title quiet-title :hide-title hide-title))
 
 (defun systemhalted--render-generated-page (title description route body
-                                                   &optional full-title bare-title)
+                                                   &optional full-title bare-title
+                                                   quiet-title hide-title)
   "Render a generated page from TITLE, DESCRIPTION, ROUTE, and BODY.
-FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
+FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'.
+QUIET-TITLE and HIDE-TITLE are forwarded to `systemhalted--synthetic-page'."
   (systemhalted-render-page
-   (systemhalted--synthetic-page title description route) nil body
-   full-title bare-title))
+   (systemhalted--synthetic-page title description route quiet-title hide-title)
+   nil body full-title bare-title))
 
 (defun systemhalted--post-list (posts &optional descriptions)
   "Render POSTS as a dated writing list, including DESCRIPTIONS when non-nil."
@@ -911,12 +935,22 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
     posts "")
    "</ol>"))
 
-(defconst systemhalted--archive-gateways
-  (concat "<nav class=\"archive-gateways\" aria-label=\"Browse the archive\">"
-          "<a href=\"/archives/\" aria-current=\"page\">Archive</a>"
-          "<button class=\"text-button search-open-trigger\" type=\"button\">Search</button>"
-          "<a href=\"/categories/\">Categories</a><a href=\"/tags/\">Tags</a>"
-          "<a href=\"/categories/#series\">Series</a><a href=\"/emacs/\">Emacs</a></nav>"))
+(defun systemhalted--archive-gateways (current)
+  "Render the archive/categories/tags/emacs gateway nav, marking CURRENT
+section's own link `aria-current=\"page\"' instead of always Archive."
+  (cl-flet ((gateway-link
+             (route label)
+             (format "<a href=\"%s\"%s>%s</a>" route
+                     (if (equal label current) " aria-current=\"page\"" "")
+                     label)))
+    (concat "<nav class=\"archive-gateways\" aria-label=\"Browse the archive\">"
+            (gateway-link "/archives/" "Archive")
+            "<button class=\"text-button search-open-trigger\" type=\"button\">Search</button>"
+            (gateway-link "/categories/" "Categories")
+            (gateway-link "/tags/" "Tags")
+            "<a href=\"/categories/#series\">Series</a>"
+            (gateway-link "/emacs/" "Emacs")
+            "</nav>")))
 
 (defun systemhalted--generate-archive (root posts)
   "Generate chronological archive below ROOT from POSTS."
@@ -933,7 +967,7 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
                  (length posts) (if posts
                                     (format-time-string "%Y" (systemhalted-record-date (car (last posts))) t)
                                   ""))
-         systemhalted--archive-gateways
+         (systemhalted--archive-gateways "Archive")
          "<div class=\"archive-controls\"><label for=\"archive-sort\">Sort</label>"
          "<select id=\"archive-sort\" class=\"archive-sort\">"
          "<option value=\"year-desc\" selected>Newest first</option>"
@@ -951,7 +985,8 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
                       year (length items)
                       (systemhalted--archive-list items))))
           years "")
-         "</div>"))))))
+         "</div>")
+        nil nil t)))))
 
 (defun systemhalted--group-records (records accessor)
   "Group RECORDS by every value returned by ACCESSOR."
@@ -966,7 +1001,7 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
   (let* ((groups (systemhalted--group-records posts accessor))
          (names (sort (hash-table-keys groups) #'string-lessp))
          (body
-          (concat systemhalted--archive-gateways
+          (concat (systemhalted--archive-gateways title)
                   "<div class=\"tag-groups\">"
                   (mapconcat
                    (lambda (name)
@@ -984,7 +1019,8 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
                    names "")
                   "</div>")))
     (systemhalted--write-route
-     root route (systemhalted--render-generated-page title description route body))))
+     root route (systemhalted--render-generated-page
+                 title description route body nil nil t))))
 
 (defun systemhalted--record-route-present-p (route records)
   "Return non-nil when ROUTE is claimed by RECORDS."
@@ -1003,7 +1039,7 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
      (systemhalted--render-generated-page
       "Emacs" "Emacs notes, configurations, and packages." "/emacs/"
       (concat "<p class=\"archive-intro\">A small wiki of Emacs notes, configurations, and packages I keep coming back to.</p>"
-              systemhalted--archive-gateways
+              (systemhalted--archive-gateways "Emacs")
               "<ul class=\"post-feed\">"
               (mapconcat
                (lambda (note)
@@ -1012,7 +1048,8 @@ FULL-TITLE and BARE-TITLE are forwarded to `systemhalted-render-page'."
                          (systemhalted--escape-html (systemhalted-record-title note))
                          (systemhalted--escape-html (systemhalted-record-description note))))
                notes "")
-              "</ul>")))))
+              "</ul>")
+      nil nil t))))
 
 (defun systemhalted--generate-default-pages (root records)
   "Generate required landing pages below ROOT when RECORDS do not define them."

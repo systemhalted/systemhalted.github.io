@@ -1,5 +1,6 @@
 #+TITLE: JavaScript Games
 #+DESCRIPTION: Small browser games and experiments.
 #+PERMALINK: /jsgames/
+#+QUIET_TITLE: true
 
 #+INCLUDE: "../data/jsgames.org"

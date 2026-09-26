@@ -1133,20 +1133,29 @@ belongs to no theme."
       (mapcar (lambda (category) (plist-get category :name))
               (plist-get theme :categories)))))
 
+(defun systemhalted--taxonomy-details-html (id name items)
+  "Render a `taxonomy-group' details block anchored at ID and titled NAME,
+listing ITEMS (records, any order) sorted newest first. Shared by
+`systemhalted--taxonomy-category-html' (categories) and
+`systemhalted--generate-tags' (tags) so their identical markup shape cannot
+drift apart."
+  (let ((sorted (sort (copy-sequence items)
+                       (lambda (left right)
+                         (time-less-p (systemhalted-record-date right)
+                                      (systemhalted-record-date left))))))
+    (format (concat "<details id=\"%s\" class=\"archive-year taxonomy-group\">"
+                    "<summary class=\"archive-year-summary\"><span class=\"archive-year-title\">%s</span>"
+                    "<span class=\"archive-year-count\">%d articles</span></summary>%s</details>")
+            id (systemhalted--escape-html name) (length sorted)
+            (systemhalted--archive-list sorted))))
+
 (defun systemhalted--taxonomy-category-html (name groups)
   "Render an `archive-year' details block for category NAME, or nil when
 GROUPS (as built by `systemhalted--group-records') has no posts for it."
   (let ((items (gethash name groups)))
     (when items
-      (let ((sorted (sort (copy-sequence items)
-                           (lambda (left right)
-                             (time-less-p (systemhalted-record-date right)
-                                          (systemhalted-record-date left))))))
-        (format (concat "<details id=\"cat-%s\" class=\"archive-year taxonomy-group\">"
-                        "<summary class=\"archive-year-summary\"><span class=\"archive-year-title\">%s</span>"
-                        "<span class=\"archive-year-count\">%d articles</span></summary>%s</details>")
-                (systemhalted--slugify name) (systemhalted--escape-html name)
-                (length sorted) (systemhalted--archive-list sorted))))))
+      (systemhalted--taxonomy-details-html
+       (concat "cat-" (systemhalted--slugify name)) name items))))
 
 (defun systemhalted--taxonomy-theme-section-html (theme groups)
   "Render a `taxonomy-section' for THEME (a plist as found under :THEMES in
@@ -1242,17 +1251,8 @@ contributes in the live template."
               "<div class=\"tag-groups\">"
               (mapconcat
                (lambda (pair)
-                 (let* ((name (car pair))
-                        (id (cdr pair))
-                        (items (sort (copy-sequence (gethash name groups))
-                                    (lambda (left right)
-                                      (time-less-p (systemhalted-record-date right)
-                                                   (systemhalted-record-date left))))))
-                   (format (concat "<details id=\"%s\" class=\"archive-year taxonomy-group\">"
-                                   "<summary class=\"archive-year-summary\"><span class=\"archive-year-title\">%s</span>"
-                                   "<span class=\"archive-year-count\">%d articles</span></summary>%s</details>")
-                           id (systemhalted--escape-html name) (length items)
-                           (systemhalted--archive-list items))))
+                 (systemhalted--taxonomy-details-html
+                  (cdr pair) (car pair) (gethash (car pair) groups)))
                ids "")
               "</div>")
       nil nil t))))

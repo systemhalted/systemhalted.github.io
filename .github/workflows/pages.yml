@@ -26,17 +26,36 @@ jobs:
 
       # A push that only changes Org sources under org/ skips the publisher
       # tests and the CI contract. The build and validation below still run.
+      # core.quotePath=false keeps non-ASCII post names unquoted.
       - name: Detect content-only changes
         id: changes
         env:
           BEFORE: ${{ github.event.before }}
         run: |
+          changed="$RUNNER_TEMP/changed-files.txt"
+          : > "$changed"
           if [[ "$GITHUB_EVENT_NAME" == push ]] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
-            git diff --name-only "$BEFORE" "$GITHUB_SHA" \
-              | scripts/ci-needs-publisher-tests.sh >> "$GITHUB_OUTPUT"
-          else
-            echo "publisher-tests=true" >> "$GITHUB_OUTPUT"
+            git -c core.quotePath=false diff --name-only "$BEFORE" "$GITHUB_SHA" > "$changed"
           fi
+          result=$(scripts/ci-needs-publisher-tests.sh < "$changed")
+          echo "$result" >> "$GITHUB_OUTPUT"
+          {
+            echo "## What this run checks"
+            echo
+            if [[ "$result" == publisher-tests=false ]]; then
+              echo "Only Org content changed. Publisher tests and the CI contract are skipped. The build still validates every post."
+            else
+              echo "Code or configuration changed, or the change set is unknown. Publisher tests and the CI contract run."
+            fi
+            echo
+            if [[ -s "$changed" ]]; then
+              echo "Changed files:"
+              echo
+              sed 's/.*/- `&`/' "$changed"
+            else
+              echo "Changed files: unknown (manual run or new branch)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Set up Emacs 31.1
         uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
@@ -47,18 +66,32 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Test publisher
+        id: ert
         if: steps.changes.outputs.publisher-tests == 'true'
+        shell: bash
         run: >-
           emacs -Q --batch -L publish
           -l test/systemhalted-publish-test.el
           -l test/systemhalted-workflow-test.el
-          -f ert-run-tests-batch-and-exit
+          -f ert-run-tests-batch-and-exit 2>&1
+          | tee "$RUNNER_TEMP/ert.log"
+
+      - name: Report failed publisher tests
+        if: failure() && steps.ert.outcome == 'failure'
+        run: scripts/ci-report-failures.sh ert "$RUNNER_TEMP/ert.log"
 
       - name: Build and validate Org site
+        id: site
+        shell: bash
         run: >-
           emacs -Q --batch -L publish
           -l publish/systemhalted-workflow.el
-          -f systemhalted-batch-build
+          -f systemhalted-batch-build 2>&1
+          | tee "$RUNNER_TEMP/build.log"
+
+      - name: Report site build errors
+        if: failure() && steps.site.outcome == 'failure'
+        run: scripts/ci-report-failures.sh build "$RUNNER_TEMP/build.log"
 
       - name: Install ripgrep
         if: steps.changes.outputs.publisher-tests == 'true'

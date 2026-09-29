@@ -666,18 +666,25 @@ the same body with no wrapper at all."
             (setq buffer-file-name nil)
             (cl-letf (((symbol-function 'org-export-new-reference)
                        #'systemhalted--export-new-reference))
-              (org-export-as
-               'systemhalted-html nil nil t
-               '(:with-title nil
-                 :with-author nil
-                 :with-date nil
-                 :with-toc nil
-                 :section-numbers nil
-                 :html-toplevel-hlevel 2
-                 :html-preamble nil
-                 :html-postamble nil
-                 :html-html5-fancy t
-                 :html-doctype "html5"))))
+              ;; Org's own errors do not name the file, so add it here.
+              (condition-case err
+                  (org-export-as
+                   'systemhalted-html nil nil t
+                   '(:with-title nil
+                     :with-author nil
+                     :with-date nil
+                     :with-toc nil
+                     :section-numbers nil
+                     :html-toplevel-hlevel 2
+                     :html-preamble nil
+                     :html-postamble nil
+                     :html-html5-fancy t
+                     :html-doctype "html5"))
+                (systemhalted-publish-error (signal (car err) (cdr err)))
+                (error
+                 (systemhalted--source-error
+                  (systemhalted-record-source record)
+                  "%s" (error-message-string err))))))
         (setq buffer-file-name nil)
         (set-buffer-modified-p nil)))))
 

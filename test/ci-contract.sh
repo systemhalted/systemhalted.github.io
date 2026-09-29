@@ -22,6 +22,18 @@ needs_tests() { printf '%s\n' "$@" | scripts/ci-needs-publisher-tests.sh; }
 [[ $(needs_tests .github/workflows/pages.yml) == publisher-tests=true ]]
 [[ $(needs_tests org/data/taxonomy.yml) == publisher-tests=true ]]
 [[ $(needs_tests) == publisher-tests=true ]]
+[[ $(needs_tests 'org/posts/2006-09-14-जिसकी.org') == publisher-tests=false ]]
+rg -q 'core.quotePath=false diff' "$pages_workflow"
+
+report_log=$(mktemp)
+printf '%s\n' '   FAILED  59/135  systemhalted-some-test (1.2 sec) at test/systemhalted-publish-test.el:1419' > "$report_log"
+report=$(GITHUB_STEP_SUMMARY= scripts/ci-report-failures.sh ert "$report_log")
+[[ $report == *'::error file=test/systemhalted-publish-test.el,line=1419,title=Test failed::systemhalted-some-test'* ]]
+[[ $report == *'- `systemhalted-some-test` (test/systemhalted-publish-test.el:1419)'* ]]
+printf '%s\n' '::error file=org/posts/a.org,title=Site build failed::Unable to resolve link%0ASee more' > "$report_log"
+report=$(GITHUB_STEP_SUMMARY= scripts/ci-report-failures.sh build "$report_log")
+[[ $report == *'- `org/posts/a.org`: Unable to resolve link See more'* ]]
+rm -f "$report_log"
 
 for retired in _config.yml Gemfile Gemfile.lock _layouts _includes collections; do
   if [[ -e "$retired" ]]; then

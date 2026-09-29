@@ -231,10 +231,35 @@ This command does not stage, commit, or push changes."
       (magit-status systemhalted-root-directory)
     (vc-dir systemhalted-root-directory)))
 
+(defun systemhalted--github-error-annotation (message)
+  "Return MESSAGE as a GitHub Actions error annotation.
+When MESSAGE starts with a source path under `systemhalted-root-directory',
+the annotation points at that file, relative to the repository root."
+  (let* ((root (file-name-as-directory
+                (expand-file-name systemhalted-root-directory)))
+         (file (and (string-prefix-p root message)
+                    (string-match "\\`\\([^\n]+?\\): " message)
+                    (match-string 1 message)))
+         (text (if file (substring message (match-end 0)) message)))
+    (setq text (replace-regexp-in-string
+                "\n" "%0A" (replace-regexp-in-string "%" "%25" text)))
+    (if file
+        (format "::error file=%s,title=Site build failed::%s"
+                (file-relative-name file root) text)
+      (format "::error title=Site build failed::%s" text))))
+
 (defun systemhalted-batch-build ()
-  "Batch entry point for a production build."
-  (systemhalted-audit-content systemhalted-root-directory)
-  (systemhalted-build))
+  "Batch entry point for a production build.
+Under GitHub Actions, a publishing error is also printed as an annotation
+that names the failing source file."
+  (condition-case err
+      (progn
+        (systemhalted-audit-content systemhalted-root-directory)
+        (systemhalted-build))
+    (systemhalted-publish-error
+     (when (getenv "GITHUB_ACTIONS")
+       (princ (concat (systemhalted--github-error-annotation (cadr err)) "\n")))
+     (signal (car err) (cdr err)))))
 
 (provide 'systemhalted-workflow)
 ;;; systemhalted-workflow.el ends here

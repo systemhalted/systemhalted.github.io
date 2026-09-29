@@ -135,6 +135,17 @@ block, must not override the header or silently turn a post into a draft."
       (should (equal (systemhalted-record-title record) "Commented Header"))
       (should (systemhalted-record-draft record)))))
 
+(ert-deftest systemhalted-export-body-names-the-source-on-export-errors ()
+  "An Org export error must say which source file caused it."
+  (systemhalted-test-with-org
+      (concat "#+TITLE: Broken Link\n#+DESCRIPTION: Broken link fixture.\n"
+              "#+DATE: 2026-09-25\n\nSee [[2026/09/11/missing/][this post]].\n")
+    (let ((err (should-error (systemhalted-export-body
+                              (systemhalted-read-record file 'post))
+                             :type 'systemhalted-publish-error)))
+      (should (string-prefix-p (concat file ": ") (cadr err)))
+      (should (string-match-p "Unable to resolve link" (cadr err))))))
+
 (ert-deftest systemhalted-read-record-keeps-percent-encoded-unicode-route ()
   "Decoding a legacy filename would break its existing public URL."
   (let ((record (systemhalted-read-record

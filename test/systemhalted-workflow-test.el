@@ -13,6 +13,18 @@
 (add-to-list 'load-path (expand-file-name "publish" systemhalted-workflow-test-root))
 (ignore-errors (require 'systemhalted-workflow))
 
+(ert-deftest systemhalted-github-error-annotation-points-at-source ()
+  "A build error in CI must become an annotation naming the repo-relative file."
+  (let ((systemhalted-root-directory "/repo/"))
+    (should (equal (systemhalted--github-error-annotation
+                    "/repo/org/posts/a.org: Unable to resolve link: \"x\"\nSee more")
+                   (concat "::error file=org/posts/a.org,title=Site build failed::"
+                           "Unable to resolve link: \"x\"%0ASee more")))
+    (should (equal (systemhalted--github-error-annotation
+                    "missing Org content directories: /repo/org/posts")
+                   (concat "::error title=Site build failed::"
+                           "missing Org content directories: /repo/org/posts")))))
+
 (ert-deftest systemhalted-new-post-creates-dated-org-draft ()
   "A new article starts as an Org draft with the required metadata."
   (let ((root (make-temp-file "systemhalted-authoring-" t))

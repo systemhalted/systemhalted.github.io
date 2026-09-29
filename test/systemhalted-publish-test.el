@@ -1419,10 +1419,13 @@ value)."
 (ert-deftest systemhalted-production-build-excludes-drafts ()
   "org/drafts/*.org must never reach a production build or its sitemap,
 even though `systemhalted-audit-content' validates them for preview use."
-  (let ((output (make-temp-file "systemhalted-production-drafts-" t))
-        (draft-routes '("/2006/12/01/bas-aise-hi-likh-raha-hoon-dont-read-it/"
-                        "/2011/06/19/usa-in-talks-with-taliban-a-question-mark-on-usas-intentions/"
-                        "/2026/08/02/wisdom-accumulation-notes/")))
+  (let* ((output (make-temp-file "systemhalted-production-drafts-" t))
+         (draft-records (systemhalted-load-records
+                         (expand-file-name "org/drafts" systemhalted-test-root)
+                         :include-drafts t
+                         :kind 'draft))
+         (draft-routes (mapcar #'systemhalted-record-route draft-records)))
+    (should draft-routes)
     (unwind-protect
         (progn
           (systemhalted-build-site :root systemhalted-test-root :output output)

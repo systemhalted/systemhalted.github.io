@@ -1,0 +1,33 @@
+#+TITLE: How Big Pickle Performed
+#+DESCRIPTION: A follow-up on OpenCode's Big Pickle model, its strengths, and where it fell short.
+#+DATE: 2026-09-29
+#+CATEGORIES: Personal Essays, Technology
+#+TAGS: blogging, meta, agents, AI
+#+COMMENTS: true
+#+TOC: false
+#+DRAFT:
+
+I promised a follow-up on Big Pickle's performance in my [[/2026/09/26/publishing-blog-using-org-mode-and-emacs/][earlier post]] about moving this blog to Org Mode. I gave several tasks to OpenCode's Big Pickle model during the rewrite. It proved thorough but slow.
+
+It did better than I expected. It took two tasks: code-block syntax highlighting, and heading anchors, footnotes and emphasis. The first passed review with no fix rounds. On the second, 11 of 12 sample pages came out identical to the live site, and its table of contents and footnotes matched exactly. It even fixed a bug in the old site where bold markers missed the last letter of a word.
+
+The work was careful. It wrote each new test and showed it failing before the fix. It tried htmlize in a scratch folder before touching the publisher. It found problems in my posts that had nothing to do with its task, such as raw =<table>= text showing on my Emacs config page. It also reported its own limits, such as the languages it left uncoloured.
+
+Later, reviewing tasks on my other project, teeup.sh, it found four real bugs and checked each change against its brief well.
+
+It slipped too. Converting the tables on my Emacs config page, it lost the code formatting in the cells. It edited five posts on its own and said they matched the live site, but its check was too coarse to know that. The edits were right, but it claimed more than it had verified. Claude's review caught both slips. So I only give it work that someone reviews afterwards.
+
+Speed and reliability were the bigger problems. Each task took one to one and a half hours. Claude Sonnet took 15 to 35 minutes for similar tasks. Big Pickle also suffered from stalls and provider rate limits. It stalled for seven hours with no output on one task. I had to kill the process. On another task, it hit a rate limit and left partial edits uncommitted. On the teeup.sh project, it returned empty output twice. It also missed some cross-task issues that Codex caught later.
+
+Because of this, I now split work across my agents. I use Claude to write briefs, review results, and coordinate. Codex handles code fixes that require judgment, as long as its usage is under 50 percent. I use Antigravity (agy) for documentation and for code when Codex is capped. Big Pickle gets cheap re-reviews and mechanical checks. I run it with a timeout and a stall watchdog to catch silent failures.
+
+* A second try
+:PROPERTIES:
+:CUSTOM_ID: a-second-try
+:END:
+
+After the teeup.sh 0.1.0-beta release, I asked Claude to give Big Pickle small implementation tasks again and to judge by the output. The first one was small: move three apps (Zed, Obsidian and Firefox Developer Edition) from teeup's daily set to install-on-first-use, with tests and docs. Claude gave it the same brief Antigravity would get, a 90-minute limit and a watchdog for stalls.
+
+It did no work. OpenCode started, logged that it was booting, and exited a few minutes later with no output and no change to any file. The time limit kept waiting on a process that was already gone, and a mistake in the watchdog hid that for half an hour. Claude caught it from OpenCode's own log.
+
+That makes three Big Pickle runs in a row that produced nothing: two reviews on another teeup.sh change came back empty, and then this one. When it runs, the work is careful. The problem is getting it to run. For now it keeps the small re-reviews, where a failed run costs a few minutes, and the implementation tasks go to Antigravity and Codex.

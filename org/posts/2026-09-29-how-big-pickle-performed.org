@@ -5,7 +5,6 @@
 #+TAGS: blogging, meta, agents, AI
 #+COMMENTS: true
 #+TOC: false
-#+DRAFT:
 
 I promised a follow-up on Big Pickle's performance in my [[/2026/09/26/publishing-blog-using-org-mode-and-emacs/][earlier post]] about moving this blog to Org Mode. I gave several tasks to OpenCode's Big Pickle model during the rewrite. It proved thorough but slow.
 

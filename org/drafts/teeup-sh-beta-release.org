@@ -1,0 +1,28 @@
+#+TITLE: teeup Beta is now available
+#+DESCRIPTION: teeup is am opinionated, reproducible macOS environment for developers that makes your Mac ready to code.
+#+DATE: 2026-09-29
+#+CATEGORIES: Personal Essays, Technology
+#+TAGS: teeup, config, Mac, Macbook, macOS
+#+COMMENTS: true
+#+TOC: false
+#+DRAFTS: true
+
+teeup.sh is now in Beta. It is an opionionated, reproducible macOS environment for developers that makes your macOS ready to code. This post will discuss why I created it. It is not a manual, which sits [[teeup.systemhalted.in][here]].
+
+I have maintained my dotfiles, managed by [[https://www.chezmoi.io/][chezmoi]], for well over ten plus years when I first switched to Fedora from Microsoft Windows. Over the years, macOS, Ubuntu, etc. became a part of it. At the beginning of this year, I extracted some part of my config, which was mostly needed for intalling software on these machines and called it teeup.sh as honestly that was what it was. With the help of Claude, I wrote a wizard wrapper over it to make it easy for developers to interact with it and few of the developers on my team used it to setup their MacBooks at work.
+
+Last month, I came across [[https://omarchy.us/][Omarchy]]. It changed my perspective on two things:
+
+1. An opinionated config can be packaged as a product.
+2. Agentic AI can create something simple and beautiful.
+
+This did two things for me:
+
+1. I switched from Ubuntu to Omarchy on my T430.
+2. teeup.sh can be simplified and offered as a product.
+
+With the experience of 1 and the idea from second, I started brainstorming on how to package my configs into a better product. I started thinking about teeup.sh and how it was handling three operating systems in one big giant shell script file.
+
+I had read about history of Omarchy on how it started as a config for Arch Linux before it became an Arch Linux based distro in itself. It targeted one operating system and did it well. Therefore, I decided to target only one operating system as well. In teeup's case, macOS. I liked how Omarchy was structured and main idea came from there.
+
+macOS in itself is a refined product. But some of the things that I like about Emacs and Linux is tiling windows. In Emacs they are called buffers, but the idea is same. On terminal, you can use =screen= or =tmux= or use my recent favorite terminals - =WezTerm= and =herdr=.

@@ -1,0 +1,290 @@
+#+TITLE: Who Gets to Write the Rules of the Global Order?
+#+DESCRIPTION:  The debate over the global order is increasingly less about whether international rules are necessary and more about who gets to write them, enforce them, and change them.
+#+DATE: 2026-09-30
+#+CATEGORIES: Society & Economy, Politics & Governance
+#+TAGS: geopolitics, global-south, europe, india, china, multilateralism, multi-alignment, international-relations
+#+COMMENTS: true
+#+TOC: true
+
+The draft of this post has been sitting in my notes for a long time. It is probably a little late, but I decided to publish it anyway.
+
+I started following geopolitics again after staying away from it for almost a decade. That interest returned during a visit to India in 2023. India was then in the middle of its G20 presidency and preparing for the New Delhi G20 Summit in September, which brought together the work that had been happening throughout the presidency.
+
+Being there made me curious about international affairs again. But what interested me this time was different from what had interested me years earlier. I was less interested in following individual conflicts or diplomatic events and more interested in the larger changes underneath them: India's growing role, the increasing prominence of the Global South, Europe's place in a changing world, the relationship with China, and whether institutions created after the Second World War still reflect the distribution of power today.
+
+Some of these questions were not new to me. I had written about reform of the United Nations Security Council many years ago, and returned to the subject again more recently. But the discussion now feels broader than simply reforming one institution.
+
+The more interesting question is what happens when countries that were largely rule takers in the old international system increasingly expect to become rule makers.
+
+That is the question I want to explore here. I have thought about one part of this problem before.
+
+In 2010, I wrote [[https://systemhalted.in/2010/11/16/united-nations-security-council-reforms/][United Nations Security Council Reforms]]. At the time, my argument was mostly about democracy. I questioned why the United Nations Security Council should have permanent members at all and why one permanent member should be able to block a decision supported by everyone else.[fn:1]
+
+When I returned to the subject in 2025 in [[https://systemhalted.in/2025/12/22/reforming-unsc-without-breaking-trust/][Reforming the Security Council Without Breaking Trust]], my thinking had changed somewhat.
+
+I still thought the structure needed reform, but I had become more interested in why the structure existed in the first place. The veto was not designed because it was democratic. It was designed because any international security institution that ignored the interests of the most powerful states was unlikely to survive for very long.[fn:2]
+
+That creates a difficult balance. An institution needs enough power behind it to remain relevant. But it also needs enough legitimacy that countries continue to accept its authority. This problem is much larger than the Security Council.
+
+The international institutions created after the Second World War emerged from a particular distribution of economic, military, and political power. That distribution has changed considerably. The institutions have changed much more slowly.
+
+The question, therefore, is no longer simply whether countries such as India should receive greater representation in existing institutions. It is whether countries that had limited influence over the design of the existing system should have greater influence over the design of what comes next.
+
+There is a difference between getting a seat at the table and helping build the table.
+
+* The G20 made this visible to me
+
+This was part of what I found interesting about India's G20 presidency in 2023.
+
+India did not restrict its message to India's own greater representation. It explicitly tried to bring issues affecting developing countries into the G20 agenda.
+
+Before the G20 meetings, India organized the first /Voice of Global South Summit/ in January 2023. According to India's Ministry of External Affairs, 125 countries participated. India stated that one objective was to carry the concerns raised in those discussions into its G20 presidency.[fn:3]
+
+The term /Global South/ needs some caution.
+
+India, Brazil, South Africa, Indonesia, Nigeria, Saudi Arabia, and dozens of smaller countries do not constitute a unified geopolitical bloc. Their economies, governments, security interests, and relationships with the United States, Europe, China, and Russia can be very different.
+
+So I do not find it useful to think of the Global South as another alliance.
+
+What I find more useful is the institutional question behind the term.
+
+A large number of countries believe that their influence in global governance does not adequately reflect their population, economic importance, or the consequences they bear from global decisions.
+
+One concrete change came at the New Delhi Summit itself. The African Union became a permanent member of the G20.[fn:4]
+
+That does not suddenly solve the representation problem. But it illustrates the direction of the debate. Representation is no longer only about which individual country becomes more powerful. It is increasingly about whether institutions themselves reflect a world whose political and economic center of gravity has changed.
+
+* The Security Council is an unusually obvious example
+
+The United Nations Security Council makes the problem particularly visible.
+
+Five countries continue to hold permanent seats and vetoes: China, France, Russia, the United Kingdom, and the United States. Ten other countries serve temporary two year terms.[fn:5]
+
+The arrangement reflects the political settlement that emerged from the Second World War. There were good historical reasons for that design. But historical justification does not automatically produce permanent legitimacy.
+
+This is no longer only an argument made by countries seeking seats. 
+
+The UN's 2024 /Pact for the Future/ itself recognized the need to make the Security Council more representative, inclusive, transparent, effective, democratic, and accountable. It specifically called for addressing Africa's underrepresentation, while also mentioning Asia Pacific and Latin America and the Caribbean.[fn:6]
+
+The interesting question is what reform means.
+
+Simply adding more permanent members could make the Council more representative while preserving the same underlying concept of permanent privilege.
+
+Abolishing the veto might make the institution look more democratic but could also make major powers less willing to accept decisions against what they consider vital interests.
+
+Doing nothing preserves stability at the cost of increasing questions about legitimacy.
+
+There is no clean solution. That is why I now think the deeper issue is not democracy alone. It is how international institutions reconcile representation with power.
+
+* The rules based order has another problem
+
+This brings me to the phrase /rules based international order/.
+
+I generally like the idea behind it. International relations governed by rules are preferable to a system where power alone determines outcomes.
+
+But saying that everyone should follow rules leaves several questions unanswered.
+
+- Who writes those rules?
+
+- Who interprets them?
+
+- Who gets exceptions?
+
+- Who enforces them?
+
+- What happens when the countries being asked to follow the rules had little influence over writing them?
+
+A discussion I listened to between Samir Saran of the Observer Research Foundation and Benedikt Franke of the Munich Security Conference sharpened this question for me.[fn:7]
+
+Saran's argument was much more aggressive than mine. He described parts of the existing international system, including the Security Council, as institutions that preserved older hierarchies. He also challenged Europe to think more independently about its place in the emerging order.
+
+I do not think every part of that argument needs to be accepted to see the larger point. But there is some merit to his argument.
+
+A rules based system cannot depend indefinitely on one group writing the rules and another much larger group being expected primarily to comply with them.
+
+If the system is genuinely international, rule making eventually has to become more international as well.
+
+* Openness also requires reciprocity
+
+Another idea from that discussion that stayed with me was reciprocity.
+
+For several decades, globalization was largely discussed in terms of openness, lower barriers, increase trade, connected markets, and global supply chains. "The World is Flat" have been a mantra for that world order. The assumption was that greater economic integration would create benefits for everyone involved.
+
+That argument remains powerful. But openness becomes harder to defend politically when access is substantially asymmetric. If companies from one country can freely enter another country's market while companies going in the opposite direction face significant barriers, the relationship is open in only one direction.
+
+The same problem appears when one country subsidizes strategic industries, restricts access to important sectors, controls technology transfers, or uses access to resources as political leverage.
+
+This does not mean every trading relationship needs to be perfectly symmetrical.
+
+It does mean that reciprocity matters.
+
+Saran has been particularly critical of Europe on this question. He has argued that Europe remains too dependent on Chinese markets, manufacturing, and supply chains while expecting China to behave according to rules that Europe itself prefers.[fn:8]
+
+That is his assessment, and Europe describes its own policy differently.
+
+The European Union's economic security strategy talks about /de-risking/, not broad decoupling from China. The objective is to preserve the benefits of economic openness while reducing risks created by excessive dependencies, particularly in strategically important areas.[fn:9]
+
+I think that distinction is useful. The question is not whether countries should trade with China. The question is when interdependence becomes dependence. I think that distinction is useful. 
+
+Sri Lanka offers a useful example from Asia. Its economic crisis cannot simply be attributed to China; domestic policy failures, depleted foreign exchange reserves, the pandemic, and a broader debt problem were central to the collapse. But its experience with Chinese-funded infrastructure also shows why the terms, transparency, and sustainability of external financing matter. Economic interdependence can become a strategic vulnerability when a country becomes too dependent on particular sources of capital, infrastructure, or market access.[fn:9.1]
+
+The lesson is therefore not that economic relationships with China inevitably lead to crisis. It is that dependence on any single source of financing, infrastructure, markets, or strategic resources can reduce a country's room to maneuver when conditions change.
+
+
+* Economic efficiency is no longer the only calculation
+
+This creates an interesting change in how countries think about globalization.
+
+For a company, buying a component from the cheapest reliable supplier is usually rational. However, for a country, obtaining nearly all of a strategically important component from one country may not be rational even if it is cheaper. The difference is resilience.
+
+Semiconductors, critical minerals, energy, telecommunications equipment, pharmaceuticals, batteries, cloud infrastructure, and artificial intelligence are increasingly being discussed in this way.
+
+This is one reason I do not think globalization is simply reversing. It is changing shape. Companies and countries are still deeply interconnected. But economic policy, national security, technology policy, and foreign policy are becoming harder to separate. The supply chain itself is now geopolitical.
+
+* Technology may be where the new order gets written
+
+This is perhaps the part I find most interesting.
+
+When we talk about the global order, we tend to think about institutions such as the United Nations, IMF, World Bank, WTO, NATO, or the G20.
+
+But many of the rules that will matter over the next few decades may be written somewhere else.
+
+Who defines AI safety standards?
+
+Who defines rules for cross border data?
+
+Which standards become dominant in telecommunications?
+
+Who controls semiconductor manufacturing technologies?
+
+How are digital identities recognized across countries?
+
+How do international payment systems work?
+
+Who controls access to critical minerals?
+
+Which privacy rules become international norms?
+
+These sound like technology questions but if you dig deeper, these are questions about power. 
+
+The Renaissance is usually remembered as a period of extraordinary artistic, scientific, and technological development in Europe. But it also overlapped with another transformation: the expansion of European maritime power, commerce, and eventually colonial empires. Printing, navigation, finance, military technology, and new commercial institutions helped European states project power far beyond the continent.[fn:renaissance]
+
+The contrast with India is striking. In the early seventeenth century, England was not approaching the Mughal Empire as a superior power. The East India Company was seeking permission from the Mughal court simply to establish trading factories. Sir Thomas Roe's embassy to Emperor Jahangir eventually helped the Company secure wider trading privileges in 1616.[fn:mughals]
+
+A century and a half later, the balance had changed dramatically. After its victories at Plassey in 1757 and Buxar in 1764, the East India Company became a territorial and political power in India, gaining control over the revenues of Bengal, Bihar, and Orissa.[fn:eastindiacompany] By 1858, the British Crown had taken direct control of the Company's Indian territories, beginning the period of the British Raj.[fn:britishraj]
+
+That reversal in relative power is remarkable. A commercial company that once needed permission to trade within one of the world's great empires eventually became the instrument through which Britain conquered and governed much of the same subcontinent.
+
+This shows that technical standards have always had political consequences. The difference now is the scale at which digital infrastructure operates.
+
+A protocol, semiconductor architecture, identity system, payment standard, or AI regulation adopted across enough countries can influence behavior far beyond the country where it originated. Countries that participate in designing these systems are not merely technology consumers. They become rule makers.
+
+* India and Europe are an interesting case
+
+This brings the discussion back to Europe and India. The relationship is increasingly moving beyond traditional diplomacy and trade.
+
+The EU and India created a Trade and Technology Council in 2023. By its third ministerial meeting in July 2026, the two sides were working together on semiconductors, artificial intelligence, high performance computing, quantum technologies, 6G, clean technologies, and resilient supply chains.[fn:10]
+
+The two sides also concluded negotiations on a Free Trade Agreement in January 2026, although the agreement still has to complete the necessary procedures before entering into force.[fn:11]
+
+This is interesting because it provides another model for how the international order can evolve. You do not necessarily have to reform an eighty year old institution before anything can change. Countries can create new mechanisms around specific problems. Those mechanisms build standards. Standards influence markets. Markets create dependencies. Dependencies create political relationships. And eventually those relationships become part of the international architecture.
+
+This can happen much faster than formal institutional reform.
+
+* A world of overlapping partnerships
+
+This also makes me question whether the future will organize itself into neat geopolitical blocs.
+
+India is part of the Quad with the United States, Japan, and Australia.
+
+It is also part of BRICS.
+
+It participates in the G20.
+
+It works with the European Union through the Trade and Technology Council.
+
+It maintains a long standing relationship with Russia while expanding strategic relationships with the United States and Europe.
+
+These relationships do not all have the same purpose and that may be the point.
+
+A country does not necessarily need one alliance to define every aspect of its foreign policy. It can work with different groups on different problems.
+
+Semiconductors may produce one group.
+
+Climate policy may produce another.
+
+Maritime security may produce another.
+
+Trade may produce another.
+
+Artificial intelligence governance may produce another.
+
+What emerges is less like two fixed camps and more like a network. That kind of system may look messy, but international politics has rarely been as orderly as the maps we use to describe it. Shashi Tharoor coined a word for this - multi-aligned world order.[fn:multialigned]
+
+* Rule takers becoming rule makers
+
+This brings me back to what interested me during that visit to India in 2023.
+
+India becoming more influential is certainly part of the story. But I think the larger change is more interesting than the rise of any single country.
+
+Countries that spent much of the twentieth century participating in institutions created by others increasingly want to influence how the institutions of the twenty first century are designed. Sometimes this takes the form of demanding reform of existing organizations such as the Security Council. Sometimes it means gaining greater representation in organizations such as the G20. Sometimes it means building alternatives. And sometimes it happens quietly through technology agreements, trade arrangements, standards bodies, supply chains, and research partnerships.
+
+The old international institutions are unlikely to disappear. Nor do I think everything they created should be discarded. There are good reasons why institutions evolve slowly. Stability and predictability have value.
+
+But institutions cannot rely on history alone for legitimacy.
+
+The challenge is to allow the system to change without destroying the trust that allows the system to function in the first place.
+
+That is essentially where my own thinking has moved since I first wrote about Security Council reform in 2010. At that time I was asking why a few countries should have permanent authority over everyone else. I still think that is a valid question. But now I think there is another one beside it.
+
+How do we build institutions in which established powers remain invested while emerging powers have a meaningful role in writing the rules?
+
+That question is much harder.
+
+It is also probably closer to the real problem.
+
+* Footnotes and References
+
+[fn:1] Palak Mathur, "United Nations Security Council Reforms," /SystemHalted/, November 16, 2010.
+https://systemhalted.in/2010/11/16/united-nations-security-council-reforms/
+
+[fn:2] Palak Mathur, "Reforming the Security Council Without Breaking Trust," /SystemHalted/, December 22, 2025.
+https://systemhalted.in/2025/12/22/reforming-unsc-without-breaking-trust/
+
+[fn:3] Ministry of External Affairs, Government of India, "Voice of Global South Summit 2023," January 12 to 13, 2023. The ministry reports participation from 125 countries and describes the summit as an effort to bring developing country priorities into India's G20 deliberations.
+https://www.mea.gov.in/voice-of-global-summit.htm
+
+[fn:4] Ministry of External Affairs, Government of India, "2nd Voice of Global South Summit 2023," November 17, 2023. The summit documentation discusses the African Union's admission as a permanent G20 member during India's presidency.
+https://www.mea.gov.in/second-vgss.htm
+
+[fn:5] United Nations Security Council, "Current Members." The Council consists of five permanent members and ten elected members.
+https://main.un.org/securitycouncil/en/content/current-members
+
+[fn:6] United Nations, /Pact for the Future/, 2024, Action 41. The Pact calls for Security Council reform and identifies the representation of Africa and other underrepresented regions as part of that process.
+https://www.un.org/pact-for-the-future/en/about-pact
+
+[fn:7] Federation of German Industries (BDI), /Tag der Industrie 2024/. Discussion featuring Samir Saran, President of the Observer Research Foundation, and Benedikt Franke, CEO of the Munich Security Conference.
+
+[fn:8] Gautam Chikermane and Samir Saran, "Begging will not de-risk Brussels from Beijing," /Observer Research Foundation/, March 30, 2024. The characterization of Europe's dependence on China described here is Saran and Chikermane's argument.
+https://www.orfonline.org/research/begging-will-not-de-risk-brussels-from-beijing
+
+[fn:9] Council of the European Union, remarks on European economic security. The EU describes its approach as preserving economic openness while reducing risks arising from excessive strategic dependencies.
+https://data.consilium.europa.eu/doc/document/ST-1602-2024-INIT/en/pdf
+
+[fn:9.1] International Monetary Fund, /Sri Lanka: Request for an Extended Arrangement Under the Extended Fund Facility/, IMF Country Report No. 23/116, March 2023; Ganeshan Wignaraja et al., /Chinese Investment and the BRI in Sri Lanka/, Chatham House, March 2020. The IMF attributes Sri Lanka's crisis to a combination of pre-existing fiscal and debt vulnerabilities, policy mistakes, depleted foreign-exchange reserves, and external shocks including the COVID-19 pandemic. The Chatham House study finds that Chinese lending was an important source of infrastructure financing, including approximately $1.4 billion for Hambantota Port, but concludes that Sri Lanka faced a broader external-debt problem rather than a Chinese-debt problem specifically.
+
+[fn:renaissance] The Metropolitan Museum of Art, /The Art of Renaissance Europe/. The Met describes the Renaissance as spanning roughly 1400 to 1650 and as a period of major artistic, scientific, technological, commercial, and intellectual development in Europe.
+
+[fn:mughals] British Library, India Office Records. The archive notes that Sir Thomas Roe succeeded in 1616 in obtaining permission to establish East India Company factories in the Mughal Empire.
+
+[fn:eastindiacompany] UK Parliament, /Parliament and the East India Company/. Parliament's history notes that the Company's victories at Plassey in 1757 and Buxar in 1764 transformed it into a territorial and political power and gave it control of revenues in Bengal, Bihar, and Orissa.
+
+[fn:britishraj] UK Parliament, /East India Company and Raj, 1785–1858/. The Government of India Act of 1858 transferred the Company's Indian possessions and administration to the British Crown.
+
+[fn:10] European Commission, "EU and India strengthen strategic partnership with third Trade and Technology Council," July 15, 2026.
+https://digital-strategy.ec.europa.eu/en/news/eu-and-india-strengthen-strategic-partnership-third-trade-and-technology-council
+
+[fn:11] European Commission, "EU trade relations with India." Negotiations on the EU-India Free Trade Agreement concluded on January 27, 2026. As of September 2026, the Commission had presented the agreement to the Council for signature and conclusion.
+[[https://policy.trade.ec.europa.eu/eu-trade-relationships-country-and-region/countries-and-regions/india_en][]]
+
+[fn:multialigned] "I, Shashi Tharoor, coined the term "multi-alignment", https://shashitharoor.in/writings_my_essays_details/574. But there are other claimants as well, https://en.wikipedia.org/wiki/Multi-alignment

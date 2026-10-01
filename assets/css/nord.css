@@ -146,6 +146,26 @@ input:focus-visible {
   outline-offset: 3px;
 }
 
+sup[id^="fnref"] {
+  line-height: 0;
+}
+
+sup[id^="fnref"] + sup[id^="fnref"] {
+  margin-left: 0.3em;
+}
+
+a.footnote {
+  padding: 0 0.15em;
+  border-radius: 2px;
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+
+a.footnote:hover {
+  background: var(--surface-quiet);
+  color: var(--link-hover);
+}
+
 button,
 select,
 input {

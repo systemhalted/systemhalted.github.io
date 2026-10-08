@@ -6,13 +6,6 @@
 #+PERMALINK: /2022/02/06/lata-mangeshkar/
 #+COMMENTS: true
 
-#+begin_html
-  <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6895976237865467904" height="692" width="504" frameborder="0" allowfullscreen title="Embedded post">
-#+end_html
-
-#+begin_html
-  </iframe>
-#+end_html
 
 Death of Lata Mangeshkar ji comes as a shock. I can't imagine the world without her voice. She was the nightingale of India. Thankfully, her voice will remain.
 
@@ -23,9 +16,11 @@ Naam Gum Jaayega,
 Chehra Yeh Badal Jaayega,
 Meri Awaaz hi Pehchaan Hai, 
 Agar Yaad Rahe
+#+end_example
 
 Rough translation:
 
+#+begin_example
 It is certain that my name will eventually be lost and forgotten,
 It is certain that my face will eventually change and forgotten too,
 However, my voice gives me my identity,

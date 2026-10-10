@@ -1,0 +1,113 @@
+#+TITLE: teeup Beta is now available
+#+DESCRIPTION: teeup is an opiniated, reproducible macOS environment for developers that makes your Mac ready to code.
+#+DATE: 2026-10-10
+#+CATEGORIES: Personal Essays, Technology
+#+TAGS: teeup, config, Mac, Macbook, macOS
+#+COMMENTS: true
+#+TOC: true
+
+[[https://github.com/systemhalted/teeup.sh][teeup.sh]] is now in Beta. It is an opionionated, reproducible macOS environment for developers that makes your Mac ready to code. 
+
+This post is about why I created teeup.sh and how it evolved from a collection of personal scripts into something I could offer to other developers. It is not a manual. That is available [[https://teeup.systemhalted.in][here]].
+
+* In the beginning were the dotfiles
+
+I have maintained my dotfiles for well over ten years when I first switched from Microsoft Windows to Fedora Linux. Over the years, macOS, Fedora, Ubuntu, etc. became a part of my computing environment. My configurations evolved and eventually, I started managed them using [[https://www.chezmoi.io/][chezmoi]].
+
+When I first started using Macbook for development at work, I created a collection of scripts called /mac-setup/. These scripts installed software and configured a new MacBook the way I preferred. I also shared them with developers on my team so that they could their machines ready when they joined. 
+
+My personal configurations lived in a separate dotfiles repository. /mac-setup/ would detect that repository if it has been already cloned alongside it and use these configurations during installations. 
+
+Over time, I merged the scripts into one giant shell script so that I can just share it as a single file with other developers and they can copy the code and run rather than having to install git tools, etc. as my script used to take care of that as well. Then in the repo itself I added a wizard to make the installation process interactive. I also ensured that you could dry run the script without a single mutation on your machine. The repository remained private for a long time, mostly because it contained assumptions about how I worked and what software I preferred. 
+
+Earlier this year, I cleaned up these scripts and created a new repository called teeup.sh. I extracted the software installation logic from my configurations, expanded it to support multiple operating systems, and used Claude to create a terminal wizard around it using gum. A few developers on my team used this version to setup their MacBooks at work.
+
+By this time, teeup.sh was handling three operating systems: macOS, Ubuntu, and Fedora. All through one giant shell script. It worked, but I wasn’t particularly happy with how it was organized. There were conditions everywhere to handle differences between operating systems, package managers, and software installations.
+
+* Discovering Omarchy
+
+Last month, I came across [[https://omarchy.us/][Omarchy]], an opinionated Linux distro built around Arch Linux. I liked its simplicity, visual consistency, and approach to configuring a development machine.
+
+It changed my perspective on two things:
+
+1. An opinionated config can be packaged as a product.
+2. Agentic AI can help an individual developer create something simple, cohesive and beautiful.
+
+I had always looked at my dotfiles as my personal configurations. They were something I maintained for myself and occasionally shared with others. Omarchy made me think differently.
+
+This did two things for me:
+
+1. I switched from Ubuntu to Omarchy on my old ThinkPad T430.
+2. I started thinking about simplifying teeup.sh and offering it as a product.
+
+It also made me rethink the scope of teeup.sh. I had read about how Omarchy evolved from a personal Arch Linux configuration into a more complete environment. Instead of attempting to support every Linux distribution, it focused on one and built a consistent experience around it. Therefore, I decided to target only one operating system as well. In teeup.sh's case, macOS
+
+That decision simplified several things. I no longer needed to handle multiple operating systems or maintain different installation paths for the same developer tools. More importantly, I could focus on the experience I wanted a developer to have rather than the number of OS I could support. 
+
+I liked how Omarchy was structured. Instead of maintaining one large installation script, the different parts of the environment were organized into smaller components. The main idea for restructuring teeup.sh came from there.
+
+Why macOS? macOS is already a refined system. Its hardware integration, desktop experience, and Unix foundations make it an excellent environment for software development.
+
+However, there a few things that I always loved about Linux, particularly the amount of control it gives me over my working environment. 
+
+One of them is tiling window management. At any point, I like working with multiple terminal windows, editors and applications without constantly having to rearrange them using a mouse. Terminal multiplexers such as =screen= and =tmux= solve part of this problem inside a terminal. Applications such as [[https://wezterm.org/][WezTerm]] go further by integrating tabs, panes and workspaces. 
+
+On Linux, tiling window managers extend this approach to the entire desktop. With tools such as [[https://nikitabobko.github.io/AeroSpace/][AeroSpace]], some of that experience is possible on macOS too.
+
+My goal was not to turn macOS into Linux. I wanted to bring some of the workflows I enjoyed on Linux to macOS while keeping the things I liked about macOS intact.
+
+The same thinking applies to shells, editors, terminal applications, programming language runtimes, and developer utilities. Each can be installed independently, but making them work together consistently requires additional configuration. 
+
+That is where teeup.sh comes in. 
+
+The original teeup.sh was primarily an installer. It installed software, configured a few things and its job was done. 
+
+The redesigned teeup.sh is intended to manage a development environment beyond the initial installation. 
+
+I wanted a developer to be able to setup a new MacBook, understand what was installed, change parts of the environment and keep it updated without maintaining a collection of unrelated scripts. 
+
+This led to a few design decisions:
+
+/First/, teeup.sh is opinionated. It makes choices about tools and configurations instead of asking users to make every decision from scratch. For example, it uses Zsh with Starship, supports WezTerm for terminal workflows, and offers Emacs as a default part of the environment. These are choices influenced by how I work.
+
+/Second/, it is modular. Capabilities are divided into core, daily and lazy groups. Not everything needs to be installed immediately. Developers can install additional capabilities when they need them.
+
+/Third/, teeup.sh is opinionated about how configurations are organized. It expects configurations to live under =~/.config=, following the XDG convention wherever possible. A few entry-point files such as =~/.zshrc= still live in the home directory but load the additional configurations from =~/.config=. 
+
+This was a deliberate decision. Having maintained my own dotfiles for more than a decade, I understand that developers have different preferences for organizing their configurations. However, I chose to enforce a consistent structure rather than accommodate every possible arrangement. This makes the environment more predictable and easier to maintain. 
+
+This also means that teeup.sh is not simply another layer on top of chezmoi or an existing dotfiles repository. It has its own conventions. Developers who already maintain their configurations need to understand these conventions and may need to migrate some of their existing settings. teeup.sh provides a migration path for configurations managed by chezmoi.
+
+This brings me to the /fourth/, related point: the configurations have clearly defined ownership. teeup.sh copies initial configuration files into the developer's environment, These files then belong to the developer. It also maintains its own configuration layer which can be updated independently. Local overrides allow developers to customize supported tools without modifying that layer. So, =~/.config= folder is for yours to keep and manage.
+
+When teeup.sh encounters an existing configuration it needs to replace, it preserves the previous file as a backup. This is particularly important when migrating from another dotfiles manager. 
+
+Finally, reproducibility is a goal, but it does not necessarily mean freezing every package at exactly the same version. For me, it means that the same choices should result in a consistent environment on another compatible Mac. The software will continue to evolve, and teeup.sh needs to accomodate that evolution.
+
+* Building with AI
+
+Much of the redesign happened with the assistance of coding agents. I had used Claude to build the earlier wizard, but the redesign involved a different level of collaboration. Instead of simply generating parts of a script, I could work through architecture, implementation, tests, and documentation with an agent.
+
+Working with agents also made testing essential, particularly controlling the environments in which they operated. I used a mix of Claude, Codex, Antigravity, and OpenCode CLIs for this work. I needed these agents to communicate with each other, so I wrote a few scripts to coordinate their work.
+
+Since, teeup.sh is a setup tool, I had to be particularly careful. It modifies a developer's machine and an incorrect command can replace configuration files, change system settings or interfere with tools that are already installed.
+
+This is where [[https://github.com/systemhalted/shellenv][shellenv]], another project I have been working on, became useful. I could test shell scripts in isolated environments, with their own home directories, temporary directories, and configurations. In fact, an earlier test had modified my actual Git configuration because isolating the home directory alone had not isolated the XDG directories. That experience made me take isolation more seriously in shellenv as well. 
+
+* What next?
+
+I am creating teeup.sh for myself and enjoying working on it and with it. 
+
+The first beta of the redesigned teeup.sh became available on September 28. Since then, I have been working on making the installation and update experience better.
+
+As I write this, teeup.sh is at =0.3.0-beta=. It has a one-line installer, and updates now follow releases rather than always taking the latest changes from the main branch. I have also made package updates more selective so that teeup.sh does not unnecessarily upgrade every package installed on the machine.
+
+There is still plenty to do. I am testing it on my Macs, fixing things that do not work as expected, and reconsidering configurations that may be too specific to how I work.
+
+I have been using some version of these scripts for years, but turning them into something others can use has been a different experience. A personal script can make assumptions because I know what those assumptions are. Once I share it with others, I have to think about those assumptions more carefully.
+
+I don't know whether the choices I have made will work for every developer. I am sure some of them won't. But that is also the idea behind making teeup.sh opinionated. 
+
+For now, I am happy that what began as a few scripts to setup my MacBook has become something I can share more widely. 
+
+If you are interested, teeup.sh is available on [[https://github.com/systemhalted/teeup.sh][GitHub]]. I would be interested to hear what works, what doesn’t, and what you would do differently.

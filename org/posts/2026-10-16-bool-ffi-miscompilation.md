@@ -1,0 +1,29 @@
+#+TITLE: FFI and Miscompilation Bug in Rust
+#+DESCRIPTION: This blog explores how Rust, C, C++ and Java treat boolean across language boundaries
+#+DATE: 2026-10-16
+#+CATEGORIES: Software Engineering
+#+TAGS: C, C++, Java, Rust
+#+COMMENTS: true
+
+Rust just fixed a [[https://lnkd.in/gSSJjGbq][bug]] with booleans returned across language boundaries.
+
+Using bool directly in Foreign Function Interfaces (FFI) is a frequent source of undefined behavior and subtle bugs, primarily because boolean representation varies dramatically across programming languages and application binary interfaces (ABIs).
+
+In languages like Rust, C++, etc. a boolean must strictly be represented by a specific byte value, which is typically 0 for false and 1 for true.
+
+However, C historically treats any non-zero value as true. If a C library returns a byte value like 2 or 42 across the FFI into a language expecting strictly 0 or 1, it violates that language's type invariants. This causes immediate undefined behavior, which can manifest as broken conditional branches, miscompilations, or silent data corruption.
+
+Java follows a different philosophy. In Java 22+, you interact with native code using Foreign Function & Memory API (java.lang.foreign). This API does not provide a direct ValueLayout.JAVA_BOOLEAN. Instead, you must explicitly choose a byte-sized numeric layout to represent how the native C platform treats that boolean:
+
+  • For C99 _Bool or bool: This is almost always 1 byte. Use ValueLayout.JAVA_BYTE.
+
+  • For legacy Win32 BOOL: This is historically an int (4 bytes). Use ValueLayout.JAVA_INT.
+
+Since, Java is expecting either raw bytes or primitive int and not a cross-boundary bool type, the likelihood of the miscompilation bug happening is minimal. It makes no compiler-level assumptions about the truthiness of the bits inside the register.
+
+If a C or Rust function suffers from a registration-masking bug and returns 16 instead of 1, Java safely swallows the 16 as a raw byte. When your code evaluates 16 != 0, it correctly maps to true.
+
+Because Java does the translation strictly based on bits and bytes rather than boolean logic, if a poorly written C library returns a garbage non-zero byte (like 0x02 or 0xFF) and you try to check for a strict 1 (e.g., cResult == 1), your Java code will evaluate it as false. Always use the != 0 pattern to mimic how C handles truthiness natively.
+
+I used to think boolean was the simplest data type. But this bug changed my views. 
+

@@ -1,0 +1,28 @@
+#+TITLE: YAGNI: Build What You Need
+#+DESCRIPTION: Avoiding speculative features helps software teams manage complexity, keep code maintainable, and focus on delivering value.
+#+DATE: 2023-01-19
+#+CATEGORIES: Technology
+#+TAGS: software development, YAGNI, software design, agile, simplicity
+#+COMMENTS: true
+#+TOC: false
+
+
+In software development, it is easy to get caught up in adding every feature we can imagine. An extra configuration option, another abstraction, or support for a hypothetical use case can seem sensible when we think we might need it later.
+
+But every addition carries a cost. There is more code to understand, test, maintain, and change. Features built for anticipated needs can introduce complexity long before they provide any value.
+
+This is where YAGNI comes in: /You Aren’t Gonna Need It/.
+
+The principle encourages us to implement functionality when we need it, rather than build it in anticipation of requirements that may never materialize. It keeps our attention on the problems we understand and the value we can deliver now.
+
+That does not mean ignoring design or sacrificing quality. Clear interfaces, meaningful tests, and maintainable code help us meet current requirements and accommodate future changes. We can invest in those qualities without implementing every possible future feature.
+
+Before adding something "just in case," ask:
+
+- What current requirement does this address?
+- What evidence suggests we need it now?
+- What would it cost to add later, once we understand the need better?
+
+Sometimes there is a sound reason to prepare ahead. But "we might need it someday" deserves examination before it becomes a commitment.
+
+YAGNI reminds us that deciding what to leave out is part of good software design.

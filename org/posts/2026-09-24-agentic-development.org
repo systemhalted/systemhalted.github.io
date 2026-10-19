@@ -1,0 +1,75 @@
+#+TITLE: Agentic AI development is still software engineering.
+#+DESCRIPTION: LLMs introduce a new source of uncertainty, but the practices needed to control that uncertainty are established software engineering practices.
+#+CATEGORIES: Personal Essays, Software Engineering, AI
+#+TAGS: agentic development, software-engineering, leadership, reflection
+#+DATE: 2026-09-24
+#+COMMENTS: true
+#+TOC: true
+
+
+There is a growing argument that production AI systems need deterministic state machines around nondeterministic language models. The model can reason within a defined step, but ordinary code should control state transitions, tool access, retry limits, and permissions.
+
+I agree with the principle. I am less convinced that it represents a fundamentally new approach to engineering.
+
+Software engineers have always built systems around components they cannot fully control. Users enter unexpected data. Networks fail. External APIs return bad responses. Messages arrive twice or out of order. Processes crash after completing an action but before recording its completion.
+
+We manage these problems with validation, explicit state, access controls, timeouts, retry limits, idempotency, audit logs, and monitoring. Putting deterministic boundaries around an unpredictable component is ordinary production engineering.
+
+An LLM changes the kind and scale of unpredictability. It does not invalidate the practices we already know.
+
+* What is actually different
+
+In conventional software, developers usually define both the available actions and the path through them. A payment succeeds, so the order moves to fulfillment. A validation fails, so the request is rejected.
+
+An AI agent can participate in choosing the next action. It may interpret a request, decide which tool to use, construct the tool’s inputs, inspect the result, and decide whether another action is necessary.
+
+That is an important change. A probabilistic component is no longer producing only text or a prediction. Its output can influence execution.
+
+This creates some additional questions:
+
+• Which tools may the model use?
+• Under what conditions may it use them?
+• Which actions require human approval?
+• How many times may it retry?
+• How do we prevent it from repeating an irreversible action?
+• How do we reconstruct what happened after a failure?
+
+But these questions still lead us back to familiar engineering controls. We validate model-generated arguments just as we validate user input. We authorize tool calls just as we authorize API requests. We make operations idempotent because retries happen. We record state transitions because production failures must be explainable.
+
+The model may propose the next step. The surrounding application must decide whether that step is permitted.
+
+* A state machine is not an AI innovation
+
+Finite-state machines, workflow engines, policy engines, approval gates, and durable execution systems existed long before LLMs. They are useful because they make allowed paths explicit and prevent a component from inventing its own process.
+
+They are particularly valuable around agents, but their value does not come from AI. It comes from the same property that has always made them useful: they separate business rules from uncontrolled behavior.
+
+The same applies to observability. Agent systems need more than latency and error-rate dashboards. We may need to record prompts, model responses, tool calls, state transitions, token usage, and evaluation results. The data being observed has changed, but the obligation to make production behavior traceable has not.
+
+Even MCP is better understood in familiar terms. It provides a standardized way for models to discover and invoke tools. That can improve interoperability, but it does not automatically make those tools safe. A common interface does not replace authentication, authorization, validation, or business rules.
+
+* Evals are testing adapted to probabilistic systems
+
+I have a similar concern about the way evaluations, usually shortened to evals, are sometimes presented as a newly discovered engineering discipline.
+
+The terminology is new to many teams. The responsibility is not.
+
+Before releasing conventional software, we define expected behavior, construct representative test cases, establish acceptable failure thresholds, automate the checks, and use the results to support a release decision. An evaluation framework applies the same discipline to a system whose outputs may vary between runs and may not have a single exact answer.
+
+That variation changes how we test. Exact string comparisons are often insufficient. We may need datasets, rubrics, statistical thresholds, adversarial cases, human review, model-based graders, and continuous monitoring of production samples. We also have to test the whole system, not just the model: retrieval, prompts, tool calls, policies, and final outcomes.
+
+Those are meaningful adaptations. But evaluation still serves the purpose testing has always served: producing evidence that the system behaves well enough to release.
+
+The first LLM-based project my team delivered did not go to production because the demonstration looked impressive. We released it only after building an evaluation framework robust enough to give us confidence in the result. Once that framework was in place, we could assess a change and make the release decision with the click of a button.
+
+That was not a separate activity added after the AI work. It was part of delivering the software.
+
+* The novelty is the component, not the responsibility
+
+LLMs introduce a powerful new component with a broad and probabilistic output space. They can interpret ambiguous instructions, generate plans, select tools, and produce results that were difficult to encode through fixed rules.
+
+That capability deserves new techniques and careful study. It does not excuse us from established engineering discipline, nor does it turn every familiar production practice into an AI innovation.
+
+The useful principle is straightforward: allow the model flexibility in reasoning, but constrain its authority over execution. Define the permitted actions. Validate every boundary. Limit retries and resource use. Require approval where the consequences justify it. Observe the full execution path. Evaluate the system continuously.
+
+Agentic AI is not beyond software engineering. It is software engineering with a new source of uncertainty.

@@ -1,0 +1,14 @@
+#+TITLE: What Do We Want from Higher Education?
+#+DESCRIPTION: UNT’s removal of references to race and equity raises a broader question: should universities focus on workforce needs or also prepare students to examine complex societal challenges?
+#+DATE: 2024-11-20
+#+CATEGORIES: Personal Essays
+#+TAGS: education, higher education, Texas, UNT, DEI, critical thinking
+#+COMMENTS: true
+#+TOC: false
+
+
+The University of North Texas has [[https://www.texastribune.org/2024/11/19/texas-unt-dei-ban/][removed references to race and equity from dozens of course titles and descriptions]], following a ban on diversity, equity, and inclusion (DEI) policies.
+ This decision has sparked debate and concern among faculty and students, with some arguing that the university is overcomplying with the law and others expressing fear about the future of DEI initiatives in Texas higher education.
+
+This move raises concerns about the future of higher education in Texas. Are we moving towards a system that focuses on producing graduates in a specific supply chain, or one that fosters critical thinking and prepares students to address complex societal challenges?
+

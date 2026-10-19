@@ -1,0 +1,24 @@
+#+TITLE: To Thine Own Self Be True
+#+DESCRIPTION: Reading Ruskin Bond brings me back to a line from Hamlet and a reflection on knowing ourselves, accepting our imperfections, and living honestly.
+#+DATE: 2023-06-14
+#+CATEGORIES: Personal Essays
+#+TAGS: reflection, self-awareness, acceptance, literature, Ruskin Bond, Shakespeare
+#+COMMENTS: true
+#+TOC: false
+
+I was reading A Simple Book of Living by Ruskin Bond and I came across this quote from Hamlet by Shakespeare, spoken by Polonius, the character I mostly disliked when I first read Hamlet in school. The quote goes:
+
+
+#+begin_quote
+  This above all, to thine own self be true,
+  And it must follow as the night of the day,
+  Thou can’st not be false to any man.
+#+end_quote 
+
+Which roughly means, if you are true to yourself, you will never be false to anyone else. Loved it!
+
+Ruskin Bond gives a great explanation -
+
+#+begin_quote
+ Each of one of us is a mass of imperfections, and to be able to recognize and live with our imperfections- our basic natures, defects of genes and birth- makes, I think, for an easier transit on life’s journey.
+#+end_quote 

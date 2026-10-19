@@ -1,0 +1,52 @@
+#+TITLE: Knowing of Something and Knowing Something
+#+DESCRIPTION: Familiarity with terminology can conceal gaps in understanding. Why precise language, thoughtful questions, and intellectual honesty matter in professional work.
+#+CATEGORIES: Personal Essays, Software Engineering
+#+TAGS: learning, software-engineering, leadership, reflection
+#+DATE: 2026-10-18
+#+COMMENTS: true
+
+I wish more people understood the difference between "knowing of something" and "knowing something." The distinction seems small until we have to explain an idea, solve a problem, or make a decision that depends on it. That is when familiarity with a word can turn out to be much less useful than we thought.
+
+Recently, I had a conversation with someone about an issue they were facing. I asked several questions to understand the problem they were facing. As the conversation progressed, it became clear that a term they were using did not fit the context. We needed to clarify what they meant before we could properly discuss the issue. 
+
+Many of us use terms interchangeably even when they mean different things. I have done this too.
+We hear a word in a meeting, encounter it in an article, or see it repeatedly in discussions. We become comfortable using it. Eventually, we may stop noticing how much of its meaning we have actually examined. 
+
+However, as professionals, we need to understand the core terminology of our field because we rely on it to communicate accurately. If we use the same word to mean different things, we can leave a conversation believing we agree when we have understood entirely different problems.
+
+Knowing of something can be as simple as recognizing its name or having a general idea of what it concerns. Knowing something involves more engagement. We should be able to explain what it means, identify situations where it applies, and recognize at least some of its limits. The depth of that understanding will vary, but recognition alone does not quite establish the true understanding. 
+
+In Software Engineering, for example, someone might know of caching and associate it with faster applications. Understanding caching well enough to recommend it requires further questions. What are we storing? How long can it remain valid? What happens when the underlying data changes? Which problem do we expect the cache to solve? We do not need to know every implementation to have a useful discussion, but we need more than the association between "cache" and "fast."
+
+Microservices offer another example. Someone may keep saying "we need a microservice" when the requirement they describe is an orchestrator that coordinates calls across several services, a RESTful service that exposes an API, or a Backend for Frontend (BFF) that shapes responses for a particular user experience. Those descriptions tell us different things about what is being built. Calling all of them microservices without further explanation can hide the very distinctions an architecture discussion needs to establish. 
+
+A RESTful interface describes how a service exposes functionality. An orchestrator describes a responsibility for coordinating work. A BFF describes a backend tailored to a particular frontend or user experience. Microservices architecture concerns how a system is divided into services, including their boundaries, coupling, and ability to be deployed independently. These concepts can overlap. A BFF or an orchestrator may be implemented as an independently deployable service within a microservice architecture. Exposing a REST API, however, does not by itself make something a microservice.
+
+If we keep repeating "microservice" when the immediate need is to coordinate a workflow or assemble data for a screen, we have not yet explained the design. What responsibility belongs to this component? Which decisions can it make itself? Can it change and be deployed without coordinated changes elsewhere? These questions tell us more than the label does. Knowing of microservices gives us the vocabulary to join the discussion. Understanding them requires us to explain the architectural chocies we are actually making.
+
+That is why terminology matters. A technical term carries assumptions that would otherwise take several sentences to explain. That makes professional communication efficient, provided the people using it share an understanding of those assumptions. If they attach different meanings to the same word, they can appear to agree while imagining different problems and different solutions.
+
+Suppose a team says that a system has a "performacne problem." One person means that individual requests take too long. Another means that the system cannot handle enough requests at once. Those concerns may be related, but the distinction affects what the team measures and investigates. A broad description is useful at the beginning. Before choosing a solution, the team needs to establish what is actually happening. 
+
+The practical cost of imprecision is that people can spend considerable effort answering the wrong question. A term introduces an assumption, the assumption shapes the investigation, and the investigation produces a recommendation. By the time someone questions the original description, several decisions may already have been made requiring a massive effort to redo. 
+
+One thing to not here is that merely using a word incorrectly does not, by itself, prove that someone lacks understanding. A person may understand an idea and struggle to express it. They may come from a different professional background, or their organization may use a term in an unusual way. Someone else may deliver a polished definition while being unable to apply it. We need to examine the explanation and reasoning behind the words.
+
+That is one reason I find questions more useful than an immediate correction. "What do you mean by that here?" can reveal whether the disagreement concerns vocabulary, assumptions, or the underlying concept. Asking for a concrete example often helps even more. It gives both people something specific to examine instead of leaving them to compare definitions in the abstract.
+
+The purpose of those questions matters too. A discussion becomes less useful when people feel they are being testedd for the right answer. If the aim is to understand an issue, the questions should help everyone describe it more clearly. Discovering that someone used the wrong term should move the converation forward. It should not become an opportunity to embarrass them.
+
+I also need to apply this standard to myself. It is easy to notice gaps in someone else's explanation while leaving my own ideas unexamined. I may have used a concept successfully in one setting without understanding why it worked. I may remember a conclusion while having forgotten the conditions that made it valid. Experience gives us useful judgement, but it can also make us less inclined to question what has become routine. 
+
+One useful check is to explain an idea through an example and then change the example. Does the explanation still hold? If it does not, can I explain why? This goes deeper than merely stating a defintion by asking whether I understand the relationship between the concept and the situation in which I am using it. 
+
+Another check is whether I can describe what I do not yet undertand. "I know what this is intended to do, but I have not worked through how it behaves in this situation" gives other people something reliable to work with. They can judge which parts of my explanation to use and where further investigation is needed. Admitting the gaps in knowledge has a better chance to fill those gaps than a confident answer that hides those gaps. 
+
+Leaders have a particular responsibility here because people may be reluctant to question their terminology. A loosely used word from someone with authority can become the language of an entire discussion. Leaders should make their meaning explicit and welcome questions about it. They also need to allow people to acknowledge uncertaintly without treating every gap as a failure of competence. 
+
+We cannot know everything, and professional work will always require us to operate with incomplete understanding. What we can do is be honest about our understanding and remain willing to examine the new ideas and definitions as and when they present themselves. 
+
+The conversation that prompted this reflection reminded me how much depends on establishing what we mean. Before we can solve a problem together, we need a sufficiently clear description of it. Knowing of an idea can start that conversation. Developing an understaing of it is what allows us to contribute responsibly.
+
+
+

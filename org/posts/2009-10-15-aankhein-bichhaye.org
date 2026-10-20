@@ -1,0 +1,14 @@
+#+TITLE: आँखें बिछाए
+#+DESCRIPTION: इंतज़ार, ग़म-ए-उल्फ़त और उस दूरी पर चंद पंक्तियाँ जिसका पहले गुमान न था।
+#+DATE: 2009-10-15
+#+CATEGORIES: Poetry & Literature
+#+TAGS: Hindi, Urdu, poetry, love, longing
+#+COMMENTS: true
+#+TOC: false
+
+#+begin_verse
+आँखें बिछाए बैठे हैं इंतज़ार में उनके,
+ग़म-ए-उल्फ़त का हमें पहले गुमान न था!
+वो मिल जाएँगे सर-ए-राह चलते-चलते,
+दूर रहेंगे मगर ये गुमान न था!!!
+#+end_verse

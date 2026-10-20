@@ -1,7 +1,7 @@
 #+TITLE: Pakistan Cricket: Where Has the Spark Gone?
 #+DESCRIPTION: Remembering the Pakistan team I enjoyed watching and reflecting on the lack of energy and coordination in their 2023 World Cup performance against Afghanistan.
 #+DATE: 2023-10-27
-#+CATEGORIES: Sports
+#+CATEGORIES: Sports & Hobbies
 #+TAGS: cricket, Pakistan, World Cup, Wasim Akram, team management
 #+COMMENTS: true
 #+TOC: false

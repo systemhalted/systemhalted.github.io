@@ -8,7 +8,7 @@
 
 With love to Srishti
 
-#+begin_example
+#+begin_verse
 आज का दिन कुछ खास है,
 कुछ खास ही होगा,
 कि तुम्हरी शादी कल और मेहन्दी आज है|
@@ -42,4 +42,4 @@ With love to Srishti
 आज का दिन कुछ खास है,
 कुछ खास ही होगा,
 कि तुम्हरी शादी कल और मेहन्दी आज है|
-#+end_example
+#+end_verse

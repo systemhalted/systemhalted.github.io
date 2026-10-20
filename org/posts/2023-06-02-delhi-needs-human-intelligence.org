@@ -1,0 +1,17 @@
+#+TITLE: Delhi Needs Some Human Intelligence
+#+DESCRIPTION: A little road sense and consideration for fellow citizens would go a long way towards improving Delhi’s traffic.
+#+DATE: 2023-06-02
+#+CATEGORIES: Personal Essays
+#+TAGS: Delhi, traffic, civic sense, artificial intelligence
+#+COMMENTS: true
+#+TOC: false
+
+Delhi doesn’t need artificial intelligence[fn:1]. A little human intelligence about how to drive on the road, and a little emotional intelligence to show compassion towards fellow citizens, would be sufficient.
+
+Well, perhaps "sufficient" is asking too much. But following traffic rules, maintaining lane discipline, and allowing others to pass would be a good start.
+
+An intelligent traffic management system could help. I just wish we brought a little more intelligence and consideration to the driving ourselves.
+
+* References
+
+[fn:1] [[https://www.scoopwhoop.com/amp/in-other-news/delhi-to-have-an-ai-based-traffic-management-system-by-2024/?fbclid=IwY2xjawVDtwNleHRuA2FlbQIxMQBwZG9mBXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5Qss0KBEhJ0NcEWDLECclZ-MhZW8jTa-UDNrcYZqW706luNmtdFFESM1qMVg_aem_EBoAHPMX7nKJ4ojmZ34j_w][Delhi to have an AI based traffic management system]]

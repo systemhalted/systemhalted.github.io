@@ -1,13 +1,12 @@
 #+TITLE: When Cricket Commentary Becomes Political
 #+DESCRIPTION: My disagreement with Gideon Haigh’s framing of Indian cricket, alongside a question about political influence within the BCCI.
 #+DATE: 2023-03-14
-#+CATEGORIES: Sports
+#+CATEGORIES: Sports & Hobbies, Personal Essays
 #+TAGS: cricket, India, BCCI, journalism, politics, media bias
 #+COMMENTS: true
 #+TOC: false
-#+DRAFTS: true
 
-Writing about the India–Australia Test series, Gideon Haigh makes this observation:
+In his article [[https://www.thetimes.com/sport/cricket/article/india-vs-australia-blame-pitch-fixing-for-forgettable-finale-t2lcd79vs][India v Australia: Blame ‘pitch-fixing’ for forgettable finale]], published in /The Times/ on March 13, 2023, Gideon Haigh makes this observation:
 
 #+begin_quote
 It’s not a coincidence that the BCCI is the only cricket board in the world that maintains the old-fashioned "control" in its title.

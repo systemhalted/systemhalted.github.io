@@ -1,0 +1,25 @@
+#+TITLE: The Seven-Ball Over at Headingley
+#+DESCRIPTION: Ben Stokes’s seven-ball over against India raises an interesting question: when does a dead ball stop counting, and what happens when an umpire miscounts?
+#+DATE: 2025-06-20
+#+CATEGORIES: Sports & Hobbies
+#+TAGS: cricket, India, England, Test cricket, umpiring, cricket laws
+#+COMMENTS: true
+#+TOC: false
+
+Seven balls in an over. In a Test match. Without a wide or a no-ball!
+
+On June 20, 2025, Ben Stokes bowled seven deliveries in the 51st over of India’s innings at Headingley. With all the cameras, scorers, and officials involved in international cricket, something as basic as counting six deliveries still went wrong.
+
+The over also featured five penalty runs after the ball struck a helmet behind the wicketkeeper. One report suggested that this made the delivery invalid and required another ball. But a ball becoming dead does not automatically mean the delivery stops counting. Under the playing conditions, the helmet incident alone did not require a replacement delivery.
+
+And here is the part that surprised me most: cricket explicitly allows the miscounted over to stand! Clause 17.5.1 of the [[https://images.icc-cricket.com/image/upload/prd/lm8owaz03i86m1eneb7m.pdf][ICC Test Match Playing Conditions, effective June 2025]], says:
+
+#+begin_quote
+If the umpire miscounts the number of valid balls, the over as counted by the umpire shall stand.
+#+end_quote
+
+That means a valid wicket or runs from that extra delivery would count too.
+
+Imagine losing your wicket on a ball that should never have been bowled!
+
+I understand that umpires can make mistakes. But in a game where we examine millimetres to decide a no-ball, surely we can help them keep count of six?

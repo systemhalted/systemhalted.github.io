@@ -5,6 +5,5 @@
 #+TAGS: cooking, food, firsts
 #+COMMENTS: true
 #+TOC: false
-#+DRAFTS: true
 
 Cooked food and ate it. For the first time in my life, I made daal!!

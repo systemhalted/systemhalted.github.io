@@ -5,7 +5,6 @@
 #+TAGS: cricket, Pakistan, World Cup, Wasim Akram, team management
 #+COMMENTS: true
 #+TOC: false
-#+DRAFTS: true
 
 I remember supporting Pakistan in the late 1990s and early 2000s whenever they played against a country other than India. Wasim Akram and Waqar Younis made their pace attack something special. Then there was Shahid Afridi, whose leg-spin and aggressive batting brought their own excitement.
 

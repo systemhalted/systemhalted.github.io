@@ -1,0 +1,10 @@
+#+TITLE: My First Daal!
+#+DESCRIPTION: Cooked daal for the first time in my life. And ate it too!
+#+DATE: 2008-12-15
+#+CATEGORIES: Personal Essays
+#+TAGS: cooking, food, firsts
+#+COMMENTS: true
+#+TOC: false
+#+DRAFTS: true
+
+Cooked food and ate it. For the first time in my life, I made daal!!

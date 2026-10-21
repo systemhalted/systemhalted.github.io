@@ -5,9 +5,9 @@
 set -euo pipefail
 
 needs=true
-while IFS= read -r path; do
+while IFS= read -r path || [[ -n "$path" ]]; do
   [[ -z "$path" ]] && continue
-  if [[ "$path" == org/*.org ]]; then
+  if [[ "$path" == org/*.org  || "$path" == assets/images/*]]; then
     needs=false
   else
     needs=true

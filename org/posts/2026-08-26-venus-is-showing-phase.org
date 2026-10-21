@@ -1,0 +1,25 @@
+
+#+TITLE: Look Up: Venus Is Showing Us a Phase
+#+DESCRIPTION: Why does Venus have phases? This post explores the current star of the evening sky.
+#+DATE: 2026-08-26
+#+CATEGORIES: Astronomy
+#+TAGS: Venus, Frisco StarFest, stargazing, planets, evening star, morning star
+#+COMMENTS: true
+#+TOC: false
+
+If you step outside shortly after sunset this week, look low toward the western sky. That exceptionally bright point of light is Venus. If you visited us for Frisco StarFest this month you must have had the opportunity to look at Venus from one of the telescopes.
+
+Venus is especially interesting right now because it has just reached its greatest eastern elongation, its largest apparent separation from the Sun in the evening sky. Through a telescope, Venus currently looks roughly half illuminated, almost like a tiny first-quarter Moon.
+
+* Why does a planet have phases?
+
+Venus orbits the Sun inside Earth’s orbit. As Venus moves around the Sun, we see different fractions of its sunlit hemisphere, producing crescent, half, gibbous, and nearly full phases, much like the Moon.
+
+This seemingly simple observation played an important role in the history of astronomy.
+
+In 1610, Galileo observed that Venus goes through a full range of phases. That observation was incompatible with the traditional Ptolemaic model, in which Venus could never appear through the complete sequence of phases. It provided strong evidence that Venus orbits the Sun. It did not, by itself, prove that Earth also orbits the Sun, because other models of the time could explain the observation too, but it was an important step toward our modern understanding of the Solar System.
+So when you look at Venus this week, you are looking at essentially the same astronomical clue that helped reshape our picture of the Solar System more than 400 years ago.
+
+Try it: Find Venus with your unaided eyes after sunset. If you have access to a telescope, see if you can make out its half-lit shape.
+
+Clear skies from Frisco StarFest!

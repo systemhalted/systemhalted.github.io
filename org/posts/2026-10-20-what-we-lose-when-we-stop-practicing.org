@@ -1,4 +1,4 @@
-#+TITLE: What We Lose When We Stop Practising
+#+TITLE: What We Lose When We Stop Practicing
 #+DESCRIPTION: When technology saves us effort, it can also remove the practice that builds our skills, understanding, and independence.
 #+DATE: 2026-10-20
 #+CATEGORIES: AI, Software Engineering, Personal Essays

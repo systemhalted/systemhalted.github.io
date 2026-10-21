@@ -8,7 +8,7 @@
 
 This probably is my first Ghazal.
 
-#+begin_example
+#+begin_verse
 दूर आगरा से (door Agra se)
 ==================
 घर से निकले, निकल आये दूर आगरा से,
@@ -32,6 +32,6 @@ Kab tak bebas, jiya jaye door Agra se
 Kyun kar gumsum yeh reh paaye door Agra se
 
 ~पलक (Palak)
-#+end_example
+#+end_verse
 
 [[/assets/images/taj-lego.jpeg]]

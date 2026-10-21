@@ -8,7 +8,7 @@
 
 Yesterday night I wrote this poem in Hindustani. In the evening today we watched #Uunchai. I didn't know the poem will be so apt. Here presenting again
 
-#+begin_example
+#+begin_verse
 Naya Savera Sang Nayi Umra Laaya,
 Nayi Adab, Naya Ehtaram laaya,
 Har jagah tere hunar ki Shuaa pahunchi,
@@ -19,4 +19,4 @@ Jab Suraj subah ujali dhoop laaya!
 हर जगह तेरे हुनर की शूआ’ पहुँची,
 जब सूरज सुबह उजली धूप लाया॥
 ~ पलक
-#+end_example
+#+end_verse

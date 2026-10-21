@@ -12,7 +12,7 @@ Nazeer Akbarabadi loved Agra so much that though he was born in Delhi and moved 
 
 He wrote beautiful poetry on Indian, specially Hindu festivals. His poetry is a great example Ganga-Jamuni Tehzeeb (culture), showcasing the syncretic Indian and Muslim thought. Here I am presenting one of his Nazms, “Mahadevji ka Byah”
 
-#+begin_example
+#+begin_verse
     पहले नाँव गणेश का, लीजिए सीस नवाए 
     जा से कारज सिद्ध हों, सदा महूरत लाए 
     pahle naañv ganesh kaa, lījiye siis navā.e 
@@ -42,4 +42,4 @@ He wrote beautiful poetry on Indian, specially Hindu festivals. His poetry is a 
     महिमा उस की भी रहे जिस का नाम 'नज़ीर'  
     ḳhushī rahe din raat vo, kabhī na ho dil-gīr 
     mahimā us kī bhī rahe jis kā naam 'nazīr'
-#+end_example
+#+end_verse

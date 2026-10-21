@@ -1,0 +1,36 @@
+#+TITLE: What We Lose When We Stop Practising
+#+DESCRIPTION: When technology saves us effort, it can also remove the practice that builds our skills, understanding, and independence.
+#+DATE: 2026-10-20
+#+CATEGORIES: AI, Software Engineering, Personal Essays
+#+TAGS: technology, AI, learning, skills, human agency, philosophy
+#+COMMENTS: true
+#+TOC: false
+
+We usually judge technology by how much effort it saves us. A feature that once took a team of developers several sprints to build and deploy now takes a single engineer a couple of days. A task that once took an hour now takes minutes. Something that required a skill can now be done with a prompt. These are useful improvements, but the effort we remove sometimes has value beyond completing the task.
+
+In her essay [[https://aeon.co/essays/the-more-we-rely-on-tech-the-more-we-deskill-our-bodies][Deskilling the body]], Melanie Challenger argues that our abilities develop through participation. Finding our way, putting thoughts into words, and responding to our surroundings involve a body that learns through doing. When tools repeatedly take over these activities, we lose opportunities to exercise the abilities behind them.
+
+Software development provides a useful example. Linus Torvalds has defended the use of AI tools in Linux kernel development. In an October 13, 2026 [[https://lkml.iu.edu/2610.1/13255.html][mailing list discussion]], he rejected blanket restrictions on AI use while making his expectation clear that contributors should understand what they are doing. His position leaves room for better tools without treating their use as evidence of incompetence. 
+
+This marks an important evolution in the [[https://www.theregister.com/software/2024/10/29/linus-torvalds-90-of-ai-marketing-is-hype-so-i-ignore-it/390369?utm_source=chatgpt.com][public stance]] of one of the most formidable names in software today, from scepticism about AI hype to openly defending its use in kernel development. Linus' expectation that the contributors should understand what they are doing is important and matters the most. I would extend it to say that if the developer is contributing, they are responsible as well[fn:1]. A developer can use AI to explore an unfamiliar implementation, identify mistakes, or produce code that they then examine carefully. The developer still has to judge whether the result solves the problem and fits the system. Producing an answer and understanding it remain separate. The expectation is for the developers to bridge that gap. 
+
+My team's experience brought another part of this into focus. After they consumed their monthly token quota, their efficiency dropped[fn:2], prompting a request for additional tokens. Access to AI had become a meaningful dependency in how the team works. 
+
+That observation alone does not establish that anyone had lost their skills. A team accustomed to a useful tool can reasonably become slower when that tool disappears. I cannot be productive in Java without IntelliJ. I cannot function without Emacs. I need my terminal to be a certain way and my tiling window manager to be there for me to efficiently navigate my computer. 
+
+However, it raises an important question: how much of the improvement came from stronger understanding and how much depended on continued access to the tool? More tokens may address this immediate slowdown. They do not, however, answer the question.
+
+There is a similar distinction in writing. Choosing words and arranging an argument help us discover what we mean. Challenger distinguishes between writing a draft before seeking assistance and accepting a draft produced for us. The final text may be equally good, but the writer has used the tool differently.
+
+I think we should account for this when deciding what to automate. Some effort is repetitive and adds little value. Other effort develops the understanding we need to make decisions independently. Treating both as waste makes efficiency an incomplete metric for progress. 
+
+As a manager, I do not want my weakest developers to use AI to write code for them. They are still building the foundations they need to judge whether the generated code is correct and understand why it works. Working through problems themselves is part of developing that understanding. I ask them to use AI as a programming pair, where they act as the driver and AI as a navigator. They should use the navigator to understand the route they are taking, challenge their proposed solution and investigate alternatives.
+
+Linus' expectation is a useful benchmark here: understand what you are doing. As our tools become more capable, maintaining that understanding will require deliberate attention. Getting the work done matters for the team, but keeping the ability to understand and direct that work matters too. 
+
+
+* Footnotes
+
+[fn:1] By responsibility, I mean the developer’s duty to understand and verify the code they contribute. Accountability also concerns who must answer for the decisions made and their consequences. I explored that broader question [[/2026/08/21/ai-governance-needs-accountability-not-just-principles/][here]].
+
+[fn:2] I did not measure the productivity loss or the drop in their efficiency. It is the argument my team made to make me request additional tokens. 

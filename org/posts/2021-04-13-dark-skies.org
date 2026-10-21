@@ -1,8 +1,8 @@
 #+TITLE: Dark Skies - Need them now more than ever
 #+DESCRIPTION: There is light everywhere, and you want it to go off. Need dark skies more than ever. There is nothing that tell and forces and pleads to the people to dare to dream than the beauty of a night sky with it’s beautiful nebulas, distant galaxies, star clusters and the wish to explore them all.
 #+DATE: 2021-04-13
-#+CATEGORIES: Sports & Hobbies, Personal Essays
-#+TAGS: sports, personal, opinion, astronomy, india
+#+CATEGORIES: Astronomy, Personal Essays
+#+TAGS: skygazing, dark sky, illumination, light pollution, bortle, India
 #+PERMALINK: /2021/04/13/dark-skies/
 #+COMMENTS: true
 

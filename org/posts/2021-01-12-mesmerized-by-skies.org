@@ -1,8 +1,8 @@
 #+TITLE: Mesmerized by Skies
 #+DESCRIPTION: First look at the skies through the binoculars and I must say I am hooked for life
 #+DATE: 2021-01-12
-#+CATEGORIES: Sports & Hobbies
-#+TAGS: sports, astronomy
+#+CATEGORIES: Astronomy
+#+TAGS: telescope, stargazing, Orion, dobsonian, nebula, M45, messier objects, astrology, krittika nakshatra, nakshatra
 #+PERMALINK: /2021/01/12/mesmerized-by-skies/
 #+COMMENTS: true
 

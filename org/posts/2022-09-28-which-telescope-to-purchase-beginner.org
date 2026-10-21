@@ -1,8 +1,8 @@
 #+TITLE: Which Beginner Telescope to Purchase
 #+DESCRIPTION: This is the first question that everyone asks when getting into star-gazing. Here I repeat what experienced amateur astronomers say.
 #+DATE: 2022-09-28
-#+CATEGORIES: Sports & Hobbies, Life Events
-#+TAGS: sports, personal, astronomy
+#+CATEGORIES: Astronomy
+#+TAGS: stargazing, universe, telescope, dobsonian, binoculars
 #+PERMALINK: /2022/09/28/which-telescope-to-purchase-beginner/
 #+COMMENTS: true
 

@@ -18,7 +18,7 @@ There has always been a debate whether KK is better or Sonu Nigam and honestly I
 
 I just can't believe KK is no more. With his demise, a huge part of my growing up days has been taken away.
 
-#+begin_example
+#+begin_verse
     हम रहें या ना रहें कल,
     कल याद आएँगे यह पल,
     पल यह हैं प्यार के पल,
@@ -29,6 +29,6 @@ I just can't believe KK is no more. With his demise, a huge part of my growing u
     होगी अपनी दीवानी।
     
     
-#+end_example
+#+end_verse
 
 True, this world will forever remain mesmerized by you and your songs KK. Om Shanti!

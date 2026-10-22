@@ -1,5 +1,5 @@
 #+TITLE: FFI and Miscompilation Bug in Rust
-#+DESCRIPTION: This blog explores how Rust, C, C++ and Java treat boolean across language boundaries
+#+DESCRIPTION: A Rust FFI bug shows how Java converts native Boolean values and why it can still get the wrong answer.
 #+DATE: 2026-10-16
 #+CATEGORIES: Software Engineering
 #+TAGS: C, C++, Java, Rust
@@ -7,23 +7,46 @@
 
 Rust just fixed a [[https://blog.rust-lang.org/2026/10/15/Rust-1.99.1/][bug]] with booleans returned across language boundaries.
 
-Using bool directly in Foreign Function Interfaces (FFI) is a frequent source of undefined behavior and subtle bugs, primarily because boolean representation varies dramatically across programming languages and application binary interfaces (ABIs).
+I initially thought Java handled this situation safely because its Foreign Function & Memory API did not provide a Boolean layout. That explanation was wrong. Java provides =ValueLayout.JAVA_BOOLEAN=. Java does handle the returned value differently, but it can still give the wrong answer.
 
-In languages like Rust, C++, etc. a boolean must strictly be represented by a specific byte value, which is typically 0 for false and 1 for true.
+Using booleans in Foreign Function Interfaces (FFI) requires agreement on the native type and the application binary interface (ABI). The ABI specifies how values are passed, including which bits of a return register must be defined. Two languages agreeing on what true and false mean is not enough if the generated machine code breaks that contract.
 
-However, C historically treats any non-zero value as true. If a C library returns a byte value like 2 or 42 across the FFI into a language expecting strictly 0 or 1, it violates that language's type invariants. This causes immediate undefined behavior, which can manifest as broken conditional branches, miscompilations, or silent data corruption.
+The [[https://github.com/rust-lang/rust/issues/163911][Rust bug report]] gives a small example:
 
-Java follows a different philosophy. In Java 22+, you interact with native code using Foreign Function & Memory API (java.lang.foreign). This API does not provide a direct ValueLayout.JAVA_BOOLEAN. Instead, you must explicitly choose a byte-sized numeric layout to represent how the native C platform treats that boolean:
+#+begin_src rust
+pub unsafe extern "C" fn rust_fn_returning_bool(flags: u8) -> bool {
+    (flags & 0x1) == 0x1
+}
+#+end_src
 
-  • For C99 _Bool or bool: This is almost always 1 byte. Use ValueLayout.JAVA_BYTE.
+This function tests the lowest bit. With input =0x10=, or decimal 16, that bit is zero, so the answer should be false.
 
-  • For legacy Win32 BOOL: This is historically an int (4 bytes). Use ValueLayout.JAVA_INT.
+However, Rust 1.99.0 generated code that copied the input into the return register without masking it. The caller consequently received 16. The x86_64 ABI requires bits 1 through 7 of a Boolean return to be zero, but the compiler had omitted the zero-extension marking needed to preserve that requirement. Rust 1.99.1 restored it.
 
-Since, Java is expecting either raw bytes or primitive int and not a cross-boundary bool type, the likelihood of the miscompilation bug happening is minimal. It makes no compiler-level assumptions about the truthiness of the bits inside the register.
+This was not C allowing 16 as a valid Boolean representation. C conditionals treat zero as false and nonzero as true, but converting a scalar value to C's =_Bool= type produces 0 or 1. C has had that built-in type since C99. C++ also has a built-in =bool= type. A compiler can rely on the Boolean return contract rather than defensively normalizing every result from another language.
 
-If a C or Rust function suffers from a registration-masking bug and returns 16 instead of 1, Java safely swallows the 16 as a raw byte. When your code evaluates 16 != 0, it correctly maps to true.
+Rust's [[https://doc.rust-lang.org/reference/types/boolean.html][Boolean validity rules]] permit only the byte representations 0 and 1. An invalid representation entering a Rust =bool= violates those rules and causes undefined behavior. But the bug here originated in the compiler's handling of an otherwise valid Rust function, not in the programmer choosing an invalid Boolean value.
 
-Because Java does the translation strictly based on bits and bytes rather than boolean logic, if a poorly written C library returns a garbage non-zero byte (like 0x02 or 0xFF) and you try to check for a strict 1 (e.g., cResult == 1), your Java code will evaluate it as false. Always use the != 0 pattern to mimic how C handles truthiness natively.
+Java 22's Foreign Function & Memory API lets Java call native functions. It provides [[https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/foreign/ValueLayout.html#JAVA_BOOLEAN][=ValueLayout.JAVA_BOOLEAN=]] to describe a Boolean value passed between Java and native code. On Linux/x64, Java's [[https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/foreign/Linker.html][native linker]] uses this layout for C =bool=.
 
-I used to think boolean was the simplest data type. But this bug changed my views. 
+I checked how OpenJDK 22 reads a Boolean returned by a native function. It takes the lowest byte of the returned value and checks whether it is zero. Zero becomes false; any other byte value becomes true. This conversion is visible in the [[https://github.com/openjdk/jdk/blob/jdk-22-ga/src/java.base/share/classes/jdk/internal/foreign/abi/BindingSpecializer.java][FFM code]] and its [[https://github.com/openjdk/jdk/blob/jdk-22-ga/src/java.base/share/classes/jdk/internal/foreign/Utils.java][conversion helper]].
+
+So what happens when the broken Rust function returns 16? Java turns it into true because 16 is not zero. But the Rust function was checking the lowest bit, which is zero in 16. The intended answer was false.
+
+I tested this on OpenJDK 22.0.2 on Linux/x64, using a small native library with the broken and corrected machine instructions from the Rust bug report. This tested the same returned values without requiring the affected Rust compiler.
+
+| Input | Expected answer | Java with broken native code | Java with corrected native code |
+|-------+-----------------+------------------------------+---------------------------------|
+| =0x00= | false | false | false |
+| =0x01= | true | true | true |
+| =0x10= | false | true | false |
+| =0x11= | true | true | true |
+
+Across all 256 possible byte inputs, the broken code caused Java to return true for 127 inputs that should have produced false. These results describe the OpenJDK version and platform tested.
+
+Java therefore handles the returned value differently, but that does not make the answer correct. Rust allows only 0 and 1 as valid =bool= representations. OpenJDK's FFM code converts the returned byte into a Java true or false. It can turn an unexpected value into a valid Boolean, but it cannot know what the native function meant to return.
+
+The Java declaration must still match the native function. Use the appropriate Boolean layout for a native Boolean. If the function returns an integer flag, use the matching integer layout and follow the library's rules for interpreting it. For example, Win32 =BOOL= is an =int=, so it uses =ValueLayout.JAVA_INT= on Windows. Switching a Boolean layout to a byte layout does not fix the underlying compiler bug.
+
+I used to think boolean was the simplest data type. But this bug changed my views. A value can be valid for the receiving language and still be wrong for the program.
 

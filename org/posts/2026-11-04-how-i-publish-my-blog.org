@@ -1,0 +1,126 @@
+#+TITLE: How I Publish My Blog
+#+DESCRIPTION: How I publish SystemHalted using Org Mode, Emacs Lisp, and GitHub Pages.
+#+DATE: 2026-11-04
+#+CATEGORIES: Software Engineering, Technology
+#+TAGS: emacs, org-mode, publishing, blogging, github-actions
+#+COMMENTS: true
+#+TOC: true
+#+MERMAID: true
+
+In September, I wrote about [[/2026/09/26/publishing-blog-using-org-mode-and-emacs/][moving my blog from Jekyll to Emacs and Org Mode]]. That post explained why I made the change and how AI coding agents helped with the migration. I want to explain what happens now when I write and publish an article.
+
+I write in Org Mode. An Emacs Lisp program generates the site, and GitHub Actions deploys it to GitHub Pages. There is no intermediate Markdown conversion or Jekyll build.
+
+My routine is to write, preview, review the changes, and push them to GitHub.
+
+** Writing
+
+I keep the content in a [[https://github.com/systemhalted/systemhalted.github.io][GitHub repository]]. Published articles live in =org/posts/=, while unfinished work lives in =org/drafts/=. Separate directories contain standalone pages, Emacs notes, and the data used to build parts of the site.
+
+To start an article, I use =M-x systemhalted-new-post=. Emacs asks for a title and description, creates a dated file under =org/drafts/=, and opens it for editing. A new file contains metadata like this:
+
+#+begin_src org
+,#+TITLE: An Example Article
+,#+DESCRIPTION: A short description of the article.
+,#+DATE: 2026-11-04
+,#+CATEGORIES: Software Engineering
+,#+TAGS: emacs, publishing
+,#+DRAFT: true
+#+end_src
+
+The filename follows =YYYY-MM-DD-slug.org=. It normally determines the article's URL, so =2026-11-04-an-example-article.org= becomes =/2026/11/04/an-example-article/=. I can use =#+PERMALINK= when an older article needs to retain its existing URL.
+
+Categories and tags feed the site's indexes, =#+TOC: true= enables a table of contents, and =#+COMMENTS: true= enables comments.
+
+** Previewing
+
+When I want to check a draft, I run =M-x systemhalted-preview=. The command saves the current Org file, generates a local preview, starts a small HTTP server, and opens the article in my browser.
+
+A preview includes drafts and future-dated posts. The production site excludes both. I can inspect an unfinished article at its eventual public URL without making it public.
+
+The preview server is written in Emacs Lisp. I do not need Jekyll or a separate Node-based development server.
+
+When the article is ready, I move it from =org/drafts/= to =org/posts/= and remove =#+DRAFT: true=.
+
+** Building the Site
+
+The site generator lives in [[https://github.com/systemhalted/systemhalted.github.io/blob/main/publish/systemhalted-publish.el][=publish/systemhalted-publish.el=]]. It uses the Org and HTML libraries bundled with Emacs, along with a vendored copy of =htmlize= for source-code highlighting.
+
+The publisher starts by reading the metadata from each Org file and converting it into an Emacs Lisp structure called =systemhalted-record=.
+
+For example, the record for =2026-11-04-an-example-article.org= contains its source path, title, date, categories, tags, and calculated URL. It also stores the type of content (=post=, =draft=, =page=, or =emacs=) and flags for features such as comments and the table of contents.
+
+A record exists in memory during the build. There is no separate metadata database. The publisher creates the records, selects the content that belongs in the current build, and uses the collection to generate the site.
+
+#+begin_src mermaid
+flowchart TD
+    A["Org files: posts, drafts, pages, notes"] --> B["Read metadata and filenames"]
+    B --> C["Content records"]
+    C --> D["Select visible records"]
+    D --> E["Export article and page HTML"]
+    D --> F["Generate archives, categories and tags"]
+    D --> G["Generate RSS, sitemap and search data"]
+    E --> H["Temporary site directory"]
+    F --> H
+    G --> H
+    H --> I["Validate output"]
+    I --> J["Install _site/"]
+#+end_src
+
+The home page uses the newest post records, the archive organizes posts by date, and category and tag pages use their metadata. Related articles are selected by comparing records. Links between Org sources are resolved to the target records' public URLs.
+
+The article bodies are exported separately using Org's HTML exporter and combined with the metadata and shared templates. RSS, the sitemap, and browser-search data come from the same collection of records.
+
+The final output goes into =_site/=, which is ignored by Git. The Org files, templates, assets, and publisher code remain the maintained sources.
+
+** Validation
+
+I wanted the publisher to catch errors before they reached the live site.
+
+It checks metadata, duplicate routes, broken local links, missing assets, leftover Jekyll Liquid syntax, and malformed XML.
+
+The site is generated in a temporary directory. Only after validation succeeds does the publisher replace =_site/=. A failed build leaves the previous output intact.
+
+The publisher also uses content-based hashes for asset versions, so unchanged files retain the same cache-busting values.
+
+** Publishing
+
+I use =M-x systemhalted-publish= to run the production build and open Magit. The command does not stage, commit, or push anything. I review the changes and commit them myself.
+
+Once I push to =main=, [[https://github.com/systemhalted/systemhalted.github.io/blob/main/.github/workflows/pages.yml][GitHub Actions]] runs the publisher using Emacs 31.1 and deploys the generated site to GitHub Pages.
+
+The workflow includes publisher tests and an EWW rendering check. A [[https://github.com/systemhalted/systemhalted.github.io/blob/main/.github/workflows/a11y.yml][separate accessibility workflow]] runs browser smoke tests and an Axe audit.
+
+For changes limited to Org content or images under =assets/images/=, the deployment workflow skips the publisher tests and CI contract checks. The regular site generation and checks still run.
+
+** Walkthrough
+
+Here is how I publish a new article called "An Example Article."
+
+1. *Create a draft.* I run =M-x systemhalted-new-post=, enter the title and description, and Emacs creates =org/drafts/2026-11-04-an-example-article.org=.
+
+2. *Write.* I fill in the categories and tags, write the article in Org Mode, and save it.
+
+3. *Preview.* I run =M-x systemhalted-preview=. Emacs opens the article at =http://127.0.0.1:4000/2026/11/04/an-example-article/=, assuming the default preview port is available. I edit and preview as needed.
+
+4. *Prepare for publication.* I move the file to =org/posts/= and remove =#+DRAFT: true=.
+
+5. *Commit.* I run =M-x systemhalted-publish=, review the changes in Magit, and commit the article.
+
+6. *Push.* I push to =main=. GitHub Actions takes care of deployment.
+
+Once deployment succeeds, the article is available at =https://systemhalted.in/2026/11/04/an-example-article/=.
+
+I do not need to generate HTML manually, update an archive, or upload files to a server.
+
+** Why I Use It
+
+I like having one source format for writing and notes. I can write in Org Mode without thinking about a conversion step, and Git gives me a history of the actual content.
+
+The local and GitHub environments use the same publishing code. I can reproduce the generated site on my machine whenever I need to.
+
+I now maintain the publisher myself instead of relying on a mature static-site generator. Bugs and new features may require changes to Emacs Lisp, and the tests help me manage that.
+
+I do not think everyone needs a custom publishing system. Jekyll served me well for years. This setup works for me because I already spend much of my writing time in Emacs.
+
+Publishing SystemHalted now means writing an Org file, checking it locally, and pushing a reviewed change to Git. The rest is handled by the publishing pipeline.

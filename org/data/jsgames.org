@@ -8,3 +8,6 @@ Pick a number between 1 and 20. Get hints until you find it.
 
 * [[/jsgames/reeti-40/][Reeti @ 40]]
 A host-driven 1986 trivia show for my sister's 40th — 12 trivia questions across three rounds, rapid-fire, and the population gag.
+
+* [[/jsgames/gaana-pakdo/][Gaana Pakdo]]
+A party game for couples. A Hindi film song plays, and the first partner to grab the prop it names wins the round. 14 songs, so every couple plays at least twice.

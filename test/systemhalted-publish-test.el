@@ -1101,7 +1101,7 @@ live's sitemap lists them, so ours must too."
             (insert-file-contents (expand-file-name "sitemap.xml" output))
             (let ((xml (buffer-string)))
               (dolist (route '("/jsgames/" "/jsgames/guess-number/" "/jsgames/pig-game/"
-                               "/jsgames/reeti-40/"
+                               "/jsgames/reeti-40/" "/jsgames/gaana-pakdo/"
                                "/wireframes/systemhalted-writing-first.html"))
                 ;; An exact `<loc>' match, not a substring: "/jsgames/" is
                 ;; itself a substring of "/jsgames/pig-game/" and would
@@ -2089,7 +2089,7 @@ none."
 mirroring `main:_data/jsgames.yml'."
   (let ((games (systemhalted--read-jsgames systemhalted-test-root)))
     (should (equal (mapcar (lambda (g) (plist-get g :title)) games)
-                   '("Pig Game" "Guess the Number" "Reeti @ 40")))
+                   '("Pig Game" "Guess the Number" "Reeti @ 40" "Gaana Pakdo")))
     (should (equal (plist-get (car games) :url) "/jsgames/pig-game/"))
     (should (plist-get (car games) :description))))
 

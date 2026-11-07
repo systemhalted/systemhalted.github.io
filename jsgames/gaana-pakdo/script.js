@@ -4,6 +4,7 @@
   const SONGS = window.GAANA_SONGS || [];
   const SONG_BY_ID = new Map(SONGS.map((s) => [s.id, s]));
   const STORE_KEY = "gaana-pakdo:game";
+  const SPOTIFY_KEY = "gaana-pakdo:spotify";
   const app = document.getElementById("app");
   const help = document.getElementById("help");
 
@@ -15,6 +16,39 @@
   let animateReveal = false;
 
   let state = load() || freshState();
+
+  // Spotify track ids the host pasted on the setup screen, keyed by song id.
+  // Kept apart from the game so a new game keeps them.
+  const spotifyLinks = loadSpotifyLinks();
+
+  function loadSpotifyLinks() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SPOTIFY_KEY) || "{}");
+      return saved && typeof saved === "object" ? saved : {};
+    } catch (_e) {
+      return {};
+    }
+  }
+
+  function saveSpotifyLinks() {
+    try {
+      localStorage.setItem(SPOTIFY_KEY, JSON.stringify(spotifyLinks));
+    } catch (_e) {
+      /* the links last until the page closes */
+    }
+  }
+
+  // Accepts a song link (open.spotify.com/track/ID, with or without
+  // /intl-xx/ or ?si=), a spotify:track:ID URI, or a bare 22-character id.
+  function parseSpotifyTrack(text) {
+    const value = String(text || "").trim();
+    const match = value.match(/track[/:]([A-Za-z0-9]{22})/) || value.match(/^([A-Za-z0-9]{22})$/);
+    return match ? match[1] : null;
+  }
+
+  function spotifyTrack(song) {
+    return spotifyLinks[song.id] || parseSpotifyTrack(song.spotify);
+  }
 
   function freshState(couples) {
     return {
@@ -113,6 +147,10 @@
     return "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
   }
 
+  function spotifySearchUrl(song) {
+    return "https://open.spotify.com/search/" + encodeURIComponent(`${song.title} ${song.film}`);
+  }
+
   // ─── Game flow ─────────────────────────────────────────────────────
 
   function startGame() {
@@ -150,6 +188,8 @@
 
   function goTo(index) {
     stopSong();
+    setCover(true);
+    setDockMessage("");
     if (index >= state.rounds.length) {
       state.phase = "final";
     } else {
@@ -186,15 +226,28 @@
     return round ? SONG_BY_ID.get(round.songId) : null;
   }
 
+  // Where a song plays from, in order of preference.
+  function source(song) {
+    if (!song) return null;
+    if (audioUrls.has(song.id)) return "file";
+    if (song.audio) return "audio";
+    if (spotifyTrack(song)) return "spotify";
+    if (song.youtube) return "youtube";
+    return null;
+  }
+
   function canPlay(song) {
-    return !!(song && (audioUrls.has(song.id) || song.audio || song.youtube));
+    return source(song) !== null;
   }
 
   function playSong() {
     const song = currentSong();
-    if (!canPlay(song)) return;
+    const from = source(song);
+    if (!from) return;
     stopSong();
-    if (audioUrls.has(song.id) || song.audio) {
+    if (from === "spotify") {
+      spotifyPlay(spotifyTrack(song));
+    } else if (from === "file" || from === "audio") {
       audioEl = new Audio(audioUrls.get(song.id) || song.audio);
       audioEl.addEventListener("ended", () => {
         playing = false;
@@ -214,7 +267,122 @@
       audioEl.pause();
       audioEl = null;
     }
+    spotifyStop();
     playing = false;
+  }
+
+  // ─── Spotify ───────────────────────────────────────────────────────
+  //
+  // The Spotify embed lives in a dock outside #app, because re-rendering
+  // the screen would otherwise reload the iframe and stop the music. A cover
+  // hides the track title until the host chooses to show the player.
+
+  const dock = document.getElementById("spotify-dock");
+  const dockEmbed = document.getElementById("spotify-embed");
+  const dockCover = document.getElementById("spotify-cover");
+  const dockToggle = dock.querySelector("[data-action='toggle-cover']");
+  const dockMsg = document.getElementById("spotify-msg");
+  let spotifyApi = null;
+  let spotifyController = null;
+  let spotifyLoading = false;
+  let spotifyPending = null;
+  let spotifyWatchdog = null;
+  let spotifyUsed = false;
+
+  function setDockMessage(text) {
+    dockMsg.textContent = text;
+  }
+
+  function setCover(covered) {
+    dockCover.hidden = !covered;
+    dockToggle.textContent = covered ? "Show player" : "Hide player";
+  }
+
+  dockToggle.addEventListener("click", () => setCover(dockCover.hidden));
+
+  function loadSpotifyApi() {
+    if (spotifyApi || spotifyLoading) return;
+    spotifyLoading = true;
+    window.onSpotifyIframeApiReady = (api) => {
+      spotifyApi = api;
+      spotifyLoading = false;
+      if (spotifyPending) {
+        const id = spotifyPending;
+        spotifyPending = null;
+        spotifyStart(id);
+      }
+    };
+    const script = document.createElement("script");
+    script.src = "https://open.spotify.com/embed/iframe-api/v1";
+    script.async = true;
+    script.onerror = () => {
+      spotifyLoading = false;
+      spotifyPending = null;
+      setDockMessage("Could not load Spotify. Check the internet connection.");
+      playing = false;
+      render();
+    };
+    document.head.append(script);
+  }
+
+  function spotifyPlay(id) {
+    spotifyUsed = true;
+    dock.hidden = false;
+    setDockMessage(spotifyApi ? "" : "Loading Spotify…");
+    if (!spotifyApi) {
+      spotifyPending = id;
+      loadSpotifyApi();
+      return;
+    }
+    spotifyStart(id);
+  }
+
+  function spotifyStart(id) {
+    const uri = `spotify:track:${id}`;
+    setDockMessage("");
+    clearTimeout(spotifyWatchdog);
+    // Browsers can block playback started from outside the embed. If nothing
+    // plays, the host can uncover the player and press its own play button.
+    spotifyWatchdog = setTimeout(() => {
+      if (playing) setDockMessage("Spotify has not started. Click “Show player” and press play in it.");
+    }, 5000);
+
+    if (spotifyController) {
+      spotifyController.loadUri(uri);
+      spotifyController.play();
+      return;
+    }
+    const target = document.createElement("div");
+    dockEmbed.replaceChildren(target);
+    spotifyApi.createController(target, { uri, width: "100%", height: 152 }, (controller) => {
+      spotifyController = controller;
+      controller.addListener("ready", () => {
+        if (playing) controller.play();
+      });
+      controller.addListener("playback_update", (e) => {
+        const data = e.data || {};
+        if (!data.isPaused) {
+          clearTimeout(spotifyWatchdog);
+          setDockMessage("");
+        } else if (playing && data.duration > 0 && data.position >= data.duration - 500) {
+          playing = false;
+          render();
+        }
+      });
+    });
+  }
+
+  function spotifyStop() {
+    clearTimeout(spotifyWatchdog);
+    spotifyPending = null;
+    if (spotifyController) spotifyController.pause();
+  }
+
+  function updateDock() {
+    const show =
+      spotifyUsed && state.phase === "play" && source(currentSong()) === "spotify";
+    dock.hidden = !show;
+    document.body.classList.toggle("has-dock", show);
   }
 
   function togglePlay() {
@@ -254,6 +422,7 @@
     else if (state.phase === "final") renderFinal();
     else renderSetup();
     animateReveal = false;
+    updateDock();
   }
 
   function header(extra) {
@@ -273,6 +442,48 @@
     const needed = songsNeeded();
     const enough = needed <= SONGS.length;
     const matched = SONGS.filter((s) => audioUrls.has(s.id)).length;
+    const linked = () => SONGS.filter((s) => spotifyTrack(s)).length;
+    const linkedSummary = el("summary", {
+      text: `Spotify links: ${linked()} of ${SONGS.length} set (this list shows song titles)`,
+    });
+
+    const spotifyRows = SONGS.map((s) => {
+      const status = el("span", { class: "link-status", text: spotifyTrack(s) ? "✓" : "" });
+      const stored = spotifyLinks[s.id];
+      return el("div", { class: "link-row" }, [
+        el("label", { for: `sp-${s.id}` }, [
+          el("strong", { text: s.title }),
+          el("span", { class: "muted", text: ` · ${s.film}` }),
+        ]),
+        el("div", { class: "link-input" }, [
+          el("input", {
+            id: `sp-${s.id}`,
+            type: "text",
+            inputmode: "url",
+            placeholder: s.spotify ? "Set in songs.js" : "https://open.spotify.com/track/…",
+            value: stored ? `https://open.spotify.com/track/${stored}` : "",
+            onchange: (e) => {
+              const text = e.target.value.trim();
+              const id = parseSpotifyTrack(text);
+              if (id) spotifyLinks[s.id] = id;
+              else delete spotifyLinks[s.id];
+              saveSpotifyLinks();
+              status.textContent = spotifyTrack(s) ? "✓" : text ? "Not a Spotify song link" : "";
+              status.classList.toggle("bad", !id && !!text);
+              linkedSummary.textContent = `Spotify links: ${linked()} of ${SONGS.length} set (this list shows song titles)`;
+            },
+          }),
+          el("a", {
+            class: "btn ghost small",
+            href: spotifySearchUrl(s),
+            target: "_blank",
+            rel: "noopener noreferrer",
+            text: "Search ↗",
+          }),
+          status,
+        ]),
+      ]);
+    });
 
     const coupleRows = state.couples.map((c, i) =>
       el("div", { class: "couple-row" }, [
@@ -394,14 +605,29 @@
 
         el("div", { class: "panel" }, [
           el("h2", { text: "3. Music" }),
+          el("h3", { text: "Spotify" }),
           el("p", { class: "muted" }, [
-            "Load your own audio files. Name each file after the song's key, for example ",
+            "Paste a Spotify link for each song (in Spotify: the song's ⋯ menu, Share, Copy Song Link). ",
+            "The song then plays from this page with its title covered. Log in at ",
+            el("a", {
+              href: "https://open.spotify.com",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              text: "open.spotify.com",
+            }),
+            " in this browser first; without a login Spotify plays 30-second previews. ",
+            "Fill these in before guests can see the screen.",
+          ]),
+          el("details", { class: "spotify-links" }, [linkedSummary, el("div", { class: "link-rows" }, spotifyRows)]),
+          el("h3", { text: "Audio files" }),
+          el("p", { class: "muted" }, [
+            "Or load your own audio files. Files win over Spotify links. Name each file after the song's key, for example ",
             el("code", { text: "jhumka.mp3" }),
             " or ",
             el("code", { text: "kajra.m4a" }),
             ". The keys are: ",
             SONGS.map((s) => s.id).join(", "),
-            ". Without files, each round has a YouTube search link for the host's phone.",
+            ". With neither, each round has Spotify and YouTube search links for the host's phone.",
           ]),
           el("label", { class: "btn ghost file" }, [
             "Choose audio files",
@@ -475,7 +701,7 @@
     });
 
     let audioBlock;
-    if (song.youtube && playing) {
+    if (source(song) === "youtube" && playing) {
       const start = song.start ? `&start=${encodeURIComponent(song.start)}` : "";
       audioBlock = el("div", { class: "yt" }, [
         el("iframe", {
@@ -494,10 +720,10 @@
             onclick: togglePlay,
             text: playing ? "■ Stop" : "▶ Play song",
           })
-        : el("p", { class: "muted", text: "No audio loaded for this song." }),
+        : el("p", { class: "muted", text: "No Spotify link or audio file for this song." }),
       el("div", { class: "audio-tools" }, [
         el("label", { class: "btn ghost small file" }, [
-          canPlay(song) ? "Replace audio" : "Choose audio file",
+          source(song) === "file" ? "Replace audio file" : "Use an audio file",
           el("input", {
             type: "file",
             accept: "audio/*",
@@ -511,6 +737,14 @@
           rel: "noopener noreferrer",
           title: "Opens a new tab that shows the song title. Use it on the host's phone if the screen is shared.",
           text: "Find on YouTube ↗",
+        }),
+        el("a", {
+          class: "btn ghost small",
+          href: spotifySearchUrl(song),
+          target: "_blank",
+          rel: "noopener noreferrer",
+          title: "Opens a new tab that shows the song title. Use it on the host's phone if the screen is shared.",
+          text: "Find on Spotify ↗",
         }),
       ]),
       audioBlock,

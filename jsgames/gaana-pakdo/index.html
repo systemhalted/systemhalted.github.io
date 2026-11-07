@@ -23,6 +23,17 @@
       <noscript>This game needs JavaScript.</noscript>
     </main>
 
+    <aside id="spotify-dock" class="dock" hidden aria-label="Spotify player">
+      <div class="dock-player">
+        <div id="spotify-embed"></div>
+        <div id="spotify-cover" class="dock-cover">♪ Playing on Spotify ♪</div>
+      </div>
+      <div class="dock-side">
+        <button class="btn ghost small" data-action="toggle-cover">Show player</button>
+        <p id="spotify-msg" class="dock-msg" role="status"></p>
+      </div>
+    </aside>
+
     <div id="help" class="overlay" hidden>
       <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="help-title">
         <h2 id="help-title">How to play</h2>

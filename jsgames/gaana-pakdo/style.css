@@ -114,6 +114,7 @@ code {
   border-radius: 999px;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
   transition: transform 0.08s ease, background 0.15s ease;
 }
 
@@ -733,5 +734,145 @@ kbd {
   .btn,
   .player {
     transition: none;
+  }
+}
+
+/* ─── Spotify ─────────────────────────────────────────────── */
+
+.panel h3 {
+  margin-top: 16px;
+  color: var(--maroon);
+}
+
+.spotify-links {
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.spotify-links summary {
+  cursor: pointer;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+
+.link-rows {
+  display: grid;
+  gap: 10px;
+  padding: 0 14px 14px;
+}
+
+.link-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.link-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link-status {
+  min-width: 1.2em;
+  color: var(--leaf);
+  font-weight: 700;
+}
+
+.link-status.bad {
+  max-width: 9em;
+  color: var(--magenta);
+  font-size: 0.85rem;
+}
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  width: min(720px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  z-index: 5;
+}
+
+.dock[hidden] {
+  display: none;
+}
+
+.dock-player {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 152px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dock-player iframe {
+  display: block;
+  border: 0;
+}
+
+.dock-cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--maroon), var(--magenta));
+  color: #fff;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.dock-cover[hidden] {
+  display: none;
+}
+
+.dock-side {
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dock-msg {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--magenta);
+}
+
+body.has-dock .app {
+  padding-bottom: 200px;
+}
+
+@media (max-width: 760px) {
+  .link-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dock {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dock-side {
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  body.has-dock .app {
+    padding-bottom: 260px;
   }
 }

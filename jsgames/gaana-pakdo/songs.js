@@ -13,6 +13,9 @@
  *   prop     the prop to grab
  *   emoji    shown with the prop
  *   hint     where the prop shows up in the song
+ *   spotify  optional Spotify song link or track id; plays in the page with
+ *            the title covered. The host can also paste links on the setup
+ *            screen, which take precedence over this field.
  *   youtube  optional YouTube video id; when set, the song plays in the page
  *            behind a cover so the title stays hidden
  *   start    optional start time in seconds for the YouTube video

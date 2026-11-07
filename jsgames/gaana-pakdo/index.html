@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="robots" content="noindex,follow" />
+    <meta
+      name="description"
+      content="A party game for couples: a Hindi film song plays, and the first partner to grab the prop it names wins the round."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Gaana Pakdo — Grab the Prop</title>
+  </head>
+  <body>
+    <main id="app" class="app" aria-live="polite">
+      <noscript>This game needs JavaScript.</noscript>
+    </main>
+
+    <div id="help" class="overlay" hidden>
+      <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+        <h2 id="help-title">How to play</h2>
+        <ol>
+          <li>Put every prop from the setup list on a table.</li>
+          <li>One couple stands on either side of the table, hands behind their backs.</li>
+          <li>The host plays a song. The first partner to grab the prop the song names wins the round.</li>
+          <li>A wrong grab does not count; the other partner can still win.</li>
+          <li>Every couple plays at least twice and switches sides between turns.</li>
+        </ol>
+        <h3>Keys</h3>
+        <ul class="keys">
+          <li><kbd>P</kbd> play or stop the song</li>
+          <li><kbd>Space</kbd> reveal the prop</li>
+          <li><kbd>←</kbd> / <kbd>→</kbd> left or right player wins</li>
+          <li><kbd>0</kbd> nobody wins</li>
+          <li><kbd>Enter</kbd> next round · <kbd>Backspace</kbd> previous round</li>
+          <li><kbd>F</kbd> fullscreen · <kbd>?</kbd> this help</li>
+        </ul>
+        <button class="btn" data-action="close-help">Close</button>
+      </div>
+    </div>
+
+    <script src="songs.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

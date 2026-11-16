@@ -1,156 +1,71 @@
-#+TITLE: BASIC: The Language That Taught Me to Think Step by Step
-#+DESCRIPTION: How BASIC’s “tell the machine exactly what to do” mindset shaped how I learned programming.
+#+TITLE: Learning BASIC After Logo
+#+DESCRIPTION: What learning GW-BASIC taught me about changing values, execution order, and following a program.
 #+DATE: 2025-12-16
 #+CATEGORIES: Technology, Computer Science, "Series 2 - Turtle, BASIC, and the Long Road to Taste"
 #+TAGS: basic, gw-basic, education, imperative-programming, programming-language
 #+PERMALINK: /2025/12/16/basic-programming-lang/
 #+COMMENTS: true
-#+TOC: true
+#+TOC: false
 #+FEATURED_IMAGE: assets/images/featured/2025-12-16-basic-programming-lang.png
 #+FEATURED_IMAGE_ALT: Illustration for BASIC step-by-step programming
-#+FEATURED_IMAGE_CAPTION: BASIC — learning to think step by step
+#+FEATURED_IMAGE_CAPTION: Learning BASIC
 
-Logo taught me to draw.
+At St. George's College in Agra, Computer Science became part of our curriculum in 1991, when I was in Class IV. We spent two years learning Logo before moving to BASIC in Class VI. I remember the version as GW-BASIC.
 
-BASIC taught me to instruct.
+Drawing with Logo had given me a way to see what my commands did. In BASIC, I became more aware of the values held in variables and the order in which a program used them. Logo had variables and loops too.[fn:logo]
 
-If Logo felt like whispering wishes to a turtle, BASIC felt like standing next to a machine and giving it crisp, literal orders. Not suggestions. Not vibes. Orders.
-
-And the machine was obedient in the way only machines can be: perfectly, relentlessly, and without mercy for ambiguity.
-
-** The BASIC mindset: the computer is dumb, so be precise
-:PROPERTIES:
-:CUSTOM_ID: the-basic-mindset-the-computer-is-dumb-so-be-precise
-:END:
-BASIC's core lesson is simple:
-
-Computers do not infer intent. They execute steps.
-
-So you learn to think in sequences:\\
-1. Put the input somewhere.\\
-2. Transform it in small moves.\\
-3. Store intermediate results.\\
-4. Print the outcome.\\
-5. Stop.
-
-That “step-by-step” habit is not just syntax. It is a worldview.
-
-** Programs as recipes, not drawings
-:PROPERTIES:
-:CUSTOM_ID: programs-as-recipes-not-drawings
-:END:
-In Logo, the turtle is the main character. You tell it to move, and the picture emerges.
-
-In BASIC, the program itself is the main character. It is a recipe.
-
-Here's the kind of thing early BASIC invites you to write:
+Consider a small program that calculates the perimeter of a square:
 
 #+begin_src basic
-10 INPUT “Enter side length”; S
+10 INPUT "Enter side length"; S
 20 P = 4 * S
-30 PRINT “Perimeter = “; P
+30 PRINT "Perimeter = "; P
 40 END
 #+end_src
 
-No magic. No hidden state. No geometry fairy.
+If you enter =5=, line 10 stores that value in =S=. Line 20 multiplies it by four and stores =20= in =P=. Line 30 prints the result, and line 40 ends the program.
 
-Just: ask, compute, print.
+There is something easy to overlook in =P = 4 * S=. On paper, that can express a relationship between a square's side and its perimeter. In this program, it is an assignment: calculate the expression using the current value of =S=, then store the result in =P=.[fn:assignment]
 
-And even that tiny program quietly teaches important ideas:\\
-variables, arithmetic, input/output, and the idea that a program is a controlled sequence of actions.
-
-** Line numbers: the original breadcrumb trail
-:PROPERTIES:
-:CUSTOM_ID: line-numbers-the-original-breadcrumb-trail
-:END:
-The first thing you notice in old-school BASIC is the line numbers.
-
-They are not decoration. They are control points.
-
-You don't just write code.\\
-You create a path the computer will walk.
+Suppose we add a line between the calculation and the output:
 
 #+begin_src basic
-10 PRINT “I will count.”
-20 FOR I = 1 TO 5
-30 PRINT I
-40 NEXT I
-50 PRINT “Done.”
+25 S = 10
 #+end_src
 
-The flow is visible, like a little parade.
+With the same input of =5=, the program still prints a perimeter of =20=. By the time it reaches =PRINT=, =S= contains =10=, but =P= still contains the result calculated earlier. Changing =S= does not cause line 20 to run again.
 
-And once you learn that you can jump...
+To get the perimeter for the new side length, we have to repeat the calculation after changing =S=.
 
-** GOTO: power, then chaos
-:PROPERTIES:
-:CUSTOM_ID: goto-power-then-chaos
-:END:
-BASIC makes it very easy to say: “Go there next.”
+In GW-BASIC, the numbers were part of how you entered and edited a program. Using =10=, =20=, =30=, and =40= left room for another line, such as =25=. You could enter that new line after the others, and GW-BASIC would store it in its numerical position.[fn:lines]
+
+The placement of our new assignment changes the result. If we replace line 25 with =15 S = 10=, the program overwrites the entered value before calculating the perimeter. It now prints =40=, even if we enter =5=.
+
+Both versions are valid BASIC. Neither produces a syntax error. To decide whether either is correct, we have to know what the program is supposed to do.
+
+A short program makes this manageable. We can write down the value of each variable after each statement and compare it with what we expected. The point at which those values diverge gives us somewhere specific to investigate.
+
+We can use the same calculation to print perimeters for side lengths from one to five:
 
 #+begin_src basic
-10 LET X = 0
-20 LET X = X + 1
-30 PRINT X
-40 IF X < 5 THEN GOTO 20
+10 FOR S = 1 TO 5
+20 P = 4 * S
+30 PRINT S; P
+40 NEXT S
 50 END
 #+end_src
 
-This works. It is also the seed of future pain.
+On the first pass, =S= is =1= and =P= becomes =4=. On the second, =S= is =2= and =P= becomes =8=. =NEXT S= increments the counter and returns to the loop body while the counter remains within the specified range.[fn:loop]
 
-Because once your program becomes a web of jumps, your brain becomes a detective in a bad mystery novel. Every GOTO is a plot twist.
+The calculation has not changed. We have added a rule for how often to perform it and how the input changes between repetitions. Following the program now means keeping track of which pass we are on as well as which line is running.
 
-This is why people later talked about “structured programming”: it's not about being fancy, it's about keeping the story readable.
+For me, this was a useful part of learning BASIC: the programs were small enough to work through completely. When the result was wrong, I could go back through the statements and check the values. It is still a good place to start when debugging.
 
-** State is the real subject
-:PROPERTIES:
-:CUSTOM_ID: state-is-the-real-subject
-:END:
-In BASIC, you're always holding state in your hands.
+[fn:logo] [[https://resources.terrapinlogo.com/logo/tutorial/chapter9][Terrapin Logo documentation: Variables]], including examples of changing variables and using them with =REPEAT=.
 
-Variables are the center of gravity. They change, they accumulate, they persist.
+[fn:assignment] [[https://gw-basic.netlify.app/files/tuts/gw-man/let][Microsoft GW-BASIC User's Guide: LET]], archived transcription.
 
-That teaches a different kind of thinking than Logo:
+[fn:lines] [[https://gw-basic.netlify.app/files/tuts/gw-man/chapter%202][Microsoft GW-BASIC User's Guide: Getting Started]], section 2.5, Line Format, archived transcription.
 
-Logo: move an agent, watch an effect
+[fn:loop] [[https://gw-basic.netlify.app/files/tuts/gw-man/fornext][Microsoft GW-BASIC User's Guide: FOR ... NEXT]], archived transcription.
 
-BASIC: change a value, watch consequences
-
-And you start noticing patterns: • Counters • Accumulators • Flags • Branches • Loops
-
-In other words: the basic building blocks of the “imperative” style of programming, where you tell the machine how to do the job, not just what you want.
-
-** Error messages as teachers
-:PROPERTIES:
-:CUSTOM_ID: error-messages-as-teachers
-:END:
-BASIC's errors are blunt little teachers.
-
-“Syntax error.”\\
-“Type mismatch.”\\
-“Out of data.”
-
-Each one says: you assumed the computer would guess what you meant. It will not.
-
-So you learn to be explicit.\\
-You learn to reduce ambiguity.\\
-You learn to debug.
-
-Not as a skill for code, but as a skill for thought.
-
-** The punchline
-:PROPERTIES:
-:CUSTOM_ID: the-punchline
-:END:
-Logo gave me wonder.\\
-BASIC gave me discipline.
-
-Logo made me feel like programming was art.\\
-BASIC made me feel like programming was logic.
-
-And both were true.
-
-BASIC's gift is not that it's the most elegant language.\\
-Its gift is that it forces you to think like a machine for a while.
-
-And once you can do that, you can later learn the higher trick: how to make machines feel a little more human.

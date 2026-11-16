@@ -925,11 +925,20 @@ matching `main:_layouts/post.html''s single guard around both."
                          (systemhalted--escape-html category)))
                categories ", ")))))
 
+(defun systemhalted--image-url (path &optional absolute)
+  "Resolve image PATH from the site root, preserving absolute HTTP(S) URLs.
+When ABSOLUTE is non-nil, include the site URL for local images."
+  (if (string-match-p "\\`https?://" (downcase path))
+      path
+    (concat (when absolute (string-remove-suffix "/" systemhalted-site-url))
+            "/" (string-remove-prefix "/" path))))
+
 (defun systemhalted--featured-html (record)
   "Render featured image markup for RECORD."
   (when (systemhalted-record-featured-image record)
     (format (concat "<figure class=\"post-featured\"><img src=\"%s\" alt=\"%s\">%s</figure>")
-            (systemhalted--escape-html (systemhalted-record-featured-image record) t)
+            (systemhalted--escape-html
+             (systemhalted--image-url (systemhalted-record-featured-image record)) t)
             (systemhalted--escape-html
              (or (systemhalted-record-featured-image-alt record) "") t)
             (if (systemhalted-record-featured-image-caption record)
@@ -1012,9 +1021,8 @@ matching main's `_includes/structured-data.html'.")
 
 (defun systemhalted--page-image-url (record)
   "Return the absolute image URL for RECORD: its featured image, or the avatar."
-  (concat systemhalted-site-url
-          (or (systemhalted-record-featured-image record)
-              "/assets/images/avatar.jpeg")))
+  (systemhalted--image-url
+   (or (systemhalted-record-featured-image record) "/assets/images/avatar.jpeg") t))
 
 (defun systemhalted--seo-tag-type (record route)
   "Return the `@type' jekyll-seo-tag assigns RECORD at ROUTE.

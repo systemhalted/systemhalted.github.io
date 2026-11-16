@@ -1609,6 +1609,47 @@ a post with one must use it instead."
              "<meta property=\"og:image\" content=\"https://systemhalted.in/assets/images/avatar.jpeg\">"
              plain-html))))
 
+(ert-deftest systemhalted-render-page-resolves-featured-image-urls ()
+  "Nested posts must render local images from the site root and absolute social
+image URLs, while preserving external HTTP(S) images and HTML escaping."
+  (dolist (case '(("assets/images/featured/example.png"
+                  "/assets/images/featured/example.png"
+                  "https://systemhalted.in/assets/images/featured/example.png")
+                 ("/assets/images/featured/example.png"
+                  "/assets/images/featured/example.png"
+                  "https://systemhalted.in/assets/images/featured/example.png")
+                 ("http://images.example.test/example.png"
+                  "http://images.example.test/example.png"
+                  "http://images.example.test/example.png")
+                 ("https://images.example.test/example.png?width=800&format=png"
+                  "https://images.example.test/example.png?width=800&amp;format=png"
+                  "https://images.example.test/example.png?width=800&amp;format=png")
+                 ("HTTPS://images.example.test/example.png"
+                  "HTTPS://images.example.test/example.png"
+                  "HTTPS://images.example.test/example.png")))
+    (cl-destructuring-bind (source expected-src expected-meta) case
+      (ert-info ((format "FEATURED_IMAGE: %s" source))
+        (systemhalted-test-with-org
+            (concat "#+TITLE: Featured image regression\n"
+                    "#+DESCRIPTION: A nested post with a featured image.\n"
+                    "#+DATE: 2025-12-17\n"
+                    "#+PERMALINK: /2025/12/17/escaping-goto/\n"
+                    "#+FEATURED_IMAGE: " source "\n"
+                    "#+FEATURED_IMAGE_ALT: Example illustration\n")
+          (let* ((record (systemhalted-read-record file 'post))
+                 (html (systemhalted-render-page record (list record) "<p>Body.</p>")))
+            (should (string-match-p
+                     (regexp-quote
+                      (format "<figure class=\"post-featured\"><img src=\"%s\" alt=\"Example illustration\">"
+                              expected-src))
+                     html))
+            (dolist (property '("og:image" "twitter:image"))
+              (should (string-match-p
+                       (regexp-quote
+                        (format "<meta property=\"%s\" content=\"%s\">"
+                                property expected-meta))
+                       html)))))))))
+
 (ert-deftest systemhalted-render-page-twitter-card-matches-live-per-page-type ()
   "Home, /about/, and /pageN/ get `summary_large_image'; everything else, and
 every post, gets `summary', matching what live emits for each page type."

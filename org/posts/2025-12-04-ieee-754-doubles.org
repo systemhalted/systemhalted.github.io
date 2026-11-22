@@ -1,239 +1,103 @@
-#+TITLE: Part 1: IEEE 754 Doubles - The Numbers That Lie With A Straight Face
-#+DESCRIPTION: In Java, double feels like a real number. You write 1.0, the compiler nods, the program runs, and everything looks fine. Until it doesn’t.
+#+TITLE: Part 1: How Java's double Represents Numbers
+#+DESCRIPTION: Why adding a small value to a large double can leave it unchanged, and how rounding makes the grouping of additions matter.
 #+DATE: 2025-12-04
 #+CATEGORIES: Computer Science, Software Engineering, Technology, Series 4 - Floating Point Without Tears
 #+TAGS: computer-science, software, technology
 #+PERMALINK: /2025/12/04/ieee-754-doubles/
 #+COMMENTS: true
-#+TOC: true
+#+TOC: false
 
-/This post is part of my [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]] series on how Java numbers misbehave and how to live with them./
+/This is Part 1 of [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]], a series about working with numbers in Java./
 
-In Java, =double= feels like a real number. You write =1.0=, the compiler nods, the program runs, and everything looks fine. Until it does not.
+Adding up a list of numbers seems straightforward. We can use a loop, a stream, or a parallel stream, and expect the same total from each.
 
-Take this tiny example:
+With =double=, the way we group the additions can affect that total. The type has limited precision, so some intermediate results have to be rounded. If we change which additions happen first, we can change where rounding happens and end up with a different answer.
+
+Before looking at streams, let's see this with just three numbers. Both expressions below add two ones to the same large value:
 
 #+begin_src java
-List values = List.of(
-1e16, 1.0, 1.0, 1.0, 1.0
-);
+double value = 1e16;
 
-double s1 = values.stream().reduce(0.0, Double::sum);
-double s2 = values.parallelStream().reduce(0.0, Double::sum);
-
-System.out.println(s1);
-System.out.println(s2);
+System.out.println((value + 1.0) + 1.0);
+System.out.println(value + (1.0 + 1.0));
 #+end_src
 
-You might see
+The output is:
 
 #+begin_src text
 1.0E16
-1.0000000000000004E16
+1.0000000000000002E16
 #+end_src
 
-Same data, same operation, different result.
+=1e16= means 10,000,000,000,000,000. The first calculation returns that same number. The second returns a number two larger. In ordinary arithmetic, both expressions would give the second answer.
 
-To understand why, you have to stop thinking of doubles as numbers and start thinking of them as compressed approximations of numbers with strict rules and sharp edges.
+The difference comes from which numbers a =double= can store and when Java rounds the result of an addition.
 
-** Doubles are just bit patterns
-:PROPERTIES:
-:CUSTOM_ID: doubles-are-just-bit-patterns
-:END:
-An IEEE 754 double is 64 bits laid out like this: 1. One bit for the sign 2. Eleven bits for the exponent 3. Fifty two bits for the fraction (often called the mantissa or significand)
+A Java =double= uses the 64-bit format defined by IEEE 754. That gives it a finite set of possible values. Some numbers fit exactly, including =0.5=, =1.0= and the =1e16= used here. Other numbers fall between the available values and have to be rounded.[fn:representation]
 
-That layout represents numbers of the form:
-
-#+begin_example
-(-1)^sign × 1.fraction_bits × 2^(exponent - bias)
-#+end_example
-
-There is no infinite continuum here. There is a huge but finite set of exactly representable values. Between any two nearby doubles, there is literally nothing.
-
-So when you write:
+At =1e16=, the next larger =double= is 10,000,000,000,000,002. There is no =double= for 10,000,000,000,000,001. We can check the size of this gap with =Math.ulp=:
 
 #+begin_src java
-double x = 0.1;
+System.out.println(Math.ulp(value)); // 2.0
 #+end_src
 
-Java does its best to find the closest representable double to 0.1. But 0.1 in base 10 is a repeating fraction in base 2, just like 1/3 is repeating in base 10. There is no exact binary representation. The runtime rounds to the nearest representable double and moves on.
+=ulp= stands for "unit in the last place." For this positive value, it tells us the distance to the next larger =double=. The spacing is much smaller around =1.0=. As numbers move into larger ranges, the gaps grow.[fn:ulp]
 
-If you print it with enough digits, you see the approximation leak through:
+Adding =1.0= to =1e16= puts the exact answer halfway between two available values. Java has a fixed rule for these ties, called "round to nearest, ties to even." Here, that rule chooses =1e16=. The "even" refers to the binary representation, not the last decimal digit.[fn:rounding]
+
+That explains the first expression. The first addition rounds back to =1e16=. The second addition does the same. Neither =1.0= survives in the result.
+
+In the second expression, Java adds =1.0 + 1.0= first. The result is exactly =2.0=. Adding that to =1e16= gives a value that =double= can store exactly.
+
+The mathematical rule that lets us regroup additions without changing their result is called /associativity/. Floating-point addition does not always follow it. Each addition can require rounding, so changing the grouping can change the answer.[fn:rounding]
+
+This matters when we sum a collection:
 
 #+begin_src java
-System.out.printf(”%.20f%n”, 0.1);
+import java.util.List;
+
+List<Double> values = List.of(1e16, 1.0, 1.0);
+
+double sequential = values.stream().reduce(0.0, Double::sum);
+double parallel = values.parallelStream().reduce(0.0, Double::sum);
+
+System.out.println(sequential);
+System.out.println(parallel);
 #+end_src
 
-You will get something like:
+A parallel reduction can split the values into groups, sum each group, and combine the results. That can change which additions happen first. If the two small values are added together before they meet the large value, they can survive in the total.
 
-#+begin_src text
-0.10000000000000000555
-#+end_src
+The =Stream.reduce= contract requires an associative operation. Floating-point addition does not meet that requirement in general, so these calls are an illustration of the problem: we cannot rely on the sequential and parallel results being identical. They may happen to match for a particular input and implementation.[fn:reduce]
 
-The lie is small, but it is always there.
+For summing =double= values, Java also provides =DoubleStream.sum()=. Its implementation may use compensated summation, which keeps track of some of the rounding error to improve the total. This means it can produce a different result from =reduce(0.0, Double::sum)=. Its API still leaves the order of additions unspecified, so it does not guarantee the same result under every grouping.[fn:sum]
 
-** Why 1e16 + 1 == 1e16
-:PROPERTIES:
-:CUSTOM_ID: why-1e16-1-1e16
-:END:
-Back to our friend =1e16=.
+Large numbers are only one way to encounter rounding. It can also happen when a decimal value is first stored as a =double=. In binary, =0.1= is a repeating fraction, much as one third repeats in decimal. A =double= has to stop after a limited number of binary digits, so it stores a nearby value.[fn:decimal]
 
-At that scale, the distance between adjacent representable doubles is larger than 1. Think of the number line as a ladder. Near zero the rungs are very close. Near 1e16 the rungs are far apart. If adding 1 does not reach the next rung, the result rounds back to the same double.
-
-In practice:
+This is why another familiar example behaves as it does:
 
 #+begin_src java
-double a = 1e16;
-double b = a + 1.0;
-
-System.out.println(a == b); // true
+System.out.println(0.1 + 0.2);        // 0.30000000000000004
+System.out.println(0.1 + 0.2 == 0.3); // false
 #+end_src
 
-It looks absurd, but it is perfectly legal in IEEE land. You are not adding real numbers. You are adding approximations and rounding the result back into the finite set of doubles.
+The addition produces a different stored value from the one used for =0.3=. The comparison correctly reports that difference. When the question is whether two calculated values are close enough, we need to define an acceptable error for the calculation. A tolerance copied from another program may be too strict or too loose for ours.
 
-Now imagine how this interacts with summation order.
+For prices and balances that require exact decimal values, I would start with =BigDecimal= and decimal input such as =new BigDecimal("0.10")=. We still need to decide when and how to round, especially for division. Converting a result to =BigDecimal= after information has already been lost in =double= arithmetic cannot recover that information.[fn:decimal]
 
-Sequential stream:
+For measurements or statistics, =double= may provide all the precision the application needs. The questions to settle are how much error is acceptable and whether the calculation must produce exactly the same result each time. A fixed calculation order helps with repeatability, but it can still repeat an inaccurate result.
 
-#+begin_src java
-double s1 = values.stream().reduce(0.0, Double::sum);
-#+end_src
+Before replacing a loop with a parallel stream, I would test values of different magnitudes and check the result against those requirements. Our opening example needs only three values to show why that check matters.
 
-Evaluation order is effectively:
+/Next: [[/2025/11/28/associativity-identity-folding/][Part 2: Associativity, Identity, and Folding]]./
 
-#+begin_example
-((((0 + 1e16) + 1) + 1) + 1) + 1
-#+end_example
+[fn:representation] [[https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html#jls-4.2.3][Java Language Specification, section 4.2.3: Floating-Point Types and Values]].
 
-After the first addition you have =1e16=. Each subsequent =+ 1= is below the resolution of the ladder at that height, so it keeps snapping back to 1e16. End result: =1.0E16=.
+[fn:ulp] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#ulp(double)][Math.ulp(double) API documentation]].
 
-Parallel stream:
+[fn:rounding] [[https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html#jls-15.4][Java Language Specification, section 15.4: Floating-point Expressions]] and [[https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html#jls-15.18.2][section 15.18.2: Additive Operators for Numeric Types]].
 
-#+begin_src java
-double s2 = values.parallelStream().reduce(0.0, Double::sum);
-#+end_src
+[fn:reduce] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Stream.html#reduce(T,java.util.function.BinaryOperator)][Stream.reduce API documentation]].
 
-Now the framework is allowed to regroup: 1. One thread might sum =1e16 + 1.0= to get =1e16=. 2. Another might sum =1.0 + 1.0 + 1.0= to get =3.0=. 3. Then it adds =1e16 + 3.0=.
+[fn:sum] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/DoubleStream.html#sum()][DoubleStream.sum API documentation]].
 
-Depending on the exact rounding behavior, that last addition might actually hit the next rung on the ladder and give:
-
-#+begin_src text
-1.0000000000000004E16
-#+end_src
-
-Same math on paper. Different rounding path in silicon.
-
-You have just met the most important fact about floating point arithmetic:
-
-/Associativity is broken in practice./
-
-Mathematically:
-
-#+begin_example
-(a + b) + c == a + (b + c)
-#+end_example
-
-In floating point, =(a + b) + c= and =a + (b + c)= can differ by a few bits.
-
-** Equality with doubles is a trap
-:PROPERTIES:
-:CUSTOM_ID: equality-with-doubles-is-a-trap
-:END:
-This is why direct equality checks with doubles are dangerous:
-
-#+begin_src java
-double x = 0.1 + 0.2;
-double y = 0.3;
-
-System.out.println(x == y); // often false
-#+end_src
-
-The left side is “nearest double to =(0.1 + 0.2)= after two rounding steps”. The right side is “nearest double to =0.3= after one rounding step”.
-
-You are really comparing two approximations that reached the neighborhood of =0.3= via different routes. The neighborhood is small, but the routes do not always end at the same exact bit pattern.
-
-The usual advice is: 1. Compare with an epsilon, for example: =Math.abs(x - y) < 1e-9=, tuned to your domain. 2. Or avoid equality checks altogether and reason in ranges, ratios or integers when possible.
-
-** Why parallel reduce cares about associativity
-:PROPERTIES:
-:CUSTOM_ID: why-parallel-reduce-cares-about-associativity
-:END:
-The Java Streams API assumes your reduction operator is associative and has a proper identity. For doubles, =Double::sum= with =0.0= definitely satisfies the mathematical definition.
-
-The parallel stream uses this to split the work: 1. Compute partial sums in parallel. 2. Combine partials in arbitrary order.
-
-From basic math, this is fine.
-
-From IEEE 754 reality, it means you get “approximately the same result most of the time, with possible tiny differences depending on grouping, thread scheduling and platform”.
-
-In most business code that is acceptable. In some domains it is not.
-
-If you need reproducible sums independent of order, you have options.
-
-Use BigDecimal:
-
-#+begin_src java
-BigDecimal sum = values.stream()
-.map(BigDecimal::valueOf)
-.reduce(BigDecimal.ZERO, BigDecimal::add);
-#+end_src
-
-This gives you honest =base 10= arithmetic at the cost of performance.
-
-Or implement a compensated summation like Kahan's algorithm, possibly in a custom Collector, to reduce error accumulation.
-
-Or structure your algorithm so you sum small magnitude values first and large values later. That makes the ladder problem less vicious.
-
-None of these fix floating point. They just manage its tradeoffs more consciously.
-
-** Doubles are not broken, they are Engineered
-:PROPERTIES:
-:CUSTOM_ID: doubles-are-not-broken-they-are-engineered
-:END:
-It is tempting to call all this a bug. It is not.
-
-The IEEE 754 design is a compromise between range, precision, performance and hardware simplicity. Doubles give you:
-
-1. A huge dynamic range, from tiny numbers around 1e-308 up to around 1e308.
-2. About 15 to 17 decimal digits of precision.
-3. Fast operations supported directly by the CPU.
-
-The cost is:
-
-1. Not all decimal fractions are exact.
-2. Rounding happens all the time.
-3. Algebraic laws like associativity and distributivity become “mostly true, but not guaranteed”.
-
-Once you internalize that, your mental model shifts.
-
-You stop thinking “the computer is bad at math”.
-
-You start thinking “the computer is doing carefully specified approximate math on a discrete set of representable values, and I need to respect that contract”.
-
-** Where this matters in real systems
-:PROPERTIES:
-:CUSTOM_ID: where-this-matters-in-real-systems
-:END:
-In an auto loan system, this can show up in subtle ways.
-
-You might compute a customer's total interest by:
-
-1. Summing daily interest over the life of the loan.\\
-2. Summing per period interest.\\
-3. Using a closed form formula.
-
-All three approaches should be equivalent mathematically, but can drift by a few cents because of rounding and summation order. Then you run in parallel, or refactor a loop into a stream, or change the order in which fees and interest are applied, and suddenly some accounts are off by a cent.
-
-Nothing catastrophic, but enough to fail reconciliation tests.
-
-Once you remember that doubles are approximations and order matters, you design differently:
-
-1. Use BigDecimal for money.\\
-2. Keep calculations stable and deterministic.\\
-3. Avoid relying on bit perfect equality when the underlying math is continuous.
-
-And when your =parallelStream()= sum differs from your sequential sum in the thirteenth decimal place, you do not panic. You smile a little and think:
-
-#+begin_quote
-Floating point kept its side of the bargain. I just finally started reading the fine print.
-#+end_quote
+[fn:decimal] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/math/BigDecimal.html][BigDecimal API documentation]], including the notes on decimal inputs, the double constructor, and rounding.

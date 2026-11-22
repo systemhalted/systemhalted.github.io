@@ -1,5 +1,5 @@
-#+TITLE: Part 2: Associativity, Identity, and Folding - Why Your reduce Keeps Biting You
-#+DESCRIPTION: A practical look at associativity, identity, and folding in Java Streams, and why some reduce calls behave nicely while others explode in surprising ways.
+#+TITLE: Part 2: Associativity, Folding and Identity
+#+DESCRIPTION: How associativity, folding and identity explain which Java reductions work, why subtraction fails, and when to use a loop or collect.
 #+DATE: 2025-11-28
 #+CATEGORIES: Computer Science, Software Engineering, Technology, Series 4 - Floating Point Without Tears
 #+TAGS: computer-science, software, technology
@@ -7,403 +7,229 @@
 #+COMMENTS: true
 #+TOC: true
 
-/This post is part of my [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]] series on how Java numbers misbehave and how to live with them./
+/This is Part 2 of [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]], a series about working with numbers in Java./
 
-If you write Java today, you probably use =Stream.reduce()= or something like it.
+Java's =Stream.reduce= combines several values into one result, such as a total or a string. To understand when it works, we need three ideas:
 
-Sometimes it feels magical.
+1. /Associativity/: changing the grouping of operations leaves the result unchanged.
+2. /Folding/: combining a collection into one result.
+3. /Identity/: a value that leaves another value unchanged when combined with it.
 
-#+begin_src java
-int sum = nums.stream().reduce(0, Integer::sum);
-#+end_src
-
-Other times it feels cursed.
+Consider adding five integers:
 
 #+begin_src java
-int weird = nums.parallelStream().reduce(0, (a, b) -> a - b);
+import java.util.List;
+
+List<Integer> nums = List.of(1, 2, 3, 4, 5);
+
+int sum = nums.stream().reduce(0, Integer::sum); // 15
 #+end_src
 
-Underneath these differences are three simple ideas:
+This one line replaces a loop that starts at zero and adds each number. It gives =15=, and switching to =parallelStream()= gives the same total. Addition can be regrouped without changing the result, and starting each partial sum at zero adds nothing extra.
 
-1. Associativity
-2. Identity
-3. Folding (reducing a collection into one value)
+Subtraction looks similar:
 
-You do not need category theory to use them. You just need to recognize when your operation behaves like =+= (associative) and when it behaves like =-= (non-associative).
+#+begin_src java
+// Compiles, but violates the requirements of reduce.
+int difference = nums.parallelStream()
+        .reduce(0, (left, right) -> left - right);
+#+end_src
 
-This post walks through concrete Java examples you are likely to hit in normal work and uses them to build intuition for those three words.
+Starting at zero and subtracting these numbers in order would give =-15=. But a parallel reduction can calculate partial results and combine them in a different grouping. With subtraction, that can change the answer. Zero also fails as an identity: =0 - 3= gives =-3=, not =3=.
 
-It also gives you an understanding of when using parallelStreams is probably safe.
+Java's =reduce= depends on associativity and a suitable identity because it can combine partial results. Those requirements apply to sequential streams too.[fn:reduce]
 
---------------
-
-** Folding: what =reduce= really does
+** Folding and Java's =reduce=
 :PROPERTIES:
 :CUSTOM_ID: folding-what-reduce-really-does
 :END:
-A fold or reduce is just this:
 
-Start with some value. Combine it with each element in a collection. End up with a single result.
+A /left fold/ starts with a value, visits the elements in order, and combines each element with the running result. Adding our numbers from a starting value of zero gives:
 
-For example, summing numbers by hand:
+#+begin_example
+((((0 + 1) + 2) + 3) + 4) + 5
+#+end_example
 
-1. Start with =0=
-2. Add the first number
-3. Add the second number
-4. Keep going until you have one, final, number left
+A left fold fixes the grouping. Its starting value can be any value the calculation requires.
 
-In Java Streams:
+The two argument version of =Stream.reduce= asks for something more specific: an identity and an associative combining function. It does not promise this particular grouping. The operation must work when applied to elements and when applied to partial results.
 
-#+begin_src java
-int sum = nums.stream()
-        .reduce(0, (acc, x) -> acc + x);
-#+end_src
+That distinction matters when a calculation depends on the previous result at every step. A loop lets us specify that sequence directly.
 
-=reduce= needs two things from you.
-
-1. An initial value, sometimes called the identity.
-2. A function that combines the accumulator and the next element.
-
-Everything else in this post is about choosing those two well.
-
---------------
-
-** Example 1: Integer sum, the happy path
+** Example 1: Integer addition
 :PROPERTIES:
 :CUSTOM_ID: example-1-integer-sum-the-happy-path
 :END:
-Summing integers is the canonical example of reduce working perfectly, even in parallel.
+
+Using the same =nums= list:
 
 #+begin_src java
-import java.util.List;
+int sequentialSum = nums.stream().reduce(0, Integer::sum);
+int parallelSum = nums.parallelStream().reduce(0, Integer::sum);
 
-List<Integer> nums = List.of(1, 2, 3, 4, 5);
-
-// Sequential
-int sum1 = nums.stream()
-        .reduce(0, Integer::sum);
-
-// Parallel
-int sum2 = nums.parallelStream()
-        .reduce(0, Integer::sum);
-
-System.out.println(sum1); // 15
-System.out.println(sum2); // 15
+System.out.println(sequentialSum); // 15
+System.out.println(parallelSum);   // 15
 #+end_src
 
-Why does this behave?
+Integer addition is associative: =(1 + 2) + 3= and =1 + (2 + 3)= both give =6=. Zero is its identity because adding zero on either side leaves the other number unchanged.
 
-The short version:
+The stream can therefore sum =1, 2= to get =3=, sum =3, 4, 5= to get =12=, and add the partial results to get =15=. Each group can start at zero without changing the total. An empty stream returns zero.
 
-1. Addition is associative.
-2. Zero is the identity for addition.
+Java's =int= addition remains associative under its defined overflow behavior. Overflow wraps the result; it does not make the grouping matter. Whether =int= has enough range for the calculation is a separate question.[fn:arithmetic]
 
-Let us unpack that.
-
-Associativity means you can change parentheses without changing the result:
-
-#+begin_src java
-int a = (1 + 2) + 3;
-int b = 1 + (2 + 3);
-// a == b
-#+end_src
-
-Zero is the identity for =+= because it does nothing:
-
-#+begin_src java
-0 + x == x;
-x + 0 == x;
-#+end_src
-
-When both of these are true, the stream framework is free to:
-
-1. Split the list into chunks.
-2. Sum each chunk separately.
-3. Add the partial sums in any grouping it likes.
-
-Sequential or parallel, left grouped or right grouped, the result is always the same.
-
---------------
-
-** Example 2: Subtraction with reduce, same shape, weird result
+** Example 2: Subtraction needs a specified sequence
 :PROPERTIES:
 :CUSTOM_ID: example-2-subtraction-with-reduce-same-shape-weird-result
 :END:
-Change one thing. Use subtraction instead of addition.
+
+Subtraction fails the associativity check:
 
 #+begin_src java
-List<Integer> nums = List.of(1, 2, 3, 4, 5);
-
-// Sequential
-int result1 = nums.stream()
-        .reduce(0, (a, b) -> a - b);
-
-// Parallel
-int result2 = nums.parallelStream()
-        .reduce(0, (a, b) -> a - b);
-
-System.out.println(result1);
-System.out.println(result2);
+System.out.println((1 - 2) - 3); // -4
+System.out.println(1 - (2 - 3)); //  2
 #+end_src
 
-On most machines you will see different numbers printed.
+The operands stay in the same order. Only the grouping changes.
 
-Subtraction is not associative:
+Zero also fails as an identity. Although =x - 0= equals =x=, =0 - x= generally does not. The subtraction call in the opening therefore violates both requirements.
+
+A sequential run may appear to subtract every element from zero, but switching to =stream()= does not make subtraction a valid operation for =reduce=. There is no parallel subtraction result to promise here.
+
+If the requirement is to start with =20= and subtract each number in list order, write that calculation:
 
 #+begin_src java
-int a = (1 - 2) - 3;  // -4
-int b = 1 - (2 - 3);  //  2
-// a != b
+int remaining = 20;
+
+for (int number : nums) {
+    remaining -= number;
+}
+
+System.out.println(remaining); // 5
 #+end_src
 
-Once the operation is not associative, the way the stream groups operations changes the result.
+Here, =20= is a starting amount. It does not need to be an identity.
 
-Sequential =reduce= tends to behave as if it were:
-
-#+begin_src java
-((((0 - 1) - 2) - 3) - 4) - 5;
-#+end_src
-
-Parallel =reduce= might do something more like:
-
-#+begin_src java
-(0 - (1 - 2)) - (3 - (4 - 5));
-#+end_src
-
-Same numbers, same lambda, same =reduce= method. Different grouping, different answer.
-
-The day to day lesson:
-
-When you pass a lambda as the combiner to =reduce=, ask yourself whether it behaves more like =+= or more like =-=. If it is like =-=, parallel reduction will be surprising.
-
---------------
-
-** Example 3: Wrong identity value leads to skewed output
+** Example 3: An identity is not an extra starting amount
 :PROPERTIES:
 :CUSTOM_ID: example-3-wrong-identity-value-leads-to-skewed-output
 :END:
-Even if your operation is associative, choosing the wrong initial value quietly skews your result.
+
+Addition alone is not enough to make this valid:
 
 #+begin_src java
-List<Integer> nums = List.of(1, 2, 3);
-
-// Wrong identity: 1 instead of 0
-int sum = nums.stream()
-        .reduce(1, Integer::sum);
-
-System.out.println(sum);  // 7, but the real sum is 6
+// Invalid identity: adding 1 changes the other value.
+int biased = nums.stream().reduce(1, Integer::sum);
 #+end_src
 
-Sequentially this works out as:
+A left fold starting at =1= would add one to the total. Reduction may introduce that value into several partial results.
+
+For example, consider two groups. Starting each at =1= gives =1 + 1 + 2 = 4= and =1 + 3 + 4 + 5 = 13=. Combining them gives =17=, whereas adding one to the original total gives =16=. This illustrates the problem; it does not predict a particular parallel execution.
+
+If an adjustment belongs in the calculation once, apply it once:
 
 #+begin_src java
-(((1 + 1) + 2) + 3) == 7;
+int adjusted = 1 + nums.parallelStream().reduce(0, Integer::sum);
+System.out.println(adjusted); // 16
 #+end_src
 
-In parallel, the identity can be applied to every chunk, so the effect is even stranger.
+The identity depends on the operation: zero for addition, one for multiplication, and the empty string for concatenation.
 
-The identity should be a ==do nothing== value for the operation:
-
-#+begin_example
-combine(identity, x) == x
-combine(x, identity) == x
-#+end_example
-
-For addition, the identity is =0=. For multiplication, it is =1=. For string concatenation, it is =""=.
-
-The day to day rule:
-
-If you call =reduce(identity, combiner)=, check those two equations in your head for the operation you are using.
-
---------------
-
-** Example 4: String concatenation, grouping versus ordering
+** Example 4: String concatenation, grouping and order
 :PROPERTIES:
 :CUSTOM_ID: example-4-string-concatenation-grouping-versus-ordering
 :END:
-String concatenation is another operation you use constantly.
 
 #+begin_src java
-List<String> words = List.of("a", "b", "c");
+List<String> letters = List.of("a", "b", "c");
 
-String s1 = words.stream()
-        .reduce("", (a, b) -> a + b);
+String sequentialText = letters.stream().reduce("", String::concat);
+String parallelText = letters.parallelStream().reduce("", String::concat);
 
-String s2 = words.parallelStream()
-        .reduce("", (a, b) -> a + b);
-
-System.out.println(s1);  // usually "abc"
-System.out.println(s2);  // also usually "abc"
+System.out.println(sequentialText); // abc
+System.out.println(parallelText);   // abc
 #+end_src
 
-Concatenation is associative:
+Concatenation is associative. Grouping the first two strings produces ="ab" + "c"=; grouping the last two produces ="a" + "bc"=. Both have the same content. The empty string leaves that content unchanged.
 
-#+begin_src java
-("a" + "b") + "c" == "a" + ("b" + "c");
-#+end_src
+Changing order is different: ="a" + "b"= produces ="ab"=, while ="b" + "a"= produces ="ba"=. An operation that allows its operands to swap without changing the result is /commutative/. Concatenation is not commutative.
 
-and the empty string is the identity:
+The list has a defined encounter order, which this reduction preserves in parallel. Both outputs are guaranteed to be =abc=. Calling =unordered()= removes the ordering requirement; it does not request a shuffle.[fn:ordering]
 
-#+begin_src java
-"" + s == s;
-s + "" == s;
-#+end_src
+For ordinary text joining, =Collectors.joining()= expresses the same intent directly.[fn:collectors]
 
-So grouping does not matter.
-
-Order still matters though:
-
-#+begin_src java
-"a" + "b" != "b" + "a";
-#+end_src
-
-Concatenation is associative but not commutative.
-
-Streams will respect encounter order unless you explicitly undo that. So in practice the result is stable, but the moment you introduce reordering operations you lose that guarantee.
-
-The message here:
-
-1. Associativity protects you from grouping changes.
-2. Commutativity protects you from ordering changes.
-3. Most real world operations are not commutative, so do not assume order is irrelevant unless you are sure.
-
---------------
-
-** Example 5: Floating point sums, almost associative
+** Example 5: Floating point addition is not associative
 :PROPERTIES:
 :CUSTOM_ID: example-5-floating-point-sums-almost-associative
 :END:
-Now a more subtle one: floating point numbers.
+
+Changing the numeric type changes which rules hold:
 
 #+begin_src java
-List<Double> values = List.of(
-        1e16, 1.0, 1.0, 1.0, 1.0
-);
+double value = 1e16;
 
-double s1 = values.stream()
-        .reduce(0.0, Double::sum);
-
-double s2 = values.parallelStream()
-        .reduce(0.0, Double::sum);
-
-System.out.println(s1);
-System.out.println(s2);
+System.out.println((value + 1.0) + 1.0); // 1.0E16
+System.out.println(value + (1.0 + 1.0)); // 1.0000000000000002E16
 #+end_src
 
-In real math, addition is associative. In IEEE double precision, it is only approximately so.
+At this magnitude, adjacent =double= values are two apart. Each separate addition of =1.0= rounds back to =value=. Adding the two ones first produces =2.0=, which survives the final addition.
 
-When you add a very large number and a very small number, the small number can get rounded away. Different groupings of additions can lose or keep different tiny pieces of information.
+[[https://systemhalted.in/2025/12/04/ieee-754-doubles/][Part 1]] explains this rounding in detail. The consequence here is precise: floating point addition is not associative.[fn:arithmetic] =Double::sum= does not meet that requirement of =reduce=.
 
-Practically you see things like:
+A fixed loop makes the evaluation order explicit, but it still rounds. Choose the calculation method according to the accuracy and reproducibility the application needs.
 
-1. Slightly different sums when you use parallel streams.
-2. Results like =999.9999999997= instead of =1000.0=.
-
-For many applications this does not matter. For financial calculations it absolutely does, which is one reason developers reach for =BigDecimal= or integer cents rather than =double=.
-
-The take away:
-
-Floating point addition mostly behaves like a good associative operation, but not perfectly. Do not expect bit identical results when you regroup or parallelise floating point reductions.
-
---------------
-
-** Example 6: Merging counts in maps, a realistic associative operation
+** Example 6: Counting words with =collect=
 :PROPERTIES:
 :CUSTOM_ID: example-6-merging-counts-in-maps-a-realistic-associative-operation
 :END:
-Imagine you have words and you want to count how many times each appears.
 
-#+begin_quote
-A Note on Engineering vs. Math: While our Counts merge logic is mathematically associative (satisfying the requirements for reduce), using reduce for mutable objects like Maps is inefficient. It creates a copy of the map at every step. In Java, when you need to combine mutable containers (like Lists or Maps) in parallel, you should use the Mutable Reduction pattern via Stream.collect.
-#+end_quote
+Word counts give a practical example of combining partial results. Merge two count maps by adding the count for each word. Grouping the merges differently leaves the counts unchanged, and an empty map contributes no counts.
 
-First, a small helper type:
+We could write a reduction that creates a new map for every update, copying the existing counts each time. For this task, =collect= provides a simpler way to build and merge mutable maps:
 
 #+begin_src java
 import java.util.Map;
-import java.util.HashMap;
-
-record Counts(Map<String, Integer> counts) {
-
-    static Counts empty() {
-        return new Counts(new HashMap<>());
-    }
-
-    Counts addWord(String word) {
-        Map<String, Integer> copy = new HashMap<>(counts);
-        copy.merge(word, 1, Integer::sum);
-        return new Counts(copy);
-    }
-
-    Counts combine(Counts other) {
-        Map<String, Integer> copy = new HashMap<>(counts);
-        other.counts.forEach((w, c) ->
-                copy.merge(w, c, Integer::sum));
-        return new Counts(copy);
-    }
-}
-#+end_src
-
-Now we can use =reduce= with this.
-
-#+begin_src java
-import java.util.List;
+import java.util.stream.Collectors;
 
 List<String> words = List.of("a", "b", "a", "c", "b", "a");
 
-Counts result = words.parallelStream()
-        .map(w -> Counts.empty().addWord(w))  // each word → its own count map
-        .reduce(Counts.empty(), Counts::combine);
+Map<String, Long> counts = words.parallelStream()
+        .collect(Collectors.groupingBy(
+                word -> word,
+                Collectors.counting()));
 
-System.out.println(result.counts());
-// {a=3, b=2, c=1}
+System.out.println(counts.get("a")); // 3
+System.out.println(counts.get("b")); // 2
+System.out.println(counts.get("c")); // 1
 #+end_src
 
-Why this works well:
+=groupingBy= groups equal words, and =counting= counts the entries in each group.[fn:collectors] Reading each key avoids depending on the map's iteration order.
 
-1. =combine= is associative. Combining =(A combine B) combine C= gives the same counts as =A combine (B combine C)=.
+This collector is not concurrent. During parallel collection, partial maps are accumulated in isolation and combined after their accumulation finishes. Multiple threads do not update the same partial map simultaneously, so the maps need no additional synchronization for this collection.[fn:collector]
 
-2. =Counts.empty()= is an identity. Combining =empty= with any =Counts= yields that =Counts= back.
+That isolation applies while collecting. The returned map is not guaranteed to be thread safe for later shared updates.[fn:collectors]
 
-That is exactly what a framework like =reduce= wants: an associative operation with an identity element.
-
-This is the same pattern you see in log aggregation, metrics systems, and analytics jobs. It is not an abstract trick, it is a workhorse.
-
---------------
-
-** A mental checklist for =reduce=
+** Before using =reduce=
 :PROPERTIES:
 :CUSTOM_ID: a-mental-checklist-for-reduce
 :END:
-Whenever you write something like:
 
-#+begin_src java
-X result = stream.reduce(identity, (a, b) -> combine(a, b));
-#+end_src
+Check the operation on the Java values you actually use:
 
-you can run a short mental checklist.
+1. Can partial results be regrouped without changing the result?
+2. Is the identity neutral for that operation?
+3. Does the function leave the source unchanged and avoid depending on changing external state?
+4. If order matters, does the stream retain the required encounter order?
 
-1. If I ignore floating point quirks, is =combine= associative?
+Use a loop when the calculation requires a specific sequence. Use =collect= when building a mutable container.
 
-   combine(combine(a, b), c) == combine(a, combine(b, c))
+In [[/2025/12/22/java-bigdecimal-vs-double/][Part 3]], we look at =BigDecimal= for calculations that need exact decimal values and explicit rounding rules.
 
-2. Did I choose a true identity value? Does =combine(identity, x)= give =x= and does =combine(x, identity)= give =x=?
+[fn:reduce] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Stream.html#reduce(T,java.util.function.BinaryOperator)][Oracle Java documentation: Stream.reduce]], including the identity, associativity, and function requirements.
 
-3. Do I care about order? If I do, am I doing anything that changes encounter order?
+[fn:arithmetic] [[https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html#jls-15.18.2][Java Language Specification, section 15.18.2: Addition and subtraction]], including integer overflow and floating point associativity.
 
-If the answer to 1 and 2 is yes, =reduce= is usually safe, even in parallel. If 1 or 2 fails, you either accept the weirdness, or you avoid =parallelStream= and regrouping.
+[fn:ordering] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/package-summary.html][Oracle Java documentation: Stream ordering and associativity]].
 
---------------
+[fn:collectors] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Collectors.html][Oracle Java documentation: Collectors]], including joining, groupingBy, and counting.
 
-Every =reduce= you write is a small promise.
-
-You are telling the runtime:
-
-1. Here is how to combine two partial results.
-2. Here is the neutral element that represents “no information yet”.
-
-If that promise matches reality, you get predictable, parallel friendly code. If it does not, you get ghosts: bugs that only appear under load, only with parallel streams, only with certain sizes of input.
-
-Thinking in terms of associativity and identity is not about being fancy. It is just a way to make that promise explicit in your own head, instead of leaving it as “whatever this lambda does”.
-
-Once you start looking at your own code through that lens, you will find that a surprising amount of what you do every day is already algebra. You were just calling it “business logic”.
+[fn:collector] [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Collector.html][Oracle Java documentation: Collector]], including isolation of partial results for collectors that are not concurrent.

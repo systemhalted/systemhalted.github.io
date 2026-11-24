@@ -1,5 +1,5 @@
-#+TITLE: Part 5: NaN, Infinity and the Rules of Weird Math
-#+DESCRIPTION: In IEEE 754 floating point, there are special values (NaN, +∞, −∞) that follow rules that look like broken logic, until you realize they're trying to protect you from lying math.
+#+TITLE: Part 5: NaN, Infinity and Signed Zero in Java
+#+DESCRIPTION: Why Java keeps a sign on zero, how infinity and NaN arise, and how comparisons and sorting treat these values.
 #+DATE: 2025-12-25
 #+CATEGORIES: Computer Science, Software Engineering, Technology, Series 4 - Floating Point Without Tears
 #+TAGS: java, floating-point, ieee-754, double, machine-epsilon, ulp, numerics, NaN, infinity
@@ -8,257 +8,238 @@
 #+TOC: true
 #+FEATURED_IMAGE: assets/images/NaN.png
 #+FEATURED_IMAGE_ALT: NaN value displayed on a calculator screen
-#+FEATURED_IMAGE_CAPTION: NaN on a calculator — the "not a number" sentinel in the real world
+#+FEATURED_IMAGE_CAPTION: A calculator displaying NaN, meaning not a number
 
-/This post is part of my [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]] series on how Java numbers misbehave and how to live with them./
+/This post is part of my [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]] series on how Java represents numbers and performs calculations./
 
-Floating point math is fast, useful, and occasionally haunted. Not philosophically, literally haunted, as in values that aren't equal to themselves.
+In [[/2025/12/23/machine-epsilon-double-precision-grid/][Part 4]], we examined the spacing between finite =double= values and what happens near zero. This post covers signed zero, infinity and =NaN=, meaning /not a number/.
 
-#+begin_quote
-=NaN != NaN= evaluates to =true=
-#+end_quote
+We will examine why these values are useful, when calculations produce them, and how Java compares and sorts them. Signed zero provides the connection to Part 4: a result can lose its magnitude through rounding while retaining its sign.
 
-IEEE 754 formalizes that haunting by defining special values that let computations continue while still signaling trouble. They look like broken math until you realize they're doing damage control.
-
-** Why Special Values Exist in Floating Point
-:PROPERTIES:
-:CUSTOM_ID: why-special-values-exist-in-floating-point
-:END:
-In Part 1 of this series[fn:1], we saw how floating-point numbers work: they use a fixed number of bits to represent the sign, exponent, and significand (mantissa). This representation has limits:
-
-- *Largest representable number*: Around =1.8 × 10^308= for doubles (=Double.MAX_VALUE=)
-- *Smallest positive normalized number*: Around =2.2 × 10^-308= (=Double.MIN_NORMAL=)
-- *Smallest positive nonzero number*: Around =4.9 × 10^-324= (=Double.MIN_VALUE=)
-- *Precision*: Limited by machine epsilon (about 2.22 × 10^-16 near 1.0, i.e., Math.ulp(1.0) = the gap between 1.0 and the next larger representable double)
-
-But what happens when you compute something that /exceeds/ these limits?
-
-#+begin_src java
-double huge = 1e308;
-double overflow = huge * 10;            // Exceeds max value
-double gradual = Double.MIN_NORMAL / 2; // Becomes subnormal (gradual underflow)
-double underflow = Double.MIN_VALUE / 2; // Falls below min value → +0.0
-double undefined = 0.0 / 0.0;           // Mathematically meaningless
-#+end_src
-
-IEEE 754 could have made these operations: 1. Throw exceptions (slow, interrupts computation) 2. Wrap around to negative values (confusing, hides errors) 3. Return arbitrary garbage (dangerous)
-
-Instead, it reserves special bit patterns in the exponent field to represent /infinity/ and /NaN/. These aren't normal numbers; they are sentinel values that signal “something unusual happened, but computation can continue.”
-
-*** The Bit Pattern Trick
-:PROPERTIES:
-:CUSTOM_ID: the-bit-pattern-trick
-:END:
-A double uses 11 bits for the exponent. IEEE 754 reserves special patterns for edge cases:
-
-| Exponent bits | Significand (fraction) | Meaning                             |
-|---------------+------------------------+-------------------------------------|
-| all 0s        | all zeros              | ±0.0 (sign bit determines +/−)      |
-| all 0s        | non-zero               | subnormal numbers                   |
-| 1..2046       | any                    | normal numbers                      |
-| all 1s (2047) | all zeros              | ±Infinity (sign bit determines +/−) |
-| all 1s (2047) | non-zero               | NaN                                 |
-
-This means you can check for special values with simple bit operations - no exceptions, no branching overhead in critical inner loops. In Java you normally just use Double.isNaN(x) and Double.isInfinite(x), which are implemented efficiently under the hood.
-
-** The Problem: What Should Math Return When It Breaks?
-:PROPERTIES:
-:CUSTOM_ID: the-problem-what-should-math-return-when-it-breaks
-:END:
-Now that we understand /why/ special values exist (to handle edge cases without crashing), let's see /when/ they appear.
-
-Consider calculating the average price change across a portfolio:
-
-#+begin_src java
-double totalChange = 0.0;
-int validStocks = 0;
-
-for (Stock stock : portfolio) {
-    double change = stock.getCurrentPrice() - stock.getPreviousPrice();
-    if (isValidChange(change)) {
-        totalChange += change;
-        validStocks++;
-    }
-}
-
-double avgChange = totalChange / validStocks; // What if validStocks is 0?
-#+end_src
-
-If no stocks had valid data, you're dividing =0.0 / 0=. Should your program: - Crash immediately? - Return =0.0= and pretend the average is zero (which is a lie)? - Return something that screams “this value is meaningless”?
-
-IEEE 754 chose option three. It invented special values so errors can propagate visibly instead of silently corrupting results downstream.
-
-** IEEE 754 Special Values
-:PROPERTIES:
-:CUSTOM_ID: ieee-754-special-values
-:END:
-IEEE 754 defines a few “not-a-normal-number” values so computations can keep going in a principled way instead of crashing or silently inventing garbage.
-
-*** 1. Signed Zero: ±0.0
+** Why zero has a sign
 :PROPERTIES:
 :CUSTOM_ID: signed-zero-0.0
 :END:
-Before we dive into infinity, there's a subtle detail: IEEE 754 has both =+0.0= and =-0.0=. They both print as =0.0= and compare as equal, but they behave differently in division:
+A nonzero result can be too small for a =double= to store. When a division rounds that result to zero, Java retains the result's sign. That sign can affect the result of a later division or angle calculation.
 
 #+begin_src java
-double posZero = 0.0;
-double negZero = -0.0;
+double positiveZero = Double.MIN_VALUE / 2.0;
+double negativeZero = -Double.MIN_VALUE / 2.0;
 
-System.out.println(posZero == negZero);  // true
-System.out.println(1.0 / posZero);       // Infinity
-System.out.println(1.0 / negZero);       // -Infinity
+System.out.println(positiveZero);                 // 0.0
+System.out.println(negativeZero);                 // -0.0
+System.out.println(positiveZero == negativeZero); // true
 #+end_src
 
-Signed zero exists so that =1.0 / (tiny positive number → 0)= gives =+∞= while =1.0 / (tiny negative number → 0)= gives =−∞=. It preserves the direction you approached zero from, which matters for continuity and limit-style reasoning (aka Calculus).
+Each exact result has half the magnitude of =Double.MIN_VALUE=. Java cannot represent either result and rounds both to zero. The magnitude is lost, but the sign remains.
 
-*** 2. Infinity: +∞ and −∞
+Both stored values have magnitude zero. The negative sign does not represent a hidden nonzero amount. The comparison =0.0 == -0.0= returns =true=, and =-0.0 < 0.0= returns =false=. An ordinary zero check, such as =denominator == 0.0=, catches both signs of zero.
+
+The sign matters when the next operation uses it.
+
+Consider the reciprocal, =1.0 / x=. Small positive inputs produce large positive results. Small negative inputs produce large negative results. Retaining the sign when an input rounds to zero preserves this distinction:
+
+#+begin_src java
+System.out.println(1.0 / positiveZero); // Infinity
+System.out.println(1.0 / negativeZero); // -Infinity
+#+end_src
+
+If both inputs became positive zero, both divisions would produce positive infinity. The sign of the negative result would be lost. Signed zero preserves the sign of an intermediate result. It does not recover the magnitude lost through rounding. These are floating point rules; division by zero remains undefined in real arithmetic.
+
+Signed zero also matters when calculating angles. =Math.atan2(y, x)= returns an angle in radians from =-pi= to =pi=. At the negative x axis, the sign of a zero =y= selects an endpoint of that range:
+
+#+begin_src java
+double angleAbove = Math.atan2(+0.0, -1.0);
+double angleBelow = Math.atan2(-0.0, -1.0);
+
+System.out.println(Math.toDegrees(angleAbove)); // 180.0
+System.out.println(Math.toDegrees(angleBelow)); // -180.0
+#+end_src
+
+Points just above that axis have angles approaching =180= degrees. Points just below it have angles approaching =-180= degrees. The two endpoint angles describe the same geometric direction. Signed zero lets the method distinguish the two sides at the axis.
+
+The endpoint distinction matters when an application needs to distinguish the two sides of this boundary. If it reports every angle in the range from =0= degrees inclusive to =360= degrees exclusive, both endpoints become =180= degrees. For that reported direction, the distinction is unnecessary.
+
+The sign is part of the current value. It does not record the calculation's history: a program can also create =-0.0= directly. Signed zero alone does not track movement or count complete rotations.
+
+** Infinity and overflow
 :PROPERTIES:
 :CUSTOM_ID: infinity-and
 :END:
-Infinity appears when a finite result cannot be represented, or when you divide a nonzero number by zero.
+Java defines positive and negative infinity. Arithmetic can produce them through overflow or through division of a nonzero finite value by zero.
 
 #+begin_src java
-double posInf = 1.0 / 0.0;   // +Infinity
-double negInf = -1.0 / 0.0;  // -Infinity
-
-System.out.println(posInf);                  // Infinity
-System.out.println(negInf);                  // -Infinity
-System.out.println(Double.isInfinite(posInf)); // true
+System.out.println(Double.MAX_VALUE * 2.0); // Infinity
+System.out.println(1.0 / 0.0);              // Infinity
+System.out.println(-1.0 / 0.0);             // -Infinity
 #+end_src
 
-Infinity participates in ordering as you'd expect: - =+∞= is greater than every finite number - =−∞= is smaller than every finite number
+A result that needs rounding can still remain finite. For example, =1.0 / 3.0= produces the finite approximation =0.3333333333333333=.
 
-Arithmetic is mostly “limit-like”: - =finite + (+∞) = +∞= - =positive × (+∞) = +∞= - =negative × (+∞) = −∞=
+Positive infinity compares greater than every finite value. Negative infinity compares less than every finite value. Arithmetic involving infinity follows defined rules:
 
-But some combinations are undefined and produce NaN: - =(+∞) + (−∞) = NaN= - =(+∞) × 0.0 = NaN= - =(+∞) / (+∞) = NaN=
+| Expression | Result |
+|------------+--------|
+| =Double.POSITIVE_INFINITY + 5.0= | =Infinity= |
+| =Double.POSITIVE_INFINITY * -2.0= | =-Infinity= |
+| =Double.POSITIVE_INFINITY + Double.NEGATIVE_INFINITY= | =NaN= |
+| =Double.POSITIVE_INFINITY * 0.0= | =NaN= |
+| =Double.POSITIVE_INFINITY / Double.POSITIVE_INFINITY= | =NaN= |
 
-*** 3. NaN: Not a Number
+The last three operations produce =NaN=. Infinity does not make every arithmetic operation yield another infinity.
+
+These division rules apply to floating point operands. Integer division by zero throws =ArithmeticException=. If one operand is a =double= and the other is an =int=, Java converts the integer operand and performs floating point division.
+
+** NaN and invalid operations
 :PROPERTIES:
 :CUSTOM_ID: nan-not-a-number
 :END:
-NaN means “this result is undefined,” like =0.0 / 0.0= or =√(−1)=. Once NaN enters a computation, it spreads into any operation involving NaN to produce a NaN:
+Java uses =NaN= for results such as =0.0 / 0.0= and =Math.sqrt(-1.0)=.
+
+An average with no observations provides a practical example:
 
 #+begin_src java
-double nan = 0.0 / 0.0;
+double total = 0.0;
+int count = 0;
 
-System.out.println(nan);           // NaN
-System.out.println(nan + 5);       // NaN
-System.out.println(nan * 2);       // NaN
-System.out.println(Math.sqrt(nan)); // NaN
+double average = total / count;
+System.out.println(average); // NaN
 #+end_src
 
-This “contagious” behavior is intentional. If a value is undefined, any result built on it should also be undefined.
+There is no average to report because the count is zero. A result of zero would instead report a numerical average. The =NaN= result lets the application distinguish these cases.
 
-**** The Weird Rule: NaN ≠ NaN
-:PROPERTIES:
-:CUSTOM_ID: the-weird-rule-nan-nan
-:END:
-The key rule that feels like a logic prank but is actually a safety feature:
+The division uses floating point arithmetic because =total= is a =double=. Java does not throw an arithmetic exception for this calculation.
 
-*NaN is not equal to anything, including itself.*
+Once a value is =NaN=, arithmetic operators such as =+= and =*= propagate it. Library methods can have exceptions to that behavior:
 
 #+begin_src java
-double nan = Double.NaN;
-
-System.out.println(nan == nan);        // false (!)
-System.out.println(nan != nan);        // true
-System.out.println(nan < 5.0);         // false
-System.out.println(nan >= 5.0);        // false
-System.out.println(Double.isNaN(nan)); // true (correct way)
+System.out.println(Double.NaN + 5.0);         // NaN
+System.out.println(Double.NaN * 2.0);         // NaN
+System.out.println(Math.pow(Double.NaN, 0.0)); // 1.0
 #+end_src
 
-Why? Because NaN means “undefined result,” and you can't meaningfully compare undefined values. NaN is unordered by design. There can be many NaN bit patterns (IEEE 754 supports “signaling” and “quiet” NaNs with different payloads), but Java generally treats them as “some NaN” unless you inspect raw bits with =Double.doubleToRawLongBits()=.
+The last result is part of the contract for =Math.pow=. A zero exponent produces =1.0=. Check a method's documented rules before assuming that it propagates =NaN=.
 
-Think of it like asking whether two error messages are “the same error.” Even if both say “Error,” you don't know if they represent the same underlying problem. The comparison itself is meaningless.
+If either operand is =NaN=, the primitive equality test =a == b= returns =false=. The tests =a < b=, =a <= b=, =a > b= and =a >= b= also return =false=. The comparison =a != b= returns =true=.
 
-*Never check for NaN with ====. Use =Double.isNaN(x)= instead.*
+#+begin_src java
+double value = Double.NaN;
 
-**** NaN and Sorting: Two Different Worlds
+System.out.println(value == value);   // false
+System.out.println(value != value);   // true
+System.out.println(value < 5.0);      // false
+System.out.println(value >= 5.0);     // false
+System.out.println(Double.isNaN(value)); // true
+#+end_src
+
+Use =Double.isNaN(value)= when the question is whether a value is =NaN=. The expression =value == Double.NaN= always returns =false=.
+
+These rules also affect range checks. If =value= is =NaN=, both parts of =value < 0.0 || value > 100.0= are false. A range check written that way does not reject =NaN=.
+
+** Equality and ordering
 :PROPERTIES:
 :CUSTOM_ID: nan-and-sorting-two-different-worlds
 :END:
-This is where things get interesting. Java has /two/ ways to compare doubles, and they behave differently with NaN:
+Primitive comparisons do not define a total order over all =double= values. They leave =NaN= unordered.
 
-*IEEE 754 comparisons* (====, =<=, =<==, etc.): - Any comparison with NaN returns =false= - These are what you use in =if= statements
+Sorting needs an ordering that also handles =NaN= and signed zero. =Double.compare= supplies one. It orders negative zero before positive zero and places every =NaN= after positive infinity. It returns zero when both arguments are =NaN=.
 
-*Java's total order* (=Double.compare()=, =Double.compareTo()=)[fn:2]: - NaN is considered greater than all other values, including =+∞= - All NaNs are considered equal - This is what =Arrays.sort()= and =Arrays.binarySearch()= use
+=Arrays.sort(double[])= uses this ordering:
 
 #+begin_src java
-double[] values = {3.0, Double.NaN, 1.0, 2.0};
+import java.util.Arrays;
+
+double[] values = {
+    3.0, Double.NaN, 0.0, -0.0, Double.POSITIVE_INFINITY
+};
+
 Arrays.sort(values);
-System.out.println(Arrays.toString(values)); 
-// [1.0, 2.0, 3.0, NaN] -- guaranteed by Java spec
+System.out.println(Arrays.toString(values));
+// [-0.0, 0.0, 3.0, Infinity, NaN]
 
-// IEEE comparison says "not sorted":
-System.out.println(values[2] <= values[3]); // false (3.0 <= NaN is false)
+System.out.println(values[3] <= values[4]);
+// false
 
-// Total order says "sorted":
-System.out.println(Double.compare(values[2], values[3]) <= 0); // true
+System.out.println(Double.compare(values[3], values[4]) <= 0);
+// true
 #+end_src
 
-*The gotcha:* If you validate sortedness using =<==, you'll get false negatives when NaN is present. If you need to check ordering, use =Double.compare(a, b) <= 0= instead.
+The array is sorted according to the documented ordering. The expression =a <= b= applies different rules when =NaN= is present. Use =Double.compare= when checking whether values follow this ordering.
 
-IEEE comparisons answer “is this mathematically ordered?” while Java's total order answers “can we put these in a consistent sequence for sorting?” The Arrays Javadoc basically says exactly that: < is not a total order for doubles, so sorting uses the total order from Double.compareTo.
+=Arrays.binarySearch= uses a compatible ordering, but the array must already be sorted. The search does not rearrange it.
 
-The good news: =Arrays.sort()= and =Arrays.binarySearch()= work correctly with NaN because they use the total order internally. The NaN will consistently end up at the end of the array.
+Boxed =Double= objects also have an =equals= method with rules that differ from the primitive comparison =a == b=.
 
-** Quick Reference: Comparison Table
-:PROPERTIES:
-:CUSTOM_ID: quick-reference-comparison-table
-:END:
-| Operation                  | Result  | Reason                                     |
-|----------------------------+---------+--------------------------------------------|
-| =NaN == NaN=               | =false= | IEEE comparison: unordered                 |
-| =NaN != NaN=               | =true=  | Same reason                                |
-| =NaN < 5.0=                | =false= | NaN fails all IEEE comparisons             |
-| =NaN >= 5.0=               | =false= | Same                                       |
-| =Double.compare(NaN, 5.0)= | => 0=   | Total order: NaN > everything              |
-| =∞ > 1e308=                | =true=  | Infinity is greater than all finite values |
-| =0.0 == -0.0=              | =true=  | Signed zeros compare equal                 |
-| =1.0 / 0.0=                | =+∞=    | Division by zero produces infinity         |
-| =0.0 / 0.0=                | =NaN=   | Indeterminate form                         |
-| =∞ − ∞=                    | =NaN=   | Undefined operation                        |
+In this table, boxed equality means =Double.valueOf(a).equals(Double.valueOf(b))=:
 
-** Practical Takeaways
+| Values =a= and =b= | Primitive =a == b= | Boxed =Double.equals= | =Double.compare(a, b)= |
+|-------------------+---------------------+-----------------------+-----------------------|
+| =NaN= and =NaN= | =false= | =true= | =0= |
+| =-0.0= and =+0.0= | =true= | =false= | Less than zero |
+
+The object equality and ordering rules agree with each other. They treat all NaNs as equal and distinguish the two signed zeros. Specify which operation you mean when discussing whether these values are equal.
+
+This distinction affects collection keys. A =HashSet<Double>= uses the =equals= rules of =Double=, so it can contain both signed zeros:
+
+#+begin_src java
+import java.util.HashSet;
+
+HashSet<Double> zeros = new HashSet<>();
+zeros.add(0.0);
+zeros.add(-0.0);
+
+System.out.println(zeros.size()); // 2
+#+end_src
+
+Keep the sign while later numerical operations may use it. If an application treats both zeros as the same key, it can convert negative zero to positive zero:
+
+#+begin_src java
+double result = -0.0;
+double normalized = result == 0.0 ? 0.0 : result;
+
+System.out.println(normalized); // 0.0
+#+end_src
+
+This changes only exact zero values. Nonzero values remain unchanged, including very small negative values. Apply the same conversion before both insertion and lookup when the collection must treat the zeros as one key.
+
+Java also prints negative zero as =-0.0=. The same conversion can remove that sign from output when the application does not need it. It does not address a nonzero negative value that a formatter rounds to a display such as =-0.00=. That is a separate display decision.
+
+** Identifying values in Java
 :PROPERTIES:
 :CUSTOM_ID: practical-takeaways
 :END:
-1. *Never check NaN with ====*. Use =Double.isNaN(x)=.
+Java provides three methods for checking these categories:
 
-2. *Log early for special values* when debugging “impossible” totals:
+| Method | Returns =true= when |
+|--------+----------------------|
+| =Double.isNaN(value)= | The value is =NaN= |
+| =Double.isInfinite(value)= | The value is positive or negative infinity |
+| =Double.isFinite(value)= | The value is neither =NaN= nor infinity |
 
-   #+begin_src java
-   if (Double.isNaN(result)) {
-       log.error("NaN detected at step X");
-   }
-   if (Double.isInfinite(result)) {
-       log.error("Infinity detected at step X");
-   }
-   #+end_src
+Finite values include both signed zeros and all subnormal values. An application must still check any other requirements. For example, =-5.0= is finite but fails a requirement for a positive duration.
 
-3. *Use the right comparison for the job*: ==== for value equality, =Double.compare()= for ordering.
+These categories have distinct encodings. A =double= has a sign bit, an 11-bit exponent field and a 52-bit fraction field. The exponent field below is shown as an unsigned integer:
 
-4. *Understand the contagion*: Once NaN enters your calculations, it spreads. Trace backward to find the division by zero or invalid operation that spawned it.
+| Exponent field | Fraction bits | Meaning |
+|----------------+---------------+---------|
+| =0= | All zero | Positive or negative zero |
+| =0= | At least one nonzero | Subnormal value |
+| =1= through =2046= | Any | Normal value |
+| =2047= | All zero | Positive or negative infinity |
+| =2047= | At least one nonzero | =NaN= |
 
-** The Philosophical Bit
-:PROPERTIES:
-:CUSTOM_ID: the-philosophical-bit
-:END:
-NaN isn't a bug. It is math raising its hand and saying, politely but firmly:
+Use the classification methods for ordinary checks. They state the intent without requiring code to inspect the bit fields.
 
-#+begin_quote
-“I can't promise anything from here.”
-#+end_quote
+In [[/2026/01/05/defending-against-nan-without-defensive-programming-hell/][Part 6]], we will examine where to validate values and how to report or handle a calculation that cannot produce an acceptable result.
 
-When your balance sheet shows NaN, don't curse floating point. Ask what division by zero or invalid square root you missed three steps ago. The special values aren't betraying you; they're the only honest answer to questions that have no answer.
-
-In the next post, we'll look at how to actually /handle/ these special cases in production code without littering your logic with endless =isNaN()= checks.
-
-** References and Notes
+** References
 :PROPERTIES:
 :CUSTOM_ID: references-and-notes
 :END:
 
-[fn:1] [[/2025/12/04/ieee-754-doubles/][Part 1: IEEE 754 Doubles - The Numbers That Lie With A Straight Face]]
-
-[fn:2] [[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html][Java's Total Order]]
+1. [[https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html#jls-4.2.3][Java Language Specification: Floating point types and values]] and [[https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html][Expressions]]. Define rounding, arithmetic and primitive comparison rules.
+2. [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html][Java API: Math]]. Documents the special cases for =atan2=, =sqrt= and =pow=.
+3. [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Double.html][Java API: Double]]. Documents equality, ordering, classification, conversion to text and bit representation.
+4. [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Arrays.html][Java API: Arrays]] and [[https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashSet.html][HashSet]]. Document sorting, binary search and set membership.
+5. David Goldberg, [[https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html][What Every Computer Scientist Should Know About Floating-Point Arithmetic]]. Explains why signed zero is useful.
+6. [[https://docs.oracle.com/cd/E19957-01/806-3568/ncg_math.html][Oracle Numerical Computation Guide: IEEE Arithmetic]]. Describes the sign, exponent and fraction fields of the double format.

@@ -1,150 +1,93 @@
-<svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="flow-title flow-description">
+  <title id="flow-title">Check inputs and results</title>
+  <desc id="flow-description">A method receives inputs, checks its input requirements, performs a calculation, checks its output requirements, and returns the value. An input check or a result check that fails leads to the same report-failure outcome. Finiteness is one possible requirement, not a guarantee that a value is acceptable.</desc>
   <defs>
-    <!-- Dramatic gradient background -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#1e1b4b;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#7c2d12;stop-opacity:1" />
-    </linearGradient>
-
-```
-<!-- Intense glow -->
-<filter id="intense-glow">
-  <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-  <feMerge>
-    <feMergeNode in="coloredBlur"/>
-    <feMergeNode in="coloredBlur"/>
-    <feMergeNode in="SourceGraphic"/>
-  </feMerge>
-</filter>
-
-<!-- Danger glow -->
-<filter id="danger">
-  <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
-  <feMerge>
-    <feMergeNode in="coloredBlur"/>
-    <feMergeNode in="SourceGraphic"/>
-  </feMerge>
-</filter>
-
-<!-- Text shadow -->
-<filter id="text-shadow">
-  <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.8"/>
-</filter>
-```
-
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 1 1 L 11 6 L 1 11 Z" fill="#426782"/>
+    </marker>
+    <marker id="failure-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 1 1 L 11 6 L 1 11 Z" fill="#96601c"/>
+    </marker>
   </defs>
 
-  <!-- Background -->
+  <rect width="1600" height="900" fill="#f7f9fc"/>
+  <rect x="72" y="65" width="8" height="65" rx="4" fill="#225f8f"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="105" y="115" fill="#14243a" font-size="60" font-weight="700">Check inputs and results</text>
+    <text x="105" y="169" fill="#45566c" font-size="28">Use the method's input and output requirements.</text>
 
-  <rect width="1600" height="900" fill="url(#bgGrad)"/>
-
-  <!-- Animated particle effects -->
-
-  <g opacity="0.4">
-    <circle cx="150" cy="100" r="3" fill="#ef4444">
-      <animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="1400" cy="150" r="2" fill="#10b981">
-      <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="300" cy="800" r="2.5" fill="#3b82f6">
-      <animate attributeName="opacity" values="0.4;1;0.4" dur="3.5s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="1300" cy="700" r="3" fill="#8b5cf6">
-      <animate attributeName="opacity" values="0.3;1;0.3" dur="4s" repeatCount="indefinite"/>
-    </circle>
-  </g>
-
-  <!-- Giant NaN symbol - stylized and dramatic -->
-
-  <g opacity="0.15" transform="translate(300, 150)">
-    <text x="0" y="0" font-family="'Courier New', monospace" font-size="420" font-weight="bold" fill="#ef4444" transform="rotate(-15)">NaN</text>
-  </g>
-
-  <!-- Central explosive visual metaphor -->
-
-  <g transform="translate(800, 450)">
-    <!-- Explosion rays from center -->
-    <g opacity="0.6">
-      <line x1="0" y1="0" x2="300" y2="-200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
-      <line x1="0" y1="0" x2="350" y2="0" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
-      <line x1="0" y1="0" x2="300" y2="200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
-      <line x1="0" y1="0" x2="-300" y2="200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
-      <line x1="0" y1="0" x2="-350" y2="0" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
-      <line x1="0" y1="0" x2="-300" y2="-200" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
-      <line x1="0" y1="0" x2="0" y2="-250" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
-      <line x1="0" y1="0" x2="0" y2="250" stroke="#ef4444" stroke-width="4" filter="url(#danger)"/>
+    <!-- The accepted path follows steps 1 through 5. -->
+    <g fill="none" stroke="#426782" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+      <path d="M 490 340 H 584"/>
+      <path d="M 1010 340 H 1104"/>
+      <path d="M 1320 430 V 559"/>
+      <path d="M 1110 655 H 1016"/>
+    </g>
+    <g fill="#334f68" font-size="24" font-weight="600" text-anchor="middle">
+      <text x="540" y="318">Input</text>
+      <text x="1060" y="318">Pass</text>
+      <text x="1388" y="502">Result</text>
+      <text x="1060" y="633">Pass</text>
     </g>
 
-```
-<!-- Center danger symbol -->
-<circle cx="0" cy="0" r="80" fill="none" stroke="#ef4444" stroke-width="8" filter="url(#intense-glow)">
-  <animate attributeName="r" values="80;90;80" dur="2s" repeatCount="indefinite"/>
-</circle>
-<circle cx="0" cy="0" r="60" fill="#ef4444" opacity="0.3" filter="url(#danger)">
-  <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite"/>
-</circle>
-
-<!-- Alert symbol inside -->
-<text x="0" y="25" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle" filter="url(#text-shadow)">!</text>
-```
-
-  </g>
-
-  <!-- Floating code fragments showing the chaos -->
-
-  <g opacity="0.7">
-    <g transform="translate(200, 300) rotate(-8)">
-      <rect x="0" y="0" width="280" height="80" fill="#1e293b" rx="8" opacity="0.9"/>
-      <text x="140" y="35" font-family="monospace" font-size="18" fill="#ef4444" text-anchor="middle">if (isNaN(x))</text>
-      <text x="140" y="60" font-family="monospace" font-size="16" fill="#94a3b8" text-anchor="middle">return 0; // ???</text>
+    <!-- Either check can use the method's defined failure response. -->
+    <g fill="none" stroke="#96601c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#failure-arrow)">
+      <path d="M 800 430 V 495 H 280 V 559"/>
+      <path d="M 1320 745 V 803 H 280 V 751"/>
+    </g>
+    <g fill="#805015" font-size="24" font-weight="600" text-anchor="middle">
+      <text x="548" y="481">Fail</text>
+      <text x="800" y="789">Fail</text>
     </g>
 
-```
-<g transform="translate(1150, 250) rotate(5)">
-  <rect x="0" y="0" width="320" height="80" fill="#1e293b" rx="8" opacity="0.9"/>
-  <text x="160" y="35" font-family="monospace" font-size="18" fill="#10b981" text-anchor="middle">requireFinite(x)</text>
-  <text x="160" y="60" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">// validate once</text>
-</g>
+    <!-- Step 1: incoming values. -->
+    <g>
+      <rect x="70" y="250" width="420" height="180" rx="18" fill="#ffffff" stroke="#bdcddd" stroke-width="2"/>
+      <text x="100" y="286" fill="#566a80" font-size="20" font-weight="700">1</text>
+      <text x="280" y="338" fill="#14243a" font-size="36" font-weight="700" text-anchor="middle">Receive inputs</text>
+      <text x="280" y="380" fill="#45566c" font-size="25" text-anchor="middle">Values supplied to the method</text>
+    </g>
 
-<g transform="translate(150, 600) rotate(-5)">
-  <rect x="0" y="0" width="300" height="60" fill="#1e293b" rx="8" opacity="0.9"/>
-  <text x="150" y="40" font-family="monospace" font-size="16" fill="#ef4444" text-anchor="middle">Double.isNaN(result)</text>
-</g>
-```
+    <!-- Step 2: requirements for accepted inputs. -->
+    <g>
+      <rect x="590" y="250" width="420" height="180" rx="18" fill="#e9f2fc" stroke="#225f8f" stroke-width="2.5"/>
+      <text x="620" y="286" fill="#225f8f" font-size="20" font-weight="700">2</text>
+      <text x="800" y="338" fill="#14243a" font-size="36" font-weight="700" text-anchor="middle">Check inputs</text>
+      <text x="800" y="380" fill="#334f68" font-size="25" text-anchor="middle">Apply input requirements</text>
+    </g>
 
-  </g>
+    <!-- Step 3: the operation can create an unacceptable result. -->
+    <g>
+      <rect x="1110" y="250" width="420" height="180" rx="18" fill="#ffffff" stroke="#bdcddd" stroke-width="2"/>
+      <text x="1140" y="286" fill="#566a80" font-size="20" font-weight="700">3</text>
+      <text x="1320" y="338" fill="#14243a" font-size="36" font-weight="700" text-anchor="middle">Calculate</text>
+      <text x="1320" y="380" fill="#45566c" font-size="25" text-anchor="middle">Perform the operation</text>
+    </g>
 
-  <!-- Main headline - massive and bold -->
+    <!-- Step 4: establish the promised output conditions. -->
+    <g>
+      <rect x="1110" y="565" width="420" height="180" rx="18" fill="#e9f2fc" stroke="#225f8f" stroke-width="2.5"/>
+      <text x="1140" y="601" fill="#225f8f" font-size="20" font-weight="700">4</text>
+      <text x="1320" y="653" fill="#14243a" font-size="36" font-weight="700" text-anchor="middle">Check result</text>
+      <text x="1320" y="695" fill="#334f68" font-size="25" text-anchor="middle">Apply output requirements</text>
+    </g>
 
-<text x="800" y="140" font-family="Arial, sans-serif" font-size="84" font-weight="900" fill="#fff" text-anchor="middle" filter="url(#text-shadow)">STOP THE</text>
-<text x="800" y="220" font-family="Arial, sans-serif" font-size="96" font-weight="900" fill="#ef4444" text-anchor="middle" filter="url(#intense-glow)">CHECKPOINT</text>
-<text x="800" y="300" font-family="Arial, sans-serif" font-size="96" font-weight="900" fill="#ef4444" text-anchor="middle" filter="url(#intense-glow)">SYNDROME</text>
+    <!-- Step 5: return a result that meets those conditions. -->
+    <g>
+      <rect x="590" y="565" width="420" height="180" rx="18" fill="#e7f4ec" stroke="#357a58" stroke-width="2.5"/>
+      <text x="620" y="601" fill="#296044" font-size="20" font-weight="700">5</text>
+      <text x="800" y="653" fill="#163c2a" font-size="36" font-weight="700" text-anchor="middle">Return value</text>
+      <text x="800" y="695" fill="#2c5941" font-size="25" text-anchor="middle">Output requirements met</text>
+    </g>
 
-  <!-- Powerful tagline -->
+    <!-- Failure handling is an explicit part of the method's contract. -->
+    <g>
+      <rect x="70" y="565" width="420" height="180" rx="18" fill="#fff2df" stroke="#a46414" stroke-width="2.5"/>
+      <text x="280" y="647" fill="#633d0f" font-size="36" font-weight="700" text-anchor="middle">Report failure</text>
+      <text x="280" y="689" fill="#754b16" font-size="23" text-anchor="middle">Use the defined failure response</text>
+    </g>
 
-  <g transform="translate(800, 730)">
-    <rect x="-420" y="-35" width="840" height="70" fill="#10b981" opacity="0.2" rx="8"/>
-    <text x="0" y="0" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#10b981" text-anchor="middle" filter="url(#text-shadow)">Validate at Edges. Compute in Peace.</text>
-  </g>
-
-  <!-- Series branding - sleek badge -->
-
-  <g transform="translate(800, 850)">
-    <rect x="-280" y="-25" width="560" height="50" fill="#0ea5e9" opacity="0.3" rx="25"/>
-    <text x="0" y="8" font-family="Arial, sans-serif" font-size="22" font-weight="600" fill="#0ea5e9" text-anchor="middle">Floating Point Without Tears · Part 6</text>
-  </g>
-
-  <!-- Rake icon (the metaphor) - bottom left corner -->
-
-  <g transform="translate(50, 820)" opacity="0.5">
-    <line x1="20" y1="0" x2="20" y2="60" stroke="#fbbf24" stroke-width="4"/>
-    <line x1="5" y1="60" x2="35" y2="60" stroke="#fbbf24" stroke-width="3"/>
-    <line x1="8" y1="60" x2="8" y2="70" stroke="#fbbf24" stroke-width="2"/>
-    <line x1="20" y1="60" x2="20" y2="70" stroke="#fbbf24" stroke-width="2"/>
-    <line x1="32" y1="60" x2="32" y2="70" stroke="#fbbf24" stroke-width="2"/>
-    <text x="50" y="50" font-family="Arial, sans-serif" font-size="14" fill="#fbbf24">⚠️ Stop leaving</text>
-    <text x="50" y="70" font-family="Arial, sans-serif" font-size="14" fill="#fbbf24">rakes everywhere</text>
+    <line x1="72" y1="841" x2="1528" y2="841" stroke="#d4dfe9" stroke-width="2"/>
+    <text x="72" y="878" fill="#45566c" font-size="24">Floating Point Without Tears · Part 6</text>
   </g>
 </svg>

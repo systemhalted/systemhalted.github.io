@@ -1,197 +1,163 @@
-#+TITLE: Part 8: Big Decimal Rounding Modes - Why HALF_UP Isn't Always the Answer
-#+DESCRIPTION: Learn why HALF_UP rounding isn't always correct and how to choose a rounding policy in Java (HALF_EVEN, HALF_UP, HALF_DOWN, UP, DOWN, CEILING, FLOOR, UNNECESSARY).
+#+TITLE: Part 8: Choosing a Rounding Mode in Java
+#+DESCRIPTION: Choose a decimal scale, a rounding mode, and a rounding stage in Java. Understand ties, HALF_EVEN, exact decimal inputs, and UNNECESSARY.
 #+DATE: 2026-02-05
 #+CATEGORIES: Computer Science, Software Engineering, Technology, Series 4 - Floating Point Without Tears
 #+TAGS: java, floating-point, bigdecimal, rounding, finance, numerics
 #+PERMALINK: /2026/02/05/rounding-modes-why-half-up-isnt-always-the-answer/
 #+COMMENTS: true
 #+TOC: true
-#+FEATURED_IMAGE: /assets/images/featured/2026-02-05-rounding-modes-half-up-isnt-always-the-answer.png
-#+FEATURED_IMAGE_ALT: Abstract illustration of rounding in Java: decimal numbers float above a dial labeled HALF_UP and HALF_EVEN, with arrows showing tie-breaking directions and a subtle bias toward HALF_UP.
-#+FEATURED_IMAGE_CAPTION: Rounding is policy in disguise: HALF_UP always nudges ties the same way, while HALF_EVEN spreads the bias out.
+#+FEATURED_IMAGE: assets/images/featured/2026-02-05-rounding-modes-half-up-isnt-always-the-answer.png
+#+FEATURED_IMAGE_ALT: Illustration comparing 1.005 rounded to 1.01 with HALF_UP and to 1.00 with HALF_EVEN, with coins and a Java symbol.
+#+FEATURED_IMAGE_CAPTION: At two decimal places, HALF_UP rounds 1.005 to 1.01 and HALF_EVEN rounds it to 1.00.
 
-/This post is part of my [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]] series on how Java numbers misbehave and how to live with them./
+/This post is part of my [[https://systemhalted.in/categories/#cat-series-4-floating-point-without-tears][Floating Point Without Tears]] series on numerical calculations in Java./
 
-In [[https://systemhalted.in/2026/01/11/kahan-summation-java-streams/][Part 7]] of this series, we looked at summation error and how Kahan compensation can keep a long reduction from quietly losing low-order bits. This post is about a different and, in some ways, more consequential precision trap: the moment at which a value is rounded down to fewer digits in order to be displayed, stored, or reported.
+In [[https://systemhalted.in/2026/01/11/kahan-summation-java-streams/][Part 7]], we examined how rounding during floating point addition can change a total. This post considers a related problem: a calculation produces more decimal places than its result is allowed to contain.
 
-Rounding looks like a small detail in the code, and it almost never is one. It is the place where many otherwise-correct calculations end up disagreeing with audits, ledgers, and reconciliations, often in ways that are difficult to diagnose because the disagreement only appears at scale. Most teams I have seen pick a rounding mode in roughly the same way that most people pick a film on a streaming service --- by going with whichever option happened to be already playing --- and in Java, the option that happens to be already playing is very often =HALF_UP=, on the implicit assumption that this is “normal” rounding.
+For example, a calculation may produce the exact decimal value =1.005=, but the result must have two decimal places. Both =1.00= and =1.01= are equally close. Using =BigDecimal= preserves the input exactly when it is read from a decimal string. It does not decide which result your application requires.
 
-#+begin_quote
-“We'll use =HALF_UP=. That's normal rounding. Done.”
-#+end_quote
+You need to specify three things:
 
-Then a pricing engine ships, or a statement generator, or a ledger, or a tax calculator, or an amortization schedule --- and at some point afterwards it becomes apparent that *rounding is policy*, not arithmetic. Or, more precisely, it is arithmetic with consequences, and the choice of which rounding mode to apply turns out to be a product decision wearing mathematical clothing. This post is about how to make that choice deliberately, and about why =HALF_UP= is not the universal solvent it is so often assumed to be.
+1. *Scale:* how many decimal places the result must have.
+2. *Rounding mode:* how to choose a result when the exact value does not fit that scale.
+3. *Rounding stage:* when to apply the rule during the calculation.
 
-** Quick Reference: Rounding Mode Cheat Sheet
+These decisions are separate. Two calculations can use the same scale and rounding mode but produce different totals because they round at different stages.
+
+** Decimal places and rounding modes
 :PROPERTIES:
-:CUSTOM_ID: cheat-sheet
+:CUSTOM_ID: rounding-modes
 :END:
-| Mode          | Behavior                                   | When                                                 | Jump                      |
-|---------------+--------------------------------------------+------------------------------------------------------+---------------------------|
-| =HALF_EVEN=   | Ties -> nearest even digit                 | Aggregates, reducing bias                            | [[#use-half-even][↓]]     |
-| =HALF_UP=     | Ties -> away from zero                     | Schoolbook rounding, retail                          | [[#use-half-up][↓]]       |
-| =HALF_DOWN=   | Ties -> toward zero                        | Policy requires ties toward zero (rare; document it) | [[#toolbox][↓]]           |
-| =UP=          | Always away from zero                      | Conservative bounds (never underestimate magnitude)  | [[#toolbox][↓]]           |
-| =DOWN=        | Always toward zero                         | Fee caps, conservative limits                        | [[#use-down][↓]]          |
-| =CEILING=     | Toward +∞ (1.231 -> 1.24, -1.231 -> -1.23) | “At least” constraints                               | [[#use-ceiling-floor][↓]] |
-| =FLOOR=       | Toward -∞ (1.231 -> 1.23, -1.231 -> -1.24) | “At most” constraints                                | [[#use-ceiling-floor][↓]] |
-| =UNNECESSARY= | Throw if rounding needed                   | Validation, catching assumptions                     | [[#use-unnecessary][↓]]   |
-
-*Key rules:* - Avoid rounding double when policy matters: use BigDecimal from strings → [[#classic-trap][The Classic Trap]] - Decide /when/ to round, not just /how/ → [[#rounding-timing][Rounding Timing]] - For money, use scaled integers internally → [[#money-pattern][Money Pattern]]
-
---------------
-
-** The real problem: ties (the 5s)
-:PROPERTIES:
-:CUSTOM_ID: ties
-:END:
-The drama in rounding, almost without exception, is not really about choosing between =2.341= and =2.34=. It is about /ties/ --- values that lie exactly halfway between two representable steps at the precision you are rounding to.
-
-At two decimal places, the troublesome values are the ones that look like this:
-
-- =1.005=
-- =2.675=
-- =10.125=
-
-It is worth being precise about what counts as a tie, because the term is sometimes applied loosely to values that are not, strictly speaking, halfway between anything. A value is a tie at a given scale only when the first discarded digit is exactly =5= and all subsequent discarded digits are exactly =0=. So =1.005= is a tie at two decimal places, and so is =1.00500…=, but =1.0051= is not a tie --- it is, on inspection, closer to =1.01= than to =1.00=, and any reasonable rounding mode will produce =1.01= regardless of how it handles ties.
-
-The reason ties matter so much in practice is that, depending on which way the rounding mode resolves them, the cumulative effect across many operations can be quite different. If you consistently push ties in one direction --- say, always upward --- you introduce a systematic bias into every aggregate that depends on those rounded values. Sometimes that bias is exactly what the domain wants (retail prices, for instance, often round in a particular direction by convention); often it is not, occasionally it is actually prohibited by regulation or contract, and even when it is none of those things, it is the kind of pattern that tends to make reconciliation teams unhappy when the totals begin to drift.
-
-** Java's rounding toolbox
-:PROPERTIES:
-:CUSTOM_ID: toolbox
-:END:
-Java's standard library, in =java.math.RoundingMode=, exposes a fairly complete set of rounding policies. The interesting question, in the end, is rarely which of them is “available” --- they all are --- but rather which of them matches the contract the domain actually wants enforced. The available modes are:
-
-- =HALF_UP= - round to nearest; if exactly halfway, round away from zero (1.5 -> 2, -1.5 -> -2)
-- =HALF_DOWN= - round to nearest; if exactly halfway, round toward zero (1.5 -> 1, -1.5 -> -1)
-- =HALF_EVEN= - round to nearest; if exactly halfway, round to the result whose last kept digit is even (banker's rounding, also called round-half-to-even)
-- =UP= - always away from zero
-- =DOWN= - always toward zero (truncate)
-- =CEILING= - toward positive infinity (-1.231 -> -1.23, 1.231 -> 1.24 at 2dp)
-- =FLOOR= - toward negative infinity (-1.231 -> -1.24, 1.231 -> 1.23 at 2dp)
-- =UNNECESSARY= - throw if rounding would be required (which I have come to think of as a “make bugs loud” mode)
-
-It is also worth recalling that calling =setScale(...)= without specifying a rounding mode will, if rounding turns out to be required, throw --- which is a sensible default but is occasionally surprising:
-
-#+begin_src java
-new BigDecimal("1.234").setScale(2); // throws ArithmeticException
-#+end_src
-
-And the most important practical rule, which I find myself repeating in code review more often than any other rule in this area:
-
-*If you care about exact decimal policy, avoid rounding a =double=. Round a =BigDecimal= created from a string (or from an exact integer scale).*
-
-*** The classic trap: =new BigDecimal(double)=
-:PROPERTIES:
-:CUSTOM_ID: classic-trap
-:END:
-This is the trap that catches almost everyone at least once, and it is worth showing in code rather than just describing in prose:
+For a nonnegative scale, =BigDecimal= uses the scale to specify the number of decimal places. This example produces a value with two decimal places:
 
 #+begin_src java
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class RoundingTrap {
-  public static void main(String[] args) {
-    BigDecimal a = new BigDecimal(1.005);               // from double
-    BigDecimal b = new BigDecimal("1.005");             // from string
-
-    System.out.println(a.setScale(2, RoundingMode.HALF_UP)); // 1.00
-    System.out.println(b.setScale(2, RoundingMode.HALF_UP)); // 1.01
-  }
-}
+BigDecimal amount = new BigDecimal("1.005");
+BigDecimal rounded = amount.setScale(2, RoundingMode.HALF_EVEN);
+System.out.println(rounded); // 1.00
 #+end_src
 
-The expectation, of course, is that both values round to =1.01=. What actually happens is that the first one rounds to =1.00=, because =1.005= as a binary floating-point value is not, in fact, exactly =1.005= --- it is a hair less than that, by exactly the small amount that binary floating point cannot quite represent the decimal fraction =0.005=. When you then ask =BigDecimal= to round that approximate value, it dutifully rounds the value it actually has, which falls just below the tie boundary.
+=setScale= returns a value; it does not modify =amount=. Here, =amount= remains =1.005=.
 
-If you find yourself, in a finance system, looking at a result in which =1.005= appears to round to =1.00= under =HALF_UP=, the right interpretation is not that Java is being eccentric. The right interpretation is that you have fed an approximate binary representation into an exact decimal rounding routine, and that the routine has, accurately and unhelpfully, given you the answer that corresponds to the value it was actually given.
+Scale is different from significant-digit precision. =setScale(2, mode)= asks for two decimal places. A =MathContext= with a precision of =2= limits a result to two significant digits, counted from its first nonzero digit. This post uses =setScale= because the examples require a fixed number of decimal places.
 
-*** What about =BigDecimal.valueOf()=?
+At scale =2=, =1.005= is a /tie/: it is halfway between =1.00= and =1.01=. Extra trailing zeros do not change that fact, so =1.00500= is also a tie. The value =1.0051= is above the halfway point and is closer to =1.01=.
+
+Java's three nearest rounding modes, =HALF_UP=, =HALF_DOWN=, and =HALF_EVEN=, differ only in how they handle ties. The directed modes choose a direction even when the value is not a tie.
+
+The following table rounds both inputs to two decimal places:
+
+| Mode | Rule | =1.005= | =-1.005= |
+|------+-------+---------+----------|
+| =HALF_UP= | Nearest; ties away from zero | =1.01= | =-1.01= |
+| =HALF_DOWN= | Nearest; ties toward zero | =1.00= | =-1.00= |
+| =HALF_EVEN= | Nearest; ties to an even last retained digit | =1.00= | =-1.00= |
+| =UP= | Away from zero | =1.01= | =-1.01= |
+| =DOWN= | Toward zero | =1.00= | =-1.00= |
+| =CEILING= | Toward positive infinity | =1.01= | =-1.00= |
+| =FLOOR= | Toward negative infinity | =1.00= | =-1.01= |
+| =UNNECESSARY= | Require an exact result at the requested scale | Exception | Exception |
+
+If a value already fits the scale exactly, none of these modes changes its numerical value. For =1.0051=, all three nearest modes produce =1.01=, but =DOWN= and =FLOOR= produce =1.00=. =UNNECESSARY= throws =ArithmeticException= because an exact result at scale =2= is impossible.
+
+The names =UP= and =DOWN= describe movement relative to zero. They do not mean larger and smaller on the number line. This matters for negative amounts: =HALF_UP= changes =-1.005= to =-1.01=, which is a smaller number with a greater magnitude.
+
+** Start with the intended decimal value
 :PROPERTIES:
-:CUSTOM_ID: valueof
+:CUSTOM_ID: decimal-input
 :END:
-There is a third constructor in this space which sits between the two previous options and which readers trip over often enough that it is worth treating explicitly: =BigDecimal.valueOf(double)=.
+A rounding mode operates on the value it receives. If the value has already changed during conversion or arithmetic, selecting a different mode will not recover the original input.
 
-#+begin_src java
-BigDecimal a = new BigDecimal(1.005);        // Dangerous: uses exact binary representation
-BigDecimal b = BigDecimal.valueOf(1.005);    // Safer: uses Double.toString() internally
-BigDecimal c = new BigDecimal("1.005");      // Safest: exact decimal from string
-#+end_src
-
-=BigDecimal.valueOf(double)= will, in most everyday cases, behave as if you had used the string constructor, because it routes the conversion through =Double.toString()= internally --- and =Double.toString= is specified to return the shortest decimal representation that round-trips back to the same double. So when you start from a literal like =1.005=, =valueOf= gives you the decimal =1.005= rather than the binary-exact value, which is what most callers actually wanted.
-
-A reasonable rule of thumb, based on which entry point one is using:
-
-- Use =new BigDecimal("...")= for literals and external decimal inputs that arrive as strings
-- Use =BigDecimal.valueOf(double)= only when you already have a double in hand and need the best possible decimal view of it (still risky after computations, but better than =new BigDecimal(double)=)
-- Never use =new BigDecimal(double)= unless you explicitly want the exact binary-to-decimal conversion, which is rarely what callers expect
-
-It is worth one further caution. If the double you are wrapping has come out of arithmetic --- rather than out of a literal --- then the value you are now “viewing” through =valueOf= may already be quite far from the decimal you think you started with. =valueOf= is an honest decimal view of whatever double it receives; it is not a cleansing ritual that retroactively repairs precision lost earlier in the calculation.
-
-** Why HALF_UP can be the wrong default
-:PROPERTIES:
-:CUSTOM_ID: half-up-bias
-:END:
-=HALF_UP= is, in fairness, intuitive. It matches what most of us were taught with a pencil and paper in school, and it has the agreeable property of making the answer easy to predict in any individual case. The trouble is that, when applied repeatedly to many values, it can introduce a systematic *drift*, because every tie is resolved in the same direction.
-
-It is worth pausing for a moment on a small irony of the IEEE 754 standard here. IEEE 754's default rounding mode for binary floating-point arithmetic is /round to nearest, ties to even/ --- which is, in effect, =HALF_EVEN=. Each individual =double= operation in Java is specified to behave as if its result had been rounded that way. The mild irony, then, is that when developers reach for =BigDecimal= precisely because they are now worried about decimal correctness, many of them then choose =HALF_UP=, thereby reintroducing the very bias that IEEE 754 had originally been designed to avoid.
-
-*** Bias demo: HALF_UP vs HALF_EVEN
-:PROPERTIES:
-:CUSTOM_ID: bias-demo
-:END:
-Suppose, in order to make this concrete, that you have a population of values which all happen to land exactly on ties at two decimal places. (This kind of thing happens more often than people tend to expect, particularly after divisions and intermediate scaling steps.) The behaviour of the two main candidate rounding modes, side by side, looks like this:
-
-- =HALF_UP=: =1.005 -> 1.01=, =1.015 -> 1.02=, =1.025 -> 1.03= ... always nudging up
-- =HALF_EVEN=: =1.005 -> 1.00=, =1.015 -> 1.02=, =1.025 -> 1.02= ... nudging toward whichever side has an even last digit, and so alternating which side “wins” on ties
-
-The structural difference is that =HALF_EVEN= alternates which direction it pushes ties, while =HALF_UP= always pushes them the same way. This is the underlying reason why *banking and accounting systems often prefer =HALF_EVEN=*: across a large enough population of values, the alternation cancels out into something close to zero net bias, while =HALF_UP= accumulates a small but consistent upward drift that becomes visible at scale.
-
-*** The bias in action
-:PROPERTIES:
-:CUSTOM_ID: bias-action
-:END:
-A short program makes the difference clearer than any description does:
+Consider three ways to create a =BigDecimal=:
 
 #+begin_src java
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class BiasDemonstration {
+public class DecimalInputs {
   public static void main(String[] args) {
-    String[] ties = {"1.005", "1.015", "1.025", "1.035", "1.045",
-                     "1.055", "1.065", "1.075", "1.085", "1.095"};
-    
-    BigDecimal sumHalfUp = BigDecimal.ZERO;
-    BigDecimal sumHalfEven = BigDecimal.ZERO;
-    BigDecimal trueSum = BigDecimal.ZERO;
-    
-    System.out.println("Value   -> HALF_UP / HALF_EVEN");
-    for (String tie : ties) {
-      BigDecimal bd = new BigDecimal(tie);
-      BigDecimal roundedUp = bd.setScale(2, RoundingMode.HALF_UP);
-      BigDecimal roundedEven = bd.setScale(2, RoundingMode.HALF_EVEN);
-      
-      System.out.println(tie + " -> " + roundedUp + " / " + roundedEven);
-      
-      sumHalfUp = sumHalfUp.add(roundedUp);
-      sumHalfEven = sumHalfEven.add(roundedEven);
-      trueSum = trueSum.add(bd);
-    }
-    
-    System.out.println();
-    System.out.println("HALF_UP sum:   " + sumHalfUp);
-    System.out.println("HALF_EVEN sum: " + sumHalfEven);
-    System.out.println("True sum:      " + trueSum.setScale(2));
+    BigDecimal fromDouble = new BigDecimal(1.005);
+    BigDecimal fromText = new BigDecimal("1.005");
+    BigDecimal fromCanonicalText = BigDecimal.valueOf(1.005);
+
+    System.out.println(fromDouble);
+    System.out.println(fromDouble.setScale(2, RoundingMode.HALF_UP));
+    System.out.println(fromText.setScale(2, RoundingMode.HALF_UP));
+    System.out.println(fromCanonicalText.setScale(2, RoundingMode.HALF_UP));
   }
 }
 #+end_src
 
-And the resulting output:
+The output is:
 
 #+begin_src text
-Value   -> HALF_UP / HALF_EVEN
+1.00499999999999989341858963598497211933135986328125
+1.00
+1.01
+1.01
+#+end_src
+
+The =double= literal =1.005= stores a binary value slightly below the exact decimal =1.005=. The =BigDecimal(double)= constructor preserves that binary value exactly. It therefore receives a value below the tie, which rounds to =1.00=.
+
+The string constructor receives the exact decimal =1.005=. That value is a tie, so =HALF_UP= produces =1.01=.
+
+=BigDecimal.valueOf(double)= is a static factory method. It uses the canonical string produced by =Double.toString(double)=. For this literal, that string is ="1.005"=, so the result matches the string constructor.
+
+The double constructor is useful when the existing binary value is what you want to preserve. Part 7 used it for that reason when constructing an exact reference sum. For a decimal amount supplied as text, use that text directly instead of converting it through =double= first.
+
+=valueOf= does not undo earlier arithmetic error. For example:
+
+#+begin_src java
+import java.math.BigDecimal;
+
+System.out.println(BigDecimal.valueOf(0.1 + 0.2)); // 0.30000000000000004
+#+end_src
+
+The addition happens before =valueOf= is called. The factory converts the result it receives.
+
+** What the bias example shows
+:PROPERTIES:
+:CUSTOM_ID: rounding-bias
+:END:
+Suppose ten positive amounts fall exactly on ties at two decimal places. Round each amount, then add the rounded results:
+
+#+begin_src java
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class RoundingBias {
+  public static void main(String[] args) {
+    String[] inputs = {"1.005", "1.015", "1.025", "1.035", "1.045",
+                       "1.055", "1.065", "1.075", "1.085", "1.095"};
+    BigDecimal halfUpSum = BigDecimal.ZERO;
+    BigDecimal halfEvenSum = BigDecimal.ZERO;
+    BigDecimal exactSum = BigDecimal.ZERO;
+
+    System.out.println("Value -> HALF_UP / HALF_EVEN");
+    for (String input : inputs) {
+      BigDecimal value = new BigDecimal(input);
+      BigDecimal halfUp = value.setScale(2, RoundingMode.HALF_UP);
+      BigDecimal halfEven = value.setScale(2, RoundingMode.HALF_EVEN);
+
+      System.out.println(input + " -> " + halfUp + " / " + halfEven);
+      halfUpSum = halfUpSum.add(halfUp);
+      halfEvenSum = halfEvenSum.add(halfEven);
+      exactSum = exactSum.add(value);
+    }
+
+    System.out.println("HALF_UP sum: " + halfUpSum);
+    System.out.println("HALF_EVEN sum: " + halfEvenSum);
+    System.out.println("Exact sum: " + exactSum);
+  }
+}
+#+end_src
+
+The output is:
+
+#+begin_src text
+Value -> HALF_UP / HALF_EVEN
 1.005 -> 1.01 / 1.00
 1.015 -> 1.02 / 1.02
 1.025 -> 1.03 / 1.02
@@ -202,188 +168,101 @@ Value   -> HALF_UP / HALF_EVEN
 1.075 -> 1.08 / 1.08
 1.085 -> 1.09 / 1.08
 1.095 -> 1.10 / 1.10
-
-HALF_UP sum:   10.55
+HALF_UP sum: 10.55
 HALF_EVEN sum: 10.50
-True sum:      10.50
+Exact sum: 10.500
 #+end_src
 
-Across these ten values, the difference between =HALF_UP= and the true sum is five cents. That is, on its own, an unimpressive amount of money. The point of the demonstration, however, is that the same bias scales linearly: across millions of transactions of this kind, the same five-cents-per-ten pattern can become a meaningful, persistent, and entirely systematic drift in favour of one party.
+With =HALF_UP=, each positive tie gains =0.005=. Ten such changes add =0.05= to the total. Repeating this same set would repeat the same positive error. Negative ties move away from zero in the other direction, so a mixed set of positive and negative inputs needs its own analysis.
 
-*** How HALF_UP can favor one party at scale
-:PROPERTIES:
-:CUSTOM_ID: pennies-from-heaven
-:END:
-When this kind of pattern shows up in a system that processes millions of transactions in which ties are common, what =HALF_UP= does, in effect, is to consistently favour whichever side of the transaction benefits from rounding upward. If you happen to be that party, you may, over time, find that your books “win” fractions of a cent more often than they “lose”; and that is, generally, fine --- until regulators, auditors, or customers do their own arithmetic and notice the same pattern from the other side.
+With =HALF_EVEN=, five values in this set round down and five round up. Each error has the same magnitude, so they cancel. The final total equals the exact sum for these inputs.
 
-Which is to say, the question worth asking is not really “which rounding mode is mathematically correct?”, because none of them is uniquely correct in any abstract sense. The right question, as it almost always is in this kind of design choice, is:
+=HALF_EVEN= does not alternate between directions or remember the previous result. It examines each value independently. For example, ten copies of =1.005= all round to =1.00=. Their rounded total is =10.00=, while their exact sum is =10.050=.
 
-*Which rounding policy matches the domain contract?*
+The benefit of =HALF_EVEN= is that it does not resolve every positive tie upward. It can reduce systematic error when the inputs contain a suitable mix of ties, but it does not guarantee that errors cancel. The ten-value example demonstrates one balanced set. Other collections of values can produce different patterns of error.
 
-** Rounding is not only /mode/. It's also /when/.
+Java also uses nearest rounding with ties to even for =double= addition, subtraction, multiplication, and division. Those operations round to binary floating point values. The examples here round decimal values to a specified number of decimal places.
+
+** Decide when to round
 :PROPERTIES:
 :CUSTOM_ID: rounding-timing
 :END:
-There is a second axis to this kind of decision, which gets less attention than it deserves but which often matters at least as much as the choice of mode itself. The axis is /when/ in a calculation rounding actually happens. Two broad designs are common in production code:
+Choosing a mode is only part of the calculation rule. You must also decide which intermediate results, if any, must be rounded.
 
-1. Round at every step (easy, often wrong)
-2. Keep high precision internally, round only at boundaries (harder, usually right)
-
-*** Example: line items and invoices
-:PROPERTIES:
-:CUSTOM_ID: invoices
-:END:
-To make the trade-off concrete, consider a fairly standard invoicing setup:
-
-- Price per item carries four decimal places of precision
-- The currency, for display and settlement, is two decimals
-- Taxes are computed on totals rather than per-line-item (which is the more common convention)
-
-If rounding happens too early in this kind of calculation, the invoice total can end up disagreeing with what the underlying ledger says it ought to be. The four candidate policies, in this small space, are:
-
-- Round each line item to two decimals, then sum the rounded values
-- Sum the unrounded line items at full precision, then round once at the total
-- Compute tax per line item and then sum the taxes
-- Compute tax once on the total, then round the tax once
-
-All four of these are, in some sense, “reasonable”, and none of them is wrong in the abstract. Only one of them, however, will actually agree with the rules your business has adopted, and the only way to make sure you have picked the right one is to choose explicitly, document the choice somewhere where it can be referred to later, and write tests that pin the chosen behaviour in place.
-
-** A practical Java pattern: Money as scaled integer
-:PROPERTIES:
-:CUSTOM_ID: money-pattern
-:END:
-For currency in particular, the simplest representation that is also genuinely correct in most cases is, in my experience, to store amounts as integer minor units --- long-typed cents, in the case of a US-style currency --- to do all of the internal arithmetic in integers, and to convert back to a decimal representation only at the boundaries where the value is being displayed or transmitted. This pattern avoids a great deal of =BigDecimal= overhead, and it eliminates the entire class of bug that arises from rounding the same value twice in slightly different ways during a calculation.
-
-*** Simple Money type (cents)
-:PROPERTIES:
-:CUSTOM_ID: money-type
-:END:
-A reasonable starting point looks something like this:
+Consider two invoice lines, each calculated as =1.005=. Assume that the required rounding mode is =HALF_UP= and that settled amounts use two decimal places. There are still two different calculations:
 
 #+begin_src java
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public final class Money {
-  private final long cents;
+public class InvoiceRounding {
+  public static void main(String[] args) {
+    BigDecimal firstLine = new BigDecimal("1.005");
+    BigDecimal secondLine = new BigDecimal("1.005");
 
-  private Money(long cents) { this.cents = cents; }
+    BigDecimal roundedLines = firstLine.setScale(2, RoundingMode.HALF_UP)
+        .add(secondLine.setScale(2, RoundingMode.HALF_UP));
+    BigDecimal roundedTotal = firstLine.add(secondLine)
+        .setScale(2, RoundingMode.HALF_UP);
 
-  public static Money ofDollars(String amount) {
-    // Parse exact decimal dollars, then scale to cents.
-    // This version rounds permissively; see ofDollarsStrict for validation.
-    BigDecimal bd = new BigDecimal(amount).setScale(2, RoundingMode.HALF_EVEN);
-    return new Money(bd.movePointRight(2).longValueExact());
+    System.out.println("Round each line: " + roundedLines);
+    System.out.println("Round the total: " + roundedTotal);
   }
-
-  /**
-   ,* Strict version: reject inputs that aren't exactly 2 decimals.
-   ,* @throws ArithmeticException if rounding would be required
-   ,*/
-  public static Money ofDollarsStrict(String amount) {
-    BigDecimal bd = new BigDecimal(amount).setScale(2, RoundingMode.UNNECESSARY);
-    return new Money(bd.movePointRight(2).longValueExact());
-  }
-
-  public Money plus(Money other) {
-    return new Money(Math.addExact(this.cents, other.cents));
-  }
-
-  /**
-   ,* Multiply by a factor with explicit rounding policy.
-   ,* Notice we round only at the boundary where we return to cents.
-   ,* In production, consider taking a BigDecimal factor to avoid parsing repeatedly.
-   ,*/
-  public Money times(String factor, RoundingMode mode) {
-    BigDecimal bd = BigDecimal.valueOf(cents)
-        .movePointLeft(2)
-        .multiply(new BigDecimal(factor))
-        .setScale(2, mode);
-    return new Money(bd.movePointRight(2).longValueExact());
-  }
-
-  public BigDecimal toBigDecimal() {
-    return BigDecimal.valueOf(cents).movePointLeft(2);
-  }
-
-  @Override
-  public String toString() { return toBigDecimal().toPlainString(); }
 }
 #+end_src
 
-The pattern at work in this small class is, I think, worth pulling out explicitly. Inputs are parsed from strings rather than from doubles; the scaling is always explicit; the rounding mode is a parameter at any point that policy has to be applied; and the internal representation is integer cents rather than =BigDecimal=. The code is a little longer than the obvious naive version would have been, but each of those choices removes a class of bug rather than papering over one.
+The output is:
 
-There is one design choice in =ofDollars= worth calling out explicitly: it silently rounds inputs like ="10.129"= to ="10.13"=. That is sometimes exactly what is wanted --- for display amounts, for instance, where the upstream code has already validated the value --- but for payments and ledgers it is often safer to use =ofDollarsStrict= instead, which simply rejects any input that is not already at exactly two decimals. The strict version forces validation to happen at the point where the value enters the system, rather than letting an off-scale value drift in and quietly become representable.
-
-For multi-currency systems, the natural extension is to add a =Currency= field to the type and to ensure that arithmetic across different currencies is rejected outright. The core pattern, however, stays the same: integer minor units internally, with rounding occurring only at clearly identified boundaries.
-
-** Quick guide: what each rounding mode is “for”
-:PROPERTIES:
-:CUSTOM_ID: field-guide
-:END:
-The following is a field guide rather than a strict ruleset; the right answer in any given system is always whichever mode matches the domain contract, but these are the rough shapes of cases I have run into often enough to recommend by default.
-
-*** Use HALF_EVEN when...
-:PROPERTIES:
-:CUSTOM_ID: use-half-even
-:END:
-You are aggregating a large number of rounded values and you want to minimise systematic bias in the aggregate. This is the right default for most accounting ledgers, for interest accrual across many accounts, and for any large-scale reporting in which the total over many ties is what matters more than the result of any individual rounding step.
-
-*** Use HALF_UP when...
-:PROPERTIES:
-:CUSTOM_ID: use-half-up
-:END:
-The domain explicitly expects “schoolbook” rounding --- the kind of rounding most people learned in primary school, where 0.5 always rounds up. This is appropriate for retail display prices, for some tax jurisdictions in which the rule is set by statute, and for human-facing calculations where the convention is part of the user experience and surprising the user with banker's rounding would, on balance, do more harm than the bias it would prevent.
-
-*** Use DOWN when...
-:PROPERTIES:
-:CUSTOM_ID: use-down
-:END:
-Truncation is explicitly what the policy requires --- typically in fee calculations or in conservative estimates where the rule is something like “we may not exceed this cap under any circumstances,” and where rounding in the more usual direction could produce an out-of-bounds value.
-
-*** Use CEILING or FLOOR when...
-:PROPERTIES:
-:CUSTOM_ID: use-ceiling-floor
-:END:
-These differ from =UP= and =DOWN= in that the direction is interpreted relative to the number line, rather than relative to zero, which makes them the right choice when sign matters:
-
-- =CEILING= is “toward positive infinity” (-1.231 -> -1.23, 1.231 -> 1.24 at 2dp)
-- =FLOOR= is “toward negative infinity” (-1.231 -> -1.24, 1.231 -> 1.23 at 2dp)
-
-These tend to be the right choice for constraints, limits, and compliance rules of the form “must be at least X” or “must be at most Y”.
-
-*** Use UNNECESSARY when...
-:PROPERTIES:
-:CUSTOM_ID: use-unnecessary
-:END:
-You want the program to fail loudly the instant it encounters a value that you did not expect to need rounding. This sounds, when written down, like an irritation; in my experience it is, in fact, an enormously useful debugging and validation aid:
-
-#+begin_src java
-BigDecimal subtotal = new BigDecimal("12.34");
-BigDecimal rate = new BigDecimal("0.075");
-BigDecimal tax = subtotal.multiply(rate);
-
-// Fail fast if tax isn't exactly representable at 2 decimals as required by policy
-tax = tax.setScale(2, RoundingMode.UNNECESSARY);
+#+begin_src text
+Round each line: 2.02
+Round the total: 2.01
 #+end_src
 
-The exception thrown by =UNNECESSARY= is not, in this kind of usage, a nuisance to be caught and ignored. It is a spotlight that the runtime is shining on an assumption you had forgotten you were making, and being told about that assumption explicitly is almost always more useful than letting it quietly produce a slightly wrong answer further downstream.
+Rounding each line gives =1.01 + 1.01 = 2.02=. Adding first gives =2.010=, which becomes =2.01= at scale =2=.
 
-** The moral of the story
-:PROPERTIES:
-:CUSTOM_ID: moral
-:END:
-=HALF_UP=, in summary, is not really wrong; it is simply not universal. Rounding modes, taken together, are not “implementation details” of any kind. They are product decisions, made of policy rather than mathematics, and they need to be picked the way that any other policy is picked --- explicitly, with tests, and with a paper trail that lets future readers understand why a particular choice was made and what would have to change for the choice to be revisited.
+If the requirement says that each line must become a settled amount in cents before addition, the first calculation follows that rule. If the requirement says to total the unrounded amounts and then round, the second follows it. The code needs to state which calculation is intended, and the tests need to check its result.
 
-** TL;DR
+Keep exact intermediate results where possible until the specified rounding stage. Some operations, such as dividing =1= by =3=, require a separate precision or rounding rule because the exact result has a nonterminating decimal expansion. Any such intermediate rule is part of the calculation too.
+
+Storing settled amounts as integer minor units is one option. It does not remove the rounding decision. An amount of =245= cents multiplied by =1.1= produces =269.5= cents, so returning to integer cents requires a rule. Rounding after every multiplication can still produce a different result from rounding once at the end.
+
+** Reject values that would require rounding
 :PROPERTIES:
-:CUSTOM_ID: tldr
+:CUSTOM_ID: exact-scale
 :END:
-- Ties (first discarded digit is 5, rest are zeros) are where rounding policy matters most.
-- =HALF_UP= is intuitive but can introduce bias at scale.
-- =HALF_EVEN= often reduces bias for aggregates.
-- Avoid rounding =double= values when policy matters. Use =BigDecimal= created from strings or scaled integers.
-- Prefer =BigDecimal.valueOf(double)= over =new BigDecimal(double)= when you must start from a double - but remember it's not a cleansing ritual.
-- Decide /when/ you round, not just /how/ you round.
-- Prefer rounding once at boundaries, not repeatedly in the middle.
-- Use =UNNECESSARY= to catch “we assumed this would be exact” bugs early.
+Sometimes the requirement is to accept only amounts that can be represented exactly in cents. In that case, rounding the input would hide a value that should have been rejected. Use =UNNECESSARY= to enforce the requirement:
+
+#+begin_src java
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+BigDecimal accepted = new BigDecimal("1.230")
+    .setScale(2, RoundingMode.UNNECESSARY); // 1.23
+
+BigDecimal rejected = new BigDecimal("1.234")
+    .setScale(2, RoundingMode.UNNECESSARY); // throws ArithmeticException
+#+end_src
+
+Removing the trailing zero from =1.230= does not change the value. Converting =1.234= to scale =2= would change it, so the second call throws.
+
+The rule checks the numerical value. It does not require the input text to contain exactly two decimal digits:
+
+| Input text | Result of =setScale(2, UNNECESSARY)= |
+|------------+-------------------------------------|
+| ="1"= | =1.00= |
+| ="1.2"= | =1.20= |
+| ="1.230"= | =1.23= |
+| ="1.234"= | =ArithmeticException= |
+
+The single-argument call =setScale(2)= also throws if changing the scale would require rounding. Use the explicit mode when it helps make the exactness requirement visible to the reader.
+
+For each calculation, specify the input representation, result scale, rounding mode, and rounding stage. Use examples with ties, negative values, and multiple amounts to check that the implementation follows those requirements.
+
+** References
+:PROPERTIES:
+:CUSTOM_ID: references
+:END:
+- Oracle. Java SE 21 API: [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/RoundingMode.html][RoundingMode]]. Defines all eight modes and gives positive and negative examples.
+- Oracle. Java SE 21 API: =BigDecimal=. See [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html#%3Cinit%3E(java.lang.String)][the string constructor]], [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html#%3Cinit%3E(double)][the double constructor]], [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html#valueOf(double)][valueOf(double)]], [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html#setScale(int,java.math.RoundingMode)][setScale(int, RoundingMode)]], and [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html#setScale(int)][setScale(int)]]. The [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html][class description]] explains exact arithmetic and nonterminating division.
+- Oracle. Java SE 21 API: [[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/MathContext.html][MathContext]]. Defines significant-digit precision and the rounding setting for an operation.
+- Oracle. /Java Language Specification/, Java SE 21, [[https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html#jls-15.4][section 15.4, Floating-point Expressions]]. Defines the rounding policies for Java floating point operations.
